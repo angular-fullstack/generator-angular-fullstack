@@ -1,0 +1,9 @@
+Description:
+    Creates a default AngularJS folder layout in app/scripts/
+
+Example:
+    yeoman init angular
+
+    This will create:
+        app/scripts/app.js
+        app/scripts/controllers/main-ctrl.js

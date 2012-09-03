@@ -1,0 +1,8 @@
+Description:
+    Creates a new Angular controller
+
+Example:
+    yeoman init angular:controller Thing
+
+    This will create:
+        app/scripts/controllers/thing-ctrl.js
