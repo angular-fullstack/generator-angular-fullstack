@@ -11,6 +11,11 @@ function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
 
+  // if the controller name is suffixed with ctrl, remove the suffix
+  if (this.name.substr(-4).toLowerCase() === 'ctrl') {
+    this.name = this.name.slice(0, -4);
+  }
+
   this.appname = path.basename(process.cwd());
 }
 
