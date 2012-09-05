@@ -12,6 +12,9 @@ var Generator = module.exports = function Generator() {
   this.hookFor('angular:app', {
     args: ['main']
   });
+  this.hookFor('angular:controller', {
+    args: ['main']
+  });
   this.hookFor('testacular:app', {
     args: [false] // run testacular hook in non-interactive mode
   });

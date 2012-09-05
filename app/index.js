@@ -25,9 +25,5 @@ Generator.prototype.createAppFile = function createAppFile() {
 };
 
 Generator.prototype.createMainFiles = function createMainFiles() {
-
   this.template('index.html', 'app/index.html');
-
-  this.template('main.js', 'app/scripts/controllers/main.js');
-  this.template('main.html', 'app/views/main.html');
 };
