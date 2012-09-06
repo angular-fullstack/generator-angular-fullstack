@@ -28,10 +28,10 @@ module.exports = function( grunt ) {
       dist: {
         // http://compass-style.org/help/tutorials/configuration-reference/#configuration-properties
         options: {
-          css_dir: 'styles',
-          sass_dir: 'styles',
-          images_dir: 'images',
-          javascripts_dir: 'scripts',
+          css_dir: 'temp/styles',
+          sass_dir: 'app/styles',
+          images_dir: 'app/images',
+          javascripts_dir: 'temp/scripts',
           force: true
         }
       }
