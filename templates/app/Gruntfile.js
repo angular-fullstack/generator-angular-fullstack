@@ -59,6 +59,7 @@ module.exports = function( grunt ) {
           'app/*.html',
           'app/styles/**/*.css',
           'app/scripts/**/*.js',
+          'app/views/**/*.html',
           'app/images/**/*'
         ],
         tasks: 'reload'
