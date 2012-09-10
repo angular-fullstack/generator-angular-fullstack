@@ -1,4 +1,3 @@
-
 var path = require('path'),
   util = require('util'),
   yeoman = require('../../../../'),
@@ -12,7 +11,7 @@ function Generator() {
   this.sourceRoot(path.join(__dirname, '../templates'));
 
   // if the controller name is suffixed with ctrl, remove the suffix
-  if (this.name.substr(-4).toLowerCase() === 'ctrl') {
+  if (this.name && this.name.substr(-4).toLowerCase() === 'ctrl') {
     this.name = this.name.slice(0, -4);
   }
 
