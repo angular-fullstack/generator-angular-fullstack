@@ -8,6 +8,8 @@ var Generator = module.exports = function Generator() {
   this.sourceRoot(path.join(__dirname, '../templates'));
 
   this.appname = path.basename(process.cwd());
+
+  this.warnOn('*');
   
   this.hookFor('angular:app', {
     args: ['main']
