@@ -12,7 +12,7 @@ module.exports = function( grunt ) {
 
     // specify an alternate install location for Bower
     bower: {
-      dir: 'app/scripts/vendor'
+      dir: 'app/components'
     },
 
     // Coffee to JS compilation
