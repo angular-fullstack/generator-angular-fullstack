@@ -17,9 +17,13 @@ module.exports = function( grunt ) {
 
     // Coffee to JS compilation
     coffee: {
-      dist: {
-        src: 'app/scripts/**/*.coffee',
-        dest: 'app/scripts'
+      compile: {
+        files: {
+          'temp/scripts/*.js': 'app/scripts/**/*.coffee'
+        },
+        options: {
+          basePath: 'app/scripts'
+        }
       }
     },
 
