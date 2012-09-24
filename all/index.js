@@ -9,8 +9,6 @@ var Generator = module.exports = function Generator() {
 
   this.appname = path.basename(process.cwd());
 
-  this.warnOn('*');
-  
   this.hookFor('angular:app', {
     args: ['main']
   });
