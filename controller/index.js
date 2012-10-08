@@ -1,28 +1,26 @@
+
 var path = require('path'),
   util = require('util'),
-  yeoman = require('../../../../'),
+  ScriptBase = require('../script-base.js'),
   grunt = require('grunt'),
   angularUtils = require('../util.js');
 
 module.exports = Generator;
 
 function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates'));
-
+  ScriptBase.apply(this, arguments);
+  
   // if the controller name is suffixed with ctrl, remove the suffix
   if (this.name && this.name.substr(-4).toLowerCase() === 'ctrl') {
     this.name = this.name.slice(0, -4);
   }
-
-  this.appname = path.basename(process.cwd());
 }
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createControllerFiles = function createControllerFiles() {
-  this.template('controller.js', 'app/scripts/controllers/' + this.name + '.js');
-  this.template('spec/controller.js', 'test/spec/controllers/' + this.name + '.js');
+  this.template('controller', 'app/scripts/controllers/' + this.name);
+  this.template('spec/controller', 'test/spec/controllers/' + this.name);
 };
 
 Generator.prototype.rewriteIndexHtml = function() {

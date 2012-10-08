@@ -1,24 +1,24 @@
 
 var path = require('path'),
   util = require('util'),
-  yeoman = require('../../../../'),
+  ScriptBase = require('../script-base.js'),
   grunt = require('grunt'),
   angularUtils = require('../util.js');
 
 module.exports = Generator;
 
 function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
+  ScriptBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
 
   this.appname = path.basename(process.cwd());
 }
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
-  this.template('directive.js', 'app/scripts/directives/' + this.name + '.js');
-  this.template('spec/directive.js', 'test/spec/directives/' + this.name + '.js');
+  this.template('directive.js', 'app/scripts/directives/' + this.name);
+  this.template('spec/directive.js', 'test/spec/directives/' + this.name);
 };
 
 Generator.prototype.rewriteIndexHtml = function() {

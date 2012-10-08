@@ -15,5 +15,5 @@ function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  this.template('view.html', 'app/views/' + this.name + '.html');
+  this.template('common/view.html', 'app/views/' + this.name + '.html');
 };

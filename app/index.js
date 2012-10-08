@@ -1,29 +1,22 @@
   
 var util = require('util'),
     path = require('path'),
+    ScriptBase = require('../script-base.js'),
     yeoman = require('../../../../');
 
 module.exports = Generator;
 
 function Generator() {
-  yeoman.generators.Base.apply(this, arguments);
+  ScriptBase.apply(this, arguments);
   this.appname = path.basename(process.cwd());
 }
 
-util.inherits(Generator, yeoman.generators.Base);
-
-Generator.prototype.setupEnv = function setupEnv() {
-  // Copies the contents of the generator `templates`
-  // directory into your users new application path
-  this.sourceRoot(path.join(__dirname, '../templates'));
-
-  this.directory('app','.', true);
-};
+util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createAppFile = function createAppFile() {
-  this.template('app.js', 'app/scripts/' + this.appname + '.js');
+  this.template('app', 'app/scripts/' + this.appname);
 };
 
 Generator.prototype.createMainFiles = function createMainFiles() {
-  this.template('index.html', 'app/index.html');
+  this.htmlTemplate('../common/index.html', 'app/index.html');
 };

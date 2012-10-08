@@ -19,10 +19,8 @@ module.exports = function( grunt ) {
     coffee: {
       compile: {
         files: {
-          'temp/scripts/*.js': 'app/scripts/**/*.coffee'
-        },
-        options: {
-          basePath: 'app/scripts'
+          'app/scripts/*.js': 'app/scripts/**/*.coffee',
+          'test/spec/*.js': 'test/spec/**/*.coffee'
         }
       }
     },
@@ -165,7 +163,7 @@ module.exports = function( grunt ) {
       optimize: 'none',
       baseUrl: './scripts',
       wrap: true
-    },
+    }
   });
 
   // Alias the `test` task to run `testacular` instead
@@ -176,5 +174,4 @@ module.exports = function( grunt ) {
       done(err);
     });
   });
-
 };

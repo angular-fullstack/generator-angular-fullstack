@@ -5,16 +5,27 @@ var path = require('path'),
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates'));
 
+  this.option('coffee');
   this.appname = path.basename(process.cwd());
+  
+  var args = ['main'];
+
+  if (this.options.coffee) {
+    args.push('--coffee');
+  }
+
+  this.hookFor('angular:common', {
+    args: args
+  });
 
   this.hookFor('angular:app', {
-    args: ['main']
+    args: args
   });
   this.hookFor('angular:controller', {
-    args: ['main']
+    args: args
   });
+
   this.hookFor('testacular:app', {
     args: [false] // run testacular hook in non-interactive mode
   });

@@ -1,24 +1,24 @@
 
 var path = require('path'),
   util = require('util'),
-  yeoman = require('../../../../'),
+  ScriptBase = require('../script-base.js'),
   grunt = require('grunt'),
   angularUtils = require('../util.js');
 
 module.exports = Generator;
 
 function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
+  ScriptBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
 
   this.appname = path.basename(process.cwd());
 }
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createFilterFiles = function createFilterFiles() {
-  this.template('filter.js', 'app/scripts/filters/' + this.name + '.js');
-  this.template('spec/filter.js', 'test/spec/filters/' + this.name + '.js');
+  this.template('filter.js', 'app/scripts/filters/' + this.name);
+  this.template('spec/filter.js', 'test/spec/filters/' + this.name);
 };
 
 Generator.prototype.rewriteIndexHtml = function() {

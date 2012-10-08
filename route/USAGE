@@ -2,7 +2,7 @@ Description:
     Creates a new AngularJS route
 
 Example:
-    yeoman init angular:route thing
+    yeoman init angular:route thing [--coffee]
 
     This will create:
         app/scripts/controllers/thing.js
