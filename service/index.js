@@ -1,15 +1,15 @@
 
 var path = require('path'),
   util = require('util'),
-  yeoman = require('../../../../'),
+  ScriptBase = require('../script-base.js'),
   grunt = require('grunt'),
   angularUtils = require('../util.js');
 
 module.exports = Generator;
 
 function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates'));
+  ScriptBase.apply(this, arguments);
+  //this.sourceRoot(path.join(__dirname, '../templates'));
 
   var allowedTypes = [
     'constant',
@@ -33,11 +33,11 @@ function Generator() {
   this.appname = path.basename(process.cwd());
 }
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createServiceFiles = function createServiceFiles() {
-  this.template(path.join('service', this.type + '.js'), 'app/scripts/services/' + this.name + '.js');
-  this.template('spec/service.js', 'test/spec/services/' + this.name + '.js');
+  this.template(path.join('service', this.type), 'app/scripts/services/' + this.name);
+  this.template('spec/service', 'test/spec/services/' + this.name);
 };
 
 Generator.prototype.rewriteIndexHtml = function() {

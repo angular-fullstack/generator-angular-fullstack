@@ -25,7 +25,7 @@ function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.rewriteAppJs = function() {
-  var file = 'app/scripts/' + this.appname + '.js';
+  var file = 'app/scripts/app.js'; // TODO: coffee
   var body = grunt.file.read(file);
   
   body = angularUtils.rewrite({

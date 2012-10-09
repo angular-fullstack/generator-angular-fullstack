@@ -9,7 +9,6 @@ module.exports = Generator;
 
 function Generator() {
   ScriptBase.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates'));
 
   this.appname = path.basename(process.cwd());
 }
@@ -17,8 +16,8 @@ function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
-  this.template('directive.js', 'app/scripts/directives/' + this.name);
-  this.template('spec/directive.js', 'test/spec/directives/' + this.name);
+  this.template('directive', 'app/scripts/directives/' + this.name);
+  this.template('spec/directive', 'test/spec/directives/' + this.name);
 };
 
 Generator.prototype.rewriteIndexHtml = function() {
