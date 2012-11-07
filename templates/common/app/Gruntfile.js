@@ -71,32 +71,30 @@ module.exports = function( grunt ) {
     // default lint configuration, change this to match your setup:
     // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#lint-built-in-task
     lint: {
+      options: {
+        // specifying JSHint options and globals
+        options: {
+          curly: true,
+          eqeqeq: true,
+          immed: true,
+          latedef: true,
+          newcap: true,
+          noarg: true,
+          sub: true,
+          undef: true,
+          boss: true,
+          eqnull: true,
+          browser: true
+        },
+        globals: {
+          jQuery: true
+        }
+      },
       files: [
         'Gruntfile.js',
         'app/scripts/**/*.js',
         'spec/**/*.js'
       ]
-    },
-
-    // specifying JSHint options and globals
-    // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#specifying-jshint-options-and-globals
-    jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        browser: true
-      },
-      globals: {
-        angular: true
-      }
     },
 
     // Build configuration
