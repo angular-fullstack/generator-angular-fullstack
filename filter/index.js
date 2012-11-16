@@ -11,7 +11,6 @@ function Generator() {
   ScriptBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
 
-  this.appname = path.basename(process.cwd());
 }
 
 util.inherits(Generator, ScriptBase);

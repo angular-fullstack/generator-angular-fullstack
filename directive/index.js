@@ -10,7 +10,6 @@ module.exports = Generator;
 function Generator() {
   ScriptBase.apply(this, arguments);
 
-  this.appname = path.basename(process.cwd());
 }
 
 util.inherits(Generator, ScriptBase);

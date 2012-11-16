@@ -7,7 +7,6 @@ var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
 
   this.option('coffee');
-  this.appname = path.basename(process.cwd());
   
   var args = ['main'];
 

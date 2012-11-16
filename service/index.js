@@ -30,7 +30,6 @@ function Generator() {
     this.type = 'factory';
   }
 
-  this.appname = path.basename(process.cwd());
 }
 
 util.inherits(Generator, ScriptBase);

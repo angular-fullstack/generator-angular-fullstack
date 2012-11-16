@@ -12,7 +12,6 @@ function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
 
-  this.appname = path.basename(process.cwd());
 
   this.hookFor('angular:controller', {
     args: [this.name]
