@@ -29,6 +29,7 @@ module.exports = function( grunt ) {
           sass_dir: 'app/styles',
           images_dir: 'app/images',
           javascripts_dir: 'temp/scripts',
+          relative_assets: true,
           force: true
         }
       }
