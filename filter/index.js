@@ -9,15 +9,14 @@ module.exports = Generator;
 
 function Generator() {
   ScriptBase.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates'));
-
+  
 }
 
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createFilterFiles = function createFilterFiles() {
-  this.template('filter.js', 'app/scripts/filters/' + this.name);
-  this.template('spec/filter.js', 'test/spec/filters/' + this.name);
+  this.template('filter', 'app/scripts/filters/' + this.name);
+  this.template('spec/filter', 'test/spec/filters/' + this.name);
 };
 
 Generator.prototype.rewriteIndexHtml = function() {
