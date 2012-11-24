@@ -1,18 +1,23 @@
-AngularJS generator for Yeoman
+# AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.png?branch=master)](http://travis-ci.org/yeoman/generator-angular)
 
-Based on https://github.com/angular/angular-seed/
 
-Usage:
+Based on [angular-seed](https://github.com/angular/angular-seed/)
 
-`yeoman init angular`
+Usage: `yeoman init angular`
 
 Available generators:
 
-angular:controller
-angular:directive
-angular:service
-angular:all
+- angular:controller
+- angular:directive
+- angular:service
+- angular:all
 
-Typical output:
 
-TODO
+## Contribute
+
+See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
+
+
+## License
+
+[BSD license](http://opensource.org/licenses/bsd-license.php)
