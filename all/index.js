@@ -1,7 +1,7 @@
 
 var path = require('path'),
   util = require('util'),
-  yeoman = require('../../../../');
+  yeoman = require('yeoman');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);

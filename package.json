@@ -20,7 +20,9 @@
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha test/test-*.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "yeoman": "~0.9.5"
+    },
   "devDependencies": {
     "mocha": "~1.7.1"
   },

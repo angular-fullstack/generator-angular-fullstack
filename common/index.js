@@ -2,7 +2,7 @@
 
 var path = require('path'),
   util = require('util'),
-  yeoman = require('../../../../');
+  yeoman = require('yeoman');
 
 module.exports = Generator;
 
@@ -18,4 +18,10 @@ Generator.prototype.setupEnv = function setupEnv() {
   this.sourceRoot(path.join(__dirname, '../templates/common'));
 
   this.directory('app','.', true);
+
+  // Copy dotfiles
+  this.copy('bowerrc', '.bowerrc');
+  this.copy('gitignore', '.gitignore');
+  this.copy('editorconfig', '.editorconfig');
+  this.copy('jshintrc', '.jshintrc');
 };
