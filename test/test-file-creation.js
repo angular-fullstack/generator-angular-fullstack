@@ -1,6 +1,5 @@
 var assert = require("assert");
 var Generator = require("../common");
-var grunt = require("grunt");
 var fs = require("fs");
 var path = require("path");
 var assert = require("assert");
