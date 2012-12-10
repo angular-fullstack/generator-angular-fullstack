@@ -32,9 +32,24 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
+function checkTestacular(){
+  try {
+    var testacular = require('testacular'),
+        colors = require('colors'); //just for syntastic sugar
+  } catch (err) {
+    //only bother if it's not installed
+    console.log('\n✖ Testacular [not installed]\n'.red +
+    '  You\'re ready to go and start using Angular but if you\'re planning to \n'.grey +
+    '  unit testing (and why you wouldn\'t?) you need Testacular to run '.grey + 'yeoman test\n' + 
+    '  This is usually fixed running '.grey + 'sudo npm install -g testacular' + ' in your terminal.'.grey);
+  } 
+}
+
 Generator.prototype.askFor = function askFor(argument) {
   var cb = this.async();
   var self = this;
+
+  checkTestacular();
 
   var prompts = [{
     name: 'bootstrap',
