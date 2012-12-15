@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= grunt.util._.camelize(appname) %>App')
-  .factory('<%= _.camelize(name) %>', function() {
+  .factory('<%= _.camelize(name) %>', [function() {
     // Service logic
     // ...
 
@@ -13,4 +13,4 @@ angular.module('<%= grunt.util._.camelize(appname) %>App')
         return meaningOfLife;
       }
     };
-  });
+  }]);

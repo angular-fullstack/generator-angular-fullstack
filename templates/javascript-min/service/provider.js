@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= grunt.util._.camelize(appname) %>App')
-  .provider('<%= _.camelize(name) %>', function() {
+  .provider('<%= _.camelize(name) %>', [function() {
 
     // Private variables
     var salutation = 'Hello';
@@ -22,4 +22,4 @@ angular.module('<%= grunt.util._.camelize(appname) %>App')
     this.$get = function() {
       return new Greeter();
     };
-  });
+  }]);

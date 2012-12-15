@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= grunt.util._.camelize(appname) %>App')
-  .directive('<%= _.camelize(name) %>', function() {
+  .directive('<%= _.camelize(name) %>', [function() {
     return {
       template: '<div></div>',
       restrict: 'E',
@@ -9,4 +9,4 @@ angular.module('<%= grunt.util._.camelize(appname) %>App')
         element.text('this is the <%= _.camelize(name) %> directive');
       }
     };
-  });
+  }]);

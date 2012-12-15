@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= grunt.util._.camelize(appname) %>App', [])
-  .config(function($routeProvider) {
+  .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -10,4 +10,4 @@ angular.module('<%= grunt.util._.camelize(appname) %>App', [])
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }]);

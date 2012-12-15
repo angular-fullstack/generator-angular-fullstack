@@ -7,11 +7,16 @@ var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
 
   this.option('coffee');
+  this.option('minsafe');
   
   var args = ['main'];
 
   if (this.options.coffee) {
     args.push('--coffee');
+  }
+
+  if (this.options.minsafe) {
+    args.push('--minsafe');
   }
 
   this.hookFor('angular:common', {

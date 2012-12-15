@@ -31,6 +31,10 @@ function Generator() {
     this.scriptSuffix = '.coffee';
   }
 
+  if (this.options.minsafe) {
+    sourceRoot += '-min';
+  }
+
   this.sourceRoot(path.join(__dirname, sourceRoot));
 }
 
