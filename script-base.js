@@ -1,8 +1,8 @@
-  
+
 var util = require('util'),
     path = require('path'),
     grunt = require('grunt'),
-    yeoman = require('../../../');
+    yeoman = require('yeoman-generators');
 
 module.exports = Generator;
 

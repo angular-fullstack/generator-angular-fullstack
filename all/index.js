@@ -1,14 +1,14 @@
 
 var path = require('path'),
   util = require('util'),
-  yeoman = require('yeoman');
+  yeoman = require('yeoman-generators');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
 
   this.option('coffee');
   this.option('minsafe');
-  
+
   var args = ['main'];
 
   if (this.options.coffee) {
@@ -53,7 +53,7 @@ function checkTestacular() {
       for (i in minimum) {
         cur = parseInt(current[i], 10);
         min = parseInt(minimum[i], 10);
-        
+
         if (cur < min) {
           return true;
         } else if (cur > min) {

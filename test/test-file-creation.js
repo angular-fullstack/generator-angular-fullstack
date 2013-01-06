@@ -3,7 +3,7 @@ var Generator = require("../common");
 var fs = require("fs");
 var path = require("path");
 var assert = require("assert");
-var yeoman = require('yeoman').generators.test;
+var yeoman = require('yeoman-generators').test;
 
 describe("Angular generator", function() {
   before(yeoman.before(path.join(__dirname, 'temp')));
