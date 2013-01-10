@@ -6,3 +6,4 @@ angular.module('<%= grunt.util._.camelize(appname) %>App')
     restrict: 'E'
     link: (scope, element, attrs) ->
       element.text 'this is the <%= _.camelize(name) %> directive'
+  )
