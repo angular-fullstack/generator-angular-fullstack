@@ -37,12 +37,12 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-function checkTestacular(){
+function checkTestacular() {
   try {
     var testacular = require('testacular'),
-        colors = require('colors'); //just for syntastic sugar
+        colors = require('colors');
 
-    //TODO: check a global dependency instead of harcoding it.
+    //TODO: check a global dependency instead of hardcoding it.
     //also know the minimum usable version. For now using the latest version (0.4.0).
     function isLowerVersion(current, minimum) {
       var i, min, cur;
@@ -60,20 +60,20 @@ function checkTestacular(){
           return false;
         }
       }
-      return false
+      return false;
     }
     if(isLowerVersion(testacular.VERSION, '0.4.0')) {
       console.log('\n✖ Testacular [outdated]\n'.yellow +
-      '  You\'re ready to go and start using Angular but your testing skills are getting\n'.grey +
-      '  rusty! Update it, run '.grey + 'sudo npm update -g testacular' + ' in your terminal.'.grey);
+      '  You\'re ready to start using Angular, but Testacular is out of date.\n'.grey +
+      '  To update it, run '.grey + 'sudo npm update -g testacular');
     }
   } catch (err) {
     //only bother if it's not installed
     console.log('\n✖ Testacular [not installed]\n'.red +
-    '  You\'re ready to go and start using Angular but if you\'re planning to \n'.grey +
-    '  unit testing (and why you wouldn\'t?) you need Testacular to run '.grey + 'yeoman test\n' + 
-    '  This is usually fixed running '.grey + 'sudo npm install -g testacular' + ' in your terminal.'.grey);
-  } 
+    '  You\'re ready to start using Angular but if you\'re planning to \n'.grey +
+    '  unit test (and why you wouldn\'t?) you need Testacular.\n'.grey +
+    '  Get it by running '.grey + 'sudo npm install -g testacular');
+  }
 }
 
 Generator.prototype.askFor = function askFor(argument) {
@@ -127,5 +127,3 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy( 'bootstrap.css', 'app/styles/bootstrap.css' ); // this is probably wrong dir
   }
 };
-
-// rewrite index.html
