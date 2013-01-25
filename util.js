@@ -1,5 +1,9 @@
+var path = require('path');
+var fs = require('fs');
+
 module.exports = {
-  rewrite: rewrite
+  rewrite: rewrite,
+  rewriteFile: rewriteFile
 };
 
 function rewrite (args) {
@@ -36,6 +40,17 @@ function rewrite (args) {
   }).join('\n'));
 
   return lines.join('\n');
+}
+
+function rewriteFile (args) {
+
+  args.path = args.path || process.cwd();
+  var fullPath = path.join(args.path, args.file);
+
+  args.haystack = fs.readFileSync(fullPath);
+  var body = rewrite(args);
+
+  fs.writeFileSync(fullPath, body);
 }
 
 function escapeRegExp(str) {

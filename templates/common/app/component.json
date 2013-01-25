@@ -1,6 +1,6 @@
 {
   "author": "",
-  "name": "<%= grunt.util._.camelize(appname) %>",
+  "name": "<%= _.camelize(appname) %>",
   "version": "0.0.0",
   "dependencies": {
     "angular": "~1.0.4",

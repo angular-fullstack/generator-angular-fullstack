@@ -1,9 +1,7 @@
 
 var path = require('path'),
   util = require('util'),
-  grunt = require('grunt'),
-  _ = grunt.util._,
-  yeoman = require('../../../../'),
+  yeoman = require('yeoman-generator'),
   angularUtils = require('../util.js');
 
 module.exports = Generator;
@@ -24,19 +22,17 @@ function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.rewriteAppJs = function() {
-  var file = 'app/scripts/app.js'; // TODO: coffee
-  var body = grunt.file.read(file);
-  
-  body = angularUtils.rewrite({
+
+  console.log(this);
+
+  angularUtils.rewriteFile({
+    file: 'app/scripts/app.js', // TODO: coffee
     needle: '.otherwise',
-    haystack: body,
     splicable: [
       ".when('/" + this.name + "', {",
       "  templateUrl: 'views/" + this.name + ".html',",
-      "  controller: '" + _.classify(this.name) + "Ctrl'",
+      "  controller: '" + this.classify(this.name) + "Ctrl'",
       "})"
     ]
   });
-
-  grunt.file.write(file, body);
 };

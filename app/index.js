@@ -2,7 +2,7 @@
 var util = require('util'),
     path = require('path'),
     ScriptBase = require('../script-base.js'),
-    yeoman = require('yeoman-generators');
+    yeoman = require('yeoman-generator');
 
 module.exports = Generator;
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= grunt.util._.camelize(appname) %>App')
+angular.module('<%= _.camelize(appname) %>App')
   .factory('<%= _.camelize(name) %>', function() {
     // Service logic
     // ...

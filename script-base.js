@@ -1,8 +1,7 @@
 
 var util = require('util'),
     path = require('path'),
-    grunt = require('grunt'),
-    yeoman = require('yeoman-generators');
+    yeoman = require('yeoman-generator');
 
 module.exports = Generator;
 
@@ -14,12 +13,13 @@ function Generator() {
 
   // attempt to detect if user is using CS or not
   // if cml arg provided, use that; else look for the existence of cs
+  
   if (!this.options.coffee &&
-    grunt.file.expandFiles(path.join(__dirname,
-      '/app/scripts/**/*.coffee')).length > 0)
+    this.expandFiles('/app/scripts/**/*.coffee', {}).length > 0)
   {
     this.options.coffee = true;
   }
+
 
 
   var sourceRoot = '/templates/javascript';
