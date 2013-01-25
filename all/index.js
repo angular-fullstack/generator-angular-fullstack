@@ -124,6 +124,9 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     });
   } else if (this.bootstrap) {
     this.log.writeln('Writing compiled Bootstrap');
-    this.copy( 'bootstrap.css', 'app/styles/bootstrap.css' ); // this is probably wrong dir
+    this.copy( 'bootstrap.css', 'app/styles/bootstrap.css' );
+  }
+  if (this.bootstrap || this.compassBootstrap) {
+    this.directory( 'images', 'app/images' );
   }
 };
