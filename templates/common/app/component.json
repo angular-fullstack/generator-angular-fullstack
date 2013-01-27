@@ -1,6 +1,5 @@
 {
-  "author": "",
-  "name": "<%= _.camelize(appname) %>",
+  "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
   "dependencies": {
     "angular": "~1.0.4",
