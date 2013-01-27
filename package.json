@@ -6,25 +6,26 @@
     "yeoman",
     "generator",
     "framework",
-    "component"
+    "component",
+    "front-end",
+    "app"
   ],
   "homepage": "https://github.com/yeoman/generator-angular",
   "bugs": "https://github.com/yeoman/generator-angular/issues",
   "author": "Chrome Developer Relations",
-  "main": "",
-  "bin": "",
+  "main": "app/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/yeoman/generator-angular.git"
   },
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha test/test-*.js"
+    "test": "mocha test/test-*.js"
   },
   "dependencies": {
     "yeoman-generator": "https://github.com/yeoman/generators/archive/master.tar.gz"
   },
   "devDependencies": {
-    "mocha": "~1.7.1"
+    "mocha": "~1.8.1"
   },
   "engines": {
     "node": ">=0.8.0"
