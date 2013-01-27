@@ -1,14 +1,15 @@
+'use strict';
+var path = require('path');
+var util = require('util');
+var ScriptBase = require('../script-base.js');
+var angularUtils = require('../util.js');
 
-var path = require('path'),
-  util = require('util'),
-  ScriptBase = require('../script-base.js'),
-  angularUtils = require('../util.js');
 
 module.exports = Generator;
 
 function Generator() {
   ScriptBase.apply(this, arguments);
-  
+
   // if the controller name is suffixed with ctrl, remove the suffix
   if (this.name && this.name.substr(-4).toLowerCase() === 'ctrl') {
     this.name = this.name.slice(0, -4);
@@ -22,7 +23,7 @@ Generator.prototype.createControllerFiles = function createControllerFiles() {
   this.template('spec/controller', 'test/spec/controllers/' + this.name);
 };
 
-Generator.prototype.rewriteIndexHtml = function() {
+Generator.prototype.rewriteIndexHtml = function () {
   angularUtils.rewriteFile({
     file: 'app/index.html',
     needle: '<!-- endbuild -->',

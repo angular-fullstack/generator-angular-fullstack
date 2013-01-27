@@ -1,32 +1,28 @@
+'use strict';
+var util = require('util');
+var path = require('path');
+var yeoman = require('yeoman-generator');
 
-var util = require('util'),
-    path = require('path'),
-    yeoman = require('yeoman-generator');
 
 module.exports = Generator;
 
 function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
-
   this.option('coffee');
 
   // attempt to detect if user is using CS or not
   // if cml arg provided, use that; else look for the existence of cs
-  
+
   if (!this.options.coffee &&
-    this.expandFiles('/app/scripts/**/*.coffee', {}).length > 0)
-  {
+    this.expandFiles('/app/scripts/**/*.coffee', {}).length > 0) {
     this.options.coffee = true;
   }
-
-
 
   var sourceRoot = '/templates/javascript';
   this.scriptSuffix = '.js';
 
-  if (this.options.coffee)
-  {
+  if (this.options.coffee) {
     sourceRoot = '/templates/coffeescript';
     this.scriptSuffix = '.coffee';
   }

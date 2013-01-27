@@ -1,8 +1,9 @@
+'use strict';
+var path = require('path');
+var util = require('util');
+var ScriptBase = require('../script-base.js');
+var angularUtils = require('../util.js');
 
-var path = require('path'),
-  util = require('util'),
-  ScriptBase = require('../script-base.js'),
-  angularUtils = require('../util.js');
 
 module.exports = Generator;
 
@@ -17,7 +18,7 @@ Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
   this.template('spec/directive', 'test/spec/directives/' + this.name);
 };
 
-Generator.prototype.rewriteIndexHtml = function() {
+Generator.prototype.rewriteIndexHtml = function () {
   angularUtils.rewriteFile({
     file: 'app/index.html',
     needle: '<!-- endbuild -->',

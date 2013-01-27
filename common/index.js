@@ -1,8 +1,8 @@
-// copies over common template files
+'use strict';
+var path = require('path');
+var util = require('util');
+var yeoman = require('yeoman-generator');
 
-var path = require('path'),
-  util = require('util'),
-  yeoman = require('yeoman-generator');
 
 module.exports = Generator;
 
@@ -17,7 +17,7 @@ Generator.prototype.setupEnv = function setupEnv() {
   // directory into your users new application path
   this.sourceRoot(path.join(__dirname, '../templates/common'));
 
-  this.directory('app','.', true);
+  this.directory('app', '.', true);
 
   // Copy dotfiles
   this.copy('bowerrc', '.bowerrc');

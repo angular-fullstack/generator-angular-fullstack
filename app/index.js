@@ -1,8 +1,9 @@
+'use strict';
+var util = require('util');
+var path = require('path');
+var ScriptBase = require('../script-base.js');
+var yeoman = require('yeoman-generator');
 
-var util = require('util'),
-    path = require('path'),
-    ScriptBase = require('../script-base.js'),
-    yeoman = require('yeoman-generator');
 
 module.exports = Generator;
 

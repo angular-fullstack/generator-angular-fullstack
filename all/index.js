@@ -1,7 +1,8 @@
+'use strict';
+var path = require('path');
+var util = require('util');
+var yeoman = require('yeoman-generator');
 
-var path = require('path'),
-  util = require('util'),
-  yeoman = require('yeoman-generator');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
@@ -26,6 +27,7 @@ var Generator = module.exports = function Generator() {
   this.hookFor('angular:app', {
     args: args
   });
+
   this.hookFor('angular:controller', {
     args: args
   });
@@ -39,7 +41,6 @@ util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.askFor = function askFor(argument) {
   var cb = this.async();
-  var self = this;
 
   var prompts = [{
     name: 'bootstrap',
@@ -53,38 +54,36 @@ Generator.prototype.askFor = function askFor(argument) {
     warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
   }];
 
-  this.prompt(prompts, function(e, props) {
-    if (e) {
-      return self.emit('error', e);
+  this.prompt(prompts, function(err, props) {
+    if (err) {
+      return this.emit('error', err);
     }
-    self.bootstrap = (/y/i).test(props.bootstrap);
-    self.compassBootstrap = (/y/i).test(props.compassBootstrap);
 
-    // we're done, go through next step
+    this.bootstrap = (/y/i).test(props.bootstrap);
+    this.compassBootstrap = (/y/i).test(props.compassBootstrap);
+
     cb();
-  });
+  }.bind(this));
 };
 
 // Duplicated from the SASS generator, waiting a solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  if ( this.compassBootstrap ) {
+  if (this.compassBootstrap) {
     var cb = this.async();
 
     this.write('app/styles/main.scss', '@import "compass_twitter_bootstrap";');
-
-    this.remote('kristianmandrup', 'compass-twitter-bootstrap', 'c3ccce2cca5ec52437925e8feaaa11fead51e132', function(err, remote) {
-      if(err) {
+    this.remote('kristianmandrup', 'compass-twitter-bootstrap', 'c3ccce2cca5ec52437925e8feaaa11fead51e132', function (err, remote) {
+      if (err) {
         return cb(err);
       }
-
       remote.directory('stylesheets', 'app/styles');
-
       cb();
     });
   } else if (this.bootstrap) {
     this.log.writeln('Writing compiled Bootstrap');
     this.copy( 'bootstrap.css', 'app/styles/bootstrap.css' );
   }
+
   if (this.bootstrap || this.compassBootstrap) {
     this.directory( 'images', 'app/images' );
   }

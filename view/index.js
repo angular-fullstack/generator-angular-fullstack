@@ -1,14 +1,14 @@
+'use strict';
+var path = require('path');
+var util = require('util');
+var yeoman = require('yeoman-generator');
 
-var path = require('path'),
-  util = require('util'),
-  yeoman = require('yeoman-generator');
 
 module.exports = Generator;
 
 function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
-
 }
 
 util.inherits(Generator, yeoman.generators.NamedBase);
