@@ -98,7 +98,7 @@ For generators that output scripts, the `--coffee` option will output CoffeeScri
 
 For example:
 ```bash
-yeoman init angular:controller --coffee users
+yeoman init angular:controller users --coffee
 ```
 
 Produces `app/scripts/controller/users.coffee`:
