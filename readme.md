@@ -113,7 +113,7 @@ By default, generators produce unannotated code. Without annotations, AngularJS'
 
 #### Example
 ```bash
-yeoman init angular:controller --minsafe users
+yeoman init angular:controller users --minsafe
 ```
 
 Produces `app/controller/users.coffee`:
