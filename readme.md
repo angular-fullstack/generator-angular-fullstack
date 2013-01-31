@@ -22,20 +22,47 @@ Available generators:
 Sets up a new AngularJS project, generating all the boilerplate you need to get started.
 
 Example:
-
+```bash
+yeoman init angular
+```
 
 ### Route
 Generates a controller and view, and configures a route in `app/scripts/app.js` connecting them.
 
 ### Controller
-Generates a controller in `app/scripts/controller`.
+Generates a controller in `app/scripts/controllers`.
 
 Example:
+```bash
+yeoman init angular:controller user
+```
 
+Produces `app/scripts/controllers/user.js`:
+```javascript
+angular.module('myMod').controller('UserCtrl', function ($scope) {
+  // ...
+});
+```
 ### Directive
-TODO
+Generates a directive in `app/scripts/directives`.
 
 Example:
+```bash
+yeoman init angular:filter myDirective
+```
+
+Produces `app/scripts/filters/myDirective.js`:
+```javascript
+angular.module('myMod').filter('myDirective', function () {
+  return {
+    template: '<div></div>',
+    restrict: 'E',
+    link: function postLink(scope, element, attrs) {
+      element.text('this is the myDirective directive');
+    }
+  };
+});
+```
 
 ### Filter
 Generates a filter in `app/scripts/filters`.
@@ -51,7 +78,7 @@ angular.module('myMod').filter('myFilter', function () {
   return function (input) {
     return 'myFilter filter:' + input;
   };
-})
+});
 ```
 
 ### View
@@ -71,15 +98,24 @@ Produces `app/views/user.html`:
 Generates an AngularJS service.
 
 Example:
-TODO
+```bash
+yeoman init angular:service myService
+```
+
+Produces `app/scripts/services/myService.js`:
+```javascript
+angular.module('myMod').factory('myService', function () {
+  // ...
+});
+```
 
 #### Options
 There are options for each of the methods for registering services. For more on using these services, see the [module API AngularJS documentation](http://docs.angularjs.org/api/angular.Module).
 
 ##### Factory
-`--factory`
+Invoked with `--factory`
 
-This is the default method when creating... Calling `yeoman init angular:factory myService --factory`
+This is the default method when creating a service. Running `yeoman init angular:service myService --factory` is the same as running `yeoman init angular:service myService`
 
 ##### Service
 Invoked with `--service`
@@ -98,12 +134,13 @@ For generators that output scripts, the `--coffee` option will output CoffeeScri
 
 For example:
 ```bash
-yeoman init angular:controller users --coffee
+yeoman init angular:controller user --coffee
 ```
 
-Produces `app/scripts/controller/users.coffee`:
+Produces `app/scripts/controller/user.coffee`:
 ```coffeescript
-TODO
+angular.module('myMod')
+  .controller 'UserCtrl', ($scope) ->
 ```
 
 A project can mix CoffeScript and JavaScript files.
@@ -113,12 +150,12 @@ By default, generators produce unannotated code. Without annotations, AngularJS'
 
 #### Example
 ```bash
-yeoman init angular:controller users --minsafe
+yeoman init angular:controller user --minsafe
 ```
 
-Produces `app/controller/users.coffee`:
+Produces `app/controller/user.coffee`:
 ```javascript
-angular.module('myMod').controller('UsersCtrl', ['$scope', function ($scope) {
+angular.module('myMod').controller('UserCtrl', ['$scope', function ($scope) {
   // ...
 }]);
 ```
