@@ -48,12 +48,12 @@ Generates a directive in `app/scripts/directives`.
 
 Example:
 ```bash
-yo angular:filter myDirective
+yo angular:directive myDirective
 ```
 
-Produces `app/scripts/filters/myDirective.js`:
+Produces `app/scripts/directives/myDirective.js`:
 ```javascript
-angular.module('myMod').filter('myDirective', function () {
+angular.module('myMod').directive('myDirective', function () {
   return {
     template: '<div></div>',
     restrict: 'E',
