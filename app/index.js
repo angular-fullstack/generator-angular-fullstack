@@ -94,5 +94,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 };
 
 Generator.prototype.packageFiles = function () {
-  this.template('../../templates/common/component.json', 'component.json' );
+  this.template( '../../templates/common/component.json', 'component.json' );
+  this.template( '../../templates/common/package.json', 'package.json' );
+  this.template( '../../templates/common/Gruntfile.js', 'Gruntfile.js' );
 };
