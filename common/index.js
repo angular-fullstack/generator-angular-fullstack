@@ -17,11 +17,13 @@ Generator.prototype.setupEnv = function setupEnv() {
   // directory into your users new application path
   this.sourceRoot(path.join(__dirname, '../templates/common'));
 
-  this.directory('app', '.', true);
+  this.directory('root', '.', true);
 
   // Copy dotfiles
+  /*
   this.copy('bowerrc', '.bowerrc');
   this.copy('gitignore', '.gitignore');
   this.copy('editorconfig', '.editorconfig');
   this.copy('jshintrc', '.jshintrc');
+  */
 };

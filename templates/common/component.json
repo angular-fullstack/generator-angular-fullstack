@@ -4,8 +4,7 @@
   "dependencies": {
     "angular": "~1.0.4",
     "json3": "~3.2.4",
-    "es5-shim": "~2.0.5",
-    "bootstrap": "~2.2.2",
+    "es5-shim": "~2.0.5"
   },
   "devDependencies": {}
 }
