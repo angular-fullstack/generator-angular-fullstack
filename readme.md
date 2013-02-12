@@ -8,18 +8,18 @@ Usage: `yo angular`
 
 Available generators:
 
+* [angular](#app) (aka [angular:app](#app))
 * [angular:controller](#controller)
 * [angular:directive](#directive)
 * [angular:filter](#filter)
 * [angular:route](#route)
 * [angular:service](#service)
 * [angular:view](#view)
-* [angular:all](#all)
 
 ## Generators
 
-### All
-Sets up a new AngularJS project, generating all the boilerplate you need to get started.
+### App
+Sets up a new AngularJS app, generating all the boilerplate you need to get started.
 
 Example:
 ```bash
