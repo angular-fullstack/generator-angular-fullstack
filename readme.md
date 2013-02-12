@@ -4,7 +4,7 @@ Maintainer: [Brian Ford](https://github.com/btford)
 
 Based on [angular-seed](https://github.com/angular/angular-seed/)
 
-Usage: `yeoman init angular`
+Usage: `yo angular`
 
 Available generators:
 
@@ -23,7 +23,7 @@ Sets up a new AngularJS project, generating all the boilerplate you need to get 
 
 Example:
 ```bash
-yeoman init angular
+yo angular
 ```
 
 ### Route
@@ -34,7 +34,7 @@ Generates a controller in `app/scripts/controllers`.
 
 Example:
 ```bash
-yeoman init angular:controller user
+yo angular:controller user
 ```
 
 Produces `app/scripts/controllers/user.js`:
@@ -48,7 +48,7 @@ Generates a directive in `app/scripts/directives`.
 
 Example:
 ```bash
-yeoman init angular:filter myDirective
+yo angular:filter myDirective
 ```
 
 Produces `app/scripts/filters/myDirective.js`:
@@ -69,7 +69,7 @@ Generates a filter in `app/scripts/filters`.
 
 Example:
 ```bash
-yeoman init angular:filter myFilter
+yo angular:filter myFilter
 ```
 
 Produces `app/scripts/filters/myFilter.js`:
@@ -86,7 +86,7 @@ Generates an HTML view file in `app/views`.
 
 Example:
 ```bash
-yeoman init angular:view user
+yo angular:view user
 ```
 
 Produces `app/views/user.html`:
@@ -99,7 +99,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yeoman init angular:service myService
+yo angular:service myService
 ```
 
 Produces `app/scripts/services/myService.js`:
@@ -115,7 +115,7 @@ There are options for each of the methods for registering services. For more on 
 ##### Factory
 Invoked with `--factory`
 
-This is the default method when creating a service. Running `yeoman init angular:service myService --factory` is the same as running `yeoman init angular:service myService`
+This is the default method when creating a service. Running `yo angular:service myService --factory` is the same as running `yo angular:service myService`
 
 ##### Service
 Invoked with `--service`
@@ -134,7 +134,7 @@ For generators that output scripts, the `--coffee` option will output CoffeeScri
 
 For example:
 ```bash
-yeoman init angular:controller user --coffee
+yo angular:controller user --coffee
 ```
 
 Produces `app/scripts/controller/user.coffee`:
@@ -150,7 +150,7 @@ By default, generators produce unannotated code. Without annotations, AngularJS'
 
 #### Example
 ```bash
-yeoman init angular:controller user --minsafe
+yo angular:controller user --minsafe
 ```
 
 Produces `app/controller/user.coffee`:
