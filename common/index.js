@@ -16,14 +16,5 @@ Generator.prototype.setupEnv = function setupEnv() {
   // Copies the contents of the generator `templates`
   // directory into your users new application path
   this.sourceRoot(path.join(__dirname, '../templates/common'));
-
   this.directory('root', '.', true);
-
-  // Copy dotfiles
-  /*
-  this.copy('bowerrc', '.bowerrc');
-  this.copy('gitignore', '.gitignore');
-  this.copy('editorconfig', '.editorconfig');
-  this.copy('jshintrc', '.jshintrc');
-  */
 };
