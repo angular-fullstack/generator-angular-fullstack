@@ -43,7 +43,7 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-Generator.prototype.askFor = function askFor(argument) {
+Generator.prototype.askFor = function askFor() {
   var cb = this.async();
 
   var prompts = [{
@@ -65,6 +65,39 @@ Generator.prototype.askFor = function askFor(argument) {
 
     this.bootstrap = (/y/i).test(props.bootstrap);
     this.compassBootstrap = (/y/i).test(props.compassBootstrap);
+
+    cb();
+  }.bind(this));
+};
+
+Generator.askForModules = function askForModules () {
+  var cb = this.async();
+
+  var prompts = [{
+    name: 'resourceModule',
+    message: 'Would you like to include angular-resource.js?',
+    default: 'Y/n',
+    warning: 'Yes: angular-resource added to component.json'
+  }, {
+    name: 'cookiesModule',
+    message: 'Would you like to include angular-cookies.js?',
+    default: 'Y/n',
+    warning: 'Yes: angular-cookies added to component.json'
+  }, {
+    name: 'sanatizeModule',
+    message: 'Would you like to include angular-sanitize.js?',
+    default: 'Y/n',
+    warning: 'Yes: angular-sanitize added to component.json'
+  }];
+
+  this.prompt(prompts, function(err, props) {
+    if (err) {
+      return this.emit('error', err);
+    }
+
+    this.resourceModule = (/y/i).test(props.resourceModule);
+    this.cookiesModule = (/y/i).test(props.cookiesModule);
+    this.sanatizeModule = (/y/i).test(props.sanatizeModule);
 
     cb();
   }.bind(this));
