@@ -92,3 +92,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.directory( 'images', 'app/images' );
   }
 };
+
+Generator.prototype.packageFiles = function () {
+  this.template('../../templates/common/component.json', 'component.json' );
+};
