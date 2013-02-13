@@ -70,7 +70,7 @@ Generator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-Generator.askForModules = function askForModules () {
+Generator.prototype.askForModules = function askForModules () {
   var cb = this.async();
 
   var prompts = [{
@@ -84,7 +84,7 @@ Generator.askForModules = function askForModules () {
     default: 'Y/n',
     warning: 'Yes: angular-cookies added to component.json'
   }, {
-    name: 'sanatizeModule',
+    name: 'sanitizeModule',
     message: 'Would you like to include angular-sanitize.js?',
     default: 'Y/n',
     warning: 'Yes: angular-sanitize added to component.json'
@@ -97,7 +97,7 @@ Generator.askForModules = function askForModules () {
 
     this.resourceModule = (/y/i).test(props.resourceModule);
     this.cookiesModule = (/y/i).test(props.cookiesModule);
-    this.sanatizeModule = (/y/i).test(props.sanatizeModule);
+    this.sanitizeModule = (/y/i).test(props.sanitizeModule);
 
     cb();
   }.bind(this));
