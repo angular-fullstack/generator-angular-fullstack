@@ -126,6 +126,10 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   }
 };
 
+Generator.prototype.createIndexHtml = function createIndexHtml() {
+  this.template('../../templates/common/index.html', 'app/index.html');
+};
+
 Generator.prototype.packageFiles = function () {
   this.template( '../../templates/common/component.json', 'component.json' );
   this.template( '../../templates/common/package.json', 'package.json' );

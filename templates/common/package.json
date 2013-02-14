@@ -20,7 +20,6 @@
     "grunt-usemin": "~0.1.4",
     "grunt-regarde": "~0.1.1",
     "gruntacular": "~0.1.1",
-    "grunt-mocha": "git://github.com/kmiyashiro/grunt-mocha.git#11067b91dc83a282b27c42dc4aac2a2f0a56faed",
     "grunt-open": "~0.1.0",
     "matchdep": "~0.1.1"
   },
