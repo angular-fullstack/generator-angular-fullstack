@@ -7,7 +7,7 @@ describe('Service: <%= _.camelize(name) %>', function () {
 
   // instantiate service
   var <%= _.camelize(name) %>;
-  beforeEach(inject(function(_<%= _.camelize(name) %>_) {
+  beforeEach(inject(function (_<%= _.camelize(name) %>_) {
     <%= _.camelize(name) %> = _<%= _.camelize(name) %>_;
   }));
 
