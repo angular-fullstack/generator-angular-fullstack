@@ -122,7 +122,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   }
 
   if (this.bootstrap || this.compassBootstrap) {
-    this.directory( 'images', 'app/images' );
+    //this.directory( 'images', 'app/images' );
   }
 };
 
