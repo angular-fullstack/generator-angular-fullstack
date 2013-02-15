@@ -1,6 +1,6 @@
 {
   "name": "generator-angular",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Yeoman generator for AngularJS",
   "keywords": [
     "yeoman-generator",
@@ -23,7 +23,7 @@
     "test": "mocha test/test-*.js"
   },
   "dependencies": {
-    "yeoman-generator": "https://github.com/yeoman/generators/archive/master.tar.gz"
+    "yeoman-generator": "~0.10.0"
   },
   "devDependencies": {
     "mocha": "~1.8.1"
