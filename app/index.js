@@ -84,7 +84,6 @@ Generator.prototype.askFor = function askFor() {
 
     this.bootstrap = (/y/i).test(props.bootstrap);
     this.compassBootstrap = (/y/i).test(props.compassBootstrap);
-
     cb();
   }.bind(this));
 };
