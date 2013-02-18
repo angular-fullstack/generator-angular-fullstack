@@ -203,10 +203,6 @@ module.exports = function (grunt) {
           ]
         }]
       }
-    },
-    bower: {
-      rjsConfig: 'app/scripts/main.js',
-      indent: '    '
     }
   });
 
