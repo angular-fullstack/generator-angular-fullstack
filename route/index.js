@@ -29,7 +29,7 @@ Generator.prototype.rewriteAppJs = function () {
     splicable: [
       '.when(\'/' + this.name + '\', {',
       '  templateUrl: \'views/' + this.name + '.html\',',
-      '  controller: \'' + this.classify(this.name) + 'Ctrl\'',
+      '  controller: \'' + this._.classify(this.name) + 'Ctrl\'',
       '})'
     ]
   });
