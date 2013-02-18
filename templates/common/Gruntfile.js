@@ -121,12 +121,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    // not used since Uglify task does concat,
-    // but still available if needed
-    /*concat: {
-        dist: {}
-    },*/
-    uglify: {
+    concat: {
       dist: {
         files: {
           '<%%= yeoman.dist %>/scripts/main.js': [
@@ -190,6 +185,11 @@ module.exports = function (grunt) {
         }]
       }
     },
+    cdnify: {
+      dist: {
+        html: ['<%= yeoman.dist %>/*.html']
+      }
+    },
     copy: {
       dist: {
         files: [{
@@ -239,8 +239,8 @@ module.exports = function (grunt) {
     'cssmin',
     'htmlmin',
     'concat',
-    'uglify',
     'copy',
+    'cdnify',
     'usemin'
   ]);
 

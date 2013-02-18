@@ -9,5 +9,8 @@
     "angular-cookies": "~1.0.4"<% } %><% if (sanitizeModule) { %>,
     "angular-sanitize": "~1.0.4"<% } %>
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "angular-mocks": "~1.0.4",
+    "angular-scenario": "~1.0.4"
+  }
 }
