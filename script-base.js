@@ -9,25 +9,33 @@ module.exports = Generator;
 function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
-  this.option('coffee');
+  if (typeof this.env.options.coffee === 'undefined') {
+    this.option('coffee');
 
-  // attempt to detect if user is using CS or not
-  // if cml arg provided, use that; else look for the existence of cs
+    // attempt to detect if user is using CS or not
+    // if cml arg provided, use that; else look for the existence of cs
+    if (!this.options.coffee &&
+      this.expandFiles('/app/scripts/**/*.coffee', {}).length > 0) {
+      this.options.coffee = true;
+    }
 
-  if (!this.options.coffee &&
-    this.expandFiles('/app/scripts/**/*.coffee', {}).length > 0) {
-    this.options.coffee = true;
+    this.env.options.coffee = this.options.coffee;
+  }
+
+  if (typeof this.env.options.minsafe === 'undefined') {
+    this.option('minsafe');
+    this.env.options.minsafe = this.options.minsafe;
   }
 
   var sourceRoot = '/templates/javascript';
   this.scriptSuffix = '.js';
 
-  if (this.options.coffee) {
+  if (this.env.options.coffee) {
     sourceRoot = '/templates/coffeescript';
     this.scriptSuffix = '.coffee';
   }
 
-  if (this.options.minsafe) {
+  if (this.env.options.minsafe) {
     sourceRoot += '-min';
   }
 

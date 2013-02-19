@@ -1,26 +1,18 @@
 'use strict';
 var path = require('path');
 var util = require('util');
-var yeoman = require('yeoman-generator');
+var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 
 
 module.exports = Generator;
 
 function Generator() {
-  yeoman.generators.NamedBase.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates'));
-
-  this.hookFor('angular:controller', {
-    args: [this.name]
-  });
-
-  this.hookFor('angular:view', {
-    args: [this.name]
-  });
+  ScriptBase.apply(this, arguments);
+  this.hookFor('angular:controller');
+  this.hookFor('angular:view');
 }
-
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, ScriptBase);
 
 Generator.prototype.rewriteAppJs = function () {
   angularUtils.rewriteFile({
