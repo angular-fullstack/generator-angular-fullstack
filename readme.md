@@ -19,7 +19,7 @@ Available generators:
 ## Generators
 
 ### App
-Sets up a new AngularJS app, generating all the boilerplate you need to get started.
+Sets up a new AngularJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Twitter Bootstrap and additional AngularJS modules, such as angular-resource.
 
 Example:
 ```bash
@@ -180,6 +180,24 @@ angular.module('myMod').controller('MyCtrl',
 The annotations are important because minified code will rename variables, making it impossible for AngularJS to infer module names based solely on function parameters.
 
 The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself.
+
+## Bower Components
+
+The following packages are always installed by the [app](#app) generator:
+
+* angular
+* angular-mocks
+* angular-scenario
+
+
+The following additional modules are available as components on bower, and installable via `bower install`:
+
+* angular-cookies
+* angular-loader
+* angular-resource
+* angular-sanitize
+
+All of these can be updated with `bower update` as new versions of AngularJS are released.
 
 ## Contribute
 
