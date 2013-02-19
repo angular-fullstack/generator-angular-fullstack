@@ -49,7 +49,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'app')
+              mountFolder(connect, '<%%= yeoman.app %>')
             ];
           }
         }
@@ -113,7 +113,7 @@ module.exports = function (grunt) {
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
         fontsDir: '<%%= yeoman.app %>/styles/fonts',
-        importPath: 'app/components',
+        importPath: '<%%= yeoman.app %>/components',
         relativeAssets: true
       },
       dist: {},
