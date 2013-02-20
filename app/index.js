@@ -6,6 +6,8 @@ var yeoman = require('yeoman-generator');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
+  this.argument('appname', { type: String, required: false });
+  this.appname = this.appname || path.basename(process.cwd());
 
   this.option('coffee');
   this.option('minsafe');

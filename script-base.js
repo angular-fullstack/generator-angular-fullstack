@@ -9,6 +9,13 @@ module.exports = Generator;
 function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
+  try {
+    this.appname = this._.camelize(require(path.join(process.cwd(), 'package.json')).name);
+  } catch (e) {
+    console.log(e.stack);
+    this.appname = path.basename(process.cwd());
+  }
+
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee');
 
