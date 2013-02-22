@@ -23,10 +23,10 @@ function Generator() {
   }
 
   if (typeof this.env.options.testPath === 'undefined') {
-    this.env.options.testPath = 'test/spec';
     try {
       this.env.options.testPath = require(path.join(process.cwd(), 'component.json')).testPath;
     } catch (e) {}
+    this.env.options.testPath = this.env.options.testPath || 'test/spec';
   }
 
   if (typeof this.env.options.coffee === 'undefined') {

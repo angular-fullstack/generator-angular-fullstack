@@ -42,7 +42,6 @@ describe('Angular generator', function () {
                     'Gruntfile.js',
                     'package.json',
                     ['component.json', /"name":\s+"temp"/],
-                    'test/vendor/angular-mocks.js',
                     'app/scripts/app.js',
                     'app/index.html',
                     'app/scripts/controllers/main.js',
