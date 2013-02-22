@@ -23,7 +23,7 @@
     "test": "mocha test/test-*.js"
   },
   "dependencies": {
-    "yeoman-generator": "~0.10.0"
+    "yeoman-generator": "~0.10.2"
   },
   "devDependencies": {
     "mocha": "~1.8.1"
