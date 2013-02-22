@@ -16,7 +16,7 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.rewriteAppJs = function () {
   angularUtils.rewriteFile({
-    file: 'app/scripts/app.js', // TODO: coffee
+    file: path.join(this.env.options.appPath, 'scripts/app.js'),
     needle: '.otherwise',
     splicable: [
       '.when(\'/' + this.name + '\', {',

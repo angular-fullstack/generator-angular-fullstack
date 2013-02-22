@@ -9,6 +9,15 @@ var Generator = module.exports = function Generator() {
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
 
+  if (typeof this.env.options.appPath === 'undefined') {
+    try {
+      this.env.options.appPath = require(path.join(process.cwd(), 'component.json')).appPath;
+    } catch (e) {
+      this.env.options.appPath = 'app';
+    }
+  }
+  this.appPath = this.env.options.appPath;
+
   this.option('coffee');
   this.option('minsafe');
 
@@ -107,20 +116,21 @@ Generator.prototype.askForModules = function askForModules () {
 
 // Duplicated from the SASS generator, waiting a solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
+  var appPath = this.appPath;
   if (this.compassBootstrap) {
     var cb = this.async();
 
-    this.write('app/styles/main.scss', '@import "compass_twitter_bootstrap";');
+    this.write(path.join(appPath, 'styles/main.scss'), '@import "compass_twitter_bootstrap";');
     this.remote('kristianmandrup', 'compass-twitter-bootstrap', 'c3ccce2cca5ec52437925e8feaaa11fead51e132', function (err, remote) {
       if (err) {
         return cb(err);
       }
-      remote.directory('stylesheets', 'app/styles');
+      remote.directory('stylesheets', path.join(appPath, 'styles') );
       cb();
     });
   } else if (this.bootstrap) {
     this.log.writeln('Writing compiled Bootstrap');
-    this.copy( 'bootstrap.css', 'app/styles/bootstrap.css' );
+    this.copy( 'bootstrap.css', path.join(appPath, 'styles/bootstrap.css') );
   }
 
   if (this.bootstrap || this.compassBootstrap) {
@@ -129,7 +139,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.template('../../templates/common/index.html', 'app/index.html');
+  this.template('../../templates/common/index.html', path.join(this.appPath, 'index.html') );
 };
 
 Generator.prototype.packageFiles = function () {

@@ -6,6 +6,8 @@ Based on [angular-seed](https://github.com/angular/angular-seed/)
 
 Usage: `yo angular`
 
+## Generators
+
 Available generators:
 
 * [angular](#app) (aka [angular:app](#app))
@@ -15,8 +17,6 @@ Available generators:
 * [angular:route](#route)
 * [angular:service](#service)
 * [angular:view](#view)
-
-## Generators
 
 ### App
 Sets up a new AngularJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Twitter Bootstrap and additional AngularJS modules, such as angular-resource.
@@ -198,6 +198,23 @@ The following additional modules are available as components on bower, and insta
 * angular-sanitize
 
 All of these can be updated with `bower update` as new versions of AngularJS are released.
+
+## Configuration
+Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.
+
+### Output
+You can change the `app` directory by adding a `appPath` property to `component.json`. For instance, if you wanted to easily integrate with Express.js, you could add the following:
+
+```json
+{
+  "name": "yo-test",
+  "version": "0.0.0",
+  ...
+  "appPath": "public"
+}
+
+```
+This will cause Yeoman-generated client-side files to be placed in `public`.
 
 ## Contribute
 

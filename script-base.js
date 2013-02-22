@@ -2,7 +2,7 @@
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
-
+var angularUtils = require('./util.js');
 
 module.exports = Generator;
 
@@ -10,10 +10,25 @@ function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
   try {
-    this.appname = this._.camelize(require(path.join(process.cwd(), 'package.json')).name);
+    this.appname = this._.camelize(require(path.join(process.cwd(), 'component.json')).name);
   } catch (e) {
-    console.log(e.stack);
     this.appname = path.basename(process.cwd());
+  }
+
+  if (typeof this.env.options.appPath === 'undefined') {
+    try {
+      this.env.options.appPath = require(path.join(process.cwd(), 'component.json')).appPath;
+    } catch (e) {
+      this.env.options.appPath = 'app';
+    }
+  }
+
+  if (typeof this.env.options.testPath === 'undefined') {
+    try {
+      this.env.options.testPath = require(path.join(process.cwd(), 'component.json')).testPath;
+    } catch (e) {
+      this.env.options.testPath = 'test/spec';
+    }
   }
 
   if (typeof this.env.options.coffee === 'undefined') {
@@ -22,7 +37,7 @@ function Generator() {
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
     if (!this.options.coffee &&
-      this.expandFiles('/app/scripts/**/*.coffee', {}).length > 0) {
+      this.expandFiles('/' + this.appPath + '/scripts/**/*.coffee', {}).length > 0) {
       this.options.coffee = true;
     }
 
@@ -51,13 +66,34 @@ function Generator() {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-Generator.prototype.template = function (src, dest) {
+Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + this.scriptSuffix,
-    dest + this.scriptSuffix
+    path.join(this.env.options.appPath, dest) + this.scriptSuffix
   ]);
 };
 
-Generator.prototype.htmlTemplate = function () {
-  yeoman.generators.Base.prototype.template.apply(this, arguments);
+Generator.prototype.testTemplate = function (src, dest) {
+  yeoman.generators.Base.prototype.template.apply(this, [
+    src + this.scriptSuffix,
+    path.join(this.env.options.testPath, dest) + this.scriptSuffix
+  ]);
+};
+
+Generator.prototype.htmlTemplate = function (src, dest) {
+  yeoman.generators.Base.prototype.template.apply(this, [
+    src,
+    path.join(this.env.options.appPath, dest)
+  ]);
+};
+
+Generator.prototype.addScriptToIndex = function (script) {
+  var appPath = this.env.options.appPath;
+  angularUtils.rewriteFile({
+    file: path.join(appPath, 'index.html'),
+    needle: '<!-- endbuild -->',
+    splicable: [
+      '<script src="scripts/' + script + '.js"></script>'
+    ]
+  });
 };

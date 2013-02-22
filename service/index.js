@@ -33,16 +33,7 @@ function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createServiceFiles = function createServiceFiles() {
-  this.template(path.join('service', this.type), 'app/scripts/services/' + this.name);
-  this.template('spec/service', 'test/spec/services/' + this.name);
-};
-
-Generator.prototype.rewriteIndexHtml = function () {
-  angularUtils.rewriteFile({
-    file: 'app/index.html',
-    needle: '<!-- endbuild -->',
-    splicable: [
-      '<script src="scripts/services/' + this.name + '.js"></script>'
-    ]
-  });
+  this.appTemplate(path.join('service', this.type), 'scripts/services/' + this.name);
+  this.testTemplate('spec/service', 'services/' + this.name);
+  this.addScriptToIndex('services/' + this.name);
 };
