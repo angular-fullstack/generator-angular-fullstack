@@ -18,17 +18,15 @@ function Generator() {
   if (typeof this.env.options.appPath === 'undefined') {
     try {
       this.env.options.appPath = require(path.join(process.cwd(), 'component.json')).appPath;
-    } catch (e) {
-      this.env.options.appPath = 'app';
-    }
+    } catch (e) {}
+    this.env.options.appPath = this.env.options.appPath || 'app';
   }
 
   if (typeof this.env.options.testPath === 'undefined') {
+    this.env.options.testPath = 'test/spec';
     try {
       this.env.options.testPath = require(path.join(process.cwd(), 'component.json')).testPath;
-    } catch (e) {
-      this.env.options.testPath = 'test/spec';
-    }
+    } catch (e) {}
   }
 
   if (typeof this.env.options.coffee === 'undefined') {

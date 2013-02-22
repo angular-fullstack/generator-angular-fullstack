@@ -9,25 +9,33 @@ var Generator = module.exports = function Generator() {
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
 
+  var args = ['main'];
+
   if (typeof this.env.options.appPath === 'undefined') {
     try {
       this.env.options.appPath = require(path.join(process.cwd(), 'component.json')).appPath;
-    } catch (e) {
-      this.env.options.appPath = 'app';
-    }
+    } catch (e) {}
+    this.env.options.appPath = this.env.options.appPath || 'app';
   }
   this.appPath = this.env.options.appPath;
 
-  this.option('coffee');
-  this.option('minsafe');
+  console.log(process.cwd() + '/' + this.appPath + '/scripts/**/*.coffee', {});
+  if (typeof this.env.options.coffee === 'undefined') {
+    this.option('coffee');
 
-  var args = ['main'];
+    // attempt to detect if user is using CS or not
+    // if cml arg provided, use that; else look for the existence of cs
+    if (!this.options.coffee &&
+      this.expandFiles(process.cwd() + '/' + this.appPath + '/scripts/**/*.coffee', {}).length > 0) {
+      this.options.coffee = true;
+    }
 
-  if (this.options.coffee) {
-    args.push('--coffee');
+    this.env.options.coffee = this.options.coffee;
   }
 
-  if (this.options.minsafe) {
+  if (typeof this.env.options.minsafe === 'undefined') {
+    this.option('minsafe');
+    this.env.options.minsafe = this.options.minsafe;
     args.push('--minsafe');
   }
 
