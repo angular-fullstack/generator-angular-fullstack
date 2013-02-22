@@ -223,8 +223,9 @@ This script is included in the component.json in the `devDependencies` section, 
 be available very soon, probably with the next minor release of bower.
 
 While bower `devDependencies` are not yet implemented, you can fix it by running:
-
-`bower install angular-mocks`
+```bash
+bower install angular-mocks
+```
 
 By running `grunt test` you should now be able to run your unit tests with testacular.
 
