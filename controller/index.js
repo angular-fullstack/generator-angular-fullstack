@@ -10,7 +10,8 @@ function Generator() {
   ScriptBase.apply(this, arguments);
 
   // if the controller name is suffixed with ctrl, remove the suffix
-  if (this.name && this.name.substr(-4).toLowerCase() === 'ctrl') {
+  // if the controller name is just "ctrl," don't append/remove "ctrl"
+  if (this.name && this.name.toLowerCase() !== 'ctrl' && this.name.substr(-4).toLowerCase() === 'ctrl') {
     this.name = this.name.slice(0, -4);
   }
 }
