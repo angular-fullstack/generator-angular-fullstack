@@ -88,12 +88,17 @@ Generator.prototype.htmlTemplate = function (src, dest) {
 };
 
 Generator.prototype.addScriptToIndex = function (script) {
-  var appPath = this.env.options.appPath;
-  angularUtils.rewriteFile({
-    file: path.join(appPath, 'index.html'),
-    needle: '<!-- endbuild -->',
-    splicable: [
-      '<script src="scripts/' + script + '.js"></script>'
-    ]
-  });
+  try {
+    var appPath = this.env.options.appPath;
+    var fullPath = path.join(appPath, 'index.html');
+    angularUtils.rewriteFile({
+      file: fullPath,
+      needle: '<!-- endbuild -->',
+      splicable: [
+        '<script src="scripts/' + script + '.js"></script>'
+      ]
+    });
+  } catch (e) {
+    console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
+  }
 };
