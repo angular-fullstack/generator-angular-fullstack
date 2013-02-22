@@ -216,6 +216,18 @@ You can change the `app` directory by adding a `appPath` property to `component.
 ```
 This will cause Yeoman-generated client-side files to be placed in `public`.
 
+## Testing
+
+For tests to work properly, testacular needs the `angular-mocks` bower package.
+This script is included in the component.json in the `devDependencies` section, which will
+be available very soon, probably with the next minor release of bower.
+
+While bower `devDependencies` are not yet implemented, you can fix it by running:
+
+`bower install angular-mocks`
+
+By running `grunt test` you should now be able to run your unit tests with testacular.
+
 ## Contribute
 
 See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
