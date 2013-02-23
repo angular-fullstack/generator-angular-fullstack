@@ -19,7 +19,6 @@ var Generator = module.exports = function Generator() {
   }
   this.appPath = this.env.options.appPath;
 
-  console.log(process.cwd() + '/' + this.appPath + '/scripts/**/*.coffee', {});
   if (typeof this.env.options.coffee === 'undefined') {
     this.option('coffee');
 
