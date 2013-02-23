@@ -4,7 +4,22 @@ Maintainer: [Brian Ford](https://github.com/btford)
 
 Based on [angular-seed](https://github.com/angular/angular-seed/)
 
-Usage: `yo angular`
+## Usage
+
+First make a new directory, and `cd` into it:
+```
+mkdir my-new-project && cd $_
+```
+
+Then install `generator-angular` and `generator-testacular`:
+```
+npm install generator-angular generator-testacular
+```
+
+Finally, run `yo angular`, optionally passing an app name:
+```
+yo angular [app-name]
+```
 
 ## Generators
 
