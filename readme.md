@@ -16,9 +16,14 @@ Then install `generator-angular` and `generator-testacular`:
 npm install generator-angular generator-testacular
 ```
 
-Finally, run `yo angular`, optionally passing an app name:
+Run `yo angular`, optionally passing an app name:
 ```
 yo angular [app-name]
+```
+
+Finally, install npm and bower dependencies:
+```
+npm install && bower install --dev
 ```
 
 ## Generators
