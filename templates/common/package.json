@@ -22,7 +22,7 @@
     "gruntacular": "~0.1.1",
     "grunt-open": "~0.1.0",
     "matchdep": "~0.1.1",
-    "grunt-google-cdn": "~0.0.1"
+    "grunt-google-cdn": "~0.1.0"
   },
   "engines": {
     "node": ">=0.8.0"
