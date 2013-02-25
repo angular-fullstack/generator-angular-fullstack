@@ -2,7 +2,7 @@ Description:
     Creates a new AngularJS filter
 
 Example:
-    yeoman init angular:filter thing [--coffee]
+    yo angular:filter thing [--coffee]
 
     This will create:
         app/scripts/filters/thing.js

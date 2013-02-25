@@ -2,7 +2,7 @@ Description:
     Creates a default AngularJS app
 
 Example:
-    yeoman init angular
+    yo angular
 
     This will create:
         Gruntfile.js

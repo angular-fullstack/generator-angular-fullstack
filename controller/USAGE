@@ -2,7 +2,7 @@ Description:
     Creates a new Angular controller
 
 Example:
-    yeoman init angular:controller Thing [--coffee]
+    yo angular:controller Thing [--coffee]
 
     This will create:
         app/scripts/controllers/thing-ctrl.js
