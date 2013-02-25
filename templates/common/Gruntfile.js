@@ -198,6 +198,25 @@ module.exports = function (grunt) {
         html: ['<%%= yeoman.dist %>/*.html']
       }
     },
+    ngmin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.dist %>/scripts',
+          src: '*.js',
+          dest: '<%%= yeoman.dist %>/scripts'
+        }]
+      }
+    },
+    uglify: {
+      dist: {
+        files: {
+          '<%%= yeoman.dist %>/scripts/scripts.js': [
+            '<%%= yeoman.dist %>/scripts/scripts.js'
+          ],
+        }
+      }
+    },
     copy: {
       dist: {
         files: [{
@@ -250,7 +269,9 @@ module.exports = function (grunt) {
     'concat',
     'copy',
     'cdnify',
-    'usemin'
+    'usemin',
+    'ngmin',
+    'uglify'
   ]);
 
   grunt.registerTask('default', ['build']);
