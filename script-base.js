@@ -10,7 +10,7 @@ function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
   try {
-    this.appname = this._.camelize(require(path.join(process.cwd(), 'component.json')).name);
+    this.appname = require(path.join(process.cwd(), 'component.json')).name;
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
