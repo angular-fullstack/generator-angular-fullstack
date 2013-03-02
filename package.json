@@ -20,7 +20,7 @@
     "url": "git://github.com/yeoman/generator-angular.git"
   },
   "scripts": {
-    "test": "mocha test/test-*.js"
+    "test": "mocha test"
   },
   "dependencies": {
     "yeoman-generator": "~0.10.2"
