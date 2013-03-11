@@ -127,7 +127,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     var cb = this.async();
 
     this.write(path.join(appPath, 'styles/main.scss'), '@import "compass_twitter_bootstrap";');
-    this.remote('kristianmandrup', 'compass-twitter-bootstrap', 'c3ccce2cca5ec52437925e8feaaa11fead51e132', function (err, remote) {
+    this.remote('vwall', 'compass-twitter-bootstrap', 'v2.2.2.2', function (err, remote) {
       if (err) {
         return cb(err);
       }
