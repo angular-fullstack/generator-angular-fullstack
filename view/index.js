@@ -12,9 +12,8 @@ function Generator() {
   if (typeof this.env.options.appPath === 'undefined') {
     try {
       this.env.options.appPath = require(path.join(process.cwd(), 'component.json')).appPath;
-    } catch (e) {
-      this.env.options.appPath = 'app';
-    }
+    } catch (e) {}
+    this.env.options.appPath = this.env.options.appPath || 'app';
   }
 }
 
