@@ -6,7 +6,7 @@ var mountFolder = function (connect, dir) {
 
 module.exports = function (grunt) {
   // load all grunt tasks
-  require('matchdep').filterDev('grunt-*').concat(['gruntacular']).forEach(grunt.loadNpmTasks);
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   // configurable paths
   var yeomanConfig = {
@@ -88,9 +88,9 @@ module.exports = function (grunt) {
         '<%%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
-    testacular: {
+    karma: {
       unit: {
-        configFile: 'testacular.conf.js',
+        configFile: 'karma.conf.js',
         singleRun: true
       }
     },
@@ -251,7 +251,7 @@ module.exports = function (grunt) {
     'coffee',
     'compass',
     'connect:test',
-    'testacular'
+    'karma'
   ]);
 
   grunt.registerTask('build', [

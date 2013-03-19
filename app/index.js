@@ -50,8 +50,8 @@ var Generator = module.exports = function Generator() {
     args: args
   });
 
-  this.hookFor('testacular:app', {
-    args: [false] // run testacular hook in non-interactive mode
+  this.hookFor('karma:app', {
+    args: [false] // run karma hook in non-interactive mode
   });
 
   this.on('end', function () {

@@ -17,7 +17,7 @@ describe('Angular generator', function () {
       '../../controller',
       '../../main', [
         helpers.createDummyGenerator(),
-        'testacular:app'
+        'karma:app'
       ]
     ];
     helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
@@ -29,7 +29,7 @@ describe('Angular generator', function () {
     });
   });
 
-  it ('should generate dotfiles', function (done) {
+  it('should generate dotfiles', function (done) {
 
     helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
 
@@ -53,8 +53,7 @@ describe('Angular generator', function () {
                     'app/scripts/app.js',
                     'app/index.html',
                     'app/scripts/controllers/main.js',
-                    'test/spec/controllers/main.js',
-                    // 'testacular.conf.js'
+                    'test/spec/controllers/main.js'
                     ];
     helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
 
@@ -78,8 +77,7 @@ describe('Angular generator', function () {
                     'app/scripts/app.coffee',
                     'app/index.html',
                     'app/scripts/controllers/main.coffee',
-                    'test/spec/controllers/main.coffee',
-                    // 'testacular.conf.js'
+                    'test/spec/controllers/main.coffee'
                     ];
     helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
 
