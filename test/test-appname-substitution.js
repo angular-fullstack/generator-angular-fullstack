@@ -19,7 +19,7 @@ describe('Angular generator template mechanism', function () {
             '../../controller',
             '../../main', [
                 helpers.createDummyGenerator(),
-                'testacular:app'
+                'karma:app'
             ]
         ];
         helpers.testDirectory(path.join(__dirname, folderName), function (err) {
