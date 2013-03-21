@@ -106,4 +106,22 @@ describe('Angular generator', function () {
       });
     });
   });
+  
+  describe('View', function() {
+    it('should generate a new view', function(done) {
+      var angularView;
+      var deps = ['../../view'];
+      angularView = helpers.createGenerator('angular:view', deps, ['foo']);
+  
+      helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
+      angular.run([], function(){
+        angularView.run([], function() {
+          helpers.assertFiles([
+            ['app/views/foo.html']
+          ]);
+          done();
+        });
+      });
+    });
+  });
 });
