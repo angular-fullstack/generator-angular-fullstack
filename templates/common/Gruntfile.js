@@ -76,7 +76,16 @@ module.exports = function (grunt) {
       }
     },
     clean: {
-      dist: ['.tmp', '<%%= yeoman.dist %>/*'],
+      dist: {
+        files: [{
+          dot: true,
+          src: [
+            '.tmp',
+            '<%= yeoman.dist %>/*',
+            '!<%= yeoman.dist %>/.git*'
+          ]
+        }]
+      },
       server: '.tmp'
     },
     jshint: {
