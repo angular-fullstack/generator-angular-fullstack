@@ -25,7 +25,7 @@ var Generator = module.exports = function Generator() {
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
     if (!this.options.coffee &&
-      this.expandFiles(process.cwd() + '/' + this.appPath + '/scripts/**/*.coffee', {}).length > 0) {
+      this.expandFiles(path.join(this.appPath, '/scripts/**/*.coffee'), {}).length > 0) {
       this.options.coffee = true;
     }
 
