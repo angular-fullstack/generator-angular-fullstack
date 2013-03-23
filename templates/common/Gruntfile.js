@@ -242,8 +242,6 @@ module.exports = function (grunt) {
   });
 
   grunt.renameTask('regarde', 'watch');
-  // remove when mincss task is renamed
-  grunt.renameTask('mincss', 'cssmin');
 
   grunt.registerTask('server', [
     'clean:server',
