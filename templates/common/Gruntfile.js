@@ -223,6 +223,18 @@ module.exports = function (grunt) {
         }
       }
     },
+    rev: {
+      dist: {
+        files: {
+          src: [
+            '<%%= yeoman.dist %>/scripts/{,*/}*.js',
+            '<%%= yeoman.dist %>/styles/{,*/}*.css',
+            '<%%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+            '<%%= yeoman.dist %>/styles/fonts/*'
+          ]
+        }
+      }
+    },
     copy: {
       dist: {
         files: [{
@@ -274,9 +286,10 @@ module.exports = function (grunt) {
     'concat',
     'copy',
     'cdnify',
-    'usemin',
     'ngmin',
-    'uglify'
+    'uglify',
+    'rev',
+    'usemin'
   ]);
 
   grunt.registerTask('default', ['build']);
