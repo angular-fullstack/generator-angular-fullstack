@@ -15,14 +15,27 @@ function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.rewriteAppJs = function () {
-  angularUtils.rewriteFile({
-    file: path.join(this.env.options.appPath, 'scripts/app.js'),
-    needle: '.otherwise',
-    splicable: [
-      '.when(\'/' + this.name + '\', {',
-      '  templateUrl: \'views/' + this.name + '.html\',',
-      '  controller: \'' + this._.classify(this.name) + 'Ctrl\'',
-      '})'
-    ]
-  });
+  if (this.env.options.coffee) {
+    angularUtils.rewriteFile({
+      file: path.join(this.env.options.appPath, 'scripts/app.coffee'),
+      needle: '.otherwise',
+      splicable: [
+        '.when \'/' + this.name + '\',',
+        '  templateUrl: \'views/' + this.name + '.html\',',
+        '  controller: \'' + this._.classify(this.name) + 'Ctrl\''
+      ]
+    });
+  }
+  else {
+    angularUtils.rewriteFile({
+      file: path.join(this.env.options.appPath, 'scripts/app.js'),
+      needle: '.otherwise',
+      splicable: [
+        '.when(\'/' + this.name + '\', {',
+        '  templateUrl: \'views/' + this.name + '.html\',',
+        '  controller: \'' + this._.classify(this.name) + 'Ctrl\'',
+        '})'
+      ]
+    });
+  }
 };
