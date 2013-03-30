@@ -18,7 +18,7 @@ function rewriteFile (args) {
   fs.writeFileSync(fullPath, body);
 }
 
-function escapeRegExp(str) {
+function escapeRegExp (str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 

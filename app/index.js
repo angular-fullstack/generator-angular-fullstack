@@ -131,25 +131,25 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
       if (err) {
         return cb(err);
       }
-      remote.directory('stylesheets', path.join(appPath, 'styles') );
+      remote.directory('stylesheets', path.join(appPath, 'styles'));
       cb();
     });
   } else if (this.bootstrap) {
     this.log.writeln('Writing compiled Bootstrap');
-    this.copy( 'bootstrap.css', path.join(appPath, 'styles/bootstrap.css') );
+    this.copy('bootstrap.css', path.join(appPath, 'styles/bootstrap.css'));
   }
 
   if (this.bootstrap || this.compassBootstrap) {
-    //this.directory( 'images', 'app/images' );
+    // this.directory('images', 'app/images');
   }
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.template('../../templates/common/index.html', path.join(this.appPath, 'index.html') );
+  this.template('../../templates/common/index.html', path.join(this.appPath, 'index.html'));
 };
 
 Generator.prototype.packageFiles = function () {
-  this.template( '../../templates/common/component.json', 'component.json' );
-  this.template( '../../templates/common/package.json', 'package.json' );
-  this.template( '../../templates/common/Gruntfile.js', 'Gruntfile.js' );
+  this.template('../../templates/common/component.json', 'component.json');
+  this.template('../../templates/common/package.json', 'package.json');
+  this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
 };
