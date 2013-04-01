@@ -9,8 +9,8 @@ describe('Controller: <%= _.classify(name) %>Ctrl', function () {
     scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller) {
-    scope = {};
+  beforeEach(inject(function ($controller, $rootScope) {
+    scope = $rootScope.new();
     <%= _.classify(name) %>Ctrl = $controller('<%= _.classify(name) %>Ctrl', {
       $scope: scope
     });
