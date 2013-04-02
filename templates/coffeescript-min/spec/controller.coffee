@@ -10,7 +10,7 @@ describe 'Controller: <%= _.classify(name) %>Ctrl', () ->
 
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
-    scope = $rootScope.new()
+    scope = $rootScope.$new()
     <%= _.classify(name) %>Ctrl = $controller '<%= _.classify(name) %>Ctrl', {
       $scope: scope
     }
