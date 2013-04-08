@@ -56,7 +56,7 @@ var Generator = module.exports = function Generator() {
   });
 
   this.on('end', function () {
-    console.log('\nI\'m all done. Just run ' + 'npm install && bower install'.bold.yellow + ' to install the required dependencies. If this fails, try running the command yourself.\n\n');
+    console.log('\n\nI\'m all done. Running ' + 'npm install & bower install'.bold.yellow + ' for you to install the required dependencies. If this fails, try running the command yourself.\n\n');
     spawn('npm', ['install'], { stdio: 'inherit' });
     spawn('bower', ['install'], { stdio: 'inherit' });
   });
