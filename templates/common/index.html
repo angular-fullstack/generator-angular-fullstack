@@ -10,7 +10,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/main.css --><% if (bootstrap && !compassBootstrap) { %>
+    <link rel="stylesheet" href="styles/bootstrap.css"><% } %>
     <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
   </head>
   <body ng-app="<%= _.camelize(appname) %>App">
     <!--[if lt IE 7]>
