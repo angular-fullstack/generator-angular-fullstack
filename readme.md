@@ -13,19 +13,12 @@ mkdir my-new-project && cd $_
 
 Then install `generator-angular` and `generator-karma`:
 ```
-mkdir node_modules && npm install generator-angular generator-karma
+npm install -g generator-angular generator-karma
 ```
-
-**Note: The `mkdir node_modules` in the command above ensures that the generators are installed locally for now until global generator installation is an option.**
 
 Run `yo angular`, optionally passing an app name:
 ```
 yo angular [app-name]
-```
-
-Finally, install npm and bower dependencies:
-```
-npm install && bower install --dev
 ```
 
 ## Generators
