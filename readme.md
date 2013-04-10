@@ -7,9 +7,9 @@ Based on [angular-seed](https://github.com/angular/angular-seed/)
 
 ## Usage
 
-Install `generator-angular` and `generator-karma`:
+Install `generator-angular`:
 ```
-npm install -g generator-angular generator-karma
+npm install -g generator-angular
 ```
 
 Make a new directory, and `cd` into it:

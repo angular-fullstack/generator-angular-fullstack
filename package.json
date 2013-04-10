@@ -24,6 +24,9 @@
   "dependencies": {
     "yeoman-generator": "~0.10.5"
   },
+  "peerDependencies": {
+    "generator-karma": "~0.2.0"
+  },
   "devDependencies": {
     "mocha": "~1.9.0",
     "grunt": "~0.4.1",
