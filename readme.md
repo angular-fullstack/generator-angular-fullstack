@@ -47,6 +47,23 @@ yo angular
 ### Route
 Generates a controller and view, and configures a route in `app/scripts/app.js` connecting them.
 
+Example:
+```bash
+yo angular:route myroute
+```
+
+Produces `app/scripts/controllers/myroute.js`:
+```javascript
+angular.module('myMod').controller('MyrouteCtrl', function ($scope) {
+  // ...
+});
+```
+
+Produces `app/views/myroute.html`:
+```html
+<p>This is the myroute view</p>
+```
+
 ### Controller
 Generates a controller in `app/scripts/controllers`.
 
