@@ -1,9 +1,8 @@
+'use strict';
+var markdown = require('marked');
+var semver = require('semver');
 
-var markdown = require('marked'),
-  semver = require('semver');
-
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     changelog: {
@@ -31,30 +30,32 @@ module.exports = function(grunt) {
     var options = this.options({
       file: grunt.config('pkgFile') || 'package.json'
     });
-    function setup(file, type){
+
+    function setup(file, type) {
       var pkg = grunt.file.readJSON(file);
       var newVersion = pkg.version = semver.inc(pkg.version, type || 'patch');
-      return {file: file, pkg: pkg, newVersion: newVersion};
+      return {
+        file: file,
+        pkg: pkg,
+        newVersion: newVersion
+      };
     }
+
     var config = setup(options.file, type);
     grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
     grunt.log.ok('Version bumped to ' + config.newVersion);
-
   });
 
-  grunt.registerTask('stage', 'git add files before running the release task', function() {
+  grunt.registerTask('stage', 'git add files before running the release task', function () {
     var files = this.options().files;
     grunt.util.spawn({
-      cmd: process.platform === 'win32' ?
-        'git.cmd' : 'git',
+      cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
       args: ['add'].concat(files)
     }, grunt.task.current.async());
   });
-
 
   grunt.loadNpmTasks('grunt-release');
   grunt.loadNpmTasks('grunt-conventional-changelog');
 
   grunt.registerTask('default', ['bump', 'changelog', 'stage', 'release']);
-
 };

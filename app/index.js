@@ -18,6 +18,7 @@ var Generator = module.exports = function Generator() {
     } catch (e) {}
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
+
   this.appPath = this.env.options.appPath;
 
   if (typeof this.env.options.coffee === 'undefined') {
@@ -77,18 +78,19 @@ Generator.prototype.askFor = function askFor() {
     warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
   }];
 
-  this.prompt(prompts, function(err, props) {
+  this.prompt(prompts, function (err, props) {
     if (err) {
       return this.emit('error', err);
     }
 
     this.bootstrap = (/y/i).test(props.bootstrap);
     this.compassBootstrap = (/y/i).test(props.compassBootstrap);
+
     cb();
   }.bind(this));
 };
 
-Generator.prototype.askForModules = function askForModules () {
+Generator.prototype.askForModules = function askForModules() {
   var cb = this.async();
 
   var prompts = [{
@@ -108,7 +110,7 @@ Generator.prototype.askForModules = function askForModules () {
     warning: 'Yes: angular-sanitize added to component.json'
   }];
 
-  this.prompt(prompts, function(err, props) {
+  this.prompt(prompts, function (err, props) {
     if (err) {
       return this.emit('error', err);
     }
@@ -124,6 +126,7 @@ Generator.prototype.askForModules = function askForModules () {
 // Duplicated from the SASS generator, waiting a solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var appPath = this.appPath;
+
   if (this.compassBootstrap) {
     var cb = this.async();
 
