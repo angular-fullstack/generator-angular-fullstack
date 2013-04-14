@@ -225,7 +225,7 @@ module.exports = function (grunt) {
         files: {
           '<%%= yeoman.dist %>/scripts/scripts.js': [
             '<%%= yeoman.dist %>/scripts/scripts.js'
-          ],
+          ]
         }
       }
     },
