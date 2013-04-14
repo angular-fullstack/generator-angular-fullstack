@@ -4,6 +4,7 @@
   "description": "Yeoman generator for AngularJS",
   "keywords": [
     "yeoman-generator",
+    "scaffold",
     "framework",
     "component",
     "front-end",
@@ -18,15 +19,15 @@
     "url": "git://github.com/yeoman/generator-angular.git"
   },
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.10.3"
+    "yeoman-generator": "~0.10.5"
   },
   "devDependencies": {
-    "mocha": "~1.8.1",
+    "mocha": "~1.9.0",
     "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-jshint": "~0.4.3",
     "grunt-conventional-changelog": "~0.0.12",
     "marked": "~0.2.8",
     "semver": "~1.1.4",
