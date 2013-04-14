@@ -4,16 +4,17 @@ Maintainer: [Brian Ford](https://github.com/btford)
 
 Based on [angular-seed](https://github.com/angular/angular-seed/)
 
+
 ## Usage
 
-First make a new directory, and `cd` into it:
-```
-mkdir my-new-project && cd $_
-```
-
-Then install `generator-angular` and `generator-karma`:
+Install `generator-angular` and `generator-karma`:
 ```
 npm install -g generator-angular generator-karma
+```
+
+Make a new directory, and `cd` into it:
+```
+mkdir my-new-project && cd $_
 ```
 
 Run `yo angular`, optionally passing an app name:
