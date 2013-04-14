@@ -27,6 +27,7 @@ describe('Angular generator template mechanism', function () {
                 done(err);
             }
             angular = helpers.createGenerator('angular:app', deps);
+            angular.options['skip-install'] = true;
             done();
         });
     });

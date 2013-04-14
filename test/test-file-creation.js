@@ -25,6 +25,7 @@ describe('Angular generator', function () {
         done(err);
       }
       angular = helpers.createGenerator('angular:app', deps);
+      angular.options['skip-install'] = true;
       done();
     });
   });
@@ -93,7 +94,7 @@ describe('Angular generator', function () {
       var angularCtrl;
       var deps = ['../../controller'];
       angularCtrl = helpers.createGenerator('angular:controller', deps, ['foo']);
-  
+
       helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
       angular.run([], function(){
         angularCtrl.run([], function() {
@@ -106,13 +107,13 @@ describe('Angular generator', function () {
       });
     });
   });
-  
+
   describe('View', function() {
     it('should generate a new view', function(done) {
       var angularView;
       var deps = ['../../view'];
       angularView = helpers.createGenerator('angular:view', deps, ['foo']);
-  
+
       helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
       angular.run([], function(){
         angularView.run([], function() {
