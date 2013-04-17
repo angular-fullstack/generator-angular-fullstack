@@ -5,7 +5,7 @@ var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 
 
-var Generator = module.exports = function Generator() {
+var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
@@ -52,8 +52,13 @@ var Generator = module.exports = function Generator() {
     args: args
   });
 
-  this.hookFor('karma:app', {
-    args: [false] // run karma hook in non-interactive mode
+  this.hookFor('karma', {
+    as: 'app',
+    options: {
+      options: {
+        'skip-install': this.options['skip-install']
+       }
+    }
   });
 
   this.on('end', function () {
