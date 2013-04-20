@@ -56,6 +56,7 @@ var Generator = module.exports = function Generator(args, options) {
     as: 'app',
     options: {
       options: {
+        coffee: this.options.coffee,
         'skip-install': this.options['skip-install']
        }
     }
