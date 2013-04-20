@@ -188,7 +188,7 @@ By default, generators produce unannotated code. Without annotations, AngularJS'
 yo angular:controller user --minsafe
 ```
 
-Produces `app/controller/user.coffee`:
+Produces `app/controller/user.js`:
 ```javascript
 angular.module('myMod').controller('UserCtrl', ['$scope', function ($scope) {
   // ...
