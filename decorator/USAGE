@@ -8,8 +8,8 @@ Example:
         app/scripts/decorators/serviceNameDecorator.js
 
 
-    if you want to use multiple decorator for a service,
-    you are able to use the second argument
+    If you want to use multiple decorators for one service,
+    you are able to use the second argument for the filename
 
     yo angular:decorator serviceName serviceNameLogging [--coffee]
 
