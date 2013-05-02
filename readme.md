@@ -238,7 +238,7 @@ All of these can be updated with `bower update` as new versions of AngularJS are
 Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.
 
 ### Output
-You can change the `app` directory by adding a `appPath` property to `component.json`. For instance, if you wanted to easily integrate with Express.js, you could add the following:
+You can change the `app` directory by adding a `appPath` property to `bower.json`. For instance, if you wanted to easily integrate with Express.js, you could add the following:
 
 ```json
 {
@@ -254,7 +254,7 @@ This will cause Yeoman-generated client-side files to be placed in `public`.
 ## Testing
 
 For tests to work properly, karma needs the `angular-mocks` bower package.
-This script is included in the component.json in the `devDependencies` section, which will
+This script is included in the bower.json in the `devDependencies` section, which will
 be available very soon, probably with the next minor release of bower.
 
 While bower `devDependencies` are not yet implemented, you can fix it by running:
