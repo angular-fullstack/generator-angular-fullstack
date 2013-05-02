@@ -6,12 +6,3 @@ Example:
 
     This will create:
         app/scripts/decorators/serviceNameDecorator.js
-
-
-    If you want to use multiple decorators for one service,
-    you are able to use the second argument for the filename
-
-    yo angular:decorator serviceName serviceNameLogging [--coffee]
-
-    This will create:
-            app/scripts/decorators/serviceNameLoggingDecorator.js
