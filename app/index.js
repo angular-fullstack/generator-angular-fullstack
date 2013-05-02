@@ -69,27 +69,42 @@ var Generator = module.exports = function Generator(args, options) {
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-Generator.prototype.askFor = function askFor() {
+Generator.prototype.askForBootstrap = function askForBootstrap() {
   var cb = this.async();
 
-  var prompts = [{
+  this.prompt({
     name: 'bootstrap',
     message: 'Would you like to include Twitter Bootstrap?',
     default: 'Y/n',
     warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
-  }, {
-    name: 'compassBootstrap',
-    message: 'If so, would you like to use Twitter Bootstrap for Compass (as opposed to vanilla CSS)?',
-    default: 'Y/n',
-    warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
-  }];
-
-  this.prompt(prompts, function (err, props) {
+  }, function (err, props) {
     if (err) {
       return this.emit('error', err);
     }
 
     this.bootstrap = (/y/i).test(props.bootstrap);
+
+    cb();
+  }.bind(this));
+};
+
+Generator.prototype.askForCompass = function askForCompass() {
+  if (!this.bootstrap) {
+    return;
+  }
+
+  var cb = this.async();
+
+  this.prompt({
+    name: 'compassBootstrap',
+    message: 'If so, would you like to use Twitter Bootstrap for Compass (as opposed to vanilla CSS)?',
+    default: 'Y/n',
+    warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
+  }, function (err, props) {
+    if (err) {
+      return this.emit('error', err);
+    }
+
     this.compassBootstrap = (/y/i).test(props.compassBootstrap);
 
     cb();
