@@ -75,14 +75,14 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   this.prompt({
     name: 'bootstrap',
     message: 'Would you like to include Twitter Bootstrap?',
-    default: 'Y/n',
+    default: true,
     warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
   }, function (err, props) {
     if (err) {
       return this.emit('error', err);
     }
 
-    this.bootstrap = (/y/i).test(props.bootstrap);
+    this.bootstrap = props.bootstrap;
 
     cb();
   }.bind(this));
@@ -98,14 +98,14 @@ Generator.prototype.askForCompass = function askForCompass() {
   this.prompt({
     name: 'compassBootstrap',
     message: 'If so, would you like to use Twitter Bootstrap for Compass (as opposed to vanilla CSS)?',
-    default: 'Y/n',
+    default: true,
     warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
   }, function (err, props) {
     if (err) {
       return this.emit('error', err);
     }
 
-    this.compassBootstrap = (/y/i).test(props.compassBootstrap);
+    this.compassBootstrap = props.compassBootstrap;
 
     cb();
   }.bind(this));
@@ -117,17 +117,17 @@ Generator.prototype.askForModules = function askForModules() {
   var prompts = [{
     name: 'resourceModule',
     message: 'Would you like to include angular-resource.js?',
-    default: 'Y/n',
+    default: true,
     warning: 'Yes: angular-resource added to bower.json'
   }, {
     name: 'cookiesModule',
     message: 'Would you like to include angular-cookies.js?',
-    default: 'Y/n',
+    default: true,
     warning: 'Yes: angular-cookies added to bower.json'
   }, {
     name: 'sanitizeModule',
     message: 'Would you like to include angular-sanitize.js?',
-    default: 'Y/n',
+    default: true,
     warning: 'Yes: angular-sanitize added to bower.json'
   }];
 
@@ -136,9 +136,9 @@ Generator.prototype.askForModules = function askForModules() {
       return this.emit('error', err);
     }
 
-    this.resourceModule = (/y/i).test(props.resourceModule);
-    this.cookiesModule = (/y/i).test(props.cookiesModule);
-    this.sanitizeModule = (/y/i).test(props.sanitizeModule);
+    this.resourceModule = props.resourceModule;
+    this.cookiesModule = props.cookiesModule;
+    this.sanitizeModule = props.sanitizeModule;
 
     cb();
   }.bind(this));
