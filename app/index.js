@@ -9,8 +9,10 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
+  this.indexFile = this.engine(this.read('../../templates/common/index.html'),
+      this);
 
-  var args = ['main'];
+  args = ['main'];
 
   if (typeof this.env.options.appPath === 'undefined') {
     try {
@@ -144,33 +146,69 @@ Generator.prototype.askForModules = function askForModules() {
   }.bind(this));
 };
 
-// Duplicated from the SASS generator, waiting a solution for #138
+// Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var appPath = this.appPath;
-
   if (this.compassBootstrap) {
-    var cb = this.async();
-
-    this.write(path.join(appPath, 'styles/main.scss'), '@import "compass_twitter_bootstrap";');
-    this.remote('vwall', 'compass-twitter-bootstrap', 'v2.2.2.2', function (err, remote) {
-      if (err) {
-        return cb(err);
-      }
-      remote.directory('stylesheets', path.join(appPath, 'styles'));
-      cb();
-    });
+    this.copy('styles/bootstrap.scss', path.join(this.appPath, 'styles/style.scss'));
+    this.indexFile = this.appendStyles(this.indexFile, 'styles/main.css', ['styles/style.css']);
   } else if (this.bootstrap) {
     this.log.writeln('Writing compiled Bootstrap');
-    this.copy('bootstrap.css', path.join(appPath, 'styles/bootstrap.css'));
-  }
+    var cssFiles = ['styles/bootstrap.css', 'styles/main.css'];
 
-  if (this.bootstrap || this.compassBootstrap) {
-    // this.directory('images', 'app/images');
+    cssFiles.forEach(function (css) {
+      this.copy(css, path.join(this.appPath, css));
+    }.bind(this));
+    this.indexFile = this.appendStyles(this.indexFile, 'styles/main.css', cssFiles);
   }
 };
 
+Generator.prototype.bootstrapJS = function bootstrapJS() {
+  if (!this.bootstrap) {
+    return;  // Skip if disabled.
+  }
+
+  // Wire Twitter Bootstrap plugins
+  this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
+    'components/jquery/jquery.js',
+    'components/bootstrap-sass/js/bootstrap-affix.js',
+    'components/bootstrap-sass/js/bootstrap-alert.js',
+    'components/bootstrap-sass/js/bootstrap-dropdown.js',
+    'components/bootstrap-sass/js/bootstrap-tooltip.js',
+    'components/bootstrap-sass/js/bootstrap-modal.js',
+    'components/bootstrap-sass/js/bootstrap-transition.js',
+    'components/bootstrap-sass/js/bootstrap-button.js',
+    'components/bootstrap-sass/js/bootstrap-popover.js',
+    'components/bootstrap-sass/js/bootstrap-typeahead.js',
+    'components/bootstrap-sass/js/bootstrap-carousel.js',
+    'components/bootstrap-sass/js/bootstrap-scrollspy.js',
+    'components/bootstrap-sass/js/bootstrap-collapse.js',
+    'components/bootstrap-sass/js/bootstrap-tab.js'
+  ]);
+};
+
+Generator.prototype.extraModules = function extraModules() {
+  var modules = [];
+  if (this.resourceModule) {
+    modules.push('components/angular-resource/angular-resource.js');
+  }
+
+  if (this.cookiesModule) {
+    modules.push('components/angular-cookies/angular-cookies.js');
+  }
+
+  if (this.sanitizeModule) {
+    modules.push('components/angular-sanitize/angular-sanitize.js');
+  }
+
+  if (modules.length) {
+    this.indexFile = this.appendScripts(this.indexFile, 'scripts/modules.js',
+        modules);
+  }
+
+};
+
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.template('../../templates/common/index.html', path.join(this.appPath, 'index.html'));
+  this.write(path.join(this.appPath, 'index.html'), this.indexFile);
 };
 
 Generator.prototype.packageFiles = function () {
