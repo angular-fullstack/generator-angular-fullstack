@@ -6,12 +6,12 @@ Example:
 
     This will create:
         Gruntfile.js
-        component.json
+        bower.json
 
         app/index.html
         app/scripts/your-app-name-here.js
         app/scripts/controllers/main.js
-        app/components/angular/angular.js
+        app/bower_components/angular/angular.js
         app/styles/main.css
         app/views/main.html
 
