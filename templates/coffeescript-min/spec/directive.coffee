@@ -8,4 +8,4 @@ describe 'Directive: <%= _.camelize(name) %>', () ->
   it 'should make hidden element visible', inject ($rootScope, $compile) ->
     element = angular.element '<<%= _.dasherize(name) %>></<%= _.dasherize(name) %>>'
     element = $compile(element) $rootScope
-    expect(element text()).toBe 'this is the <%= _.camelize(name) %> directive'
+    expect(element.text()).toBe 'this is the <%= _.camelize(name) %> directive'
