@@ -14,14 +14,14 @@ Generator.prototype.askForOverwrite = function askForOverwrite() {
     var cb = this.async();
 
     // TODO: Any yeoman.util function to handle this?
-    var fileExists = fs.existsSync(this.env.cwd+'/app/scripts/'+buildRelativePath(this.fileName)+".js");
+    var fileExists = fs.existsSync(this.env.cwd + '/app/scripts/' + buildRelativePath(this.fileName) + ".js");
     if (fileExists) {
         var prompts = [{
-            name: 'overwriteDecorator',
-            message: 'Would you like to overwrite existing decorator?',
-            default: 'Y/n',
-            warning: 'Yes: Decorator will be replaced.'
-        }];
+                name   : 'overwriteDecorator',
+                message: 'Would you like to overwrite existing decorator?',
+                default: 'Y/n',
+                warning: 'Yes: Decorator will be replaced.'
+            }];
 
         this.prompt(prompts, function (err, props) {
             if (err) {
@@ -42,14 +42,14 @@ Generator.prototype.askForOverwrite = function askForOverwrite() {
 Generator.prototype.askForNewName = function askForNewName() {
     var cb = this.async();
 
-    if(this.overwriteDecorator === undefined || this.overwriteDecorator === true){
+    if (this.overwriteDecorator === undefined || this.overwriteDecorator === true) {
         cb();
         return;
     }
-    else{
+    else {
         var prompts = new Array();
         prompts.push({
-            name: 'decortatorName',
+            name   : 'decortatorName',
             message: 'Alternative name for the decorator:'
         });
 
@@ -65,10 +65,10 @@ Generator.prototype.askForNewName = function askForNewName() {
 };
 
 Generator.prototype.createDecoratorFiles = function createDecoratorFiles() {
-    this.appTemplate('decorator', 'scripts/'+buildRelativePath(this.fileName));
+    this.appTemplate('decorator', 'scripts/' + buildRelativePath(this.fileName));
     this.addScriptToIndex(buildRelativePath(this.fileName));
 };
 
 function buildRelativePath(fileName){
-    return 'decorators/' + fileName+"Decorator";
+    return 'decorators/' + fileName + "Decorator";
 }
