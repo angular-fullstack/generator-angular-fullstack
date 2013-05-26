@@ -20,7 +20,7 @@ Generator.prototype.askForOverwrite = function askForOverwrite() {
             name: 'overwriteDecorator',
             message: 'Would you like to overwrite existing decorator?',
             default: 'Y/n',
-            warning: 'Yes: Decorator will be replaced..'
+            warning: 'Yes: Decorator will be replaced.'
         }];
 
         this.prompt(prompts, function (err, props) {
