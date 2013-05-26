@@ -22,10 +22,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.10.5"
+    "yeoman-generator": "~0.11.0"
   },
   "peerDependencies": {
-    "generator-karma": "~0.2.0"
+    "generator-karma": "~0.3.0"
   },
   "devDependencies": {
     "mocha": "~1.9.0",
