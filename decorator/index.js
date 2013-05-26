@@ -6,7 +6,7 @@ var fs = require('fs');
 var Generator = module.exports = function Generator(args, options) {
     ScriptBase.apply(this, arguments);
     this.fileName = this.name;
-}
+};
 
 util.inherits(Generator, ScriptBase);
 
