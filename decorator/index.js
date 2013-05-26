@@ -47,7 +47,7 @@ Generator.prototype.askForNewName = function askForNewName() {
         return;
     }
     else {
-        var prompts = new Array();
+        var prompts = [];
         prompts.push({
             name   : 'decortatorName',
             message: 'Alternative name for the decorator:'
