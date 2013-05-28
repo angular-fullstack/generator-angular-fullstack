@@ -2,7 +2,7 @@ Description:
     Creates a new AngularJS route
 
 Example:
-    yo angular:route thing [--coffee]
+    yo angular:route thing [--coffee] [--minsafe]
 
     This will create:
         app/scripts/controllers/thing.js
