@@ -65,9 +65,11 @@ var Generator = module.exports = function Generator(args, options) {
   this.on('end', function () {
     this.installDependencies({ skipInstall: this.options['skip-install'] });
   });
+
+  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.askForBootstrap = function askForBootstrap() {
   var cb = this.async();
