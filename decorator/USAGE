@@ -1,0 +1,8 @@
+Description:
+    Creates a new AngularJS decorator for a specified service
+
+Example:
+    yo angular:decorator serviceName [--coffee]
+
+    This will create:
+        app/scripts/decorators/serviceNameDecorator.js
