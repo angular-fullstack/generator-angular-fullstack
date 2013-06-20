@@ -159,35 +159,35 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 
   // Wire Twitter Bootstrap plugins
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'components/jquery/jquery.js',
-    'components/bootstrap-sass/js/bootstrap-affix.js',
-    'components/bootstrap-sass/js/bootstrap-alert.js',
-    'components/bootstrap-sass/js/bootstrap-dropdown.js',
-    'components/bootstrap-sass/js/bootstrap-tooltip.js',
-    'components/bootstrap-sass/js/bootstrap-modal.js',
-    'components/bootstrap-sass/js/bootstrap-transition.js',
-    'components/bootstrap-sass/js/bootstrap-button.js',
-    'components/bootstrap-sass/js/bootstrap-popover.js',
-    'components/bootstrap-sass/js/bootstrap-typeahead.js',
-    'components/bootstrap-sass/js/bootstrap-carousel.js',
-    'components/bootstrap-sass/js/bootstrap-scrollspy.js',
-    'components/bootstrap-sass/js/bootstrap-collapse.js',
-    'components/bootstrap-sass/js/bootstrap-tab.js'
+    'bower_components/jquery/jquery.js',
+    'bower_components/bootstrap-sass/js/bootstrap-affix.js',
+    'bower_components/bootstrap-sass/js/bootstrap-alert.js',
+    'bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
+    'bower_components/bootstrap-sass/js/bootstrap-tooltip.js',
+    'bower_components/bootstrap-sass/js/bootstrap-modal.js',
+    'bower_components/bootstrap-sass/js/bootstrap-transition.js',
+    'bower_components/bootstrap-sass/js/bootstrap-button.js',
+    'bower_components/bootstrap-sass/js/bootstrap-popover.js',
+    'bower_components/bootstrap-sass/js/bootstrap-typeahead.js',
+    'bower_components/bootstrap-sass/js/bootstrap-carousel.js',
+    'bower_components/bootstrap-sass/js/bootstrap-scrollspy.js',
+    'bower_components/bootstrap-sass/js/bootstrap-collapse.js',
+    'bower_components/bootstrap-sass/js/bootstrap-tab.js'
   ]);
 };
 
 Generator.prototype.extraModules = function extraModules() {
   var modules = [];
   if (this.resourceModule) {
-    modules.push('components/angular-resource/angular-resource.js');
+    modules.push('bower_components/angular-resource/angular-resource.js');
   }
 
   if (this.cookiesModule) {
-    modules.push('components/angular-cookies/angular-cookies.js');
+    modules.push('bower_components/angular-cookies/angular-cookies.js');
   }
 
   if (this.sanitizeModule) {
-    modules.push('components/angular-sanitize/angular-sanitize.js');
+    modules.push('bower_components/angular-sanitize/angular-sanitize.js');
   }
 
   if (modules.length) {
