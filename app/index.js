@@ -76,31 +76,21 @@ util.inherits(Generator, yeoman.generators.Base);
 Generator.prototype.askForBootstrap = function askForBootstrap() {
   var cb = this.async();
 
-  this.prompt({
+  this.prompt([{
     type: 'confirm',
     name: 'bootstrap',
     message: 'Would you like to include Twitter Bootstrap?',
     default: true
-  }, function (props) {
-    this.bootstrap = props.bootstrap;
-
-    cb();
-  }.bind(this));
-};
-
-Generator.prototype.askForCompass = function askForCompass() {
-  if (!this.bootstrap) {
-    return;
-  }
-
-  var cb = this.async();
-
-  this.prompt({
+  }, {
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'If so, would you like to use Twitter Bootstrap for Compass (as opposed to vanilla CSS)?',
-    default: true
-  }, function (props) {
+    message: 'Would you like to use Twitter Bootstrap for Compass (as opposed to vanilla CSS)?',
+    default: true,
+    when: function (props) {
+      return props.bootstrap;
+    }
+  }], function (props) {
+    this.bootstrap = props.bootstrap;
     this.compassBootstrap = props.compassBootstrap;
 
     cb();
@@ -138,16 +128,33 @@ Generator.prototype.askForModules = function askForModules() {
 
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  if (this.compassBootstrap) {
-    this.copy('styles/bootstrap.scss', path.join(this.appPath, 'styles/main.scss'));
-  } else if (this.bootstrap) {
-    this.log.writeln('Writing compiled Bootstrap');
-    var cssFiles = ['styles/bootstrap.css', 'styles/main.css'];
+  var sass = this.compassBootstrap;
+  var files = [];
+  var source = 'styles/' + ( sass ? 'scss/' : 'css/' );
 
-    cssFiles.forEach(function (css) {
-      this.copy(css, path.join(this.appPath, css));
-    }.bind(this));
+  if (sass) {
+    files.push('main.scss');
+  } else {
+    if (this.bootstrap) {
+      files.push('bootstrap.css');
+    }
+
+    files.push('main.css');
   }
+
+  files.forEach(function (file) {
+    this.copy(source + file, 'app/styles/' + file);
+  }.bind(this));
+
+  this.indexFile = this.appendFiles({
+    html: this.indexFile,
+    fileType: 'css',
+    optimizedPath: 'styles/main.css',
+    sourceFileList: files.map(function (file) {
+      return 'styles/' + file.replace('.scss', '.css');
+    }),
+    searchPath: ['.tmp', 'app']
+  });
 };
 
 Generator.prototype.bootstrapJS = function bootstrapJS() {
@@ -192,7 +199,6 @@ Generator.prototype.extraModules = function extraModules() {
     this.indexFile = this.appendScripts(this.indexFile, 'scripts/modules.js',
         modules);
   }
-
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
