@@ -139,8 +139,7 @@ Generator.prototype.askForModules = function askForModules() {
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   if (this.compassBootstrap) {
-    this.copy('styles/bootstrap.scss', path.join(this.appPath, 'styles/style.scss'));
-    this.indexFile = this.appendStyles(this.indexFile, 'styles/main.css', ['styles/style.css']);
+    this.copy('styles/bootstrap.scss', path.join(this.appPath, 'styles/main.scss'));
   } else if (this.bootstrap) {
     this.log.writeln('Writing compiled Bootstrap');
     var cssFiles = ['styles/bootstrap.css', 'styles/main.css'];
@@ -148,7 +147,6 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     cssFiles.forEach(function (css) {
       this.copy(css, path.join(this.appPath, css));
     }.bind(this));
-    this.indexFile = this.appendStyles(this.indexFile, 'styles/main.css', cssFiles);
   }
 };
 
