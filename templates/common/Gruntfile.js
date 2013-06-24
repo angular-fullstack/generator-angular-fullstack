@@ -29,9 +29,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
-      options: {
-        nospawn: true
-      },
       coffee: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
