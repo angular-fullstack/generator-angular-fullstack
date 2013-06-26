@@ -36,11 +36,11 @@ module.exports = function (grunt) {
       coffeeTest: {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
-      },
+      },<% if (compassBootstrap) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
-      },
+      },<% } %>
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
@@ -136,7 +136,7 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },
+    },<% if (compassBootstrap) { %>
     compass: {
       options: {
         sassDir: '<%%= yeoman.app %>/styles',
@@ -157,7 +157,7 @@ module.exports = function (grunt) {
           debugInfo: true
         }
       }
-    },
+    },<% } %>
     // not used since Uglify task does concat,
     // but still available if needed
     /*concat: {
@@ -259,16 +259,16 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'coffee:dist',
-        'compass:server'
+        'coffee:dist'<% if (compassBootstrap) { %>,
+        'compass:server'<% } %>
       ],
       test: [
-        'coffee',
-        'compass'
+        'coffee'<% if (compassBootstrap) { %>,
+        'compass'<% } %>
       ],
       dist: [
-        'coffee',
-        'compass:dist',
+        'coffee',<% if (compassBootstrap) { %>
+        'compass:dist',<% } %>
         'imagemin',
         'htmlmin'
       ]
