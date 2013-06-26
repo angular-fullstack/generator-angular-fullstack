@@ -2,17 +2,17 @@
   "name": "<%= _.camelize(appname) %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.0.5",
+    "angular": "~1.0.7",
     "json3": "~3.2.4",<% if (bootstrap) { %>
     "jquery": "~1.9.1",
     "bootstrap-sass": "~2.3.1",
     <% } %>"es5-shim": "~2.0.8"<% if (resourceModule) { %>,
-    "angular-resource": "~1.0.5"<% } %><% if (cookiesModule) { %>,
-    "angular-cookies": "~1.0.5"<% } %><% if (sanitizeModule) { %>,
-    "angular-sanitize": "~1.0.5"<% } %>
+    "angular-resource": "~1.0.7"<% } %><% if (cookiesModule) { %>,
+    "angular-cookies": "~1.0.7"<% } %><% if (sanitizeModule) { %>,
+    "angular-sanitize": "~1.0.7"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "~1.0.5",
-    "angular-scenario": "~1.0.5"
+    "angular-mocks": "~1.0.7",
+    "angular-scenario": "~1.0.7"
   }
 }
