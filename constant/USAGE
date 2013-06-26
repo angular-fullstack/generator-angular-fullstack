@@ -1,5 +1,5 @@
 Description:
-    Creates a new AngularJS service.
+    Creates a new AngularJS constant.
     Docs: http://docs.angularjs.org/guide/dev_guide.services.creating_services
 
 Example:
