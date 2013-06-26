@@ -28,12 +28,12 @@
     "generator-karma": "~0.3.0"
   },
   "devDependencies": {
-    "mocha": "~1.9.0",
+    "mocha": "~1.11.0",
     "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.4.3",
-    "grunt-conventional-changelog": "~0.0.12",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-conventional-changelog": "~0.1.0",
     "marked": "~0.2.8",
-    "semver": "~1.1.4",
+    "semver": "~2.0.0",
     "grunt-release": "~0.3.3"
   },
   "engines": {
