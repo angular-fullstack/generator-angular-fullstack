@@ -1,3 +1,72 @@
+# 0.3.0 (2013-06-26)
+
+## Features
+### decorator
+
+* Add decorator template files ([c9f80b3d](http://github.com/yeoman/generator-angular/commit/c9f80b3d))
+
+* Define creation of decorator at decorator/index.js and added USAGE File ([4c53c1ad](http://github.com/yeoman/generator-angular/commit/4c53c1ad))
+
+* Add prompt if file already exists ([7d9b862c](http://github.com/yeoman/generator-angular/commit/7d9b862c))
+
+### build
+
+* Replace regard with contrib-watch ([edf00565](http://github.com/yeoman/generator-angular/commit/edf00565))
+
+
+
+## Bug fixes
+### build
+
+* bad concatenation of main.css ([4c7e4b29](http://github.com/yeoman/generator-angular/commit/4c7e4b29))
+
+* Bumped yeoman-generator version for new prompt ([9e899bb2](http://github.com/yeoman/generator-angular/commit/9e899bb2))
+
+* don't override generated css files ([dd6a0cb1](http://github.com/yeoman/generator-angular/commit/dd6a0cb1))
+
+* use Usemin for all CSS. ([e6c2fa52](http://github.com/yeoman/generator-angular/commit/e6c2fa52))
+
+* dropped nospawn option from watch ([02f61f82](http://github.com/yeoman/generator-angular/commit/02f61f82))
+
+* add svg files to the copy task ([4b897ac8](http://github.com/yeoman/generator-angular/commit/4b897ac8))
+
+* updated generated dependencies ([cab7c423](http://github.com/yeoman/generator-angular/commit/cab7c423))
+
+* add httpFontsPath to Gruntfile ([b00deb1a](http://github.com/yeoman/generator-angular/commit/b00deb1a))
+
+* coffeescript build was empty ([54edc9de](http://github.com/yeoman/generator-angular/commit/54edc9de))
+
+* add compass task only if compass-flavored bootstrap is selected ([4408413e](http://github.com/yeoman/generator-angular/commit/4408413e))
+
+### app
+
+* Bootstrap Compass no prompt on Bootstrap no ([e73ffc49](http://github.com/yeoman/generator-angular/commit/e73ffc49))
+
+* Use boolean prompts ([da89e70d](http://github.com/yeoman/generator-angular/commit/da89e70d))
+
+* components to bower_components ([01cee4ba](http://github.com/yeoman/generator-angular/commit/01cee4ba))
+
+### coffee
+
+* syntax for minsafe directives ([62677ec0](http://github.com/yeoman/generator-angular/commit/62677ec0))
+
+### decorator
+
+* removed second dot in warning message ([6a89f8e5](http://github.com/yeoman/generator-angular/commit/6a89f8e5))
+
+* use [] instead of new Array() to initialize prompts (jsHint) ([360222a6](http://github.com/yeoman/generator-angular/commit/360222a6))
+
+### test
+
+* Updated tests for new prompt ([64e57571](http://github.com/yeoman/generator-angular/commit/64e57571))
+
+### cli
+
+* fix typo in angular:constant generator usage ([6cbb80fd](http://github.com/yeoman/generator-angular/commit/6cbb80fd))
+
+
+
+
 # 0.2.2 (2013-04-20)
 
 ## Features
