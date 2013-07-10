@@ -164,7 +164,6 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 
   // Wire Twitter Bootstrap plugins
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'bower_components/jquery/jquery.js',
     'bower_components/bootstrap-sass/js/bootstrap-affix.js',
     'bower_components/bootstrap-sass/js/bootstrap-alert.js',
     'bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
