@@ -101,26 +101,29 @@ Generator.prototype.askForModules = function askForModules() {
   var cb = this.async();
 
   var prompts = [{
-    type: 'confirm',
-    name: 'resourceModule',
-    message: 'Would you like to include angular-resource.js?',
-    default: true
-  }, {
-    type: 'confirm',
-    name: 'cookiesModule',
-    message: 'Would you like to include angular-cookies.js?',
-    default: true
-  }, {
-    type: 'confirm',
-    name: 'sanitizeModule',
-    message: 'Would you like to include angular-sanitize.js?',
-    default: true
+    type: 'checkbox',
+    name: 'modules',
+    message: 'Which modules would you like to include?',
+    choices: [{
+      value: 'resourceModule',
+      name: 'angular-resource.js',
+      checked: true
+    }, {
+      value: 'cookiesModule',
+      name: 'angular-cookies.js',
+      checked: true
+    }, {
+      value: 'sanitizeModule',
+      name: 'angular-sanitize.js',
+      checked: true
+    }]
   }];
 
   this.prompt(prompts, function (props) {
-    this.resourceModule = props.resourceModule;
-    this.cookiesModule = props.cookiesModule;
-    this.sanitizeModule = props.sanitizeModule;
+    var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
+    this.resourceModule = hasMod('resourceModule');
+    this.cookiesModule = hasMod('cookiesModule');
+    this.sanitizeModule = hasMod('sanitizeModule');
 
     cb();
   }.bind(this));

@@ -34,7 +34,8 @@ describe('Angular generator', function () {
   it('should generate dotfiles', function (done) {
     helpers.mockPrompt(angular, {
       bootstrap: true,
-      compassBoostrap: true
+      compassBoostrap: true,
+      modules: []
     });
 
     angular.run({}, function () {
@@ -61,7 +62,8 @@ describe('Angular generator', function () {
                     ];
     helpers.mockPrompt(angular, {
       bootstrap: true,
-      compassBoostrap: true
+      compassBoostrap: true,
+      modules: []
     });
 
     angular.run({}, function() {
@@ -88,7 +90,8 @@ describe('Angular generator', function () {
                     ];
     helpers.mockPrompt(angular, {
       bootstrap: true,
-      compassBoostrap: true
+      compassBoostrap: true,
+      modules: []
     });
 
     angular.env.options.coffee = true;
@@ -106,7 +109,8 @@ describe('Angular generator', function () {
 
       helpers.mockPrompt(angular, {
         bootstrap: true,
-        compassBoostrap: true
+        compassBoostrap: true,
+        modules: []
       });
       angular.run([], function () {
         angularCtrl.run([], function () {
@@ -128,7 +132,8 @@ describe('Angular generator', function () {
 
       helpers.mockPrompt(angular, {
         bootstrap: true,
-        compassBoostrap: true
+        compassBoostrap: true,
+        modules: []
       });
       angular.run([], function (){
         angularView.run([], function () {

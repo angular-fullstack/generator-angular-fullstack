@@ -41,7 +41,11 @@ describe('Angular generator template mechanism', function () {
             'app/index.html',
             'test/spec/controllers/main.js'
         ];
-        helpers.mockPrompt(angular, {'bootstrap': 'Y', 'compassBoostrap': 'Y'});
+        helpers.mockPrompt(angular, {
+          bootstrap: true,
+          compassBoostrap: true,
+          modules: []
+        });
 
         angular.run({}, function () {
             // Check if all files are created for the test
