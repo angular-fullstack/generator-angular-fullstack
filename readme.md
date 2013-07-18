@@ -145,27 +145,12 @@ yo angular:service myService
 
 Produces `app/scripts/services/myService.js`:
 ```javascript
-angular.module('myMod').factory('myService', function () {
+angular.module('myMod').service('myService', function () {
   // ...
 });
 ```
 
-#### Options
-There are options for each of the methods for registering services. For more on using these services, see the [module API AngularJS documentation](http://docs.angularjs.org/api/angular.Module).
-
-##### Factory
-Invoked with `--factory`
-
-This is the default method when creating a service. Running `yo angular:service myService --factory` is the same as running `yo angular:service myService`
-
-##### Service
-Invoked with `--service`
-
-##### Value
-Invoked with `--value`
-
-##### Constant
-Invoked with `--constant`
+You can also do `yo angular:factory`, `yo angular:provider`, `yo angular:value`, and `yo angular:constant` for other types of services.
 
 ## Options
 In general, these options can be applied to any generator, though they only affect generators that produce scripts.
