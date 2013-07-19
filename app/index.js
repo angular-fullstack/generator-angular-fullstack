@@ -138,11 +138,12 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
 
   if (sass) {
     files.push('main.scss');
+    this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
+    this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
   } else {
     if (this.bootstrap) {
       files.push('bootstrap.css');
     }
-
     files.push('main.css');
   }
 
