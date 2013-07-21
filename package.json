@@ -25,7 +25,8 @@
     "yeoman-generator": "~0.12.0"
   },
   "peerDependencies": {
-    "generator-karma": "~0.4.0"
+    "generator-karma": "~0.4.0",
+    "yo": ">=1.0.0-rc.1.1"
   },
   "devDependencies": {
     "mocha": "~1.11.0",
