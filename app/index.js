@@ -205,6 +205,16 @@ Generator.prototype.extraModules = function extraModules() {
   }
 };
 
+Generator.prototype.appJs = function appJs() {
+  this.indexFile = this.appendFiles({
+    html: this.indexFile,
+    fileType: 'js',
+    optimizedPath: 'scripts/scripts.js',
+    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
+    searchPath: ['.tmp', 'app']
+  });
+};
+
 Generator.prototype.createIndexHtml = function createIndexHtml() {
   this.write(path.join(this.appPath, 'index.html'), this.indexFile);
 };
