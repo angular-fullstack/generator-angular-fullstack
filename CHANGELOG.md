@@ -1,3 +1,26 @@
+<a name="v0.3.1"></a>
+## v0.3.1 (2013-07-24)
+
+
+#### Bug Fixes
+
+* **app:**
+  * order of script inclusions ([9919b2d0](http://github.com/yeoman/generator-angular/commit/9919b2d0bb749cbe5e795608c2b93c3504e3298b), closes [#278](http://github.com/yeoman/generator-angular/issues/278))
+  * copy glyphicons for sass ([2c458009](http://github.com/yeoman/generator-angular/commit/2c4580096572678de6212c8592fb553c10b3a4c0), closes [#269](http://github.com/yeoman/generator-angular/issues/269))
+  * add jQuery <script> into index.html template ([3766b4ff](http://github.com/yeoman/generator-angular/commit/3766b4ffe1b91a647a34577ae529d11c994e3a1d))
+* **docs:**
+  * fix section explaining generating services ([8b4787c6](http://github.com/yeoman/generator-angular/commit/8b4787c649b918cb2baf78369e86c86156bca2ec))
+  * Add explicit instructions for installing yo ([8404c068](http://github.com/yeoman/generator-angular/commit/8404c0687ab582e15b1f46f96da4f7812d641912))
+
+
+#### Features
+
+* **app:**
+  * generate Travis config ([38a4ce9b](http://github.com/yeoman/generator-angular/commit/38a4ce9baa207c49c79b2f3128c2c3637164c011))
+  * use checkboxes for module selection ([65fe9d25](http://github.com/yeoman/generator-angular/commit/65fe9d25fdc1f9fa9c24c4858915c2b63b4531cb))
+  * add jshintrc for testing folder ([8727288b](http://github.com/yeoman/generator-angular/commit/8727288bcefdb255f3c24cf80ab1c7868b86d044))
+* **build:** add support for svg optimization ([03d63c69](http://github.com/yeoman/generator-angular/commit/03d63c69e8006e563baee0cc4a4ba459e7c13ccd))
+
 # 0.3.0 (2013-06-26)
 
 ## Features
