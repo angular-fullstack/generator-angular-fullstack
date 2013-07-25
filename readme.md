@@ -7,13 +7,7 @@ Based on [angular-seed](https://github.com/angular/angular-seed/)
 
 ## Usage
 
-Requires `yo` to be installed.
-You can install via `npm` like so:
-```
-npm install -g yo
-```
-
-Then install `generator-angular`:
+Install `generator-angular`:
 ```
 npm install -g generator-angular
 ```
