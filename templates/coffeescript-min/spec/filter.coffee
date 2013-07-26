@@ -12,4 +12,4 @@ describe 'Filter: <%= _.camelize(name) %>', () ->
 
   it 'should return the input prefixed with "<%= _.camelize(name) %> filter:"', () ->
     text = 'angularjs'
-    expect(<%= _.camelize(name) %> text).toBe ('<%= _.camelize(name) %> filter: ' + text);
+    expect(<%= _.camelize(name) %> text).toBe ('<%= _.camelize(name) %> filter: ' + text)
