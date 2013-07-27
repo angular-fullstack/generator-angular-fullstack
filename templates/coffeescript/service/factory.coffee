@@ -10,5 +10,5 @@ angular.module('<%= moduleName %>')
     # Public API here
     {
       someMethod: () ->
-        return meaningOfLife;
+        meaningOfLife;
     }
