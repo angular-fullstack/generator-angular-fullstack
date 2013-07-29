@@ -3,7 +3,7 @@
 describe('Filter: <%= _.camelize(name) %>', function () {
 
   // load the filter's module
-  beforeEach(module('<%= _.camelize(appname) %>App'));
+  beforeEach(module('<%= moduleName %>'));
 
   // initialize a new instance of the filter before each test
   var <%= _.camelize(name) %>;

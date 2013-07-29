@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('<%= _.camelize(appname) %>App')
+angular.module('<%= moduleName %>')
   .provider '<%= _.camelize(name) %>', [() ->
 
     # Private variables

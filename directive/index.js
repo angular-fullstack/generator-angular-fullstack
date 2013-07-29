@@ -14,7 +14,6 @@ function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
-  this.appTemplate('directive', 'scripts/directives/' + this.name);
-  this.testTemplate('spec/directive', 'directives/' + this.name);
-  this.addScriptToIndex('directives/' + this.name);
+  this.appTemplate('directive');
+  this.testTemplate('spec/directive');
 };

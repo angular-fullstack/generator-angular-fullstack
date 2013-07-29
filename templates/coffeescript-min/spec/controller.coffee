@@ -3,7 +3,7 @@
 describe 'Controller: <%= _.classify(name) %>Ctrl', () ->
 
   # load the controller's module
-  beforeEach module '<%= _.camelize(appname) %>App'
+  beforeEach module '<%= moduleName %>'
 
   <%= _.classify(name) %>Ctrl = {}
   scope = {}

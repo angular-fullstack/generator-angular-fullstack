@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= _.camelize(appname) %>App')
+angular.module('<%= moduleName %>')
   .directive('<%= _.camelize(name) %>', function () {
     return {
       template: '<div></div>',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= _.camelize(appname) %>App', [])
+angular.module('<%= moduleName %>', [])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {

@@ -14,7 +14,7 @@ Generator.prototype.askForOverwrite = function askForOverwrite() {
   var cb = this.async();
 
   // TODO: Any yeoman.util function to handle this?
-  var fileExists = fs.existsSync(this.env.cwd + '/app/scripts/' + buildRelativePath(this.fileName) + ".js");
+  var fileExists = fs.existsSync(this.env.cwd + '/app/scripts/' + buildRelativePath(this.fileName) + '.js');
   if (fileExists) {
     var prompts = [{
       type: 'confirm',
@@ -28,10 +28,8 @@ Generator.prototype.askForOverwrite = function askForOverwrite() {
 
       cb();
     }.bind(this));
-  }
-  else{
+  } else {
     cb();
-    return;
   }
 };
 
@@ -42,19 +40,18 @@ Generator.prototype.askForNewName = function askForNewName() {
     cb();
     return;
   }
-  else {
-    var prompts = [];
-    prompts.push({
-      name: 'decoratorName',
-      message: 'Alternative name for the decorator'
-    });
 
-    this.prompt(prompts, function (props) {
-      this.fileName = props.decoratorName;
+  var prompts = [];
+  prompts.push({
+    name: 'decoratorName',
+    message: 'Alternative name for the decorator'
+  });
 
-      cb();
-    }.bind(this));
-  }
+  this.prompt(prompts, function (props) {
+    this.fileName = props.decoratorName;
+
+    cb();
+  }.bind(this));
 };
 
 Generator.prototype.createDecoratorFiles = function createDecoratorFiles() {
@@ -63,5 +60,5 @@ Generator.prototype.createDecoratorFiles = function createDecoratorFiles() {
 };
 
 function buildRelativePath(fileName){
-  return 'decorators/' + fileName + "Decorator";
+  return 'decorators/' + fileName + 'Decorator';
 }

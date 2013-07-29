@@ -14,7 +14,6 @@ function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createServiceFiles = function createServiceFiles() {
-  this.appTemplate('service/factory', 'scripts/services/' + this.name);
-  this.testTemplate('spec/service', 'services/' + this.name);
-  this.addScriptToIndex('services/' + this.name);
+  this.appTemplate('service/factory');
+  this.testTemplate('spec/service');
 };

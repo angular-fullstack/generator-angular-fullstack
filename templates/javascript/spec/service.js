@@ -3,7 +3,7 @@
 describe('Service: <%= _.camelize(name) %>', function () {
 
   // load the service's module
-  beforeEach(module('<%= _.camelize(appname) %>App'));
+  beforeEach(module('<%= moduleName %>'));
 
   // instantiate service
   var <%= _.camelize(name) %>;
