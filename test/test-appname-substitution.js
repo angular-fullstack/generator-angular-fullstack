@@ -36,10 +36,10 @@ describe('Angular generator template mechanism', function () {
     it('should generate the same appName in every file', function (done) {
         var expectedAppName = folderName + 'App';
         var expected = [
-            'app/scripts/app.js',
-            'app/scripts/controllers/main.js',
+            'app/app/main.js',
+            'app/controller/main.js',
             'app/index.html',
-            'test/spec/controllers/main.js'
+            'test/spec/controller/main.js'
         ];
         helpers.mockPrompt(angular, {
           bootstrap: true,
@@ -52,9 +52,9 @@ describe('Angular generator template mechanism', function () {
             helpers.assertFiles(expected);
 
             // read JS Files
-            var app_js = fs.readFileSync('app/scripts/app.js', 'utf8');
-            var main_js = fs.readFileSync('app/scripts/controllers/main.js', 'utf8');
-            var main_test_js = fs.readFileSync('test/spec/controllers/main.js', 'utf8');
+            var app_js = fs.readFileSync('app/app/main.js', 'utf8');
+            var main_js = fs.readFileSync('app/controller/main.js', 'utf8');
+            var main_test_js = fs.readFileSync('test/spec/controller/main.js', 'utf8');
 
             // Test JS Files
             var regex_js = new RegExp('module\\(\'' + expectedAppName + '\'');
