@@ -85,7 +85,7 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   }, {
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'Would you like to use Twitter Bootstrap for Compass (as opposed to vanilla CSS)?',
+    message: 'Would you like to use the SCSS version of Twitter Bootstrap with the Compass CSS Authoring Framework?',
     default: true,
     when: function (props) {
       return props.bootstrap;
