@@ -32,6 +32,7 @@ Available generators:
 * [angular:filter](#filter)
 * [angular:route](#route)
 * [angular:service](#service)
+* [angular:decorator] (#decorator)
 * [angular:view](#view)
 
 **Note: Generators are to be run from the root directory of your app.**
@@ -145,6 +146,24 @@ angular.module('myMod').service('myService', function () {
 ```
 
 You can also do `yo angular:factory`, `yo angular:provider`, `yo angular:value`, and `yo angular:constant` for other types of services.
+
+### Decorator
+Generates an AngularJS service decorator.
+
+Example:
+```bash
+yo angular:decorator serviceName
+```
+
+Produces `app/scripts/decorators/serviceNameDecorator.js`:
+```javascript
+angular.module('myMod').config(function ($provide) {
+    $provide.decorator('serviceName', function ($delegate) {
+      // ...
+      return $delegate;
+    });
+  });
+```
 
 ## Options
 In general, these options can be applied to any generator, though they only affect generators that produce scripts.
