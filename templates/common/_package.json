@@ -19,7 +19,6 @@
     "grunt-usemin": "~0.1.11",
     "grunt-svgmin": "~0.2.0",
     "grunt-rev": "~0.1.0",
-    "grunt-karma": "~0.4.3",
     "grunt-open": "~0.2.0",
     "grunt-concurrent": "~0.3.0",
     "matchdep": "~0.1.2",
