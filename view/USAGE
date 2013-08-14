@@ -5,4 +5,4 @@ Example:
     yo angular:view thing
 
     This will create:
-        app/scripts/views/thing.html
+        app/views/thing.html
