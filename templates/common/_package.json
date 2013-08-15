@@ -21,7 +21,7 @@
     "grunt-rev": "~0.1.0",
     "grunt-open": "~0.2.0",
     "grunt-concurrent": "~0.3.0",
-    "matchdep": "~0.1.2",
+    "load-grunt-tasks": "~0.1.0",
     "connect-livereload": "~0.2.0",
     "grunt-google-cdn": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
