@@ -158,7 +158,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     sourceFileList: files.map(function (file) {
       return 'styles/' + file.replace('.scss', '.css');
     }),
-    searchPath: ['.tmp', 'app']
+    searchPath: '.tmp'
   });
 };
 
