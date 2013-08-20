@@ -55,10 +55,10 @@ describe('Angular generator', function () {
                     'Gruntfile.js',
                     'package.json',
                     ['bower.json', /"name":\s+"temp"/],
-                    'app/app/main.js',
+                    'app/scripts/app.js',
                     'app/index.html',
-                    'app/controller/main.js',
-                    'test/spec/controller/main.js'
+                    'app/scripts/controllers/main.js',
+                    'test/spec/controllers/main.js'
                     ];
     helpers.mockPrompt(angular, {
       bootstrap: true,
@@ -83,10 +83,10 @@ describe('Angular generator', function () {
                     'Gruntfile.js',
                     'package.json',
                     ['bower.json', /"name":\s+"temp"/],
-                    'app/app/main.coffee',
+                    'app/scripts/app.coffee',
                     'app/index.html',
-                    'app/controller/main.coffee',
-                    'test/spec/controller/main.coffee'
+                    'app/scripts/controllers/main.coffee',
+                    'test/spec/controllers/main.coffee'
                     ];
     helpers.mockPrompt(angular, {
       bootstrap: true,
@@ -115,8 +115,8 @@ describe('Angular generator', function () {
       angular.run([], function () {
         angularCtrl.run([], function () {
           helpers.assertFiles([
-            ['app/controller/foo.js', /controller\('FooCtrl'/],
-            ['test/spec/controller/foo.js', /describe\('Controller: FooCtrl'/]
+            ['app/scripts/controllers/foo.js', /controller\('FooCtrl'/],
+            ['test/spec/controllers/foo.js', /describe\('Controller: FooCtrl'/]
           ]);
           done();
         });
