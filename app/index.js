@@ -61,7 +61,7 @@ var Generator = module.exports = function Generator(args, options) {
         coffee: this.options.coffee,
         travis: true,
         'skip-install': this.options['skip-install']
-      }
+       }
     }
   });
 
@@ -162,7 +162,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   });
 };
 
-Generator.prototype.bootstrapJs = function bootstrapJs() {
+Generator.prototype.bootstrapJS = function bootstrapJS() {
   if (!this.bootstrap) {
     return;  // Skip if disabled.
   }

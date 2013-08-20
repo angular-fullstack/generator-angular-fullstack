@@ -3,7 +3,7 @@
 describe('Directive: <%= _.camelize(name) %>', function () {
 
   // load the directive's module
-  beforeEach(module('<%= moduleName %>'));
+  beforeEach(module('<%= _.camelize(appname) %>App'));
 
   var element,
     scope;

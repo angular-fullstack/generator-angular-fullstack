@@ -3,7 +3,7 @@
 describe 'Service: <%= _.camelize(name) %>', () ->
 
   # load the service's module
-  beforeEach module '<%= moduleName %>'
+  beforeEach module '<%= _.camelize(appname) %>App'
 
   # instantiate service
   <%= _.camelize(name) %> = {}

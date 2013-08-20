@@ -3,7 +3,7 @@
 describe 'Filter: <%= _.camelize(name) %>', () ->
 
   # load the filter's module
-  beforeEach module '<%= moduleName %>'
+  beforeEach module '<%= _.camelize(appname) %>App'
 
   # initialize a new instance of the filter before each test
   <%= _.camelize(name) %> = {}

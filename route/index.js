@@ -15,34 +15,27 @@ function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.rewriteAppJs = function () {
-  var htmlTemplatePath = this.name + '.html',
-    splicable,
-    filePath = path.join(this.env.options.appPath, 'scripts/app.');
-
-  if (htmlTemplatePath.indexOf('/') === -1) {
-    htmlTemplatePath = 'views/' + htmlTemplatePath;
-  }
-
   if (this.env.options.coffee) {
-    splicable = [
-      '.when \'/' + this.name + '\',',
-      '  templateUrl: \'' + htmlTemplatePath + '\',',
-      '  controller: \'' + this._.classify(this.name) + 'Ctrl\''
-    ];
-    filePath += 'coffee';
-  } else {
-    splicable = [
-      '.when(\'/' + this.name + '\', {',
-      '  templateUrl: \'' + htmlTemplatePath + '\',',
-      '  controller: \'' + this._.classify(this.name) + 'Ctrl\'',
-      '})'
-    ];
-    filePath += 'js';
+    angularUtils.rewriteFile({
+      file: path.join(this.env.options.appPath, 'scripts/app.coffee'),
+      needle: '.otherwise',
+      splicable: [
+        '.when \'/' + this.name + '\',',
+        '  templateUrl: \'views/' + this.name + '.html\',',
+        '  controller: \'' + this._.classify(this.name) + 'Ctrl\''
+      ]
+    });
   }
-
-  angularUtils.rewriteFile({
-    file: filePath,
-    needle: '.otherwise',
-    splicable: splicable
-  });
+  else {
+    angularUtils.rewriteFile({
+      file: path.join(this.env.options.appPath, 'scripts/app.js'),
+      needle: '.otherwise',
+      splicable: [
+        '.when(\'/' + this.name + '\', {',
+        '  templateUrl: \'views/' + this.name + '.html\',',
+        '  controller: \'' + this._.classify(this.name) + 'Ctrl\'',
+        '})'
+      ]
+    });
+  }
 };

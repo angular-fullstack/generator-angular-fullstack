@@ -1,4 +1,4 @@
 'use strict';
 
-angular.module('<%= moduleName %>')
+angular.module('<%= _.camelize(appname) %>App')
   .constant('<%= _.camelize(name) %>', 42);

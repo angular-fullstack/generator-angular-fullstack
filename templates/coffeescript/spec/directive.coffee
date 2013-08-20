@@ -3,7 +3,7 @@
 describe 'Directive: <%= _.camelize(name) %>', () ->
 
   # load the directive's module
-  beforeEach module '<%= moduleName %>'
+  beforeEach module '<%= _.camelize(appname) %>App'
 
   scope = {}
 

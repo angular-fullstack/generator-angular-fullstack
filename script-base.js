@@ -60,53 +60,32 @@ function Generator() {
   }
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
-
-  this.moduleName = this._.camelize(this.appname) + 'App';
-
-  this.namespace = [];
-  if (this.name.indexOf('/') !== -1) {
-    this.namespace = this.name.split('/');
-    this.name = this.namespace.pop();
-
-    this.moduleName += '.' + this.namespace.join('.'); // add to parent ?
-  }
-
 }
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
-Generator.prototype._dest = function (src) {
-  if (src.indexOf('spec/') === 0) {
-    src = src.substr(5);
-  } else if (src.indexOf('service/') === 0) {
-    src = src.substr(8);
-  }
-  return path.join((this.namespace.join('/') || src), this.name);
-};
-
-Generator.prototype.appTemplate = function (src) {
+Generator.prototype.appTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src + this.scriptSuffix,
-    path.join(this.env.options.appPath, this._dest(src)) + this.scriptSuffix
-  ]);
-  this.addScriptToIndex(src);
-};
-
-Generator.prototype.testTemplate = function (src) {
-  yeoman.generators.Base.prototype.template.apply(this, [
-    src + this.scriptSuffix,
-    path.join(this.env.options.testPath, this._dest(src)) + this.scriptSuffix
+    path.join(this.env.options.appPath, dest) + this.scriptSuffix
   ]);
 };
 
-Generator.prototype.htmlTemplate = function (src) {
+Generator.prototype.testTemplate = function (src, dest) {
+  yeoman.generators.Base.prototype.template.apply(this, [
+    src + this.scriptSuffix,
+    path.join(this.env.options.testPath, dest) + this.scriptSuffix
+  ]);
+};
+
+Generator.prototype.htmlTemplate = function (src, dest) {
   yeoman.generators.Base.prototype.template.apply(this, [
     src,
-    path.join(this.env.options.appPath, this._dest(src))
+    path.join(this.env.options.appPath, dest)
   ]);
 };
 
-Generator.prototype.addScriptToIndex = function (src) {
+Generator.prototype.addScriptToIndex = function (script) {
   try {
     var appPath = this.env.options.appPath;
     var fullPath = path.join(appPath, 'index.html');
@@ -114,10 +93,10 @@ Generator.prototype.addScriptToIndex = function (src) {
       file: fullPath,
       needle: '<!-- endbuild -->',
       splicable: [
-        '<script src="' + this._dest(src) + '.js"></script>'
+        '<script src="scripts/' + script + '.js"></script>'
       ]
     });
   } catch (e) {
-    console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + this._dest(src) + '.js ' + 'not added.\n'.yellow);
+    console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
   }
 };
