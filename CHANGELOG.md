@@ -1,3 +1,35 @@
+<a name="v0.4.0"></a>
+## v0.4.0 (2013-08-21)
+
+
+#### Bug Fixes
+
+* **cli:** fix typo in angular:view generator usage ([d62c2e34](http://github.com/yeoman/generator-angular/commit/d62c2e348bcc61a6794ca23df02b6cce3c79d993))
+* **coffee:**
+  * remove extraneous commas and returns ([6df875cd](http://github.com/yeoman/generator-angular/commit/6df875cd7167aa4a4e9f98a82d2f7fba98a20b0b))
+  * remove the semi-colon from the coffee script templates ([cd46aa88](http://github.com/yeoman/generator-angular/commit/cd46aa88953e60d81dfef64b999f751dc4468ab7))
+* **docs:**
+  * add decorator generator description ([85f07648](http://github.com/yeoman/generator-angular/commit/85f076485ffabf790fe0b7d55b7e3def3a041a6d))
+  * add contributing info to contributing file ([2461aad0](http://github.com/yeoman/generator-angular/commit/2461aad08afe186995d737a1d3dd595c20ec3fb3))
+* **readme:** Remove `yo` installation step ([21f00e50](http://github.com/yeoman/generator-angular/commit/21f00e50571d272d19aea1431177f2d7157ee7be))
+* **templates:**
+  * removed grunt-karma from deps ([19a796f7](http://github.com/yeoman/generator-angular/commit/19a796f71925b6b33232d8a9a8b4f712de80ec40))
+  * classify services registered with .service ([8e1d6fdf](http://github.com/yeoman/generator-angular/commit/8e1d6fdf0d3ef23cf0670512295e03cc0f4516d6))
+  * new scope for directive spec ([2753c990](http://github.com/yeoman/generator-angular/commit/2753c990dbdc8efc7a5f245868cd10f15080c140))
+* **test:** Add correct paths to generated files ([1d6f3fbf](http://github.com/yeoman/generator-angular/commit/1d6f3fbfcc315316a44b468418918afaad871f57))
+* **wording:** clarify compass/scss feature prompt ([5521fd73](http://github.com/yeoman/generator-angular/commit/5521fd73d396763568b5e7c08043a82a4e8864a9))
+
+
+#### Features
+
+* **build:**
+  * generate karma 0.10 config ([e1cb2067](http://github.com/yeoman/generator-angular/commit/e1cb206710f54c8bea6ed8870566ac4c3e248b40))
+  * add autoprefixer support ([c4dfd61d](http://github.com/yeoman/generator-angular/commit/c4dfd61d860f86a97026d1e5188ab78a87f4e6a1), closes [#317](http://github.com/yeoman/generator-angular/issues/317))
+  * switch to use load-grunt-tasks ([4e030c78](http://github.com/yeoman/generator-angular/commit/4e030c78387ec2a60581ff6346b707c98ddb2508))
+  * show elapsed time for grunt tasks ([cacdd0fb](http://github.com/yeoman/generator-angular/commit/cacdd0fb5815355f6e35343c53e876352e622180))
+* **coffee:** generate source maps for coffeescript ([38a872b3](http://github.com/yeoman/generator-angular/commit/38a872b31e9ccef1aac76bec330c3490303abdac))
+* **gen:** Change ga.js to analytics.js ([17ae9e63](http://github.com/yeoman/generator-angular/commit/17ae9e63b2d11d271b36282bb34567b716099cb9))
+
 <a name="v0.3.1"></a>
 ## v0.3.1 (2013-07-24)
 
