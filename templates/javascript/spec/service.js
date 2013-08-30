@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: <%= _.camelize(name) %>', function () {
+describe('Service: <%= _.classify(name) %>', function () {
 
   // load the service's module
-  beforeEach(module('<%= _.camelize(appname) %>App'));
+  beforeEach(module('<%= _.classify(appname) %>App'));
 
   // instantiate service
-  var <%= _.camelize(name) %>;
-  beforeEach(inject(function (_<%= _.camelize(name) %>_) {
-    <%= _.camelize(name) %> = _<%= _.camelize(name) %>_;
+  var <%= _.classify(name) %>;
+  beforeEach(inject(function (_<%= _.classify(name) %>_) {
+    <%= _.classify(name) %> = _<%= _.classify(name) %>_;
   }));
 
   it('should do something', function () {
-    expect(!!<%= _.camelize(name) %>).toBe(true);
+    expect(!!<%= _.classify(name) %>).toBe(true);
   });
 
 });
