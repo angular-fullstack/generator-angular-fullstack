@@ -144,5 +144,25 @@ describe('Angular generator', function () {
         });
       });
     });
+
+    it('should generate a new view in subdirectories', function (done) {
+      var angularView;
+      var deps = ['../../view'];
+      angularView = helpers.createGenerator('angular:view', deps, ['foo/bar']);
+
+      helpers.mockPrompt(angular, {
+        bootstrap: true,
+        compassBoostrap: true,
+        modules: []
+      });
+      angular.run([], function (){
+        angularView.run([], function () {
+          helpers.assertFiles([
+            ['app/views/foo/bar.html']
+          ]);
+          done();
+        });
+      });
+    });
   });
 });

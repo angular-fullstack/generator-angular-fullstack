@@ -21,9 +21,5 @@ function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  var targetPath = this.name;
-  if (this.name.indexOf('/') === -1) {
-    targetPath = 'views/' + targetPath;
-  }
-  this.template('common/view.html', path.join(this.env.options.appPath, targetPath + '.html'));
+  this.template('common/view.html', path.join(this.env.options.appPath, 'views', this.name + '.html'));
 };
