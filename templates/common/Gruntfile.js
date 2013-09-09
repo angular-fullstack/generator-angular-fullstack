@@ -1,6 +1,5 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
-var LIVERELOAD_PORT = 35729;
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -43,7 +42,7 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          livereload: LIVERELOAD_PORT
+          livereload: '<%%= connect.options.livereload %>'
         },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
@@ -68,11 +67,12 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
+        hostname: 'localhost',
+        livereload: 35729
       },
       livereload: {
         options: {
-          livereload: LIVERELOAD_PORT,
+          open: true,
           base: [
             '.tmp',
             yeomanConfig.app
@@ -92,11 +92,6 @@ module.exports = function (grunt) {
         options: {
           base: yeomanConfig.dist
         }
-      }
-    },
-    open: {
-      server: {
-        url: 'http://localhost:<%%= connect.options.port %>/index.html'
       }
     },
     clean: {
@@ -335,7 +330,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
     grunt.task.run([
@@ -343,7 +338,6 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
-      'open',
       'watch'
     ]);
   });
