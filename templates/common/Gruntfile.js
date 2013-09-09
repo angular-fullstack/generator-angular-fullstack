@@ -11,18 +11,12 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
-  // configurable paths
-  var yeomanConfig = {
-    app: 'app',
-    dist: 'dist'
-  };
-
-  try {
-    yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
-  } catch (e) {}
-
   grunt.initConfig({
-    yeoman: yeomanConfig,
+    yeoman: {
+      // configurable paths
+      app: require('./bower.json').appPath || 'app',
+      dist: 'dist'
+    },
     watch: {
       coffee: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -75,7 +69,7 @@ module.exports = function (grunt) {
           open: true,
           base: [
             '.tmp',
-            yeomanConfig.app
+            '<%%= yeoman.app %>'
           ]
         }
       },
@@ -84,13 +78,13 @@ module.exports = function (grunt) {
           middleware: [
             '.tmp',
             'test',
-            yeomanConfig.app
+            '<%%= yeoman.app %>'
           ]
         }
       },
       dist: {
         options: {
-          base: yeomanConfig.dist
+          base: '<%%= yeoman.dist %>'
         }
       }
     },
