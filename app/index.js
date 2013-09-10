@@ -9,8 +9,6 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
-  this.indexFile = this.engine(this.read('../../templates/common/index.html'),
-      this);
 
   args = ['main'];
 
@@ -128,6 +126,10 @@ Generator.prototype.askForModules = function askForModules() {
 
     cb();
   }.bind(this));
+};
+
+Generator.prototype.readIndex = function readIndex() {
+  this.indexFile = this.engine(this.read('../../templates/common/index.html'), this);
 };
 
 // Waiting a more flexible solution for #138
