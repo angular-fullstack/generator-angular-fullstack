@@ -124,6 +124,23 @@ Generator.prototype.askForModules = function askForModules() {
     this.cookiesModule = hasMod('cookiesModule');
     this.sanitizeModule = hasMod('sanitizeModule');
 
+    var angMods = [];
+
+    if (this.cookiesModule) {
+      angMods.push("'ngCookies'");
+    }
+
+    if (this.resourceModule) {
+      angMods.push("'ngResource'");
+    }
+    if (this.sanitizeModule) {
+      angMods.push("'ngSanitize'");
+    }
+
+    if (angMods.length) {
+      this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
+    }
+
     cb();
   }.bind(this));
 };
