@@ -136,18 +136,18 @@ Generator.prototype.readIndex = function readIndex() {
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var sass = this.compassBootstrap;
   var files = [];
-  var source = 'styles/' + ( sass ? 'scss/' : 'css/' );
+  var source = 'styles/' + ( sass ? 's' : '' ) + 'css/';
 
-  if (sass) {
-    files.push('main.scss');
-    this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
-    this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
-  } else {
-    if (this.bootstrap) {
+  if (this.bootstrap) {
+    if (!sass) {
       files.push('bootstrap.css');
     }
-    files.push('main.css');
+
+    this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
+    this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
   }
+
+  files.push('main.' + (sass ? 's' : '') + 'css');
 
   files.forEach(function (file) {
     this.copy(source + file, 'app/styles/' + file);
