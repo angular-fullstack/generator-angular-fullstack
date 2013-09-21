@@ -5,13 +5,12 @@ var ScriptBase = require('../script-base.js');
 var angularUtils = require('../util.js');
 
 
-module.exports = Generator;
-
-function Generator() {
+var Generator = module.exports = function Generator() {
   ScriptBase.apply(this, arguments);
   this.hookFor('angular:controller');
   this.hookFor('angular:view');
-}
+};
+
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.rewriteAppJs = function () {

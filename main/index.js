@@ -5,11 +5,9 @@ var ScriptBase = require('../script-base.js');
 var yeoman = require('yeoman-generator');
 
 
-module.exports = Generator;
-
-function Generator() {
+var Generator = module.exports = function Generator() {
   ScriptBase.apply(this, arguments);
-}
+};
 
 util.inherits(Generator, ScriptBase);
 

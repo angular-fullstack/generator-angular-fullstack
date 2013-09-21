@@ -4,9 +4,7 @@ var util = require('util');
 var yeoman = require('yeoman-generator');
 
 
-module.exports = Generator;
-
-function Generator() {
+var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, '../templates'));
 
@@ -16,7 +14,7 @@ function Generator() {
     } catch (e) {}
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
-}
+};
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 

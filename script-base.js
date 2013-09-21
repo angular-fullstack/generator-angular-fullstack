@@ -4,9 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var angularUtils = require('./util.js');
 
-module.exports = Generator;
-
-function Generator() {
+var Generator = module.exports = function Generator() {
   yeoman.generators.NamedBase.apply(this, arguments);
 
   try {
@@ -60,7 +58,7 @@ function Generator() {
   }
 
   this.sourceRoot(path.join(__dirname, sourceRoot));
-}
+};
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
