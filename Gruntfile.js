@@ -3,6 +3,8 @@ var markdown = require('marked');
 var semver = require('semver');
 
 module.exports = function (grunt) {
+  require('load-grunt-tasks')(grunt);
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     changelog: {
@@ -53,9 +55,6 @@ module.exports = function (grunt) {
       args: ['add'].concat(files)
     }, grunt.task.current.async());
   });
-
-  grunt.loadNpmTasks('grunt-release');
-  grunt.loadNpmTasks('grunt-conventional-changelog');
 
   grunt.registerTask('default', ['bump', 'changelog', 'stage', 'release']);
 };

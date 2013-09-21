@@ -33,6 +33,7 @@
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-conventional-changelog": "~1.0.0",
+    "load-grunt-tasks": "~0.1.0",
     "marked": "~0.2.8",
     "semver": "~2.1.0",
     "grunt-release": "~0.5.1"
