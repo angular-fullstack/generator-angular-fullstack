@@ -75,7 +75,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          middleware: [
+          base: [
             '.tmp',
             'test',
             '<%%= yeoman.app %>'
