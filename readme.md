@@ -32,6 +32,10 @@ Available generators:
 * [angular:filter](#filter)
 * [angular:route](#route)
 * [angular:service](#service)
+* [angular:provider](#service)
+* [angular:factory](#service)
+* [angular:value](#service)
+* [angular:constant](#service)
 * [angular:decorator] (#decorator)
 * [angular:view](#view)
 
