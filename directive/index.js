@@ -1,8 +1,6 @@
 'use strict';
-var path = require('path');
 var util = require('util');
 var ScriptBase = require('../script-base.js');
-var angularUtils = require('../util.js');
 
 
 var Generator = module.exports = function Generator() {
@@ -12,7 +10,5 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
-  this.appTemplate('directive', 'scripts/directives/' + this.name);
-  this.testTemplate('spec/directive', 'directives/' + this.name);
-  this.addScriptToIndex('directives/' + this.name);
+  this.generateSourceAndTest('directive', 'spec/directive', 'directives');
 };

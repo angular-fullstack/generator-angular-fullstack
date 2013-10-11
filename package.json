@@ -36,6 +36,7 @@
     "load-grunt-tasks": "~0.1.0",
     "marked": "~0.2.8",
     "semver": "~2.1.0",
+    "underscore.string": "~2.3.1",
     "grunt-release": "~0.5.1"
   },
   "engines": {
