@@ -98,3 +98,9 @@ Generator.prototype.addScriptToIndex = function (script) {
     console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
   }
 };
+
+Generator.prototype.generateSourceAndTest = function (appTemplate, testTemplate, targetDirectory) {
+  this.appTemplate(appTemplate, path.join('scripts', targetDirectory, this.name));
+  this.testTemplate(testTemplate, path.join(targetDirectory, this.name));
+  this.addScriptToIndex(path.join(targetDirectory, this.name));
+};
