@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 angular.module('<%= _.camelize(appname) %>App')
   .factory '<%= _.camelize(name) %>', () ->
@@ -10,5 +10,5 @@ angular.module('<%= _.camelize(appname) %>App')
     # Public API here
     {
       someMethod: () ->
-        meaningOfLife;
+        meaningOfLife
     }
