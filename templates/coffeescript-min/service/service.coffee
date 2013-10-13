@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 angular.module('<%= _.camelize(appname) %>App')
   .service '<%= _.classify(name) %>', () ->
