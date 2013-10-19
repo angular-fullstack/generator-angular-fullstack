@@ -52,19 +52,34 @@ var Generator = module.exports = function Generator(args, options) {
     args: args
   });
 
-  this.hookFor('karma', {
-    as: 'app',
-    options: {
+  this.on('end', function () {
+    this.installDependencies({ skipInstall: this.options['skip-install'] });
+
+    var enabledComponents = [];
+
+    if (this.resourceModule) {
+      enabledComponents.push('angular-resource/angular-resource.js');
+    }
+
+    if (this.cookiesModule) {
+      enabledComponents.push('angular-cookies/angular-cookies.js');
+    }
+
+    if (this.sanitizeModule) {
+      enabledComponents.push('angular-sanitize/angular-sanitize.js');
+    }
+
+    this.invoke('karma:app', {
       options: {
         coffee: this.options.coffee,
         travis: true,
-        'skip-install': this.options['skip-install']
-       }
-    }
-  });
-
-  this.on('end', function () {
-    this.installDependencies({ skipInstall: this.options['skip-install'] });
+        'skip-install': this.options['skip-install'],
+        components: [
+          'angular/angular.js',
+          'angular-mocks/angular-mocks.js'
+        ].concat(enabledComponents)
+      }
+    });
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
