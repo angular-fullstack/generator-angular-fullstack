@@ -1,3 +1,11 @@
+<a name="v0.5.1"></a>
+### v0.5.1 (2013-10-22)
+
+
+#### Bug Fixes
+
+* **app:** test setup in default configuration ([2bebccbd](http://github.com/yeoman/generator-angular/commit/2bebccbdd15d177805440b6d1ec84cc38a2b4678))
+
 <a name="v0.5.0"></a>
 ## v0.5.0 (2013-10-17)
 
