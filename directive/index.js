@@ -10,5 +10,10 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
-  this.generateSourceAndTest('directive', 'spec/directive', 'directives');
+  this.generateSourceAndTest(
+    'directive',
+    'spec/directive',
+    'directives',
+    this.options['skip-add'] || false
+  );
 };

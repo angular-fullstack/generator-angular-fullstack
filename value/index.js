@@ -10,5 +10,10 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createServiceFiles = function createServiceFiles() {
-  this.generateSourceAndTest('service/value', 'spec/service', 'services');
+  this.generateSourceAndTest(
+    'service/value',
+    'spec/service',
+    'services',
+    this.options['skip-add'] || false
+  );
 };

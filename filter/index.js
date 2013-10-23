@@ -10,5 +10,10 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createFilterFiles = function createFilterFiles() {
-  this.generateSourceAndTest('filter', 'spec/filter', 'filters');
+  this.generateSourceAndTest(
+    'filter',
+    'spec/filter',
+    'filters',
+    this.options['skip-add'] || false
+  );
 };
