@@ -1,14 +1,14 @@
 'use strict'
 
-describe 'Service: <%= _.classify(name) %>', () ->
+describe 'Service: <%= classedName %>', () ->
 
   # load the service's module
-  beforeEach module '<%= _.classify(appname) %>App'
+  beforeEach module '<%= scriptAppName %>App'
 
   # instantiate service
-  <%= _.classify(name) %> = {}
-  beforeEach inject (_<%= _.classify(name) %>_) ->
-    <%= _.classify(name) %> = _<%= _.classify(name) %>_
+  <%= classedName %> = {}
+  beforeEach inject (_<%= classedName %>_) ->
+    <%= classedName %> = _<%= classedName %>_
 
   it 'should do something', () ->
-    expect(!!<%= _.classify(name) %>).toBe true
+    expect(!!<%= classedName %>).toBe true

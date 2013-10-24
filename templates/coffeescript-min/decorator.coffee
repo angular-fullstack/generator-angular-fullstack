@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module("<%= _.camelize(appname) %>App").config ["$provide", ($provide) ->
-  $provide.decorator "<%= _.camelize(name) %>", ($delegate) ->
+angular.module("<%= scriptAppName").config ["$provide", ($provide) ->
+  $provide.decorator "<%= cameledName %>", ($delegate) ->
     # decorate the $delegate
     $delegate
 ]

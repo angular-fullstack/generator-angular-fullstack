@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('<%= _.camelize(appname) %>App')
-  .provider '<%= _.camelize(name) %>', [->
+angular.module('<%= scriptAppName %>')
+  .provider '<%= cameledName %>', [->
 
     # Private variables
     salutation = 'Hello'
