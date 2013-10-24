@@ -22,7 +22,9 @@ var Generator = module.exports = function Generator(args, options) {
   this.appPath = this.env.options.appPath;
 
   if (typeof this.env.options.coffee === 'undefined') {
-    this.option('coffee');
+    this.option('coffee', {
+      desc: 'Generate CoffeeScript instead of JavaScript'
+    });
 
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
@@ -35,7 +37,9 @@ var Generator = module.exports = function Generator(args, options) {
   }
 
   if (typeof this.env.options.minsafe === 'undefined') {
-    this.option('minsafe');
+    this.option('minsafe', {
+      desc: 'Generate AngularJS minification safe code'
+    });
     this.env.options.minsafe = this.options.minsafe;
     args.push('--minsafe');
   }
