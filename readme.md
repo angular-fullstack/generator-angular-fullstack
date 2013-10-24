@@ -227,6 +227,18 @@ The annotations are important because minified code will rename variables, makin
 
 The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself.
 
+### Add to Index
+By default, new scripts are added to the index.html file. However, this may not always be suitable. Some use cases:
+
+* Manually added to the file
+* Auto-added by a 3rd party plugin
+* Using this generator as a subgenerator
+
+To skip adding them to the index, pass in the skip-add argument:
+```bash
+yo angular:service serviceName --skip-add
+```
+
 ## Bower Components
 
 The following packages are always installed by the [app](#app) generator:
