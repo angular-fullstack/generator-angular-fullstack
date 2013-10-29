@@ -1,22 +1,24 @@
 {
-  "name": "generator-angular",
-  "version": "0.5.1",
-  "description": "Yeoman generator for AngularJS",
+  "name": "generator-angular-fullstack",
+  "version": "0.0.1",
+  "description": "Yeoman generator for AngularJS with Express server",
   "keywords": [
     "yeoman-generator",
     "scaffold",
+    "express",
+    "fullstack",
     "framework",
     "component",
     "front-end",
     "app"
   ],
-  "homepage": "https://github.com/yeoman/generator-angular",
-  "bugs": "https://github.com/yeoman/generator-angular/issues",
-  "author": "Chrome Developer Relations",
+  "homepage": "https://github.com/DaftMonk/generator-angular-fullstack",
+  "bugs": "https://github.com/DaftMonk/generator-angular-fullstack/issues",
+  "author": "Tyler Henkel",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/yeoman/generator-angular.git"
+    "url": "git://github.com/DaftMonk/generator-angular-fullstack.git"
   },
   "scripts": {
     "test": "mocha"

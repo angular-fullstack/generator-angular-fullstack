@@ -21,11 +21,26 @@ describe('Angular generator', function () {
         'karma:app'
       ]
     ];
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    var p = path.join(__dirname, 'temp');
+    var busyTries = 0;
+    var busyTriesMax = 3;
+    helpers.testDirectory(p, function CB (err) {
       if (err) {
+        //For Windows users
+        if (err.code === "EBUSY" && busyTries < busyTriesMax) {
+          if(process.cwd() === p && process.platform === "win32"){
+            process.chdir(path.join(p, '..'));
+          }
+          busyTries++;
+          var time = busyTries * 100;
+          // try again, with the same exact callback as this one.
+          return setTimeout(function () {
+            helpers.testDirectory(p, CB)
+          }, time)
+        }
         done(err);
       }
-      angular = helpers.createGenerator('angular:app', deps);
+      angular = helpers.createGenerator('angular-fullstack:app', deps);
       angular.options['skip-install'] = true;
       done();
     });
@@ -54,6 +69,7 @@ describe('Angular generator', function () {
                     ['.bowerrc', /"directory": "app\/bower_components"/],
                     'Gruntfile.js',
                     'package.json',
+                    'server.js',
                     ['bower.json', /"name":\s+"temp"/],
                     'app/scripts/app.js',
                     'app/index.html',
@@ -129,7 +145,7 @@ describe('Angular generator', function () {
     var angularGenerator;
     var name = 'foo';
     var deps = [path.join('../..', generatorType)];
-    angularGenerator = helpers.createGenerator('angular:' + generatorType, deps, [name]);
+    angularGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name]);
 
     helpers.mockPrompt(angular, {
       bootstrap: true,
@@ -195,7 +211,7 @@ describe('Angular generator', function () {
     it('should generate a new view', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo']);
+      angularView = helpers.createGenerator('angular-fullstack:view', deps, ['foo']);
 
       helpers.mockPrompt(angular, {
         bootstrap: true,
@@ -215,7 +231,7 @@ describe('Angular generator', function () {
     it('should generate a new view in subdirectories', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular:view', deps, ['foo/bar']);
+      angularView = helpers.createGenerator('angular-fullstack:view', deps, ['foo/bar']);
 
       helpers.mockPrompt(angular, {
         bootstrap: true,

@@ -27,7 +27,7 @@ describe('Angular generator template mechanism', function () {
             if (err) {
                 done(err);
             }
-            angular = helpers.createGenerator('angular:app', deps);
+            angular = helpers.createGenerator('angular-fullstack:app', deps);
             angular.options['skip-install'] = true;
             done();
         });

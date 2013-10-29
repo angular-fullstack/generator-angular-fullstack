@@ -40,15 +40,15 @@ var Generator = module.exports = function Generator(args, options) {
     args.push('--minsafe');
   }
 
-  this.hookFor('angular:common', {
+  this.hookFor('angular-fullstack:common', {
     args: args
   });
 
-  this.hookFor('angular:main', {
+  this.hookFor('angular-fullstack:main', {
     args: args
   });
 
-  this.hookFor('angular:controller', {
+  this.hookFor('angular-fullstack:controller', {
     args: args
   });
 
@@ -257,4 +257,8 @@ Generator.prototype.packageFiles = function () {
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+};
+
+Generator.prototype.serverFiles = function () {
+  this.template('../../templates/express/server.js', 'server.js');
 };

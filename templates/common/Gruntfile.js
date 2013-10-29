@@ -17,6 +17,27 @@ module.exports = function (grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist'
     },
+    express: {
+        options: {
+            port: process.env.PORT || 9000
+        },
+        dev: {
+            options: {
+                script: 'server.js'
+            }
+        },
+        prod: {
+            options: {
+                script: 'server.js',
+                node_env: 'production'
+            }
+        }
+    },
+    open: {
+      server: {
+        url: 'http://localhost:<%%= express.options.port %>'
+      }
+    },
     watch: {
       coffee: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -30,20 +51,24 @@ module.exports = function (grunt) {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
       },<% } %>
+      express: {
+          files: [
+              '<%%= yeoman.app %>/{,*//*}*.html',
+              '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
+              '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
+              '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+              'server.js',
+              'server/{,*//*}*.{js,json}'
+          ],
+          tasks: ['express:dev'],
+          options: {
+              livereload: true,
+              nospawn: true //Without this option specified express won't be reloaded
+          }
+      },
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
-      },
-      livereload: {
-        options: {
-          livereload: '<%%= connect.options.livereload %>'
-        },
-        files: [
-          '<%%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
       }
     },
     autoprefixer: {
@@ -55,38 +80,6 @@ module.exports = function (grunt) {
           src: '{,*/}*.css',
           dest: '.tmp/styles/'
         }]
-      }
-    },
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35729
-      },
-      livereload: {
-        options: {
-          open: true,
-          base: [
-            '.tmp',
-            '<%%= yeoman.app %>'
-          ]
-        }
-      },
-      test: {
-        options: {
-          port: 9001,
-          base: [
-            '.tmp',
-            'test',
-            '<%%= yeoman.app %>'
-          ]
-        }
-      },
-      dist: {
-        options: {
-          base: '<%%= yeoman.dist %>'
-        }
       }
     },
     clean: {
@@ -324,16 +317,21 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
+    this.async();
+  });
+
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'express:prod', 'open', 'express-keepalive']);
     }
 
     grunt.task.run([
       'clean:server',
       'concurrent:server',
       'autoprefixer',
-      'connect:livereload',
+      'express:dev',
+      'open',
       'watch'
     ]);
   });
@@ -342,7 +340,6 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
     'karma'
   ]);
 
