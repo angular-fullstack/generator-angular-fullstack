@@ -24,7 +24,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.13.0"
+    "yeoman-generator": "~0.13.0",    
+    "chalk": "~0.2.0"
   },
   "peerDependencies": {
     "generator-karma": "~0.6.0",
