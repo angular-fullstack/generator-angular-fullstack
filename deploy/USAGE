@@ -1,0 +1,8 @@
+Description:
+    Creates a Heroku deployment folder and grunt configuration
+
+Example:
+    yo angular-fullstack:deploy heroku
+
+    This will create:
+        heroku deployment folder

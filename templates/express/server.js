@@ -5,14 +5,13 @@
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , routes = require('./server/routes');
+  , api = require('./lib/api');
 
 var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 
-app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -26,10 +25,11 @@ if ('development' == app.get('env')) {
 } 
 // production only
 else {
-  app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
+  app.use(express.static(path.join(__dirname, 'public')));
 }
 
-app.get('/api/awesomeThings', routes.awesomeThings);
+app.get('/api/awesomeThings', api.awesomeThings);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log("Express server listening on port %d in %s mode", app.get('port'), app.get('env'));
