@@ -2,7 +2,7 @@ Description:
     Creates a new Angular controller
 
 Example:
-    yo angular:controller Thing [--coffee] [--minsafe]
+    yo angular-fullstack:controller Thing [--coffee] [--minsafe]
 
     This will create:
         app/scripts/controllers/thing-ctrl.js

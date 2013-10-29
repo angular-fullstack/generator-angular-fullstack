@@ -2,11 +2,12 @@ Description:
     Creates a default AngularJS app
 
 Example:
-    yo angular [--coffee] [--minsafe]
+    yo angular-fullstack [--coffee] [--minsafe]
 
     This will create:
         Gruntfile.js
         bower.json
+        server.js
 
         app/index.html
         app/scripts/your-app-name-here.js

@@ -2,7 +2,7 @@ Description:
     Creates a new AngularJS filter
 
 Example:
-    yo angular:filter thing [--coffee] [--minsafe]
+    yo angular-fullstack:filter thing [--coffee] [--minsafe]
 
     This will create:
         app/scripts/filters/thing.js
