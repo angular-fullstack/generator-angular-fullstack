@@ -93,6 +93,16 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      heroku: {
+        files: [{
+          dot: true,
+          src: [
+            'heroku/*',
+            '!heroku/.git*',
+            '!heroku/Procfile'                 
+          ]
+        }]
+      }, 
       server: '.tmp'
     },
     jshint: {
@@ -258,6 +268,25 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      heroku: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.dist %>',
+          dest: 'heroku/public',
+          src: [
+            '**/**'
+          ]
+        }, {
+          expand: true,
+          dest: 'heroku',
+          src: [
+            'package.json',
+            'server.js',
+            'lib/**/*'
+          ]
+        }]
+      },  
       styles: {
         expand: true,
         cwd: '<%%= yeoman.app %>/styles',
@@ -356,6 +385,12 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin'
+  ]);
+
+  grunt.registerTask('heroku', [
+    'build',
+    'clean:heroku',
+    'copy:heroku'    
   ]);
 
   grunt.registerTask('default', [
