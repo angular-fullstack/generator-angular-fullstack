@@ -1,15 +1,15 @@
-# AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.png?branch=master)](http://travis-ci.org/yeoman/generator-angular)
+# AngularJS + Express Full Stack Generator 
 
-Maintainer: [Brian Ford](https://github.com/btford)
+A generator for AngularJS, integrated with an Express `server.js` for full stack development. Featuring livereload of client and server files, grunt tasks that are integrated with express, and an easy deployment workflow.
 
-Based on [angular-seed](https://github.com/angular/angular-seed/)
+Based on [generator-angular](https://github.com/yeoman/generator-angular)
 
 
 ## Usage
 
-Install `generator-angular`:
+Install `generator-angular-fullstack`:
 ```
-npm install -g generator-angular
+npm install -g generator-angular-fullstack
 ```
 
 Make a new directory, and `cd` into it:
@@ -17,27 +17,62 @@ Make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo angular`, optionally passing an app name:
+Run `yo angular-fullstack`, optionally passing an app name:
 ```
-yo angular [app-name]
+yo angular-fullstack [app-name]
 ```
+
+### Express
+
+Launch your express server in development mode.
+```
+grunt server
+``` 
+
+Launch your express server in production mode, uses the minified/optimized production app folder.
+```
+grunt server:dist
+``` 
+
+### Livereload
+
+`grunt server` will watch client files in `app/`, and server files inside `lib/`, restarting the Express server when a change is detected. This requires the [Livereload plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) or equivalant to refresh your browser. Be sure that the plugin is enabled on the page you're testing.
+
+### Deployment
+
+While deployment should be easy enough with the `grunt dist` build, we provide an extremely simplifed deployment process for heroku.
+
+`yo angular-fullstack:deploy heroku` for generating a deployment ready folder for [heroku.com](http://heroku.com/) from your project files. 
+
+**Create and Deploy an app in 4 steps**
+
+1. `mkdir foo && cd foo`
+
+2. `yo angular-fullstack`
+
+3. `yo angular-fullstack:deploy heroku`
+
+4. `cd heroku && git push heroku master`
+
+That's it! Your app should be live and shareable. Type `heroku open` to view it.  
 
 ## Generators
 
 Available generators:
 
-* [angular](#app) (aka [angular:app](#app))
-* [angular:controller](#controller)
-* [angular:directive](#directive)
-* [angular:filter](#filter)
-* [angular:route](#route)
-* [angular:service](#service)
-* [angular:provider](#service)
-* [angular:factory](#service)
-* [angular:value](#service)
-* [angular:constant](#service)
-* [angular:decorator] (#decorator)
-* [angular:view](#view)
+* [angular-fullstack](#app) (aka [angular-fullstack:app](#app))
+* [angular-fullstack:controller](#controller)
+* [angular-fullstack:directive](#directive)
+* [angular-fullstack:filter](#filter)
+* [angular-fullstack:route](#route)
+* [angular-fullstack:service](#service)
+* [angular-fullstack:provider](#service)
+* [angular-fullstack:factory](#service)
+* [angular-fullstack:value](#service)
+* [angular-fullstack:constant](#service)
+* [angular-fullstack:decorator](#decorator)
+* [angular-fullstack:view](#view)
+* [angular-fullstack:deploy](#deploy)
 
 **Note: Generators are to be run from the root directory of your app.**
 
@@ -46,7 +81,15 @@ Sets up a new AngularJS app, generating all the boilerplate you need to get star
 
 Example:
 ```bash
-yo angular
+yo angular-fullstack
+```
+
+### Deploy
+Initalizes a heroku app and generates a `heroku` folder which is ready to push to heroku.
+
+Example:
+```bash
+yo angular-fullstack:deploy heroku
 ```
 
 ### Route
@@ -54,7 +97,7 @@ Generates a controller and view, and configures a route in `app/scripts/app.js` 
 
 Example:
 ```bash
-yo angular:route myroute
+yo angular-fullstack:route myroute
 ```
 
 Produces `app/scripts/controllers/myroute.js`:
@@ -74,7 +117,7 @@ Generates a controller in `app/scripts/controllers`.
 
 Example:
 ```bash
-yo angular:controller user
+yo angular-fullstack:controller user
 ```
 
 Produces `app/scripts/controllers/user.js`:
@@ -88,7 +131,7 @@ Generates a directive in `app/scripts/directives`.
 
 Example:
 ```bash
-yo angular:directive myDirective
+yo angular-fullstack:directive myDirective
 ```
 
 Produces `app/scripts/directives/myDirective.js`:
@@ -109,7 +152,7 @@ Generates a filter in `app/scripts/filters`.
 
 Example:
 ```bash
-yo angular:filter myFilter
+yo angular-fullstack:filter myFilter
 ```
 
 Produces `app/scripts/filters/myFilter.js`:
@@ -126,7 +169,7 @@ Generates an HTML view file in `app/views`.
 
 Example:
 ```bash
-yo angular:view user
+yo angular-fullstack:view user
 ```
 
 Produces `app/views/user.html`:
@@ -149,14 +192,14 @@ angular.module('myMod').service('myService', function () {
 });
 ```
 
-You can also do `yo angular:factory`, `yo angular:provider`, `yo angular:value`, and `yo angular:constant` for other types of services.
+You can also do `yo angular-fullstack:factory`, `yo angular-fullstack:provider`, `yo angular-fullstack:value`, and `yo angular-fullstack:constant` for other types of services.
 
 ### Decorator
 Generates an AngularJS service decorator.
 
 Example:
 ```bash
-yo angular:decorator serviceName
+yo angular-fullstack:decorator serviceName
 ```
 
 Produces `app/scripts/decorators/serviceNameDecorator.js`:
@@ -177,7 +220,7 @@ For generators that output scripts, the `--coffee` option will output CoffeeScri
 
 For example:
 ```bash
-yo angular:controller user --coffee
+yo angular-fullstack:controller user --coffee
 ```
 
 Produces `app/scripts/controller/user.coffee`:
@@ -196,7 +239,7 @@ By default, generators produce unannotated code. Without annotations, AngularJS'
 
 #### Example
 ```bash
-yo angular:controller user --minsafe
+yo angular-fullstack:controller user --minsafe
 ```
 
 Produces `app/controller/user.js`:
@@ -236,7 +279,7 @@ By default, new scripts are added to the index.html file. However, this may not 
 
 To skip adding them to the index, pass in the skip-add argument:
 ```bash
-yo angular:service serviceName --skip-add
+yo angular-fullstack:service serviceName --skip-add
 ```
 
 ## Bower Components
