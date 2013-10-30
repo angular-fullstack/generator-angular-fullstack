@@ -62,14 +62,14 @@ Generator.prototype.herokuCreate = function herokuCreate() {
   if(this.name.toLowerCase() != "heroku") return;
   var done = this.async();
 
-  exec('heroku apps:create && heroku config:set NODE_ENV=production"', { cwd: 'heroku' }, function (err, stdout, stderr) {
+  exec('heroku apps:create && heroku config:set NODE_ENV=production', { cwd: 'heroku' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
     	console.log('stdout: ' + stdout);
     	console.log(chalk.green('You\'re all set! Now push to heroku with\n\t' + chalk.bold('git push heroku master') +
     		        '\nfrom your new heroku folder'));
-    	console.log(chalk.yellow('After app modification\n\t' + chalk.bold('grunt heroku') +
+    	console.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt heroku') +
     		        '\nthen commit and push the heroku folder'));
     }
     done();

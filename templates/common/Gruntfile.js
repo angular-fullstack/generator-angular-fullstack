@@ -272,10 +272,9 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.dist %>',
-          dest: 'heroku/public',
+          dest: 'heroku',
           src: [
-            '**/**'
+            '<%%= yeoman.dist %>/**'
           ]
         }, {
           expand: true,
