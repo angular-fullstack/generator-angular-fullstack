@@ -1,11 +1,9 @@
-/**
- * Module dependencies.
- */
+'use strict';
 
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , api = require('./lib/api');
+var express = require('express'),
+    http = require('http'),
+    path = require('path'),
+    api = require('./lib/api');
 
 var app = express();
 
@@ -18,11 +16,11 @@ app.use(express.methodOverride());
 app.use(app.router);
 
 // development only
-if ('development' == app.get('env')) {
+if ('development' === app.get('env')) {
   app.use(express.static(path.join(__dirname, '.tmp')));
   app.use(express.static(path.join(__dirname, 'app')));
-  app.use(express.errorHandler());  
-} 
+  app.use(express.errorHandler());
+}
 // production only
 else {
   app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
