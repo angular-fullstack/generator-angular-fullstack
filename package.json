@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-fullstack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Yeoman generator for AngularJS with Express server",
   "keywords": [
     "yeoman-generator",
@@ -24,7 +24,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.13.0",    
+    "yeoman-generator": "~0.13.0",
     "chalk": "~0.2.0"
   },
   "peerDependencies": {
