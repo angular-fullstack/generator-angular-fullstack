@@ -54,8 +54,8 @@ module.exports = function (grunt) {
       express: {
           files: [
               '<%%= yeoman.app %>/{,*//*}*.html',
-              '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
-              '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
+              '{.tmp,<%%= yeoman.app %>}/styles/{,*//*}*.css',
+              '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
               '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
               'server.js',
               'lib/{,*//*}*.{js,json}'
