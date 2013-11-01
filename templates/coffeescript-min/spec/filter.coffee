@@ -1,15 +1,15 @@
 'use strict'
 
-describe 'Filter: <%= _.camelize(name) %>', () ->
+describe 'Filter: <%= cameledName %>', () ->
 
   # load the filter's module
-  beforeEach module '<%= _.camelize(appname) %>App'
+  beforeEach module '<%= scriptAppName %>'
 
   # initialize a new instance of the filter before each test
-  <%= _.camelize(name) %> = {}
+  <%= cameledName %> = {}
   beforeEach inject ($filter) ->
-    <%= _.camelize(name) %> = $filter '<%= _.camelize(name) %>'
+    <%= cameledName %> = $filter '<%= cameledName %>'
 
-  it 'should return the input prefixed with "<%= _.camelize(name) %> filter:"', () ->
+  it 'should return the input prefixed with "<%= cameledName %> filter:"', () ->
     text = 'angularjs'
-    expect(<%= _.camelize(name) %> text).toBe ('<%= _.camelize(name) %> filter: ' + text)
+    expect(<%= cameledName %> text).toBe ('<%= cameledName %> filter: ' + text)

@@ -1,19 +1,19 @@
 'use strict';
 
-describe('Filter: <%= _.camelize(name) %>', function () {
+describe('Filter: <%= cameledName %>', function () {
 
   // load the filter's module
-  beforeEach(module('<%= _.camelize(appname) %>App'));
+  beforeEach(module('<%= scriptAppName %>'));
 
   // initialize a new instance of the filter before each test
-  var <%= _.camelize(name) %>;
+  var <%= cameledName %>;
   beforeEach(inject(function($filter) {
-    <%= _.camelize(name) %> = $filter('<%= _.camelize(name) %>');
+    <%= cameledName %> = $filter('<%= cameledName %>');
   }));
 
-  it('should return the input prefixed with "<%= _.camelize(name) %> filter:"', function () {
+  it('should return the input prefixed with "<%= cameledName %> filter:"', function () {
     var text = 'angularjs';
-    expect(<%= _.camelize(name) %>(text)).toBe('<%= _.camelize(name) %> filter: ' + text);
+    expect(<%= cameledName %>(text)).toBe('<%= cameledName %> filter: ' + text);
   });
 
 });

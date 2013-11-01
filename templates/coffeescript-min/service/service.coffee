@@ -1,5 +1,5 @@
 'use strict'
 
-angular.module('<%= _.camelize(appname) %>App')
-  .service '<%= _.classify(name) %>', () ->
+angular.module('<%= scriptAppName %>')
+  .service '<%= classedName %>', () ->
     # AngularJS will instantiate a singleton by calling "new" on this function

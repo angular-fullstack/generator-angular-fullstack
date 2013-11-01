@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('<%= _.camelize(appname) %>App')
+angular.module('<%= scriptAppName %>')
     .config(function ($provide) {
-        $provide.decorator('<%= _.camelize(name) %>', function ($delegate) {
+        $provide.decorator('<%= cameledName %>', function ($delegate) {
             // decorate the $delegate
             return $delegate;
         });

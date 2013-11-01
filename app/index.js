@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var util = require('util');
+var angularUtils = require('../util.js');
 var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 
@@ -9,6 +10,14 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
+  this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+
+  this.option('app-suffix', {
+    desc: 'Allow a custom suffix to be added to the module name',
+    type: String,
+    required: 'false'
+  });
+  this.scriptAppName = this.appname + angularUtils.appName(this);
 
   args = ['main'];
 
