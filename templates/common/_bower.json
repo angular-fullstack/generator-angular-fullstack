@@ -2,10 +2,10 @@
   "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.0.7",
+    "angular": "~1.0.8",
     "json3": "~3.2.4",<% if (bootstrap) { %>
-    "jquery": "~1.9.1",
-    "bootstrap-sass": "~2.3.1",
+    "jquery": "~1.10.0",
+    "sass-bootstrap": "~3.0.0",
     <% } %>"es5-shim": "~2.0.8"<% if (resourceModule) { %>,
     "angular-resource": "~1.0.7"<% } %><% if (cookiesModule) { %>,
     "angular-cookies": "~1.0.7"<% } %><% if (sanitizeModule) { %>,
