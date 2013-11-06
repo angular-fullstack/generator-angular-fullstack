@@ -276,16 +276,7 @@ This will cause Yeoman-generated client-side files to be placed in `public`.
 
 ## Testing
 
-For tests to work properly, karma needs the `angular-mocks` bower package.
-This script is included in the bower.json in the `devDependencies` section, which will
-be available very soon, probably with the next minor release of bower.
-
-While bower `devDependencies` are not yet implemented, you can fix it by running:
-```bash
-bower install angular-mocks
-```
-
-By running `grunt test` you should now be able to run your unit tests with karma.
+Running `grunt test` will run the unit tests with karma.
 
 ## Contribute
 
