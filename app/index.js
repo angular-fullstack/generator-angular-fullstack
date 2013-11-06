@@ -261,5 +261,5 @@ Generator.prototype.packageFiles = function () {
 
 Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
-  this.template('../../templates/express/lib/api/index.js', 'lib/api/index.js');
+  this.template('../../templates/express/lib/routes/api.js', 'lib/routes/api.js');
 };
