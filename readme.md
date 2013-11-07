@@ -1,6 +1,13 @@
 # AngularJS + Express Full Stack Generator 
 
-A generator for AngularJS, integrated with an Express `server.js` for full stack development. Featuring livereload of client and server files, grunt tasks that are integrated with express, and an easy deployment workflow.
+A generator for AngularJS, integrated with an Express `server.js` for full stack development. 
+
+Featuring: 
+
+ * Express server integrated with grunt tasks
+ * Livereload of client and server files
+ * Easy deployment workflow.
+ * **NEW** Optional mongoDB integration
 
 Based on [generator-angular](https://github.com/yeoman/generator-angular)
 
