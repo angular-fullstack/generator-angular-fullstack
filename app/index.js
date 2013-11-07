@@ -160,6 +160,21 @@ Generator.prototype.askForModules = function askForModules() {
   }.bind(this));
 };
 
+Generator.prototype.askForMongo = function askForMongo() {
+  var cb = this.async();
+
+  this.prompt([{
+    type: 'confirm',
+    name: 'mongo',
+    message: 'Would you like to include MongoDB with Mongoose?',
+    default: false
+  }], function (props) {
+    this.mongo = props.mongo;
+
+    cb();
+  }.bind(this));
+};
+
 Generator.prototype.readIndex = function readIndex() {
   this.indexFile = this.engine(this.read('../../templates/common/index.html'), this);
 };
@@ -261,5 +276,15 @@ Generator.prototype.packageFiles = function () {
 
 Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
-  this.template('../../templates/express/lib/routes/api.js', 'lib/routes/api.js');
+  this.template('../../templates/express/api.js', 'lib/controllers/api.js');
+};
+
+Generator.prototype.mongoFiles = function () {
+  if (!this.mongo) {
+    return;  // Skip if disabled.
+  }
+
+  this.template('../../templates/express/mongo/mongo.js', 'lib/db/mongo.js');
+  this.template('../../templates/express/mongo/dummydata.js', 'lib/db/dummydata.js');
+  this.template('../../templates/express/mongo/thing.js', 'lib/models/thing.js');
 };
