@@ -219,14 +219,14 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
     'bower_components/sass-bootstrap/js/alert.js',
     'bower_components/sass-bootstrap/js/button.js',
     'bower_components/sass-bootstrap/js/carousel.js',
+    'bower_components/sass-bootstrap/js/transition.js',
     'bower_components/sass-bootstrap/js/collapse.js',
     'bower_components/sass-bootstrap/js/dropdown.js',
     'bower_components/sass-bootstrap/js/modal.js',
-    'bower_components/sass-bootstrap/js/popover.js',
     'bower_components/sass-bootstrap/js/scrollspy.js',
     'bower_components/sass-bootstrap/js/tab.js',
     'bower_components/sass-bootstrap/js/tooltip.js',
-    'bower_components/sass-bootstrap/js/transition.js',
+    'bower_components/sass-bootstrap/js/popover.js'
   ]);
 };
 
