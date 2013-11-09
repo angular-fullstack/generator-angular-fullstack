@@ -1,3 +1,25 @@
+<a name="v0.6.0"></a>
+## v0.6.0 (TBD)
+
+
+#### Bug Fixes
+
+* **bootstrap:** some plugins have ordering dependencies ([3da4a130](http://github.com/yeoman/generator-angular/commit/3da4a1301e0b744c7a6054fafff26fff16b6442b))
+* **docs:** Add coffeescript=false to readme ([abd7dc38](http://github.com/yeoman/generator-angular/commit/abd7dc38be0cf511307c784f30d59c9fdcaea3e2))
+* **gen:**
+  * remove extra "App" from service spec files ([4053f11f](http://github.com/yeoman/generator-angular/commit/4053f11f800280569f5b7396ad015f0a6bcc7b49))
+  * options should have descriptions ([da001832](http://github.com/yeoman/generator-angular/commit/da001832dbdb268b3bf38f359c72b40c401273e4))
+* **styles:** update path to icon images ([8daad4f2](http://github.com/yeoman/generator-angular/commit/8daad4f2de9dbde4fcc810527da7c9607e1db8d4))
+
+#### Features
+
+* **app:**
+  * update to angular 1.2.0 ([77082c6b](http://github.com/yeoman/generator-angular/commit/77082c6b8d1dda76579f1970a270dffc359f027f))
+  * upgrade to Bootstrap 3.0.1 ([59f4b1ba](http://github.com/yeoman/generator-angular/commit/59f4b1ba73842b758174ad44a7da60af4f4db63f))
+* **gen:**
+  * allow app names to have custom suffix ([09f0f7b3](http://github.com/yeoman/generator-angular/commit/09f0f7b3a8c3264b7527bc9fed8c709becec99eb))
+  * add option to not add to index ([486ee146](http://github.com/yeoman/generator-angular/commit/486ee14660ac51b7cfcb4b7de50135833954f193))
+
 <a name="v0.5.1"></a>
 ### v0.5.1 (2013-10-22)
 
