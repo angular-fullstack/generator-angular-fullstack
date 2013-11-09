@@ -82,6 +82,10 @@ var Generator = module.exports = function Generator(args, options) {
       enabledComponents.push('angular-sanitize/angular-sanitize.js');
     }
 
+    if (this.routeModule) {
+      enabledComponents.push('angular-route/angular-route.js');
+    }
+
     this.invoke('karma:app', {
       options: {
         coffee: this.options.coffee,
@@ -143,6 +147,10 @@ Generator.prototype.askForModules = function askForModules() {
       value: 'sanitizeModule',
       name: 'angular-sanitize.js',
       checked: true
+    }, {
+      value: 'routeModule',
+      name: 'angular-route.js',
+      checked: true
     }]
   }];
 
@@ -151,6 +159,7 @@ Generator.prototype.askForModules = function askForModules() {
     this.resourceModule = hasMod('resourceModule');
     this.cookiesModule = hasMod('cookiesModule');
     this.sanitizeModule = hasMod('sanitizeModule');
+    this.routeModule = hasMod('routeModule');
 
     var angMods = [];
 
@@ -163,6 +172,9 @@ Generator.prototype.askForModules = function askForModules() {
     }
     if (this.sanitizeModule) {
       angMods.push("'ngSanitize'");
+    }
+    if (this.routeModule) {
+      angMods.push("'ngRoute'");
     }
 
     if (angMods.length) {
@@ -242,6 +254,10 @@ Generator.prototype.extraModules = function extraModules() {
 
   if (this.sanitizeModule) {
     modules.push('bower_components/angular-sanitize/angular-sanitize.js');
+  }
+
+  if (this.routeModule) {
+    modules.push('bower_components/angular-route/angular-route.js');
   }
 
   if (modules.length) {
