@@ -2,19 +2,20 @@
 
 // Module dependencies.
 var express = require('express'),
-    path = require('path')<% if (mongo) { %>,
-    fs = require('fs')<% } %>;
+  http = require('http'),
+  path = require('path')<% if (mongo) { %>,
+  fs = require('fs')<% } %>;
 
 var app = express();
 <% if (mongo) { %>
 // Connect to database
-var db = require('./lib/db/mongo');
+  var db = require('./lib/db/mongo');
 
 // Bootstrap models
-var modelsPath = path.join(__dirname, 'lib/models');
-fs.readdirSync(modelsPath).forEach(function (file) {
+  var modelsPath = path.join(__dirname, 'lib/models');
+  fs.readdirSync(modelsPath).forEach(function (file) {
   require(modelsPath + '/' + file);
-});
+  });
 
 // Populate empty DB with dummy data
 require('./lib/db/dummydata');
@@ -23,29 +24,29 @@ require('./lib/db/dummydata');
 var api = require('./lib/controllers/api');
 
 // Express Configuration
-app.configure(function(){
-	app.use(express.logger('dev'));
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
-	app.use(app.router);
-});
+app.set('port', process.env.PORT || 3000);
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+app.use(app.router);
 
-app.configure('development', function(){
+if ('development' === app.get('env')) {
   app.use(express.static(path.join(__dirname, '.tmp')));
   app.use(express.static(path.join(__dirname, 'app')));
   app.use(express.errorHandler());
-});
+}
 
-app.configure('production', function(){
+if ('production' === app.get('env')) {
   app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
   app.use(express.static(path.join(__dirname, 'public')));
-});
+}
 
 // Routes
 app.get('/api/awesomeThings', api.awesomeThings);
 
 // Start server
-var port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log('Express server listening on port %d in %s mode', port, app.get('env'));
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
 });
