@@ -23,8 +23,8 @@ module.exports = function (grunt) {
         tasks: ['coffee:dist']
       },
       coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
+        files: ['test/spec/{,*/}*.{coffee,js}'],
+        tasks: ['coffee:test', 'karma']
       },<% if (compassBootstrap) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
