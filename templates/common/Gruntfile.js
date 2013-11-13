@@ -20,11 +20,11 @@ module.exports = function (grunt) {
     watch: {
       coffee: {
         files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:dist']
+        tasks: ['newer:coffee:dist']
       },
       coffeeTest: {
         files: ['test/spec/{,*/}*.{coffee,js}'],
-        tasks: ['coffee:test', 'karma']
+        tasks: ['newer:coffee:test', 'karma']
       },<% if (compassBootstrap) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
