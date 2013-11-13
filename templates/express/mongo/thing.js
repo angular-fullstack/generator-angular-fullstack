@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 // Schema
 var ThingSchema = new Schema({
   name: String,
+  info: String,
   awesomeness: Number
 });
 

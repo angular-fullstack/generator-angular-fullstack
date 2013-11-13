@@ -3,18 +3,30 @@
 var mongoose = require('mongoose'),
     Thing = mongoose.model('Thing');
 
-// Create all of the dummy things if Thing is empty
-Thing.find(function (err, things) {
-  if (things.length === 0) {
-    console.log('populating database');
-		Thing.create(
-			{ name : 'HTML5 Boilerplate', awesomeness: 10},
-			{ name : 'AngularJS', awesomeness: 10},
-			{ name : 'Karma', awesomeness: 10},
-			{ name : 'Express', awesomeness: 10},
-			{ name : 'Mongoose', awesomeness: 10}, function(err) {
-				console.log('finished populating');
-			}
-		);
-	}
+//Clear old things, then add things in
+Thing.find({}).remove(function() {
+	Thing.create({ 
+		name : 'HTML5 Boilerplate',
+		info : 'HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.',
+		awesomeness: 10
+	}, {
+		name : 'AngularJS',
+		info : 'AngularJS is a toolset for building the framework most suited to your application development.',
+		awesomeness: 10
+	}, {
+		name : 'Karma',
+		info : 'Spectacular Test Runner for JavaScript.',
+		awesomeness: 10
+	}, {
+		name : 'Express',
+		info : 'Flexible and minimalist web application framework for node.js.',
+		awesomeness: 10
+	}, {
+		name : 'Mongoose',
+		info : 'An excellent way to add validation and business logic to your mongoDB objects.',
+		awesomeness: 10
+	}, function(err) {
+			console.log('finished populating things');
+		}
+	);
 });
