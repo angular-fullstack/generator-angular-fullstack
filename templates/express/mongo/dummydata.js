@@ -22,8 +22,8 @@ Thing.find({}).remove(function() {
 		info : 'Flexible and minimalist web application framework for node.js.',
 		awesomeness: 10
 	}, {
-		name : 'Mongoose',
-		info : 'An excellent way to add validation and business logic to your mongoDB objects.',
+		name : 'MongoDB + Mongoose',
+		info : 'An excellent document database. Combined with Mongoose to simplify adding validation and business logic.',
 		awesomeness: 10
 	}, function(err) {
 			console.log('finished populating things');
