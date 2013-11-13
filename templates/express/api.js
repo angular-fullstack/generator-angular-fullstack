@@ -18,10 +18,6 @@ exports.awesomeThings = function(req, res) {
       name : 'Express',
       info : 'Flexible and minimalist web application framework for node.js.',
       awesomeness: 10
-    }, {
-      name : 'Mongoose',
-      info : 'An excellent way to add validation and business logic to your mongoDB objects.',
-      awesomeness: 10
     }
   ]);
 };
