@@ -1,9 +1,9 @@
 'use strict'
 
-describe 'Directive: <%= _.camelize(name) %>', () ->
+describe 'Directive: <%= cameledName %>', () ->
 
   # load the directive's module
-  beforeEach module '<%= _.camelize(appname) %>App'
+  beforeEach module '<%= scriptAppName %>'
 
   scope = {}
 
@@ -13,4 +13,4 @@ describe 'Directive: <%= _.camelize(name) %>', () ->
   it 'should make hidden element visible', inject ($compile) ->
     element = angular.element '<<%= _.dasherize(name) %>></<%= _.dasherize(name) %>>'
     element = $compile(element) scope
-    expect(element.text()).toBe 'this is the <%= _.camelize(name) %> directive'
+    expect(element.text()).toBe 'this is the <%= cameledName %> directive'

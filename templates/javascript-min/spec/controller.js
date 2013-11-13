@@ -1,11 +1,11 @@
 'use strict';
 
-describe('Controller: <%= _.classify(name) %>Ctrl', function () {
+describe('Controller: <%= classedName %>Ctrl', function () {
 
   // load the controller's module
-  beforeEach(module('<%= _.camelize(appname) %>App'));
+  beforeEach(module('<%= scriptAppName %>'));
 
-  var <%= _.classify(name) %>Ctrl,
+  var <%= classedName %>Ctrl,
     scope,
     $httpBackend;
 
@@ -15,7 +15,7 @@ describe('Controller: <%= _.classify(name) %>Ctrl', function () {
     $httpBackend.expectGET('/api/awesomeThings')
       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);    
     scope = $rootScope.$new();
-    <%= _.classify(name) %>Ctrl = $controller('<%= _.classify(name) %>Ctrl', {
+    <%= classedName %>Ctrl = $controller('<%= classedName %>Ctrl', {
       $scope: scope
     });
   }));

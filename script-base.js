@@ -12,6 +12,11 @@ var Generator = module.exports = function Generator() {
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
+  this.appname = this._.slugify(this._.humanize(this.appname));
+  this.scriptAppName = this._.camelize(this.appname) + angularUtils.appName(this);
+
+  this.cameledName = this._.camelize(this.name);
+  this.classedName = this._.classify(this.name);
 
   if (typeof this.env.options.appPath === 'undefined') {
     try {
@@ -92,7 +97,7 @@ Generator.prototype.addScriptToIndex = function (script) {
       file: fullPath,
       needle: '<!-- endbuild -->',
       splicable: [
-        '<script src="scripts/' + script + '.js"></script>'
+        '<script src="scripts/' + script.replace('\\', '/') + '.js"></script>'
       ]
     });
   } catch (e) {

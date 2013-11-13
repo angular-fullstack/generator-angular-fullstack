@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var util = require('util');
+var angularUtils = require('../util.js');
 var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
 
@@ -9,6 +10,14 @@ var Generator = module.exports = function Generator(args, options) {
   yeoman.generators.Base.apply(this, arguments);
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
+  this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+
+  this.option('app-suffix', {
+    desc: 'Allow a custom suffix to be added to the module name',
+    type: String,
+    required: 'false'
+  });
+  this.scriptAppName = this.appname + angularUtils.appName(this);
 
   args = ['main'];
 
@@ -22,7 +31,9 @@ var Generator = module.exports = function Generator(args, options) {
   this.appPath = this.env.options.appPath;
 
   if (typeof this.env.options.coffee === 'undefined') {
-    this.option('coffee');
+    this.option('coffee', {
+      desc: 'Generate CoffeeScript instead of JavaScript'
+    });
 
     // attempt to detect if user is using CS or not
     // if cml arg provided, use that; else look for the existence of cs
@@ -35,7 +46,9 @@ var Generator = module.exports = function Generator(args, options) {
   }
 
   if (typeof this.env.options.minsafe === 'undefined') {
-    this.option('minsafe');
+    this.option('minsafe', {
+      desc: 'Generate AngularJS minification safe code'
+    });
     this.env.options.minsafe = this.options.minsafe;
     args.push('--minsafe');
   }
@@ -67,6 +80,10 @@ var Generator = module.exports = function Generator(args, options) {
 
     if (this.sanitizeModule) {
       enabledComponents.push('angular-sanitize/angular-sanitize.js');
+    }
+
+    if (this.routeModule) {
+      enabledComponents.push('angular-route/angular-route.js');
     }
 
     this.invoke('karma:app', {
@@ -130,6 +147,10 @@ Generator.prototype.askForModules = function askForModules() {
       value: 'sanitizeModule',
       name: 'angular-sanitize.js',
       checked: true
+    }, {
+      value: 'routeModule',
+      name: 'angular-route.js',
+      checked: true
     }]
   }];
 
@@ -138,6 +159,7 @@ Generator.prototype.askForModules = function askForModules() {
     this.resourceModule = hasMod('resourceModule');
     this.cookiesModule = hasMod('cookiesModule');
     this.sanitizeModule = hasMod('sanitizeModule');
+    this.routeModule = hasMod('routeModule');
 
     var angMods = [];
 
@@ -150,6 +172,9 @@ Generator.prototype.askForModules = function askForModules() {
     }
     if (this.sanitizeModule) {
       angMods.push("'ngSanitize'");
+    }
+    if (this.routeModule) {
+      angMods.push("'ngRoute'");
     }
 
     if (angMods.length) {
@@ -185,13 +210,12 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var files = [];
   var source = 'styles/' + ( sass ? 's' : '' ) + 'css/';
 
-  if (this.bootstrap) {
-    if (!sass) {
-      files.push('bootstrap.css');
-    }
-
-    this.copy('images/glyphicons-halflings.png', 'app/images/glyphicons-halflings.png');
-    this.copy('images/glyphicons-halflings-white.png', 'app/images/glyphicons-halflings-white.png');
+  if (this.bootstrap && !sass) {
+    files.push('bootstrap.css');
+    this.copy('fonts/glyphicons-halflings-regular.eot', 'app/fonts/glyphicons-halflings-regular.eot');
+    this.copy('fonts/glyphicons-halflings-regular.ttf', 'app/fonts/glyphicons-halflings-regular.ttf');
+    this.copy('fonts/glyphicons-halflings-regular.svg', 'app/fonts/glyphicons-halflings-regular.svg');
+    this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
   }
 
   files.push('main.' + (sass ? 's' : '') + 'css');
@@ -218,19 +242,18 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
 
   // Wire Twitter Bootstrap plugins
   this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'bower_components/bootstrap-sass/js/bootstrap-affix.js',
-    'bower_components/bootstrap-sass/js/bootstrap-alert.js',
-    'bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
-    'bower_components/bootstrap-sass/js/bootstrap-tooltip.js',
-    'bower_components/bootstrap-sass/js/bootstrap-modal.js',
-    'bower_components/bootstrap-sass/js/bootstrap-transition.js',
-    'bower_components/bootstrap-sass/js/bootstrap-button.js',
-    'bower_components/bootstrap-sass/js/bootstrap-popover.js',
-    'bower_components/bootstrap-sass/js/bootstrap-typeahead.js',
-    'bower_components/bootstrap-sass/js/bootstrap-carousel.js',
-    'bower_components/bootstrap-sass/js/bootstrap-scrollspy.js',
-    'bower_components/bootstrap-sass/js/bootstrap-collapse.js',
-    'bower_components/bootstrap-sass/js/bootstrap-tab.js'
+    'bower_components/sass-bootstrap/js/affix.js',
+    'bower_components/sass-bootstrap/js/alert.js',
+    'bower_components/sass-bootstrap/js/button.js',
+    'bower_components/sass-bootstrap/js/carousel.js',
+    'bower_components/sass-bootstrap/js/transition.js',
+    'bower_components/sass-bootstrap/js/collapse.js',
+    'bower_components/sass-bootstrap/js/dropdown.js',
+    'bower_components/sass-bootstrap/js/modal.js',
+    'bower_components/sass-bootstrap/js/scrollspy.js',
+    'bower_components/sass-bootstrap/js/tab.js',
+    'bower_components/sass-bootstrap/js/tooltip.js',
+    'bower_components/sass-bootstrap/js/popover.js'
   ]);
 };
 
@@ -246,6 +269,10 @@ Generator.prototype.extraModules = function extraModules() {
 
   if (this.sanitizeModule) {
     modules.push('bower_components/angular-sanitize/angular-sanitize.js');
+  }
+
+  if (this.routeModule) {
+    modules.push('bower_components/angular-route/angular-route.js');
   }
 
   if (modules.length) {
