@@ -162,9 +162,9 @@ module.exports = function (grunt) {
     },<% } %>
     // not used since Uglify task does concat,
     // but still available if needed
-    /*concat: {
-      dist: {}
-    },*/
+    // concat: {
+    //   dist: {}
+    // },
     rev: {
       dist: {
         files: {
@@ -210,31 +210,38 @@ module.exports = function (grunt) {
         }]
       }
     },
-    cssmin: {
-      // By default, your `index.html` <!-- Usemin Block --> will take care of
-      // minification. This option is pre-configured if you do not wish to use
-      // Usemin blocks.
-      // dist: {
-      //   files: {
-      //     '<%%= yeoman.dist %>/styles/main.css': [
-      //       '.tmp/styles/{,*/}*.css',
-      //       '<%%= yeoman.app %>/styles/{,*/}*.css'
-      //     ]
-      //   }
-      // }
-    },
+    // By default, your `index.html` <!-- Usemin Block --> will take care of
+    // minification. This option is pre-configured if you do not wish to use
+    // Usemin blocks.
+    // cssmin: {
+    //   dist: {
+    //     files: {
+    //       '<%%= yeoman.dist %>/styles/main.css': [
+    //         '.tmp/styles/{,*/}*.css',
+    //         '<%%= yeoman.app %>/styles/{,*/}*.css'
+    //       ]
+    //     }
+    //   }
+    // },
+    // uglify: {
+    //   dist: {
+    //     files: {
+    //       '<%%= yeoman.dist %>/scripts/scripts.js': [
+    //         '<%%= yeoman.dist %>/scripts/scripts.js'
+    //       ]
+    //     }
+    //   }
+    // },
     htmlmin: {
       dist: {
         options: {
-          /*removeCommentsFromCDATA: true,
-          // https://github.com/yeoman/grunt-usemin/issues/44
-          //collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true*/
+          // removeCommentsFromCDATA: true,
+          // collapseBooleanAttributes: true,
+          // removeAttributeQuotes: true,
+          // removeRedundantAttributes: true,
+          // useShortDoctype: true,
+          // removeEmptyAttributes: true,
+          // removeOptionalTags: true*/
         },
         files: [{
           expand: true,
@@ -314,15 +321,6 @@ module.exports = function (grunt) {
           src: '*.js',
           dest: '.tmp/concat/scripts'
         }]
-      }
-    },
-    uglify: {
-      dist: {
-        files: {
-          '<%%= yeoman.dist %>/scripts/scripts.js': [
-            '<%%= yeoman.dist %>/scripts/scripts.js'
-          ]
-        }
       }
     }
   });
