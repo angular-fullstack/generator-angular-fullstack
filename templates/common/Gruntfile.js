@@ -206,7 +206,7 @@ module.exports = function (grunt) {
       }
     },
 
-    // Performs rewrites based on rev and the useminPrepage configuration
+    // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       html: ['<%%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
