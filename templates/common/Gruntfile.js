@@ -45,7 +45,7 @@ module.exports = function (grunt) {
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
-      },<% } %><% if (compassBootstrap) { %>
+      },<% } %><% if (compass) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
@@ -187,7 +187,7 @@ module.exports = function (grunt) {
       }
     },<% } %>
 
-<% if (compassBootstrap) { %>
+<% if (compass) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -341,17 +341,17 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [<% if (coffee) { %>
-        'coffee:dist',<% } %><% if (compassBootstrap) { %>
+        'coffee:dist',<% } %><% if (compass) { %>
         'compass:server'<% } else { %>
         'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
-        'coffee',<% } %><% if (compassBootstrap) { %>
+        'coffee',<% } %><% if (compass) { %>
         'compass'<% } else { %>
         'copy:styles'<% } %>
       ],
       dist: [<% if (coffee) { %>
-        'coffee',<% } %><% if (compassBootstrap) { %>
+        'coffee',<% } %><% if (compass) { %>
         'compass:dist',<% } else { %>
         'copy:styles',<% } %>
         'imagemin',

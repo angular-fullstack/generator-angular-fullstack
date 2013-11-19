@@ -129,7 +129,23 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
+Generator.prototype.askForCompass = function askForCompass() {
+  var cb = this.async();
+
+  this.prompt([{
+    type: 'confirm',
+    name: 'compass',
+    message: 'Would you like to use Sass (with Compass)?',
+    default: true
+  }], function (props) {
+    this.compass = props.compass;
+
+    cb();
+  }.bind(this));
+};
+
 Generator.prototype.askForBootstrap = function askForBootstrap() {
+  var compass = this.compass;
   var cb = this.async();
 
   this.prompt([{
@@ -140,10 +156,10 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
   }, {
     type: 'confirm',
     name: 'compassBootstrap',
-    message: 'Would you like to use the SCSS version of Twitter Bootstrap with the Compass CSS Authoring Framework?',
+    message: 'Would you like to use the Sass version of Twitter Bootstrap?',
     default: true,
     when: function (props) {
-      return props.bootstrap;
+      return props.bootstrap && compass;
     }
   }], function (props) {
     this.bootstrap = props.bootstrap;
@@ -218,7 +234,7 @@ Generator.prototype.readIndex = function readIndex() {
 
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var sass = this.compassBootstrap;
+  var sass = this.compass;
   var source = 'styles/' + ( sass ? 's' : '' ) + 'css/';
   var dest = 'app/styles/';
   var mainFile = 'main.' + (sass ? 's' : '') + 'css';

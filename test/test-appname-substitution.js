@@ -42,8 +42,9 @@ describe('Angular generator template mechanism', function () {
             'test/spec/controllers/main.js'
         ];
         helpers.mockPrompt(angular, {
+          compass: true,
           bootstrap: true,
-          compassBoostrap: true,
+          compassBootstrap: true,
           modules: []
         });
 
