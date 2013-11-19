@@ -26,15 +26,19 @@ module.exports = function (grunt) {
     },
 
     // Watches files for changes and runs tasks based on the changed files
-    watch: {
+    watch: {<% if (coffee) { %>
       coffee: {
-        files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
+        files: ['<%%= yeoman.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['newer:coffee:dist']
       },
       coffeeTest: {
-        files: ['test/spec/{,*/}*.{coffee,js}'],
+        files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['newer:coffee:test', 'karma']
-      },<% if (compassBootstrap) { %>
+      },<% } else { %>
+      jsTest: {
+        files: ['test/spec/{,*/}*.js'],
+        tasks: ['karma']
+      },<% } %><% if (compassBootstrap) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
@@ -52,9 +56,9 @@ module.exports = function (grunt) {
         },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
+          '.tmp/styles/{,*/}*.css',<% if (!coffee) { %>
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          <% } %>'<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -100,8 +104,9 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       },
       all: [
-        'Gruntfile.js',
-        '<%%= yeoman.app %>/scripts/{,*/}*.js'
+        'Gruntfile.js'<% if (!coffee) { %>,
+        '<%%= yeoman.app %>/scripts/{,*/}*.js',
+        'test/spec/{,*/}*.js'<% } %>
       ]
     },
 
@@ -122,7 +127,9 @@ module.exports = function (grunt) {
 
     // Add vendor prefixed styles
     autoprefixer: {
-      options: ['last 1 version'],
+      options: {
+        browsers: ['last 1 version']
+      },
       dist: {
         files: [{
           expand: true,
@@ -133,6 +140,7 @@ module.exports = function (grunt) {
       }
     },
 
+    <% if (coffee) { %>
     // Compiles CoffeeScript to JavaScript
     coffee: {
       options: {
@@ -157,8 +165,9 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% if (compassBootstrap) { %>
+    },<% } %>
 
+    <% if (compassBootstrap) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -167,14 +176,19 @@ module.exports = function (grunt) {
         generatedImagesDir: '.tmp/images/generated',
         imagesDir: '<%%= yeoman.app %>/images',
         javascriptsDir: '<%%= yeoman.app %>/scripts',
-        fontsDir: '<%%= yeoman.app %>/fonts',
+        fontsDir: '<%%= yeoman.app %>/styles/fonts',
         importPath: '<%%= yeoman.app %>/bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/fonts',
-        relativeAssets: false
+        httpFontsPath: '/styles/fonts',
+        relativeAssets: false,
+        assetCacheBuster: false
       },
-      dist: {},
+      dist: {
+        options: {
+          generatedImagesDir: '<%%= yeoman.dist %>/images/generated'
+        }
+      },
       server: {
         options: {
           debugInfo: true
@@ -311,18 +325,18 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [
-        'coffee:dist',<% if (compassBootstrap) { %>
+      server: [<% if (coffee) { %>
+        'coffee:dist',<% } %><% if (compassBootstrap) { %>
         'compass:server',<% } %>
         'copy:styles'
       ],
-      test: [
-        'coffee',<% if (compassBootstrap) { %>
+      test: [<% if (coffee) { %>
+        'coffee',<% } %><% if (compassBootstrap) { %>
         'compass',<% } %>
         'copy:styles'
       ],
-      dist: [
-        'coffee',<% if (compassBootstrap) { %>
+      dist: [<% if (coffee) { %>
+        'coffee',<% } %><% if (compassBootstrap) { %>
         'compass:dist',<% } %>
         'copy:styles',
         'imagemin',
