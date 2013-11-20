@@ -35,9 +35,13 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.{coffee,litcoffee,coffee.md}'],
         tasks: ['newer:coffee:test', 'karma']
       },<% } else { %>
+      js: {
+        files: ['{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint:all']
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['karma']
+        tasks: ['newer:jshint:test', 'karma']
       },<% } %><% if (compassBootstrap) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -56,9 +60,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',<% if (!coffee) { %>
-          '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
-          <% } %>'<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '.tmp/styles/{,*/}*.css',
+          '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -105,9 +108,14 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js'<% if (!coffee) { %>,
-        '<%%= yeoman.app %>/scripts/{,*/}*.js',
-        'test/spec/{,*/}*.js'<% } %>
-      ]
+        '<%%= yeoman.app %>/scripts/{,*/}*.js'<% } %>
+      ]<% if (!coffee) { %>,
+      test: {
+        options: {
+          jshintrc: 'test/.jshintrc'
+        },
+        src: ['test/spec/{,*/}*.js']
+      }<% } %>
     },
 
     // Empties folders to start fresh
