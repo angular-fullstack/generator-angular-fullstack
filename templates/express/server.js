@@ -31,6 +31,7 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
+  app.use(require('connect-livereload')());
   app.use(express.static(path.join(__dirname, '.tmp')));
   app.use(express.static(path.join(__dirname, 'app')));
   app.use(express.errorHandler());

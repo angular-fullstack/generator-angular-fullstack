@@ -43,7 +43,7 @@ grunt server:dist
 
 ### Livereload
 
-`grunt server` will watch client files in `app/`, and server files inside `lib/`, restarting the Express server when a change is detected. This requires the [Livereload plugin](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) or equivalant to refresh your browser. Be sure that the plugin is enabled on the page you're testing.
+`grunt server` will watch client files in `app/`, and server files inside `lib/`, restarting the Express server when a change is detected.
 
 ### Deployment
 
