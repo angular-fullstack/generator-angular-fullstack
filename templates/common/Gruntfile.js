@@ -51,12 +51,19 @@ module.exports = function (grunt) {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
       },<% } %>
+      livereload: {
+        files: [
+          '<%= yeoman.app %>/{,*//*}*.html',
+          '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
+          '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+        ],
+        options: {
+          livereload: true
+        }
+      },
       express: {
           files: [
-              '<%%= yeoman.app %>/{,*//*}*.html',
-              '{.tmp,<%%= yeoman.app %>}/styles/{,*//*}*.css',
-              '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
-              '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
               'server.js',
               'lib/{,*//*}*.{js,json}'
           ],
