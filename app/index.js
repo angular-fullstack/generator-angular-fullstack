@@ -241,20 +241,26 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
   }
 
   // Wire Twitter Bootstrap plugins
-  this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'bower_components/sass-bootstrap/js/affix.js',
-    'bower_components/sass-bootstrap/js/alert.js',
-    'bower_components/sass-bootstrap/js/button.js',
-    'bower_components/sass-bootstrap/js/carousel.js',
-    'bower_components/sass-bootstrap/js/transition.js',
-    'bower_components/sass-bootstrap/js/collapse.js',
-    'bower_components/sass-bootstrap/js/dropdown.js',
-    'bower_components/sass-bootstrap/js/modal.js',
-    'bower_components/sass-bootstrap/js/scrollspy.js',
-    'bower_components/sass-bootstrap/js/tab.js',
-    'bower_components/sass-bootstrap/js/tooltip.js',
-    'bower_components/sass-bootstrap/js/popover.js'
-  ]);
+  this.indexFile = this.appendFiles({
+    html: this.indexFile,
+    fileType: 'js',
+    optimizedPath: 'scripts/plugins.js',
+    sourceFileList: [
+      'bower_components/sass-bootstrap/js/affix.js',
+      'bower_components/sass-bootstrap/js/alert.js',
+      'bower_components/sass-bootstrap/js/button.js',
+      'bower_components/sass-bootstrap/js/carousel.js',
+      'bower_components/sass-bootstrap/js/transition.js',
+      'bower_components/sass-bootstrap/js/collapse.js',
+      'bower_components/sass-bootstrap/js/dropdown.js',
+      'bower_components/sass-bootstrap/js/modal.js',
+      'bower_components/sass-bootstrap/js/scrollspy.js',
+      'bower_components/sass-bootstrap/js/tab.js',
+      'bower_components/sass-bootstrap/js/tooltip.js',
+      'bower_components/sass-bootstrap/js/popover.js'
+    ],
+    searchPath: 'app'
+  });  
 };
 
 Generator.prototype.extraModules = function extraModules() {
@@ -274,10 +280,15 @@ Generator.prototype.extraModules = function extraModules() {
   if (this.routeModule) {
     modules.push('bower_components/angular-route/angular-route.js');
   }
-
+  
   if (modules.length) {
-    this.indexFile = this.appendScripts(this.indexFile, 'scripts/modules.js',
-        modules);
+    this.indexFile = this.appendFiles({
+      html: this.indexFile,
+      fileType: 'js',
+      optimizedPath: 'scripts/modules.js',
+      sourceFileList: modules,
+      searchPath: 'app'
+    });
   }
 };
 
@@ -292,7 +303,7 @@ Generator.prototype.appJs = function appJs() {
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.write(path.join(this.appPath, 'index.html'), this.indexFile);
+  this.write(path.join(this.appPath, 'views', 'index.html'), this.indexFile);
 };
 
 Generator.prototype.packageFiles = function () {
@@ -304,6 +315,7 @@ Generator.prototype.packageFiles = function () {
 Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
   this.template('../../templates/express/api.js', 'lib/controllers/api.js');
+  this.template('../../templates/express/index.js', 'lib/controllers/index.js');
 };
 
 Generator.prototype.mongoFiles = function () {

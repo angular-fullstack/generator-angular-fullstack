@@ -19,5 +19,5 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  this.template('common/view.html', path.join(this.env.options.appPath, 'views', this.name + '.html'));
+  this.template('common/view.html', path.join(this.env.options.appPath, 'views', 'partials', this.name + '.html'));
 };

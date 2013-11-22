@@ -72,7 +72,7 @@ describe('Angular generator', function () {
                     'server.js',
                     ['bower.json', /"name":\s+"temp"/],
                     'app/scripts/app.js',
-                    'app/index.html',
+                    'app/views/index.html',
                     'app/scripts/controllers/main.js',
                     'test/spec/controllers/main.js'
                     ];
@@ -100,7 +100,7 @@ describe('Angular generator', function () {
                     'package.json',
                     ['bower.json', /"name":\s+"temp"/],
                     'app/scripts/app.coffee',
-                    'app/index.html',
+                    'app/views/index.html',
                     'app/scripts/controllers/main.coffee',
                     'test/spec/controllers/main.coffee'
                     ];
@@ -221,7 +221,7 @@ describe('Angular generator', function () {
       angular.run([], function (){
         angularView.run([], function () {
           helpers.assertFiles([
-            ['app/views/foo.html']
+            ['app/views/partials/foo.html']
           ]);
           done();
         });
@@ -241,7 +241,7 @@ describe('Angular generator', function () {
       angular.run([], function (){
         angularView.run([], function () {
           helpers.assertFiles([
-            ['app/views/foo/bar.html']
+            ['app/views/partials/foo/bar.html']
           ]);
           done();
         });

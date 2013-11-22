@@ -15,7 +15,8 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'public'
+      dist: 'public',
+      views: 'views'
     },
     express: {
         options: {
@@ -53,7 +54,7 @@ module.exports = function (grunt) {
       },<% } %>
       livereload: {
         files: [
-          '<%%= yeoman.app %>/{,*//*}*.html',
+          '<%%= yeoman.app %>/<%%= yeoman.views %>/{,*//*}*.html',
           '{.tmp,<%%= yeoman.app %>}/styles/{,*//*}*.css',
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
           '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
@@ -98,6 +99,7 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
+            '<%%= yeoman.views %>/*',
             '<%%= yeoman.dist %>/*',
             '!<%%= yeoman.dist %>/.git*'
           ]
@@ -188,13 +190,13 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: '<%%= yeoman.app %>/index.html',
+      html: '<%%= yeoman.app %>/<%%= yeoman.views %>/index.html',
       options: {
         dest: '<%%= yeoman.dist %>'
       }
     },
     usemin: {
-      html: ['<%%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%%= yeoman.views %>/{,*/}*.html'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         assetsDirs: ['<%%= yeoman.dist %>']
@@ -248,9 +250,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
-          dest: '<%%= yeoman.dist %>'
+          cwd: '<%%= yeoman.app %>/<%%= yeoman.views %>',
+          src: ['*.html', 'partials/*.html'],
+          dest: '<%%= yeoman.views %>'
         }]
       }
     },
@@ -284,7 +286,8 @@ module.exports = function (grunt) {
           dot: true,
           dest: 'heroku',
           src: [
-            '<%%= yeoman.dist %>/**'
+            '<%%= yeoman.dist %>/**',
+            '<%= yeoman.views %>/**'
           ]
         }, {
           expand: true,
@@ -331,7 +334,7 @@ module.exports = function (grunt) {
     },
     cdnify: {
       dist: {
-        html: ['<%%= yeoman.dist %>/*.html']
+        html: ['<%%= yeoman.views %>/*.html']
       }
     },
     ngmin: {
