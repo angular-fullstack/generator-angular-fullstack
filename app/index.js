@@ -231,7 +231,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     sourceFileList: files.map(function (file) {
       return 'styles/' + file.replace('.scss', '.css');
     }),
-    searchPath: '.tmp'
+    searchPath: ['.tmp', 'app']
   });
 };
 
@@ -307,10 +307,16 @@ Generator.prototype.createIndexHtml = function createIndexHtml() {
 };
 
 Generator.prototype.packageFiles = function () {
+  this.coffee = this.env.options.coffee;
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
 };
+
+Generator.prototype.imageFiles = function () {
+  this.sourceRoot(path.join(__dirname, 'templates'));
+  this.directory('images', 'app/images', true);
+}
 
 Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
