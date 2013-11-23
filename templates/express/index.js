@@ -3,7 +3,8 @@
 var path = require('path');
 
 exports.partials = function(req, res) {
-  var requestedView = path.join('./', req.url);
+  var stripped = req.url.split('.')[0];
+  var requestedView = path.join('./', stripped);
   res.render(requestedView, function(err, html) {
     if(err) {
       res.render('404');

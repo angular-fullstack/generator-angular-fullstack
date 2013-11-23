@@ -26,20 +26,20 @@ module.exports = function (grunt) {
       views: 'views'
     },
     express: {
+      options: {
+        port: process.env.PORT || 9000
+      },
+      dev: {
         options: {
-            port: process.env.PORT || 9000
-        },
-        dev: {
-            options: {
-                script: 'server.js'
-            }
-        },
-        prod: {
-            options: {
-                script: 'server.js',
-                node_env: 'production'
-            }
+          script: 'server.js'
         }
+      },
+      prod: {
+        options: {
+          script: 'server.js',
+          node_env: 'production'
+        }
+      }
     },
     open: {
       server: {
@@ -79,15 +79,15 @@ module.exports = function (grunt) {
         }
       },
       express: {
-          files: [
-              'server.js',
-              'lib/{,*//*}*.{js,json}'
-          ],
-          tasks: ['express:dev'],
-          options: {
-              livereload: true,
-              nospawn: true //Without this option specified express won't be reloaded
-          }
+        files: [
+          'server.js',
+          'lib/{,*//*}*.{js,json}'
+        ],
+        tasks: ['express:dev'],
+        options: {
+          livereload: true,
+          nospawn: true //Without this option specified express won't be reloaded
+        }
       },
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
@@ -98,16 +98,13 @@ module.exports = function (grunt) {
       }
     },
 
-    // The actual grunt server settings
-
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
       },
-      all: [
-        'Gruntfile.js'<% if (!coffee) { %>,
+      all: [<% if (!coffee) { %>
         '<%%= yeoman.app %>/scripts/{,*/}*.js'<% } %>
       ]<% if (!coffee) { %>,
       test: {
@@ -137,10 +134,10 @@ module.exports = function (grunt) {
           src: [
             'heroku/*',
             '!heroku/.git*',
-            '!heroku/Procfile'                 
+            '!heroku/Procfile'
           ]
         }]
-      }, 
+      },
       server: '.tmp'
     },
 

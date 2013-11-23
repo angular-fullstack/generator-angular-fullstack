@@ -316,7 +316,7 @@ Generator.prototype.packageFiles = function () {
 Generator.prototype.imageFiles = function () {
   this.sourceRoot(path.join(__dirname, 'templates'));
   this.directory('images', 'app/images', true);
-}
+};
 
 Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
