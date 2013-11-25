@@ -33,12 +33,12 @@ yo angular-fullstack [app-name]
 
 Launch your express server in development mode.
 ```
-grunt serv
+grunt server
 ``` 
 
 Launch your express server in production mode, uses the minified/optimized production app folder.
 ```
-grunt serv:dist
+grunt server:dist
 ``` 
 
 ### Livereload
