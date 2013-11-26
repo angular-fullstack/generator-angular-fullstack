@@ -53,6 +53,21 @@ var Generator = module.exports = function Generator(args, options) {
     args.push('--minsafe');
   }
 
+  if (typeof this.env.options.jade === 'undefined') {
+    this.option('jade', {
+      desc: 'Generate views using Jade templates'
+    });
+
+    // attempt to detect if user is using jade or not
+    // if cml arg provided, use that; else look for the existence of cs
+    if (!this.options.coffee &&
+      this.expandFiles(path.join(this.appPath, '/views/**/*.jade'), {}).length > 0) {
+      this.options.jade = true;
+    }
+
+    this.env.options.jade = this.options.jade;
+  }
+
   this.hookFor('angular-fullstack:common', {
     args: args
   });
@@ -201,7 +216,13 @@ Generator.prototype.askForMongo = function askForMongo() {
 };
 
 Generator.prototype.readIndex = function readIndex() {
-  this.indexFile = this.engine(this.read('../../templates/common/index.html'), this);
+  this.jade = this.env.options.jade;
+
+  if(this.jade) {
+    this.indexFile = this.engine(this.read('../../templates/views/jade/index.jade'), this);
+  } else {
+    this.indexFile = this.engine(this.read('../../templates/views/html/index.html'), this);
+  }
 };
 
 // Waiting a more flexible solution for #138
@@ -224,7 +245,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy(source + file, 'app/styles/' + file);
   }.bind(this));
 
-  this.indexFile = this.appendFiles({
+  var appendOptions = {
     html: this.indexFile,
     fileType: 'css',
     optimizedPath: 'styles/main.css',
@@ -232,7 +253,13 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
       return 'styles/' + file.replace('.scss', '.css');
     }),
     searchPath: ['.tmp', 'app']
-  });
+  };
+
+  if (this.jade) {
+    this.indexFile = appendFilesToJade(appendOptions);
+  } else {
+    this.indexFile = this.appendFiles(appendOptions);
+  }
 };
 
 Generator.prototype.bootstrapJS = function bootstrapJS() {
@@ -241,7 +268,7 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
   }
 
   // Wire Twitter Bootstrap plugins
-  this.indexFile = this.appendFiles({
+  var appendOptions = {
     html: this.indexFile,
     fileType: 'js',
     optimizedPath: 'scripts/plugins.js',
@@ -260,7 +287,13 @@ Generator.prototype.bootstrapJS = function bootstrapJS() {
       'bower_components/sass-bootstrap/js/popover.js'
     ],
     searchPath: 'app'
-  });  
+  };
+
+  if (this.jade) {
+    this.indexFile = appendFilesToJade(appendOptions);
+  } else {
+    this.indexFile = this.appendFiles(appendOptions);
+  }
 };
 
 Generator.prototype.extraModules = function extraModules() {
@@ -282,28 +315,110 @@ Generator.prototype.extraModules = function extraModules() {
   }
   
   if (modules.length) {
-    this.indexFile = this.appendFiles({
+    var appendOptions = {
       html: this.indexFile,
       fileType: 'js',
       optimizedPath: 'scripts/modules.js',
       sourceFileList: modules,
       searchPath: 'app'
-    });
+    };
+
+    if (this.jade) {
+      this.indexFile = appendFilesToJade(appendOptions);
+    } else {
+      this.indexFile = this.appendFiles(appendOptions);
+    }
   }
 };
 
+function generateJadeBlock(blockType, optimizedPath, filesBlock, searchPath, prefix) {
+  var blockStart, blockEnd;
+  var blockSearchPath = '';
+
+  if (searchPath !== undefined) {
+    if (util.isArray(searchPath)) {
+      searchPath = '{' + searchPath.join(',') + '}';
+    }
+    blockSearchPath = '(' + searchPath +  ')';
+  }
+
+  blockStart = '\n' + prefix + '<!-- build:' + blockType + blockSearchPath + ' ' + optimizedPath + ' -->\n';
+  blockEnd = prefix + '<!-- endbuild -->\n' + prefix;
+  return blockStart + filesBlock + blockEnd;
+}
+
+function appendJade(jade, tag, blocks){
+  var mark = "//- build:" + tag,
+      position = jade.indexOf(mark);
+  return [jade.slice(0, position), blocks, jade.slice(position)].join('');
+}
+
+function appendFilesToJade(jadeOrOptions, fileType, optimizedPath, sourceFileList, attrs, searchPath) {
+  var blocks, updatedContent,
+      jade = jadeOrOptions,
+      prefix = '    ',
+      files = '';
+
+  if (typeof jadeOrOptions === 'object') {
+    jade = jadeOrOptions.html;
+    fileType = jadeOrOptions.fileType;
+    optimizedPath = jadeOrOptions.optimizedPath;
+    sourceFileList = jadeOrOptions.sourceFileList;
+    attrs = jadeOrOptions.attrs;
+    searchPath = jadeOrOptions.searchPath;
+  }
+
+  if (fileType === 'js') {
+    sourceFileList.forEach(function (el) {
+      files += prefix + '<script ' + (attrs||'') + 'src="' + el + '"></script>\n';
+    });
+    blocks = generateJadeBlock('js', optimizedPath, files, searchPath, prefix);
+    updatedContent = appendJade(jade, 'body', blocks);
+  } else if (fileType === 'css') {
+    sourceFileList.forEach(function (el) {
+      files += prefix + '<link ' + (attrs||'') + 'rel="stylesheet" href="' + el  + '">\n';
+    });
+    blocks = generateJadeBlock('css', optimizedPath, files, searchPath, prefix);
+    updatedContent = appendJade(jade, 'head', blocks);
+  }
+  return updatedContent;
+}
+
 Generator.prototype.appJs = function appJs() {
-  this.indexFile = this.appendFiles({
+  var appendOptions = {
     html: this.indexFile,
     fileType: 'js',
     optimizedPath: 'scripts/scripts.js',
     sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
     searchPath: ['.tmp', 'app']
-  });
+  };
+  if (this.jade) {
+    this.indexFile = appendFilesToJade(appendOptions);
+  } else {
+    this.indexFile = this.appendFiles(appendOptions);
+  }
 };
 
-Generator.prototype.createIndexHtml = function createIndexHtml() {
-  this.write(path.join(this.appPath, 'views', 'index.html'), this.indexFile);
+Generator.prototype.createIndex = function createIndex() {
+  if (this.jade) {
+    this.write(path.join(this.appPath, 'views', 'index.jade'), this.indexFile);
+  } else {
+    this.write(path.join(this.appPath, 'views', 'index.html'), this.indexFile);
+  }
+};
+
+Generator.prototype.addJadeViews = function addHtmlJade() {
+  if(this.jade) {
+    this.copy('../../templates/views/jade/partials/main.jade', 'app/views/partials/main.jade');
+    this.copy('../../templates/views/jade/404.jade', 'app/views/404.jade');
+  }
+};
+
+Generator.prototype.addHtmlViews = function addHtmlViews() {
+  if(!this.jade) {
+    this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
+    this.copy('../../templates/views/html/404.html', 'app/views/404.html');
+  }
 };
 
 Generator.prototype.packageFiles = function () {

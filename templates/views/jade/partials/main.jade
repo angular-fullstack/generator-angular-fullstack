@@ -1,0 +1,23 @@
+.header
+  ul.nav.nav-pills.pull-right
+    li.active
+      a(ng-href='#') Home
+    li
+      a(ng-href='#') About
+    li
+      a(ng-href='#') Contact
+  h3.text-muted <%= scriptAppName %>
+.jumbotron
+  h1 'Allo, 'Allo!
+  p.lead
+    <img src="images/yeoman.png" alt="I'm Yeoman">
+    br
+    | Always a pleasure scaffolding your apps.
+  p
+    a.btn.btn-lg.btn-success(ng-href='#') Splendid!
+.row.marketing
+  div(ng-repeat='thing in awesomeThings')
+    h4 {{thing.name}}
+    p {{thing.info}}
+.footer
+  p ♥ from the Yeoman team

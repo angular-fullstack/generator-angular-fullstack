@@ -63,6 +63,26 @@ var Generator = module.exports = function Generator() {
     sourceRoot += '-min';
   }
 
+  if (typeof this.env.options.jade === 'undefined') {
+    this.option('jade', {
+      desc: 'Generate views using Jade templates'
+    });
+
+    // attempt to detect if user is using jade or not
+    // if cml arg provided, use that; else look for the existence of cs
+    if (!this.options.jade &&
+      this.expandFiles(path.join(this.env.options.appPath, '/views/**/*.jade'), {}).length > 0) {
+      this.options.jade = true;
+    }
+
+    this.env.options.jade = this.options.jade;
+  }
+
+  this.viewSuffix = '.html';
+  if (this.env.options.jade) {
+    this.viewSuffix = '.jade';
+  }
+
   this.sourceRoot(path.join(__dirname, sourceRoot));
 };
 
@@ -92,7 +112,7 @@ Generator.prototype.htmlTemplate = function (src, dest) {
 Generator.prototype.addScriptToIndex = function (script) {
   try {
     var appPath = this.env.options.appPath;
-    var fullPath = path.join(appPath, 'views', 'index.html');
+    var fullPath = path.join(appPath, 'views', 'index' + this.viewSuffix);
     angularUtils.rewriteFile({
       file: fullPath,
       needle: '<!-- endbuild -->',

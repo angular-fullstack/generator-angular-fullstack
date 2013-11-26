@@ -22,7 +22,7 @@ Generator.prototype.rewriteAppJs = function () {
     ),
     needle: '.otherwise',
     splicable: [
-      "  templateUrl: 'views/partials/" + this.name + ".html'" + (coffee ? "" : "," ),
+      "  templateUrl: 'partials/" + this.name + "'" + (coffee ? "" : "," ),
       "  controller: '" + this.classedName + "Ctrl'"
     ]
   };

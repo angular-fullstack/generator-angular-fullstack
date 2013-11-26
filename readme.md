@@ -7,7 +7,8 @@ Featuring:
  * Express server integrated with grunt tasks
  * Livereload of client and server files
  * Easy deployment workflow.
- * **NEW** Optional mongoDB integration
+ * Optional mongoDB integration
+ * **NEW** Support for jade templates
 
 Based on [generator-angular](https://github.com/yeoman/generator-angular)
 
@@ -33,17 +34,17 @@ yo angular-fullstack [app-name]
 
 Launch your express server in development mode.
 ```
-grunt serv
+grunt serve
 ``` 
 
 Launch your express server in production mode, uses the minified/optimized production app folder.
 ```
-grunt serv:dist
+grunt serve:dist
 ``` 
 
 ### Livereload
 
-`grunt server` will watch client files in `app/`, and server files inside `lib/`, restarting the Express server when a change is detected.
+`grunt serve` will watch client files in `app/`, and server files inside `lib/`, restarting the Express server when a change is detected.
 
 ### Deployment
 
@@ -221,6 +222,16 @@ angular.module('myMod').config(function ($provide) {
 
 ## Options
 In general, these options can be applied to any generator, though they only affect generators that produce scripts.
+
+### Jade
+For generators that output views, the `--jade` option will output Jade instead of HTML.
+
+For example:
+```bash
+yo angular-fullstack --jade
+```
+
+Changes the rendering engine from EJS to Jade, and generates your views as jade files instead of HTML.
 
 ### CoffeeScript
 For generators that output scripts, the `--coffee` option will output CoffeeScript instead of JavaScript.

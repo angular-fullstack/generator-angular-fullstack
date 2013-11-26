@@ -69,7 +69,7 @@ module.exports = function (grunt) {
       },<% } %>
       livereload: {
         files: [
-          '<%%= yeoman.app %>/<%%= yeoman.views %>/{,*//*}*.html',
+          '<%%= yeoman.app %>/<%%= yeoman.views %>/{,*//*}*.{html,jade}',
           '{.tmp,<%%= yeoman.app %>}/styles/{,*//*}*.css',
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
           '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
@@ -230,7 +230,8 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: '<%%= yeoman.app %>/<%%= yeoman.views %>/index.html',
+      html: ['<%%= yeoman.app %>/<%%= yeoman.views %>/index.html',
+             '<%%= yeoman.app %>/<%%= yeoman.views %>/index.jade'],
       options: {
         dest: '<%%= yeoman.dist %>'
       }
@@ -238,7 +239,8 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
-      html: ['<%%= yeoman.views %>/{,*/}*.html'],
+      html: ['<%%= yeoman.views %>/{,*/}*.html',
+             '<%%= yeoman.views %>/{,*/}*.jade'],
       css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         assetsDirs: ['<%%= yeoman.dist %>']
@@ -324,6 +326,12 @@ module.exports = function (grunt) {
           ]
         }, {
           expand: true,
+          dot: true,
+          cwd: '<%%= yeoman.app %>/<%%= yeoman.views %>',
+          dest: '<%%= yeoman.views %>',
+          src: '**/*.jade',
+        }, {
+          expand: true,
           cwd: '.tmp/images',
           dest: '<%%= yeoman.dist %>/images',
           src: [
@@ -338,7 +346,7 @@ module.exports = function (grunt) {
           dest: 'heroku',
           src: [
             '<%%= yeoman.dist %>/**',
-            '<%= yeoman.views %>/**'
+            '<%%= yeoman.views %>/**'
           ]
         }, {
           expand: true,

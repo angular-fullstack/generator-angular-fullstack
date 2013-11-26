@@ -14,10 +14,33 @@ var Generator = module.exports = function Generator() {
     } catch (e) {}
     this.env.options.appPath = this.env.options.appPath || 'app';
   }
+
+  if (typeof this.env.options.jade === 'undefined') {
+    this.option('jade', {
+      desc: 'Generate views using Jade templates'
+    });
+
+    // attempt to detect if user is using jade or not
+    // if cml arg provided, use that; else look for the existence of cs
+    if (!this.options.jade &&
+      this.expandFiles(path.join(this.env.options.appPath, '/views/**/*.jade'), {}).length > 0) {
+      this.options.jade = true;
+    }
+
+    this.env.options.jade = this.options.jade;
+  }
+
+  this.viewSuffix = '.html';
+  if (this.env.options.jade) {
+    this.viewSuffix = '.jade';
+  }
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.createViewFiles = function createViewFiles() {
-  this.template('common/view.html', path.join(this.env.options.appPath, 'views', 'partials', this.name + '.html'));
+	var templatePath = this.env.options.jade ? 'jade' : 'html';
+  this.template(path.join('views', templatePath, 'view' + this.viewSuffix),
+                path.join(this.env.options.appPath, 'views', 'partials', this.name + this.viewSuffix));
+
 };

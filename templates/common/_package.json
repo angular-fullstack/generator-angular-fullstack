@@ -2,10 +2,12 @@
   "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
   "dependencies": {
-    "express": "~3.4.3",
-    "ejs": "~0.8.4"<% if (mongo) { %>,
+    "express": "~3.4.3"<% if (mongo) { %>,
     "mongoose": "~3.5.5",
-    "async": "~0.2.9"<% } %>
+    "async": "~0.2.9"<% } %><% if (jade) { %>,
+    "jade": "latest"<% } %><% if (!jade) { %>,
+    "ejs": "~0.8.4"      
+    <% } %>
   },
   "devDependencies": {
     "grunt": "~0.4.1",

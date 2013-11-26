@@ -35,9 +35,10 @@ app.configure('production', function(){
   app.set('views', __dirname + '/views');
 });
 
-app.configure(function(){
+app.configure(function(){<% if (!jade) { %>
   app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'html');
+  app.set('view engine', 'html');<% } %><% if (jade) { %>
+  app.set('view engine', 'jade');<% } %>
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());

@@ -66,11 +66,11 @@ Generator.prototype.herokuCreate = function herokuCreate() {
     if (err) {
       this.log.error(err);
     } else {
-    	console.log('stdout: ' + stdout);
-    	console.log(chalk.green('You\'re all set! Now push to heroku with\n\t' + chalk.bold('git push heroku master') +
-    		        '\nfrom your new heroku folder'));
-    	console.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt heroku') +
-    		        '\nthen commit and push the heroku folder'));
+      console.log('stdout: ' + stdout);
+      console.log(chalk.green('You\'re all set! Now push to heroku with\n\t' + chalk.bold('git push heroku master') +
+                '\nfrom your new heroku folder'));
+      console.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt heroku') +
+                '\nthen commit and push the heroku folder'));
     }
     done();
   }.bind(this));
