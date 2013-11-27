@@ -1,3 +1,11 @@
+<a name="v1.0.1"></a>
+### v1.0.1 (2013-11-27)
+
+
+#### Bug Fixes
+
+* **coffee:** updated coffescript templates to point to partials ([f98e84ef](http://github.com/DaftMonk/generator-angular-fullstack/commit/f98e84efdd88243cff1ea449dc3a8e9dbebb7ccc))
+
 <a name="v1.0.0"></a>
 ## v1.0.0 (2013-11-26)
 
