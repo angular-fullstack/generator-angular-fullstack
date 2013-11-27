@@ -233,6 +233,8 @@ yo angular-fullstack --jade
 
 Changes the rendering engine from EJS to Jade, and generates your views as jade files instead of HTML.
 
+Assets that will be minified or compressed such as scripts, styles, and images, must still use normal html tags so they can be picked up by grunt-usemin and compressed for production builds.
+
 ### CoffeeScript
 For generators that output scripts, the `--coffee` option will output CoffeeScript instead of JavaScript.
 
