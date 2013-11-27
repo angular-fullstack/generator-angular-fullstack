@@ -4,7 +4,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
   .config ($routeProvider, $locationProvider) ->
     $routeProvider
       .when '/',
-        templateUrl: 'views/main'
+        templateUrl: 'partials/main'
         controller: 'MainCtrl'
       .otherwise
         redirectTo: '/'
