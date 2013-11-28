@@ -62,6 +62,8 @@ While deployment should be easy enough with the `grunt dist` build, we provide a
 
 4. `cd heroku && git push heroku master`
 
+5. Optional (if using mongoDB) `heroku addons:add mongohq`
+
 That's it! Your app should be live and shareable. Type `heroku open` to view it.  
 
 ## Generators
