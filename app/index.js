@@ -175,6 +175,7 @@ Generator.prototype.askForModules = function askForModules() {
     }
     if (this.routeModule) {
       angMods.push("'ngRoute'");
+      this.env.options.ngRoute = true;
     }
 
     if (angMods.length) {
@@ -186,6 +187,7 @@ Generator.prototype.askForModules = function askForModules() {
 };
 
 Generator.prototype.readIndex = function readIndex() {
+  this.ngRoute = this.env.options.ngRoute;
   this.indexFile = this.engine(this.read('../../templates/common/index.html'), this);
 };
 
@@ -277,6 +279,7 @@ Generator.prototype.appJs = function appJs() {
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
+  this.indexFile = this.indexFile.replace(/&apos;/g, "'");
   this.write(path.join(this.appPath, 'index.html'), this.indexFile);
 };
 

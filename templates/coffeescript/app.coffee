@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>', [<%= angularModules %>])
+angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
@@ -8,3 +8,4 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
         controller: 'MainCtrl'
       .otherwise
         redirectTo: '/'
+<% } %>
