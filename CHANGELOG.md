@@ -1,5 +1,5 @@
 <a name="v0.6.0"></a>
-## v0.6.0 (TBD)
+## v0.6.0 (2013-12-05)
 
 #### Breaking Changes
 
