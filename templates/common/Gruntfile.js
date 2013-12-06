@@ -49,11 +49,11 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
-      },<% } %>
+      },<% } else { %>
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
-      },
+      },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -322,9 +322,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%%= yeoman.dist %>/images',
-          src: [
-            'generated/*'
-          ]
+          src: ['generated/*']
         }]
       },
       styles: {
@@ -339,18 +337,18 @@ module.exports = function (grunt) {
     concurrent: {
       server: [<% if (coffee) { %>
         'coffee:dist',<% } %><% if (compassBootstrap) { %>
-        'compass:server',<% } %>
-        'copy:styles'
+        'compass:server'<% } else { %>
+        'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
         'coffee',<% } %><% if (compassBootstrap) { %>
-        'compass',<% } %>
-        'copy:styles'
+        'compass'<% } else { %>
+        'copy:styles'<% } %>
       ],
       dist: [<% if (coffee) { %>
         'coffee',<% } %><% if (compassBootstrap) { %>
-        'compass:dist',<% } %>
-        'copy:styles',
+        'compass:dist',<% } else { %>
+        'copy:styles',<% } %>
         'imagemin',
         'svgmin',
         'htmlmin'
