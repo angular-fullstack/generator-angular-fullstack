@@ -167,8 +167,8 @@ describe('Angular generator', function () {
 
   describe('Service', function () {
     function serviceTest (generatorType, nameFn, done) {
-      generatorTest(generatorType, 'service', 'services', nameFn, _.classify, '', done);
-    };
+      generatorTest(generatorType, 'service', 'services', nameFn, nameFn, '', done);
+    }
 
     it('should generate a new constant', function (done) {
       serviceTest('constant', _.camelize, done);
