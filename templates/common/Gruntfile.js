@@ -36,8 +36,11 @@ module.exports = function (grunt) {
         tasks: ['newer:coffee:test', 'karma']
       },<% } else { %>
       js: {
-        files: ['{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all']
+        files: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint:all'],
+        options: {
+          livereload: true
+        }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
@@ -60,7 +63,8 @@ module.exports = function (grunt) {
         },
         files: [
           '<%%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
+          '.tmp/styles/{,*/}*.css',<% if (coffee) { %>
+          '.tmp/scripts/{,*/}*.js',<% } %>
           '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
