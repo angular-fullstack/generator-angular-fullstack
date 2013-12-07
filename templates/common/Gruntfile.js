@@ -152,7 +152,7 @@ module.exports = function (grunt) {
       }
     },
 
-    <% if (coffee) { %>
+<% if (coffee) { %>
     // Compiles CoffeeScript to JavaScript
     coffee: {
       options: {
@@ -179,7 +179,7 @@ module.exports = function (grunt) {
       }
     },<% } %>
 
-    <% if (compassBootstrap) { %>
+<% if (compassBootstrap) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
