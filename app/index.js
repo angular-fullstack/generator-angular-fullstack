@@ -1,9 +1,11 @@
 'use strict';
+var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var angularUtils = require('../util.js');
-var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
+var chalk = require('chalk');
+var wiredep = require('wiredep');
 
 
 var Generator = module.exports = function Generator(args, options) {
@@ -66,7 +68,10 @@ var Generator = module.exports = function Generator(args, options) {
   });
 
   this.on('end', function () {
-    this.installDependencies({ skipInstall: this.options['skip-install'] });
+    this.installDependencies({
+      skipInstall: this.options['skip-install'],
+      callback: this._injectDependencies.bind(this)
+    });
 
     var enabledComponents = [];
 
@@ -97,9 +102,10 @@ var Generator = module.exports = function Generator(args, options) {
         ].concat(enabledComponents)
       }
     });
+
   });
 
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+  this.pkg = require('../package.json');
 };
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -213,78 +219,18 @@ Generator.prototype.readIndex = function readIndex() {
 // Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var sass = this.compassBootstrap;
-  var files = [];
   var source = 'styles/' + ( sass ? 's' : '' ) + 'css/';
+  var dest = 'app/styles/';
+  var mainFile = 'main.' + (sass ? 's' : '') + 'css';
 
   if (this.bootstrap && !sass) {
-    files.push('bootstrap.css');
     this.copy('fonts/glyphicons-halflings-regular.eot', 'app/fonts/glyphicons-halflings-regular.eot');
     this.copy('fonts/glyphicons-halflings-regular.ttf', 'app/fonts/glyphicons-halflings-regular.ttf');
     this.copy('fonts/glyphicons-halflings-regular.svg', 'app/fonts/glyphicons-halflings-regular.svg');
     this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
   }
 
-  files.push('main.' + (sass ? 's' : '') + 'css');
-
-  files.forEach(function (file) {
-    this.copy(source + file, 'app/styles/' + file);
-  }.bind(this));
-
-  this.indexFile = this.appendFiles({
-    html: this.indexFile,
-    fileType: 'css',
-    optimizedPath: 'styles/main.css',
-    sourceFileList: files.map(function (file) {
-      return 'styles/' + file.replace('.scss', '.css');
-    }),
-    searchPath: ['.tmp', 'app']
-  });
-};
-
-Generator.prototype.bootstrapJS = function bootstrapJS() {
-  if (!this.bootstrap) {
-    return;  // Skip if disabled.
-  }
-
-  // Wire Twitter Bootstrap plugins
-  this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
-    'bower_components/sass-bootstrap/js/affix.js',
-    'bower_components/sass-bootstrap/js/alert.js',
-    'bower_components/sass-bootstrap/js/button.js',
-    'bower_components/sass-bootstrap/js/carousel.js',
-    'bower_components/sass-bootstrap/js/transition.js',
-    'bower_components/sass-bootstrap/js/collapse.js',
-    'bower_components/sass-bootstrap/js/dropdown.js',
-    'bower_components/sass-bootstrap/js/modal.js',
-    'bower_components/sass-bootstrap/js/scrollspy.js',
-    'bower_components/sass-bootstrap/js/tab.js',
-    'bower_components/sass-bootstrap/js/tooltip.js',
-    'bower_components/sass-bootstrap/js/popover.js'
-  ]);
-};
-
-Generator.prototype.extraModules = function extraModules() {
-  var modules = [];
-  if (this.resourceModule) {
-    modules.push('bower_components/angular-resource/angular-resource.js');
-  }
-
-  if (this.cookiesModule) {
-    modules.push('bower_components/angular-cookies/angular-cookies.js');
-  }
-
-  if (this.sanitizeModule) {
-    modules.push('bower_components/angular-sanitize/angular-sanitize.js');
-  }
-
-  if (this.routeModule) {
-    modules.push('bower_components/angular-route/angular-route.js');
-  }
-
-  if (modules.length) {
-    this.indexFile = this.appendScripts(this.indexFile, 'scripts/modules.js',
-        modules);
-  }
+  this.copy(source + mainFile, dest + mainFile);
 };
 
 Generator.prototype.appJs = function appJs() {
@@ -312,4 +258,24 @@ Generator.prototype.packageFiles = function () {
 Generator.prototype.imageFiles = function () {
   this.sourceRoot(path.join(__dirname, 'templates'));
   this.directory('images', 'app/images', true);
+}
+
+Generator.prototype._injectDependencies = function _injectDependencies() {
+  var howToInstall =
+    '\nAfter running `npm install & bower install`, inject your front end dependencies into' +
+    '\nyour HTML by running:' +
+    '\n' +
+    chalk.yellow.bold('\n  grunt bower-install');
+
+  if (this.options['skip-install']) {
+    console.log(howToInstall);
+  } else {
+    wiredep({
+      directory: 'app/bower_components',
+      bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
+      ignorePath: 'app/',
+      htmlFile: 'app/index.html',
+      cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+    });
+  }
 }
