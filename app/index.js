@@ -232,11 +232,8 @@ Generator.prototype.readIndex = function readIndex() {
   this.indexFile = this.engine(this.read('../../templates/common/index.html'), this);
 };
 
-// Waiting a more flexible solution for #138
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   var sass = this.compass;
-  var source = 'styles/' + ( sass ? 's' : '' ) + 'css/';
-  var dest = 'app/styles/';
   var mainFile = 'main.' + (sass ? 's' : '') + 'css';
 
   if (this.bootstrap && !sass) {
@@ -246,7 +243,7 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
     this.copy('fonts/glyphicons-halflings-regular.woff', 'app/fonts/glyphicons-halflings-regular.woff');
   }
 
-  this.copy(source + mainFile, dest + mainFile);
+  this.copy('styles/' + mainFile, 'app/styles/' + mainFile);
 };
 
 Generator.prototype.appJs = function appJs() {
@@ -274,7 +271,7 @@ Generator.prototype.packageFiles = function () {
 Generator.prototype.imageFiles = function () {
   this.sourceRoot(path.join(__dirname, 'templates'));
   this.directory('images', 'app/images', true);
-}
+};
 
 Generator.prototype._injectDependencies = function _injectDependencies() {
   var howToInstall =
@@ -294,4 +291,4 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
       cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
     });
   }
-}
+};
