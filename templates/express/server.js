@@ -3,7 +3,9 @@
 // Module dependencies.
 var express = require('express'),
     path = require('path')<% if (mongo) { %>,
-    fs = require('fs')<% } %>;
+    fs = require('fs')<% } %><% if (mongo && mongoPassportUser) { %>,
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy<% } %>;
 
 var app = express();
 <% if (mongo) { %>
@@ -19,6 +21,49 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 // Populate empty DB with dummy data
 require('./lib/db/dummydata');
 <% } %>
+
+<% if(mongo && mongoPassportUser) { %>
+// explicitly require the user model
+var User = require('./lib/models/user');
+//Serialize sessions
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findOne({
+        _id: id
+    }, '-salt -hashed_password', function(err, user) { // don't ever give out the password or salt
+        done(err, user);
+    });
+});
+
+// just add more strategies for authentication flexibility
+passport.use(new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password' // this is the virtual field on the model
+    },
+    function(email, password, done) {
+        User.findOne({
+            email: email
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false, {
+                    message: 'Unknown user'
+                });
+            }
+            if (!user.authenticate(password)) {
+                return done(null, false, {
+                    message: 'Invalid password'
+                });
+            }
+            return done(null, user);
+        });
+    }
+));<% } %>
 
 // Express Configuration
 app.configure('development', function(){
@@ -42,7 +87,11 @@ app.configure(function(){<% if (!jade) { %>
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-
+  <% if(mongo && mongoPassportUser) { %>
+  //use passport session
+  app.use(passport.initialize());
+  app.use(passport.session());
+  <% } %>
   // Router needs to be last
 	app.use(app.router);
 });

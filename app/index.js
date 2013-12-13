@@ -210,7 +210,7 @@ Generator.prototype.askForMongo = function askForMongo() {
     default: false
   }, {
     type: 'confirm',
-    name: 'passportUserAuthentication',
+    name: 'mongoPassportUser',
     message: 'Would you like to include passport authentication for a user model?',
     default: false,
     when: function (props) {
@@ -218,7 +218,7 @@ Generator.prototype.askForMongo = function askForMongo() {
     }
   }], function (props) {
     this.mongo = props.mongo;
-    this.passportUserAuthentication = props.passportUserAuthentication;
+    this.mongoPassportUser = props.mongoPassportUser;
 
     cb();
   }.bind(this));
@@ -456,5 +456,9 @@ Generator.prototype.mongoFiles = function () {
   this.template('../../templates/express/mongo/mongo.js', 'lib/db/mongo.js');
   this.template('../../templates/express/mongo/dummydata.js', 'lib/db/dummydata.js');
   this.template('../../templates/express/mongo/thing.js', 'lib/models/thing.js');
+
+  if(!this.mongoPassportUser) {
+    return;  // Skip if disabled.
+  }
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
 };

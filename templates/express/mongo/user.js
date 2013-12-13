@@ -6,12 +6,7 @@ var mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
     _ = require('underscore'),
     authTypes = ['github', 'twitter', 'facebook', 'google'],
-    SALT_WORK_FACTOR = 10,
-    // these values can be whatever you want - we're defaulting to a
-    // max of 5 attempts, resulting in a 1 minute
-    MAX_LOGIN_ATTEMPTS = 5,
-    LOCK_TIME = 60 * 1000;
-
+    SALT_WORK_FACTOR = 10;
 
 /**
  * User Schema
