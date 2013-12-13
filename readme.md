@@ -233,7 +233,24 @@ angular.module('myMod').controller('MyCtrl',
 
 The annotations are important because minified code will rename variables, making it impossible for AngularJS to infer module names based solely on function parameters.
 
-The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself.
+The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself. **One thing to note is that `ngmin` does not produce minsafe code for things that are not main level elements like controller, services, providers, etc.:
+```javascript
+resolve: {
+  User: function(myService) {
+    return MyService();
+  }
+}
+```
+
+will need to be manually done like so:
+```javascript
+resolve: {
+  User: ['myService', function(myService) {
+    return MyService();
+  }]
+}
+```
+
 
 ### Add to Index
 By default, new scripts are added to the index.html file. However, this may not always be suitable. Some use cases:
