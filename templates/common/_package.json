@@ -4,10 +4,12 @@
   "dependencies": {
     "express": "~3.4.3"<% if (mongo) { %>,
     "mongoose": "~3.5.5",
-    "async": "~0.2.9"<% } %><% if (jade) { %>,
+    "async": "~0.2.9"<% } %><% if (mongo && mongoPassportUser) { %>,
+    "passport": "latest",
+    "passport-local": "latest",
+    "bcrypt": "~0.7.7"<% } %><% if (jade) { %>,
     "jade": "latest"<% } %><% if (!jade) { %>,
-    "ejs": "~0.8.4"      
-    <% } %>
+    "ejs": "~0.8.4"<% } %>
   },
   "devDependencies": {
     "grunt": "~0.4.1",

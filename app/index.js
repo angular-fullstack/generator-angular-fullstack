@@ -461,4 +461,5 @@ Generator.prototype.mongoFiles = function () {
     return;  // Skip if disabled.
   }
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
+  this.template('../../templates/express/users.js', 'lib/controllers/users.js');
 };
