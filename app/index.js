@@ -208,8 +208,17 @@ Generator.prototype.askForMongo = function askForMongo() {
     name: 'mongo',
     message: 'Would you like to include MongoDB with Mongoose?',
     default: false
+  }, {
+    type: 'confirm',
+    name: 'passportUserAuthentication',
+    message: 'Would you like to include passport authentication for a user model?',
+    default: false,
+    when: function (props) {
+      return props.mongo;
+    }
   }], function (props) {
     this.mongo = props.mongo;
+    this.passportUserAuthentication = props.passportUserAuthentication;
 
     cb();
   }.bind(this));
@@ -447,4 +456,5 @@ Generator.prototype.mongoFiles = function () {
   this.template('../../templates/express/mongo/mongo.js', 'lib/db/mongo.js');
   this.template('../../templates/express/mongo/dummydata.js', 'lib/db/dummydata.js');
   this.template('../../templates/express/mongo/thing.js', 'lib/models/thing.js');
+  this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
 };
