@@ -3,6 +3,7 @@
     <li class="active"><a ng-href="#">Home</a></li>
     <li><a ng-href="#">About</a></li>
     <li><a ng-href="#">Contact</a></li>
+    <% if(mongo && mongoPassportUser) { %><li><a ng-href="#/Login">Login</a></li><% } %>
   </ul>
   <h3 class="text-muted"><%= appname %></h3>
 </div>

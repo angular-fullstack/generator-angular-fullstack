@@ -20,9 +20,7 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 
 // Populate empty DB with dummy data
 require('./lib/db/dummydata');
-<% } %>
-
-<% if(mongo && mongoPassportUser) { %>
+<% } %><% if(mongo && mongoPassportUser) { %>
 // explicitly require the user model
 var User = require('./lib/models/user');
 //Serialize sessions
