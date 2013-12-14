@@ -5,15 +5,19 @@ angular.module('<%= scriptAppName %>')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
-    },
-    {
+    }, {
       'title': 'About',
       'link': '#'
-    },
-    {
+    }, {
       'title': 'Contact',
       'link': '#'
-    }];
+    }<% if(mongo && mongoPassportUser) { %>, {
+      'title': 'Sign Up',
+      'link': '#/signup'
+    }, {
+      'title': 'Login',
+      'link': '#/login'
+    }<% } %>];
 
     $scope.isActive = function(route) {
       return route === $location.path();
