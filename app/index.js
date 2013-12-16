@@ -384,12 +384,29 @@ function appendFilesToJade(jadeOrOptions, fileType, optimizedPath, sourceFileLis
   return updatedContent;
 }
 
+Generator.prototype.navBarScript = function navBarScript() {
+  var ext = 'js';
+  var folder = 'javascript';
+  var minsafe = '';
+
+  if(this.env.options.coffee) {
+    ext = 'coffee';
+    folder = 'coffeescript';
+  }
+
+  if(this.env.options.minsafe) {
+    minsafe = '-min';
+  }
+
+  this.copy('../../templates/' + folder + minsafe + '/navbar.' + ext, 'app/scripts/controllers/navbar.' + ext);
+};
+
 Generator.prototype.appJs = function appJs() {
   var appendOptions = {
     html: this.indexFile,
     fileType: 'js',
     optimizedPath: 'scripts/scripts.js',
-    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js'],
+    sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js', 'scripts/controllers/navbar.js'],
     searchPath: ['.tmp', 'app']
   };
   if (this.jade) {
@@ -410,6 +427,7 @@ Generator.prototype.createIndex = function createIndex() {
 Generator.prototype.addJadeViews = function addHtmlJade() {
   if(this.jade) {
     this.copy('../../templates/views/jade/partials/main.jade', 'app/views/partials/main.jade');
+    this.copy('../../templates/views/jade/partials/navbar.jade', 'app/views/partials/navbar.jade');
     this.copy('../../templates/views/jade/404.jade', 'app/views/404.jade');
   }
 };
@@ -417,6 +435,7 @@ Generator.prototype.addJadeViews = function addHtmlJade() {
 Generator.prototype.addHtmlViews = function addHtmlViews() {
   if(!this.jade) {
     this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
+    this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
     this.copy('../../templates/views/html/404.html', 'app/views/404.html');
   }
 };

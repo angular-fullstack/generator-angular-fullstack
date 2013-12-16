@@ -1,12 +1,5 @@
-.header
-  ul.nav.nav-pills.pull-right
-    li.active
-      a(ng-href='#') Home
-    li
-      a(ng-href='#') About
-    li
-      a(ng-href='#') Contact
-  h3.text-muted <%= scriptAppName %>
+div(ng-include='\'partials/navbar.html\'')
+
 .jumbotron
   h1 'Allo, 'Allo!
   p.lead
