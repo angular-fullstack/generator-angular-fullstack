@@ -410,6 +410,25 @@ Generator.prototype.navBarScript = function navBarScript() {
   this.copy('../../templates/' + folder + minsafe + '/navbar.' + ext, 'app/scripts/controllers/navbar.' + ext);
 };
 
+Generator.prototype.authenticationScripts = function authenticationScripts() {
+  configuredCopy(this, 'navbar', 'javascript', 'app/scripts/controllers/');
+};
+
+var configuredCopy = function configuredCopy(that, fileToCopy, sourceFolder, destinationFolder) {
+  var ext = 'js';
+  var minsafe = '';
+
+  if(that.env.options.coffee) {
+    ext = 'coffee';
+    sourceFolder = 'coffeescript';
+  }
+
+  if(that.env.options.minsafe) {
+    minsafe = '-min';
+  }
+  that.copy('../../templates/' + sourceFolder + minsafe + '/' + fileToCopy + '.' + ext, destinationFolder + fileToCopy + '.' + ext);
+}
+
 Generator.prototype.appJs = function appJs() {
   var appendOptions = {
     html: this.indexFile,
@@ -468,6 +487,7 @@ Generator.prototype.serverFiles = function () {
 };
 
 Generator.prototype.mongoFiles = function () {
+
   if (!this.mongo) {
     return;  // Skip if disabled.
   }
@@ -479,6 +499,15 @@ Generator.prototype.mongoFiles = function () {
   if(!this.mongoPassportUser) {
     return;  // Skip if disabled.
   }
+
+  // frontend
+  // is there a better way then overriding the app.js? I can't use the ruby switches in that file since
+  // they're not set yet
+  this.template('../../templates/javascript/app-with-passport-routes.js', 'app/scripts/app.js');
+  // this.template('../../templates/express/app.js-with-passport-routes', 'app/scripts/app.js'); 
+
+
+  // backend
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
   this.template('../../templates/express/users.js', 'lib/controllers/users.js');
 };
