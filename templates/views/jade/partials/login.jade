@@ -1,0 +1,19 @@
+div(ng-include='\'partials/navbar.html\'')
+  form.form-horizontal(ng-submit='login()', role='form')
+      .form-group
+        label.col-sm-2.control-label(for='username') Email
+        .col-sm-10
+          input#email.form-control(ng-model='email', type='email', placeholder='Email')
+      .form-group
+        label.col-sm-2.control-label(for='password') Password
+        .col-sm-10
+          input#password.form-control(ng-model='password', type='password', placeholder='')
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          .checkbox
+            label
+              input(type='checkbox')
+              | Remember me
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          button.btn.btn-default(type='submit') Sign in

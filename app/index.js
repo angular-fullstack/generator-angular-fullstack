@@ -446,6 +446,9 @@ Generator.prototype.addJadeViews = function addHtmlJade() {
   if(this.jade) {
     this.copy('../../templates/views/jade/partials/main.jade', 'app/views/partials/main.jade');
     this.copy('../../templates/views/jade/partials/navbar.jade', 'app/views/partials/navbar.jade');
+    if(this.mongo && this.mongoPassportUser) {
+      this.copy('../../templates/views/jade/partials/login.jade', 'app/views/partials/login.jade');
+    }
     this.copy('../../templates/views/jade/404.jade', 'app/views/404.jade');
   }
 };
@@ -454,6 +457,9 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
   if(!this.jade) {
     this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
     this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
+    if(this.mongo && this.mongoPassportUser) {
+      this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');
+    }
     this.copy('../../templates/views/html/404.html', 'app/views/404.html');
   }
 };
