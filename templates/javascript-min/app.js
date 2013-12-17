@@ -7,11 +7,14 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
       })<% if(mongo && mongoPassportUser) {%>
-      .when('#/login', {
+      .when('/login', {
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
       })
-      .when('#/signup', {
+      .when('/logout', {
+        controller: 'LogoutCtrl'
+      })
+      .when('/signup', {
         templateUrl: 'partials/signup',
         controller: 'SignupCtrl'
       })<% } %>

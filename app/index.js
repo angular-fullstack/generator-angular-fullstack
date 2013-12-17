@@ -409,10 +409,6 @@ var copyScriptWithEnvOptions = function copyScriptWithEnvOptions(that, fileToCop
   that.copy('../../templates/' + sourceFolder + minsafe + '/' + fileToCopy + '.' + ext, destinationFolder + fileToCopy + '.' + ext);
 }
 
-Generator.prototype.authenticationScripts = function authenticationScripts() {
-  copyScriptWithEnvOptions(this, 'navbar', 'app/scripts/controllers/');
-};
-
 Generator.prototype.navBarScript = function navBarScript() {
   copyScriptWithEnvOptions(this, 'navbar', 'app/scripts/controllers/');
 };
@@ -425,6 +421,12 @@ Generator.prototype.appJs = function appJs() {
     sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js', 'scripts/controllers/navbar.js'],
     searchPath: ['.tmp', 'app']
   };
+
+  // only reference authentication controllers when required
+  if (this.mongo && this.mongoPassportUser) {
+    appendOptions.sourceFileList.push('scripts/controllers/auth.js');
+  }
+
   if (this.jade) {
     this.indexFile = appendFilesToJade(appendOptions);
   } else {
@@ -490,8 +492,10 @@ Generator.prototype.mongoFiles = function () {
   }
   this.env.options.mongoPassportUser = this.mongoPassportUser
 
-  // frontend
-  this.template('../../templates/express/', 'app/scripts/app.js');
+  // frontend 
+  copyScriptWithEnvOptions(this, 'auth', 'app/scripts/controllers/');
+  // TODO: 
+  // copyScriptWithEnvOptions(this, 'service/user', 'app/scripts/controllers/');
 
   // backend
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');

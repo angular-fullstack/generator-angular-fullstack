@@ -11,6 +11,13 @@ angular.module('<%= scriptAppName %>')
 	  ,
 	    title: 'Contact'
 	    link: '#'
+    <% if(mongo && mongoPassportUser) { %>, 
+      title: 'Sign Up'
+      link: '#/signup'
+    ,
+      title: 'Login'
+      link: '#/login'
+    }<% } %>
 	  ]
 	  $scope.isActive = (route) ->
 	    route is $location.path()

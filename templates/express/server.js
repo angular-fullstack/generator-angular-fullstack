@@ -112,8 +112,8 @@ app.post('/users', users.create);
 
 //Setting the local strategy route
 app.post('/users/session', passport.authenticate('local', {
-    failureRedirect: '/signin',
-    failureFlash: true
+    failureRedirect: '/login',
+    successRedirect: '/'
 }), users.session);
 
 //Finish with setting up the userId param
