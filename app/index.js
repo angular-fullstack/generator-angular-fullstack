@@ -393,30 +393,10 @@ function appendFilesToJade(jadeOrOptions, fileType, optimizedPath, sourceFileLis
   return updatedContent;
 }
 
-Generator.prototype.navBarScript = function navBarScript() {
-  var ext = 'js';
-  var folder = 'javascript';
-  var minsafe = '';
-
-  if(this.env.options.coffee) {
-    ext = 'coffee';
-    folder = 'coffeescript';
-  }
-
-  if(this.env.options.minsafe) {
-    minsafe = '-min';
-  }
-
-  this.copy('../../templates/' + folder + minsafe + '/navbar.' + ext, 'app/scripts/controllers/navbar.' + ext);
-};
-
-Generator.prototype.authenticationScripts = function authenticationScripts() {
-  configuredCopy(this, 'navbar', 'javascript', 'app/scripts/controllers/');
-};
-
-var configuredCopy = function configuredCopy(that, fileToCopy, sourceFolder, destinationFolder) {
-  var ext = 'js';
-  var minsafe = '';
+var copyScriptWithEnvOptions = function copyScriptWithEnvOptions(that, fileToCopy, destinationFolder) {
+  var ext = 'js',
+    minsafe = '',
+    sourceFolder = 'javascript';
 
   if(that.env.options.coffee) {
     ext = 'coffee';
@@ -428,6 +408,14 @@ var configuredCopy = function configuredCopy(that, fileToCopy, sourceFolder, des
   }
   that.copy('../../templates/' + sourceFolder + minsafe + '/' + fileToCopy + '.' + ext, destinationFolder + fileToCopy + '.' + ext);
 }
+
+Generator.prototype.authenticationScripts = function authenticationScripts() {
+  copyScriptWithEnvOptions(this, 'navbar', 'app/scripts/controllers/');
+};
+
+Generator.prototype.navBarScript = function navBarScript() {
+  copyScriptWithEnvOptions(this, 'navbar', 'app/scripts/controllers/');
+};
 
 Generator.prototype.appJs = function appJs() {
   var appendOptions = {
@@ -503,9 +491,7 @@ Generator.prototype.mongoFiles = function () {
   this.env.options.mongoPassportUser = this.mongoPassportUser
 
   // frontend
-  // is there a better way then overriding the app.js? I can't use the ruby switches in that file since
-  // they're not set yet
-  // this.template('../../templates/express/app.js-with-passport-routes', 'app/scripts/app.js'); 
+  this.template('../../templates/express/', 'app/scripts/app.js');
 
   // backend
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
