@@ -21,13 +21,12 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 // Populate empty DB with dummy data
 require('./lib/db/dummydata');
 <% } %><% if(mongo && mongoPassportUser) { %>
-// explicitly require the user model
-var User = require('./lib/models/user');
-//Serialize sessions
+var mongoose = require('mongoose'),
+  User = mongoose.model('User');
+
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
-
 passport.deserializeUser(function(id, done) {
     User.findOne({
         _id: id

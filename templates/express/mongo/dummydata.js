@@ -37,7 +37,6 @@ User.find({}).remove(function() {
 	User.create({ 
 		name: 'Test User',
     email: 'testusers@email.com',
-    username: 'usernick',
     password: 'changeme'
 	}, function(err) {
 			console.log('finished populating users');
