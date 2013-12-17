@@ -491,6 +491,7 @@ Generator.prototype.mongoFiles = function () {
   if (!this.mongo) {
     return;  // Skip if disabled.
   }
+  this.env.options.mongo = this.mongo
 
   this.template('../../templates/express/mongo/mongo.js', 'lib/db/mongo.js');
   this.template('../../templates/express/mongo/dummydata.js', 'lib/db/dummydata.js');
@@ -499,13 +500,12 @@ Generator.prototype.mongoFiles = function () {
   if(!this.mongoPassportUser) {
     return;  // Skip if disabled.
   }
+  this.env.options.mongoPassportUser = this.mongoPassportUser
 
   // frontend
   // is there a better way then overriding the app.js? I can't use the ruby switches in that file since
   // they're not set yet
-  this.template('../../templates/javascript/app-with-passport-routes.js', 'app/scripts/app.js');
   // this.template('../../templates/express/app.js-with-passport-routes', 'app/scripts/app.js'); 
-
 
   // backend
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
