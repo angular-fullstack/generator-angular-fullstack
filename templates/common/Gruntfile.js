@@ -57,24 +57,37 @@ module.exports = function (grunt) {
         tasks: ['newer:coffee:test', 'karma']
       },<% } else { %>
       js: {
-        files: ['{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all']
+        files: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint:all'],
+        options: {
+          livereload: true
+        }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
-      },<% } %><% if (compassBootstrap) { %>
+      },<% } %><% if (compass) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
+      },<% } else { %>
       },<% } %>
+      styles: {
+        files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
+        tasks: ['newer:copy:styles', 'autoprefixer']
+      },<% } %>
+      gruntfile: {
+        files: ['Gruntfile.js']
+      },
       livereload: {
+        files: [
         files: [
           '<%%= yeoman.app %>/<%%= yeoman.views %>/{,*//*}*.{html,jade}',
           '{.tmp,<%%= yeoman.app %>}/styles/{,*//*}*.css',
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
           '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
         ],
+      
         options: {
           livereload: true
         }
@@ -157,7 +170,15 @@ module.exports = function (grunt) {
       }
     },
 
-    <% if (coffee) { %>
+    // Automatically inject Bower components into the app
+    'bower-install': {
+      app: {
+        html: '<%%= yeoman.app %>/index.html',
+        ignorePath: '<%%= yeoman.app %>/'
+      }
+    },
+
+<% if (coffee) { %>
     // Compiles CoffeeScript to JavaScript
     coffee: {
       options: {
@@ -184,7 +205,7 @@ module.exports = function (grunt) {
       }
     },<% } %>
 
-    <% if (compassBootstrap) { %>
+<% if (compass) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -272,14 +293,10 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          // Optional configurations that you can uncomment to use
-          // removeCommentsFromCDATA: true,
-          // collapseBooleanAttributes: true,
-          // removeAttributeQuotes: true,
-          // removeRedundantAttributes: true,
-          // useShortDoctype: true,
-          // removeEmptyAttributes: true,
-          // removeOptionalTags: true*/
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeCommentsFromCDATA: true,
+          removeOptionalTags: true
         },
         files: [{
           expand: true,
@@ -321,6 +338,8 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
+            '*.html',
+            'views/{,*/}*.html',
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
             'fonts/**/*'
@@ -335,9 +354,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%%= yeoman.dist %>/images',
-          src: [
-            'generated/*'
-          ]
+          src: ['generated/*']
         }]
       },
       heroku: {
@@ -370,22 +387,21 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [<% if (coffee) { %>
-        'coffee:dist',<% } %><% if (compassBootstrap) { %>
-        'compass:server',<% } %>
-        'copy:styles'
+        'coffee:dist',<% } %><% if (compass) { %>
+        'compass:server'<% } else { %>
+        'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
-        'coffee',<% } %><% if (compassBootstrap) { %>
-        'compass',<% } %>
-        'copy:styles'
+        'coffee',<% } %><% if (compass) { %>
+        'compass'<% } else { %>
+        'copy:styles'<% } %>
       ],
       dist: [<% if (coffee) { %>
-        'coffee',<% } %><% if (compassBootstrap) { %>
-        'compass:dist',<% } %>
-        'copy:styles',
+        'coffee',<% } %><% if (compass) { %>
+        'compass:dist',<% } else { %>
+        'copy:styles',<% } %>
         'imagemin',
-        'svgmin',
-        'htmlmin'
+        'svgmin'
       ]
     },
 
@@ -435,6 +451,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'bower-install',
       'concurrent:server',
       'autoprefixer',
       'express:dev',
@@ -457,6 +474,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'bower-install',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
@@ -467,7 +485,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'htmlmin'
   ]);
 
   grunt.registerTask('heroku', [

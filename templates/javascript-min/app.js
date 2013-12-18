@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>', [<%= angularModules %>])
+angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
   .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
@@ -12,3 +12,4 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
       });
     $locationProvider.html5Mode(true);
   }]);
+<% } %>;
