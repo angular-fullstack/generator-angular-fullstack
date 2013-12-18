@@ -10,7 +10,8 @@
     "angular-resource": "~1.2.0"<% } %><% if (cookiesModule) { %>,
     "angular-cookies": "~1.2.0"<% } %><% if (sanitizeModule) { %>,
     "angular-sanitize": "~1.2.0"<% } %><% if (routeModule) { %>,
-    "angular-route": "~1.2.0"<% } %>
+    "angular-route": "~1.2.0"<% } %><% if (mongo && mongoPassportUser) { %>,
+    "angular-http-auth": "*"<% } %>
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

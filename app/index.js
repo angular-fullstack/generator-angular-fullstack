@@ -191,6 +191,9 @@ Generator.prototype.askForModules = function askForModules() {
     if (this.routeModule) {
       angMods.push("'ngRoute'");
     }
+    if (this.mongo && this.mongoPassportUser) {
+      angMods.push("'http-auth-interceptor'");
+    }
 
     if (angMods.length) {
       this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
@@ -424,7 +427,12 @@ Generator.prototype.appJs = function appJs() {
 
   // only reference authentication controllers when required
   if (this.mongo && this.mongoPassportUser) {
-    appendOptions.sourceFileList.push('scripts/controllers/auth.js');
+    appendOptions.sourceFileList.push('scripts/controllers/login.js');
+    appendOptions.sourceFileList.push('scripts/controllers/signup.js');
+    appendOptions.sourceFileList.push('scripts/controllers/signup.js');
+    appendOptions.sourceFileList.push('scripts/services/Auth.js');
+    appendOptions.sourceFileList.push('scripts/services/Session.js');
+    appendOptions.sourceFileList.push('scripts/services/User.js');
   }
 
   if (this.jade) {
@@ -499,11 +507,16 @@ Generator.prototype.mongoFiles = function () {
   this.env.options.mongoPassportUser = this.mongoPassportUser
 
   // frontend 
-  copyScriptWithEnvOptions(this, 'auth', 'app/scripts/controllers/');
-  // TODO: 
-  // copyScriptWithEnvOptions(this, 'service/user', 'app/scripts/controllers/');
+  copyScriptWithEnvOptions(this, 'controllers/login',  'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/signup', 'app/scripts/');
 
-  // backend
+  copyScriptWithEnvOptions(this, 'services/Auth',      'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/Session',   'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/User',      'app/scripts/');
+
+  // models
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
+  // controllers
+  this.template('../../templates/express/session.js', 'lib/controllers/session.js');
   this.template('../../templates/express/users.js', 'lib/controllers/users.js');
 };

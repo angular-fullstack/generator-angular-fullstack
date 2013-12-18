@@ -5,96 +5,68 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 /**
- * Auth callback
+ *  Route middleware to ensure user is authenticated.
  */
-exports.authCallback = function(req, res, next) {
-    res.redirect('/');
-};
-
-/**
- * Show login form
- */
-exports.signin = function(req, res) {
-    res.render('users/signin', {
-        title: 'Signin',
-        message: req.flash('error')
-    });
-};
-
-/**
- * Show sign up form
- */
-exports.signup = function(req, res) {
-    res.render('users/signup', {
-        title: 'Sign up',
-        user: new User()
-    });
-};
-
-/**
- * Logout
- */
-exports.signout = function(req, res) {
-    req.logout();
-    res.redirect('/');
-};
-
-/**
- * Session
- */
-exports.session = function(req, res) {
-    res.redirect('/');
-};
+exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.send(401);
+}
 
 /**
  * Create user
+ * requires: {username, password, email}
+ * returns: {email, password}
  */
-exports.create = function(req, res) {
-    var user = new User(req.body);
-    var message = null;
+exports.create = function (req, res, next) {
+  var newUser = new User(req.body);
+  newUser.provider = 'local';
 
-    user.provider = 'local';
-    user.save(function(err) {
-        if (err) {
-            console.log(err);
-            switch (err.code) {
-                case 11000:
-                case 11001:
-                    message = 'Email already exists';
-                    break;
-                default:
-                    message = 'Please fill all the required fields';
-            }
+  newUser.save(function(err) {
+    if (err) {
+      return res.json(400, err);
+    }
 
-            return res.render('users/signup', {
-                message: message,
-                user: user
-            });
-        }
-        req.logIn(user, function(err) {
-            if (err) return next(err);
-            return res.redirect('/');
-        });
+    req.logIn(newUser, function(err) {
+      if (err) return next(err);
+      return res.json(newUser.user_info);
     });
+  });
 };
 
 /**
- * Send User
+ *  Show profile
+ *  returns {username, profile}
  */
-exports.me = function(req, res) {
-    res.jsonp(req.user || null);
+exports.show = function (req, res, next) {
+  var userId = req.params.userId;
+
+  User.findById(ObjectId(userId), function (err, user) {
+    if (err) {
+      return next(new Error('Failed to load User'));
+    }
+    if (user) {
+      res.send({username: user.username, profile: user.profile });
+    } else {
+      res.send(404, 'USER_NOT_FOUND')
+    }
+  });
 };
 
 /**
- * Find user by id
+ *  Username exists
+ *  returns {exists}
  */
-exports.user = function(req, res, next, id) {
-    User.findOne({
-        _id: id
-    }).exec(function(err, user) {
-        if (err) return next(err);
-        if (!user) return next(new Error('Failed to load User ' + id));
-        req.profile = user;
-        next();
-    });
-};
+exports.exists = function (req, res, next) {
+  var username = req.params.username;
+  User.findOne({ username : username }, function (err, user) {
+    if (err) {
+      return next(new Error('Failed to load User ' + username));
+    }
+
+    if(user) {
+      res.json({exists: true});
+    } else {
+      res.json({exists: false});
+    }
+  });
+}

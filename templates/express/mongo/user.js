@@ -11,7 +11,6 @@ var mongoose = require('mongoose'),
  * User Schema
  */
 var UserSchema = new Schema({
-    name: String,
     email: {
         type: String,
         unique: true
@@ -28,27 +27,30 @@ var UserSchema = new Schema({
 /**
  * Virtuals
  */
-UserSchema.virtual('password').set(function(password) {
-    this._password = password;
-    this.salt = this.makeSalt();
-    this.hashed_password = this.encryptPassword(password, this.salt);
-}).get(function() {
-    return this._password;
-});
+UserSchema
+    .virtual('password').set(function(password) {
+        this._password = password;
+        this.salt = this.makeSalt();
+        this.hashed_password = this.encryptPassword(password, this.salt);
+    }).get(function() {
+        return this._password;
+    });
 
+UserSchema
+    .virtual('user_info')
+    .get(function() {
+        return {
+            '_id': this._id,
+            'email': this.email
+        };
+    });
+    
 /**
  * Validations
  */
 var validatePresenceOf = function(value) {
     return value && value.length;
 };
-
-// the below 4 validations only apply if you are signing up traditionally
-UserSchema.path('name').validate(function(name) {
-    // if you are authenticating by any of the oauth strategies, don't validate
-    if (authTypes.indexOf(this.provider) !== -1) return true;
-    return name.length;
-}, 'Name cannot be blank');
 
 UserSchema.path('email').validate(function(email) {
     // if you are authenticating by any of the oauth strategies, don't validate
@@ -109,7 +111,7 @@ UserSchema.methods = {
      */
     encryptPassword: function(password, salt) {
         // hash the password using our new salt
-        return bcrypt.hashSync(password, salt); 
+        return bcrypt.hashSync(password, salt);
     }
 };
 

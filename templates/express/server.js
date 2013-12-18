@@ -102,26 +102,26 @@ app.get('/api/awesomeThings', api.awesomeThings);
 <% if(mongo && mongoPassportUser) { %>
 // User Routes
 var users = require('./lib/controllers/users');
-app.get('/signin', users.signin);
-app.get('/signup', users.signup);
-app.get('/signout', users.signout);
-app.get('/users/me', users.me);
+app.post('/auth/users', users.create);
+app.get('/auth/users/:userId', users.show);
 
-//Setting up the users api
-app.post('/users', users.create);
+// Session Routes
+var session = require('./lib/controllers/session');
+app.get('/auth/session', users.ensureAuthenticated, session.session);
+app.post('/auth/session', session.login);
+app.del('/auth/session', session.logout);
 
-//Setting the local strategy route
-app.post('/users/session', passport.authenticate('local', {
-    failureRedirect: '/login',
-    successRedirect: '/'
-}), users.session);
-
-//Finish with setting up the userId param
-app.param('userId', users.user);
 <% } %>
 // Angular Routes
 app.get('/partials/*', controllers.partials);
-app.get('/*', controllers.index);
+<% if(mongo && mongoPassportUser) { %>app.get('/*', function(req, res) {
+    if(req.user) {
+      res.cookie('user', JSON.stringify(req.user.user_info));
+    }
+
+    res.render('index.html');
+  });<% } %>
+<% if(!mongoPassportUser) { %>app.get('/*', controllers.index);<% } %>
 
 // Start server
 var port = process.env.PORT || 3000;

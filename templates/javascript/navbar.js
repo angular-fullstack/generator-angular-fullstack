@@ -19,6 +19,14 @@ angular.module('<%= scriptAppName %>')
       'link': '#/login'
     }<% } %>];
 
+    $scope.logout = function() {
+      Auth.logout(function(err) {
+        if(!err) {
+          $location.path('/login');
+        }
+      });
+    };
+
     $scope.isActive = function(route) {
       return route === $location.path();
     };
