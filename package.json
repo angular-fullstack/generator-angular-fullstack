@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-fullstack",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Yeoman generator for AngularJS with Express server",
   "keywords": [
     "yeoman-generator",
