@@ -439,7 +439,6 @@ Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/api.js', 'lib/controllers/api.js');
   this.template('../../templates/express/index.js', 'lib/controllers/index.js');
   this.template('../../templates/express/config/express.js', 'lib/config/express.js');
-  this.template('../../templates/express/config/middlewares/nocache.js', 'lib/config/middlewares/nocache.js');
 };
 
 Generator.prototype.mongoFiles = function () {

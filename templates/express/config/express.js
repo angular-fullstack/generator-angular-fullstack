@@ -5,9 +5,20 @@ var express = require('express'),
 
 module.exports = function(app) {
   var rootPath = path.normalize(__dirname + '/../..');
-  
+
   app.configure('development', function(){
     app.use(require('connect-livereload')());
+
+    // Disable caching of scripts for easier testing
+    app.use(function noCache(req, res, next) {
+      if (req.url.indexOf('/scripts/') === 0) {
+        res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+        res.header("Pragma", "no-cache");
+        res.header("Expires", 0);
+      }
+      next();
+    });
+
     app.use(express.static(path.join(rootPath, '.tmp')));
     app.use(express.static(path.join(rootPath, 'app')));
     app.use(express.errorHandler());

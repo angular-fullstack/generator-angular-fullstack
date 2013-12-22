@@ -27,14 +27,11 @@ require('./lib/config/express')(app);
 var api = require('./lib/controllers/api'),
     index = require('./lib/controllers');
 
-// Middlewares
-var noCache = require('./lib/config/middlewares/nocache');
-
 // Server Routes
 app.get('/api/awesomeThings', api.awesomeThings);
 
 // Angular Routes
-app.get('/partials/*', noCache, index.partials);
+app.get('/partials/*', index.partials);
 app.get('/*', index.index);
 
 // Start server
