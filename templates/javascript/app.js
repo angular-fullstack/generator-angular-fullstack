@@ -11,4 +11,4 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
         redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
-  });<% } %>;
+  })<% } %>;
