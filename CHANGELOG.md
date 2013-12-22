@@ -5,7 +5,6 @@
 #### Bug Fixes
 
 * **app:**
-  * copy view files to dist folder ([8a52a265](http://github.com/DaftMonk/generator-angular-fullstack/commit/8a52a265aa15a0f589109d6cd1dac4ae7dc5a3e9))
   * only copy CSS if Compass is not installed ([7e586745](http://github.com/DaftMonk/generator-angular-fullstack/commit/7e58674585e138c0f2eb81f46ef2cc4f1b9a3bf8))
   * services use classified names ([56a71a83](http://github.com/DaftMonk/generator-angular-fullstack/commit/56a71a83cdf90f81bb37b422ba4d40e75d28e1fe), closes [#484](http://github.com/DaftMonk/generator-angular-fullstack/issues/484))
   * reload JS files in watch ([d20f5bd2](http://github.com/DaftMonk/generator-angular-fullstack/commit/d20f5bd20ba95d47447f8acceee491a0a0ba9724))
@@ -43,6 +42,8 @@
 * Deselecting ngRoute adds controller and
 ng-include to index.html
  ([a358c1ae](http://github.com/DaftMonk/generator-angular-fullstack/commit/a358c1ae69bff6a7708ea0a77248698f931f2e4d))
+* `--minsafe` flag is now deprecated. 
+* `grunt server` is now deprecated. Use `grunt serve` instead
 
 <a name="v1.0.1"></a>
 ### v1.0.1 (2013-11-27)
