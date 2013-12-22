@@ -280,21 +280,6 @@ Generator.prototype.bootstrapFiles = function bootstrapFiles() {
   }
 
   this.copy('styles/' + mainFile, 'app/styles/' + mainFile);
-  var appendOptions = {
-    html: this.indexFile,
-    fileType: 'css',
-    optimizedPath: 'styles/main.css',
-    sourceFileList: files.map(function (file) {
-      return 'styles/' + file.replace('.scss', '.css');
-    }),
-    searchPath: ['.tmp', 'app']
-  };
-
-  if (this.jade) {
-    this.indexFile = appendFilesToJade(appendOptions);
-  } else {
-    this.indexFile = this.appendFiles(appendOptions);
-  }
 };
 
 function generateJadeBlock(blockType, optimizedPath, filesBlock, searchPath, prefix) {
@@ -428,15 +413,24 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
   if (this.options['skip-install']) {
     console.log(howToInstall);
   } else {
-    wiredep({
-      directory: 'app/bower_components',
-      bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-      ignorePath: 'app/',
-      htmlFile: 'app/index.html',
-      cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
-    });
+    if (this.jade) {
+      wiredep({
+        directory: 'app/bower_components',
+        bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
+        ignorePath: 'app/',
+        htmlFile: 'app/views/index.jade',
+        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+      });
+    } else {
+      wiredep({
+        directory: 'app/bower_components',
+        bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
+        ignorePath: 'app/',
+        htmlFile: 'app/views/index.html',
+        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+      });
+    }
   }
-};
 };
 
 Generator.prototype.serverFiles = function () {

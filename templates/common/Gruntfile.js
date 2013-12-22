@@ -71,7 +71,6 @@ module.exports = function (grunt) {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
       },<% } else { %>
-      },<% } %>
       styles: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -80,7 +79,6 @@ module.exports = function (grunt) {
         files: ['Gruntfile.js']
       },
       livereload: {
-        files: [
         files: [
           '<%%= yeoman.app %>/<%%= yeoman.views %>/{,*//*}*.{html,jade}',
           '{.tmp,<%%= yeoman.app %>}/styles/{,*//*}*.css',
@@ -102,13 +100,6 @@ module.exports = function (grunt) {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
         }
-      },
-      styles: {
-        files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
-      },
-      gruntfile: {
-        files: ['Gruntfile.js']
       }
     },
 
@@ -172,13 +163,13 @@ module.exports = function (grunt) {
 
     // Automatically inject Bower components into the app
     'bower-install': {
-      app: {
-        html: '<%%= yeoman.app %>/index.html',
+      app: {<% if (jade) { %>
+        html: '<%%= yeoman.app %>/views/index.jade',<% } else { %>
+        html: '<%%= yeoman.app %>/views/index.html',<% } %>
         ignorePath: '<%%= yeoman.app %>/'
       }
     },
-
-<% if (coffee) { %>
+    <% if (coffee) { %>
     // Compiles CoffeeScript to JavaScript
     coffee: {
       options: {
@@ -204,8 +195,7 @@ module.exports = function (grunt) {
         }]
       }
     },<% } %>
-
-<% if (compass) { %>
+    <% if (compass) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -220,7 +210,8 @@ module.exports = function (grunt) {
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
         relativeAssets: false,
-        assetCacheBuster: false
+        assetCacheBuster: false,
+        raw: 'Sass::Script::Number.precision = 10\n'
       },
       dist: {
         options: {
@@ -293,10 +284,10 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true,
-          removeOptionalTags: true
+          //collapseWhitespace: true,
+          //collapseBooleanAttributes: true,
+          //removeCommentsFromCDATA: true,
+          //removeOptionalTags: true
         },
         files: [{
           expand: true,
@@ -338,8 +329,6 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            '*.html',
-            'views/{,*/}*.html',
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
             'fonts/**/*'
@@ -375,7 +364,7 @@ module.exports = function (grunt) {
             'lib/**/*'
           ]
         }]
-      },  
+      },
       styles: {
         expand: true,
         cwd: '<%%= yeoman.app %>/styles',
@@ -401,7 +390,8 @@ module.exports = function (grunt) {
         'compass:dist',<% } else { %>
         'copy:styles',<% } %>
         'imagemin',
-        'svgmin'
+        'svgmin',
+        'htmlmin'
       ]
     },
 
@@ -485,14 +475,13 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin',
-    'htmlmin'
+    'usemin'
   ]);
 
   grunt.registerTask('heroku', [
     'build',
     'clean:heroku',
-    'copy:heroku'    
+    'copy:heroku'
   ]);
 
   grunt.registerTask('default', [
