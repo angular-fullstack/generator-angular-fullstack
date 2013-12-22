@@ -368,6 +368,7 @@ Generator.prototype.appJs = function appJs() {
 };
 
 Generator.prototype.createIndex = function createIndex() {
+  this.indexFile = this.indexFile.replace(/&apos;/g, "'");
   if (this.jade) {
     this.write(path.join(this.appPath, 'views', 'index.jade'), this.indexFile);
   } else {
@@ -437,6 +438,8 @@ Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
   this.template('../../templates/express/api.js', 'lib/controllers/api.js');
   this.template('../../templates/express/index.js', 'lib/controllers/index.js');
+  this.template('../../templates/express/config/express.js', 'lib/config/express.js');
+  this.template('../../templates/express/config/middlewares/nocache.js', 'lib/config/middlewares/nocache.js');
 };
 
 Generator.prototype.mongoFiles = function () {

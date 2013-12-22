@@ -30,11 +30,10 @@ html.no-js
       <![endif]
 
     // Add your site or application content here
-    div(class="container" ng-view)
     <% if (ngRoute) { %>
     div(class="container" ng-view)<%
     } else { %>
-    div(class="container" ng-include="'views/main'" ng-controller="MainCtrl")<% } %>
+    div(class="container" ng-include="'partials/main'" ng-controller="MainCtrl")<% } %>
 
     // Google Analytics: change UA-XXXXX-X to be your site's ID.
     script.
