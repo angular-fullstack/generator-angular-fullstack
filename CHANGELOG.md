@@ -1,3 +1,16 @@
+<a name="v1.1.1"></a>
+### v1.1.1 (2013-12-25)
+
+#### Bug Fixes 
+
+* **views:**
+  * Replaced deprecated jade tags.
+
+#### Features
+
+* **app:**
+  * Updgrade to AngularJS 1.2.6
+
 <a name="v1.1.0"></a>
 ## v1.1.0 (2013-12-22)
 
