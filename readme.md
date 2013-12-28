@@ -195,7 +195,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yo angular:service myService
+yo angular-fullstack:service myService
 ```
 
 Produces `app/scripts/services/myService.js`:
