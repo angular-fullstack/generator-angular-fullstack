@@ -99,6 +99,12 @@ Example:
 yo angular-fullstack:deploy heroku
 ```
 
+After app modifications run:
+```bash
+grunt heroku
+```
+then commit and push the heroku folder.
+
 ### Route
 Generates a controller and view, and configures a route in `app/scripts/app.js` connecting them.
 
@@ -189,7 +195,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yo angular:service myService
+yo angular-fullstack:service myService
 ```
 
 Produces `app/scripts/services/myService.js`:
