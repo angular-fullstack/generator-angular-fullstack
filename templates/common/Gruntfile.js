@@ -95,7 +95,7 @@ module.exports = function (grunt) {
           'server.js',
           'lib/{,*//*}*.{js,json}'
         ],
-        tasks: ['express:dev'],
+        tasks: ['newer:jshint:server', 'express:dev'],
         options: {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
@@ -108,6 +108,12 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
+      },
+      server: {
+        options: {
+          jshintrc: 'lib/.jshintrc'
+        },
+        src: [ 'lib/{,*/}*.js']
       },
       all: [<% if (!coffee) { %>
         '<%%= yeoman.app %>/scripts/{,*/}*.js'<% } %>

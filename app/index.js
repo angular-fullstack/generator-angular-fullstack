@@ -436,6 +436,7 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
 
 Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
+  this.copy('../../templates/express/jshintrc', 'lib/.jshintrc');
   this.template('../../templates/express/api.js', 'lib/controllers/api.js');
   this.template('../../templates/express/index.js', 'lib/controllers/index.js');
   this.template('../../templates/express/config/express.js', 'lib/config/express.js');
