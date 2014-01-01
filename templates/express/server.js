@@ -49,12 +49,12 @@ passport.use(new LocalStrategy({
             }
             if (!user) {
                 return done(null, false, {
-                    message: 'Unknown user'
+                    message: 'This email is not registered.'
                 });
             }
             if (!user.authenticate(password)) {
                 return done(null, false, {
-                    message: 'Invalid password'
+                    message: 'This password is not correct.'
                 });
             }
             return done(null, user);

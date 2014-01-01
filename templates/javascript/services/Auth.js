@@ -23,7 +23,7 @@ angular.module('<%= scriptAppName %>')
 
       logout: function(callback) {
         var cb = callback || angular.noop;
-        Session.delete(function(res) {
+        Session.delete(function() {
             $rootScope.currentUser = null;
             return cb();
           },
@@ -56,11 +56,11 @@ angular.module('<%= scriptAppName %>')
           email: email,
           oldPassword: oldPassword,
           newPassword: newPassword
-        }, function(user) {
-            console.log('password changed');
-            return cb();
+        }, function() {
+          console.log('password changed');
+          return cb();
         }, function(err) {
-            return cb(err.data);
+          return cb(err.data);
         });
       },
 
@@ -70,11 +70,11 @@ angular.module('<%= scriptAppName %>')
           email: email,
           password: password
         }, function(user) {
-            console.log(user + 'removed');
-            return cb();
+          console.log(user + 'removed');
+          return cb();
         }, function(err) {
-            return cb(err.data);
+          return cb(err.data);
         });
       }
     };
-  })
+  });
