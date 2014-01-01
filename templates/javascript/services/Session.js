@@ -2,5 +2,5 @@
 
 angular.module('<%= scriptAppName %>')
   .factory('Session', function ($resource) {
-    return $resource('/users/session/');
+    return $resource('/auth/session/');
   });

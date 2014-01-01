@@ -2,7 +2,7 @@
 
 angular.module('<%= scriptAppName %>')
   .factory('User', function ($resource) {
-    return $resource('/users/:id/', {},
+    return $resource('/auth/users/:id/', {},
       {
         'update': {
           method:'PUT'

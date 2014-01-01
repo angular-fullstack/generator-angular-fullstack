@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .controller('NavbarCtrl', function ($scope, $location<% if(mongo && mongoPassportUser) { %>, Auth<% } %>) {
+  .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'

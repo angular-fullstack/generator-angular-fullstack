@@ -38,7 +38,7 @@ exports.create = function (req, res, next) {
  *  returns {username, profile}
  */
 exports.show = function (req, res, next) {
-  var userId = req.params.userId;
+  var userId = req.params.id;
 
   User.findById(ObjectId(userId), function (err, user) {
     if (err) {

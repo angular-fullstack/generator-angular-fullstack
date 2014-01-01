@@ -413,7 +413,7 @@ var copyScriptWithEnvOptions = function copyScriptWithEnvOptions(that, fileToCop
 }
 
 Generator.prototype.navBarScript = function navBarScript() {
-  copyScriptWithEnvOptions(this, 'navbar', 'app/scripts/controllers/');
+  copyScriptWithEnvOptions(this, 'controllers/navbar', 'app/scripts/controllers/');
 };
 
 Generator.prototype.appJs = function appJs() {
@@ -428,7 +428,6 @@ Generator.prototype.appJs = function appJs() {
   // only reference authentication controllers when required
   if (this.mongo && this.mongoPassportUser) {
     appendOptions.sourceFileList.push('scripts/controllers/login.js');
-    appendOptions.sourceFileList.push('scripts/controllers/signup.js');
     appendOptions.sourceFileList.push('scripts/controllers/signup.js');
     appendOptions.sourceFileList.push('scripts/services/Auth.js');
     appendOptions.sourceFileList.push('scripts/services/Session.js');
@@ -456,6 +455,7 @@ Generator.prototype.addJadeViews = function addHtmlJade() {
     this.copy('../../templates/views/jade/partials/navbar.jade', 'app/views/partials/navbar.jade');
     if(this.mongo && this.mongoPassportUser) {
       this.copy('../../templates/views/jade/partials/login.jade', 'app/views/partials/login.jade');
+      this.copy('../../templates/views/jade/partials/signup.jade', 'app/views/partials/signup.jade');
     }
     this.copy('../../templates/views/jade/404.jade', 'app/views/404.jade');
   }
@@ -467,6 +467,7 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
     this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
     if(this.mongo && this.mongoPassportUser) {
       this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');
+      this.copy('../../templates/views/html/partials/signup.html', 'app/views/partials/signup.html');
     }
     this.copy('../../templates/views/html/404.html', 'app/views/404.html');
   }

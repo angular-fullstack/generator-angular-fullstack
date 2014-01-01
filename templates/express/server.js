@@ -103,7 +103,7 @@ app.get('/api/awesomeThings', api.awesomeThings);
 // User Routes
 var users = require('./lib/controllers/users');
 app.post('/auth/users', users.create);
-app.get('/auth/users/:userId', users.show);
+app.get('/auth/users/:id', users.show);
 
 // Session Routes
 var session = require('./lib/controllers/session');
