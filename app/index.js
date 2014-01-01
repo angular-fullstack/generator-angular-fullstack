@@ -364,7 +364,7 @@ var copyScriptWithEnvOptions = function copyScriptWithEnvOptions(that, fileToCop
 }
 
 Generator.prototype.navBarScript = function navBarScript() {
-  copyScriptWithEnvOptions(this, 'controllers/navbar', 'app/scripts/controllers/');
+  copyScriptWithEnvOptions(this, 'controllers/navbar', 'app/scripts/');
 };
 
 Generator.prototype.appJs = function appJs() {
