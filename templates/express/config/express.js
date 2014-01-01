@@ -1,7 +1,8 @@
 'use strict';
 
 var express = require('express'),
-    path = require('path');
+    path = require('path')<% if (mongo && mongoPassportUser) { %>,
+    passport = require('passport')<% } %>;
 
 module.exports = function(app) {
   var rootPath = path.normalize(__dirname + '/../..');
@@ -37,7 +38,15 @@ module.exports = function(app) {
     app.set('view engine', 'jade');<% } %>
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
-    app.use(express.methodOverride());
+    app.use(express.methodOverride());<% if(mongo && mongoPassportUser) { %>
+    app.use(express.cookieParser());
+    app.use(express.session({ 
+      secret: 'angular-fullstack-supersecret!'
+    }));
+
+    //use passport session
+    app.use(passport.initialize());
+    app.use(passport.session());<% } %>
 
     // Router needs to be last
     app.use(app.router);

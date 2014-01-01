@@ -11,7 +11,8 @@
     "angular-resource": "1.2.6"<% } %><% if (cookiesModule) { %>,
     "angular-cookies": "1.2.6"<% } %><% if (sanitizeModule) { %>,
     "angular-sanitize": "1.2.6"<% } %><% if (routeModule) { %>,
-    "angular-route": "1.2.6"<% } %>
+    "angular-route": "1.2.6"<% } %><% if (mongo && mongoPassportUser) { %>,
+    "angular-http-auth": "*"<% } %>
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
