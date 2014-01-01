@@ -14,12 +14,10 @@ exports.partials = function(req, res) {
   });
 };
 
-exports.index = function(req, res) {
-  <% if(mongo && mongoPassportUser) { %>
-    if(req.user) {
-      res.cookie('user', JSON.stringify(req.user.user_info));
-    }
-  });<% } %>
+exports.index = function(req, res) {<% if(mongo && mongoPassportUser) { %>
+  if(req.user) {
+    res.cookie('user', JSON.stringify(req.user.userInfo));
+  }<% } %>
 
   res.render('index');
 };

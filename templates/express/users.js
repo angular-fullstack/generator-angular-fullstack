@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Module dependencies.
  */
@@ -10,7 +12,7 @@ var mongoose = require('mongoose'),
 exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.send(401);
-}
+};
 
 /**
  * Create user
@@ -27,8 +29,11 @@ exports.create = function (req, res, next) {
     }
 
     req.logIn(newUser, function(err) {
-      if (err) return next(err);
-      return res.json(newUser.user_info);
+      if (err) {
+        return next(err);
+      }
+      
+      return res.json(newUser.userInfo);
     });
   });
 };

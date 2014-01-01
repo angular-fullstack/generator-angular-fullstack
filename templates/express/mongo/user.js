@@ -37,7 +37,7 @@ UserSchema
     });
 
 UserSchema
-    .virtual('user_info')
+    .virtual('userInfo')
     .get(function() {
         return {
             '_id': this._id,

@@ -1,8 +1,8 @@
 'use strict';
 
 // Module dependencies.
-var express = require('express')<% if (mongo) { %>,  
-    path = require('path'),
+var express = require('express'),
+    path = require('path')<% if (mongo) { %>,
     fs = require('fs')<% } %>;
 
 var app = express();
@@ -19,7 +19,7 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 // Populate empty DB with dummy data
 require('./lib/db/dummydata');
 <% } %>
-<% if(mongo && mongoPassportUser) { %>
+<% if (mongo && mongoPassportUser) { %>
 // Passport Configuration
 require('./lib/config/passport')();
 <% } %>
@@ -32,8 +32,8 @@ var api = require('./lib/controllers/api'),
 
 // Server Routes
 app.get('/api/awesomeThings', api.awesomeThings);
-
-<% if(mongo && mongoPassportUser) { %>// User Routes
+<% if(mongo && mongoPassportUser) { %>
+// User Routes
 var users = require('./lib/controllers/users');
 app.post('/auth/users', users.create);
 app.get('/auth/users/:id', users.show);
@@ -42,11 +42,18 @@ app.get('/auth/users/:id', users.show);
 var session = require('./lib/controllers/session');
 app.get('/auth/session', users.ensureAuthenticated, session.session);
 app.post('/auth/session', session.login);
-app.del('/auth/session', session.logout);<% } %>
-
+app.del('/auth/session', session.logout);
+<% } %>
 // Angular Routes
-app.get('/partials/*', index.partials);
-app.get('/*', index.index);
+app.get('/partials/*', controllers.partials);
+<% if(mongo && mongoPassportUser) { %>app.get('/*', function(req, res) {
+  if(req.user) {
+    res.cookie('user', JSON.stringify(req.user.userInfo));
+  }
+
+  res.render('index.html');
+});<% } %>
+<% if(!mongoPassportUser) { %>app.get('/*', controllers.index);<% } %>
 
 // Start server
 var port = process.env.PORT || 3000;

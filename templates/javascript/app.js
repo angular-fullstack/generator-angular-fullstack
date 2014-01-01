@@ -6,7 +6,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
       .when('/', {
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
-      })<% if(mongo && mongoPassportUser) { %>
+      })<% if (mongo && mongoPassportUser) { %>
       .when('/login', {
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
@@ -19,7 +19,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
         redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
-  })<% if(mongo && mongoPassportUser) {%>
+  })<% if (mongo && mongoPassportUser) { %>
   .run(function ($rootScope, $location, Auth) {
 
     //watching the value of the currentUser variable.
@@ -36,4 +36,4 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
       $location.path('/login');
       return false;
     });
-  })<% } %>;
+  })<% } %><% } %>;

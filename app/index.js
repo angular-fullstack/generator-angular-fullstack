@@ -499,6 +499,8 @@ Generator.prototype.mongoFiles = function () {
   copyScriptWithEnvOptions(this, 'services/Session',   'app/scripts/');
   copyScriptWithEnvOptions(this, 'services/User',      'app/scripts/');
 
+  //config
+  this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
   // models
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
   // controllers
