@@ -38,16 +38,17 @@ module.exports = function(app) {
     app.set('view engine', 'jade');<% } %>
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
-    app.use(express.methodOverride());<% if(mongo && mongoPassportUser) { %>
+    app.use(express.methodOverride());
+    <% if(mongo && mongoPassportUser) { %>
     app.use(express.cookieParser());
-    app.use(express.session({ 
-      secret: 'angular-fullstack-supersecret!'
+    app.use(express.session({
+      secret: 'generator-angular-fullstack-supersecret!',
     }));
 
     //use passport session
     app.use(passport.initialize());
-    app.use(passport.session());<% } %>
-
+    app.use(passport.session());
+    <% } %>
     // Router needs to be last
     app.use(app.router);
   });

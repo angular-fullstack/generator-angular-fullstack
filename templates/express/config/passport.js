@@ -1,9 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  passport = require('passport'),
-  LocalStrategy = require('passport-local').Strategy,
-  User = mongoose.model('User');
+    User = mongoose.model('User'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function() {
   passport.serializeUser(function(user, done) {
@@ -12,7 +12,7 @@ module.exports = function() {
   passport.deserializeUser(function(id, done) {
     User.findOne({
       _id: id
-    }, '-salt -hashed_password', function(err, user) { // don't give out the password or salt
+    }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
       done(err, user);
     });
   });

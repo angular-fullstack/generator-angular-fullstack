@@ -17,7 +17,7 @@ var UserSchema = new Schema({
     type: String,
     unique: true
   },
-  hashed_password: String,
+  hashedPassword: String,
   provider: String,
   salt: String,
   facebook: {},
@@ -33,13 +33,13 @@ UserSchema
   .virtual('password').set(function(password) {
     this._password = password;
     this.salt = this.makeSalt();
-    this.hashed_password = this.encryptPassword(password, this.salt);
+    this.hashedPassword = this.encryptPassword(password, this.salt);
   }).get(function() {
     return this._password;
   });
 
 UserSchema
-  .virtual('user_info')
+  .virtual('userInfo')
   .get(function() {
     return {
       '_id': this._id,
@@ -60,10 +60,10 @@ UserSchema.path('email').validate(function(email) {
   return email.length;
 }, 'Email cannot be blank');
 
-UserSchema.path('hashed_password').validate(function(hashed_password) {
+UserSchema.path('hashedPassword').validate(function(hashedPassword) {
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
-  return hashed_password.length;
+  return hashedPassword.length;
 }, 'Password cannot be blank');
 
 /**
@@ -72,7 +72,7 @@ UserSchema.path('hashed_password').validate(function(hashed_password) {
 UserSchema.pre('save', function(next) {
   if (!this.isNew) return next();
 
-  if (!validatePresenceOf(this.hashed_password) && authTypes.indexOf(this.provider) === -1)
+  if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1)
     next(new Error('Invalid password'));
   else
     next();
@@ -90,7 +90,7 @@ UserSchema.methods = {
    * @api public
    */
   authenticate: function(plainText) {
-    return this.encryptPassword(plainText, this.salt) === this.hashed_password;
+    return this.encryptPassword(plainText, this.salt) === this.hashedPassword;
   },
 
   /**
