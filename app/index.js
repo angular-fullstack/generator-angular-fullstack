@@ -361,7 +361,7 @@ var copyScriptWithEnvOptions = function copyScriptWithEnvOptions(that, fileToCop
     minsafe = '-min';
   }
   that.copy('../../templates/' + sourceFolder + minsafe + '/' + fileToCopy + '.' + ext, destinationFolder + fileToCopy + '.' + ext);
-}
+};
 
 Generator.prototype.navBarScript = function navBarScript() {
   copyScriptWithEnvOptions(this, 'controllers/navbar', 'app/scripts/');
@@ -480,7 +480,7 @@ Generator.prototype.mongoFiles = function () {
   if (!this.mongo) {
     return;  // Skip if disabled.
   }
-  this.env.options.mongo = this.mongo
+  this.env.options.mongo = this.mongo;
 
   this.template('../../templates/express/mongo/mongo.js', 'lib/db/mongo.js');
   this.template('../../templates/express/mongo/dummydata.js', 'lib/db/dummydata.js');
@@ -489,9 +489,9 @@ Generator.prototype.mongoFiles = function () {
   if(!this.mongoPassportUser) {
     return;  // Skip if disabled.
   }
-  this.env.options.mongoPassportUser = this.mongoPassportUser
+  this.env.options.mongoPassportUser = this.mongoPassportUser;
 
-  // frontend 
+  // frontend
   copyScriptWithEnvOptions(this, 'controllers/login',  'app/scripts/');
   copyScriptWithEnvOptions(this, 'controllers/signup', 'app/scripts/');
 
@@ -504,4 +504,6 @@ Generator.prototype.mongoFiles = function () {
   // controllers
   this.template('../../templates/express/session.js', 'lib/controllers/session.js');
   this.template('../../templates/express/users.js', 'lib/controllers/users.js');
+  // config
+  this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
 };

@@ -1,8 +1,10 @@
 <div ng-include="'partials/navbar.html'"></div>
 
 <div class="row">
-    <h1 class="text-center login-title">Sign up (you can use a fake email.)</h1>
-    <div class="col-sm-6 col-md-4 col-md-offset-4 signup-well">
+    <div class="col-lg-12">
+        <h1 class="login-title">Sign up</h1>
+    </div>
+    <div class="col-sm-12">
         <form class="form" name="form" ng-submit="register(form)" novalidate>
             <div class="form-group"
                  ng-class="{
@@ -10,8 +12,8 @@
                  'has-success': form.email.$valid && form.email.$dirty && !form.email.$error.mongoose,
                  'has-error': form.email.$invalid && form.email.$dirty || form.email.$error.mongoose
                  }">
+                <label>Email</label>
                 <input class="form-control"
-                       placeholder="Your Email"
                        type="email"
                        name="email"
                        ng-model="user.email"
@@ -30,36 +32,12 @@
             </div>
 
             <div class="form-group"
-                 ng-class="{
-                 'has-warning': form.username.$dirty,
-                 'has-success': form.username.$valid && form.username.$dirty && !form.username.$error.mongoose,
-                 'has-error': form.username.$invalid && form.username.$dirty || form.username.$error.mongoose
-                 }">
-                <input class="form-control"
-                       placeholder="Username"
-                       type="text"
-                       name="username"
-                       ng-model="user.username"
-                       required
-                       unique-username
-                       mongoose-error/>
-                <p class="help-block"
-                   ng-show="form.username.$error.unique && form.username">
-                    That username is already taken.
-                </p>
-                <p class="help-block"
-                   ng-show="form.password.$error.mongoose">
-                    {{ errors.username }}
-                </p>
-            </div>
-
-            <div class="form-group"
                  ng-class="{'has-warning': form.password.$dirty,
                             'has-success': form.password.$valid && form.password.$dirty && !form.password.$error.mongoose,
                             'has-error': form.password.$invalid && form.password.$dirty || form.password.$error.mongoose
                             }">
+                <label>Password</label>
                 <input class="form-control"
-                       placeholder="Password"
                        type="password"
                        name="password"
                        ng-model="user.password"
@@ -78,7 +56,7 @@
                 </p>
             </div>
             <br />
-            <button class="btn btn-lg btn-primary btn-block"
+            <button class="btn btn-lg btn-primary"
                     type="submit"
                     ng-disabled="form.$invalid">Sign up</button>
         </form>

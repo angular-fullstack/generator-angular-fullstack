@@ -19,7 +19,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
         redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
-  })<% if(mongo && mongoPassportUser) {%>
+  })<% } %><% if(mongo && mongoPassportUser) {%>
   .run(function ($rootScope, $location, Auth) {
 
     //watching the value of the currentUser variable.

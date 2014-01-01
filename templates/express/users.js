@@ -8,9 +8,9 @@ var mongoose = require('mongoose'),
  *  Route middleware to ensure user is authenticated.
  */
 exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
+  if (req.isAuthenticated()) return next();
   res.send(401);
-}
+};
 
 /**
  * Create user
@@ -22,9 +22,7 @@ exports.create = function (req, res, next) {
   newUser.provider = 'local';
 
   newUser.save(function(err) {
-    if (err) {
-      return res.json(400, err);
-    }
+    if (err) return res.json(400, err);    
 
     req.logIn(newUser, function(err) {
       if (err) return next(err);
@@ -40,14 +38,13 @@ exports.create = function (req, res, next) {
 exports.show = function (req, res, next) {
   var userId = req.params.id;
 
-  User.findById(ObjectId(userId), function (err, user) {
-    if (err) {
-      return next(new Error('Failed to load User'));
-    }
+  User.findById(userId, function (err, user) {
+    if (err) return next(new Error('Failed to load User'));
+  
     if (user) {
       res.send({username: user.username, profile: user.profile });
     } else {
-      res.send(404, 'USER_NOT_FOUND')
+      res.send(404, 'USER_NOT_FOUND');
     }
   });
 };
@@ -59,9 +56,7 @@ exports.show = function (req, res, next) {
 exports.exists = function (req, res, next) {
   var username = req.params.username;
   User.findOne({ username : username }, function (err, user) {
-    if (err) {
-      return next(new Error('Failed to load User ' + username));
-    }
+    if (err) return next(new Error('Failed to load User ' + username));
 
     if(user) {
       res.json({exists: true});
@@ -69,4 +64,4 @@ exports.exists = function (req, res, next) {
       res.json({exists: false});
     }
   });
-}
+};

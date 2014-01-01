@@ -15,11 +15,9 @@ exports.partials = function(req, res) {
 };
 
 exports.index = function(req, res) {
-  <% if(mongo && mongoPassportUser) { %>
-    if(req.user) {
-      res.cookie('user', JSON.stringify(req.user.user_info));
-    }
-  });<% } %>
+  <% if(mongo && mongoPassportUser) { %>if(req.user) {
+    res.cookie('user', JSON.stringify(req.user.user_info));
+  }<% } %>
 
   res.render('index');
 };
