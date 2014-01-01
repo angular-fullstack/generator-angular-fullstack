@@ -88,7 +88,6 @@ UserSchema.methods = {
      * @api public
      */
     authenticate: function(plainText) {
-        console.dir(plainText);
         return this.encryptPassword(plainText, this.salt) === this.hashed_password;
     },
 

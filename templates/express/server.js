@@ -85,6 +85,11 @@ app.configure(function(){<% if (!jade) { %>
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
   <% if(mongo && mongoPassportUser) { %>
+  app.use(express.cookieParser());
+  app.use(express.session({
+    secret: 'generator-angular-fullstack-supersecret!',
+  }));
+
   //use passport session
   app.use(passport.initialize());
   app.use(passport.session());

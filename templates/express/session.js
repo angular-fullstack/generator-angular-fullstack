@@ -16,7 +16,6 @@ exports.session = function (req, res) {
  * returns nothing
  */
 exports.logout = function (req, res) {
-  console.dir(req);
   if(req.user) {
     req.logout();
     res.send(200);
