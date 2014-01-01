@@ -110,17 +110,16 @@ var session = require('./lib/controllers/session');
 app.get('/auth/session', users.ensureAuthenticated, session.session);
 app.post('/auth/session', session.login);
 app.del('/auth/session', session.logout);
-
 <% } %>
 // Angular Routes
 app.get('/partials/*', controllers.partials);
 <% if(mongo && mongoPassportUser) { %>app.get('/*', function(req, res) {
-    if(req.user) {
-      res.cookie('user', JSON.stringify(req.user.user_info));
-    }
+  if(req.user) {
+    res.cookie('user', JSON.stringify(req.user.user_info));
+  }
 
-    res.render('index.html');
-  });<% } %>
+  res.render('index.html');
+});<% } %>
 <% if(!mongoPassportUser) { %>app.get('/*', controllers.index);<% } %>
 
 // Start server

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .controller('NavbarCtrl', function ($scope, $location) {
+  .controller('NavbarCtrl', function ($scope, $location<% if(mongo && mongoPassportUser) { %>, Auth<% } %>) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
@@ -11,14 +11,8 @@ angular.module('<%= scriptAppName %>')
     }, {
       'title': 'Contact',
       'link': '#'
-    }<% if(mongo && mongoPassportUser) { %>, {
-      'title': 'Sign Up',
-      'link': '#/signup'
-    }, {
-      'title': 'Login',
-      'link': '#/login'
-    }<% } %>];
-
+    }];
+    <% if(mongo && mongoPassportUser) { %>
     $scope.logout = function() {
       Auth.logout(function(err) {
         if(!err) {
@@ -26,7 +20,7 @@ angular.module('<%= scriptAppName %>')
         }
       });
     };
-
+    <% } %>
     $scope.isActive = function(route) {
       return route === $location.path();
     };
