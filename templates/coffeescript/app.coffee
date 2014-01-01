@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>', [<%= angularModules %>])
+angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
   .config ($routeProvider, $locationProvider) ->
     $routeProvider
       .when '/',
@@ -18,4 +18,4 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
       <% } %>
       .otherwise
         redirectTo: '/'
-    $locationProvider.html5Mode(true)
+    $locationProvider.html5Mode(true)<% } %>

@@ -57,17 +57,27 @@ module.exports = function (grunt) {
         tasks: ['newer:coffee:test', 'karma']
       },<% } else { %>
       js: {
-        files: ['{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all']
+        files: ['<%%= yeoman.app %>/scripts/{,*/}*.js'],
+        tasks: ['newer:jshint:all'],
+        options: {
+          livereload: true
+        }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
-      },<% } %><% if (compassBootstrap) { %>
+      },<% } %><% if (compass) { %>
       compass: {
         files: ['<%%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
+      },<% } else { %>
+      styles: {
+        files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
+        tasks: ['newer:copy:styles', 'autoprefixer']
       },<% } %>
+      gruntfile: {
+        files: ['Gruntfile.js']
+      },
       livereload: {
         files: [
           '<%%= yeoman.app %>/<%%= yeoman.views %>/{,*//*}*.{html,jade}',
@@ -75,6 +85,7 @@ module.exports = function (grunt) {
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
           '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
         ],
+      
         options: {
           livereload: true
         }
@@ -84,18 +95,11 @@ module.exports = function (grunt) {
           'server.js',
           'lib/{,*//*}*.{js,json}'
         ],
-        tasks: ['express:dev'],
+        tasks: ['newer:jshint:server', 'express:dev'],
         options: {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
         }
-      },
-      styles: {
-        files: ['<%%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
-      },
-      gruntfile: {
-        files: ['Gruntfile.js']
       }
     },
 
@@ -104,6 +108,12 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
+      },
+      server: {
+        options: {
+          jshintrc: 'lib/.jshintrc'
+        },
+        src: [ 'lib/{,*/}*.js']
       },
       all: [<% if (!coffee) { %>
         '<%%= yeoman.app %>/scripts/{,*/}*.js'<% } %>
@@ -157,6 +167,14 @@ module.exports = function (grunt) {
       }
     },
 
+    // Automatically inject Bower components into the app
+    'bower-install': {
+      app: {<% if (jade) { %>
+        html: '<%%= yeoman.app %>/views/index.jade',<% } else { %>
+        html: '<%%= yeoman.app %>/views/index.html',<% } %>
+        ignorePath: '<%%= yeoman.app %>/'
+      }
+    },
     <% if (coffee) { %>
     // Compiles CoffeeScript to JavaScript
     coffee: {
@@ -183,8 +201,7 @@ module.exports = function (grunt) {
         }]
       }
     },<% } %>
-
-    <% if (compassBootstrap) { %>
+    <% if (compass) { %>
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -199,7 +216,8 @@ module.exports = function (grunt) {
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
         relativeAssets: false,
-        assetCacheBuster: false
+        assetCacheBuster: false,
+        raw: 'Sass::Script::Number.precision = 10\n'
       },
       dist: {
         options: {
@@ -272,14 +290,10 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          // Optional configurations that you can uncomment to use
-          // removeCommentsFromCDATA: true,
-          // collapseBooleanAttributes: true,
-          // removeAttributeQuotes: true,
-          // removeRedundantAttributes: true,
-          // useShortDoctype: true,
-          // removeEmptyAttributes: true,
-          // removeOptionalTags: true*/
+          //collapseWhitespace: true,
+          //collapseBooleanAttributes: true,
+          //removeCommentsFromCDATA: true,
+          //removeOptionalTags: true
         },
         files: [{
           expand: true,
@@ -335,9 +349,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.tmp/images',
           dest: '<%%= yeoman.dist %>/images',
-          src: [
-            'generated/*'
-          ]
+          src: ['generated/*']
         }]
       },
       heroku: {
@@ -358,7 +370,7 @@ module.exports = function (grunt) {
             'lib/**/*'
           ]
         }]
-      },  
+      },
       styles: {
         expand: true,
         cwd: '<%%= yeoman.app %>/styles',
@@ -370,19 +382,19 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [<% if (coffee) { %>
-        'coffee:dist',<% } %><% if (compassBootstrap) { %>
-        'compass:server',<% } %>
-        'copy:styles'
+        'coffee:dist',<% } %><% if (compass) { %>
+        'compass:server'<% } else { %>
+        'copy:styles'<% } %>
       ],
       test: [<% if (coffee) { %>
-        'coffee',<% } %><% if (compassBootstrap) { %>
-        'compass',<% } %>
-        'copy:styles'
+        'coffee',<% } %><% if (compass) { %>
+        'compass'<% } else { %>
+        'copy:styles'<% } %>
       ],
       dist: [<% if (coffee) { %>
-        'coffee',<% } %><% if (compassBootstrap) { %>
-        'compass:dist',<% } %>
-        'copy:styles',
+        'coffee',<% } %><% if (compass) { %>
+        'compass:dist',<% } else { %>
+        'copy:styles',<% } %>
         'imagemin',
         'svgmin',
         'htmlmin'
@@ -435,6 +447,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'bower-install',
       'concurrent:server',
       'autoprefixer',
       'express:dev',
@@ -457,6 +470,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'bower-install',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
@@ -473,7 +487,7 @@ module.exports = function (grunt) {
   grunt.registerTask('heroku', [
     'build',
     'clean:heroku',
-    'copy:heroku'    
+    'copy:heroku'
   ]);
 
   grunt.registerTask('default', [

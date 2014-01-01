@@ -8,10 +8,7 @@ Featuring:
  * Livereload of client and server files
  * Easy deployment workflow.
  * Optional mongoDB integration
- * **NEW** Support for jade templates
-
-Based on [generator-angular](https://github.com/yeoman/generator-angular)
-
+ * Support for jade templates
 
 ## Usage
 
@@ -101,6 +98,12 @@ Example:
 ```bash
 yo angular-fullstack:deploy heroku
 ```
+
+After app modifications run:
+```bash
+grunt heroku
+```
+then commit and push the heroku folder.
 
 ### Route
 Generates a controller and view, and configures a route in `app/scripts/app.js` connecting them.
@@ -192,7 +195,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yo angular:service myService
+yo angular-fullstack:service myService
 ```
 
 Produces `app/scripts/services/myService.js`:
@@ -257,6 +260,11 @@ To output JavaScript files, even if CoffeeScript files exist (the default is to 
 the generator finds any in the project), use `--coffee=false`.
 
 ### Minification Safe
+
+**Deprecated**
+
+[Related Issue #452](https://github.com/yeoman/generator-angular/issues/452): This option is being removed in future versions of the generator. Initially it was needed as ngMin was not entirely stable. As it has matured, the need to keep separate versions of the script templates has led to extra complexity and maintenance of the generator. By removing these extra burdens, new features and bug fixes should be easier to implement. If you are dependent on this option, please take a look at ngMin and seriously consider implementing it in your own code. It will help reduce the amount of typing you have to do (and look through) as well as make your code cleaner to look at.
+
 By default, generators produce unannotated code. Without annotations, AngularJS's DI system will break when minified. Typically, these annotations that make minification safe are added automatically at build-time, after application files are concatenated, but before they are minified. By providing the `--minsafe` option, the code generated will out-of-the-box be ready for minification. The trade-off is between amount of boilerplate, and build process complexity.
 
 #### Example
