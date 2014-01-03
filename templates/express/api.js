@@ -1,6 +1,20 @@
 'use strict';
-<% if (!mongo) { %>
-exports.awesomeThings = function(req, res) {
+<% if (mongo) { %>
+var mongoose = require('mongoose'),
+    Thing = mongoose.model('Thing'),
+    async = require('async');
+<% } %>
+/**
+ * Get awesome things
+ */
+exports.awesomeThings = function(req, res) {<% if (mongo) { %>
+  return Thing.find(function (err, things) {
+    if (!err) {
+      return res.json(things);
+    } else {
+      return res.send(err);
+    }
+  });<% } %><% if (!mongo) { %>
   res.json([
     {
       name : 'HTML5 Boilerplate',
@@ -19,20 +33,5 @@ exports.awesomeThings = function(req, res) {
       info : 'Flexible and minimalist web application framework for node.js.',
       awesomeness: 10
     }
-  ]);
+  ]);<% } %>
 };
-<% } %><% if (mongo) { %>
-var mongoose = require('mongoose'),
-    Thing = mongoose.model('Thing'),
-    async = require('async');
-
-exports.awesomeThings = function(req, res) {
-  return Thing.find(function (err, things) {
-    if (!err) {
-      return res.json(things);
-    } else {
-      return res.send(err);
-    }
-  });
-};
-<% } %>

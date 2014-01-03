@@ -1,8 +1,5 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
   bcrypt = require('bcrypt'),
@@ -17,6 +14,7 @@ var UserSchema = new Schema({
     type: String,
     unique: true
   },
+  role: String,
   hashedPassword: String,
   provider: String,
   salt: String,
@@ -42,8 +40,8 @@ UserSchema
   .virtual('userInfo')
   .get(function() {
     return {
-      '_id': this._id,
-      'email': this.email
+      'email': this.email,
+      'role': this.role
     };
   });
     

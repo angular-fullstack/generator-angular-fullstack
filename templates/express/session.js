@@ -4,16 +4,7 @@ var mongoose = require('mongoose'),
   passport = require('passport');
 
 /**
- * Session
- * returns info on authenticated user
- */
-exports.session = function (req, res) {
-  res.json(req.user.userInfo);
-};
-
-/**
  * Logout
- * returns nothing
  */
 exports.logout = function (req, res) {
   if(req.user) {
@@ -25,8 +16,7 @@ exports.logout = function (req, res) {
 };
 
 /**
- *  Login
- *  requires: {email, password}
+ * Login
  */
 exports.login = function (req, res, next) {
   passport.authenticate('local', function(err, user, info) {

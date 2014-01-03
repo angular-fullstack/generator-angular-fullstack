@@ -45,7 +45,7 @@ angular.module('<%= scriptAppName %>')
       },
 
       currentUser: function() {
-        Session.get(function(user) {
+        User.get(function(user) {
           $rootScope.currentUser = user;
         });
       },

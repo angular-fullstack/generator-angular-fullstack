@@ -2,10 +2,9 @@
 
 angular.module('<%= scriptAppName %>')
   .factory('User', function ($resource) {
-    return $resource('/auth/users/:id/', {},
+    return $resource('/auth/users/:id',
+      {id: '@id'}, //parameters default
       {
-        'update': {
-          method:'PUT'
-        }
-      });
+        update: { method: 'PUT', params: {} },
+			});
   });

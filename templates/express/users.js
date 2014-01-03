@@ -1,23 +1,10 @@
 'use strict';
 
-/**
- * Module dependencies.
- */
 var mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 /**
- *  Route middleware to ensure user is authenticated.
- */
-exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  res.send(401);
-};
-
-/**
  * Create user
- * requires: {username, password, email}
- * returns: {email, password}
  */
 exports.create = function (req, res, next) {
   var newUser = new User(req.body);
@@ -29,14 +16,13 @@ exports.create = function (req, res, next) {
     req.logIn(newUser, function(err) {
       if (err) return next(err);
       
-      return res.json(newUser.userInfo);
+      return res.json(req.user.userInfo);
     });
   });
 };
 
 /**
- *  Show profile
- *  returns {username, profile}
+ *  Get profile of specified user
  */
 exports.show = function (req, res, next) {
   var userId = req.params.id;
@@ -53,18 +39,8 @@ exports.show = function (req, res, next) {
 };
 
 /**
- *  Username exists
- *  returns {exists}
+ * Get current user
  */
-exports.exists = function (req, res, next) {
-  var username = req.params.username;
-  User.findOne({ username : username }, function (err, user) {
-    if (err) return next(new Error('Failed to load User ' + username));
-
-    if(user) {
-      res.json({exists: true});
-    } else {
-      res.json({exists: false});
-    }
-  });
+exports.me = function(req, res) {
+  res.json(req.user || null);
 };

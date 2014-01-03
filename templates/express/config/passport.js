@@ -17,7 +17,7 @@ module.exports = function() {
     });
   });
 
-  // just add more strategies for authentication flexibility
+  // add other strategies for more authentication flexibility
   passport.use(new LocalStrategy({
       usernameField: 'email',
       passwordField: 'password' // this is the virtual field on the model
