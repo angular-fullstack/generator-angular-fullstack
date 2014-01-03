@@ -1,6 +1,6 @@
 'use strict';
 
-var express = require('express')<% if (mongo) { %>,  
+var express = require('express')<% if (mongo) { %>,
     path = require('path'),
     fs = require('fs')<% } %>;
 
@@ -28,7 +28,6 @@ var api = require('./lib/controllers/api'),
 
 // Server Routes
 app.get('/api/awesomeThings', api.awesomeThings);
-
 <% if(mongo && mongoPassportUser) { %>
 var users = require('./lib/controllers/users');
 app.post('/auth/users', users.create);
