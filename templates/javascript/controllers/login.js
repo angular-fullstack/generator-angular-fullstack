@@ -2,26 +2,30 @@
 
 angular.module('<%= scriptAppName %>')
   .controller('LoginCtrl', function ($scope, Auth, $location) {
-    $scope.error = {};
     $scope.user = {};
+    $scope.errors = {};
 
     $scope.login = function(form) {
-      Auth.login('password', {
-          'email': $scope.user.email,
-          'password': $scope.user.password
-        },
-        function(err) {
+      Auth.login('local', {
+          email: $scope.user.email,
+          password: $scope.user.password
+        })
+      .then( function(user) {
+          // Success, redirect to home
+          $location.path('/');
+        })
+      .catch( function(err) {
+          var err = err.data;
           $scope.errors = {};
 
-          if (!err) {
-            $location.path('/');
-          } else {
-            angular.forEach(err.errors, function(error, field) {
-              form[field].$setValidity('mongoose', false);
-              $scope.errors[field] = error.type;
-            });
-            $scope.error.other = err.message;
-          }
+          // Update validity of all form fields that match the error field
+          angular.forEach(err.errors, function(error, field) {
+            form[field].$setValidity('mongoose', false);
+            $scope.errors[field] = error.type;
+          });
+
+          // Error that doesn't match any fields
+          $scope.errors.other = err.message;
         });
     };
   });

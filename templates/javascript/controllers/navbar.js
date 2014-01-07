@@ -14,10 +14,9 @@ angular.module('<%= scriptAppName %>')
     }];
     <% if(mongo && mongoPassportUser) { %>
     $scope.logout = function() {
-      Auth.logout(function(err) {
-        if(!err) {
-          $location.path('/login');
-        }
+      Auth.logout()
+      .then(function() {
+        $location.path('/login');
       });
     };
     <% } %>
