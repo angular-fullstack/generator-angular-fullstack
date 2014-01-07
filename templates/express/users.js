@@ -31,7 +31,7 @@ exports.show = function (req, res, next) {
     if (err) return next(new Error('Failed to load User'));
   
     if (user) {
-      res.send({username: user.username, profile: user.profile });
+      res.send({ profile: user.profile });
     } else {
       res.send(404, 'USER_NOT_FOUND');
     }
