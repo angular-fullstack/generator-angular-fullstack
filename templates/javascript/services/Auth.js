@@ -72,7 +72,7 @@ angular.module('<%= scriptAppName %>')
        * @return {Promise}
        */
       currentUser: function() {
-        return User.get(function(user) {
+        return Session.get(function(user) {
           $rootScope.currentUser = user;
         }).$promise;
       },

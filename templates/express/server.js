@@ -35,6 +35,7 @@ app.post('/api/users', users.create);
 app.get('/api/users/:id', users.show);
 app.get('/api/users/me', users.me);
 
+app.get('/api/session', session.status);
 app.post('/api/session', session.login);
 app.del('/api/session', session.logout);<% } %>
 
