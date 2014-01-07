@@ -49,7 +49,7 @@ angular.module('<%= scriptAppName %>')
           $rootScope.currentUser = user;
         });
       },
-
+      
       changePassword: function(email, oldPassword, newPassword, callback) {
         var cb = callback || angular.noop;
         User.update({

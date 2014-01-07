@@ -24,19 +24,19 @@ require('./lib/config/express')(app);
 
 // Controllers
 var api = require('./lib/controllers/api'),
-    index = require('./lib/controllers');
+    index = require('./lib/controllers')<% if(mongo && mongoPassportUser) { %>,
+    users = require('./lib/controllers/users'),
+    session = require('./lib/controllers/session')<% } %>;
 
 // Server Routes
 app.get('/api/awesomeThings', api.awesomeThings);
 <% if(mongo && mongoPassportUser) { %>
-var users = require('./lib/controllers/users');
-app.post('/auth/users', users.create);
-app.get('/auth/users/:id', users.show);
-app.get('/auth/users/me', users.me);
+app.post('/api/users', users.create);
+app.get('/api/users/:id', users.show);
+app.get('/api/users/me', users.me);
 
-var session = require('./lib/controllers/session');
-app.post('/auth/session', session.login);
-app.del('/auth/session', session.logout);<% } %>
+app.post('/api/session', session.login);
+app.del('/api/session', session.logout);<% } %>
 
 // Angular Routes
 app.get('/partials/*', index.partials);

@@ -4,6 +4,7 @@
   "description": "Yeoman generator for AngularJS with Express server",
   "keywords": [
     "yeoman-generator",
+    "mean",
     "scaffold",
     "express",
     "fullstack",

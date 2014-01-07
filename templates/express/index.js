@@ -24,7 +24,7 @@ exports.index = function(req, res) {<% if(mongo && mongoPassportUser) { %>
   // Set a cookie for angular so it knows we have an http session
   if(req.user) {
     res.cookie('user', JSON.stringify(req.user.userInfo));
-  }<% } %>
-
+  }
+  <% } %>
   res.render('index');
 };

@@ -380,9 +380,9 @@ Generator.prototype.appJs = function appJs() {
   if (this.mongo && this.mongoPassportUser) {
     appendOptions.sourceFileList.push('scripts/controllers/login.js');
     appendOptions.sourceFileList.push('scripts/controllers/signup.js');
-    appendOptions.sourceFileList.push('scripts/services/Auth.js');
-    appendOptions.sourceFileList.push('scripts/services/Session.js');
-    appendOptions.sourceFileList.push('scripts/services/User.js');
+    appendOptions.sourceFileList.push('scripts/services/auth.js');
+    appendOptions.sourceFileList.push('scripts/services/session.js');
+    appendOptions.sourceFileList.push('scripts/services/user.js');
   }
 
   if (this.jade) {
@@ -495,9 +495,9 @@ Generator.prototype.mongoFiles = function () {
   copyScriptWithEnvOptions(this, 'controllers/login',  'app/scripts/');
   copyScriptWithEnvOptions(this, 'controllers/signup', 'app/scripts/');
 
-  copyScriptWithEnvOptions(this, 'services/Auth',      'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/Session',   'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/User',      'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/auth',      'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/session',   'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/user',      'app/scripts/');
 
   //config
   this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
