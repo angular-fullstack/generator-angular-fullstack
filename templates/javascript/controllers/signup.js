@@ -6,23 +6,28 @@ angular.module('<%= scriptAppName %>')
     $scope.errors = {};
 
     $scope.register = function(form) {
-      Auth.createUser({
+      $scope.submitted = true;
+  
+      if(form.$valid) {
+        Auth.createUser({
+          name: $scope.user.name,
           email: $scope.user.email,
           password: $scope.user.password
         })
-      .then( function(user) {
+        .then( function(user) {
           // Success, redirect to home
           $location.path('/');
         })
-      .catch( function(err) {
+        .catch( function(err) {
           var err = err.data;
           $scope.errors = {};
 
-          // Update validity of all form fields that match the error field
+          // Update validity form fields that match the error fields
           angular.forEach(err.errors, function(error, field) {
             form[field].$setValidity('mongoose', false);
             $scope.errors[field] = error.type;
           });
         });
+      }
     };
   });

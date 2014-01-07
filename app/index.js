@@ -383,6 +383,7 @@ Generator.prototype.appJs = function appJs() {
     appendOptions.sourceFileList.push('scripts/services/auth.js');
     appendOptions.sourceFileList.push('scripts/services/session.js');
     appendOptions.sourceFileList.push('scripts/services/user.js');
+    appendOptions.sourceFileList.push('scripts/directives/mongooseError.js');
   }
 
   if (this.jade) {
@@ -492,12 +493,14 @@ Generator.prototype.mongoFiles = function () {
   this.env.options.mongoPassportUser = this.mongoPassportUser;
 
   // frontend
-  copyScriptWithEnvOptions(this, 'controllers/login',  'app/scripts/');
-  copyScriptWithEnvOptions(this, 'controllers/signup', 'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/login',        'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/signup',       'app/scripts/');
 
-  copyScriptWithEnvOptions(this, 'services/auth',      'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/session',   'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/user',      'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/auth',            'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/session',         'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/user',            'app/scripts/');
+
+  copyScriptWithEnvOptions(this, 'directives/mongooseError', 'app/scripts/');
 
   //config
   this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
