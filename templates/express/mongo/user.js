@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
  * User Schema
  */
 var UserSchema = new Schema({
+  name: String,
   email: {
     type: String,
     unique: true
@@ -41,11 +42,12 @@ UserSchema
     return this._password;
   });
 
-// Basic info to indentify user in the app
+// Basic info to identify the current authenticated user in the app
 UserSchema
   .virtual('userInfo')
   .get(function() {
     return {
+      'name': this.name,
       'email': this.email,
       'role': this.role
     };
@@ -56,6 +58,7 @@ UserSchema
   .virtual('profile')
   .get(function() {
     return {
+      'name': this.name,
       'role': this.role
     };
   });
