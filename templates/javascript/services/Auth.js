@@ -68,7 +68,7 @@ angular.module('<%= scriptAppName %>')
       },
 
       /**
-       * Get current authenticated user
+       * Get basic info on current authenticated user
        * @return {Promise}
        */
       currentUser: function() {
