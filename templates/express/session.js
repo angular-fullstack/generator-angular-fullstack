@@ -18,12 +18,8 @@ exports.status = function (req, res) {
  * Logout
  */
 exports.logout = function (req, res) {
-  if(req.user) {
-    req.logout();
-    res.send(200);
-  } else {
-    res.send(400, "Not logged in");
-  }
+  req.logout();
+  res.send(200);
 };
 
 /**
