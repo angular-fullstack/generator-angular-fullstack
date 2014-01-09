@@ -10,19 +10,17 @@ angular.module('<%= scriptAppName %>')
 
       /**
        * Authenticate user
-       * @param  {String}   provider - passport auth strategy
+       * 
        * @param  {Object}   user     - login info
        * @param  {Function} callback - optional
        * @return {Promise}            
        */
-      login: function(provider, user, callback) {
+      login: function(user, callback) {
         var cb = callback || angular.noop;
 
         return Session.save({
-          provider: provider,
           email: user.email,
-          password: user.password,
-          rememberMe: user.rememberMe
+          password: user.password
         }, function(user) {
           $rootScope.currentUser = user;
           return cb();
@@ -32,7 +30,8 @@ angular.module('<%= scriptAppName %>')
       },
 
       /**
-       * Unauthenticate the current user
+       * Unauthenticate user
+       * 
        * @param  {Function} callback - optional
        * @return {Promise}           
        */
@@ -50,6 +49,7 @@ angular.module('<%= scriptAppName %>')
 
       /**
        * Create a new user
+       * 
        * @param  {Object}   user     - user info
        * @param  {Function} callback - optional
        * @return {Promise}            
@@ -68,28 +68,17 @@ angular.module('<%= scriptAppName %>')
       },
 
       /**
-       * Get basic info on current authenticated user
-       * @return {Promise}
-       */
-      currentUser: function() {
-        return Session.get(function(user) {
-          $rootScope.currentUser = user;
-        }).$promise;
-      },
-
-      /**
-       * Update password
-       * @param  {String}   email       
+       * Change password
+       * 
        * @param  {String}   oldPassword 
        * @param  {String}   newPassword 
        * @param  {Function} callback    - optional
        * @return {Promise}              
        */
-      changePassword: function(email, oldPassword, newPassword, callback) {
+      changePassword: function(oldPassword, newPassword, callback) {
         var cb = callback || angular.noop;
 
         return User.update({
-          email: email,
           oldPassword: oldPassword,
           newPassword: newPassword
         }, function(user) {
@@ -100,23 +89,22 @@ angular.module('<%= scriptAppName %>')
       },
 
       /**
-       * Delete account
-       * @param  {String}   email    
-       * @param  {String}   password 
-       * @param  {Function} callback - optional
-       * @return {Promise}           
+       * Gets all available info on authenticated user
+       * 
+       * @return {Object} user
        */
-      removeUser: function(email, password, callback) {
-        var cb = callback || angular.noop;
+      currentUser: function() {
+        return User.get();
+      },
 
-        return User.delete({
-          email: email,
-          password: password
-        }, function(user) {
-          return cb(user);
-        }, function(err) {
-          return cb(err);
-        }).$promise;
-      }
+      /**
+       * Simple check to see if a user is logged in
+       * 
+       * @return {Boolean}
+       */
+      isLoggedIn: function() {
+        var user = $rootScope.currentUser;
+        return !!user;
+      },
     };
   });

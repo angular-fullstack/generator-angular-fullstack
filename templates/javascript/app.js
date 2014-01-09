@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider<% if (mongo && mongoPassportUser) { %>, $httpProvider<% } %>) {
     $routeProvider
       .when('/', {
         templateUrl: 'partials/main',
@@ -18,22 +18,31 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
       .otherwise({
         redirectTo: '/'
       });
-    $locationProvider.html5Mode(true);
-  })<% if (mongo && mongoPassportUser) { %>
+    $locationProvider.html5Mode(true);<% if (mongo && mongoPassportUser) { %>
+    // Intercept 401s and 403s and redirect you to login
+    var unauthorized = function($q, $location) {
+      return {
+        'responseError': function(response) {
+          if(response.status === 401 || response.status === 403) {
+            $location.path('/login');
+            return $q.reject(response);
+          }
+          else {
+            return $q.reject(response);
+          }
+        }
+      };
+    };
+
+    $httpProvider.interceptors.push(unauthorized);
+  })
   .run(function ($rootScope, $location, Auth) {
 
-    //watching the value of the currentUser variable.
-    $rootScope.$watch('currentUser', function(currentUser) {
-      // if no currentUser and on a page that requires authorization then try to update it
-      // will trigger 401s if user does not have a valid session
-      if (!currentUser && (['/', '/login', '/logout', '/signup'].indexOf($location.path()) === -1 )) {
-        Auth.currentUser();
+    // Redirect to login if route requires auth and you're not logged in
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+      
+      if (next.authenticate && !Auth.isLoggedIn()) {
+        $location.path('/login');
       }
-    });
-
-    // On catching 401 errors, redirect to the login page.
-    $rootScope.$on('event:auth-loginRequired', function() {
-      $location.path('/login');
-      return false;
-    });
-  })<% } %><% } %>;
+    });<% } %>
+  })<% } %>;
