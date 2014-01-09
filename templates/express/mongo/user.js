@@ -1,10 +1,12 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  bcrypt = require('bcrypt'),
-  authTypes = ['github', 'twitter', 'facebook', 'google'],
-  SALT_WORK_FACTOR = 10;
+    uniqueValidator = require('mongoose-unique-validator'),
+    Schema = mongoose.Schema,
+    bcrypt = require('bcrypt');
+  
+var authTypes = ['github', 'twitter', 'facebook', 'google'],
+    SALT_WORK_FACTOR = 10;
 
 /**
  * User Schema
@@ -48,8 +50,8 @@ UserSchema
   .get(function() {
     return {
       'name': this.name,
-      'email': this.email,
-      'role': this.role
+      'role': this.role,
+      'provider': this.provider
     };
   });
 
@@ -88,18 +90,11 @@ UserSchema
     return hashedPassword.length;
   }, 'Password cannot be blank');
 
-// Validate duplicate emails
-UserSchema
-  .path('email')
-  .validate(function(value, respond) {
-    var userModel = mongoose.models.User;
+// /**
+//  * Plugins
+//  */
 
-    userModel.findOne({email: value}, function(err, user) {
-      if(err) throw err;
-      if(user) return respond(false);
-      respond(true);
-    });
-  }, 'The specified email address is already in use.');
+UserSchema.plugin(uniqueValidator,  { message: 'Value is not unique.' });
 
 /**
  * Pre-save hook
