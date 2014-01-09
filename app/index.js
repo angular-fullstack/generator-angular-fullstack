@@ -380,6 +380,7 @@ Generator.prototype.appJs = function appJs() {
   if (this.mongo && this.mongoPassportUser) {
     appendOptions.sourceFileList.push('scripts/controllers/login.js');
     appendOptions.sourceFileList.push('scripts/controllers/signup.js');
+    appendOptions.sourceFileList.push('scripts/controllers/settings.js');
     appendOptions.sourceFileList.push('scripts/services/Auth.js');
     appendOptions.sourceFileList.push('scripts/services/Session.js');
     appendOptions.sourceFileList.push('scripts/services/User.js');
@@ -421,6 +422,7 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
     if(this.mongo && this.mongoPassportUser) {
       this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');
       this.copy('../../templates/views/html/partials/signup.html', 'app/views/partials/signup.html');
+      this.copy('../../templates/views/html/partials/settings.html', 'app/views/partials/settings.html');
     }
     this.copy('../../templates/views/html/404.html', 'app/views/404.html');
   }
@@ -495,6 +497,7 @@ Generator.prototype.mongoFiles = function () {
   // frontend
   copyScriptWithEnvOptions(this, 'controllers/login',        'app/scripts/');
   copyScriptWithEnvOptions(this, 'controllers/signup',       'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/settings',     'app/scripts/');
 
   copyScriptWithEnvOptions(this, 'services/Auth',            'app/scripts/');
   copyScriptWithEnvOptions(this, 'services/Session',         'app/scripts/');
