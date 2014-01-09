@@ -233,9 +233,6 @@ Generator.prototype.askForModules = function askForModules() {
       angMods.push("'ngRoute'");
       this.env.options.ngRoute = true;
     }
-    if (this.mongo && this.mongoPassportUser) {
-      angMods.push("'http-auth-interceptor'");
-    }
 
     if (angMods.length) {
       this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
@@ -256,7 +253,7 @@ Generator.prototype.askForMongo = function askForMongo() {
   }, {
     type: 'confirm',
     name: 'mongoPassportUser',
-    message: 'Would you like to include passport authentication for a user model?',
+    message: 'Would you like to include a Passport authentication boilerplate?',
     default: false,
     when: function (props) {
       return props.mongo;
@@ -377,7 +374,7 @@ Generator.prototype.appJs = function appJs() {
   };
 
   // only reference authentication controllers when required
-  if (this.mongo && this.mongoPassportUser) {
+  if (this.mongoPassportUser) {
     appendOptions.sourceFileList.push('scripts/controllers/login.js');
     appendOptions.sourceFileList.push('scripts/controllers/signup.js');
     appendOptions.sourceFileList.push('scripts/controllers/settings.js');
@@ -407,9 +404,10 @@ Generator.prototype.addJadeViews = function addHtmlJade() {
   if(this.jade) {
     this.copy('../../templates/views/jade/partials/main.jade', 'app/views/partials/main.jade');
     this.copy('../../templates/views/jade/partials/navbar.jade', 'app/views/partials/navbar.jade');
-    if(this.mongo && this.mongoPassportUser) {
+    if(this.mongoPassportUser) {
       this.copy('../../templates/views/jade/partials/login.jade', 'app/views/partials/login.jade');
       this.copy('../../templates/views/jade/partials/signup.jade', 'app/views/partials/signup.jade');
+      this.copy('../../templates/views/jade/partials/settings.jade', 'app/views/partials/settings.jade');
     }
     this.copy('../../templates/views/jade/404.jade', 'app/views/404.jade');
   }
@@ -419,7 +417,7 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
   if(!this.jade) {
     this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
     this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
-    if(this.mongo && this.mongoPassportUser) {
+    if(this.mongoPassportUser) {
       this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');
       this.copy('../../templates/views/html/partials/signup.html', 'app/views/partials/signup.html');
       this.copy('../../templates/views/html/partials/settings.html', 'app/views/partials/settings.html');
