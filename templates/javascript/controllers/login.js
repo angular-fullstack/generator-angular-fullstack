@@ -9,16 +9,16 @@ angular.module('<%= scriptAppName %>')
       $scope.submitted = true;
       
       if(form.$valid) {
-        Auth.login('local', {
+        Auth.login({
           email: $scope.user.email,
           password: $scope.user.password
         })
-        .then( function(user) {
-          // Success, redirect to home
+        .then( function() {
+          // Logged in, redirect to home
           $location.path('/');
         })
         .catch( function(err) {
-          var err = err.data;
+          err = err.data;
           $scope.errors.other = err.message;
         });
       }

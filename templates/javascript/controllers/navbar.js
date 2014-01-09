@@ -5,14 +5,11 @@ angular.module('<%= scriptAppName %>')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
-    }, {
-      'title': 'About',
-      'link': '#'
-    }, {
-      'title': 'Contact',
-      'link': '#'
-    }];
-    <% if(mongo && mongoPassportUser) { %>
+    }<% if(mongoPassportUser) { %>, {
+      'title': 'Settings',
+      'link': '/settings'
+    }<% } %>];
+    <% if(mongoPassportUser) { %>
     $scope.logout = function() {
       Auth.logout()
       .then(function() {
