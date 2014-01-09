@@ -17,7 +17,6 @@ angular.module('<%= scriptAppName %>')
     ,
       title: 'Login'
       link: '#/login'
-    }<% } %>
-	  ]
+    <% } %>]
 	  $scope.isActive = (route) ->
 	    route is $location.path()
