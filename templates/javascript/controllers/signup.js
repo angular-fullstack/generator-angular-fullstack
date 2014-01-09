@@ -14,12 +14,12 @@ angular.module('<%= scriptAppName %>')
           email: $scope.user.email,
           password: $scope.user.password
         })
-        .then( function(user) {
+        .then( function() {
           // Account created, redirect to home
           $location.path('/');
         })
         .catch( function(err) {
-          var err = err.data;
+          err = err.data;
           $scope.errors = {};
 
           // Update validity of form fields that match the mongoose errors
