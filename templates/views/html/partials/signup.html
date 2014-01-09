@@ -2,31 +2,33 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <h1 class="login-title">Sign up</h1>
+    <h1>Sign up</h1>
   </div>
   <div class="col-sm-12">
     <form class="form" name="form" ng-submit="register(form)" novalidate>
 
-      <div class="form-group" ng-class="{ 'has-success': form.name.$valid && (form.email.$dirty || submitted),
-                                          'has-error': form.name.$invalid && (form.email.$dirty || submitted) }">
+      <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                          'has-error': form.name.$invalid && submitted }">
         <label>Name</label>
+
         <input type="text" name="name" class="form-control" ng-model="user.name"
                required/>
-        <p class="help-block" ng-show="form.name.$error.required && (form.name.$dirty || submitted)">
+        <p class="help-block" ng-show="form.name.$error.required && submitted">
           A name is required
         </p>
       </div>   
 
-      <div class="form-group" ng-class="{ 'has-success': form.email.$valid && (form.email.$dirty || submitted),
-                                          'has-error': form.email.$invalid && (form.email.$dirty || submitted) }">
+      <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
+                                          'has-error': form.email.$invalid && submitted }">
         <label>Email</label>
+
         <input type="email" name="email" class="form-control" ng-model="user.email"
                required
                mongoose-error/>
-        <p class="help-block" ng-show="form.email.$error.email && (form.email.$dirty || submitted)">
+        <p class="help-block" ng-show="form.email.$error.email && submitted">
           Doesn't look like a valid email.
         </p>
-        <p class="help-block" ng-show="form.email.$error.required && (form.email.$dirty || submitted)">
+        <p class="help-block" ng-show="form.email.$error.required && submitted">
           What's your email address?
         </p>
         <p class="help-block" ng-show="form.email.$error.mongoose">
@@ -34,15 +36,16 @@
         </p>
       </div>
 
-      <div class="form-group" ng-class="{ 'has-success': form.password.$valid && (form.password.$dirty || submitted),
-                                          'has-error': form.password.$invalid && (form.password.$dirty || submitted) }">
+      <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+                                          'has-error': form.password.$invalid && submitted }">
         <label>Password</label>
+        
         <input type="password" name="password" class="form-control" ng-model="user.password"
                ng-minlength="3"
                required
                mongoose-error/>
         <p class="help-block"
-           ng-show="(form.password.$error.minlength || form.password.$error.required) && (form.password.$dirty || submitted)">
+           ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
           Password must be at least 3 characters.
         </p>
         <p class="help-block" ng-show="form.password.$error.mongoose">
