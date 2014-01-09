@@ -36,8 +36,8 @@ Thing.find({}).remove(function() {
 User.find({}).remove(function() {
 	User.create({ 
 		name: 'Test User',
-    email: 'test@email.com',
-    password: 'changeme'
+    email: 'test@test.com',
+    password: 'test'
 	}, function(err) {
 			console.log('finished populating users');
 		}
