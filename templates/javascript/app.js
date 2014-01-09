@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
-  .config(function ($routeProvider, $locationProvider<% if (mongo && mongoPassportUser) { %>, $httpProvider<% } %>) {
+  .config(function ($routeProvider, $locationProvider<% if (mongoPassportUser) { %>, $httpProvider<% } %>) {
     $routeProvider
       .when('/', {
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
-      })<% if (mongo && mongoPassportUser) { %>
+      })<% if (mongoPassportUser) { %>
       .when('/login', {
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
@@ -23,9 +23,10 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
       .otherwise({
         redirectTo: '/'
       });
-    $locationProvider.html5Mode(true);<% if (mongo && mongoPassportUser) { %>
+    $locationProvider.html5Mode(true);<% if (mongoPassportUser) { %>
+      
     // Intercept 401s and 403s and redirect you to login
-    var unauthorized = function($q, $location) {
+    $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
       return {
         'responseError': function(response) {
           if(response.status === 401 || response.status === 403) {
@@ -37,9 +38,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
           }
         }
       };
-    };
-
-    $httpProvider.interceptors.push(unauthorized);
+    }]);
   })
   .run(function ($rootScope, $location, Auth) {
 
