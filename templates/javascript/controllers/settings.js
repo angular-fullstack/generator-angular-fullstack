@@ -4,7 +4,7 @@ angular.module('<%= scriptAppName %>')
   .controller('SettingsCtrl', function ($scope, User, Auth) {
     $scope.errors = {};
 
-		$scope.changePassword = function(form) {
+    $scope.changePassword = function(form) {
       $scope.submitted = true;
 
       if(form.$valid) {

@@ -378,9 +378,9 @@ Generator.prototype.appJs = function appJs() {
     appendOptions.sourceFileList.push('scripts/controllers/login.js');
     appendOptions.sourceFileList.push('scripts/controllers/signup.js');
     appendOptions.sourceFileList.push('scripts/controllers/settings.js');
-    appendOptions.sourceFileList.push('scripts/services/Auth.js');
-    appendOptions.sourceFileList.push('scripts/services/Session.js');
-    appendOptions.sourceFileList.push('scripts/services/User.js');
+    appendOptions.sourceFileList.push('scripts/services/auth.js');
+    appendOptions.sourceFileList.push('scripts/services/session.js');
+    appendOptions.sourceFileList.push('scripts/services/user.js');
     appendOptions.sourceFileList.push('scripts/directives/mongooseError.js');
   }
 
@@ -497,9 +497,9 @@ Generator.prototype.mongoFiles = function () {
   copyScriptWithEnvOptions(this, 'controllers/signup',       'app/scripts/');
   copyScriptWithEnvOptions(this, 'controllers/settings',     'app/scripts/');
 
-  copyScriptWithEnvOptions(this, 'services/Auth',            'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/Session',         'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/User',            'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/auth',            'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/session',         'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/user',            'app/scripts/');
 
   copyScriptWithEnvOptions(this, 'directives/mongooseError', 'app/scripts/');
 
