@@ -17,31 +17,33 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 
 // Populate empty DB with dummy data
 require('./lib/db/dummydata');
-<% } %><% if(mongo && mongoPassportUser) { %>
+<% } %><% if(mongoPassportUser) { %>
 // Configuration
 require('./lib/config/passport')();<% } %>
 require('./lib/config/express')(app);
 
 // Controllers
 var api = require('./lib/controllers/api'),
-    index = require('./lib/controllers')<% if(mongo && mongoPassportUser) { %>,
+    index = require('./lib/controllers')<% if(mongoPassportUser) { %>,
     users = require('./lib/controllers/users'),
-    session = require('./lib/controllers/session')<% } %>;
+    session = require('./lib/controllers/session');
+
+var middleware = require('./lib/middleware')<% } %>;
 
 // Server Routes
 app.get('/api/awesomeThings', api.awesomeThings);
-<% if(mongo && mongoPassportUser) { %>
+<% if(mongoPassportUser) { %>
 app.post('/api/users', users.create);
-app.get('/api/users/:id', users.show);
+app.put('/api/users', users.changePassword);
 app.get('/api/users/me', users.me);
+app.get('/api/users/:id', users.show);
 
-app.get('/api/session', session.status);
 app.post('/api/session', session.login);
 app.del('/api/session', session.logout);<% } %>
 
 // Angular Routes
 app.get('/partials/*', index.partials);
-app.get('/*', index.index);
+app.get('/*',<% if(mongoPassportUser) { %> middleware.setUserCookie,<% } %> index.index);
 
 // Start server
 var port = process.env.PORT || 3000;

@@ -505,7 +505,9 @@ Generator.prototype.mongoFiles = function () {
 
   copyScriptWithEnvOptions(this, 'directives/mongooseError', 'app/scripts/');
 
-  //config
+  // middleware
+  this.template('../../templates/express/middleware.js', 'lib/middleware.js');
+  // config
   this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
   // models
   this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
