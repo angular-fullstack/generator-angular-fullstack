@@ -15,5 +15,5 @@ angular.module('<%= scriptAppName %>')
           id:'me' 
         } 
       }
-	  });
+    });
   });
