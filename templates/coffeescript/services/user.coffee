@@ -1,4 +1,5 @@
 "use strict"
+
 angular.module("<%= scriptAppName %>")
   .factory "User", ($resource) ->
     $resource "/api/users/:id",

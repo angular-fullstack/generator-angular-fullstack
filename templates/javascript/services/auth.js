@@ -2,6 +2,7 @@
 
 angular.module('<%= scriptAppName %>')
   .factory('Auth', function Auth($location, $rootScope, Session, User, $cookieStore) {
+    
     // Get currentUser from cookie
     $rootScope.currentUser = $cookieStore.get('user') || null;
     $cookieStore.remove('user');

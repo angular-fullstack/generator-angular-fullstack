@@ -4,8 +4,10 @@ angular.module('<%= scriptAppName %>')
   .controller 'LoginCtrl', ($scope, Auth, $location) ->
     $scope.user = {}
     $scope.errors = {}
+
     $scope.login = (form) ->
       $scope.submitted = true
+      
       if form.$valid
         Auth.login(
           email: $scope.user.email

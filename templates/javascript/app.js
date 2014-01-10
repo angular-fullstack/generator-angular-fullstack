@@ -23,6 +23,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
       .otherwise({
         redirectTo: '/'
       });
+      
     $locationProvider.html5Mode(true);<% if (mongoPassportUser) { %>
       
     // Intercept 401s and 403s and redirect you to login
