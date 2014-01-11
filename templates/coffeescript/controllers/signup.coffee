@@ -4,16 +4,17 @@ angular.module('<%= scriptAppName %>')
   .controller 'SignupCtrl', ($scope, Auth, $location) ->
     $scope.user = {}
     $scope.errors = {}
+    
     $scope.register = (form) ->
       $scope.submitted = true
-      if form.$valid
-        
-        # Account created, redirect to home
+
+      if form.$valid        
         Auth.createUser(
           name: $scope.user.name
           email: $scope.user.email
           password: $scope.user.password
         ).then( ->
+          # Account created, redirect to home
           $location.path '/'
         ).catch( (err) ->
           err = err.data
