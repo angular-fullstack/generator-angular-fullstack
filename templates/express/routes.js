@@ -23,7 +23,7 @@ module.exports = function(app) {
   app.post('/api/session', session.login);
   app.del('/api/session', session.logout);<% } %>
 
-  // Default all other routes to use Angular Routing
+  // All other routes to use Angular routing in app/scripts/app.js
   app.get('/partials/*', index.partials);
   app.get('/*',<% if(mongoPassportUser) { %> middleware.setUserCookie,<% } %> index.index);
 };
