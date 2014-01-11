@@ -43,7 +43,7 @@ User.find({}).remove(function() {
     name: 'Test User',
     email: 'test@test.com',
     password: 'test'
-  }, function() {41
+  }, function() {
       console.log('finished populating users');
     }
   );

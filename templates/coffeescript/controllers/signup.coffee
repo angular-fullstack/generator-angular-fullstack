@@ -8,7 +8,7 @@ angular.module('<%= scriptAppName %>')
     $scope.register = (form) ->
       $scope.submitted = true
 
-      if form.$valid        
+      if form.$valid
         Auth.createUser(
           name: $scope.user.name
           email: $scope.user.email
