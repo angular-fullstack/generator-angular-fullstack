@@ -2,9 +2,9 @@
   "name": "<%= _.slugify(appname) %>",
   "version": "0.0.0",
   "dependencies": {
-    "express": "~3.4.3"<% if (mongo) { %>,
-    "lodash": "~2.4.1",
-    "mongoose": "~3.5.5"<% } %><% if (mongo && mongoPassportUser) { %>,
+    "express": "~3.4.3",
+    "lodash": "~2.4.1"<% if (mongo) { %>,
+    "mongoose": "~3.5.5"<% } %><% if (mongoPassportUser) { %>,
     "mongoose-unique-validator": "~0.3.0",
     "connect-mongo": "~0.4.0",
     "passport": "latest",

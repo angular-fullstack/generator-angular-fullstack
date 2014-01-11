@@ -12,8 +12,8 @@ var express = require('express')<% if (mongo) { %>,
 // Default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-<% if (mongo) { %>// Application Config
-var config = require('./lib/config/config');
+// Application Config
+var config = require('./lib/config/config');<% if (mongo) { %>
 
 // Connect to database
 var db = mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -25,8 +25,8 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 });
 
 // Populate empty DB with sample data
-require('./lib/config/dummydata');
-<% } %><% if(mongoPassportUser) { %>
+require('./lib/config/dummydata');<% } %><% if(mongoPassportUser) { %>
+  
 // Passport Configuration
 require('./lib/config/passport')();<% } %>
 
