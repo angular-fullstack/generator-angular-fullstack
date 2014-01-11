@@ -90,10 +90,9 @@ UserSchema
     return hashedPassword.length;
   }, 'Password cannot be blank');
 
-// /**
-//  * Plugins
-//  */
-
+/**
+ * Plugins
+ */
 UserSchema.plugin(uniqueValidator,  { message: 'Value is not unique.' });
 
 /**
