@@ -1,5 +1,11 @@
 .header(ng-controller='NavbarCtrl')
   ul.nav.nav-pills.pull-right
     li(ng-repeat='item in menu', ng-class='{active: isActive(item.link)}')
-      a(ng-href='{{item.link}}') {{item.title}}
-  h3.text-muted <%= scriptAppName %>
+      a(ng-href='{{item.link}}') {{item.title}}<% if(mongoPassportUser) { %>
+    li(ng-hide='currentUser', ng-class='{active: isActive("/login")}')
+      a(href='/login') Login
+    li(ng-hide='currentUser', ng-class='{active: isActive("/signup")}')
+      a(href='/signup') Sign up
+    li(ng-show='currentUser', ng-class='{active: isActive("/logout")}')
+      a(href='', ng-click='logout()') Logout<% } %>
+  h3.text-muted <%= appname %>

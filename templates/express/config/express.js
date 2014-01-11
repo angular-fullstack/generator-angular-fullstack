@@ -1,7 +1,8 @@
 'use strict';
 
 var express = require('express'),
-    path = require('path');
+    path = require('path')<% if (mongo && mongoPassportUser) { %>,
+    passport = require('passport')<% } %>;
 
 module.exports = function(app) {
   var rootPath = path.normalize(__dirname + '/../..');
@@ -12,9 +13,9 @@ module.exports = function(app) {
     // Disable caching of scripts for easier testing
     app.use(function noCache(req, res, next) {
       if (req.url.indexOf('/scripts/') === 0) {
-        res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-        res.header("Pragma", "no-cache");
-        res.header("Expires", 0);
+        res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.header('Pragma', 'no-cache');
+        res.header('Expires', 0);
       }
       next();
     });
@@ -38,7 +39,16 @@ module.exports = function(app) {
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
+    <% if(mongo && mongoPassportUser) { %>
+    app.use(express.cookieParser());
+    app.use(express.session({
+      secret: 'generator-angular-fullstack-supersecret!',
+    }));
 
+    //use passport session
+    app.use(passport.initialize());
+    app.use(passport.session());
+    <% } %>
     // Router needs to be last
     app.use(app.router);
   });

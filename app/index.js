@@ -250,8 +250,17 @@ Generator.prototype.askForMongo = function askForMongo() {
     name: 'mongo',
     message: 'Would you like to include MongoDB with Mongoose?',
     default: false
+  }, {
+    type: 'confirm',
+    name: 'mongoPassportUser',
+    message: 'Would you like to include a Passport authentication boilerplate?',
+    default: false,
+    when: function (props) {
+      return props.mongo;
+    }
   }], function (props) {
     this.mongo = props.mongo;
+    this.mongoPassportUser = props.mongoPassportUser;
 
     cb();
   }.bind(this));
@@ -335,21 +344,24 @@ function appendFilesToJade(jadeOrOptions, fileType, optimizedPath, sourceFileLis
   return updatedContent;
 }
 
-Generator.prototype.navBarScript = function navBarScript() {
-  var ext = 'js';
-  var folder = 'javascript';
-  var minsafe = '';
+var copyScriptWithEnvOptions = function copyScriptWithEnvOptions(that, fileToCopy, destinationFolder) {
+  var ext = 'js',
+    minsafe = '',
+    sourceFolder = 'javascript';
 
-  if(this.env.options.coffee) {
+  if(that.env.options.coffee) {
     ext = 'coffee';
-    folder = 'coffeescript';
+    sourceFolder = 'coffeescript';
   }
 
-  if(this.env.options.minsafe) {
+  if(that.env.options.minsafe) {
     minsafe = '-min';
   }
+  that.copy('../../templates/' + sourceFolder + minsafe + '/' + fileToCopy + '.' + ext, destinationFolder + fileToCopy + '.' + ext);
+};
 
-  this.copy('../../templates/' + folder + minsafe + '/navbar.' + ext, 'app/scripts/controllers/navbar.' + ext);
+Generator.prototype.navBarScript = function navBarScript() {
+  copyScriptWithEnvOptions(this, 'controllers/navbar', 'app/scripts/');
 };
 
 Generator.prototype.appJs = function appJs() {
@@ -360,6 +372,18 @@ Generator.prototype.appJs = function appJs() {
     sourceFileList: ['scripts/app.js', 'scripts/controllers/main.js', 'scripts/controllers/navbar.js'],
     searchPath: ['.tmp', 'app']
   };
+
+  // only reference authentication controllers when required
+  if (this.mongoPassportUser) {
+    appendOptions.sourceFileList.push('scripts/controllers/login.js');
+    appendOptions.sourceFileList.push('scripts/controllers/signup.js');
+    appendOptions.sourceFileList.push('scripts/controllers/settings.js');
+    appendOptions.sourceFileList.push('scripts/services/auth.js');
+    appendOptions.sourceFileList.push('scripts/services/session.js');
+    appendOptions.sourceFileList.push('scripts/services/user.js');
+    appendOptions.sourceFileList.push('scripts/directives/mongooseError.js');
+  }
+
   if (this.jade) {
     this.indexFile = appendFilesToJade(appendOptions);
   } else {
@@ -380,6 +404,11 @@ Generator.prototype.addJadeViews = function addHtmlJade() {
   if(this.jade) {
     this.copy('../../templates/views/jade/partials/main.jade', 'app/views/partials/main.jade');
     this.copy('../../templates/views/jade/partials/navbar.jade', 'app/views/partials/navbar.jade');
+    if(this.mongoPassportUser) {
+      this.copy('../../templates/views/jade/partials/login.jade', 'app/views/partials/login.jade');
+      this.copy('../../templates/views/jade/partials/signup.jade', 'app/views/partials/signup.jade');
+      this.copy('../../templates/views/jade/partials/settings.jade', 'app/views/partials/settings.jade');
+    }
     this.copy('../../templates/views/jade/404.jade', 'app/views/404.jade');
   }
 };
@@ -388,6 +417,11 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
   if(!this.jade) {
     this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
     this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
+    if(this.mongoPassportUser) {
+      this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');
+      this.copy('../../templates/views/html/partials/signup.html', 'app/views/partials/signup.html');
+      this.copy('../../templates/views/html/partials/settings.html', 'app/views/partials/settings.html');
+    }
     this.copy('../../templates/views/html/404.html', 'app/views/404.html');
   }
 };
@@ -443,11 +477,39 @@ Generator.prototype.serverFiles = function () {
 };
 
 Generator.prototype.mongoFiles = function () {
+
   if (!this.mongo) {
     return;  // Skip if disabled.
   }
+  this.env.options.mongo = this.mongo;
 
   this.template('../../templates/express/mongo/mongo.js', 'lib/db/mongo.js');
   this.template('../../templates/express/mongo/dummydata.js', 'lib/db/dummydata.js');
   this.template('../../templates/express/mongo/thing.js', 'lib/models/thing.js');
+
+  if(!this.mongoPassportUser) {
+    return;  // Skip if disabled.
+  }
+  this.env.options.mongoPassportUser = this.mongoPassportUser;
+
+  // frontend
+  copyScriptWithEnvOptions(this, 'controllers/login',        'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/signup',       'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/settings',     'app/scripts/');
+
+  copyScriptWithEnvOptions(this, 'services/auth',            'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/session',         'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/user',            'app/scripts/');
+
+  copyScriptWithEnvOptions(this, 'directives/mongooseError', 'app/scripts/');
+
+  // middleware
+  this.template('../../templates/express/middleware.js', 'lib/middleware.js');
+  // config
+  this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
+  // models
+  this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
+  // controllers
+  this.template('../../templates/express/session.js', 'lib/controllers/session.js');
+  this.template('../../templates/express/users.js', 'lib/controllers/users.js');
 };
