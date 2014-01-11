@@ -28,15 +28,15 @@ Generator.prototype.checkInstallation = function checkInstallation() {
 
 Generator.prototype.copyProcfile = function copyProcfile() {
   if(this.name.toLowerCase() != "heroku") return;
-  this.template('../deploy/heroku/Procfile', 'heroku/Procfile');
+  this.template('../deploy/heroku/Procfile', 'dist/Procfile');
 };
 
 Generator.prototype.gruntBuild = function gruntBuild() {
   if(this.name.toLowerCase() != "heroku") return;
   var done = this.async();
  
-  console.log(chalk.bold('Building heroku folder, please wait...'));
-  exec('grunt heroku', function (err, stdout) {
+  console.log(chalk.bold('Building dist folder, please wait...'));
+  exec('grunt build', function (err, stdout) {
     console.log('stdout: ' + stdout);
 
     if (err) {
@@ -50,7 +50,7 @@ Generator.prototype.gitInit = function gitInit() {
   if(this.name.toLowerCase() != "heroku") return;
   var done = this.async();
 
-  exec('git init && git add -A && git commit -m "Initial commit"', { cwd: 'heroku' }, function (err) {
+  exec('git init && git add -A && git commit -m "Initial commit"', { cwd: 'dist' }, function (err) {
     if (err) {
       this.log.error(err);
     }
@@ -62,15 +62,15 @@ Generator.prototype.herokuCreate = function herokuCreate() {
   if(this.name.toLowerCase() != "heroku") return;
   var done = this.async();
 
-  exec('heroku apps:create && heroku config:set NODE_ENV=production', { cwd: 'heroku' }, function (err, stdout, stderr) {
+  exec('heroku apps:create && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
       console.log('stdout: ' + stdout);
       console.log(chalk.green('You\'re all set! Now push to heroku with\n\t' + chalk.bold('git push heroku master') +
-                '\nfrom your new heroku folder'));
-      console.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt heroku') +
-                '\nthen commit and push the heroku folder'));
+                '\nfrom your new distribution folder'));
+      console.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
+                '\nthen commit and push the dist folder'));
     }
     done();
   }.bind(this));
