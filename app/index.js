@@ -471,9 +471,16 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
 Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
   this.copy('../../templates/express/jshintrc', 'lib/.jshintrc');
-  this.template('../../templates/express/api.js', 'lib/controllers/api.js');
-  this.template('../../templates/express/index.js', 'lib/controllers/index.js');
+  this.template('../../templates/express/controllers/api.js', 'lib/controllers/api.js');
+  this.template('../../templates/express/controllers/index.js', 'lib/controllers/index.js');
+  this.template('../../templates/express/routes.js', 'lib/routes.js');
+
   this.template('../../templates/express/config/express.js', 'lib/config/express.js');
+  this.template('../../templates/express/config/config.js', 'lib/config/config.js');
+  this.template('../../templates/express/config/env/all.js', 'lib/config/env/all.js');
+  this.template('../../templates/express/config/env/development.js', 'lib/config/env/development.js');
+  this.template('../../templates/express/config/env/production.js', 'lib/config/env/production.js');
+  this.template('../../templates/express/config/env/test.js', 'lib/config/env/test.js');
 };
 
 Generator.prototype.mongoFiles = function () {
@@ -483,9 +490,8 @@ Generator.prototype.mongoFiles = function () {
   }
   this.env.options.mongo = this.mongo;
 
-  this.template('../../templates/express/mongo/mongo.js', 'lib/db/mongo.js');
-  this.template('../../templates/express/mongo/dummydata.js', 'lib/db/dummydata.js');
-  this.template('../../templates/express/mongo/thing.js', 'lib/models/thing.js');
+  this.template('../../templates/express/config/dummydata.js', 'lib/config/dummydata.js');
+  this.template('../../templates/express/models/thing.js', 'lib/models/thing.js');
 
   if(!this.mongoPassportUser) {
     return;  // Skip if disabled.
@@ -508,8 +514,8 @@ Generator.prototype.mongoFiles = function () {
   // config
   this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
   // models
-  this.template('../../templates/express/mongo/user.js', 'lib/models/user.js');
+  this.template('../../templates/express/models/user.js', 'lib/models/user.js');
   // controllers
-  this.template('../../templates/express/session.js', 'lib/controllers/session.js');
-  this.template('../../templates/express/users.js', 'lib/controllers/users.js');
+  this.template('../../templates/express/controllers/session.js', 'lib/controllers/session.js');
+  this.template('../../templates/express/controllers/users.js', 'lib/controllers/users.js');
 };

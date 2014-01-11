@@ -4,9 +4,13 @@ var mongoose = require('mongoose'),<% if(mongo && mongoPassportUser) { %>
 	User = mongoose.model('User'),<% } %>
 	Thing = mongoose.model('Thing');
 
+/**
+ * Populate database with sample application data
+ */
+
 //Clear old things, then add things in
 Thing.find({}).remove(function() {
-	Thing.create({ 
+	Thing.create({
 		name : 'HTML5 Boilerplate',
 		info : 'HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.',
 		awesomeness: 10
@@ -26,7 +30,7 @@ Thing.find({}).remove(function() {
 		name : 'MongoDB + Mongoose',
 		info : 'An excellent document database. Combined with Mongoose to simplify adding validation and business logic.',
 		awesomeness: 10
-	}, function(err) {
+	}, function() {
 			console.log('finished populating things');
 		}
 	);
@@ -34,11 +38,11 @@ Thing.find({}).remove(function() {
 <% if(mongo && mongoPassportUser) { %>
 // Clear old users, then add a default user
 User.find({}).remove(function() {
-	User.create({ 
+	User.create({
 		name: 'Test User',
     email: 'test@test.com',
     password: 'test'
-	}, function(err) {
+	}, function() {
 			console.log('finished populating users');
 		}
 	);

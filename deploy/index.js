@@ -68,7 +68,7 @@ Generator.prototype.herokuCreate = function herokuCreate() {
     } else {
       console.log('stdout: ' + stdout);
       console.log(chalk.green('You\'re all set! Now push to heroku with\n\t' + chalk.bold('git push heroku master') +
-                '\nfrom your new distribution folder'));
+                '\nfrom your new ' + chalk.bold('dist') + ' folder'));
       console.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
                 '\nthen commit and push the dist folder'));
     }

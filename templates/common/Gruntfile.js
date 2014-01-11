@@ -92,7 +92,7 @@ module.exports = function (grunt) {
       express: {
         files: [
           'server.js',
-          'lib/{,*//*}*.{js,json}'
+          'lib/**/*.{js,json}'
         ],
         tasks: ['newer:jshint:server', 'express:dev'],
         options: {

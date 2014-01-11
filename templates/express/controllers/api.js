@@ -1,8 +1,7 @@
 'use strict';
 <% if (mongo) { %>
 var mongoose = require('mongoose'),
-    Thing = mongoose.model('Thing'),
-    async = require('async');
+    Thing = mongoose.model('Thing');
 <% } %>
 /**
  * Get awesome things

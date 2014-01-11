@@ -5,6 +5,9 @@ var mongoose = require('mongoose'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
+/**
+ * Passport configuration
+ */
 module.exports = function() {
   passport.serializeUser(function(user, done) {
     done(null, user.id);

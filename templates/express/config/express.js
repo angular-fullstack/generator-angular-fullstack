@@ -1,12 +1,14 @@
 'use strict';
 
 var express = require('express'),
-    path = require('path')<% if (mongo && mongoPassportUser) { %>,
+    path = require('path'),
+    config = require('./config')<% if (mongoPassportUser) { %>,
     passport = require('passport')<% } %>;
 
+/**
+ * Express configuration
+ */
 module.exports = function(app) {
-  var rootPath = path.normalize(__dirname + '/../..');
-
   app.configure('development', function(){
     app.use(require('connect-livereload')());
 
@@ -20,16 +22,16 @@ module.exports = function(app) {
       next();
     });
 
-    app.use(express.static(path.join(rootPath, '.tmp')));
-    app.use(express.static(path.join(rootPath, 'app')));
+    app.use(express.static(path.join(config.root, '.tmp')));
+    app.use(express.static(path.join(config.root, 'app')));
     app.use(express.errorHandler());
-    app.set('views', rootPath + '/app/views');
+    app.set('views', config.root + '/app/views');
   });
 
   app.configure('production', function(){
-    app.use(express.favicon(path.join(rootPath, 'public', 'favicon.ico')));
-    app.use(express.static(path.join(rootPath, 'public')));
-    app.set('views', rootPath + '/views');
+    app.use(express.favicon(path.join(config.root, 'public', 'favicon.ico')));
+    app.use(express.static(path.join(config.root, 'public')));
+    app.set('views', config.root + '/views');
   });
 
   app.configure(function(){<% if (!jade) { %>
@@ -39,10 +41,10 @@ module.exports = function(app) {
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    <% if(mongo && mongoPassportUser) { %>
+    <% if(mongoPassportUser) { %>
     app.use(express.cookieParser());
     app.use(express.session({
-      secret: 'generator-angular-fullstack-supersecret!',
+      secret: 'angular-fullstack secret!',
     }));
 
     //use passport session
