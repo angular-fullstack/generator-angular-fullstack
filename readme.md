@@ -1,6 +1,6 @@
 # AngularJS + Express Full Stack Generator 
 
-A MEAN stack generator for Yeoman, Angular Fullstack scaffolds applications with MongoDB, Express, AngularJS, Node, and a lot of customization.
+Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node.
 
 Featuring: 
 
@@ -8,8 +8,8 @@ Featuring:
  * Livereload of client and server files
  * Support for Jade and CoffeeScript
  * Easy deployment workflow.
- * MongoDB integration
- * Passport integration for adding user accounts
+ * Optional MongoDB integration
+ * Optional Passport integration for adding user accounts
 
 ## Example project
 
@@ -83,6 +83,30 @@ We provide an extremely simplifed deployment process for heroku.
 5. Optional (if using mongoDB) `heroku addons:add mongohq`
 
 That's it! Your app should be live and shareable. Type `heroku open` to view it.  
+
+## Setting up Route authorization
+
+If your app uses the Passport boilerplate for accounts, you'll of course want to restrict access to certain client routes/api routes.
+
+For protecting server API routes, we can use the `auth` middleware, which will send a 401 unauthorized error if a user makes a request without being logged in.
+
+For protecting client routes, we automatically handle 401s sent from the server by redirecting you to the login page.
+
+However, as this will load part of the page before redirecting, it will cause a flicker. So this should only be used as a fallback mechanism. A better way to handle restricted pages is to mark the routes on the client side that you want to require authentication for. 
+
+You can easily do this from your `app.js` by adding the following to any client routes that need protecting.
+
+     authenticate: true
+
+This redirects the user to the login page before attempting to load the new route, avoiding the flicker.
+
+Please keep in mind this client routing is only for improving the **user interface**. Anyone with chrome developer tools can easily get around it and view pages they're not supposed to see. 
+
+This is not a problem as long as you **secure your server API** routes, ensuring that you don't give any sensitive information unless the user is authenticated or authorized.
+
+#### How do I only let users authorized access an api route?
+
+Similarly to how the `auth` middleware checks if a user authenticated before going to the next route, you could easily make an ensureAuthorized middleware that checks the users role, or some other field, before sending them to the protected route, otherwise it sends a `403` error.
 
 ## Generators
 
