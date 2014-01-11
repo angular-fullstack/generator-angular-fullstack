@@ -1,7 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    Thing = mongoose.model('Thing');
+var mongoose = require('mongoose'),<% if(mongo && mongoPassportUser) { %>
+	User = mongoose.model('User'),<% } %>
+	Thing = mongoose.model('Thing');
 
 //Clear old things, then add things in
 Thing.find({}).remove(function() {
@@ -30,3 +31,16 @@ Thing.find({}).remove(function() {
 		}
 	);
 });
+<% if(mongo && mongoPassportUser) { %>
+// Clear old users, then add a default user
+User.find({}).remove(function() {
+	User.create({ 
+		name: 'Test User',
+    email: 'test@test.com',
+    password: 'test'
+	}, function(err) {
+			console.log('finished populating users');
+		}
+	);
+});
+<% } %>

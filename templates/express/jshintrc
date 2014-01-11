@@ -1,10 +1,7 @@
 {
   "node": true,
-  "browser": true,
   "esnext": true,
   "bitwise": true,
-  "camelcase": true,
-  "curly": true,
   "eqeqeq": true,
   "immed": true,
   "indent": 2,
@@ -13,6 +10,5 @@
   "noarg": true,
   "regexp": true,
   "undef": true,
-  "strict": true,
   "smarttabs": true
 }
