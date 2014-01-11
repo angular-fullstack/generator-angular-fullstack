@@ -3,7 +3,8 @@
 var express = require('express'),
     path = require('path'),
     config = require('./config')<% if (mongoPassportUser) { %>,
-    passport = require('passport')<% } %>;
+    passport = require('passport'),
+    mongoStore = require('connect-mongo')(express)<% } %>;
 
 /**
  * Express configuration
@@ -40,11 +41,16 @@ module.exports = function(app) {
     app.set('view engine', 'jade');<% } %>
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    <% if(mongoPassportUser) { %>
+    app.use(express.methodOverride());<% if(mongoPassportUser) { %>
     app.use(express.cookieParser());
+
+    // Persist sessions with mongoStore
     app.use(express.session({
-      secret: 'angular-fullstack secret!',
+      secret: 'angular-fullstack secret',
+      store: new mongoStore({
+        url: config.mongo.uri,
+        collection: 'sessions'
+      })
     }));
 
     //use passport session
