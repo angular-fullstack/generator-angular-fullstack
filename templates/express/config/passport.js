@@ -30,7 +30,7 @@ module.exports = function() {
         email: email
       }, function(err, user) {
         if (err) return done(err);
-        
+
         if (!user) {
           return done(null, false, {
             message: 'This email is not registered.'
@@ -45,4 +45,101 @@ module.exports = function() {
       });
     }
   ));
+
+  <% if (mongoPassportFacebook) { %>
+  // Facebook Authentication
+  passport.use(new FacebookStrategy({
+          clientID: fbClientID,
+          clientSecret: fbClientSecret,
+          callbackURL: fbCallbackURL
+      },
+      function(accessToken, refreshToken, profile, done) {
+          User.findOrCreate({
+              'facebook.id': profile.id
+          },
+          function(err, user) {
+              if (err) {
+                  return done(err);
+              }
+              if (!user) {
+                  user = new User({
+                      name: profile.displayName,
+                      email: profile.emails[0].value,
+                      username: profile.username,
+                      provider: 'facebook',
+                      facebook: profile._json
+                  });
+                  user.save(function(err) {
+                      if (err) console.log(err);
+                      return done(err, user);
+                  });
+              } else {
+                  return done(err, user);
+              }
+          })
+      }
+  ));<% } %>
+
+  <% if (mongoPassportTwitter) { %>
+  //Use twitter strategy
+  passport.use(new TwitterStrategy({
+          consumerKey: config.twitter.clientID,
+          consumerSecret: config.twitter.clientSecret,
+          callbackURL: config.twitter.callbackURL
+      },
+      function(token, tokenSecret, profile, done) {
+          User.findOne({
+              'twitter.id_str': profile.id
+          }, function(err, user) {
+              if (err) {
+                  return done(err);
+              }
+              if (!user) {
+                  user = new User({
+                      name: profile.displayName,
+                      username: profile.username,
+                      provider: 'twitter',
+                      twitter: profile._json
+                  });
+                  user.save(function(err) {
+                      if (err) console.log(err);
+                      return done(err, user);
+                  });
+              } else {
+                  return done(err, user);
+              }
+          });
+      }
+  ));<% } %>
+
+  <% if (mongoPassportGoogle) { %>
+  //Use google strategy
+  passport.use(new GoogleStrategy({
+          clientID: config.google.clientID,
+          clientSecret: config.google.clientSecret,
+          callbackURL: config.google.callbackURL
+      },
+      function(accessToken, refreshToken, profile, done) {
+          User.findOne({
+              'google.id': profile.id
+          }, function(err, user) {
+              if (!user) {
+                  user = new User({
+                      name: profile.displayName,
+                      email: profile.emails[0].value,
+                      username: profile.username,
+                      provider: 'google',
+                      google: profile._json
+                  });
+                  user.save(function(err) {
+                      if (err) console.log(err);
+                      return done(err, user);
+                  });
+              } else {
+                  return done(err, user);
+              }
+          });
+      }
+  ));<% } %>
+
 };
