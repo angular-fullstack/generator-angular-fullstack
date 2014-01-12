@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    config = require('./config'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy<% if (mongoPassportFacebook) { %>,
     FacebookStrategy = require('passport-facebook').Strategy<% } %><% if (mongoPassportTwitter) { %>,
@@ -52,9 +53,9 @@ module.exports = function() {
   <% if (mongoPassportFacebook) { %>
   // Facebook Authentication
   passport.use(new FacebookStrategy({
-          clientID: fbClientID,
-          clientSecret: fbClientSecret,
-          callbackURL: fbCallbackURL
+          clientID: config.facebook.clientID,
+          clientSecret: config.facebook.clientSecret,
+          callbackURL: config.facebook.callbackURL
       },
       function(accessToken, refreshToken, profile, done) {
           User.findOrCreate({
