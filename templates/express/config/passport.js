@@ -3,7 +3,10 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy;
+    LocalStrategy = require('passport-local').Strategy<% if (mongoPassportFacebook) { %>,
+    FacebookStrategy = require('passport-facebook').Strategy<% } %><% if (mongoPassportTwitter) { %>,
+    TwitterStrategy = require('passport-twitter').Strategy<% } %><% if (mongoPassportGoogle) { %>,
+    GoogleStrategy = require('passport-google-oauth').OAuthStrategy<% } %>;
 
 /**
  * Passport configuration
