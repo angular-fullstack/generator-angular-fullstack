@@ -257,10 +257,35 @@ Generator.prototype.askForMongo = function askForMongo() {
     default: false,
     when: function (props) {
       return props.mongo;
+    }, {
+    type: 'checkbox',
+    name: 'mongoPassportAuth',
+    message: 'Which passport authentication methods would you like to support?',
+    choices: [{
+      value: 'Facebook',
+      name: 'passport-facebook.js',
+      checked: true,
+    }, {
+      value: 'Twitter',
+      name: 'passport-twitter.js',
+      checked: true,
+    }, {
+      value: 'Google',
+      name: 'passport-google.js',
+      checked: true
+    }],
+    when: function (props) {
+      return props.mongoPassportUser;
     }
   }], function (props) {
     this.mongo = props.mongo;
     this.mongoPassportUser = props.mongoPassportUser;
+
+    // Adding specific authentication.
+    var hasAuth = function(authType) { return props.mongoPassportAuth.indexOf(authType) !== -1; };
+    this.mongoPassportFacebook = hasAuth('Facebook');
+    this.mongoPassportTwitter = hasAuth('Twitter');
+    this.mongoPassportGoogle = hasAuth('Google');
 
     cb();
   }.bind(this));
