@@ -22,7 +22,7 @@ exports.create = function (req, res, next) {
 
     req.logIn(newUser, function(err) {
       if (err) return next(err);
-      
+
       return res.json(req.user.userInfo);
     });
   });
@@ -36,7 +36,7 @@ exports.show = function (req, res, next) {
 
   User.findById(userId, function (err, user) {
     if (err) return next(new Error('Failed to load User'));
-  
+
     if (user) {
       res.send({ profile: user.profile });
     } else {
@@ -68,6 +68,13 @@ exports.changePassword = function(req, res, next) {
       res.send(400);
     }
   });
+};
+
+/**
+ * Authentication callback
+ */
+exports.authCallback = function(req, res) {
+    res.redirect('/');
 };
 
 /**

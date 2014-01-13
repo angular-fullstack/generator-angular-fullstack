@@ -3,7 +3,8 @@
 var api = require('./controllers/api'),
     index = require('./controllers')<% if(mongoPassportUser) { %>,
     users = require('./controllers/users'),
-    session = require('./controllers/session');
+    session = require('./controllers/session'),
+    passport = require('passport');
 
 var middleware = require('./middleware')<% } %>;
 
@@ -29,17 +30,18 @@ module.exports = function(app) {
   app.get('/auth/facebook', passport.authenticate('facebook', {
           scope: ['email', 'user_about_me'],
           failureRedirect: '/signin'
-      }), users.signin);
+      }), session.login);
 
       app.get('/auth/facebook/callback', passport.authenticate('facebook', {
           failureRedirect: '/signin'
-      }), users.authCallback); <% } %>
+      }), users.authCallback);
+  <% } %>
 
   <% if (mongoPassportTwitter) { %>
   // Setting the Twitter oauth routes
   app.get('/auth/twitter', passport.authenticate('twitter', {
           failureRedirect: '/signin'
-      }), users.signin);
+      }), session.login);
 
       app.get('/auth/twitter/callback', passport.authenticate('twitter', {
           failureRedirect: '/signin'
@@ -54,7 +56,7 @@ module.exports = function(app) {
               'https://www.googleapis.com/auth/userinfo.profile',
               'https://www.googleapis.com/auth/userinfo.email'
           ]
-      }), users.signin);
+      }), session.login);
 
       app.get('/auth/google/callback', passport.authenticate('google', {
           failureRedirect: '/signin'

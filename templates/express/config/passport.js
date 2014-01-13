@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     LocalStrategy = require('passport-local').Strategy<% if (mongoPassportFacebook) { %>,
     FacebookStrategy = require('passport-facebook').Strategy<% } %><% if (mongoPassportTwitter) { %>,
     TwitterStrategy = require('passport-twitter').Strategy<% } %><% if (mongoPassportGoogle) { %>,
-    GoogleStrategy = require('passport-google-oauth').OAuthStrategy<% } %>;
+    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy<% } %>;
 
 /**
  * Passport configuration

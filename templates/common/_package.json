@@ -11,7 +11,7 @@
     "passport-local": "latest",<% if (mongoPassportFacebook) { %>
     "passport-facebook": "latest", <% } %><% if (mongoPassportTwitter) { %>
     "passport-twitter": "latest", <% } %><% if (mongoPassportGoogle) { %>
-    "passport-google": "latest", <% } %>
+    "passport-google-oauth": "latest", <% } %>
     "bcrypt": "~0.7.7"<% } %><% if (jade) { %>,
     "jade": "latest"<% } %><% if (!jade) { %>,
     "ejs": "~0.8.4"<% } %>

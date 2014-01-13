@@ -257,7 +257,8 @@ Generator.prototype.askForMongo = function askForMongo() {
     default: false,
     when: function (props) {
       return props.mongo;
-    }, {
+    }
+  }, {
     type: 'checkbox',
     name: 'mongoPassportAuth',
     message: 'Which passport authentication methods would you like to support?',
