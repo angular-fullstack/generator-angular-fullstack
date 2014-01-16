@@ -137,7 +137,7 @@ They are aliased to ensure the files they generate are added to the correct fold
 
 Read more on them from the offical [generator angular documentation][1] 
 
-## Fullstack specfic generators
+## Fullstack specific generators
 
 ### Deploy
 Initalizes a heroku app and generates a `dist` folder which is ready to push to heroku.
