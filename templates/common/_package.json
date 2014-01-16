@@ -9,7 +9,7 @@
     "connect-mongo": "~0.4.0",
     "passport": "latest",
     "passport-local": "latest",
-    "bcrypt": "~0.7.7"<% } %><% if (jade) { %>,
+    "bcrypt-nodejs": "~0.0.3"<% } %><% if (jade) { %>,
     "jade": "latest"<% } %><% if (!jade) { %>,
     "ejs": "~0.8.4"<% } %>
   },
@@ -39,6 +39,7 @@
     "jshint-stylish": "~0.1.3",
     "load-grunt-tasks": "~0.2.0",
     "time-grunt": "~0.2.1",
+    "grunt-karma": "~0.6.2",
     "grunt-express-server": "~0.4.5",
     "grunt-open": "~0.2.0",
     "connect-livereload": "~0.3.0"
