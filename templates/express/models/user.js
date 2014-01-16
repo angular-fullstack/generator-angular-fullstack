@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt');
+    crypto = require('crypto');
   
 var authTypes = ['github', 'twitter', 'facebook', 'google'],
     SALT_WORK_FACTOR = 10;
@@ -130,7 +130,7 @@ UserSchema.methods = {
    * @api public
    */
   makeSalt: function() {
-    return bcrypt.genSaltSync(SALT_WORK_FACTOR);
+    return crypto.randomBytes(16).toString('base64');
   },
 
   /**
@@ -141,8 +141,9 @@ UserSchema.methods = {
    * @api public
    */
   encryptPassword: function(password, salt) {
-    // hash the password using our new salt
-    return bcrypt.hashSync(password, salt);
+    if (!password || !this.salt) return '';
+    var salt = new Buffer(this.salt, 'base64');
+    return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
   }
 };
 

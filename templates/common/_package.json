@@ -8,8 +8,7 @@
     "mongoose-unique-validator": "~0.3.0",
     "connect-mongo": "~0.4.0",
     "passport": "latest",
-    "passport-local": "latest",
-    "bcrypt": "~0.7.7"<% } %><% if (jade) { %>,
+    "passport-local": "latest"<% } %><% if (jade) { %>,
     "jade": "latest"<% } %><% if (!jade) { %>,
     "ejs": "~0.8.4"<% } %>
   },
