@@ -41,7 +41,20 @@
     "time-grunt": "~0.2.1",
     "grunt-express-server": "~0.4.5",
     "grunt-open": "~0.2.0",
-    "connect-livereload": "~0.3.0"
+    "connect-livereload": "~0.3.0",
+    "karma-ng-scenario": "~0.1.0",
+    "grunt-karma": "~0.6.2",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma-script-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.5",
+    "karma-chrome-launcher": "~0.1.2",
+    "requirejs": "~2.1.10",
+    "karma-requirejs": "~0.2.1",
+    "karma-coffee-preprocessor": "~0.1.2",
+    "karma-phantomjs-launcher": "~0.1.1",
+    "karma": "~0.10.9",
+    "karma-ng-html2js-preprocessor": "~0.1.0"    
   },
   "engines": {
     "node": ">=0.8.0"

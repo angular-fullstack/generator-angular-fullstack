@@ -110,7 +110,7 @@ var Generator = module.exports = function Generator(args, options) {
       options: {
         coffee: this.options.coffee,
         travis: true,
-        'skip-install': this.options['skip-install'],
+        'skip-install': true,
         components: [
           'angular/angular.js',
           'angular-mocks/angular-mocks.js'
