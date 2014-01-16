@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt-nodejs');
   
 var authTypes = ['github', 'twitter', 'facebook', 'google'],
     SALT_WORK_FACTOR = 10;

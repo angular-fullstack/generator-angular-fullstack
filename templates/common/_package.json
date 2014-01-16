@@ -9,7 +9,7 @@
     "connect-mongo": "~0.4.0",
     "passport": "latest",
     "passport-local": "latest",
-    "bcrypt": "~0.7.7"<% } %><% if (jade) { %>,
+    "bcrypt-nodejs": "~0.0.3"<% } %><% if (jade) { %>,
     "jade": "latest"<% } %><% if (!jade) { %>,
     "ejs": "~0.8.4"<% } %>
   },
