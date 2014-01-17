@@ -38,7 +38,7 @@ UserSchema
   .set(function(password) {
     this._password = password;
     this.salt = this.makeSalt();
-    this.hashedPassword = this.encryptPassword(password, this.salt);
+    this.hashedPassword = this.encryptPassword(password);
   })
   .get(function() {
     return this._password;
@@ -120,7 +120,7 @@ UserSchema.methods = {
    * @api public
    */
   authenticate: function(plainText) {
-    return this.encryptPassword(plainText, this.salt) === this.hashedPassword;
+    return this.encryptPassword(plainText) === this.hashedPassword;
   },
 
   /**
@@ -140,7 +140,7 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  encryptPassword: function(password, salt) {
+  encryptPassword: function(password) {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
