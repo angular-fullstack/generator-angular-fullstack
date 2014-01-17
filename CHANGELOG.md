@@ -1,3 +1,11 @@
+<a name="v1.2.3"></a>
+### v1.2.3 (2014-01-16)
+
+
+#### Bug Fixes
+
+* **app:** fixed jshint warning in user model ([f668fdc7](http://github.com/DaftMonk/generator-angular-fullstack/commit/f668fdc7f798e2656a9576f249836f7c91d27f1a))
+
 <a name="v1.2.2"></a>
 ### v1.2.2 (2014-01-16)
 
