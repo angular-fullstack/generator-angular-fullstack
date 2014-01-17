@@ -171,7 +171,8 @@ module.exports = function (grunt) {
       app: {<% if (jade) { %>
         html: '<%%= yeoman.app %>/views/index.jade',<% } else { %>
         html: '<%%= yeoman.app %>/views/index.html',<% } %>
-        ignorePath: '<%%= yeoman.app %>/'
+        ignorePath: '<%%= yeoman.app %>/'<% if (compass && bootstrap) { %>,
+        exclude: ['sass-bootstrap']<% } %>
       }
     },<% if (coffee) { %>
 

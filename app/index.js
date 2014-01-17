@@ -445,26 +445,26 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
     '\n' +
     chalk.yellow.bold('\n  grunt bower-install');
 
+  var wireDepConfig = {
+    directory: 'app/bower_components',
+    bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
+    ignorePath: 'app/',
+    htmlFile: 'app/views/index.html',
+    cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+  };
+
+  if (this.jade) {
+    wireDepConfig.htmlFile = 'app/views/index.jade';
+  }
+
+  if (this.compass && this.bootstrap) {
+    wireDepConfig.exclude = ['sass-bootstrap'];
+  }
+
   if (this.options['skip-install']) {
     console.log(howToInstall);
   } else {
-    if (this.jade) {
-      wiredep({
-        directory: 'app/bower_components',
-        bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-        ignorePath: 'app/',
-        htmlFile: 'app/views/index.jade',
-        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
-      });
-    } else {
-      wiredep({
-        directory: 'app/bower_components',
-        bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-        ignorePath: 'app/',
-        htmlFile: 'app/views/index.html',
-        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
-      });
-    }
+    wiredep(wireDepConfig);
   }
 };
 
