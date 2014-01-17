@@ -1,3 +1,11 @@
+<a name="v1.2.4"></a>
+### v1.2.4 (2014-01-16)
+
+
+#### Bug Fixes
+
+* **grunt:** fixed incorrect templating expression ([2a59e070](http://github.com/DaftMonk/generator-angular-fullstack/commit/2a59e070bb89abb4ea83e165f8a29b8de94621f1))
+
 <a name="v1.2.3"></a>
 ### v1.2.3 (2014-01-16)
 
