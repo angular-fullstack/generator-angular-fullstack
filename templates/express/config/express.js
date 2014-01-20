@@ -40,7 +40,8 @@ module.exports = function(app) {
     app.set('view engine', 'html');<% } %><% if (jade) { %>
     app.set('view engine', 'jade');<% } %>
     app.use(express.logger('dev'));
-    app.use(express.bodyParser());
+    app.use(express.json());
+    app.use(express.urlencoded());
     app.use(express.methodOverride());<% if(mongoPassportUser) { %>
     app.use(express.cookieParser());
 
