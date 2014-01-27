@@ -27,12 +27,12 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.13.0",
-    "chalk": "~0.3.0",
+    "yeoman-generator": "~0.16.0",
+    "chalk": "~0.4.0",
     "wiredep": "~0.4.2"
   },
   "peerDependencies": {
-    "generator-karma": "~0.6.0",
+    "generator-karma": ">=0.6.0",
     "yo": ">=1.0.0"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "grunt-release": "~0.6.0"
   },
   "engines": {
-    "node": ">=0.8.0",
+    "node": ">=0.10.0",
     "npm": ">=1.2.10"
   },
   "licenses": [
