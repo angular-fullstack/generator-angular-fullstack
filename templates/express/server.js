@@ -9,7 +9,7 @@ var express = require('express')<% if (mongo) { %>,
  * Main application file
  */
 
-// Default node environment to development
+// Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Application Config
