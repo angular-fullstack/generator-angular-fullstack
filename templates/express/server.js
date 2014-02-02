@@ -21,6 +21,7 @@ var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 // Bootstrap models
 var modelsPath = path.join(__dirname, 'lib/models');
 fs.readdirSync(modelsPath).forEach(function (file) {
+  if (!file.match(/\.js$/)) return; // only .js files
   require(modelsPath + '/' + file);
 });
 
