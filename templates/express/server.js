@@ -21,7 +21,9 @@ var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 // Bootstrap models
 var modelsPath = path.join(__dirname, 'lib/models');
 fs.readdirSync(modelsPath).forEach(function (file) {
-  require(modelsPath + '/' + file);
+  if (/(.*)\.(js$|coffee$)/.test(file)) {
+    require(modelsPath + '/' + file);
+  }
 });
 
 // Populate empty DB with sample data
