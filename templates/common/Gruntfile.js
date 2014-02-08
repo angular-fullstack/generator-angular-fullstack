@@ -172,7 +172,7 @@ module.exports = function (grunt) {
         html: '<%%= yeoman.app %>/views/index.jade',<% } else { %>
         html: '<%%= yeoman.app %>/views/index.html',<% } %>
         ignorePath: '<%%= yeoman.app %>/'<% if (compass && bootstrap) { %>,
-        exclude: ['sass-bootstrap']<% } %>
+        exclude: ['bootstrap-sass']<% } %>
       }
     },<% if (coffee) { %>
 
@@ -300,7 +300,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.app %>/views',
-          src: ['*.html', 'partials/*.html'],
+          src: ['*.html', 'partials/**/*.html'],
           dest: '<%%= yeoman.dist %>/views'
         }]
       }
