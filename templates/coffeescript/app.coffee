@@ -22,9 +22,10 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
 
     $locationProvider.html5Mode true<% if (mongoPassportUser) { %>
   
+    # Intercept 401s and redirect you to login
     $httpProvider.interceptors.push ['$q', '$location', ($q, $location) ->
       responseError: (response) ->
-        if response.status is 401 or response.status is 403
+        if response.status is 401
           $location.path '/login'
           $q.reject response
         else

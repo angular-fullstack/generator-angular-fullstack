@@ -26,11 +26,11 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
       
     $locationProvider.html5Mode(true);<% if (mongoPassportUser) { %>
       
-    // Intercept 401s and 403s and redirect you to login
+    // Intercept 401s and redirect you to login
     $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
       return {
         'responseError': function(response) {
-          if(response.status === 401 || response.status === 403) {
+          if(response.status === 401) {
             $location.path('/login');
             return $q.reject(response);
           }
