@@ -10,19 +10,12 @@ var mongoose = require('mongoose'),
 exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
-
   newUser.save(function(err) {
-    if (err) {
-      // Manually provide our own message for 'unique' validation errors, can't do it from schema
-      if(err.errors.email.type === 'Value is not unique.') {
-        err.errors.email.type = 'The specified email address is already in use.';
-      }
-      return res.json(400, err);
-    }
-
+    if (err) return next(err);
+    
     req.logIn(newUser, function(err) {
       if (err) return next(err);
-      
+
       return res.json(req.user.userInfo);
     });
   });
@@ -35,13 +28,10 @@ exports.show = function (req, res, next) {
   var userId = req.params.id;
 
   User.findById(userId, function (err, user) {
-    if (err) return next(new Error('Failed to load User'));
-  
-    if (user) {
-      res.send({ profile: user.profile });
-    } else {
-      res.send(404, 'USER_NOT_FOUND');
-    }
+    if (err) return next(err);
+    if (!user) return res.send(404);
+
+    res.send({ profile: user.profile });
   });
 };
 
@@ -55,17 +45,14 @@ exports.changePassword = function(req, res, next) {
 
   User.findById(userId, function (err, user) {
     if(user.authenticate(oldPass)) {
-
       user.password = newPass;
       user.save(function(err) {
-        if (err) {
-          res.send(500, err);
-        } else {
-          res.send(200);
-        }
+        if (err) return res.send(400);
+
+        res.send(200);
       });
     } else {
-      res.send(400);
+      res.send(403);
     }
   });
 };

@@ -1,22 +1,17 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema,
     crypto = require('crypto');
   
-var authTypes = ['github', 'twitter', 'facebook', 'google'],
-    SALT_WORK_FACTOR = 10;
+var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 /**
  * User Schema
  */
 var UserSchema = new Schema({
   name: String,
-  email: {
-    type: String,
-    unique: true
-  },
+  email: String,
   role: {
     type: String,
     default: 'user'
@@ -68,9 +63,6 @@ UserSchema
 /**
  * Validations
  */
-var validatePresenceOf = function(value) {
-  return value && value.length;
-};
 
 // Validate empty email
 UserSchema
@@ -90,10 +82,24 @@ UserSchema
     return hashedPassword.length;
   }, 'Password cannot be blank');
 
-/**
- * Plugins
- */
-UserSchema.plugin(uniqueValidator,  { message: 'Value is not unique.' });
+// Validate email is not taken
+UserSchema
+  .path('email')
+  .validate(function(value, respond) {
+    var self = this;
+    this.constructor.findOne({email: value}, function(err, user) {
+      if(err) throw err;
+      if(user) {
+        if(self.id === user.id) return respond(true);
+        return respond(false);
+      }
+      respond(true);
+    });
+}, 'The specified email address is already in use.');
+
+var validatePresenceOf = function(value) {
+  return value && value.length;
+};
 
 /**
  * Pre-save hook
@@ -147,4 +153,4 @@ UserSchema.methods = {
   }
 };
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
