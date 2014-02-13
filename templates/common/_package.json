@@ -53,7 +53,10 @@
     "karma-coffee-preprocessor": "~0.1.2",
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.9",
-    "karma-ng-html2js-preprocessor": "~0.1.0"    
+    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "grunt-mocha-test": "~0.8.1",
+    "supertest": "~0.8.2",
+    "should": "~2.1.0"
   },
   "engines": {
     "node": ">=0.10.0"

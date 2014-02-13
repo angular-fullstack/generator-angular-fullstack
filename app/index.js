@@ -109,6 +109,7 @@ var Generator = module.exports = function Generator(args, options) {
     this.invoke('karma:app', {
       options: {
         coffee: this.options.coffee,
+        testPath: 'test/client',
         travis: true,
         'skip-install': true,
         components: [
@@ -472,6 +473,7 @@ Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
   this.copy('../../templates/express/jshintrc', 'lib/.jshintrc');
   this.template('../../templates/express/controllers/api.js', 'lib/controllers/api.js');
+  this.template('../../templates/express/test/api/api.js', 'test/server/api/api.js');
   this.template('../../templates/express/controllers/index.js', 'lib/controllers/index.js');
   this.template('../../templates/express/routes.js', 'lib/routes.js');
 
