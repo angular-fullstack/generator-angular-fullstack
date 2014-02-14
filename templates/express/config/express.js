@@ -51,6 +51,8 @@ module.exports = function(app) {
       store: new mongoStore({
         url: config.mongo.uri,
         collection: 'sessions'
+      }, function () {
+          console.log("db connection open");
       })
     }));
 
