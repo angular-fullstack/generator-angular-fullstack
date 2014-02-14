@@ -94,7 +94,7 @@ module.exports = function (grunt) {
           'server.js',
           'lib/**/*.{js,json}'
         ],
-        tasks: ['newer:jshint:server', 'express:dev'],
+        tasks: ['newer:jshint:server', 'express:dev', 'wait'],
         options: {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
@@ -425,6 +425,18 @@ module.exports = function (grunt) {
         singleRun: true
       }
     }
+  });
+
+  // Used for delaying livereload until after server has restarted
+  grunt.registerTask('wait', function () {
+    grunt.log.ok('Waiting for server reload...');
+
+    var done = this.async();
+
+    setTimeout(function () {
+      grunt.log.writeln('Done waiting!');
+      done();
+    }, 500);
   });
 
   grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
