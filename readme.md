@@ -86,22 +86,6 @@ We provide an extremely simplifed deployment process for heroku.
 
 That's it! Your app should be live and shareable. Type `heroku open` to view it.  
 
-## Route authorization with Passport boilerplate
-
-For restricting server API routes to authenticated users, you can pass your routes through the `auth` middleware, which will send a 401 unauthorized error if a request is made from someone thats not logged in.
-
-The client side will automatically send you to the login page if it receives a 401 error.
-
-However, as this will load part of the page before redirecting, it will cause a flicker. A way to avoid this is to to mark the routes on the client side that you want to require authentication for. 
-
-You can do this from your `app.js` by adding the following to any client routes that you want to restrict to logged in users.
-
-```
-authenticate: true
-```
-
-Keep in mind this client routing is only for improving the user interface. Make sure you secure your server API routes and don't give any sensitive information unless the user is authenticated or authorized.
-
 ## Generators
 
 All of the **generator-angular** client side generators are available, but aliased with `angular-fullstack` to correctly generate with the fullstack folder structure. 
@@ -221,6 +205,28 @@ The following additional modules are available as components on bower, and insta
 * angular-sanitize
 
 All of these can be updated with `bower update` as new versions of AngularJS are released.
+
+## Passport boilerplate
+
+The passport boilerplate requires the `ng-route`, `ng-resource`, and `ng-cookie` modules to work out of the box.
+
+It generates a login, signup, and settings page, and creates the backend support for creating accounts using PassportJS.
+
+### Restricted routes
+
+For restricting server API routes to logged in users, you can pass your routes through the `auth` middleware, which will send a 401 unauthorized error if a request is made from someone thats not authenticated.
+
+The client side will automatically send you to the login page if it receives a 401 error.
+
+However, as this will load part of the page before redirecting, it will cause a flicker. A way to avoid this is to to mark the routes on the client side that you want to require authentication for. 
+
+You can do this from your `app.js` by adding the following to any client routes that you want to restrict to logged in users.
+
+```
+authenticate: true
+```
+
+Keep in mind this client routing is only for improving the user interface. Make sure you secure your server API routes and don't give any sensitive information unless the user is authenticated or authorized.
 
 ## Testing
 
