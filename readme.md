@@ -20,29 +20,29 @@ Have a look at the source code: https://github.com/DaftMonk/fullstack-demo
 ## Usage
 
 Install `generator-angular-fullstack`:
-```
+```bash
 npm install -g generator-angular-fullstack
 ```
 
 Make a new directory, and `cd` into it:
-```
+```bash
 mkdir my-new-project && cd $_
 ```
 
 Run `yo angular-fullstack`, optionally passing an app name:
-```
+```bash
 yo angular-fullstack [app-name]
 ```
 
 ## Express
 
 Launch your express server in development mode.
-```
+```bash
 grunt serve
 ``` 
 
 Launch your express server in production mode, uses the minified/optimized production folder.
-```
+```bash
 grunt serve:dist
 ``` 
 
@@ -54,13 +54,17 @@ grunt serve:dist
 
 To generate a dist folder that can easily be deployed use:
 
-    grunt
+```bash
+grunt
+```
 
 This will run unit tests, jshint, concatenate and minify scripts/css, compress images, add css vendor prefixes, and finally copy all files to a tidy dist folder.
 
 Alternatively to skip tests and jshint, use:
 
-    grunt build
+```bash
+grunt build
+```
 
 ### Heroku Deployment
 
@@ -84,27 +88,27 @@ That's it! Your app should be live and shareable. Type `heroku open` to view it.
 
 ## Setting up Route authorization
 
-If your app uses the Passport boilerplate for accounts, you'll of course want to restrict access to certain client routes/api routes.
+If your app uses the Passport boilerplate for accounts, you will want to restrict access to certain client routes/api routes.
 
-For protecting server API routes, we can use the `auth` middleware, which will send a 401 unauthorized error if a user makes a request without being logged in.
+For restricting server API routes, we can use the `auth` middleware, which will send a 401 unauthorized error if a request is made from someone thats not logged in.
 
-For protecting client routes, we automatically handle 401s sent from the server by redirecting you to the login page.
+For restricting routes on the client side, we automatically handle 401s sent from the server by redirecting you to the login page.
 
 However, as this will load part of the page before redirecting, it will cause a flicker. So this should only be used as a fallback mechanism. A better way to handle restricted pages is to mark the routes on the client side that you want to require authentication for. 
 
-You can easily do this from your `app.js` by adding the following to any client routes that need protecting.
+You can do this from your `app.js` by adding the following to any client routes that you want to restrict to logged in users.
 
-     authenticate: true
+```
+authenticate: true
+```
 
 This redirects the user to the login page before attempting to load the new route, avoiding the flicker.
 
-Please keep in mind this client routing is only for improving the **user interface**. Anyone with chrome developer tools can easily get around it and view pages they're not supposed to see. 
+Please keep in mind this client routing is only for improving the user interface. Make sure you **secure your server API** routes and don't give any sensitive information unless the user is authenticated or authorized.
 
-This is not a problem as long as you **secure your server API** routes, ensuring that you don't give any sensitive information unless the user is authenticated or authorized.
+#### How do I only let authorized users access an api route?
 
-#### How do I only let users authorized access an api route?
-
-Similarly to how the `auth` middleware checks if a user authenticated before going to the next route, you could easily make an ensureAuthorized middleware that checks the users role, or some other field, before sending them to the protected route, otherwise it sends a `403` error.
+Similarly to how the `auth` middleware checks if a user authenticated before going to the next route, you can make an ensureAuthorized middleware that checks the users role, or some other field, before sending them to the protected route, otherwise have it sends a `403` error.
 
 ## Generators
 
