@@ -1,8 +1,8 @@
 Description:
-    Creates a Heroku deployment folder and grunt configuration
+    Initalizes a heroku app and generates a `dist` folder which is ready to push to heroku.
 
 Example:
     yo angular-fullstack:deploy heroku
 
     This will create:
-        heroku deployment folder
+        a dist folder and initialize a heroku app
