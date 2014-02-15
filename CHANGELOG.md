@@ -1,3 +1,11 @@
+<a name="v1.2.7"></a>
+### v1.2.7 (2014-02-15)
+
+
+#### Features
+
+* **server:** undefined api routes now return a 404 ([ec829fe2](http://github.com/DaftMonk/generator-angular-fullstack/commit/ec829fe2221dbe001c12983c95576c20f0e63a30))
+
 <a name="v1.2.6"></a>
 ### v1.2.6 (2014-02-14)
 
