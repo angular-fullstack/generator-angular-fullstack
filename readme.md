@@ -86,15 +86,13 @@ We provide an extremely simplifed deployment process for heroku.
 
 That's it! Your app should be live and shareable. Type `heroku open` to view it.  
 
-## Setting up Route authorization
+## Route authorization with Passport boilerplate
 
-If your app uses the Passport boilerplate for accounts, you will want to restrict access to certain client routes/api routes.
+For restricting server API routes to authenticated users, you can pass your routes through the `auth` middleware, which will send a 401 unauthorized error if a request is made from someone thats not logged in.
 
-For restricting server API routes, we can use the `auth` middleware, which will send a 401 unauthorized error if a request is made from someone thats not logged in.
+The client side will automatically send you to the login page if it receives a 401 error.
 
-For restricting routes on the client side, we automatically handle 401s sent from the server by redirecting you to the login page.
-
-However, as this will load part of the page before redirecting, it will cause a flicker. So this should only be used as a fallback mechanism. A better way to handle restricted pages is to mark the routes on the client side that you want to require authentication for. 
+However, as this will load part of the page before redirecting, it will cause a flicker. A way to avoid this is to to mark the routes on the client side that you want to require authentication for. 
 
 You can do this from your `app.js` by adding the following to any client routes that you want to restrict to logged in users.
 
@@ -102,13 +100,7 @@ You can do this from your `app.js` by adding the following to any client routes 
 authenticate: true
 ```
 
-This redirects the user to the login page before attempting to load the new route, avoiding the flicker.
-
-Please keep in mind this client routing is only for improving the user interface. Make sure you **secure your server API** routes and don't give any sensitive information unless the user is authenticated or authorized.
-
-#### How do I only let authorized users access an api route?
-
-Similarly to how the `auth` middleware checks if a user authenticated before going to the next route, you can make an ensureAuthorized middleware that checks the users role, or some other field, before sending them to the protected route, otherwise have it sends a `403` error.
+Keep in mind this client routing is only for improving the user interface. Make sure you secure your server API routes and don't give any sensitive information unless the user is authenticated or authorized.
 
 ## Generators
 
