@@ -61,10 +61,10 @@ module.exports = function(app) {
     <% } %>
     // Router (only error handlers should come after this)
     app.use(app.router);
-    
-    // Error handler
-    if('development' === app.get('env')) {
-      app.use(express.errorHandler())
-    }
+  });
+
+  // Error handler
+  app.configure('development', function(){
+    app.use(express.errorHandler());
   });
 };
