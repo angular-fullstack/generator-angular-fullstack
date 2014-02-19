@@ -25,7 +25,6 @@ module.exports = function(app) {
 
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
-    app.use(express.errorHandler());
     app.set('views', config.root + '/app/views');
   });
 
