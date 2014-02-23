@@ -1,22 +1,17 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt');
+    crypto = require('crypto');
   
-var authTypes = ['github', 'twitter', 'facebook', 'google'],
-    SALT_WORK_FACTOR = 10;
+var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 /**
  * User Schema
  */
 var UserSchema = new Schema({
   name: String,
-  email: {
-    type: String,
-    unique: true
-  },
+  email: String,
   role: {
     type: String,
     default: 'user'
@@ -38,7 +33,7 @@ UserSchema
   .set(function(password) {
     this._password = password;
     this.salt = this.makeSalt();
-    this.hashedPassword = this.encryptPassword(password, this.salt);
+    this.hashedPassword = this.encryptPassword(password);
   })
   .get(function() {
     return this._password;
@@ -68,9 +63,6 @@ UserSchema
 /**
  * Validations
  */
-var validatePresenceOf = function(value) {
-  return value && value.length;
-};
 
 // Validate empty email
 UserSchema
@@ -90,10 +82,24 @@ UserSchema
     return hashedPassword.length;
   }, 'Password cannot be blank');
 
-/**
- * Plugins
- */
-UserSchema.plugin(uniqueValidator,  { message: 'Value is not unique.' });
+// Validate email is not taken
+UserSchema
+  .path('email')
+  .validate(function(value, respond) {
+    var self = this;
+    this.constructor.findOne({email: value}, function(err, user) {
+      if(err) throw err;
+      if(user) {
+        if(self.id === user.id) return respond(true);
+        return respond(false);
+      }
+      respond(true);
+    });
+}, 'The specified email address is already in use.');
+
+var validatePresenceOf = function(value) {
+  return value && value.length;
+};
 
 /**
  * Pre-save hook
@@ -120,7 +126,7 @@ UserSchema.methods = {
    * @api public
    */
   authenticate: function(plainText) {
-    return this.encryptPassword(plainText, this.salt) === this.hashedPassword;
+    return this.encryptPassword(plainText) === this.hashedPassword;
   },
 
   /**
@@ -130,7 +136,7 @@ UserSchema.methods = {
    * @api public
    */
   makeSalt: function() {
-    return bcrypt.genSaltSync(SALT_WORK_FACTOR);
+    return crypto.randomBytes(16).toString('base64');
   },
 
   /**
@@ -140,10 +146,11 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  encryptPassword: function(password, salt) {
-    // hash the password using our new salt
-    return bcrypt.hashSync(password, salt);
+  encryptPassword: function(password) {
+    if (!password || !this.salt) return '';
+    var salt = new Buffer(this.salt, 'base64');
+    return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
   }
 };
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

@@ -10,6 +10,8 @@ exports.partials = function(req, res) {
   var requestedView = path.join('./', stripped);
   res.render(requestedView, function(err, html) {
     if(err) {
+      console.log("Error rendering partial '" + requestedView + "'\n", err);
+      res.status(404);
       res.send(404);
     } else {
       res.send(html);

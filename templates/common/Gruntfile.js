@@ -1,4 +1,4 @@
-// Generated on <%%= (new Date).toISOString().split('T')[0] %> using <%%= pkg.name %> <%%= pkg.version %>
+// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
 // # Globbing
@@ -62,6 +62,10 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
+      mochaTest: {
+        files: ['test/server/{,*/}*.js'],
+        tasks: ['mochaTest']
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
@@ -94,7 +98,7 @@ module.exports = function (grunt) {
           'server.js',
           'lib/**/*.{js,json}'
         ],
-        tasks: ['newer:jshint:server', 'express:dev'],
+        tasks: ['newer:jshint:server', 'express:dev', 'wait'],
         options: {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
@@ -132,9 +136,9 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%%= yeoman.dist %>/views/*',
-            '<%%= yeoman.dist %>/public/*',
-            '!<%%= yeoman.dist %>/public/.git*',
+            '<%= yeoman.dist %>/*',
+            '!<%= yeoman.dist %>/.git*',
+            '!<%= yeoman.dist %>/Procfile'
           ]
         }]
       },
@@ -171,7 +175,8 @@ module.exports = function (grunt) {
       app: {<% if (jade) { %>
         html: '<%%= yeoman.app %>/views/index.jade',<% } else { %>
         html: '<%%= yeoman.app %>/views/index.html',<% } %>
-        ignorePath: '<%%= yeoman.app %>/'
+        ignorePath: '<%%= yeoman.app %>/'<% if (compass && bootstrap) { %>,
+        exclude: ['bootstrap-sass']<% } %>
       }
     },<% if (coffee) { %>
 
@@ -259,7 +264,7 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%%= yeoman.dist %>/views/{,*/}*.html',
              '<%%= yeoman.dist %>/views/{,*/}*.jade'],
-      css: ['<%%= yeoman.dist %>/styles/{,*/}*.css'],
+      css: ['<%%= yeoman.dist %>/public/styles/{,*/}*.css'],
       options: {
         assetsDirs: ['<%%= yeoman.dist %>/public']
       }
@@ -299,7 +304,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.app %>/views',
-          src: ['*.html', 'partials/*.html'],
+          src: ['*.html', 'partials/**/*.html'],
           dest: '<%%= yeoman.dist %>/views'
         }]
       }
@@ -423,7 +428,32 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+
+    mochaTest: {
+      options: {
+        reporter: 'spec'
+      },
+      src: ['test/server/**/*.js']
+    },
+
+    env: {
+      test: {
+        NODE_ENV: 'test'
+      }
     }
+  });
+
+  // Used for delaying livereload until after server has restarted
+  grunt.registerTask('wait', function () {
+    grunt.log.ok('Waiting for server reload...');
+
+    var done = this.async();
+
+    setTimeout(function () {
+      grunt.log.writeln('Done waiting!');
+      done();
+    }, 500);
   });
 
   grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
@@ -451,12 +481,32 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'concurrent:test',
-    'autoprefixer',
-    'karma'
-  ]);
+  grunt.registerTask('test', function(target) {
+    if (target === 'server') {
+      return grunt.task.run([
+        'env:test',
+        'mochaTest'
+      ]);
+    }
+
+    if (target === 'client') {
+      return grunt.task.run([
+        'clean:server',
+        'concurrent:test',
+        'autoprefixer',
+        'karma'
+      ]);
+    }
+
+    grunt.task.run([
+      'env:test',
+      'mochaTest',
+      'clean:server',
+      'concurrent:test',
+      'autoprefixer',
+      'karma'
+    ]);
+  });  
 
   grunt.registerTask('build', [
     'clean:dist',

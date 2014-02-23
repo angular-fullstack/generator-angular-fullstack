@@ -109,8 +109,9 @@ var Generator = module.exports = function Generator(args, options) {
     this.invoke('karma:app', {
       options: {
         coffee: this.options.coffee,
+        testPath: 'test/client',
         travis: true,
-        'skip-install': this.options['skip-install'],
+        'skip-install': true,
         components: [
           'angular/angular.js',
           'angular-mocks/angular-mocks.js'
@@ -471,26 +472,26 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
     '\n' +
     chalk.yellow.bold('\n  grunt bower-install');
 
+  var wireDepConfig = {
+    directory: 'app/bower_components',
+    bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
+    ignorePath: 'app/',
+    htmlFile: 'app/views/index.html',
+    cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+  };
+
+  if (this.jade) {
+    wireDepConfig.htmlFile = 'app/views/index.jade';
+  }
+
+  if (this.compass && this.bootstrap) {
+    wireDepConfig.exclude = ['sass-bootstrap'];
+  }
+
   if (this.options['skip-install']) {
     console.log(howToInstall);
   } else {
-    if (this.jade) {
-      wiredep({
-        directory: 'app/bower_components',
-        bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-        ignorePath: 'app/',
-        htmlFile: 'app/views/index.jade',
-        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
-      });
-    } else {
-      wiredep({
-        directory: 'app/bower_components',
-        bowerJson: JSON.parse(fs.readFileSync('./bower.json')),
-        ignorePath: 'app/',
-        htmlFile: 'app/views/index.html',
-        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
-      });
-    }
+    wiredep(wireDepConfig);
   }
 };
 
@@ -500,6 +501,7 @@ Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/controllers/api.js', 'lib/controllers/api.js');
   this.template('../../templates/express/controllers/index.js', 'lib/controllers/index.js');
   this.template('../../templates/express/routes.js', 'lib/routes.js');
+  this.template('../../templates/express/test/thing/api.js', 'test/server/thing/api.js');
 
   this.template('../../templates/express/config/express.js', 'lib/config/express.js');
   this.template('../../templates/express/config/config.js', 'lib/config/config.js');
@@ -544,4 +546,6 @@ Generator.prototype.mongoFiles = function () {
   // controllers
   this.template('../../templates/express/controllers/session.js', 'lib/controllers/session.js');
   this.template('../../templates/express/controllers/users.js', 'lib/controllers/users.js');
+  // tests
+  this.template('../../templates/express/test/user/model.js', 'test/server/user/model.js');  
 };

@@ -9,7 +9,7 @@ var express = require('express')<% if (mongo) { %>,
  * Main application file
  */
 
-// Default node environment to development
+// Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Application Config
@@ -21,14 +21,16 @@ var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 // Bootstrap models
 var modelsPath = path.join(__dirname, 'lib/models');
 fs.readdirSync(modelsPath).forEach(function (file) {
-  require(modelsPath + '/' + file);
+  if (/(.*)\.(js$|coffee$)/.test(file)) {
+    require(modelsPath + '/' + file);
+  }
 });
 
 // Populate empty DB with sample data
 require('./lib/config/dummydata');<% } %><% if(mongoPassportUser) { %>
   
 // Passport Configuration
-require('./lib/config/passport')();<% } %>
+var passport = require('./lib/config/passport');<% } %>
 
 var app = express();
 

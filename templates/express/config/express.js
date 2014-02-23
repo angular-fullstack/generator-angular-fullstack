@@ -25,7 +25,6 @@ module.exports = function(app) {
 
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
-    app.use(express.errorHandler());
     app.set('views', config.root + '/app/views');
   });
 
@@ -40,7 +39,8 @@ module.exports = function(app) {
     app.set('view engine', 'html');<% } %><% if (jade) { %>
     app.set('view engine', 'jade');<% } %>
     app.use(express.logger('dev'));
-    app.use(express.bodyParser());
+    app.use(express.json());
+    app.use(express.urlencoded());
     app.use(express.methodOverride());<% if(mongoPassportUser) { %>
     app.use(express.cookieParser());
 
@@ -50,6 +50,8 @@ module.exports = function(app) {
       store: new mongoStore({
         url: config.mongo.uri,
         collection: 'sessions'
+      }, function () {
+          console.log("db connection open");
       })
     }));
 
@@ -57,7 +59,12 @@ module.exports = function(app) {
     app.use(passport.initialize());
     app.use(passport.session());
     <% } %>
-    // Router needs to be last
+    // Router (only error handlers should come after this)
     app.use(app.router);
+  });
+
+  // Error handler
+  app.configure('development', function(){
+    app.use(express.errorHandler());
   });
 };
