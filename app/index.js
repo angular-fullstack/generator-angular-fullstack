@@ -473,9 +473,9 @@ Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/server.js', 'server.js');
   this.copy('../../templates/express/jshintrc', 'lib/.jshintrc');
   this.template('../../templates/express/controllers/api.js', 'lib/controllers/api.js');
-  this.template('../../templates/express/test/api/api.js', 'test/server/api/api.js');
   this.template('../../templates/express/controllers/index.js', 'lib/controllers/index.js');
   this.template('../../templates/express/routes.js', 'lib/routes.js');
+  this.template('../../templates/express/test/thing/api.js', 'test/server/thing/api.js');
 
   this.template('../../templates/express/config/express.js', 'lib/config/express.js');
   this.template('../../templates/express/config/config.js', 'lib/config/config.js');
@@ -520,4 +520,6 @@ Generator.prototype.mongoFiles = function () {
   // controllers
   this.template('../../templates/express/controllers/session.js', 'lib/controllers/session.js');
   this.template('../../templates/express/controllers/users.js', 'lib/controllers/users.js');
+  // tests
+  this.template('../../templates/express/test/user/model.js', 'test/server/user/model.js');  
 };

@@ -65,7 +65,7 @@ module.exports = function (grunt) {
       mochaTest: {
         files: ['test/server/{,*/}*.js'],
         tasks: ['mochaTest']
-      },      
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
@@ -428,12 +428,19 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
-    },  
-    mochaTest: {    
-      options: {    
-        reporter: 'spec'    
-      },    
-      src: ['test/server/**/*.js']    
+    },
+
+    mochaTest: {
+      options: {
+        reporter: 'spec'
+      },
+      src: ['test/server/**/*.js']
+    },
+
+    env: {
+      test: {
+        NODE_ENV: 'test'
+      }
     }
   });
 
@@ -476,7 +483,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', function(target) {
     if (target === 'server') {
-      return grunt.task.run(['mochaTest']);
+      return grunt.task.run([
+        'env:test',
+        'mochaTest'
+      ]);
     }
 
     if (target === 'client') {
@@ -489,6 +499,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'env:test',
       'mochaTest',
       'clean:server',
       'concurrent:test',
