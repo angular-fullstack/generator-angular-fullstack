@@ -5,6 +5,11 @@
     <h1>Sign up</h1>
   </div>
   <div class="col-sm-12">
+    <% if (mongoPassportFacebook) { %><a href="/auth/facebook">Login with Facebook</a><% } %>
+    <% if (mongoPassportTwitter) { %><a href="/auth/twitter">Login with Twitter</a><% } %>
+    <% if (mongoPassportGoogle) { %><a href="/auth/google">Login with Google</a><% } %>
+  </div>
+  <div class="col-sm-12">
     <form class="form" name="form" ng-submit="register(form)" novalidate>
 
       <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
@@ -16,7 +21,7 @@
         <p class="help-block" ng-show="form.name.$error.required && submitted">
           A name is required
         </p>
-      </div>   
+      </div>
 
       <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
                                           'has-error': form.email.$invalid && submitted }">
@@ -39,7 +44,7 @@
       <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
                                           'has-error': form.password.$invalid && submitted }">
         <label>Password</label>
-        
+
         <input type="password" name="password" class="form-control" ng-model="user.password"
                ng-minlength="3"
                required

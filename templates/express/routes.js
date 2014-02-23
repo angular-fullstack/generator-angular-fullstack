@@ -40,18 +40,18 @@ module.exports = function(app) {
   <% if (mongoPassportTwitter) { %>
   // Setting the Twitter oauth routes
   app.get('/auth/twitter', passport.authenticate('twitter', {
-          failureRedirect: '/signin'
+          failureRedirect: '/signup'
       }), session.login);
 
       app.get('/auth/twitter/callback', passport.authenticate('twitter', {
-          failureRedirect: '/signin'
+          failureRedirect: '/signup'
       }), users.authCallback);
   <% } %>
 
   <% if (mongoPassportGoogle) { %>
   // Setting the Google oauth routes
   app.get('/auth/google', passport.authenticate('google', {
-          failureRedirect: '/signin',
+          failureRedirect: '/signup',
           scope: [
               'https://www.googleapis.com/auth/userinfo.profile',
               'https://www.googleapis.com/auth/userinfo.email'
@@ -59,7 +59,7 @@ module.exports = function(app) {
       }), session.login);
 
       app.get('/auth/google/callback', passport.authenticate('google', {
-          failureRedirect: '/signin'
+          failureRedirect: '/signup'
       }), users.authCallback);
   <% } %>
 

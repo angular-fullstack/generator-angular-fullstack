@@ -3,7 +3,10 @@ div(ng-include='\'partials/navbar.html\'')
 .row
   .col-sm-12
     h1 Sign up
-    
+  .col-sm-12
+    <% if (mongoPassportFacebook) { %>a(href='/auth/facebook') Login with Facebook<% } %>
+    <% if (mongoPassportTwitter) { %>a(href='/auth/twitter') Login with Twitter<% } %>
+    <% if (mongoPassportGoogle) { %>a(href='/auth/google') Login with Google<% } %>
   .col-sm-12
     form.form(name='form', ng-submit='register(form)', novalidate='')
       .form-group(ng-class='{ \'has-success\': form.name.$valid && submitted, \'has-error\': form.name.$invalid && submitted }')
@@ -34,5 +37,5 @@ div(ng-include='\'partials/navbar.html\'')
 .row
   .col-sm-12
     hr
-    | Have an account? 
+    | Have an account?
     a.text-center.new-account(href='/login') Log in.
