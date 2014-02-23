@@ -25,7 +25,6 @@ module.exports = function(app) {
 
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
-    app.use(express.errorHandler());
     app.set('views', config.root + '/app/views');
   });
 
@@ -60,7 +59,12 @@ module.exports = function(app) {
     app.use(passport.initialize());
     app.use(passport.session());
     <% } %>
-    // Router needs to be last
+    // Router (only error handlers should come after this)
     app.use(app.router);
+  });
+
+  // Error handler
+  app.configure('development', function(){
+    app.use(express.errorHandler());
   });
 };
