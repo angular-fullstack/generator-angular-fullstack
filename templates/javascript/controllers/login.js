@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -24,7 +24,7 @@ angular.module('<%= scriptAppName %>')
       }
     };
 
-    $scope.loginOauth = function(provide) {
+    $scope.loginOauth = function(provider) {
         $window.location.href = '/auth/' + provider;
     }
   });
