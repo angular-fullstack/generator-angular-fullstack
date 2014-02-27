@@ -1,3 +1,25 @@
+<a name="v1.3.0"></a>
+## v1.3.0 (2014-02-27)
+
+
+#### Bug Fixes
+
+* **grunt:**
+  * fixed clean:dist task ([e390cac0](http://github.com/DaftMonk/generator-angular-fullstack/commit/e390cac015974f691ab51261128b4215e878b25f))
+* **server:**
+  * config all and env specific are now correctly deep merged ([31039872](http://github.com/DaftMonk/generator-angular-fullstack/commit/31039872caec541847cb80da8edf3c7ffd83ef48))
+  * fix configuration so that (express) errorHandler works ([0116cb35](http://github.com/DaftMonk/generator-angular-fullstack/commit/0116cb35524afb2ee5b8a599f6bc76dbe04febc5))
+
+
+#### Features
+
+* **app:**
+  * added `grunt serve:debug` task that launches the server with a node-inspector tab ([de3e7a8b](http://github.com/DaftMonk/generator-angular-fullstack/commit/de3e7a8b7e63c54090c8fbc2f51998965b2e274f))
+  * update to bootstrap sass official ([3799c13c](http://github.com/DaftMonk/generator-angular-fullstack/commit/3799c13c3b65fcc2abfbacb5292b192543558d52))
+* **server:**
+  * added tests for user model ([4c894b65](http://github.com/DaftMonk/generator-angular-fullstack/commit/4c894b65ec6a6d8de2b7290521f25b134ac30f40))
+  * added mocha test configuration ([458a2f6a](http://github.com/DaftMonk/generator-angular-fullstack/commit/458a2f6a28485a8791815f8795e726af3c308efe))
+
 <a name="v1.2.7"></a>
 ### v1.2.7 (2014-02-15)
 
