@@ -57,7 +57,10 @@
     "grunt-mocha-test": "~0.8.1",
     "supertest": "~0.8.2",
     "should": "~2.1.0",
-    "grunt-env": "~0.4.1"
+    "grunt-env": "~0.4.1",
+    "grunt-node-inspector": "~0.1.3",
+    "grunt-nodemon": "~0.2.0",
+    "open": "~0.0.4"
   },
   "engines": {
     "node": ">=0.10.0"
