@@ -39,6 +39,11 @@ yo angular-fullstack [app-name]
 Launch your express server in development mode.
 ```bash
 grunt serve
+```
+
+Launch your express server in `debug-brk` mode with a node-inspector tab.
+```bash
+grunt serve:debug
 ``` 
 
 Launch your express server in production mode, uses the minified/optimized production folder.
@@ -230,7 +235,11 @@ Keep in mind this client routing is only for improving the user interface. Make 
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+Running `grunt test` will run the client and server unit tests with karma and mocha.
+
+Use `grunt test:server` to only run server tests.
+
+Use `grunt test:client` to only run client tests.
 
 ## Contribute
 
