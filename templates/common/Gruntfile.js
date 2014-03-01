@@ -67,7 +67,7 @@ module.exports = function (grunt) {
         tasks: ['mochaTest']
       },
       jsTest: {
-        files: ['test/spec/{,*/}*.js'],
+        files: ['test/client/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },<% } %><% if (compass) { %>
       compass: {
@@ -123,9 +123,9 @@ module.exports = function (grunt) {
       ]<% if (!coffee) { %>,
       test: {
         options: {
-          jshintrc: 'test/.jshintrc'
+          jshintrc: 'test/client/.jshintrc'
         },
-        src: ['test/spec/{,*/}*.js']
+        src: ['test/client/spec/{,*/}*.js']
       }<% } %>
     },
 
@@ -232,9 +232,9 @@ module.exports = function (grunt) {
       test: {
         files: [{
           expand: true,
-          cwd: 'test/spec',
+          cwd: 'test/client/spec',
           src: '{,*/}*.coffee',
-          dest: '.tmp/spec',
+          dest: '.tmp/client/spec',
           ext: '.js'
         }]
       }
