@@ -1,3 +1,11 @@
+<a name="v1.3.1"></a>
+### v1.3.1 (2014-03-01)
+
+
+#### Bug Fixes
+
+* **gruntfile:** configured jshint for client tests ([4ee92b9a](http://github.com/DaftMonk/generator-angular-fullstack/commit/4ee92b9a4c466982b171bc777c3ba6ba5a477633))
+
 <a name="v1.3.0"></a>
 ## v1.3.0 (2014-02-27)
 
