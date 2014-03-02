@@ -32,13 +32,17 @@
   </div>
 </div>
 
+<% if (mongoPassportFacebook || mongoPassportTwitter || mongoPassportGoogle) { %>
 <div class="row">
-    <div class="col-sm-12">
-        <% if (mongoPassportFacebook) { %><a href="" data-ng-click="loginOauth('facebook')">Login with Facebook</a><% } %>
-        <% if (mongoPassportTwitter) { %><a href="" data-ng-click="loginOauth('twitter')">Login with Twitter</a><% } %>
-        <% if (mongoPassportGoogle) { %><a href="" data-ng-click="loginOauth('google')">Login with Google</a><% } %>
-    </div>
+  <div class="col-sm-12">
+    <hr>
+    <p>Or use a social login...</p>
+    <% if (mongoPassportFacebook) { %><a href="" data-ng-click="loginOauth('facebook')">Facebook</a><% } %>
+    <% if (mongoPassportTwitter) { %><a href="" data-ng-click="loginOauth('twitter')">Twitter</a><% } %>
+    <% if (mongoPassportGoogle) { %><a href="" data-ng-click="loginOauth('google')">Google</a><% } %>
+  </div>
 </div>
+<% } %>
 
 <div class="row">
   <div class="col-sm-12">
