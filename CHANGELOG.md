@@ -1,3 +1,11 @@
+<a name="v1.3.2"></a>
+### v1.3.2 (2014-03-01)
+
+
+#### Bug Fixes
+
+* **package.json:** updated dependencies that were causing issues with npm install ([1874cdf1](http://github.com/DaftMonk/generator-angular-fullstack/commit/1874cdf16c9d1670d0492db8db1be77e43222de4))
+
 <a name="v1.3.1"></a>
 ### v1.3.1 (2014-03-01)
 
