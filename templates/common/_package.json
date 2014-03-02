@@ -4,12 +4,11 @@
   "dependencies": {
     "express": "~3.4.3",
     "lodash": "~2.4.1"<% if (mongo) { %>,
-    "mongoose": "~3.5.5"<% } %><% if (mongoPassportUser) { %>,
-    "mongoose-unique-validator": "~0.3.0",
+    "mongoose": "~3.8.8"<% } %><% if (mongoPassportUser) { %>,
     "connect-mongo": "~0.4.0",
-    "passport": "latest",
-    "passport-local": "latest"<% } %><% if (jade) { %>,
-    "jade": "latest"<% } %><% if (!jade) { %>,
+    "passport": "~0.2.0",
+    "passport-local": "~0.1.6"<% } %><% if (jade) { %>,
+    "jade": "~1.2.0"<% } %><% if (!jade) { %>,
     "ejs": "~0.8.4"<% } %>
   },
   "devDependencies": {
@@ -24,8 +23,7 @@
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-htmlmin": "~0.1.3",
-    "jpegtran-bin": "0.2.0",
-    "grunt-contrib-imagemin": "~0.3.0",
+    "grunt-contrib-imagemin": "~0.5.0",
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.5.2",
