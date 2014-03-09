@@ -7,6 +7,9 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var config = require('./lib/config/config');
+
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -26,7 +29,7 @@ module.exports = function (grunt) {
     },
     express: {
       options: {
-        port: process.env.PORT || 9000
+        port: config.port
       },
       dev: {
         options: {
@@ -186,7 +189,7 @@ module.exports = function (grunt) {
         options: {
           nodeArgs: ['--debug-brk'],
           env: {
-            PORT: process.env.PORT || 9000
+            PORT: config.port
           },
           callback: function (nodemon) {
             nodemon.on('log', function (event) {
