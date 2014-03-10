@@ -309,6 +309,9 @@ module.exports = function (grunt) {
 
     // The following *-min tasks produce minified files in the dist folder
     imagemin: {
+      options : {
+        cache: false
+      },
       dist: {
         files: [{
           expand: true,
