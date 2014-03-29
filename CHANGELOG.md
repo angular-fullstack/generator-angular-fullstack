@@ -1,3 +1,18 @@
+<a name="v1.3.3"></a>
+### v1.3.3 (2014-03-29)
+
+#### Features
+
+* **server:** enable response compression ([1547ac6f](http://github.com/DaftMonk/generator-angular-fullstack/commit/1547ac6f794ce06d2a9329531bec5dae73441f04))
+
+#### Bug Fixes
+
+* **config:** change default port in config to 9000 ([480515f6](http://github.com/DaftMonk/generator-angular-fullstack/commit/480515f6cc8d7600003a570f9b1f0530fd178ac5))
+* **gruntfile:**
+  * update gruntfile to use port from config ([c8aa2d5f](http://github.com/DaftMonk/generator-angular-fullstack/commit/c8aa2d5feda90a2c1e7528165b1bd22e9eab5e77))
+  * workaround imagemin bug by disabling caching ([3e435fa7](http://github.com/DaftMonk/generator-angular-fullstack/commit/3e435fa74b1574223f129867621a9a800cea2af9))
+* **package:** update required generator-karma dependency to the correct version ([0c0e8a52](http://github.com/DaftMonk/generator-angular-fullstack/commit/0c0e8a522ffa94ea0bd9c0df9994c23340a957f7))
+
 <a name="v1.3.2"></a>
 ### v1.3.2 (2014-03-01)
 
