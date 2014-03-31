@@ -67,7 +67,7 @@ module.exports = function (grunt) {
       },
       mochaTest: {
         files: ['test/server/{,*/}*.js'],
-        tasks: ['mochaTest']
+        tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
         files: ['test/client/spec/{,*/}*.js'],
