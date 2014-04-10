@@ -28,11 +28,12 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 
 // Populate empty DB with sample data
 require('./lib/config/dummydata');<% } %><% if(mongoPassportUser) { %>
-  
+
 // Passport Configuration
 var passport = require('./lib/config/passport');<% } %>
 
 var app = express();
+var server = require('http').createServer(app);
 
 // Express settings
 require('./lib/config/express')(app);
@@ -41,7 +42,7 @@ require('./lib/config/express')(app);
 require('./lib/routes')(app);
 
 // Start server
-app.listen(config.port, function () {
+server.listen(config.port, function () {
   console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
 });
 
