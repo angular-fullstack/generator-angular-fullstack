@@ -1,14 +1,40 @@
 'use strict';
 var util = require('util');
-var ScriptBase = require('../script-base.js');
+var yeoman = require('yeoman-generator');
 var exec = require('child_process').exec;
 var chalk = require('chalk');
+var path = require('path');
 
 var Generator = module.exports = function Generator() {
-  ScriptBase.apply(this, arguments);
+  yeoman.generators.NamedBase.apply(this, arguments);
+  this.argument('deployedname', { type: String, optional: true, required: false });
+
+  try {
+    this.appname = require(path.join(process.cwd(), 'bower.json')).name;
+  } catch (e) {
+    this.appname = path.basename(process.cwd());
+  }
+
+  this.deployedname = this.deployedname ? this.deployedname : this._.slugify(this._.humanize(this.appname));
+  this.sourceRoot(path.join(__dirname, '../templates/deploy'));
 };
 
-util.inherits(Generator, ScriptBase);
+util.inherits(Generator, yeoman.generators.NamedBase);
+
+Generator.prototype.askForName = function askForName() {
+  var done = this.async();
+
+  var prompts = [{
+    name: 'deployedname',
+    message: 'Name to deploy as:',
+    default: this.appname
+  }];
+
+  this.prompt(prompts, function (props) {
+    this.deployedname = props.deployedname;
+    done();
+  }.bind(this));
+};
 
 Generator.prototype.checkInstallation = function checkInstallation() {
   var done = this.async();
@@ -41,7 +67,7 @@ Generator.prototype.checkInstallation = function checkInstallation() {
 
 Generator.prototype.copyProcfile = function copyProcfile() {
   if(this.name.toLowerCase() !== "heroku") return;
-  this.template('../deploy/heroku/Procfile', 'dist/Procfile');
+  this.template('heroku/Procfile', 'dist/Procfile');
 };
 
 Generator.prototype.gruntBuild = function gruntBuild() {
@@ -62,7 +88,7 @@ Generator.prototype.gruntBuild = function gruntBuild() {
 Generator.prototype.enableOpenShiftHotDeploy = function enableOpenshiftHotDeploy() {
   if(this.name.toLowerCase() !== "openshift") return;
   this.log("enabling HotDeploy for OpenShift");
-  this.template('../deploy/openshift/hot_deploy', 'dist/.openshift/markers/hot_deploy');
+  this.template('openshift/hot_deploy', 'dist/.openshift/markers/hot_deploy');
 };
 
 Generator.prototype.gitInit = function gitInit() {
@@ -123,7 +149,7 @@ Generator.prototype.rhcAppShow = function rhcAppShow() {
   var done = this.async();
 
   this.log("Checking for an existing OpenShift hosting evironment...");
-  exec('rhc app show '+this.appname+' --noprompt', { cwd: 'dist' }, function (err, stdout, stderr) {
+  exec('rhc app show '+this.deployedname+' --noprompt', { cwd: 'dist' }, function (err, stdout, stderr) {
     var lines = stdout.split('\n');
     var dist_repo = '';
     if (stdout.search('Not authenticated') >= 0 || stdout.search('Invalid characters found in login') >= 0) {
@@ -148,7 +174,7 @@ Generator.prototype.rhcAppCreate = function rhcAppCreate() {
   if(this.name.toLowerCase() !== "openshift" || typeof this.dist_repo_url !== 'undefined') return;
   var done = this.async();
   this.log("Creating your OpenShift hosting evironment...");
-  exec('rhc app create '+this.appname+' nodejs-0.10 mongodb-2.4 -s --noprompt --no-git NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
+  exec('rhc app create '+this.deployedname+' nodejs-0.10 mongodb-2.4 -s --noprompt --no-git NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
     var lines = stdout.split('\n');
     this.log(stdout);
     if (stdout.search('Not authenticated') >= 0 || stdout.search('Invalid characters found in login') >= 0) {
@@ -198,7 +224,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       var host_url = '';
       this.log('stdout: ' + stdout);
       var before_hostname = 'ssh://xxxxxxxxxxxxxxxxxxxxxxxx@'.length;
-      var after_hostname = this.dist_repo_url.length - ( this.appname.length + 12 );
+      var after_hostname = this.dist_repo_url.length - ( this.deployedname.length + 12 );
       host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
 
       this.log(chalk.green('You\'re all set! Your app should now be live at \n\t' + chalk.bold(host_url)));
@@ -215,7 +241,7 @@ Generator.prototype.herokuCreate = function herokuCreate() {
   if(this.name.toLowerCase() !== "heroku") return;
   var done = this.async();
 
-  exec('heroku apps:create && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
+  exec('heroku apps:create ' + this.deployedname + ' && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
