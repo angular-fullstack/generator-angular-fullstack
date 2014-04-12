@@ -75,6 +75,15 @@ Alternatively to skip tests and jshint, use:
 grunt build
 ```
 
+### OpenShift Deployment
+Deploying to OpenShift can be done in just a few steps:
+
+1. `mkdir myapp && cd myapp`
+2. `yo angular-fullstack myapp`
+3. `yo angular-fullstack:deploy openshift`
+
+A live application URL will be available in the output.
+
 ### Heroku Deployment
 
 We provide an extremely simplifed deployment process for heroku.
@@ -124,25 +133,40 @@ Read more on the angular sub-generators from the offical [generator angular docu
 ## Fullstack sub-generators
 
 ### Deploy
-Initalizes a heroku app and generates a `dist` folder which is ready to push to heroku.
+Initalizes a remote Heroku or OpenShift application, generates a `dist` folder, and sets up a `git remote` to enable subsequent deployments.
 
-To do the same manually, you need to:
+OpenShift Example:
+```bash
+yo angular-fullstack:deploy openshift
+```
 
-1. Build a dist folder
-2. Create a Procfile in the dist folder
-3. Create a repository: `git init && git add -A && git commit -m "Initial commit"`
-4. Create a heroku app: `heroku apps:create && heroku config:set NODE_ENV=production`
-
-Example:
+Or, for Heroku:
 ```bash
 yo angular-fullstack:deploy heroku
 ```
 
-After app modifications run:
+To do the same manually with heroku, you'd need to:
+
+1. Build a dist folder `grunt build`
+2. Create a Procfile in the dist folder
+3. Create a repository: `git init && git add -A && git commit -m "Initial commit"`
+4. Create an app: `heroku apps:create && heroku config:set NODE_ENV=production`
+
+#### Pushing updates
+For any platform, when you're ready to ship changes to your live app, run the following to generate a new build for deployment:
 ```bash
 grunt build
 ```
-then commit and push the dist folder.
+
+Then commit and push the resulting build, located in your `dist` folder:
+```bash
+cd dist &&
+git push openshift master
+```
+Or, for Heroku:
+```bash
+git push heroku master
+```
 
 ## Options
 In general, these options can be applied to any generator, though they only affect generators that produce scripts.
