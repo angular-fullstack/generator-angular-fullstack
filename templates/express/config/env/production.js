@@ -3,8 +3,10 @@
 module.exports = {
   env: 'production',
   ip:   process.env.OPENSHIFT_NODEJS_IP ||
-        '127.0.0.1',
+        process.env.IP ||
+        '0.0.0.0',
   port: process.env.OPENSHIFT_NODEJS_PORT ||
+        process.env.PORT ||
         8080<% if (mongo) { %>,
   mongo: {
     uri: process.env.MONGOLAB_URI ||
