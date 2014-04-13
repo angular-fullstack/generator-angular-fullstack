@@ -51,7 +51,7 @@ Generator.prototype.gitInit = function gitInit() {
   if(this.abort) return;
   var done = this.async();
 
-  this.log(chalk.bold('Initializing deployment repo'));
+  this.log(chalk.bold('\nInitializing deployment repo'));
   this.mkdir('dist');
   exec('git init"', { cwd: 'dist' }, function (err, stdout, stderr) {
     this.log(stdout);
@@ -85,7 +85,7 @@ Generator.prototype.gruntBuild = function gruntBuild() {
   if(this.abort) return;
   var done = this.async();
 
-  this.log(chalk.bold('Building dist folder, please wait...'));
+  this.log(chalk.bold('\nBuilding dist folder, please wait...'));
   exec('grunt build', function (err, stdout) {
     this.log('stdout: ' + stdout);
     if (err) {
@@ -116,14 +116,15 @@ Generator.prototype.gitForcePush = function gitForcePush() {
   if(this.abort) return;
   var done = this.async();
 
-  this.log(chalk.bold("Uploading your initial application code.\n This may take "+chalk.cyan('several minutes')+" depending on your connection speed..."));
+  this.log(chalk.bold("\nUploading your initial application code.\n This may take "+chalk.cyan('several minutes')+" depending on your connection speed..."));
 
   exec('git push -f heroku master', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
-      this.log(chalk.green('You\'re all set! Your app should now be live, run ' + chalk.bold('cd dist && heroku open') + ' to view it.'));
-      this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
+      this.log(chalk.green('\nYou\'re all set! Your app should now be live. To view it run\n\t' + chalk.bold('cd dist && heroku open')));
+      this.log(chalk.cyan('If you\'re using mongoDB, be sure to add a database to your heroku app.\n\t' + chalk.bold('heroku addons:add mongohq') + '\n\n'));
+      this.log(chalk.yellow('To deploy a new build\n\t' + chalk.bold('grunt build') +
                 '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
       this.log(chalk.green('Finally, deploy your updated build to Heroku with\n\t' + chalk.bold('git push heroku master')));
     }
