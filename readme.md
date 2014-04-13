@@ -80,7 +80,7 @@ Deploying to OpenShift can be done in just a few steps:
 
 1. `mkdir myapp && cd myapp`
 2. `yo angular-fullstack myapp`
-3. `yo angular-fullstack:deploy openshift`
+3. `yo angular-fullstack:openshift`
 
 A live application URL will be available in the output.
 
@@ -96,13 +96,11 @@ We provide an extremely simplifed deployment process for heroku.
 
 2. `yo angular-fullstack`
 
-3. `yo angular-fullstack:deploy heroku`
-
-4. `cd dist && git push heroku master`
+3. `yo angular-fullstack:heroku`
 
 5. Optional (if using mongoDB) `heroku addons:add mongohq`
 
-That's it! Your app should be live and shareable. Type `heroku open` to view it.  
+That's it! Your app should be live. Type `heroku open`  from the dist folder to view it.  
 
 ## Generators
 
@@ -132,17 +130,17 @@ Read more on the angular sub-generators from the offical [generator angular docu
 
 ## Fullstack sub-generators
 
-### Deploy
+### Heroku | Openshift
 Initalizes a remote Heroku or OpenShift application, generates a `dist` folder, and sets up a `git remote` to enable subsequent deployments.
 
 OpenShift Example:
 ```bash
-yo angular-fullstack:deploy openshift
+yo angular-fullstack:openshift
 ```
 
 Or, for Heroku:
 ```bash
-yo angular-fullstack:deploy heroku
+yo angular-fullstack:heroku
 ```
 
 To do the same manually with heroku, you'd need to:
