@@ -53,7 +53,7 @@ Generator.prototype.gitInit = function gitInit() {
 
   this.log(chalk.bold('Initializing deployment repo'));
   this.mkdir('dist');
-  exec('git init"', { cwd: 'dist' }, function (err, stdout, stderr) {
+  exec('git init', { cwd: 'dist' }, function (err, stdout, stderr) {
     this.log(stdout);
     done();
   }.bind(this));
@@ -64,7 +64,7 @@ Generator.prototype.gitRemoteCheck = function gitRemoteCheck() {
   if(this.abort || typeof this.dist_repo_url !== 'undefined') return;
   var done = this.async();
 
-  this.log(chalk.bold("Checking for an existing git remote named 'openshift'..."));
+  this.log(chalk.bold("Checking for an existing git remote named '"+this.deployedName+"'..."));
   exec('git remote -v', { cwd: 'dist' }, function (err, stdout, stderr) {
     var lines = stdout.split('\n');
     var dist_repo = '';
@@ -72,7 +72,7 @@ Generator.prototype.gitRemoteCheck = function gitRemoteCheck() {
     if (err && stderr.search('DL is deprecated') === -1) {
       this.log.error(err);
     } else {
-      var repo_url_finder = /openshift[  ]*/;
+      var repo_url_finder = new RegExp(this.deployedName+"[  ]*");
       lines.forEach(function(line) {
         if(line.search(repo_url_finder) === 0 && dist_repo === '') {
           var dist_repo_detailed = line.slice(line.match(repo_url_finder)[0].length);
@@ -150,7 +150,7 @@ Generator.prototype.gitRemoteAdd = function gitRemoteAdd() {
   var done = this.async();
   this.log(chalk.bold("Adding remote repo url: "+this.dist_repo_url));
 
-  exec('git remote add openshift '+this.dist_repo_url, { cwd: 'dist' }, function (err, stdout, stderr) {
+  exec('git remote add '+this.deployedName+' '+this.dist_repo_url, { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
@@ -202,7 +202,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
   var done = this.async();
   this.log(chalk.bold("Uploading your initial application code.\n This may take "+chalk.cyan('several minutes')+" depending on your connection speed..."));
 
-  exec('git push -f openshift master', { cwd: 'dist' }, function (err, stdout, stderr) {
+  exec('git push -f '+this.deployedName+' master', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
@@ -215,7 +215,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       this.log(chalk.green('\nYou\'re all set! Your app should now be live at \n\t' + chalk.bold(host_url)));
       this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
                 '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
-      this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push openshift master')));
+      this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push '+this.deployedName+' master')));
       this.openshift_host_url = host_url;
     }
     done();
