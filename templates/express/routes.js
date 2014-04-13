@@ -3,9 +3,8 @@
 var api = require('./controllers/api'),
     index = require('./controllers')<% if(mongoPassportUser) { %>,
     users = require('./controllers/users'),
-    session = require('./controllers/session');
-
-var middleware = require('./middleware')<% } %>;
+    session = require('./controllers/session'),
+    middleware = require('./middleware')<% } %>;
 
 /**
  * Application routes
@@ -13,22 +12,30 @@ var middleware = require('./middleware')<% } %>;
 module.exports = function(app) {
 
   // Server API Routes
-  app.get('/api/awesomeThings', api.awesomeThings);
+  app.route('/api/awesomeThings')
+    .get(api.awesomeThings);
   <% if(mongoPassportUser) { %>
-  app.post('/api/users', users.create);
-  app.put('/api/users', users.changePassword);
-  app.get('/api/users/me', users.me);
-  app.get('/api/users/:id', users.show);
+  app.route('/api/users')
+    .post(users.create)
+    .put(users.changePassword);
+  app.route('/api/users/me')
+    .get(users.me);
+  app.route('/api/users/:id')
+    .get(users.show);
 
-  app.post('/api/session', session.login);
-  app.del('/api/session', session.logout);<% } %>
+  app.route('/api/session')
+    .post(session.login)
+    .delete(session.logout);<% } %>
 
   // All undefined api routes should return a 404
-  app.get('/api/*', function(req, res) {
-    res.send(404);
-  });
-  
+  app.route('/api/*')
+    .get(function(req, res) {
+      res.send(404);
+    });
+
   // All other routes to use Angular routing in app/scripts/app.js
-  app.get('/partials/*', index.partials);
-  app.get('/*',<% if(mongoPassportUser) { %> middleware.setUserCookie,<% } %> index.index);
+  app.route('/partials/*')
+    .get(index.partials);
+  app.route('/*')
+    .get(<% if(mongoPassportUser) { %> middleware.setUserCookie,<% } %> index.index);
 };

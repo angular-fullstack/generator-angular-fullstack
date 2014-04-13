@@ -1,16 +1,26 @@
 'use strict';
 
 var express = require('express'),
+    favicon = require('static-favicon'),
+    morgan = require('morgan'),
+    compression = require('compression'),
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    errorHandler = require('errorhandler'),
     path = require('path'),
     config = require('./config')<% if (mongoPassportUser) { %>,
     passport = require('passport'),
-    mongoStore = require('connect-mongo')(express)<% } %>;
+    mongoStore = require('connect-mongo')(session)<% } %>;
 
 /**
  * Express configuration
  */
 module.exports = function(app) {
-  app.configure('development', function(){
+  var env = app.get('env');
+
+  if ('development' === env) {
     app.use(require('connect-livereload')());
 
     // Disable caching of scripts for easier testing
@@ -26,46 +36,42 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
     app.set('views', config.root + '/app/views');
-  });
+  }
 
-  app.configure('production', function(){
-    app.use(express.compress());
-    app.use(express.favicon(path.join(config.root, 'public', 'favicon.ico')));
+  if ('production' === env) {
+    app.use(compression());
+    app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
     app.use(express.static(path.join(config.root, 'public')));
     app.set('views', config.root + '/views');
-  });
+  }
 
-  app.configure(function(){<% if (!jade) { %>
-    app.engine('html', require('ejs').renderFile);
-    app.set('view engine', 'html');<% } %><% if (jade) { %>
-    app.set('view engine', 'jade');<% } %>
-    app.use(express.logger('dev'));
-    app.use(express.json());
-    app.use(express.urlencoded());
-    app.use(express.methodOverride());<% if(mongoPassportUser) { %>
-    app.use(express.cookieParser());
+  <% if (!jade) { %>
+  app.engine('html', require('ejs').renderFile);
+  app.set('view engine', 'html');<% } %><% if (jade) { %>
+  app.set('view engine', 'jade');<% } %>
+  app.use(morgan('dev'));
+  app.use(bodyParser());
+  app.use(methodOverride());<% if(mongoPassportUser) { %>
+  app.use(cookieParser());
 
-    // Persist sessions with mongoStore
-    app.use(express.session({
-      secret: 'angular-fullstack secret',
-      store: new mongoStore({
-        url: config.mongo.uri,
-        collection: 'sessions'
-      }, function () {
-          console.log("db connection open");
-      })
-    }));
+  // Persist sessions with mongoStore
+  app.use(session({
+    secret: 'angular-fullstack secret',
+    store: new mongoStore({
+      url: config.mongo.uri,
+      collection: 'sessions'
+    }, function () {
+      console.log('db connection open');
+    })
+  }));
 
-    //use passport session
-    app.use(passport.initialize());
-    app.use(passport.session());
-    <% } %>
-    // Router (only error handlers should come after this)
-    app.use(app.router);
-  });
+  // Use passport session
+  app.use(passport.initialize());
+  app.use(passport.session());
+  <% } %>
 
-  // Error handler
-  app.configure('development', function(){
-    app.use(express.errorHandler());
-  });
+  // Error handler - has to be last
+  if ('development' === app.get('env')) {
+    app.use(errorHandler());
+  }
 };

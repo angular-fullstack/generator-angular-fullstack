@@ -12,10 +12,7 @@ var express = require('express')<% if (mongo) { %>,
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Application Config
 var config = require('./lib/config/config');<% if (mongo) { %>
-
-// Connect to database
 var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Bootstrap models
@@ -28,16 +25,13 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 
 // Populate empty DB with sample data
 require('./lib/config/dummydata');<% } %><% if(mongoPassportUser) { %>
-  
+
 // Passport Configuration
 var passport = require('./lib/config/passport');<% } %>
 
+// Setup Express
 var app = express();
-
-// Express settings
 require('./lib/config/express')(app);
-
-// Routing
 require('./lib/routes')(app);
 
 // Start server
