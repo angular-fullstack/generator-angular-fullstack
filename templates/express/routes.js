@@ -3,9 +3,8 @@
 var api = require('./controllers/api'),
     index = require('./controllers')<% if(mongoPassportUser) { %>,
     users = require('./controllers/users'),
-    session = require('./controllers/session');
-
-var middleware = require('./middleware')<% } %>;
+    session = require('./controllers/session'),
+    middleware = require('./middleware')<% } %>;
 
 /**
  * Application routes
@@ -17,7 +16,7 @@ module.exports = function(app) {
     .get(api.awesomeThings);
   <% if(mongoPassportUser) { %>
   app.route('/api/users')
-    .post(users.create),
+    .post(users.create)
     .put(users.changePassword);
   app.route('/api/users/me')
     .get(users.me);
@@ -25,7 +24,7 @@ module.exports = function(app) {
     .get(users.show);
 
   app.route('/api/session')
-    .post(session.login),
+    .post(session.login)
     .delete(session.logout);<% } %>
 
   // All undefined api routes should return a 404
