@@ -44,8 +44,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(config.root, 'public')));
     app.set('views', config.root + '/views');
   }
-
-  <% if (!jade) { %>
+<% if (!jade) { %>
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');<% } %><% if (jade) { %>
   app.set('view engine', 'jade');<% } %>
@@ -67,8 +66,7 @@ module.exports = function(app) {
 
   // Use passport session
   app.use(passport.initialize());
-  app.use(passport.session());
-  <% } %>
+  app.use(passport.session());<% } %>
 
   // Error handler - has to be last
   if ('development' === app.get('env')) {
