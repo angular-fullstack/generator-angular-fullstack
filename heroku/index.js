@@ -14,6 +14,7 @@ var Generator = module.exports = function Generator() {
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
+  this.appname = this._.slugify(this.appname);
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
@@ -28,7 +29,7 @@ Generator.prototype.askForName = function askForName() {
   }];
 
   this.prompt(prompts, function (props) {
-    this.deployedName = props.deployedName;
+    this.deployedName = this._.slugify(props.deployedName);
     done();
   }.bind(this));
 };

@@ -14,6 +14,7 @@ var Generator = module.exports = function Generator() {
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
+  this.appname = this._.slugify(this.appname).split('-').join('');
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
@@ -28,7 +29,7 @@ Generator.prototype.askForName = function askForName() {
   }];
 
   this.prompt(prompts, function (props) {
-    this.deployedName = props.deployedName;
+    this.deployedName = this._.slugify(props.deployedName).split('-').join('');
     done();
   }.bind(this));
 };
@@ -200,7 +201,7 @@ Generator.prototype.gitCommit = function gitInit() {
 Generator.prototype.gitForcePush = function gitForcePush() {
   if(this.abort || !this.openshift_remote_exists ) return;
   var done = this.async();
-  this.log(chalk.bold("Uploading your initial application code.\n This may take "+chalk.cyan('several minutes')+" depending on your connection speed..."));
+  this.log(chalk.bold("\nUploading your initial application code.\n This may take "+chalk.cyan('several minutes')+" depending on your connection speed..."));
 
   exec('git push -f '+this.deployedName+' master', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
