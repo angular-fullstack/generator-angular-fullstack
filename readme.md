@@ -159,7 +159,7 @@ grunt build
 Then commit and push the resulting build, located in your `dist` folder:
 ```bash
 cd dist &&
-git push openshift master
+git push yourAppName master
 ```
 Or, for Heroku:
 ```bash
