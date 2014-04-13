@@ -1,3 +1,23 @@
+<a name="v1.4.0"></a>
+## v1.4.0 (2014-04-13)
+
+#### Features
+
+* **server:** updated Express to v4.x
+* **app:** matching angular dependencies to the latest verison, now that bower excludes pre-releases ([94c0c636](http://github.com/DaftMonk/generator-angular-fullstack/commit/94c0c63691976eaf7136c33365f611b465ba7f61))
+* **gen:** 
+  * Added `angular-fullstack:openshift` generator, for deploying your app to OpenShift
+  * Added `angular-fullstack:heroku` generator, which improves upon the former `:deploy` generator for deploying to Heroku
+
+#### Bug Fixes
+
+* **server:** fixed possible DB flushing when mochaTest is called by watch, first call 'env:test' task before 'mochaTest'
+([2f0320fe](http://github.com/DaftMonk/generator-angular-fullstack/commit/2f0320feb89f3a5f1757f8adcae4b8c0d5599c95))
+
+#### Breaking Changes
+
+* The `angular-fullstack:deploy` generator is deprecated. Instead use `angular-fullstack:heroku` or `angular-fullstack:openshift`.
+
 <a name="v1.3.3"></a>
 ### v1.3.3 (2014-03-29)
 
