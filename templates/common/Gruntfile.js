@@ -7,9 +7,6 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var config = require('./lib/config/config');
-
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -29,7 +26,7 @@ module.exports = function (grunt) {
     },
     express: {
       options: {
-        port: config.port
+        port: process.env.PORT || 9000
       },
       dev: {
         options: {
@@ -91,7 +88,7 @@ module.exports = function (grunt) {
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
           '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
-      
+
         options: {
           livereload: true
         }
@@ -189,7 +186,7 @@ module.exports = function (grunt) {
         options: {
           nodeArgs: ['--debug-brk'],
           env: {
-            PORT: config.port
+            PORT: process.env.PORT || 9000
           },
           callback: function (nodemon) {
             nodemon.on('log', function (event) {
@@ -200,7 +197,7 @@ module.exports = function (grunt) {
             nodemon.on('config:update', function () {
               setTimeout(function () {
                 require('open')('http://localhost:8080/debug?port=5858');
-              }, 500);              
+              }, 500);
             });
           }
         }
@@ -561,7 +558,7 @@ module.exports = function (grunt) {
       'test:server',
       'test:client'
     ]);
-  });  
+  });
 
   grunt.registerTask('build', [
     'clean:dist',
