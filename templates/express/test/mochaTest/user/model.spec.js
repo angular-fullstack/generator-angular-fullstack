@@ -1,5 +1,8 @@
 'use strict';
 
+// Make sure app is started and models are bootstrapped
+require('../../../server');
+
 var should = require('should'),
     mongoose = require('mongoose'),
     User = mongoose.model('User');
