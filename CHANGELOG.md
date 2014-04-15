@@ -1,3 +1,13 @@
+<a name="v1.4.1"></a>
+### v1.4.1 (2014-04-15)
+
+
+#### Bug Fixes
+
+* **server:** 
+  * grunt test was incorrectly using dev config, fixes #179 ([62d8492f](http://github.com/DaftMonk/generator-angular-fullstack/commit/62d8492fd9fcfde653bab0f65b46f9961b8016bc))
+  * emails are no longer case sensitive ([dafd8db1](https://github.com/DaftMonk/generator-angular-fullstack/commit/dafd8db1f529b86322ef60f65897761cef92841a))
+
 <a name="v1.4.0"></a>
 ## v1.4.0 (2014-04-13)
 
