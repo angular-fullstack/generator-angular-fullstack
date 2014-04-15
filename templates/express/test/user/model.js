@@ -16,13 +16,15 @@ describe('User Model', function() {
     });
 
     // Clear users before testing
-    User.remove().exec();
-    done();
+    User.remove().exec().then(function() {
+      done();
+    });
   });
 
   afterEach(function(done) {
-    User.remove().exec();
-    done();
+    User.remove().exec().then(function() {
+      done();
+    });
   });
 
   it('should begin with no users', function(done) {
