@@ -33,9 +33,11 @@ module.exports = function(app) {
       res.send(404);
     });
 
-  // All other routes to use Angular routing in app/scripts/app.js
+  // Partials get their own route
   app.route('/partials/*')
     .get(index.partials);
+
+  // For everything else
   app.route('/*')
     .get(<% if(mongoPassportUser) { %> middleware.setUserCookie,<% } %> index.index);
 };
