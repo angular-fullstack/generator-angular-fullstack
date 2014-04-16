@@ -2,66 +2,94 @@
 'use strict';
 
 // Import lodash: support both node and browser
-var _;
-if (typeof exports === 'object') {
-  // Node.
-  _ = require('lodash');
-} else {
-  // Browser global;
-  _ = window._;
-}
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['lodash'], factory);
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require('lodash'));
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory(root._);
+    }
+}(this, function (_) {
 
-// Custom matchers
-beforeEach(function() {
+  // Custom matchers
+  beforeEach(function() {
 
-  this.addMatchers({
+    this.addMatchers({
 
-    toExist: function() {
-      return !_.isUndefined(this.actual) && !_.isNull(this.actual);
-    },
+      toExist: function() {
+        return !_.isUndefined(this.actual) && !_.isNull(this.actual);
+      },
 
-    toBeInstanceof: function(expected) {
-      return this.actual instanceof expected;
-    },
+      toExtend: function(expected) {
+        return new this.actual() instanceof expected;
+      },
 
-    toExtend: function(expected) {
-      this.message = function() {
-        return 'Expected ' + this.actual + ' to extend ' + expected;
-      };
+      toBeArray: function() {
+        return _.isArray(this.actual);
+      },
 
-      return new this.actual() instanceof expected;
-    },
+      toBeBoolean: function() {
+        return _.isBoolean(this.actual);
+      },
 
-    toBeArray: function() {
-      this.message = function() {
-        return 'Expected ' + this.actual + ' to be an array';
-      };
+      toBeDate: function() {
+        return _.isDate(this.actual);
+      },
 
-      return _.isArray(this.actual);
-    },
+      toDeepEqual: function(expected) {
+        return _.isEqual(this.actual, expected);
+      },
 
-    toBeRegularExpression: function () {
-      if (!this.actual || !_.isFunction(this.actual.exec) || !_.isFunction(this.actual.test)) {
-        return 'Expected ' + this.actual + ' to be an a regular expression';
+      toBeEmpty: function() {
+        return _.isEmpty(this.actual);
+      },
+
+      toBeFinite: function() {
+        return _.isFinite(this.actual);
+      },
+
+      toBeFunction: function() {
+        return _.isFunction(this.actual);
+      },
+
+      toBeInstanceof: function(expected) {
+        return this.actual instanceof expected;
+      },
+
+      toBeNaN: function() {
+        return _.isNaN(this.actual);
+      },
+
+      toBeNull: function() {
+        return _.isNull(this.actual);
+      },
+
+      toBeNumber: function() {
+        return _.isNumber(this.actual);
+      },
+
+      toBeRegularExpression: function () {
+        return _.isRegExp(this.actual);
+      },
+
+      toBePlainObject: function() {
+        return _.isPlainObject(this.actual);
+      },
+
+      toBeString: function() {
+        return _.isString(this.actual);
+      },
+
+      toBeUndefined: function() {
+        return _.isUndefined(this.actual);
       }
 
-      return true;
-    },
-
-    toBeFunction: function() {
-      this.message = function() {
-        return 'Expected ' + this.actual + ' to be a function';
-      };
-
-      return _.isFunction(this.actual);
-    },
-
-    toDeepEqual: function(expected) {
-      this.message = function() {
-        return 'Expected \n' + jasmine.pp(this.actual) + '\n to deep equal \n' + jasmine.pp(expected);
-      };
-
-      return _.isEqual(this.actual, expected);
-    }
+    });
   });
-});
+}));
