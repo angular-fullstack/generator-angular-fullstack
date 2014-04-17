@@ -54,7 +54,7 @@ Generator.prototype.gitInit = function gitInit() {
 
   this.log(chalk.bold('\nInitializing deployment repo'));
   this.mkdir('dist');
-  exec('git init"', { cwd: 'dist' }, function (err, stdout, stderr) {
+  exec('git init', { cwd: 'dist' }, function (err, stdout, stderr) {
     this.log(stdout);
     done();
   }.bind(this));
