@@ -1,3 +1,11 @@
+<a name="v1.4.2"></a>
+### v1.4.2 (2014-04-16)
+
+
+#### Bug Fixes
+
+* **gen:** typo in heroku generator was preventing it from working on unix based systems ([9d3b5738](http://github.com/DaftMonk/generator-angular-fullstack/commit/9d3b5738528497f74d37d22c304b0d46cd5007fa))
+
 <a name="v1.4.1"></a>
 ### v1.4.1 (2014-04-15)
 
