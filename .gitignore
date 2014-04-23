@@ -2,3 +2,4 @@ node_modules
 test/temp
 test/UpperCaseBug
 .idea
+release.txt

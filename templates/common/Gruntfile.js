@@ -7,9 +7,6 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var config = require('./lib/config/config');
-
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -29,7 +26,7 @@ module.exports = function (grunt) {
     },
     express: {
       options: {
-        port: config.port
+        port: process.env.PORT || 9000
       },
       dev: {
         options: {
@@ -67,7 +64,7 @@ module.exports = function (grunt) {
       },
       mochaTest: {
         files: ['test/server/{,*/}*.js'],
-        tasks: ['mochaTest']
+        tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
         files: ['test/client/spec/{,*/}*.js'],
@@ -89,9 +86,9 @@ module.exports = function (grunt) {
           '<%%= yeoman.app %>/views/{,*//*}*.{html,jade}',
           '{.tmp,<%%= yeoman.app %>}/styles/{,*//*}*.css',
           '{.tmp,<%%= yeoman.app %>}/scripts/{,*//*}*.js',
-          '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
-      
+
         options: {
           livereload: true
         }
@@ -189,7 +186,7 @@ module.exports = function (grunt) {
         options: {
           nodeArgs: ['--debug-brk'],
           env: {
-            PORT: config.port
+            PORT: process.env.PORT || 9000
           },
           callback: function (nodemon) {
             nodemon.on('log', function (event) {
@@ -200,7 +197,7 @@ module.exports = function (grunt) {
             nodemon.on('config:update', function () {
               setTimeout(function () {
                 require('open')('http://localhost:8080/debug?port=5858');
-              }, 500);              
+              }, 500);
             });
           }
         }
@@ -309,6 +306,9 @@ module.exports = function (grunt) {
 
     // The following *-min tasks produce minified files in the dist folder
     imagemin: {
+      options : {
+        cache: false
+      },
       dist: {
         files: [{
           expand: true,
@@ -545,7 +545,7 @@ module.exports = function (grunt) {
       ]);
     }
 
-    if (target === 'client') {
+    else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
         'concurrent:test',
@@ -554,15 +554,11 @@ module.exports = function (grunt) {
       ]);
     }
 
-    grunt.task.run([
-      'env:test',
-      'mochaTest',
-      'clean:server',
-      'concurrent:test',
-      'autoprefixer',
-      'karma'
+    else grunt.task.run([
+      'test:server',
+      'test:client'
     ]);
-  });  
+  });
 
   grunt.registerTask('build', [
     'clean:dist',
