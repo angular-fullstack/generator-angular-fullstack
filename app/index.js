@@ -66,6 +66,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.log('# Client\n');
 
     this.prompt([{
+        type: 'confirm',
+        name: 'gulp',
+        message: 'Would you like to use Gulp (experimental) instead of Grunt?',
+        default: false
+      }, {
         type: "list",
         name: "script",
         message: "What would you like to write scripts with?",
@@ -117,7 +122,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           return answers.bootstrap;
         }
       }], function (answers) {
-        
+        this.filters.gulp = !!answers.gulp;
         this.filters.babel = !!answers.babel;
         if(this.filters.babel){ this.filters.js = true; }
         this.filters[answers.script] = true;
