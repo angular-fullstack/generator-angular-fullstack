@@ -1,8 +1,0 @@
-Description:
-    Creates a new AngularJS decorator for a specified service
-
-Example:
-    yo angular-fullstack:decorator serviceName [--coffee]
-
-    This will create:
-        app/scripts/decorators/serviceNameDecorator.js

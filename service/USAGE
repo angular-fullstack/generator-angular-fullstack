@@ -1,9 +1,0 @@
-Description:
-    Creates a new AngularJS service.
-    Docs: http://docs.angularjs.org/guide/dev_guide.services.creating_services
-
-Example:
-    yo angular-fullstack:service thing [--coffee] [--minsafe]
-
-    This will create:
-        app/scripts/services/thing.js

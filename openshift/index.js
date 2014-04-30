@@ -7,7 +7,7 @@ var path = require('path');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates/deploy'));
+  this.sourceRoot(path.join(__dirname, './templates'));
 
   try {
     this.appname = require(path.join(process.cwd(), 'bower.json')).name;
@@ -164,7 +164,7 @@ Generator.prototype.gitRemoteAdd = function gitRemoteAdd() {
 Generator.prototype.enableOpenShiftHotDeploy = function enableOpenshiftHotDeploy() {
   if(this.abort || !this.openshift_remote_exists ) return;
   this.log(chalk.bold("enabling HotDeploy for OpenShift"));
-  this.template('openshift/hot_deploy', 'dist/.openshift/markers/hot_deploy');
+  this.template('hot_deploy', 'dist/.openshift/markers/hot_deploy');
 };
 
 Generator.prototype.gruntBuild = function gruntBuild() {

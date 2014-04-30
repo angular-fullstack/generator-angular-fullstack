@@ -6,7 +6,8 @@ var fs = require('fs');
 module.exports = {
   rewrite: rewrite,
   rewriteFile: rewriteFile,
-  appName: appName
+  appName: appName,
+  processDirectory: processDirectory
 };
 
 function rewriteFile (args) {
@@ -71,4 +72,23 @@ function appName (self) {
     suffix = 'App';
   }
   return suffix ? self._.classify(suffix) : '';
+}
+
+function processDirectory (self, source, destination) {
+  var root = self.isPathAbsolute(source) ? source : path.join(self.sourceRoot(), source);
+  var files = self.expandFiles('**', { dot: true, cwd: root });
+  var dest;
+
+  for (var i = 0; i < files.length; i++) {
+    var f = files[i];
+    var src = path.join(root, f);
+    if(path.basename(f).indexOf('_') === 0){
+      dest = path.join(destination, path.dirname(f), path.basename(f).replace(/^_/, ''));
+      self.template(src, dest);
+    }
+    else{
+      dest = path.join(destination, f);
+      self.copy(src, dest);
+    }
+  }
 }

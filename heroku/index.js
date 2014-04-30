@@ -7,7 +7,7 @@ var path = require('path');
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, '../templates/deploy'));
+  this.sourceRoot(path.join(__dirname, './templates'));
 
   try {
     this.appname = require(path.join(process.cwd(), 'bower.json')).name;
@@ -79,7 +79,7 @@ Generator.prototype.herokuCreate = function herokuCreate() {
 Generator.prototype.copyProcfile = function copyProcfile() {
   if(this.abort) return;
   this.log(chalk.bold('Creating Procfile'));
-  this.template('heroku/Procfile', 'dist/Procfile');
+  this.template('Procfile', 'dist/Procfile');
 };
 
 Generator.prototype.gruntBuild = function gruntBuild() {

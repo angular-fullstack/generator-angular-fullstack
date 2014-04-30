@@ -1,8 +1,0 @@
-Description:
-    Creates a new AngularJS view
-
-Example:
-    yo angular-fullstack:view thing
-
-    This will create:
-        app/views/thing.html
