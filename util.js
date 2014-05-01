@@ -74,21 +74,46 @@ function appName (self) {
   return suffix ? self._.classify(suffix) : '';
 }
 
+function filterFile (template) {
+  // Find matches for parans
+  var filterMatches = template.match(/\(([^)]+)\)/g);
+  var filter = '';
+  if(filterMatches) {
+    filter = filterMatches[0].replace('(', '').replace(')', '');
+    template = template.replace(filterMatches[0], '');
+  }
+
+  return { name: template, filter: filter };
+}
+
+function templateIsUsable (self, filteredFile) {
+  var filters = self.config.get('filters') || [];
+
+  if(filteredFile.filter && filters.indexOf(filteredFile.filter) === -1) {
+    return false;
+  }
+  return true;
+}
+
 function processDirectory (self, source, destination) {
   var root = self.isPathAbsolute(source) ? source : path.join(self.sourceRoot(), source);
   var files = self.expandFiles('**', { dot: true, cwd: root });
-  var dest;
+  var dest, src;
 
-  for (var i = 0; i < files.length; i++) {
-    var f = files[i];
-    var src = path.join(root, f);
-    if(path.basename(f).indexOf('_') === 0){
-      dest = path.join(destination, path.dirname(f), path.basename(f).replace(/^_/, ''));
+  files.forEach(function(f) {
+    var filteredFile = filterFile(f);
+    var name = filteredFile.name;
+
+    src = path.join(root, f);
+    dest = path.join(destination, name);
+
+    if(path.basename(dest).indexOf('_') === 0){
+      dest = path.basename(dest).replace(/^_/, '');
+    }
+
+    if(templateIsUsable(self, filteredFile)) {
+      console.log(src);
       self.template(src, dest);
     }
-    else{
-      dest = path.join(destination, f);
-      self.copy(src, dest);
-    }
-  }
+  });
 }

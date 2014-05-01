@@ -70,6 +70,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   generate: function() {
+    this.angularModules = ['a'];
     this.sourceRoot(path.join(__dirname, './templates'));
     genUtils.processDirectory(this, '.', '.');
   }
