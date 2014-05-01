@@ -1,0 +1,19 @@
+{
+  "generator-ng-component": {
+    "routeDirectory": "client/components/",
+    "directiveDirectory": "client/components/",
+    "filterDirectory": "client/components/",
+    "serviceDirectory": "client/components/",
+    "basePath": "client",
+    "app": "client/app.js",
+    "filters": [
+      "ngRoute"
+    ],
+    "extensions": [
+      ".js",
+      ".html",
+      ".scss"
+    ],
+    "injectRoute": true
+  }
+}
