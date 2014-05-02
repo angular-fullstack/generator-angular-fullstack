@@ -23,8 +23,11 @@ fs.readdirSync(modelsPath).forEach(function (file) {
   }
 });
 
-// Populate empty DB with sample data
-require('./lib/config/dummydata');<% } %><% if(mongoPassportUser) { %>
+if (process.env.NODE_ENV !== 'test') {
+  // Populate empty DB with sample data
+  require('./lib/config/dummydata');
+}
+<% } %><% if(mongoPassportUser) { %>
 
 // Passport Configuration
 var passport = require('./lib/config/passport');<% } %>
