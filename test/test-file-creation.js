@@ -19,6 +19,7 @@ describe('angular-fullstack generator', function () {
       }
 
       gen = helpers.createGenerator('angular-fullstack:app', deps);
+      gen.options['skip-install'] = true;
       done();
     }.bind(this));
   });
