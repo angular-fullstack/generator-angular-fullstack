@@ -87,7 +87,7 @@ function filterFile (template) {
 }
 
 function templateIsUsable (self, filteredFile) {
-  var filters = self.config.get('filters') || [];
+  var filters = self.config.get('filters');
 
   if(filteredFile.filter && filters.indexOf(filteredFile.filter) === -1) {
     return false;

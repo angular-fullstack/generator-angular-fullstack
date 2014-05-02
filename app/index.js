@@ -21,31 +21,13 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       required: 'false'
     });
     this.scriptAppName = this.appname + genUtils.appName(this);
-
     this.appPath = this.env.options.appPath;
+    this.pkg = require('../package.json');
 
-    //this.pkg = require('../package.json');
     this.on('end', function () {
       this.installDependencies({
         skipInstall: this.options['skip-install']
       });
-
-      var enabledComponents = [];
-
-      // this.invoke('karma:app', {
-      //   options: {
-      //     coffee: this.options.coffee,
-      //     testPath: 'test/client',
-      //     travis: true,
-      //     'skip-install': true,
-      //     components: [
-      //       'angular/angular.js',
-      //       'angular-mocks/angular-mocks.js'
-      //     ].concat(enabledComponents)
-      //   }
-      // });
-
-      //this.config.save();
     }.bind(this));
   },
 
@@ -67,6 +49,15 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
       cb();
     }.bind(this));
+  },
+
+  saveSettings: function() {
+    this.config.set('filters', [
+      'js',
+      'html',
+      'sass'
+    ]);
+    this.config.save();
   },
 
   generate: function() {
