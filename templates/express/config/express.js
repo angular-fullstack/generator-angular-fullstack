@@ -69,7 +69,7 @@ module.exports = function(app) {
   app.use(passport.session());<% } %>
 
   // Error handler - has to be last
-  if ('development' === app.get('env')) {
+  if ('development' === env) {
     app.use(errorHandler());
   }
 };
