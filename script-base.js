@@ -117,7 +117,7 @@ Generator.prototype.addScriptToIndex = function (script) {
       file: fullPath,
       needle: '<!-- endbuild -->',
       splicable: [
-        '<script src="scripts/' + script.replace('\\', '/') + '.js"></script>'
+        '<script src="scripts/' + script.replace('\\', '/').toLowerCase() + '.js"></script>'
       ]
     });
   } catch (e) {
