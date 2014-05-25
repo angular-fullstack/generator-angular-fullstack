@@ -13,7 +13,7 @@
     "compression": "~1.0.1",
     "lodash": "~2.4.1"<% if (mongo) { %>,
     "mongoose": "~3.8.8"<% } %><% if (mongoPassportUser) { %>,
-    "connect-mongo": "mrzepinski/connect-mongo#2135988",
+    "connect-mongo": "~0.4.1",
     "passport": "~0.2.0",
     "passport-local": "~0.1.6"<% } %><% if (jade) { %>,
     "jade": "~1.2.0"<% } %><% if (!jade) { %>,
