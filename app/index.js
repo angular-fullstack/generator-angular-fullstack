@@ -55,7 +55,10 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.config.set('filters', [
       'js',
       'html',
-      'sass'
+      'sass',
+      'socketio',
+      'auth',
+      'mongoose'
     ]);
     this.config.save();
   },

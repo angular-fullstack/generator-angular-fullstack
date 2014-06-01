@@ -1,0 +1,40 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  .row
+    .col-sm-12
+      h1 Sign up
+    .col-sm-12
+      form.form(name='form', ng-submit='register(form)', novalidate='')
+        .form-group(ng-class='{ "has-success": form.name.$valid && submitted,\
+        "has-error": form.name.$invalid && submitted }')
+          label Name
+          input.form-control(type='text', name='name', ng-model='user.name', required='')
+          p.help-block(ng-show='form.name.$error.required && submitted')
+            | A name is required
+
+        .form-group(ng-class='{ "has-success": form.email.$valid && submitted,\
+        "has-error": form.email.$invalid && submitted }')
+          label Email
+          input.form-control(type='email', name='email', ng-model='user.email', required='', mongoose-error='')
+          p.help-block(ng-show='form.email.$error.email && submitted')
+            | Doesn't look like a valid email.
+          p.help-block(ng-show='form.email.$error.required && submitted')
+            | What's your email address?
+          p.help-block(ng-show='form.email.$error.mongoose')
+            | {{ errors.email }}
+
+        .form-group(ng-class='{ "has-success": form.password.$valid && submitted,\
+        "has-error": form.password.$invalid && submitted }')
+          label Password
+          input.form-control(type='password', name='password', ng-model='user.password', ng-minlength='3', required='', mongoose-error='')
+          p.help-block(ng-show='(form.password.$error.minlength || form.password.$error.required) && submitted')
+            | Password must be at least 3 characters.
+          p.help-block(ng-show='form.password.$error.mongoose')
+            | {{ errors.password }}
+
+        div
+          button.btn.btn-inverse.btn-lg.btn-login(type='submit')
+            | Sign up
+          = ' '
+          a.btn.btn-default.btn-lg.btn-register(href='/login')
+            | Login

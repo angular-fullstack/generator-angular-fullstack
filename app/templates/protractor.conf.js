@@ -18,7 +18,7 @@ exports.config = {
 
   // list of files / patterns to load in the browser
   specs: [
-    'client/e2e/**/*.spec.js'
+    'e2e/**/*.spec.js'
   ],
 
   // Patterns to exclude.

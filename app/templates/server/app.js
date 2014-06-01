@@ -1,22 +1,28 @@
-// Main application file
+/**
+ * Main application file
+ */
 
 'use strict';
-
-var express = require('express');
-var mongoose = require('mongoose');
 
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var config = require('./config/config');
+var express = require('express');<% if (mongoose) { %>
+var mongoose = require('mongoose');<% } %>
+var config = require('./config');
 
 // Connect to database
-var db = mongoose.connect(config.mongo.uri, config.mongo.options);
+<% if (mongoose) { %>var db = mongoose.connect(config.mongo.uri, config.mongo.options);<% } %>
+
+// Populate DB with sample data
+if(config.sampleData) { require('./config/helpers/sample_data'); }
 
 // Setup server
 var app = express();
-var server = require('http').createServer(app);
-require('./config/express')(app);
+var server = require('http').createServer(app);<% if (socketio) { %>
+var socketio = require('socket.io').listen(server);
+require('./socketio')(socketio);<% } %>
+require('./express')(app);
 require('./routes')(app);
 
 // Start server

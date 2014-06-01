@@ -1,0 +1,34 @@
+div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
+  div.container
+    div.navbar-header
+      button.navbar-toggle(type='button', ng-click='isCollapsed = !isCollapsed')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/') ng
+
+    div#navbar-main.navbar-collapse.collapse(collapse='isCollapsed')
+      ul.nav.navbar-nav
+        li(ng-repeat='item in menu', ng-class='{active: isActive(item.link)}')
+          a(ng-href='{{item.link}}') {{item.title}}
+
+        li(ng-show='isAdmin()', ng-class='{active: isActive("/admin")}')
+          a(href='/admin') Admin
+
+      ul.nav.navbar-nav.navbar-right
+        li(ng-hide='isLoggedIn()', ng-class='{active: isActive("/signup")}')
+          a(href='/signup') Sign up
+
+        li(ng-hide='isLoggedIn()', ng-class='{active: isActive("/login")}')
+          a(href='/login') Login
+
+        li(ng-show='isLoggedIn()')
+          p.navbar-text Hello {{ getCurrentUser().name }}
+
+        li(ng-show='isLoggedIn()', ng-class='{active: isActive("/settings")}')
+          a(href='/settings')
+            span.glyphicon.glyphicon-cog
+
+        li(ng-show='isLoggedIn()', ng-class='{active: isActive("/logout")}')
+          a(href='', ng-click='logout()') Logout

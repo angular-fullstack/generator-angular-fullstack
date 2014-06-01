@@ -4,3 +4,4 @@ public
 .sass-cache
 client/bower_components
 dist
+/server/config/env/process_env.js
