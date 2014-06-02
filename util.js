@@ -105,18 +105,28 @@ function processDirectory (self, source, destination) {
   files.forEach(function(f) {
     var filteredFile = filterFile(f);
     var name = filteredFile.name;
+    var copy = false, stripped;
 
     src = path.join(root, f);
     dest = path.join(destination, name);
 
-    if(path.basename(dest).indexOf('_') === 0){
-      dest = path.basename(dest).replace(/^_/, '');
+    if(path.basename(dest).indexOf('_') === 0) {
+      stripped = path.basename(dest).replace(/^_/, '');
+      dest = path.join(path.dirname(dest), stripped);
+    }
+
+    if(path.basename(dest).indexOf('!') === 0) {
+      stripped = path.basename(dest).replace(/^!/, '');
+      dest = path.join(path.dirname(dest), stripped);
+      copy = true;
     }
 
     if(templateIsUsable(self, filteredFile)) {
-      var fileStat = fs.statSync(src);
-
-      self.template(src, dest);
+      if(copy) {
+        self.copy(src, dest);
+      } else {
+        self.template(src, dest);
+      }
     }
   });
 }
