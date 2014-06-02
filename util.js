@@ -2,7 +2,6 @@
 var path = require('path');
 var fs = require('fs');
 
-
 module.exports = {
   rewrite: rewrite,
   rewriteFile: rewriteFile,
@@ -77,19 +76,22 @@ function appName (self) {
 function filterFile (template) {
   // Find matches for parans
   var filterMatches = template.match(/\(([^)]+)\)/g);
-  var filter = '';
+  var filters = [];
   if(filterMatches) {
-    filter = filterMatches[0].replace('(', '').replace(')', '');
-    template = template.replace(filterMatches[0], '');
+    filterMatches.forEach(function(filter) {
+      filters.push(filter.replace('(', '').replace(')', ''));
+      template = template.replace(filter, '');
+    });
   }
 
-  return { name: template, filter: filter };
+  return { name: template, filters: filters };
 }
 
 function templateIsUsable (self, filteredFile) {
   var filters = self.config.get('filters');
-
-  if(filteredFile.filter && filters.indexOf(filteredFile.filter) === -1) {
+  var matchedFilters = self._.intersection(filteredFile.filters, filters);
+  // check that all filters on file are matched
+  if(filteredFile.filters.length && matchedFilters.length !== filteredFile.filters.length) {
     return false;
   }
   return true;
@@ -112,7 +114,8 @@ function processDirectory (self, source, destination) {
     }
 
     if(templateIsUsable(self, filteredFile)) {
-      console.log(src);
+      var fileStat = fs.statSync(src);
+
       self.template(src, dest);
     }
   });
