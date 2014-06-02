@@ -60,11 +60,31 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       'auth',
       'mongoose'
     ]);
+    this.less = false;
+    this.sass = true;
+    this.jade = false;
+    this.coffee = false;
+    this.mongoose = true;
+    this.auth = true;
+    this.socketio = true;
+    this.facebookAuth = false;
+    this.googleAuth = false;
+    this.twitterAuth = false;
+    var angModules = [
+      "'ngCookies'",
+      "'ngResource'",
+      "'ngSanitize'",
+      "'ngRoute'",
+      "'ui.bootstrap'",
+      "'btford.socket-io'"
+    ];
+
+    this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
+
     this.config.save();
   },
 
   generate: function() {
-    this.angularModules = ['a'];
     this.sourceRoot(path.join(__dirname, './templates'));
     genUtils.processDirectory(this, '.', '.');
   }

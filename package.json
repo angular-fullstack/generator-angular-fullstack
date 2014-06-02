@@ -36,15 +36,16 @@
     "yo": ">=1.0.0"
   },
   "devDependencies": {
-    "mocha": "~1.14.0",
+    "fs-extra": "^0.9.1",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-conventional-changelog": "~1.0.0",
+    "grunt-release": "~0.6.0",
     "load-grunt-tasks": "~0.2.0",
     "marked": "~0.2.8",
+    "mocha": "~1.14.0",
     "semver": "~2.2.1",
-    "underscore.string": "~2.3.1",
-    "grunt-release": "~0.6.0"
+    "underscore.string": "~2.3.1"
   },
   "engines": {
     "node": ">=0.10.0",

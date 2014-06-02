@@ -85,7 +85,7 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.mock.js'
         ],
         tasks: ['newer:jshint:all', 'karma']
-      },
+      },<% if(sass) { %>
       injectSass: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
         tasks: ['sass', 'autoprefixer']
-      },
+      },<% } %><% if(less) { %>
       injectLess: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.less'],
@@ -111,12 +111,12 @@ module.exports = function (grunt) {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.less'],
         tasks: ['less', 'autoprefixer']
-      },
+      },<% } %><% if(jade) { %>
       jade: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.jade'],
         tasks: ['jade']
-      },
+      },<% } %><% if(coffee) { %>
       coffee: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{coffee,litcoffee,coffee.md}',
@@ -129,7 +129,7 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
         ],
         tasks: ['newer:coffee:compile', 'karma']
-      },
+      },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -415,16 +415,16 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'coffee',
-        'jade',
-        'sass',
-        'less'
+        <% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
+        'jade',<% } %><% if(sass) { %>
+        'sass',<% } %><% if(less) { %>
+        'less',<% } %>
       ],
       test: [
-        'coffee',
-        'jade',
-        'sass',
-        'less'
+        <% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
+        'jade',<% } %><% if(sass) { %>
+        'sass',<% } %><% if(less) { %>
+        'less',<% } %>
       ],
       debug: {
         tasks: [
@@ -436,10 +436,10 @@ module.exports = function (grunt) {
         }
       },
       dist: [
-        'coffee',
-        'jade',
-        'sass',
-        'less',
+        <% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
+        'jade',<% } %><% if(sass) { %>
+        'sass',<% } %><% if(less) { %>
+        'less',<% } %>
         'imagemin',
         'svgmin'
       ]
@@ -482,7 +482,7 @@ module.exports = function (grunt) {
         SESSION_SECRET: 'angular-fullstack'
       },
       all: require('./server/config/env/process_env')
-    },
+    },<% if(jade) { %>
 
     // Compiles Jade to html
     jade: {
@@ -502,7 +502,7 @@ module.exports = function (grunt) {
           ext: '.html'
         }]
       }
-    },
+    },<% } %><% if(coffee) { %>
 
     // Compiles CoffeeScript to JavaScript
     coffee: {
@@ -521,7 +521,7 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },
+    },<% } %><% if(sass) { %>
 
     // Compiles Sass to CSS
     sass: {
@@ -538,7 +538,7 @@ module.exports = function (grunt) {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.scss'
         }
       }
-    },
+    },<% } %><% if(less) { %>
 
     // Compiles Less to CSS
     less: {
@@ -554,7 +554,7 @@ module.exports = function (grunt) {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.less'
         }
       },
-    },
+    },<% } %>
 
     injector: {
       options: {
@@ -579,7 +579,7 @@ module.exports = function (grunt) {
                '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js']
             ]
         }
-      },
+      },<% if(sass) { %>
 
       // Inject component scss into app.scss
       sass: {
@@ -598,7 +598,7 @@ module.exports = function (grunt) {
             '!<%%= yeoman.client %>/app/app.{scss,sass}'
           ]
         }
-      },
+      },<% } %><% if(less) { %>
 
       // Inject component less into app.less
       less: {
@@ -616,8 +616,7 @@ module.exports = function (grunt) {
             '<%%= yeoman.client %>/{app,components}/**/*.less',
             '!<%%= yeoman.client %>/app/app.less'
           ]
-        }
-      },
+      },<% } %>
 
       // Inject component css into index.html
       css: {
@@ -663,9 +662,9 @@ module.exports = function (grunt) {
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
-        'env:all',
-        'injector:less',
-        'injector:sass',
+        'env:all',<% if(less) { %>
+        'injector:less', <% } %><% if(sass) { %>
+        'injector:sass', <% } %>
         'concurrent:server',
         'injector',
         'bowerInstall',
@@ -676,9 +675,9 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'env:all',
-      'injector:less',
-      'injector:sass',
+      'env:all',<% if(less) { %>
+      'injector:less', <% } %><% if(sass) { %>
+      'injector:sass', <% } %>
       'concurrent:server',
       'injector',
       'bowerInstall',
@@ -707,9 +706,9 @@ module.exports = function (grunt) {
     else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
-        'env:all',
-        'injector:less',
-        'injector:sass',
+        'env:all',<% if(less) { %>
+        'injector:less', <% } %><% if(sass) { %>
+        'injector:sass', <% } %>
         'concurrent:test',
         'injector',
         'autoprefixer',
@@ -720,10 +719,9 @@ module.exports = function (grunt) {
     else if (target === 'e2e') {
       return grunt.task.run([
         'clean:server',
-        'env:all',
-        'env:test',
-        'injector:less',
-        'injector:sass',
+        'env:test',<% if(less) { %>
+        'injector:less', <% } %><% if(sass) { %>
+        'injector:sass', <% } %>
         'concurrent:test',
         'injector',
         'autoprefixer',
@@ -739,9 +737,9 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
-    'clean:dist',
-    'injector:less',
-    'injector:sass',
+    'clean:dist',<% if(less) { %>
+    'injector:less', <% } %><% if(sass) { %>
+    'injector:sass', <% } %>
     'concurrent:dist',
     'injector',
     'bowerInstall',
