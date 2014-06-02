@@ -414,14 +414,13 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [
-        <% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
+      server: [<% if(coffee) { %>
+        'coffee',<% } %><% if(jade) { %>
         'jade',<% } %><% if(sass) { %>
         'sass',<% } %><% if(less) { %>
         'less',<% } %>
       ],
-      test: [
-        <% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
+      test: [<% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
         'jade',<% } %><% if(sass) { %>
         'sass',<% } %><% if(less) { %>
         'less',<% } %>
@@ -435,8 +434,8 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       },
-      dist: [
-        <% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
+      dist: [<% if(coffee) { %>
+        'coffee',<% } %><% if(jade) { %>
         'jade',<% } %><% if(sass) { %>
         'sass',<% } %><% if(less) { %>
         'less',<% } %>
