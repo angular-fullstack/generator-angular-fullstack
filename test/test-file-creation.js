@@ -2,7 +2,8 @@
 'use strict';
 var path = require('path');
 var helpers = require('yeoman-generator').test;
-var assert = require('assert');
+var chai = require('chai');
+var expect = chai.expect;
 var fs = require('fs-extra');
 var exec = require('child_process').exec;
 
@@ -47,7 +48,7 @@ describe('running app', function() {
   it('should run client tests successfully', function(done) {
     this.timeout(60000);
     exec('grunt test:client', function (error, stdout, stderr) {
-      console.log(stdout);
+      expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
       done();
     });
   });
@@ -55,7 +56,7 @@ describe('running app', function() {
   it('should run server tests successfully', function(done) {
     this.timeout(60000);
     exec('grunt test:server', function (error, stdout, stderr) {
-      console.log(stdout);
+      expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
       done();
     });
   });

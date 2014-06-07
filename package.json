@@ -36,6 +36,7 @@
     "yo": ">=1.0.0"
   },
   "devDependencies": {
+    "chai": "^1.9.1",
     "fs-extra": "^0.9.1",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.2",
