@@ -11,10 +11,10 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
     div#navbar-main.navbar-collapse.collapse(collapse='isCollapsed')
       ul.nav.navbar-nav
         li(ng-repeat='item in menu', ng-class='{active: isActive(item.link)}')
-          a(ng-href='{{item.link}}') {{item.title}}
+          a(ng-href='{{item.link}}') {{item.title}}<% if(filters.auth) { %>
 
         li(ng-show='isAdmin()', ng-class='{active: isActive("/admin")}')
-          a(href='/admin') Admin
+          a(href='/admin') Admin<% } %><% if(filters.auth) { %>
 
       ul.nav.navbar-nav.navbar-right
         li(ng-hide='isLoggedIn()', ng-class='{active: isActive("/signup")}')
@@ -31,4 +31,4 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
             span.glyphicon.glyphicon-cog
 
         li(ng-show='isLoggedIn()', ng-class='{active: isActive("/logout")}')
-          a(href='', ng-click='logout()') Logout
+          a(href='', ng-click='logout()') Logout<% } %>

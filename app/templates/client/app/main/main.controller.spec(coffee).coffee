@@ -3,8 +3,8 @@
 describe 'Controller: MainCtrl', ->
 
   # load the controller's module
-  beforeEach module('<%= scriptAppName %>')
-  beforeEach module('socketMock')
+  beforeEach module('<%= scriptAppName %>')<% if(filters.socketio) {%>
+  beforeEach module('socketMock')<% } %>
 
   MainCtrl = undefined
   scope = undefined

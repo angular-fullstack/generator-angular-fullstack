@@ -75,7 +75,7 @@ describe('angular-fullstack generator', function () {
       });
     });
 
-    it('should run client tests successfully with other options', function(done) {
+    it('should run client tests successfully with other preprocessors', function(done) {
       this.timeout(60000);
       helpers.mockPrompt(gen, {
         script: 'coffee',
@@ -95,7 +95,7 @@ describe('angular-fullstack generator', function () {
       });
     });
 
-    it('should run server tests successfully with other options', function(done) {
+    it('should run server tests successfully with other preprocessors', function(done) {
       this.timeout(60000);
       helpers.mockPrompt(gen, {
         script: 'coffee',
@@ -114,6 +114,85 @@ describe('angular-fullstack generator', function () {
         });
       });
     });
-    this.timeout(60000);
+
+    it('should run client tests successfully with other preprocessors and no server options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, {
+        script: 'coffee',
+        markup: 'jade',
+        stylesheet: 'less',
+        router: 'ngroute',
+        mongoose: false,
+        auth: false,
+        oauth: [],
+        socketio: false
+      });
+      gen.run({}, function () {
+        exec('grunt test:client', function (error, stdout, stderr) {
+          expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
+          done();
+        });
+      });
+    });
+
+    it('should run server tests successfully with other preprocessors no server options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, {
+        script: 'coffee',
+        markup: 'jade',
+        stylesheet: 'less',
+        router: 'ngroute',
+        mongoose: false,
+        auth: false,
+        oauth: [],
+        socketio: false
+      });
+      gen.run({}, function () {
+        exec('grunt test:server', function (error, stdout, stderr) {
+          expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+          done();
+        });
+      });
+    });
+
+    it('should run client tests successfully with no preprocessors and all server options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, {
+        script: 'js',
+        markup: 'html',
+        stylesheet: 'css',
+        router: 'ngroute',
+        mongoose: true,
+        auth: true,
+        oauth: [],
+        socketio: true
+      });
+      gen.run({}, function () {
+        exec('grunt test:client', function (error, stdout, stderr) {
+          expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
+          done();
+        });
+      });
+    });
+
+    it('should run server tests successfully with no preprocessors and all server options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, {
+        script: 'js',
+        markup: 'html',
+        stylesheet: 'css',
+        router: 'ngroute',
+        mongoose: true,
+        auth: true,
+        oauth: [],
+        socketio: true
+      });
+      gen.run({}, function () {
+        exec('grunt test:server', function (error, stdout, stderr) {
+          expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+          done();
+        });
+      });
+    });
   });
 });

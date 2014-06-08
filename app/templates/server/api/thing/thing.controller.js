@@ -9,16 +9,37 @@
 
 'use strict';
 
-var _ = require('lodash');
-var Thing = require('./thing.model');
+var _ = require('lodash');<% if (filters.mongoose) { %>
+var Thing = require('./thing.model');<% } %>
 
 // Get list of things
-exports.index = function(req, res) {
+exports.index = function(req, res) {<% if (!filters.mongoose) { %>
+  res.json([
+  {
+  name : 'Development Tools',
+  info : 'Integration with popular tools such as Bower, Grunt, Karma, JSHint, Node Inspector, Livereload, Protractor, Jade, SCSS, CoffeScript, and LESS.'
+  }, {
+  name : 'Server and Client integration',
+  info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
+  }, {
+  name : 'Smart Build System',
+  info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
+  },  {
+  name : 'Modular Structure',
+  info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
+  },  {
+  name : 'Optimized Build',
+  info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
+  },{
+  name : 'Deployment Ready',
+  info : 'Easily deploy your app to Heroku or Openshift with the :heroku and :openshift subgenerators'
+  }
+  ]);<% } %><% if (filters.mongoose) { %>
   Thing.find(function (err, things) {
     if(err) { return handleError(res, err); }
     return res.json(200, things);
-  });
-};
+  });<% } %>
+};<% if (filters.mongoose) { %>
 
 // Get a single thing
 exports.show = function(req, res) {
@@ -65,4 +86,4 @@ exports.destroy = function(req, res) {
 
 function handleError(res, err) {
   return res.send(500, err);
-}
+}<% } %>

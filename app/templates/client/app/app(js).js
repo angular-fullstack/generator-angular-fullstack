@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
-  .config(function ($routeProvider, $locationProvider, $httpProvider) {
+  .config(function ($routeProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
     $routeProvider
       .otherwise({
         redirectTo: '/'
       });
 
-    $locationProvider.html5Mode(true);
-    $httpProvider.interceptors.push('authInterceptor');
+    $locationProvider.html5Mode(true);<% if(filters.auth) { %>
+    $httpProvider.interceptors.push('authInterceptor');<% } %>
   })<% if(filters.auth) { %>
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {

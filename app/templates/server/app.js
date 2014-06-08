@@ -12,12 +12,12 @@ var mongoose = require('mongoose');<% } %>
 var config = require('./config');
 
 // Connect to database
-<% if (filters.mongoose) { %>var db = mongoose.connect(config.mongo.uri, config.mongo.options);<% } %>
+<% if (filters.mongoose) { %>var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Populate DB with sample data
 if(config.sampleData) { require('./config/helpers/sample_data'); }
 
-// Setup server
+<% } %>// Setup server
 var app = express();
 var server = require('http').createServer(app);<% if (filters.socketio) { %>
 var socketio = require('socket.io').listen(server);

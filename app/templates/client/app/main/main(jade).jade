@@ -13,8 +13,8 @@ header#banner.hero-unit
       ul.nav.nav-tabs.nav-stacked.col-lg-6(ng-repeat='thing in awesomeThings')
         li
           a(href='#', tooltip='{{thing.info}}')
-            | {{thing.name}}
-            button.close(type='button', ng-click='deleteThing(thing)') ×
+            | {{thing.name}}<% if(filters.socketio) { %>
+            button.close(type='button', ng-click='deleteThing(thing)') ×<% } %>
 
   form.thing-form
     label Syncs in realtime across clients

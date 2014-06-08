@@ -1,10 +1,10 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>').controller 'MainCtrl', ($scope, $http, socket) ->
+angular.module('<%= scriptAppName %>').controller 'MainCtrl', ($scope, $http<% if(filters.socketio) { %>, socket<% } %>) ->
   $http.get('/api/things').success (awesomeThings) ->
     $scope.awesomeThings = awesomeThings
-    socket.syncCollection $scope.awesomeThings, 'thing'
-
+    <% if(filters.socketio) { %>socket.syncCollection $scope.awesomeThings, 'thing'<% } %>
+<% if(filters.mongoose) { %>
   $scope.addThing = ->
     return if $scope.newThing is ''
     $http.post '/api/things',
@@ -13,4 +13,4 @@ angular.module('<%= scriptAppName %>').controller 'MainCtrl', ($scope, $http, so
     $scope.newThing = ''
 
   $scope.deleteThing = (thing) ->
-    $http.delete '/api/things/' + thing._id
+    $http.delete '/api/things/' + thing._id<% } %>

@@ -11,11 +11,11 @@ var compression = require('compression');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
 var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./config');<% if (filters.auth) { %>
 var passport = require('passport');
+var session = require('express-session');
 var mongoStore = require('connect-mongo')(session);<% } %>
 
 module.exports = function(app) {
@@ -28,7 +28,7 @@ module.exports = function(app) {
   app.use(bodyParser());
   app.use(methodOverride());
   app.use(cookieParser());
-  <% if (filters.mongoose) { %>app.use(passport.initialize());<% } %>
+  <% if (filters.auth) { %>app.use(passport.initialize());<% } %><% if (filters.mongoose) { %>
 
   // Persist sessions with mongoStore
   app.use(session({
@@ -37,9 +37,9 @@ module.exports = function(app) {
       url: config.mongo.uri,
       collection: 'sessions'
     }, function () {
-      console.log("db connection open");
+      console.log('db connection open' );
     })
-  }));
+  }));<% } %>
 
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
