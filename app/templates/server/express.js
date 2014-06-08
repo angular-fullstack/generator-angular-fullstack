@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var errorHandler = require('errorhandler');
 var path = require('path');
-var config = require('./config');<% if (auth) { %>
+var config = require('./config');<% if (filters.auth) { %>
 var passport = require('passport');
 var mongoStore = require('connect-mongo')(session);<% } %>
 
@@ -28,7 +28,7 @@ module.exports = function(app) {
   app.use(bodyParser());
   app.use(methodOverride());
   app.use(cookieParser());
-  <% if (mongoose) { %>app.use(passport.initialize());<% } %>
+  <% if (filters.mongoose) { %>app.use(passport.initialize());<% } %>
 
   // Persist sessions with mongoStore
   app.use(session({

@@ -9,7 +9,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-  })<% if(auth) { %>
+  })<% if(filters.auth) { %>
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {

@@ -85,7 +85,7 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.mock.js'
         ],
         tasks: ['newer:jshint:all', 'karma']
-      },<% if(sass) { %>
+      },<% if(filters.sass) { %>
       injectSass: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
         tasks: ['sass', 'autoprefixer']
-      },<% } %><% if(less) { %>
+      },<% } %><% if(filters.less) { %>
       injectLess: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.less'],
@@ -111,12 +111,12 @@ module.exports = function (grunt) {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.less'],
         tasks: ['less', 'autoprefixer']
-      },<% } %><% if(jade) { %>
+      },<% } %><% if(filters.jade) { %>
       jade: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.jade'],
         tasks: ['jade']
-      },<% } %><% if(coffee) { %>
+      },<% } %><% if(filters.coffee) { %>
       coffee: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{coffee,litcoffee,coffee.md}',
@@ -414,15 +414,15 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [<% if(coffee) { %>
-        'coffee',<% } %><% if(jade) { %>
-        'jade',<% } %><% if(sass) { %>
-        'sass',<% } %><% if(less) { %>
+      server: [<% if(filters.coffee) { %>
+        'coffee',<% } %><% if(filters.jade) { %>
+        'jade',<% } %><% if(filters.sass) { %>
+        'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
       ],
-      test: [<% if(coffee) { %>'coffee',<% } %><% if(jade) { %>
-        'jade',<% } %><% if(sass) { %>
-        'sass',<% } %><% if(less) { %>
+      test: [<% if(filters.coffee) { %>'coffee',<% } %><% if(filters.jade) { %>
+        'jade',<% } %><% if(filters.sass) { %>
+        'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
       ],
       debug: {
@@ -434,10 +434,10 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       },
-      dist: [<% if(coffee) { %>
-        'coffee',<% } %><% if(jade) { %>
-        'jade',<% } %><% if(sass) { %>
-        'sass',<% } %><% if(less) { %>
+      dist: [<% if(filters.coffee) { %>
+        'coffee',<% } %><% if(filters.jade) { %>
+        'jade',<% } %><% if(filters.sass) { %>
+        'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
         'imagemin',
         'svgmin'
@@ -481,7 +481,7 @@ module.exports = function (grunt) {
         SESSION_SECRET: 'angular-fullstack'
       },
       all: require('./server/config/env/process_env')
-    },<% if(jade) { %>
+    },<% if(filters.jade) { %>
 
     // Compiles Jade to html
     jade: {
@@ -501,7 +501,7 @@ module.exports = function (grunt) {
           ext: '.html'
         }]
       }
-    },<% } %><% if(coffee) { %>
+    },<% } %><% if(filters.coffee) { %>
 
     // Compiles CoffeeScript to JavaScript
     coffee: {
@@ -520,7 +520,7 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% } %><% if(sass) { %>
+    },<% } %><% if(filters.sass) { %>
 
     // Compiles Sass to CSS
     sass: {
@@ -537,7 +537,7 @@ module.exports = function (grunt) {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.scss'
         }
       }
-    },<% } %><% if(less) { %>
+    },<% } %><% if(filters.less) { %>
 
     // Compiles Less to CSS
     less: {
@@ -578,7 +578,7 @@ module.exports = function (grunt) {
                '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js']
             ]
         }
-      },<% if(sass) { %>
+      },<% if(filters.sass) { %>
 
       // Inject component scss into app.scss
       sass: {
@@ -597,7 +597,7 @@ module.exports = function (grunt) {
             '!<%%= yeoman.client %>/app/app.{scss,sass}'
           ]
         }
-      },<% } %><% if(less) { %>
+      },<% } %><% if(filters.less) { %>
 
       // Inject component less into app.less
       less: {
@@ -661,8 +661,8 @@ module.exports = function (grunt) {
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
-        'env:all',<% if(less) { %>
-        'injector:less', <% } %><% if(sass) { %>
+        'env:all',<% if(filters.less) { %>
+        'injector:less', <% } %><% if(filters.sass) { %>
         'injector:sass', <% } %>
         'concurrent:server',
         'injector',
@@ -674,8 +674,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'env:all',<% if(less) { %>
-      'injector:less', <% } %><% if(sass) { %>
+      'env:all',<% if(filters.less) { %>
+      'injector:less', <% } %><% if(filters.sass) { %>
       'injector:sass', <% } %>
       'concurrent:server',
       'injector',
@@ -705,8 +705,8 @@ module.exports = function (grunt) {
     else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
-        'env:all',<% if(less) { %>
-        'injector:less', <% } %><% if(sass) { %>
+        'env:all',<% if(filters.less) { %>
+        'injector:less', <% } %><% if(filters.sass) { %>
         'injector:sass', <% } %>
         'concurrent:test',
         'injector',
@@ -718,8 +718,8 @@ module.exports = function (grunt) {
     else if (target === 'e2e') {
       return grunt.task.run([
         'clean:server',
-        'env:test',<% if(less) { %>
-        'injector:less', <% } %><% if(sass) { %>
+        'env:test',<% if(filters.less) { %>
+        'injector:less', <% } %><% if(filters.sass) { %>
         'injector:sass', <% } %>
         'concurrent:test',
         'injector',
@@ -736,8 +736,8 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
-    'clean:dist',<% if(less) { %>
-    'injector:less', <% } %><% if(sass) { %>
+    'clean:dist',<% if(filters.less) { %>
+    'injector:less', <% } %><% if(filters.sass) { %>
     'injector:sass', <% } %>
     'concurrent:dist',
     'injector',

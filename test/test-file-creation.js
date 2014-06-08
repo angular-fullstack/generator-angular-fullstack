@@ -29,6 +29,14 @@ describe('angular-fullstack generator', function () {
 
   it('should generate dotfiles', function (done) {
     helpers.mockPrompt(gen, {
+      script: 'js',
+      markup: 'html',
+      stylesheet: 'sass',
+      router: 'uirouter',
+      mongoose: true,
+      auth: true,
+      oauth: [],
+      socketio: true
     });
 
     gen.run({}, function () {

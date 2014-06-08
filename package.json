@@ -27,7 +27,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
+    "yeoman-generator": "~0.17.0",
     "chalk": "~0.4.0",
     "wiredep": "~0.4.2"
   },

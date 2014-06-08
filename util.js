@@ -89,7 +89,11 @@ function filterFile (template) {
 
 function templateIsUsable (self, filteredFile) {
   var filters = self.config.get('filters');
-  var matchedFilters = self._.intersection(filteredFile.filters, filters);
+  var enabledFilters = [];
+  for(var key in filters) {
+    if(filters[key]) enabledFilters.push(key);
+  }
+  var matchedFilters = self._.intersection(filteredFile.filters, enabledFilters);
   // check that all filters on file are matched
   if(filteredFile.filters.length && matchedFilters.length !== filteredFile.filters.length) {
     return false;

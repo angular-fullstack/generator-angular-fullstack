@@ -11,7 +11,6 @@ var wiredep = require('wiredep');
 var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   init: function () {
-    this.argument('appname', { type: String, required: false });
     this.appname = this.appname || path.basename(process.cwd());
     this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
 
@@ -23,6 +22,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.scriptAppName = this.appname + genUtils.appName(this);
     this.appPath = this.env.options.appPath;
     this.pkg = require('../package.json');
+    this.filters = {};
 
     this.on('end', function () {
       this.installDependencies({
@@ -33,43 +33,108 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   info: function () {
     console.log(this.yeoman);
-    console.log('Out of the box I include AngularJS and an Express server.\n');
+    console.log('Out of the box I create an AngularJS app with an Express server.\n');
   },
 
-  prompt: function() {
+  clientPrompts: function() {
     var cb = this.async();
 
-    this.prompt([{
-      type: 'confirm',
-      name: 'compass',
-      message: 'Would you like to use Sass?',
-      default: true
-    }], function (props) {
-      this.compass = props.compass;
+    console.log('# Client\n');
 
+    this.prompt([{
+        type: "list",
+        name: "script",
+        message: "What would you like to write scripts with?",
+        choices: [ "JavaScript", "CoffeeScript"],
+        filter: function( val ) {
+          var filterMap = {
+            'JavaScript': 'js',
+            'CoffeeScript': 'coffee'
+          };
+
+          return filterMap[val];
+        }
+      }, {
+        type: "list",
+        name: "markup",
+        message: "What would you like to write markup with?",
+        choices: [ "HTML", "Jade"],
+        filter: function( val ) { return val.toLowerCase(); }
+      }, {
+        type: "list",
+        name: "stylesheet",
+        default: 1,
+        message: "What would you like to write stylesheets with?",
+        choices: [ "CSS", "Sass", "Less"],
+        filter: function( val ) { return val.toLowerCase(); }
+      },  {
+        type: "list",
+        name: "router",
+        default: 1,
+        message: "What Angular router would you like to use?",
+        choices: [ "ngRoute", "uiRouter"],
+        filter: function( val ) { return val.toLowerCase(); }
+      }], function (answers) {
+        this.filters[answers.script] = true;
+        this.filters[answers.markup] = true;
+        this.filters[answers.stylesheet] = true;
+        this.filters[answers.router] = true;
+        cb();
+      }.bind(this));
+  },
+
+  serverPrompts: function() {
+    var cb = this.async();
+
+    console.log('\n# Server\n');
+
+    this.prompt([{
+      type: "confirm",
+      name: "mongoose",
+      message: "Would you like to use mongoDB with Mongoose for data modeling?"
+    }, {
+      type: "confirm",
+      name: "auth",
+      message: "Would you scaffold out an authentication boilerplate?"
+    }, {
+      type: 'checkbox',
+      name: 'oauth',
+      message: 'Would you like to include additional oAuth strategies?',
+      choices: [
+        {
+          value: 'googleAuth',
+          name: 'Google',
+          checked: false
+        },
+        {
+          value: 'facebookAuth',
+          name: 'Facebook',
+          checked: false
+        },
+        {
+          value: 'twitterAuth',
+          name: 'Twitter',
+          checked: false
+        }
+      ]
+    }, {
+      type: "confirm",
+      name: "socketio",
+      message: "Would you like to use socket.io?",
+      default: true
+    }], function (answers) {
+      if(answers.socketio) this.filters['socketio'] = true;
+      if(answers.mongoose) this.filters['mongoose'] = true;
+      if(answers.auth) this.filters['auth'] = true;
+      answers.oauth.forEach(function(oauthStrategy) {
+        this.filters[oauthStrategy] = true;
+      }.bind(this));
       cb();
     }.bind(this));
   },
 
   saveSettings: function() {
-    this.config.set('filters', [
-      'js',
-      'html',
-      'sass',
-      'socketio',
-      'auth',
-      'mongoose'
-    ]);
-    this.less = false;
-    this.sass = true;
-    this.jade = false;
-    this.coffee = false;
-    this.mongoose = true;
-    this.auth = true;
-    this.socketio = true;
-    this.facebookAuth = false;
-    this.googleAuth = false;
-    this.twitterAuth = false;
+    this.config.set('filters', this.filters);
     var angModules = [
       "'ngCookies'",
       "'ngResource'",
@@ -120,18 +185,6 @@ module.exports = AngularFullstackGenerator;
 
 //     var enabledComponents = [];
 
-//     // this.invoke('karma:app', {
-//     //   options: {
-//     //     coffee: this.options.coffee,
-//     //     testPath: 'test/client',
-//     //     travis: true,
-//     //     'skip-install': true,
-//     //     components: [
-//     //       'angular/angular.js',
-//     //       'angular-mocks/angular-mocks.js'
-//     //     ].concat(enabledComponents)
-//     //   }
-//     // });
 
 //   });
 
