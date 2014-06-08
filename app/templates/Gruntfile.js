@@ -615,6 +615,7 @@ module.exports = function (grunt) {
             '<%%= yeoman.client %>/{app,components}/**/*.less',
             '!<%%= yeoman.client %>/app/app.less'
           ]
+        }
       },<% } %>
 
       // Inject component css into index.html

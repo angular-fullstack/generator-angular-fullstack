@@ -9,6 +9,16 @@ var exec = require('child_process').exec;
 
 describe('angular-fullstack generator', function () {
   var gen;
+  var defaultOptions = {
+    script: 'js',
+    markup: 'html',
+    stylesheet: 'sass',
+    router: 'uirouter',
+    mongoose: false,
+    auth: false,
+    oauth: [],
+    socketio: false
+  };
 
   beforeEach(function (done) {
     this.timeout(10000);
@@ -28,44 +38,82 @@ describe('angular-fullstack generator', function () {
   });
 
   it('should generate dotfiles', function (done) {
-    helpers.mockPrompt(gen, {
-      script: 'js',
-      markup: 'html',
-      stylesheet: 'sass',
-      router: 'uirouter',
-      mongoose: true,
-      auth: true,
-      oauth: [],
-      socketio: true
-    });
+    helpers.mockPrompt(gen, defaultOptions);
 
     gen.run({}, function () {
       helpers.assertFile(['.gitignore']);
       done();
     });
   });
-});
 
-describe('running app', function() {
-  before(function() {
-    this.timeout(20000);
-    fs.copySync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
-    fs.copySync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
-  });
-
-  it('should run client tests successfully', function(done) {
-    this.timeout(60000);
-    exec('grunt test:client', function (error, stdout, stderr) {
-      expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
-      done();
+  describe('running app', function() {
+    beforeEach(function() {
+      this.timeout(20000);
+      fs.copySync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
+      fs.copySync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
     });
-  });
 
-  it('should run server tests successfully', function(done) {
-    this.timeout(60000);
-    exec('grunt test:server', function (error, stdout, stderr) {
-      expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
-      done();
+    it('should run client tests successfully with default options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, defaultOptions);
+      gen.run({}, function () {
+        exec('grunt test:client', function (error, stdout, stderr) {
+          expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
+          done();
+        });
+      });
     });
+
+    it('should run server tests successfully with default options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, defaultOptions);
+      gen.run({}, function () {
+        exec('grunt test:server', function (error, stdout, stderr) {
+          expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+          done();
+        });
+      });
+    });
+
+    it('should run client tests successfully with other options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, {
+        script: 'coffee',
+        markup: 'jade',
+        stylesheet: 'less',
+        router: 'ngroute',
+        mongoose: true,
+        auth: true,
+        oauth: [],
+        socketio: true
+      });
+      gen.run({}, function () {
+        exec('grunt test:client', function (error, stdout, stderr) {
+          expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
+          done();
+        });
+      });
+    });
+
+    it('should run server tests successfully with other options', function(done) {
+      this.timeout(60000);
+      helpers.mockPrompt(gen, {
+        script: 'coffee',
+        markup: 'jade',
+        stylesheet: 'less',
+        router: 'ngroute',
+        mongoose: true,
+        auth: true,
+        oauth: [],
+        socketio: true
+      });
+      gen.run({}, function () {
+        exec('grunt test:server', function (error, stdout, stderr) {
+          expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+          done();
+        });
+      });
+    });
+    this.timeout(60000);
   });
 });
