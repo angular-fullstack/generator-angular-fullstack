@@ -12,15 +12,15 @@
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
     "lodash": "~2.4.1",
-    "ejs": "~1.0.0",
-    "mongoose": "~3.8.8",
-    "passport": "~0.2.0",
-    "passport-local": "~0.1.6",
-    "passport-facebook": "latest",
-    "passport-twitter": "latest",
-    "passport-google-oauth": "latest",
+    "ejs": "~1.0.0",<% if(filters.mongoose) { %>
+    "mongoose": "~3.8.8",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^0.3.0",
     "express-jwt": "^0.1.3",
+    "passport": "~0.2.0",
+    "passport-local": "~0.1.6",<% } %><% if(filters.facebookAuth) { %>
+    "passport-facebook": "latest",<% } %><% if(filters.twiterAuth) { %>
+    "passport-twitter": "latest",<% } %><% if(filters.googleAuth) { %>
+    "passport-google-oauth": "latest",<% } %>
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1",
     "socket.io": "~0.9.16",
