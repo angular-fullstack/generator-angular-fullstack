@@ -9,14 +9,14 @@ var exec = require('child_process').exec;
 
 describe('angular-fullstack generator', function () {
   var gen, defaultOptions = {
-    script: 'coffee',
-    markup: 'jade',
-    stylesheet: 'less',
-    router: 'ngroute',
-    mongoose: true,
-    auth: true,
+    script: 'js',
+    markup: 'html',
+    stylesheet: 'sass',
+    router: 'uirouter',
+    mongoose: false,
+    auth: false,
     oauth: [],
-    socketio: true
+    socketio: false
   };
 
   beforeEach(function (done) {
@@ -54,16 +54,7 @@ describe('angular-fullstack generator', function () {
 
     describe('with default options', function() {
       beforeEach(function() {
-        helpers.mockPrompt(gen, {
-          script: 'js',
-          markup: 'html',
-          stylesheet: 'sass',
-          router: 'uirouter',
-          mongoose: false,
-          auth: false,
-          oauth: [],
-          socketio: false
-        });
+        helpers.mockPrompt(gen, defaultOptions);
       });
 
       it('should run client tests successfully', function(done) {
@@ -101,7 +92,16 @@ describe('angular-fullstack generator', function () {
 
     describe('with other preprocessors', function() {
       beforeEach(function() {
-        helpers.mockPrompt(gen, defaultOptions);
+        helpers.mockPrompt(gen, {
+          script: 'coffee',
+          markup: 'jade',
+          stylesheet: 'less',
+          router: 'uirouter',
+          mongoose: true,
+          auth: true,
+          oauth: [],
+          socketio: true
+        });
       });
 
       it('should run client tests successfully', function(done) {
