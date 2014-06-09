@@ -2,7 +2,7 @@
 
 var express = require('express');
 var passport = require('passport');
-var token = require('../token.controller');
+var auth = require('../auth.controller');
 
 var router = express.Router();
 
@@ -15,6 +15,6 @@ router
   .get('/callback', passport.authenticate('twitter', {
     failureRedirect: '/signup',
     session: false
-  }), token.setToken);
+  }), auth.setToken);
 
 module.exports = router;
