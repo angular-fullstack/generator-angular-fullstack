@@ -8,7 +8,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
 
     $locationProvider.html5Mode true<% if(filters.auth) { %>
     $httpProvider.interceptors.push 'authInterceptor'<% } %>
-  )<% } %><% if(filters.ngroute) { %>.config (($stateProvider, $urlRouterProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) ->
+  )<% } %><% if(filters.uirouter) { %>.config (($stateProvider, $urlRouterProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) ->
     $urlRouterProvider
     .otherwise('/');
 
