@@ -140,9 +140,10 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       "'ngResource'",
       "'ngSanitize'",
       "'ngRoute'",
-      "'ui.bootstrap'",
-      "'btford.socket-io'"
+      "'ui.bootstrap'"
     ];
+    if(this.filters['socketio']) angModules.push("'btford.socket-io'");
+    if(this.filters['uirouter']) angModules.push("'ui.router'");
 
     this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
 
@@ -156,88 +157,3 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 });
 
 module.exports = AngularFullstackGenerator;
-
-// var Generator = module.exports = function Generator(args, options) {
-//   yeoman.generators.Base.apply(this, arguments);
-//   this.argument('appname', { type: String, required: false });
-//   this.appname = this.appname || path.basename(process.cwd());
-//   this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
-
-//   this.option('app-suffix', {
-//     desc: 'Allow a custom suffix to be added to the module name',
-//     type: String,
-//     required: 'false'
-//   });
-//   this.scriptAppName = this.appname + genUtils.appName(this);
-
-//   this.appPath = this.env.options.appPath;
-
-//   // this.sourceRoot(path.join(__dirname, '../templates/common'));
-//   // this.directory('root', '.', true);
-//   // this.copy('gitignore', '.gitignore');
-//   // this.appTemplate('app', 'scripts/app');
-
-//   this.on('end', function () {
-//     this.installDependencies({
-//       skipInstall: this.options['skip-install'],
-//       callback: this._injectDependencies.bind(this)
-//     });
-
-//     var enabledComponents = [];
-
-
-//   });
-
-//   this.pkg = require('../package.json');
-// };
-
-// util.inherits(Generator, yeoman.generators.Base);
-
-// Generator.prototype.welcome = function welcome() {
-//   // welcome message
-//   if (!this.options['skip-welcome-message']) {
-//     console.log(this.yeoman);
-//     console.log(
-//       'Out of the box I include AngularJS and an Express server.\n'
-//     );
-//   }
-// };
-
-// Generator.prototype.askForCompass = function askForCompass() {
-//   var cb = this.async();
-
-//   this.prompt([{
-//     type: 'confirm',
-//     name: 'compass',
-//     message: 'Would you like to use Sass?',
-//     default: true
-//   }], function (props) {
-//     this.compass = props.compass;
-
-//     cb();
-//   }.bind(this));
-// };
-
-// Generator.prototype.askForBootstrap = function askForBootstrap() {
-//   var compass = this.compass;
-//   var cb = this.async();
-
-//   this.prompt([{
-//     type: 'confirm',
-//     name: 'bootstrap',
-//     message: 'Would you like to include Twitter Bootstrap?',
-//     default: true
-//   }], function (props) {
-//     this.bootstrap = props.bootstrap;
-
-//     cb();
-//   }.bind(this));
-// };
-
-// Generator.prototype.copyFiles = function copyFiles() {
-//   // this.sourceRoot(path.join(__dirname, 'client'));
-//   // this.processDirectory('app');
-// };
-
-// mongodb, user authentication boilerplate
-

@@ -1,5 +1,5 @@
 {
-  "name": "ng",
+  "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
     "express": "~4.0.0",

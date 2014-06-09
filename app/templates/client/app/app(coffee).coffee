@@ -1,13 +1,20 @@
 'use strict'
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
-  .config (($routeProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) ->
+  <% if(filters.ngroute) { %>.config (($routeProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) ->
     $routeProvider
     .otherwise
         redirectTo: '/'
+
     $locationProvider.html5Mode true<% if(filters.auth) { %>
     $httpProvider.interceptors.push 'authInterceptor'<% } %>
-  )
+  )<% } %><% if(filters.ngroute) { %>.config (($stateProvider, $urlRouterProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) ->
+    $urlRouterProvider
+    .otherwise('/');
+
+    $locationProvider.html5Mode true<% if(filters.auth) { %>
+    $httpProvider.interceptors.push 'authInterceptor'<% } %>
+  )<% } %>
   .factory('authInterceptor', ($rootScope, $q, $cookieStore, $location) ->
     # Add authorization token to headers
     request: (config) ->
