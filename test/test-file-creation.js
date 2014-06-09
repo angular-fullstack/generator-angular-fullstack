@@ -8,7 +8,16 @@ var fs = require('fs-extra');
 var exec = require('child_process').exec;
 
 describe('angular-fullstack generator', function () {
-  var gen;
+  var gen, defaultOptions = {
+    script: 'coffee',
+    markup: 'jade',
+    stylesheet: 'less',
+    router: 'ngroute',
+    mongoose: true,
+    auth: true,
+    oauth: [],
+    socketio: true
+  };
 
   beforeEach(function (done) {
     this.timeout(10000);
@@ -92,16 +101,7 @@ describe('angular-fullstack generator', function () {
 
     describe('with other preprocessors', function() {
       beforeEach(function() {
-        helpers.mockPrompt(gen, {
-          script: 'coffee',
-          markup: 'jade',
-          stylesheet: 'less',
-          router: 'ngroute',
-          mongoose: true,
-          auth: true,
-          oauth: [],
-          socketio: true
-        });
+        helpers.mockPrompt(gen, defaultOptions);
       });
 
       it('should run client tests successfully', function(done) {
