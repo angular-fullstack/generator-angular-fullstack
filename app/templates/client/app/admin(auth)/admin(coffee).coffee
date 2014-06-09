@@ -6,9 +6,10 @@ angular.module('<%= scriptAppName %>')
     .when('/admin',
       templateUrl: 'app/admin/admin.html'
       controller: 'AdminCtrl'
-    )<% } %><% if(filters.uirouter) { %>.config ($urlRouterProvider) ->
-    $urlRouterProvider
-    .when('/admin',
+    )<% } %><% if(filters.uirouter) { %>.config ($stateProvider) ->
+    $stateProvider
+    .state('admin',
+      url: '/admin',
       templateUrl: 'app/admin/admin.html'
       controller: 'AdminCtrl'
     )<% } %>

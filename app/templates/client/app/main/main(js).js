@@ -7,10 +7,11 @@ angular.module('<%= scriptAppName %>')
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       });
-  });<% } %><% if(filters.uirouter) { %>.config(function ($urlRouterProvider) {
-    $urlRouterProvider
-      .when('/', {
-        templateUrl: 'app/main/main.html',
+  });<% } %><% if(filters.uirouter) { %>.config(function ($stateProvider) {
+    $stateProvider
+      .state('main', {
+        url: '/',
+        templateUrl: 'app/main/main.html'
         controller: 'MainCtrl'
       });
   });<% } %>

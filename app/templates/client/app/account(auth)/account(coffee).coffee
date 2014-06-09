@@ -14,17 +14,20 @@ angular.module('<%= scriptAppName %>')
     .when('/settings',
       templateUrl: 'app/account/settings/settings.html'
       controller: 'SettingsCtrl'
-    )<% } %><% if(filters.uirouter) { %>.config ($urlRouterProvider) ->
-    $urlRouterProvider
-    .when('/login',
-      templateUrl: 'app/account/login/login.html'
+    )<% } %><% if(filters.uirouter) { %>.config ($stateProvider) ->
+    $stateProvider
+    .state('login',
+      url: '/login',
+      templateUrl: 'app/login/login.html'
       controller: 'LoginCtrl'
     )
-    .when('/signup',
-      templateUrl: 'app/account/signup/signup.html'
+    .state('signup',
+      url: '/signup',
+      templateUrl: 'app/signup/signup.html'
       controller: 'SignupCtrl'
     )
-    .when('/settings',
-      templateUrl: 'app/account/settings/settings.html'
+    .state('settings',
+      url: '/settings',
+      templateUrl: 'app/settings/settings.html'
       controller: 'SettingsCtrl'
     )<% } %>

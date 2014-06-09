@@ -16,19 +16,21 @@ angular.module('<%= scriptAppName %>')
         controller: 'SettingsCtrl',
         authenticate: true
       });
-  });<% } %><% if(filters.uirouter) { %>.config(function ($urlRouterProvider) {
-    $urlRouterProvider
-      .when('/login', {
-        templateUrl: 'app/account/login/login.html',
+  });<% } %><% if(filters.uirouter) { %>.config(function ($stateProvider) {
+    $stateProvider
+      .state('login', {
+        url: '/login',
+        templateUrl: 'app/login/login.html'
         controller: 'LoginCtrl'
       })
-      .when('/signup', {
-        templateUrl: 'app/account/signup/signup.html',
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'app/signup/signup.html'
         controller: 'SignupCtrl'
       })
-      .when('/settings', {
-        templateUrl: 'app/account/settings/settings.html',
-        controller: 'SettingsCtrl',
-        authenticate: true
-      });
+      .state('settings', {
+        url: '/settings',
+        templateUrl: 'app/settings/settings.html'
+        controller: 'SettingsCtrl'
+      })
   });<% } %>
