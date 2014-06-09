@@ -720,11 +720,13 @@ module.exports = function (grunt) {
     else if (target === 'e2e') {
       return grunt.task.run([
         'clean:server',
+        'env:all',
         'env:test',<% if(filters.less) { %>
         'injector:less', <% } %><% if(filters.sass) { %>
         'injector:sass', <% } %>
         'concurrent:test',
         'injector',
+        'bowerInstall',
         'autoprefixer',
         'express:dev',
         'protractor'
