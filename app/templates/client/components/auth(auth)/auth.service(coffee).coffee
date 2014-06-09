@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('<%= scriptAppName %>').factory 'Auth', Auth = ($location, $rootScope, $http, User, $cookieStore, $q) ->
-  currentUser = (if $cookieStore.get('token') then User.get() else {})
+  currentUser = $cookieStore.get('token') || {}
 
   ###
   Authenticate user and save token
