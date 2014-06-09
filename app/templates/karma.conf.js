@@ -21,20 +21,20 @@ module.exports = function(config) {
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'client/bower_components/lodash/dist/lodash.compat.js',
       'client/bower_components/angular-socket-io/socket.js',
-      'client/app/app.js',
-      'client/app/**/*.js',
-      'client/components/**/*.js',
-      'client/app/**/*.html',
-      'client/components/**/*.html'
+      '{.tmp,client}/app/app.js',
+      '{.tmp,client}/app/**/*.js',
+      '{.tmp,client}/components/**/*.js',
+      '{.tmp,client}/app/**/*.html',
+      '{.tmp,client}/components/**/*.html'
     ],
 
     preprocessors: {
-      'client/app/**/*.html': 'html2js',
-      'client/components/**/*.html': 'html2js'
+      '{.tmp,client}/app/**/*.html': 'html2js',
+      '{.tmp,client}/components/**/*.html': 'html2js'
     },
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: 'client/'
+      stripPrefix: '(.tmp|client)/'
     },
 
     // list of files / patterns to exclude
