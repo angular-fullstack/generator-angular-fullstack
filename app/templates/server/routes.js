@@ -10,8 +10,9 @@ module.exports = function(app) {
 
   // Use component routing
   app.use('/api/things', require('./api/thing'));
-  <% if (filters.auth) { %>app.use('/api/users', require('./api/user'));<% } %>
-  <% if (filters.auth) { %>app.use('/auth', require('./auth'));
+  <% if (filters.auth) { %>app.use('/api/users', require('./api/user'));
+
+  app.use('/auth', require('./auth'));
   <% } %>
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

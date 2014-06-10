@@ -35,12 +35,13 @@ function rewrite (args) {
 
   var lines = args.haystack.split('\n');
 
-  var otherwiseLineIndex = 0;
+  var otherwiseLineIndex = -1;
   lines.forEach(function (line, i) {
     if (line.indexOf(args.needle) !== -1) {
       otherwiseLineIndex = i;
     }
   });
+  if(otherwiseLineIndex === -1) return lines.join('\n');
 
   var spaces = 0;
   while (lines[otherwiseLineIndex].charAt(spaces) === ' ') {
@@ -52,7 +53,7 @@ function rewrite (args) {
     spaceStr += ' ';
   }
 
-  lines.splice(otherwiseLineIndex, 0, args.splicable.map(function (line) {
+  lines.splice(otherwiseLineIndex + 1, 0, args.splicable.map(function (line) {
     return spaceStr + line;
   }).join('\n'));
 

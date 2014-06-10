@@ -17,7 +17,7 @@ exports.authenticate = function(req, res, next) {
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
     res.json({ token: token });
   })(req, res, next);
-}
+};
 
 /**
  * Set token cookie directly for oAuth strategies
@@ -27,4 +27,4 @@ exports.setToken = function(req, res, next) {
   var token = jwt.sign({_id: req.user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
   res.cookie('token', JSON.stringify(token));
   res.redirect('/');
-}
+};

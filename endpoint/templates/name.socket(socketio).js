@@ -4,7 +4,7 @@
 
 'use strict';
 
-var <%= name %> = require('./%<= name %>.model');
+var <%= name %> = require('./<%= name %>.model');
 
 exports.register = function(socket) {
   <%= name %>.schema.post('save', function (doc) {
