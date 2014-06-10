@@ -108,6 +108,9 @@ function processDirectory (self, source, destination) {
 
   files.forEach(function(f) {
     var filteredFile = filterFile(f);
+    if(self.name) {
+      filteredFile.name = filteredFile.name.replace('name', self.name);
+    }
     var name = filteredFile.name;
     var copy = false, stripped;
 

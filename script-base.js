@@ -18,7 +18,8 @@ var Generator = module.exports = function Generator() {
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
 
-  this.sourceRoot(path.join(__dirname, sourceRoot));
+  this.filters = this.config.get('filters');
+  this.sourceRoot(path.join(__dirname, '/templates'));
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
