@@ -32,5 +32,5 @@ angular.module('<%= scriptAppName %>')
         url: '/settings',
         templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl'
-      })
+      });
   });<% } %>
