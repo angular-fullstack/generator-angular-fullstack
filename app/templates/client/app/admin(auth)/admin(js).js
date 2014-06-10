@@ -11,7 +11,7 @@ angular.module('<%= scriptAppName %>')
     $stateProvider
       .state('admin', {
         url: '/admin',
-        templateUrl: 'app/admin/admin.html'
+        templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl'
       });
   });<% } %>
