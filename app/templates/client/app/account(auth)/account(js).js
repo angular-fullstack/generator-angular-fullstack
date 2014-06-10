@@ -20,17 +20,17 @@ angular.module('<%= scriptAppName %>')
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: 'app/login/login.html',
+        templateUrl: 'app/account/login/login.html',
         controller: 'LoginCtrl'
       })
       .state('signup', {
         url: '/signup',
-        templateUrl: 'app/signup/signup.html',
+        templateUrl: 'app/account/signup/signup.html',
         controller: 'SignupCtrl'
       })
       .state('settings', {
         url: '/settings',
-        templateUrl: 'app/settings/settings.html',
+        templateUrl: 'app/account/settings/settings.html',
         controller: 'SettingsCtrl'
       })
   });<% } %>
