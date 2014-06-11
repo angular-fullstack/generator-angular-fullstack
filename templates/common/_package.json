@@ -70,5 +70,6 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  }
+  },
+  "private": true
 }
