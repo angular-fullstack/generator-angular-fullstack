@@ -62,9 +62,9 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
-      mochaTest: {
+      <%= serverTest.task %>: {
         files: ['test/server/{,*/}*.js'],
-        tasks: ['env:test', 'mochaTest']
+        tasks: ['env:test', '<%= serverTest.task %>']
       },
       jsTest: {
         files: ['test/client/spec/{,*/}*.js'],
@@ -475,14 +475,22 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
-
+    <% if (serverTest.mocha) { %>
     mochaTest: {
       options: {
         reporter: 'spec'
       },
       src: ['test/server/**/*.js']
+    },<% } %>
+    <% if (serverTest.jasmine) { %>
+    jasmine_node: {
+      options: {
+        forceExit: false,
+        useHelpers: true    // Make sure we use the jasmine custom matchers
+      },
+      all: ['test/helpers/', 'test/server/']
     },
-
+    <% } %>
     env: {
       test: {
         NODE_ENV: 'test'
@@ -541,7 +549,7 @@ module.exports = function (grunt) {
     if (target === 'server') {
       return grunt.task.run([
         'env:test',
-        'mochaTest'
+        '<%= serverTest.task %>'
       ]);
     }
 

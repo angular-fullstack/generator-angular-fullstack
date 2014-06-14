@@ -243,6 +243,41 @@ Generator.prototype.askForModules = function askForModules() {
   }.bind(this));
 };
 
+Generator.prototype.askForServerTests = function askForServerTests() {
+  var cb = this.async();
+
+  this.serverTest = {
+    mocha: false,
+    jasmine: false,
+    task: null
+  };
+
+  this.prompt([{
+    type: 'input',
+    name: 'serverTests',
+    message: 'Would you like to write your server-side unit tests in Mocha (m) or Jasmine (j)?',
+    default: 'm'
+  }], function(props) {
+    if(/^m/.test(props.serverTests)) {
+      // Mocha test
+      this.serverTest = {
+        mocha: true,
+        jasmine: false,
+        task: 'mochaTest'
+      };
+    }
+    if(/^j/.test(props.serverTests)) {
+      this.serverTest = {
+        mocha: false,
+        jasmine: true,
+        task: 'jasmine_node'
+      };
+    }
+
+    cb();
+  }.bind(this));
+};
+
 Generator.prototype.askForMongo = function askForMongo() {
   var cb = this.async();
 
@@ -337,7 +372,7 @@ function appendFilesToJade(jadeOrOptions, fileType, optimizedPath, sourceFileLis
     updatedContent = appendJade(jade, 'body', blocks);
   } else if (fileType === 'css') {
     sourceFileList.forEach(function (el) {
-      files += prefix + '<link ' + (attrs||'') + 'rel="stylesheet" href="' + el  + '">\n';
+      files += prefix + '<link ' + (attrs||'') + 'rel="stylesheet" href="' + el + '">\n';
     });
     blocks = generateJadeBlock('css', optimizedPath, files, searchPath, prefix);
     updatedContent = appendJade(jade, 'head', blocks);
@@ -350,12 +385,12 @@ var copyScriptWithEnvOptions = function copyScriptWithEnvOptions(that, fileToCop
     minsafe = '',
     sourceFolder = 'javascript';
 
-  if(that.env.options.coffee) {
+  if (that.env.options.coffee) {
     ext = 'coffee';
     sourceFolder = 'coffeescript';
   }
 
-  if(that.env.options.minsafe) {
+  if (that.env.options.minsafe) {
     minsafe = '-min';
   }
   that.copy('../../templates/' + sourceFolder + minsafe + '/' + fileToCopy + '.' + ext, destinationFolder + fileToCopy + '.' + ext);
@@ -402,10 +437,10 @@ Generator.prototype.createIndex = function createIndex() {
 };
 
 Generator.prototype.addJadeViews = function addHtmlJade() {
-  if(this.jade) {
+  if (this.jade) {
     this.copy('../../templates/views/jade/partials/main.jade', 'app/views/partials/main.jade');
     this.copy('../../templates/views/jade/partials/navbar.jade', 'app/views/partials/navbar.jade');
-    if(this.mongoPassportUser) {
+    if (this.mongoPassportUser) {
       this.copy('../../templates/views/jade/partials/login.jade', 'app/views/partials/login.jade');
       this.copy('../../templates/views/jade/partials/signup.jade', 'app/views/partials/signup.jade');
       this.copy('../../templates/views/jade/partials/settings.jade', 'app/views/partials/settings.jade');
@@ -415,10 +450,10 @@ Generator.prototype.addJadeViews = function addHtmlJade() {
 };
 
 Generator.prototype.addHtmlViews = function addHtmlViews() {
-  if(!this.jade) {
+  if (!this.jade) {
     this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
     this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
-    if(this.mongoPassportUser) {
+    if (this.mongoPassportUser) {
       this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');
       this.copy('../../templates/views/html/partials/signup.html', 'app/views/partials/signup.html');
       this.copy('../../templates/views/html/partials/settings.html', 'app/views/partials/settings.html');
@@ -427,14 +462,14 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
   }
 };
 
-Generator.prototype.packageFiles = function () {
+Generator.prototype.packageFiles = function() {
   this.coffee = this.env.options.coffee;
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
   this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
 };
 
-Generator.prototype.imageFiles = function () {
+Generator.prototype.imageFiles = function() {
   this.sourceRoot(path.join(__dirname, 'templates'));
   this.directory('images', 'app/images', true);
 };
@@ -469,14 +504,13 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
   }
 };
 
-Generator.prototype.serverFiles = function () {
+Generator.prototype.serverFiles = function() {
   this.template('../../templates/express/server.js', 'server.js');
   this.copy('../../templates/express/jshintrc', 'lib/.jshintrc');
   this.template('../../templates/express/controllers/api.js', 'lib/controllers/api.js');
   this.template('../../templates/express/controllers/index.js', 'lib/controllers/index.js');
   this.template('../../templates/express/routes.js', 'lib/routes.js');
-  this.template('../../templates/express/test/thing/api.js', 'test/server/thing/api.js');
-
+  this.template('../../templates/express/test/' + this.serverTest.task + '/thing/api.spec.js', 'test/server/thing/api.spec.js');
   this.template('../../templates/express/config/express.js', 'lib/config/express.js');
   this.template('../../templates/express/config/config.js', 'lib/config/config.js');
   this.template('../../templates/express/config/env/all.js', 'lib/config/env/all.js');
@@ -485,29 +519,29 @@ Generator.prototype.serverFiles = function () {
   this.template('../../templates/express/config/env/test.js', 'lib/config/env/test.js');
 };
 
-Generator.prototype.mongoFiles = function () {
+Generator.prototype.mongoFiles = function() {
 
   if (!this.mongo) {
-    return;  // Skip if disabled.
+    return; // Skip if disabled.
   }
   this.env.options.mongo = this.mongo;
 
   this.template('../../templates/express/config/dummydata.js', 'lib/config/dummydata.js');
   this.template('../../templates/express/models/thing.js', 'lib/models/thing.js');
 
-  if(!this.mongoPassportUser) {
-    return;  // Skip if disabled.
+  if (!this.mongoPassportUser) {
+    return; // Skip if disabled.
   }
   this.env.options.mongoPassportUser = this.mongoPassportUser;
 
   // frontend
-  copyScriptWithEnvOptions(this, 'controllers/login',        'app/scripts/');
-  copyScriptWithEnvOptions(this, 'controllers/signup',       'app/scripts/');
-  copyScriptWithEnvOptions(this, 'controllers/settings',     'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/login', 'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/signup', 'app/scripts/');
+  copyScriptWithEnvOptions(this, 'controllers/settings', 'app/scripts/');
 
-  copyScriptWithEnvOptions(this, 'services/auth',            'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/session',         'app/scripts/');
-  copyScriptWithEnvOptions(this, 'services/user',            'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/auth', 'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/session', 'app/scripts/');
+  copyScriptWithEnvOptions(this, 'services/user', 'app/scripts/');
 
   copyScriptWithEnvOptions(this, 'directives/mongooseError', 'app/scripts/');
 
@@ -521,5 +555,5 @@ Generator.prototype.mongoFiles = function () {
   this.template('../../templates/express/controllers/session.js', 'lib/controllers/session.js');
   this.template('../../templates/express/controllers/users.js', 'lib/controllers/users.js');
   // tests
-  this.template('../../templates/express/test/user/model.js', 'test/server/user/model.js');  
+  this.template('../../templates/express/test/' + this.serverTest.task + '/user/model.spec.js', 'test/server/user/model.spec.js');
 };
