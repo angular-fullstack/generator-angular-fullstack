@@ -19,8 +19,9 @@ module.exports = function(config) {
       'client/bower_components/angular-sanitize/angular-sanitize.js',
       'client/bower_components/angular-route/angular-route.js',
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'client/bower_components/lodash/dist/lodash.compat.js',
-      'client/bower_components/angular-socket-io/socket.js',
+      'client/bower_components/lodash/dist/lodash.compat.js',<% if(filters.socketio) { %>
+      'client/bower_components/angular-socket-io/socket.js',<% } %><% if(filters.uirouter) { %>
+      'client/bower_components/angular-ui-router/release/angular-ui-router.js',<% } %>
       '{.tmp,client}/app/app.js',
       '{.tmp,client}/app/**/*.js',
       '{.tmp,client}/components/**/*.js',
