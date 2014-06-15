@@ -2,8 +2,10 @@
 
 angular.module('<%= scriptAppName %>')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
-
-    var currentUser = $cookieStore.get('token') || {};
+    var currentUser = {}
+    if($cookieStore.get('token')) {
+      currentUser = User.get();
+    }
 
     return {
 

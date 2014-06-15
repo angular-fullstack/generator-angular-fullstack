@@ -32,6 +32,8 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
       responseError: function(response) {
         if(response.status === 401) {
           $location.path('/login');
+          // remove any stale tokens
+          $cookieStore.remove('token');
           return $q.reject(response);
         }
         else {

@@ -26,6 +26,8 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
     responseError: (response) ->
       if response.status is 401
         $location.path '/login'
+        # remove any stale tokens
+        $cookieStore.remove 'token'
         $q.reject response
       else
         $q.reject response

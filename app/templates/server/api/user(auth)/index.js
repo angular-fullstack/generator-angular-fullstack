@@ -3,15 +3,15 @@
 var express = require('express');
 var controller = require('./user.controller');
 var config = require('../../config');
-var access = require('../../components/access/access');
+var auth = require('../../auth/auth.service');
 
 var router = express.Router();
 
-router.get('/', access.hasRole('admin'), controller.index);
-router.delete('/:id', access.hasRole('admin'), controller.destroy);
-router.get('/me', access.isAuthenticated, controller.me);
-router.put('/:id/password', access.isAuthenticated, controller.changePassword);
-router.get('/:id', access.isAuthenticated, controller.show);
+router.get('/', auth.hasRole('admin'), controller.index);
+router.delete('/:id', auth.hasRole('admin'), controller.destroy);
+router.get('/me', auth.isAuthenticated(), controller.me);
+router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
+router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 
 module.exports = router;
