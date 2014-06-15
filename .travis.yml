@@ -5,4 +5,4 @@ node_js:
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-angular-fullstack' ]; then cd .. && eval "mv $currentfolder generator-angular-fullstack" && cd generator-angular-fullstack; fi
-
+services: mongodb
