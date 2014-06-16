@@ -8,7 +8,9 @@ angular.module('<%= scriptAppName %>')
     });
 <% if(filters.mongoose) { %>
     $scope.addThing = function() {
-      if($scope.newThing === '') return;
+      if($scope.newThing === '') {
+        return;
+      }
       $http.post('/api/things', { name: $scope.newThing });
       $scope.newThing = '';
     };
