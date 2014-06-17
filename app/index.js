@@ -146,13 +146,45 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     if(this.filters['uirouter']) angModules.push("'ui.router'");
 
     this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
+  },
 
-    this.config.save();
+  compose: function() {
+    var filters = [];
+    if(this.filters['ngroute']) filters.push('ngroute');
+    if(this.filters['uirouter']) filters.push('uirouter');
+
+    var extensions = [];
+    if(this.filters['coffee']) extensions.push('.coffee');
+    if(this.filters['js']) extensions.push('.js');
+    if(this.filters['html']) extensions.push('.html');
+    if(this.filters['jade']) extensions.push('.jade');
+    if(this.filters['css']) extensions.push('.css');
+    if(this.filters['sass']) extensions.push('.scss');
+    if(this.filters['less']) extensions.push('.less');
+
+    var appPath = 'client/app/';
+
+    this.composeWith('ng-component', {
+      options: {
+        'skip-message': true,
+        'routeDirectory': appPath,
+        'directiveDirectory': appPath,
+        'filterDirectory': appPath,
+        'serviceDirectory': appPath,
+        'filters': filters,
+        'extensions': extensions,
+        'basePath': 'client'
+      }
+    });
   },
 
   generate: function() {
     this.sourceRoot(path.join(__dirname, './templates'));
     genUtils.processDirectory(this, '.', '.');
+  },
+
+  saveConfig: function() {
+    this.config.save();
   }
 });
 
