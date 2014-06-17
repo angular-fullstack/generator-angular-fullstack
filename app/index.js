@@ -145,16 +145,52 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForCompass = function askForCompass() {
+Generator.prototype.askForGulp = function askForGulp() {
   var cb = this.async();
 
   this.prompt([{
     type: 'confirm',
+    name: 'gulp',
+    message: 'Would you like to use Gulp (experimental) instead of Grunt?',
+    default: false
+  }], function (props) {
+    this.gulp = props.gulp;
+
+    cb();
+  }.bind(this));
+};
+
+Generator.prototype.askForStyles = function askForStyles() {
+  var gulp = this.gulp;
+  var cb = this.async();
+
+  this.prompt([{
+    type: 'list',
+    name: 'styles',
+    message: 'Would you like to use CSS preprocessor?',
+    choices: [
+      {name: 'No, just plain css', value: 'css'},
+      {name: 'Yes, Stylus with Nib', value: 'stylus'},
+      {name: 'Yes, Sass', value: 'sass'}
+    ],
+    default: 'css',
+    when: function () {
+      return gulp;
+    }
+  }, {
+    type: 'confirm',
     name: 'compass',
     message: 'Would you like to use Sass (with Compass)?',
-    default: true
+    default: true,
+    when: function () {
+      return !gulp;
+    }
   }], function (props) {
-    this.compass = props.compass;
+    if (gulp) this[props.styles] = props.styles;
+    if (!gulp) this.compass = props.compass;
+    // To prevent yeoman errors - x is not defined
+    this.sass = (this.sass || null);
+    this.stylus = (this.stylus || null);
 
     cb();
   }.bind(this));
@@ -279,8 +315,14 @@ Generator.prototype.readIndex = function readIndex() {
 };
 
 Generator.prototype.bootstrapFiles = function bootstrapFiles() {
-  var sass = this.compass;
-  var mainFile = 'main.' + (sass ? 's' : '') + 'css';
+  var sass = this.compass || this.sass;
+  var stylus = this.stylus;
+  var extension = (function () {
+    if (sass) { return 'scss'; }
+    if (stylus) { return 'styl'; }
+    return 'css';
+  })();
+  var mainFile = 'main.' + extension;
 
   if (this.bootstrap && !sass) {
     this.copy('fonts/glyphicons-halflings-regular.eot', 'app/fonts/glyphicons-halflings-regular.eot');
@@ -431,7 +473,11 @@ Generator.prototype.packageFiles = function () {
   this.coffee = this.env.options.coffee;
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
-  this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+  if (this.gulp) {
+    this.template('../../templates/common/Gulpfile.js', 'Gulpfile.js');
+  } else {
+    this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+  }
 };
 
 Generator.prototype.imageFiles = function () {
