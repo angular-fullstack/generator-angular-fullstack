@@ -23,12 +23,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.appPath = this.env.options.appPath;
     this.pkg = require('../package.json');
     this.filters = {};
-
-    this.on('end', function () {
-      this.installDependencies({
-        skipInstall: this.options['skip-install']
-      });
-    }.bind(this));
   },
 
   info: function () {
@@ -135,6 +129,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   saveSettings: function() {
     this.config.set('filters', this.filters);
+    this.config.forceSave();
     var angModules = [
       "'ngCookies'",
       "'ngResource'",
@@ -166,7 +161,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     this.composeWith('ng-component', {
       options: {
-        'skip-message': true,
         'routeDirectory': appPath,
         'directiveDirectory': appPath,
         'filterDirectory': appPath,
@@ -183,8 +177,12 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     genUtils.processDirectory(this, '.', '.');
   },
 
-  saveConfig: function() {
-    this.config.save();
+  end: function() {
+    this.on('end', function () {
+      this.installDependencies({
+        skipInstall: this.options['skip-install']
+      });
+    }.bind(this));
   }
 });
 
