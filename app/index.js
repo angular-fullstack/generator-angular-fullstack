@@ -88,11 +88,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     }, {
       type: "confirm",
       name: "auth",
-      message: "Would you scaffold out an authentication boilerplate?"
+      message: "Would you scaffold out an authentication boilerplate?",
+      when: function (props) {
+        return props.mongoose;
+      }
     }, {
       type: 'checkbox',
       name: 'oauth',
       message: 'Would you like to include additional oAuth strategies?',
+      when: function (props) {
+        return props.auth;
+      },
       choices: [
         {
           value: 'googleAuth',
@@ -119,9 +125,12 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       if(answers.socketio) this.filters['socketio'] = true;
       if(answers.mongoose) this.filters['mongoose'] = true;
       if(answers.auth) this.filters['auth'] = true;
-      answers.oauth.forEach(function(oauthStrategy) {
-        this.filters[oauthStrategy] = true;
-      }.bind(this));
+      if(answers.oauth) {
+        answers.oauth.forEach(function(oauthStrategy) {
+          this.filters[oauthStrategy] = true;
+        }.bind(this));
+      }
+
       cb();
     }.bind(this));
   },
