@@ -52,28 +52,13 @@ module.exports = function (grunt) {
           '!<%%= yeoman.client %>/{app,components}/**/*.spec.js',
           '!<%%= yeoman.client %>/{app,components}/**/*.mock.js',
           '!<%%= yeoman.client %>/app/app.js'],
-        tasks: ['injector:scripts'],
-        options: {
-          event: ['added', 'deleted'],
-        }
+        tasks: ['injector:scripts']
       },
       injectCss: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.css'
         ],
-        tasks: ['injector:css'],
-        options: {
-          event: ['added', 'deleted']
-        }
-      },
-      js: {
-        files: [
-          '<%%= yeoman.client %>/{app,components}/**/*.js',
-          '!<%%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '!<%%= yeoman.client %>/{app,components}/**/*.mock.js'],
-        options: {
-          livereload: true
-        }
+        tasks: ['injector:css']
       },
       mochaTest: {
         files: ['server/**/*.spec.js'],
@@ -89,10 +74,7 @@ module.exports = function (grunt) {
       injectSass: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
-        tasks: ['injector:sass'],
-        options: {
-          event: ['added', 'deleted']
-        }
+        tasks: ['injector:sass']
       },
       sass: {
         files: [
@@ -102,10 +84,7 @@ module.exports = function (grunt) {
       injectLess: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.less'],
-        tasks: ['injector:less'],
-        options: {
-          event: ['added', 'deleted']
-        }
+        tasks: ['injector:less']
       },
       less: {
         files: [
@@ -114,6 +93,7 @@ module.exports = function (grunt) {
       },<% } %><% if(filters.jade) { %>
       jade: {
         files: [
+          '<%%= yeoman.client %>/{app,components}/*',
           '<%%= yeoman.client %>/{app,components}/**/*.jade'],
         tasks: ['jade']
       },<% } %><% if(filters.coffee) { %>
@@ -122,7 +102,7 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.{coffee,litcoffee,coffee.md}',
           '!<%%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
         ],
-        tasks: ['newer:coffee:compile']
+        tasks: ['newer:coffee:compile', 'injector:scripts']
       },
       coffeeTest: {
         files: [
@@ -511,8 +491,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: 'client',
           src: [
-            '{app,components}/**/*.coffee',
-            '!{app,components}/**/*.spec.coffee'
+            '{app,components}/**/*.coffee'
           ],
           dest: '.tmp',
           ext: '.js'
@@ -709,7 +688,8 @@ module.exports = function (grunt) {
         'injector:sass', <% } %>
         'concurrent:test',
         'injector',
-        'autoprefixer',
+        'autoprefixer',<% if(filters.coffee) { %>
+        'coffee',<% } %>
         'karma'
       ]);
     }
