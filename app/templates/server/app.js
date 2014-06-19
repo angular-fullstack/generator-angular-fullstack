@@ -12,7 +12,7 @@ var mongoose = require('mongoose');<% } %>
 var config = require('./config');
 
 // Connect to database
-<% if (filters.mongoose) { %>var db = mongoose.connect(config.mongo.uri, config.mongo.options);
+<% if (filters.mongoose) { %>mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Populate DB with sample data
 if(config.sampleData) { require('./config/helpers/sample_data'); }

@@ -7,7 +7,6 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var wiredep = require('wiredep');
 
-
 var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   init: function () {
@@ -144,20 +143,19 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   compose: function() {
+    var appPath = 'client/app/';
+    var extensions = [];
     var filters = [];
+
     if(this.filters['ngroute']) filters.push('ngroute');
     if(this.filters['uirouter']) filters.push('uirouter');
-
-    var extensions = [];
-    if(this.filters['coffee']) extensions.push('.coffee');
-    if(this.filters['js']) extensions.push('.js');
-    if(this.filters['html']) extensions.push('.html');
-    if(this.filters['jade']) extensions.push('.jade');
-    if(this.filters['css']) extensions.push('.css');
-    if(this.filters['sass']) extensions.push('.scss');
-    if(this.filters['less']) extensions.push('.less');
-
-    var appPath = 'client/app/';
+    if(this.filters['coffee']) extensions.push('coffee');
+    if(this.filters['js']) extensions.push('js');
+    if(this.filters['html']) extensions.push('html');
+    if(this.filters['jade']) extensions.push('jade');
+    if(this.filters['css']) extensions.push('css');
+    if(this.filters['sass']) extensions.push('scss');
+    if(this.filters['less']) extensions.push('less');
 
     this.composeWith('ng-component', {
       options: {
@@ -178,11 +176,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   end: function() {
-    this.on('end', function () {
-      this.installDependencies({
-        skipInstall: this.options['skip-install']
-      });
-    }.bind(this));
+    this.installDependencies({
+      skipInstall: this.options['skip-install']
+    });
   }
 });
 
