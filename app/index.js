@@ -120,6 +120,10 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       type: "confirm",
       name: "socketio",
       message: "Would you like to use socket.io?",
+      // to-do: should not be dependent on mongoose
+      when: function (props) {
+        return props.mongoose;
+      },
       default: true
     }], function (answers) {
       if(answers.socketio) this.filters['socketio'] = true;
