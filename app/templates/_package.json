@@ -11,8 +11,9 @@
     "express-session": "~1.0.2",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
-    "lodash": "~2.4.1",
-    "ejs": "~1.0.0",<% if(filters.mongoose) { %>
+    "lodash": "~2.4.1",<% if (filters.jade) { %>
+    "jade": "~1.2.0",<% } %><% if (filters.html) { %>
+    "ejs": "~0.8.4",<% } %><% if(filters.mongoose) { %>
     "mongoose": "~3.8.8",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^0.3.0",
     "express-jwt": "^0.1.3",
