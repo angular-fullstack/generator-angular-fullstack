@@ -56,16 +56,12 @@ module.exports = function(app) {
   var sessionStore = new mongoStore({
     url: config.mongo.uri,
     collection: 'sessions'
-  }, function(err) {
-    if (!err) {
-      console.log('db connection open, now using');
-      app.use(session({
-        secret: 'angular-fullstack secret',
-        store: sessionStore
-      }));
-    } else {
-      console.log('db connection failed');
-    }
+  }, function() {
+    console.log('db connection open, now using');
+    app.use(session({
+      secret: 'angular-fullstack secret',
+      store: sessionStore
+    }));
   });
 
 
