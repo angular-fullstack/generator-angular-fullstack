@@ -2,7 +2,13 @@
 
 var path = require('path');
 var _ = require('lodash');
-var requiredProcessEnv = require('./helpers/required_env');
+
+function requiredProcessEnv(name) {
+  if(!process.env[name]) {
+    throw new Error('You must set the ' + name + ' environment variable');
+  }
+  return process.env[name];
+}
 
 // All configurations will extend these options
 // ============================================
@@ -18,12 +24,12 @@ var all = {
   // Should we populate the DB with sample data?
   sampleData: true,
 
-  // Secret for session, should be unqiue
+  // Secret for session, should be unique
   secrets: {
     session: requiredProcessEnv('SESSION_SECRET')
   },
 
-  // List of user roles, ordered worst to best
+  // List of user roles
   userRoles: ['guest', 'user', 'admin'],
 
   // MongoDB connection options
@@ -59,4 +65,4 @@ var all = {
 // ==============================================
 module.exports = _.merge(
   all,
-  require('./' + process.env.NODE_ENV + '.js') || {});
+  require('./config.' + process.env.NODE_ENV + '.js') || {});

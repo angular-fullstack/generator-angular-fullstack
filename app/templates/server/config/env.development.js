@@ -1,7 +1,10 @@
 'use strict';
 
-// Environment variables that Grunt will start the server with.
-// Add your settings to a local process_env.js, that will not be tracked by git
+// Environment variables that grunt will set when the server starts locally. Use for your api keys, secrets, etc.
+// You will need to set these on the server you deploy to.
+//
+// This file should not be tracked by git.
+
 module.exports = {
   SESSION_SECRET: "<%= _.slugify(_.humanize(appname)) + '-secret' %>",
   FACEBOOK_ID: "FACEBOOK-APP-ID",

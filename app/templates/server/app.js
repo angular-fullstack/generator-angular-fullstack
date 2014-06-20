@@ -10,12 +10,12 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var express = require('express');<% if (filters.mongoose) { %>
 var mongoose = require('mongoose');<% } %>
 var config = require('./config');
-
+<% if (filters.mongoose) { %>
 // Connect to database
-<% if (filters.mongoose) { %>mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Populate DB with sample data
-if(config.sampleData) { require('./config/helpers/sample_data'); }
+if(config.sampleData) { require('./config/sample_data'); }
 
 <% } %>// Setup server
 var app = express();

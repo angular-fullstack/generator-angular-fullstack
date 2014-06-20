@@ -454,10 +454,9 @@ module.exports = function (grunt) {
         NODE_ENV: 'test'
       },
       prod: {
-        NODE_ENV: 'production',
-        SESSION_SECRET: 'angular-fullstack'
+        NODE_ENV: 'production'
       },
-      all: require('./server/config/env/process_env')
+      all: require('./server/config/env.development')
     },<% if(filters.jade) { %>
 
     // Compiles Jade to html
