@@ -53,16 +53,17 @@ module.exports = function(app) {
   app.use(methodOverride());<% if(mongoPassportUser) { %>
   app.use(cookieParser());
 
-  // Persist sessions with mongoStore
-  app.use(session({
-    secret: 'angular-fullstack secret',
-    store: new mongoStore({
-      url: config.mongo.uri,
-      collection: 'sessions'
-    }, function () {
-      console.log('db connection open');
-    })
-  }));
+  var sessionStore = new mongoStore({
+    url: config.mongo.uri,
+    collection: 'sessions'
+  }, function() {
+    console.log('db connection open, now using');
+    app.use(session({
+      secret: 'angular-fullstack secret',
+      store: sessionStore
+    }));
+  });
+
 
   // Use passport session
   app.use(passport.initialize());
