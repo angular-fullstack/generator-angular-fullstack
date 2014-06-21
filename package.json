@@ -32,8 +32,8 @@
     "wiredep": "~0.4.2"
   },
   "peerDependencies": {
-    "generator-karma": ">=0.7.0",
-    "yo": ">=1.0.0"
+    "yo": ">=1.0.0",
+    "generator-ng-component": ">=0.0.1"
   },
   "devDependencies": {
     "chai": "^1.9.1",
