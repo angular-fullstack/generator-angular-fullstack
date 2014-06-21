@@ -22,7 +22,11 @@ describe('angular-fullstack generator', function () {
   beforeEach(function (done) {
     this.timeout(10000);
     var deps = [
-      '../../app'
+      '../../app',
+      [
+        helpers.createDummyGenerator(),
+        'ng-component:app'
+      ]
     ];
 
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
@@ -36,11 +40,28 @@ describe('angular-fullstack generator', function () {
     }.bind(this));
   });
 
-  it('should generate dotfiles', function (done) {
+  it.only('should generate expected files', function (done) {
     helpers.mockPrompt(gen, defaultOptions);
 
     gen.run({}, function () {
-      helpers.assertFile(['.gitignore']);
+      helpers.assertFile([
+        'client/.htaccess',
+        'client/favicon.ico',
+        'client/robots.txt',
+        'client/app/main/main.scss',
+        'client/app/main/main.html',
+        'client/index.html',
+        'client/.jshintrc',
+        'client/assets/images/yeoman.png',
+        '.bowerrc',
+        '.editorconfig',
+        '.gitignore',
+        'Gruntfile.js',
+        'package.json',
+        'bower.json',
+        'server/app.js',
+        'server/express.js',
+        'server/api/thing/index.js']);
       done();
     });
   });
