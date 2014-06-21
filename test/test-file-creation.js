@@ -98,17 +98,17 @@ describe('angular-fullstack generator', function () {
         });
       });
 
-      it('should run e2e tests successfully', function(done) {
-        this.timeout(80000);
-        gen.run({}, function () {
-          exec('npm run update-webdriver', function (error, stdout, stderr) {
-            exec('grunt e2e', function (error, stdout, stderr) {
-              expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
-              done();
-            });
-          });
-        })
-      });
+//      it('should run e2e tests successfully', function(done) {
+//        this.timeout(80000);
+//        gen.run({}, function () {
+//          exec('npm run update-webdriver', function (error, stdout, stderr) {
+//            exec('grunt e2e', function (error, stdout, stderr) {
+//              expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
+//              done();
+//            });
+//          });
+//        })
+//      });
     });
 
     describe('with other preprocessors', function() {
