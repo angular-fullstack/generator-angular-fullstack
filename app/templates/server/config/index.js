@@ -24,9 +24,9 @@ var all = {
   // Should we populate the DB with sample data?
   sampleData: true,
 
-  // Secret for session, should be unique
+  // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: requiredProcessEnv('SESSION_SECRET')
+    session: '<%= _.slugify(_.humanize(appname)) + '-secret' %>'
   },
 
   // List of user roles
@@ -40,25 +40,24 @@ var all = {
       }
     }
   },
-
-  // Social oauth configurations
+<% if(filters.facebookAuth) { %>
   facebook: {
     clientID:     requiredProcessEnv('FACEBOOK_ID'),
     clientSecret: requiredProcessEnv('FACEBOOK_SECRET'),
     callbackURL:  'http://localhost:9000/auth/facebook/callback'
   },
-
+<% } %><% if(filters.twitterAuth) { %>
   twitter: {
     clientID:     requiredProcessEnv('TWITTER_ID'),
     clientSecret: requiredProcessEnv('TWITTER_SECRET'),
     callbackURL:  'http://localhost:9000/auth/twitter/callback'
   },
-
+<% } %><% if(filters.googleAuth) { %>
   google: {
     clientID:     requiredProcessEnv('GOOGLE_ID'),
     clientSecret: requiredProcessEnv('GOOGLE_SECRET'),
     callbackURL:  'http://localhost:9000/auth/google/callback'
-  }
+  }<% } %>
 };
 
 // Export the config object based on the NODE_ENV
