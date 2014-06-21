@@ -13,10 +13,10 @@ describe('angular-fullstack generator', function () {
     markup: 'html',
     stylesheet: 'sass',
     router: 'uirouter',
-    mongoose: false,
-    auth: false,
+    mongoose: true,
+    auth: true,
     oauth: [],
-    socketio: false
+    socketio: true
   };
 
   beforeEach(function (done) {
@@ -40,7 +40,7 @@ describe('angular-fullstack generator', function () {
     }.bind(this));
   });
 
-  it.only('should generate expected files', function (done) {
+  it('should generate expected files', function (done) {
     helpers.mockPrompt(gen, defaultOptions);
 
     gen.run({}, function () {
@@ -125,7 +125,7 @@ describe('angular-fullstack generator', function () {
         });
       });
 
-      it('should run client tests successfully', function(done) {
+      it.only('should run client tests successfully', function(done) {
         this.timeout(60000);
         gen.run({}, function () {
           exec('grunt test:client', function (error, stdout, stderr) {
@@ -181,17 +181,17 @@ describe('angular-fullstack generator', function () {
       });
     });
 
-    describe('with no preprocessors and all server options', function() {
+    describe('with no preprocessors and no server options', function() {
       beforeEach(function() {
         helpers.mockPrompt(gen, {
           script: 'js',
           markup: 'html',
           stylesheet: 'css',
           router: 'ngroute',
-          mongoose: true,
-          auth: true,
+          mongoose: false,
+          auth: false,
           oauth: [],
-          socketio: true
+          socketio: false
         });
       });
 
