@@ -238,12 +238,12 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       this.log.error(err);
     } else {
       var host_url = '';
-      var before_hostname = 'ssh://xxxxxxxxxxxxxxxxxxxxxxxx@'.length;
+      var before_hostname = this.dist_repo_url.indexOf('@') + 1;
       var after_hostname = this.dist_repo_url.length - ( this.deployedName.length + 12 );
       host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
 
       if(this.filters.socketio) {
-        this.log(chalk.yellow('You must update your client socket service to point to the correct port.\n\t' + 'in `/client/app/components/socket/socket.service`: ' + chalk.bold('var ioSocket = io.connect(\'' + host_url + ':8000' + '\')' + '\n')));
+        this.log(chalk.yellow('Openshift websockets use port 8000, you will need to update the client to connect to the correct port for sockets to work.\n\t' + 'in `/client/app/components/socket/socket.service`: ' + chalk.bold('var ioSocket = io.connect(\'' + host_url + ':8000' + '\')' + '\n')));
       }
 
       this.log(chalk.green('\nYour app should now be live at \n\t' + chalk.bold(host_url)));
@@ -256,7 +256,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
   }.bind(this));
 
   child.stdout.on('data', function(data) {
-    this.log(data.toString());
+    var output = data.toString();
+    this.log(output);
   }.bind(this));
-  child.stdin.write('yes\n');
 };
