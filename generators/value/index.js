@@ -10,5 +10,5 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.deprecated = function deprecated() {
-  this.log(chalk.yellow('This generator is deprecated, instead use: ... \n'));
+  this.log(chalk.yellow('This sub-generator is deprecated. \n'));
 };
