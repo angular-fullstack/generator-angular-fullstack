@@ -15,6 +15,7 @@ var Generator = module.exports = function Generator() {
     this.appname = path.basename(process.cwd());
   }
   this.appname = this._.slugify(this.appname);
+  this.filters = this.config.get('filters');
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
@@ -137,11 +138,17 @@ Generator.prototype.gitForcePush = function gitForcePush() {
     if (err) {
       this.log.error(err);
     } else {
-      this.log(chalk.green('\nYou\'re all set! Your app should now be live. To view it run\n\t' + chalk.bold('cd dist && heroku open')));
-      this.log(chalk.cyan('If you\'re using mongoDB, be sure to add a database to your heroku app.\n\t' + chalk.bold('heroku addons:add mongohq') + '\n\n'));
-      this.log(chalk.yellow('To deploy a new build\n\t' + chalk.bold('grunt build') +
+      if(this.filters.mongoose) {
+        this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
+      }
+      if(this.filters.socketio) {
+        this.log(chalk.yellow('Because you\'re using socketIO, you must enable websockets on your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku labs:enable websockets') + '\n'));
+      }
+      this.log(chalk.green('\nYour app should now be live. To view it run\n\t' + chalk.bold('cd dist && heroku open')));
+
+      this.log(chalk.cyan('\nTo deploy a new build\n\t' + chalk.bold('grunt build') +
                 '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
-      this.log(chalk.green('Finally, deploy your updated build to Heroku with\n\t' + chalk.bold('git push -f heroku master')));
+      this.log(chalk.cyan('Finally, deploy your updated build to Heroku with\n\t' + chalk.bold('git push -f heroku master')));
     }
     done();
   }.bind(this));
