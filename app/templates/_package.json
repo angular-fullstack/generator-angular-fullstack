@@ -1,6 +1,7 @@
 {
   "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
+  "main": "server/app.js",
   "dependencies": {
     "express": "~4.0.0",
     "morgan": "~1.0.0",

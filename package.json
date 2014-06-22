@@ -18,7 +18,6 @@
   "homepage": "https://github.com/DaftMonk/generator-angular-fullstack",
   "bugs": "https://github.com/DaftMonk/generator-angular-fullstack/issues",
   "author": "Tyler Henkel",
-  "main": "server/app.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/DaftMonk/generator-angular-fullstack.git"
