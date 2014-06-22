@@ -60,7 +60,7 @@ describe('angular-fullstack generator', function () {
         'package.json',
         'bower.json',
         'server/app.js',
-        'server/express.js',
+        'server/config/express.js',
         'server/api/thing/index.js']);
       done();
     });

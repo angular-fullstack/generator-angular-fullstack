@@ -13,7 +13,7 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.registerEndpoint = function() {
   var config = {
-    file: 'server/routes.js',
+    file: 'server/config/routes.js',
     needle: '// Use component routing',
     splicable: [
       "app.use(\'/api/" + this.name + "\', require(\'./api/" + this.name + "\'));"
@@ -23,7 +23,7 @@ Generator.prototype.registerEndpoint = function() {
 
   if(this.filters.socketio) {
     var config = {
-      file: 'server/socketio.js',
+      file: 'server/config/socketio.js',
       needle: '// Register listeners for components',
       splicable: [
         "require(\'./api/" + this.name + '/' + this.name + ".socket\').register(socket);"
