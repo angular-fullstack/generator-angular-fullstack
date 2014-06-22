@@ -125,7 +125,7 @@ describe('angular-fullstack generator', function () {
         });
       });
 
-      it.only('should run client tests successfully', function(done) {
+      it('should run client tests successfully', function(done) {
         this.timeout(60000);
         gen.run({}, function () {
           exec('grunt test:client', function (error, stdout, stderr) {
