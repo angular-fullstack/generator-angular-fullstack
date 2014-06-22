@@ -4,4 +4,4 @@ public
 .sass-cache
 client/bower_components
 dist
-/server/config/env.development.js
+/server/config/local.env.js

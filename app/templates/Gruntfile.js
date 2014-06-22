@@ -457,7 +457,7 @@ module.exports = function (grunt) {
       prod: {
         NODE_ENV: 'production'
       },
-      all: require('./server/config/env.development')
+      all: require('./server/config/local.env')
     },<% if(filters.jade) { %>
 
     // Compiles Jade to html
