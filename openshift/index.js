@@ -15,6 +15,7 @@ var Generator = module.exports = function Generator() {
     this.appname = path.basename(process.cwd());
   }
   this.appname = this._.slugify(this.appname).split('-').join('');
+  this.filters = this.config.get('filters');
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
@@ -105,7 +106,7 @@ Generator.prototype.rhcAppShow = function rhcAppShow() {
     }
     // No remote found
     else if (!stdout.search('not found.') >= 0) {
-      console.log('No app found.');
+      console.log('No existing app found.');
     }
     // Error
     else if (err && stderr.search('DL is deprecated') === -1) {
@@ -241,7 +242,11 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       var after_hostname = this.dist_repo_url.length - ( this.deployedName.length + 12 );
       host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
 
-      this.log(chalk.green('\nYou\'re all set! Your app should now be live at \n\t' + chalk.bold(host_url)));
+      if(this.filters.socketio) {
+        this.log(chalk.yellow('You must update your client socket service to point to the correct port.\n\t' + 'in `/client/app/components/socket/socket.service`: ' + chalk.bold('var ioSocket = io.connect(\'' + host_url + ':8000' + '\')' + '\n')));
+      }
+
+      this.log(chalk.green('\nYour app should now be live at \n\t' + chalk.bold(host_url)));
       this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
                 '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
       this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push -f '+this.deployedName+' master')));
