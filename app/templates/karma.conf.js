@@ -22,20 +22,23 @@ module.exports = function(config) {
       'client/bower_components/lodash/dist/lodash.compat.js',<% if(filters.socketio) { %>
       'client/bower_components/angular-socket-io/socket.js',<% } %><% if(filters.uirouter) { %>
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',<% } %>
-      '{.tmp,client}/app/app.js',
-      '{.tmp,client}/app/**/*.js',
-      '{.tmp,client}/components/**/*.js',
+      'client/app/app.js',
+      'client/app/**/*.js',
+      'client/app/app.coffee',
+      'client/app/**/*.coffee',
+      'client/components/**/*.js',
       '{.tmp,client}/app/**/*.html',
       '{.tmp,client}/components/**/*.html'
     ],
 
     preprocessors: {
-      '{.tmp,client}/app/**/*.html': 'html2js',
-      '{.tmp,client}/components/**/*.html': 'html2js'
+      '**/*.html': 'html2js',
+      '**/*.jade': ['jade', 'html2js'],
+      '**/*.coffee': 'coffee',
     },
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: '(.tmp|client)/'
+      stripPrefix: 'client'
     },
 
     // list of files / patterns to exclude

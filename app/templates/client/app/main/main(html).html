@@ -16,7 +16,7 @@
         <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<% if(filters.socketio) { %><button type="button" class="close" ng-click="deleteThing(thing)">&times;</button><% } %></a></li>
       </ul>
     </div>
-  </div>
+  </div><% if(filters.socketio) { %>
 
   <form class="thing-form">
     <label>Syncs in realtime across clients</label>
@@ -26,7 +26,7 @@
         <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
       </span>
     </p>
-  </form>
+  </form><% } %>
 </div>
 
 <footer class="footer">

@@ -102,13 +102,13 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.{coffee,litcoffee,coffee.md}',
           '!<%%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
         ],
-        tasks: ['newer:coffee:compile', 'injector:scripts']
+        tasks: ['newer:coffee', 'injector:scripts']
       },
       coffeeTest: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
         ],
-        tasks: ['newer:coffee:compile', 'karma']
+        tasks: ['karma']
       },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
@@ -397,7 +397,8 @@ module.exports = function (grunt) {
         'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
       ],
-      test: [<% if(filters.coffee) { %>'coffee',<% } %><% if(filters.jade) { %>
+      test: [<% if(filters.coffee) { %>
+        'coffee',<% } %><% if(filters.jade) { %>
         'jade',<% } %><% if(filters.sass) { %>
         'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
@@ -485,12 +486,13 @@ module.exports = function (grunt) {
         sourceMap: true,
         sourceRoot: ''
       },
-      compile: {
+      server: {
         files: [{
           expand: true,
           cwd: 'client',
           src: [
-            '{app,components}/**/*.coffee'
+            '{app,components}/**/*.coffee',
+            '{app,components}/**/!*.spec.coffee'
           ],
           dest: '.tmp',
           ext: '.js'
@@ -687,8 +689,7 @@ module.exports = function (grunt) {
         'injector:sass', <% } %>
         'concurrent:test',
         'injector',
-        'autoprefixer',<% if(filters.coffee) { %>
-        'coffee',<% } %>
+        'autoprefixer',
         'karma'
       ]);
     }
