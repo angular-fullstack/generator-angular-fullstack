@@ -65,11 +65,10 @@ Generator.prototype.gitRemoteCheck = function gitRemoteCheck() {
   if(this.abort || typeof this.dist_repo_url !== 'undefined') return;
   var done = this.async();
 
-  this.log(chalk.bold("Checking for an existing git remote named '"+this.deployedName+"'..."));
+  this.log(chalk.bold("\nChecking for an existing git remote named '"+this.deployedName+"'..."));
   exec('git remote -v', { cwd: 'dist' }, function (err, stdout, stderr) {
     var lines = stdout.split('\n');
     var dist_repo = '';
-    this.log('stdout: ' + stdout);
     if (err && stderr.search('DL is deprecated') === -1) {
       this.log.error(err);
     } else {
@@ -83,6 +82,8 @@ Generator.prototype.gitRemoteCheck = function gitRemoteCheck() {
         console.log("Found an existing git remote for this app: "+dist_repo);
         this.dist_repo_url = dist_repo;
         this.openshift_remote_exists = true;
+      } else {
+        console.log('No existing remote found.');
       }
     }
     done();
@@ -93,16 +94,25 @@ Generator.prototype.rhcAppShow = function rhcAppShow() {
   if(this.abort || typeof this.dist_repo_url !== 'undefined') return;
   var done = this.async();
 
-  this.log(chalk.bold("Checking for an existing OpenShift hosting environment..."));
-  exec('rhc app show '+this.deployedName+' --noprompt', { cwd: 'dist' }, function (err, stdout, stderr) {
+  this.log(chalk.bold("\nChecking for an existing OpenShift hosting environment..."));
+  var child = exec('rhc app show '+this.deployedName+' --noprompt', { cwd: 'dist' }, function (err, stdout, stderr) {
     var lines = stdout.split('\n');
     var dist_repo = '';
+    // Unauthenticated
     if (stdout.search('Not authenticated') >= 0 || stdout.search('Invalid characters found in login') >= 0) {
       this.log.error('Error: Not authenticated. Run "rhc setup" to login to your OpenShift account and try again.');
       this.abort = true;
-    } else if (err && stderr.search('DL is deprecated') === -1) {
+    }
+    // No remote found
+    else if (!stdout.search('not found.') >= 0) {
+      console.log('No app found.');
+    }
+    // Error
+    else if (err && stderr.search('DL is deprecated') === -1) {
       this.log.error(err);
-    } else {
+    }
+    // Remote found
+    else {
       this.log(stdout);
       var repo_url_finder = / *Git URL: */;
       lines.forEach(function(line) {
@@ -120,8 +130,8 @@ Generator.prototype.rhcAppCreate = function rhcAppCreate() {
   if(this.abort || typeof this.dist_repo_url !== 'undefined') return;
   var done = this.async();
 
-  this.log(chalk.bold("Creating your OpenShift hosting environment, this may take a couple minutes..."));
-  exec('rhc app create '+this.deployedName+' nodejs-0.10 mongodb-2.4 -s --noprompt --no-git NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
+  this.log(chalk.bold("\nCreating your OpenShift hosting environment, this may take a couple minutes..."));
+  var child = exec('rhc app create '+this.deployedName+' nodejs-0.10 mongodb-2.4 -s --noprompt --no-git NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
     var lines = stdout.split('\n');
     this.log(stdout);
     if (stdout.search('Not authenticated') >= 0 || stdout.search('Invalid characters found in login') >= 0) {
@@ -144,14 +154,18 @@ Generator.prototype.rhcAppCreate = function rhcAppCreate() {
     }
     done();
   }.bind(this));
+
+  child.stdout.on('data', function(data) {
+    this.log(data.toString());
+  }.bind(this));
 };
 
 Generator.prototype.gitRemoteAdd = function gitRemoteAdd() {
   if(this.abort || typeof this.dist_repo_url === 'undefined' || this.openshift_remote_exists) return;
   var done = this.async();
-  this.log(chalk.bold("Adding remote repo url: "+this.dist_repo_url));
+  this.log(chalk.bold("\nAdding remote repo url: "+this.dist_repo_url));
 
-  exec('git remote add '+this.deployedName+' '+this.dist_repo_url, { cwd: 'dist' }, function (err, stdout, stderr) {
+  var child = exec('git remote add '+this.deployedName+' '+this.dist_repo_url, { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
@@ -159,12 +173,16 @@ Generator.prototype.gitRemoteAdd = function gitRemoteAdd() {
     }
     done();
   }.bind(this));
+
+  child.stdout.on('data', function(data) {
+    this.log(data.toString());
+  }.bind(this));
 };
 
 Generator.prototype.enableOpenShiftHotDeploy = function enableOpenshiftHotDeploy() {
   if(this.abort || !this.openshift_remote_exists ) return;
   var done = this.async();
-  this.log(chalk.bold("enabling HotDeploy for OpenShift"));
+  this.log(chalk.bold("\nEnabling HotDeploy for OpenShift"));
   this.copy('hot_deploy', 'dist/.openshift/markers/hot_deploy');
   this.conflicter.resolve(function (err) {
     done();
@@ -175,13 +193,16 @@ Generator.prototype.gruntBuild = function gruntBuild() {
   if(this.abort || !this.openshift_remote_exists ) return;
   var done = this.async();
 
-  this.log(chalk.bold('Building dist folder, please wait...'));
-  exec('grunt build', function (err, stdout) {
-    this.log('stdout: ' + stdout);
+  this.log(chalk.bold('\nBuilding dist folder, please wait...'));
+  var child = exec('grunt build', function (err, stdout) {
     if (err) {
       this.log.error(err);
     }
     done();
+  }.bind(this));
+
+  child.stdout.on('data', function(data) {
+    this.log(data.toString());
   }.bind(this));
 };
 
@@ -189,8 +210,8 @@ Generator.prototype.gitCommit = function gitInit() {
   if(this.abort || !this.openshift_remote_exists ) return;
   var done = this.async();
 
-  this.log(chalk.bold('Adding files for initial commit'));
-  exec('git add -A && git commit -m "Initial commit"', { cwd: 'dist' }, function (err, stdout, stderr) {
+  this.log(chalk.bold('\nAdding files for initial commit'));
+  var child = exec('git add -A && git commit -m "Initial commit"', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (stdout.search('nothing to commit') >= 0) {
       this.log('Re-pushing the existing "dist" build...');
     } else if (err) {
@@ -200,6 +221,10 @@ Generator.prototype.gitCommit = function gitInit() {
     }
     done();
   }.bind(this));
+
+  child.stdout.on('data', function(data) {
+    this.log(data.toString());
+  }.bind(this));
 };
 
 Generator.prototype.gitForcePush = function gitForcePush() {
@@ -207,12 +232,11 @@ Generator.prototype.gitForcePush = function gitForcePush() {
   var done = this.async();
   this.log(chalk.bold("\nUploading your initial application code.\n This may take "+chalk.cyan('several minutes')+" depending on your connection speed..."));
 
-  exec('git push -f '+this.deployedName+' master', { cwd: 'dist' }, function (err, stdout, stderr) {
+  var child = exec('git push -f '+this.deployedName+' master', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
       var host_url = '';
-      this.log('stdout: ' + stdout);
       var before_hostname = 'ssh://xxxxxxxxxxxxxxxxxxxxxxxx@'.length;
       var after_hostname = this.dist_repo_url.length - ( this.deployedName.length + 12 );
       host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
@@ -225,4 +249,9 @@ Generator.prototype.gitForcePush = function gitForcePush() {
     }
     done();
   }.bind(this));
+
+  child.stdout.on('data', function(data) {
+    this.log(data.toString());
+  }.bind(this));
+  child.stdin.write('yes\n');
 };
