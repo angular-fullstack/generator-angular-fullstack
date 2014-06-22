@@ -29,7 +29,7 @@ module.exports = function(app) {
   app.use(bodyParser());
   app.use(methodOverride());
   app.use(cookieParser());
-  <% if (filters.auth) { %>app.use(passport.initialize());<% } %><% if (filters.mongoose) { %>
+  <% if (filters.auth) { %>app.use(passport.initialize());<% } %><% if (filters.auth) { %>
 
   // Persist sessions with mongoStore
   app.use(session({
