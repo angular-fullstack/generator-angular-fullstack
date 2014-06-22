@@ -1,6 +1,6 @@
 /**
  * Populate DB with sample data
- * to disable, edit config/env/index.js, and set `sampleData: false`
+ * to disable, edit config/environment/index.js, and set `sampleData: false`
  */
 
 'use strict';
