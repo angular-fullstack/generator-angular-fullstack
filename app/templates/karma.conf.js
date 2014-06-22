@@ -33,12 +33,11 @@ module.exports = function(config) {
 
     preprocessors: {
       '**/*.html': 'html2js',
-      '**/*.jade': ['jade', 'html2js'],
       '**/*.coffee': 'coffee',
     },
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: 'client'
+      stripPrefix: '(.tmp|client)/'
     },
 
     // list of files / patterns to exclude
