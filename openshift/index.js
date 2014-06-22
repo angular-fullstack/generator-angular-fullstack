@@ -163,8 +163,12 @@ Generator.prototype.gitRemoteAdd = function gitRemoteAdd() {
 
 Generator.prototype.enableOpenShiftHotDeploy = function enableOpenshiftHotDeploy() {
   if(this.abort || !this.openshift_remote_exists ) return;
+  var done = this.async();
   this.log(chalk.bold("enabling HotDeploy for OpenShift"));
-  this.template('hot_deploy', 'dist/.openshift/markers/hot_deploy');
+  this.copy('hot_deploy', 'dist/.openshift/markers/hot_deploy');
+  this.conflicter.resolve(function (err) {
+    done();
+  });
 };
 
 Generator.prototype.gruntBuild = function gruntBuild() {
@@ -216,7 +220,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       this.log(chalk.green('\nYou\'re all set! Your app should now be live at \n\t' + chalk.bold(host_url)));
       this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
                 '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
-      this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push '+this.deployedName+' master')));
+      this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push -f '+this.deployedName+' master')));
       this.openshift_host_url = host_url;
     }
     done();
