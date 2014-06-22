@@ -1,0 +1,1 @@
+Run bower install and npm install in the fixtures folder before running tests

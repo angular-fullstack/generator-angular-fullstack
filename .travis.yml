@@ -3,6 +3,7 @@ node_js:
   - '0.10'
   - '0.8'
 before_install:
+  - cd test/fixtures && npm install && bower install
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-angular-fullstack' ]; then cd .. && eval "mv $currentfolder generator-angular-fullstack" && cd generator-angular-fullstack; fi
 services: mongodb
