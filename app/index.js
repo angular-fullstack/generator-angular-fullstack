@@ -78,6 +78,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   serverPrompts: function() {
     var cb = this.async();
+    var self = this;
 
     console.log('\n# Server\n');
 
@@ -140,6 +141,14 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   saveSettings: function() {
+    this.config.set('insertRoutes', 'true');
+    this.config.set('registerRoutesFile', 'server/routes.js');
+    this.config.set('routesNeedle', '// Insert routes below');
+
+    this.config.set('insertSockets', 'true');
+    this.config.set('registerSocketsFile', 'server/sockets.js');
+    this.config.set('socketsNeedle', '// Insert sockets below');
+
     this.config.set('filters', this.filters);
     this.config.forceSave();
     var angModules = [

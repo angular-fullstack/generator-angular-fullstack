@@ -3,18 +3,3 @@ Description:
 
 Example:
     yo angular-fullstack [--coffee] [--minsafe]
-
-    This will create:
-        Gruntfile.js
-        bower.json
-        server.js
-
-        app/index.html
-        app/scripts/your-app-name-here.js
-        app/scripts/controllers/main.js
-        app/bower_components/angular/angular.js
-        app/styles/main.css
-        app/views/main.html
-
-        test/lib/angular-mocks.js
-        test/spec/controllers/main.js

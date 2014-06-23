@@ -8,7 +8,7 @@ var errors = require('./components/errors');
 
 module.exports = function(app) {
 
-  // Use component routing
+  // Insert routes below
   app.use('/api/things', require('./api/thing'));
   <% if (filters.auth) { %>app.use('/api/users', require('./api/user'));
 

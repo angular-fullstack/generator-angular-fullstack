@@ -12,24 +12,28 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, ScriptBase);
 
 Generator.prototype.registerEndpoint = function() {
-  var config = {
-    file: 'server/config/routes.js',
-    needle: '// Use component routing',
-    splicable: [
-      "app.use(\'/api/" + this.name + "\', require(\'./api/" + this.name + "\'));"
-    ]
-  };
-  ngUtil.rewriteFile(config);
-
-  if(this.filters.socketio) {
+  if(this.config.get('insertRoutes')) {
     var config = {
-      file: 'server/config/socketio.js',
-      needle: '// Register listeners for components',
+      file: this.config.get('registerRoutesFile'),
+      needle: this.config.get('routesNeedle'),
       splicable: [
-        "require(\'./api/" + this.name + '/' + this.name + ".socket\').register(socket);"
+        "app.use(\'/api/" + this.name + "\', require(\'./api/" + this.name + "\'));"
       ]
     };
     ngUtil.rewriteFile(config);
+  }
+
+  if (this.filters.socketio) {
+    if(this.config.get('insertSockets')) {
+      var config = {
+        file: this.config.get('registerSocketsFile'),
+        needle: this.config.get('socketsNeedle'),
+        splicable: [
+          "require(\'./api/" + this.name + '/' + this.name + ".socket\').register(socket);"
+        ]
+      };
+      ngUtil.rewriteFile(config);
+    }
   }
 };
 
