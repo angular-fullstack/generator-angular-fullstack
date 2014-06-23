@@ -695,25 +695,27 @@ module.exports = function (grunt) {
       ]);
     }
 
+    else if (target === 'e2e') {
+      return grunt.task.run([
+        'clean:server',
+        'env:all',
+        'env:test',<% if(filters.less) { %>
+        'injector:less', <% } %><% if(filters.sass) { %>
+        'injector:sass', <% } %>
+        'concurrent:test',
+        'injector',
+        'bowerInstall',
+        'autoprefixer',
+        'express:dev',
+        'protractor'
+      ]);
+    }
+
     else grunt.task.run([
       'test:server',
       'test:client'
     ]);
   });
-
-  grunt.registerTask('e2e', [
-    'clean:server',
-    'env:all',
-    'env:test',<% if(filters.less) { %>
-    'injector:less', <% } %><% if(filters.sass) { %>
-    'injector:sass', <% } %>
-    'concurrent:test',
-    'injector',
-    'bowerInstall',
-    'autoprefixer',
-    'express:dev',
-    'protractor'
-  ]);
 
   grunt.registerTask('build', [
     'clean:dist',<% if(filters.less) { %>
