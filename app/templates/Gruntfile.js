@@ -493,7 +493,7 @@ module.exports = function (grunt) {
           cwd: 'client',
           src: [
             '{app,components}/**/*.coffee',
-            '{app,components}/**/!*.spec.coffee'
+            '!{app,components}/**/*.spec.coffee'
           ],
           dest: '.tmp',
           ext: '.js'
