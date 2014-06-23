@@ -5,6 +5,6 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/ng-test'
+    uri: 'mongodb://localhost/<%= _.slugify(_.humanize(appname))-test'
   }
 };
