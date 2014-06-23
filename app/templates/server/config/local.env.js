@@ -6,7 +6,7 @@
 // This file should not be tracked by git.
 
 module.exports = {
-  SESSION_SECRET: "<%= _.slugify(_.humanize(appname)) + '-secret' %>",
+  SESSION_SECRET: "<%= _.slugify(appname) + '-secret' %>",
   FACEBOOK_ID: "FACEBOOK-APP-ID",
   FACEBOOK_SECRET: "FACEBOOK-SECRET",
   TWITTER_ID: "TWITTER-APP-ID",
