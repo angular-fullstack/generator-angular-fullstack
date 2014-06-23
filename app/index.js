@@ -22,17 +22,23 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.appPath = this.env.options.appPath;
     this.pkg = require('../package.json');
     this.filters = {};
+    // skip config if filters are already defined
+    if(this.config.get('filters')) {
+      this.log('\nUsing existing yo-rc config.\n');
+      this.skipConfig = true;
+    }
   },
 
   info: function () {
-    console.log(this.yeoman);
-    console.log('Out of the box I create an AngularJS app with an Express server.\n');
+    this.log(this.yeoman);
+    this.log('Out of the box I create an AngularJS app with an Express server.\n');
   },
 
   clientPrompts: function() {
+    if(this.skipConfig) return;
     var cb = this.async();
 
-    console.log('# Client\n');
+    this.log('# Client\n');
 
     this.prompt([{
         type: "list",
@@ -77,10 +83,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   serverPrompts: function() {
+    if(this.skipConfig) return;
     var cb = this.async();
     var self = this;
 
-    console.log('\n# Server\n');
+    this.log('\n# Server\n');
 
     this.prompt([{
       type: "confirm",
@@ -90,15 +97,15 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       type: "confirm",
       name: "auth",
       message: "Would you scaffold out an authentication boilerplate?",
-      when: function (props) {
-        return props.mongoose;
+      when: function (answers) {
+        return answers.mongoose;
       }
     }, {
       type: 'checkbox',
       name: 'oauth',
       message: 'Would you like to include additional oAuth strategies?',
-      when: function (props) {
-        return props.auth;
+      when: function (answers) {
+        return answers.auth;
       },
       choices: [
         {
@@ -122,8 +129,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       name: "socketio",
       message: "Would you like to use socket.io?",
       // to-do: should not be dependent on mongoose
-      when: function (props) {
-        return props.mongoose;
+      when: function (answers) {
+        return answers.mongoose;
       },
       default: true
     }], function (answers) {
@@ -141,6 +148,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   saveSettings: function() {
+    if(this.skipConfig) return;
     this.config.set('insertRoutes', 'true');
     this.config.set('registerRoutesFile', 'server/routes.js');
     this.config.set('routesNeedle', '// Insert routes below');
@@ -151,20 +159,10 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     this.config.set('filters', this.filters);
     this.config.forceSave();
-    var angModules = [
-      "'ngCookies'",
-      "'ngResource'",
-      "'ngSanitize'",
-      "'ngRoute'",
-      "'ui.bootstrap'"
-    ];
-    if(this.filters['socketio']) angModules.push("'btford.socket-io'");
-    if(this.filters['uirouter']) angModules.push("'ui.router'");
-
-    this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
   },
 
   compose: function() {
+    if(this.skipConfig) return;
     var appPath = 'client/app/';
     var extensions = [];
     var filters = [];
@@ -190,6 +188,20 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         'basePath': 'client'
       }
     });
+  },
+
+  ngModules: function() {
+    var angModules = [
+      "'ngCookies'",
+      "'ngResource'",
+      "'ngSanitize'",
+      "'ngRoute'",
+      "'ui.bootstrap'"
+    ];
+    if(this.filters['socketio']) angModules.push("'btford.socket-io'");
+    if(this.filters['uirouter']) angModules.push("'ui.router'");
+
+    this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
   },
 
   generate: function() {

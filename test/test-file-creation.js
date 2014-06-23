@@ -121,6 +121,27 @@ describe('angular-fullstack generator', function () {
         });
       });
 
+      it('should use existing config if available', function(done) {
+        this.timeout(60000);
+        fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
+        var gen = helpers.createGenerator('angular-fullstack:app', [
+          '../../app',
+          [
+            helpers.createDummyGenerator(),
+            'ng-component:app'
+          ]
+        ]);
+        gen.options['skip-install'] = true;
+        gen.run({}, function () {
+          helpers.assertFile([
+            'client/app/main/main.less',
+            'client/app/main/main.coffee'
+          ]);
+          done();
+        });
+      });
+
+
 
 //      it('should run e2e tests successfully', function(done) {
 //        this.timeout(80000);
