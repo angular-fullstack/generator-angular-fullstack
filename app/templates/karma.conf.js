@@ -27,17 +27,24 @@ module.exports = function(config) {
       'client/app/app.coffee',
       'client/app/**/*.coffee',
       'client/components/**/*.js',
-      '{.tmp,client}/app/**/*.html',
-      '{.tmp,client}/components/**/*.html'
+      'client/app/**/*.jade',
+      'client/components/**/*.jade',
+      'client/app/**/*.html',
+      'client/components/**/*.html'
     ],
 
     preprocessors: {
+      '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',
       '**/*.coffee': 'coffee',
     },
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: '(.tmp|client)/'
+      stripPrefix: 'client/'
+    },
+
+    ngJade2JsPreprocessor: {
+      stripPrefix: 'client/'
     },
 
     // list of files / patterns to exclude
@@ -48,7 +55,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
