@@ -144,6 +144,18 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       if(this.filters.socketio) {
         this.log(chalk.yellow('Because you\'re using socketIO, you must enable websockets on your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku labs:enable websockets') + '\n'));
       }
+
+      if(this.filters.facebookAuth) {
+        this.log(chalk.yellow('Facebook auth requires you to set environment variables for\n\t' + 'FACEBOOK-APP-ID\n\t' + 'FACEBOOK-SECRET'));
+      }
+      if(this.filters.googleAuth) {
+        this.log(chalk.yellow('Google auth requires you to set environment variables for\n\t' + 'GOOGLE-APP-ID\n\t' + 'GOOGLE-SECRET'));
+
+      }
+      if(this.filters.twitterAuth) {
+        this.log(chalk.yellow('Twitter auth requires you to set environment variables for\n\t' + 'TWITTER-APP-ID\n\t' + 'TWITTER-SECRET'));
+      }
+
       this.log(chalk.green('\nYour app should now be live. To view it run\n\t' + chalk.bold('cd dist && heroku open')));
 
       this.log(chalk.cyan('\nTo deploy a new build\n\t' + chalk.bold('grunt build') +

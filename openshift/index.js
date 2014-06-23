@@ -246,6 +246,17 @@ Generator.prototype.gitForcePush = function gitForcePush() {
         this.log(chalk.yellow('Openshift websockets use port 8000, you will need to update the client to connect to the correct port for sockets to work.\n\t' + 'in `/client/app/components/socket/socket.service`: ' + chalk.bold('var ioSocket = io.connect(\'' + host_url + ':8000' + '\')' + '\n')));
       }
 
+      if(this.filters.facebookAuth) {
+        this.log(chalk.yellow('Facebook auth requires you to set environment variables for\n\t' + 'FACEBOOK-APP-ID\n\t' + 'FACEBOOK-SECRET'));
+      }
+      if(this.filters.googleAuth) {
+        this.log(chalk.yellow('Google auth requires you to set environment variables for\n\t' + 'GOOGLE-APP-ID\n\t' + 'GOOGLE-SECRET'));
+
+      }
+      if(this.filters.twitterAuth) {
+        this.log(chalk.yellow('Twitter auth requires you to set environment variables for\n\t' + 'TWITTER-APP-ID\n\t' + 'TWITTER-SECRET'));
+      }
+
       this.log(chalk.green('\nYour app should now be live at \n\t' + chalk.bold(host_url)));
       this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
                 '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
