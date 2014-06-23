@@ -191,6 +191,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   ngModules: function() {
+    this.filters = this.config.get('filters');
     var angModules = [
       "'ngCookies'",
       "'ngResource'",
