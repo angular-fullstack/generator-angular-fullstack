@@ -146,7 +146,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.config.set('routesNeedle', '// Insert routes below');
 
     this.config.set('insertSockets', 'true');
-    this.config.set('registerSocketsFile', 'server/sockets.js');
+    this.config.set('registerSocketsFile', 'server/config/socketio.js');
     this.config.set('socketsNeedle', '// Insert sockets below');
 
     this.config.set('filters', this.filters);

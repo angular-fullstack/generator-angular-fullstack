@@ -19,6 +19,19 @@ describe('angular-fullstack generator', function () {
     socketio: true
   };
 
+  function generatorTest(generatorType, name, mockPrompt, callback) {
+    gen.run({}, function () {
+      var afGenerator;
+      var deps = [path.join('../..', generatorType)];
+      afGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name]);
+
+      helpers.mockPrompt(afGenerator, mockPrompt);
+      afGenerator.run([], function () {
+        callback();
+      });
+    });
+  }
+
   beforeEach(function (done) {
     this.timeout(10000);
     var deps = [
@@ -97,6 +110,17 @@ describe('angular-fullstack generator', function () {
           });
         });
       });
+
+      it('should run server tests successfully with generated endpoint', function(done) {
+        this.timeout(60000);
+        generatorTest('endpoint', 'foo', {}, function() {
+          exec('grunt test:server', function (error, stdout, stderr) {
+            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            done();
+          });
+        });
+      });
+
 
 //      it('should run e2e tests successfully', function(done) {
 //        this.timeout(80000);
