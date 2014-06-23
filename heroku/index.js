@@ -159,7 +159,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       this.log(chalk.green('\nYour app should now be live. To view it run\n\t' + chalk.bold('cd dist && heroku open')));
 
       this.log(chalk.cyan('\nTo deploy a new build\n\t' + chalk.bold('grunt build') +
-                '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
+                '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
       this.log(chalk.cyan('Finally, deploy your updated build to Heroku with\n\t' + chalk.bold('git push -f heroku master')));
     }
     done();

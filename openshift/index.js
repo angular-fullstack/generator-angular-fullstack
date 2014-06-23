@@ -259,9 +259,8 @@ Generator.prototype.gitForcePush = function gitForcePush() {
 
       this.log(chalk.green('\nYour app should now be live at \n\t' + chalk.bold(host_url)));
       this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
-                '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git commit -am "describe your changes here"')));
+      '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
       this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push -f '+this.deployedName+' master')));
-      this.openshift_host_url = host_url;
     }
     done();
   }.bind(this));
