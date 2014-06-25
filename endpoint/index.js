@@ -11,13 +11,30 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, ScriptBase);
 
-Generator.prototype.registerEndpoint = function() {
+Generator.prototype.askFor = function askFor() {
+  var done = this.async();
+  var name = this.name;
+  var prompts = [
+    {
+      name: 'route',
+      message: 'What will the url of your endpoint to be?',
+      default: '/api/' + name + 's'
+    }
+  ];
+
+  this.prompt(prompts, function (props) {
+    this.route = props.route;
+    done();
+  }.bind(this));
+};
+
+Generator.prototype.registerEndpoint = function registerEndpoint() {
   if(this.config.get('insertRoutes')) {
     var config = {
       file: this.config.get('registerRoutesFile'),
       needle: this.config.get('routesNeedle'),
       splicable: [
-        "app.use(\'/api/" + this.name + "s\', require(\'./api/" + this.name + "\'));"
+        "app.use(\'" + this.route +"\', require(\'./api/" + this.name + "\'));"
       ]
     };
     ngUtil.rewriteFile(config);
