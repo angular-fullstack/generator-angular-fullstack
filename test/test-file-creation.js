@@ -132,6 +132,9 @@ describe('angular-fullstack generator', function () {
           ]
         ]);
         gen.options['skip-install'] = true;
+        helpers.mockPrompt(gen, {
+          skipConfig: true
+        });
         gen.run({}, function () {
           helpers.assertFile([
             'client/app/main/main.less',
