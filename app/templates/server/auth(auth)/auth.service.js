@@ -10,13 +10,6 @@ var User = require('../api/user/user.model');
 var validateJwt = expressJwt({ secret: config.secrets.session });
 
 /**
- * Returns jwt token signed by app secret
- */
-var signToken = function(id, role) {
-  return jwt.sign({ _id: id }, config.secrets.session, { expiresInMinutes: 60*5 });
-};
-
-/**
  * Attaches the user object to the request if authenticated
  * Otherwise returns 403
  */
@@ -61,14 +54,21 @@ function hasRole(roleRequired) {
 }
 
 /**
+ * Returns a jwt token signed by the app secret
+ */
+function signToken(id, role) {
+  return jwt.sign({ _id: id }, config.secrets.session, { expiresInMinutes: 60*5 });
+}
+
+/**
  * Set token cookie directly for oAuth strategies
  */
-var setTokenCookie = function(req, res, next) {
+function setTokenCookie(req, res, next) {
   if (!req.user) return res.json(404, { message: 'Something went wrong, please try again.'});
   var token = signToken(req.user._id, req.user.role);
   res.cookie('token', JSON.stringify(token));
   res.redirect('/');
-};
+}
 
 exports.isAuthenticated = isAuthenticated;
 exports.hasRole = hasRole;
