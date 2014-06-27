@@ -187,7 +187,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         'extensions': extensions,
         'basePath': 'client'
       }
-    });
+    }, { local: require.resolve('generator-ng-component/app/index.js') });
   },
 
   ngModules: function() {
