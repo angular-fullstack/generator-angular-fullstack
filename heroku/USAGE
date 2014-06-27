@@ -2,7 +2,7 @@ Description:
     Initalizes a heroku app and generates a `dist` folder which is ready to push to heroku.
 
 Example:
-    yo angular-fullstack:deploy heroku
+    yo angular-fullstack:heroku
 
     This will create:
         a dist folder and initialize a heroku app

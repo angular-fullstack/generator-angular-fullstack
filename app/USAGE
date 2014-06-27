@@ -1,5 +1,5 @@
 Description:
-    Creates a default AngularJS app
+    Creates an full-stack AngularJS + Node app
 
 Example:
-    yo angular-fullstack [--coffee] [--minsafe]
+    yo angular-fullstack
