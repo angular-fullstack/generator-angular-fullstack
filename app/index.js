@@ -22,16 +22,29 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.appPath = this.env.options.appPath;
     this.pkg = require('../package.json');
     this.filters = {};
-    // skip config if filters are already defined
-    if(this.config.get('filters')) {
-      this.log('\nUsing existing yo-rc config.\n');
-      this.skipConfig = true;
-    }
   },
 
   info: function () {
     this.log(this.yeoman);
     this.log('Out of the box I create an AngularJS app with an Express server.\n');
+  },
+
+  checkForConfig: function() {
+    var cb = this.async();
+
+    if(this.config.get('filters')) {
+      this.prompt([{
+        type: "confirm",
+        name: "skipConfig",
+        message: "Existing .yo-rc configuration found, would you like to use it?",
+        default: true,
+      }], function (answers) {
+        this.skipConfig = answers.skipConfig;
+        cb();
+      }.bind(this));
+    } else {
+      cb();
+    }
   },
 
   clientPrompts: function() {
