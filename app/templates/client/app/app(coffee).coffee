@@ -10,7 +10,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
     $httpProvider.interceptors.push 'authInterceptor'<% } %>
   )<% } %><% if(filters.uirouter) { %>.config (($stateProvider, $urlRouterProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) ->
     $urlRouterProvider
-    .otherwise('/');
+    .otherwise('/')
 
     $locationProvider.html5Mode true<% if(filters.auth) { %>
     $httpProvider.interceptors.push 'authInterceptor'<% } %>
