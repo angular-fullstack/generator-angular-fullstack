@@ -19,31 +19,43 @@ angular.module('<%= scriptAppName %>').factory 'socket', (socketFactory) ->
   , retryInterval)
   socket = socketFactory(ioSocket: ioSocket)
   socket: socket
-  
+
   ###
-  Register listeners to sync a collection with socket.io
+  Register listeners to sync an array with a database collection through socket.io
+
+  Takes the array we want to sync, the model namespace that socket updates are sent from,
+  and an optional callback function after new items are updated.
+
+  @param {Array} array
+  @param {String} namespace
+  @param {Function} cb
   ###
-  syncCollection: (collection, itemName) ->
-    
+  syncArray: (array, namespace, cb) ->
+    cb = cb or angular.noop
+
     ###
     Syncs item creation/updates on 'model:save'
     ###
-    socket.on itemName + ':save', (newItem) ->
-      oldItem = _.find(collection,
+    socket.on namespace + ":save", (newItem) ->
+      oldItem = _.find(array,
         _id: newItem._id
       )
-      index = collection.indexOf(oldItem)
-      
+      index = array.indexOf(oldItem)
+
       # replace oldItem if it exists
       # otherwise just add newItem to the collection
       if oldItem
-        collection.splice index, 1, newItem
+        array.splice index, 1, newItem
       else
-        collection.push newItem
-    
+        array.push newItem
+      cb array
+
+
     ###
     Syncs removed items on 'model:remove'
     ###
-    socket.on itemName + ':remove', (newItem) ->
-      _.remove collection,
+    socket.on namespace + ":remove", (newItem) ->
+      _.remove array,
         _id: newItem._id
+
+      cb array

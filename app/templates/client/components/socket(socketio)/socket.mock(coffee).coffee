@@ -10,4 +10,4 @@ angular.module('socketMock', []).factory 'socket', ->
 
     receive: ->
 
-  syncCollection: ->
+  syncArray: ->

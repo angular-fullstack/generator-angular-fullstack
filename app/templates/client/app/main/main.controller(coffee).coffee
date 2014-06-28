@@ -3,7 +3,7 @@
 angular.module('<%= scriptAppName %>').controller 'MainCtrl', ($scope, $http<% if(filters.socketio) { %>, socket<% } %>) ->
   $http.get('/api/things').success (awesomeThings) ->
     $scope.awesomeThings = awesomeThings
-    <% if(filters.socketio) { %>socket.syncCollection $scope.awesomeThings, 'thing'<% } %>
+    <% if(filters.socketio) { %>socket.syncArray $scope.awesomeThings, 'thing'<% } %>
 <% if(filters.mongoose) { %>
   $scope.addThing = ->
     return if $scope.newThing is ''
