@@ -76,6 +76,7 @@
     "karma-requirejs": "~0.2.1",
     "karma-coffee-preprocessor": "~0.2.1",
     "karma-jade-preprocessor": "0.0.11",
+    "karma-ng-jade2js-preprocessor": "^0.1.2",
     "karma-phantomjs-launcher": "~0.1.4",
     "karma": "~0.12.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
