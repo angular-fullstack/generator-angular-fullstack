@@ -138,25 +138,40 @@ Generator.prototype.gitForcePush = function gitForcePush() {
     if (err) {
       this.log.error(err);
     } else {
+      var hasWarning = false;
+
       if(this.filters.mongoose) {
         this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
+        hasWarning = true;
       }
       if(this.filters.socketio) {
         this.log(chalk.yellow('Because you\'re using socketIO, you must enable websockets on your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku labs:enable websockets') + '\n'));
+        hasWarning = true;
       }
 
       if(this.filters.facebookAuth) {
-        this.log(chalk.yellow('Facebook auth requires you to set environment variables for\n\t' + 'FACEBOOK-APP-ID\n\t' + 'FACEBOOK-SECRET'));
+        this.log(chalk.yellow('You will need to set environment variables for facebook auth. From `/dist`:\n\t' +
+        chalk.bold('heroku config:set FACEBOOK_ID=appId\n\t') +
+        chalk.bold('heroku config:set FACEBOOK_SECRET=secret\n')));
+        hasWarning = true;
       }
       if(this.filters.googleAuth) {
-        this.log(chalk.yellow('Google auth requires you to set environment variables for\n\t' + 'GOOGLE-APP-ID\n\t' + 'GOOGLE-SECRET'));
-
+        this.log(chalk.yellow('You will need to set environment variables for google auth. From `/dist`:\n\t' +
+        chalk.bold('heroku config:set GOOGLE_ID=appId\n\t') +
+        chalk.bold('heroku config:set GOOGLE_SECRET=secret\n')));
+        hasWarning = true;
       }
       if(this.filters.twitterAuth) {
-        this.log(chalk.yellow('Twitter auth requires you to set environment variables for\n\t' + 'TWITTER-APP-ID\n\t' + 'TWITTER-SECRET'));
+        this.log(chalk.yellow('You will need to set environment variables for twitter auth. From `/dist`:\n\t' +
+        chalk.bold('heroku config:set TWITTER_ID=appId\n\t') +
+        chalk.bold('heroku config:set TWITTER_SECRET=secret\n')));
+        hasWarning = true;
       }
 
       this.log(chalk.green('\nYour app should now be live. To view it run\n\t' + chalk.bold('cd dist && heroku open')));
+      if(hasWarning) {
+        this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly.'));
+      }
 
       this.log(chalk.cyan('\nTo deploy a new build\n\t' + chalk.bold('grunt build') +
                 '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));

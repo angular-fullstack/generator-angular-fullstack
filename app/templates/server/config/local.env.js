@@ -7,10 +7,10 @@
 
 module.exports = {
   SESSION_SECRET: "<%= _.slugify(appname) + '-secret' %>",
-  FACEBOOK_ID: "FACEBOOK-APP-ID",
-  FACEBOOK_SECRET: "FACEBOOK-SECRET",
-  TWITTER_ID: "TWITTER-APP-ID",
-  TWITTER_SECRET: "TWITTER-SECRET",
-  GOOGLE_ID: "GOOGLE-APP-ID",
-  GOOGLE_SECRET: "GOOGLE-SECRET"
+  FACEBOOK_ID: "app-id",
+  FACEBOOK_SECRET: "secret",
+  TWITTER_ID: "app-id",
+  TWITTER_SECRET: "secret",
+  GOOGLE_ID: "app-id",
+  GOOGLE_SECRET: "secret"
 };

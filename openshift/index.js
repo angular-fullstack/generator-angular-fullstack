@@ -238,26 +238,40 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       this.log.error(err);
     } else {
       var host_url = '';
+      var hasWarning = false;
       var before_hostname = this.dist_repo_url.indexOf('@') + 1;
       var after_hostname = this.dist_repo_url.length - ( this.deployedName.length + 12 );
       host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
 
       if(this.filters.socketio) {
         this.log(chalk.yellow('Openshift websockets use port 8000, you will need to update the client to connect to the correct port for sockets to work.\n\t' + 'in `/client/app/components/socket/socket.service`: ' + chalk.bold('var ioSocket = io.connect(\'' + host_url + ':8000' + '\')' + '\n')));
+        hasWarning = true;
       }
 
       if(this.filters.facebookAuth) {
-        this.log(chalk.yellow('Facebook auth requires you to set environment variables for\n\t' + 'FACEBOOK-APP-ID\n\t' + 'FACEBOOK-SECRET'));
+        this.log(chalk.yellow('You will need to set environment variables for facebook auth:\n\t' +
+        chalk.bold('rhc set-env FACEBOOK_ID=id -a ' + this.deployedName + '\n\t') +
+        chalk.bold('rhc set-env FACEBOOK_SECRET=secret -a ' + this.deployedName + '\n')));
+        hasWarning = true;
       }
       if(this.filters.googleAuth) {
-        this.log(chalk.yellow('Google auth requires you to set environment variables for\n\t' + 'GOOGLE-APP-ID\n\t' + 'GOOGLE-SECRET'));
-
+        this.log(chalk.yellow('You will need to set environment variables for google auth:\n\t' +
+        chalk.bold('rhc set-env GOOGLE_ID=id -a ' + this.deployedName + '\n\t') +
+        chalk.bold('rhc set-env GOOGLE_SECRET=secret -a ' + this.deployedName + '\n')));
+        hasWarning = true;
       }
       if(this.filters.twitterAuth) {
-        this.log(chalk.yellow('Twitter auth requires you to set environment variables for\n\t' + 'TWITTER-APP-ID\n\t' + 'TWITTER-SECRET'));
+        this.log(chalk.yellow('You will need to set environment variables for twitter auth:\n\t' +
+        chalk.bold('rhc set-env TWITTER_ID=id -a ' + this.deployedName + '\n\t') +
+        chalk.bold('rhc set-env TWITTER_SECRET=secret -a ' + this.deployedName + '\n')));
+        hasWarning = true;
       }
 
       this.log(chalk.green('\nYour app should now be live at \n\t' + chalk.bold(host_url)));
+      if(hasWarning) {
+        this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly \n\t' +
+          'rhc app-restart -a ' + this.deployedName));
+      }
       this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
       '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
       this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push -f '+this.deployedName+' master')));
