@@ -116,7 +116,7 @@ yo angular-fullstack
 
 Depending on your configuration, deploying to OpenShift can be done in just a few steps:
 
-`yo angular-fullstack:openshift`
+    yo angular-fullstack:openshift
 
 A live application URL will be available in the output.
 
