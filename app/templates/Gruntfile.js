@@ -321,7 +321,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       options: {
         // This should be the name of your apps angular module
-        module: require('./bower.json').name + 'App',
+        module: '<%= scriptAppName %>',
         htmlmin: {
           collapseBooleanAttributes: true,
           collapseWhitespace: true,
