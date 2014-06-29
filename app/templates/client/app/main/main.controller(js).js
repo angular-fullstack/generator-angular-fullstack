@@ -2,9 +2,11 @@
 
 angular.module('<%= scriptAppName %>')
   .controller('MainCtrl', function ($scope, $http<% if(filters.socketio) { %>, socket<% } %>) {
+    $scope.awesomeThings = [];
+
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;<% if(filters.socketio) { %>
-      socket.syncArray($scope.awesomeThings, 'thing');<% } %>
+      socket.syncUpdates('thing', $scope.awesomeThings);<% } %>
     });
 <% if(filters.mongoose) { %>
     $scope.addThing = function() {
@@ -17,5 +19,9 @@ angular.module('<%= scriptAppName %>')
 
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
-    };<% } %>
+    };<% } %><% if(filters.socketio) { %>
+
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('thing');
+    });<% } %>
   });

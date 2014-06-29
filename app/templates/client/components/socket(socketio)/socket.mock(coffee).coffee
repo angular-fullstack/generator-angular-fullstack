@@ -10,4 +10,5 @@ angular.module('socketMock', []).factory 'socket', ->
 
     receive: ->
 
-  syncArray: ->
+  syncUpdates: ->
+  unsyncUpdates: ->
