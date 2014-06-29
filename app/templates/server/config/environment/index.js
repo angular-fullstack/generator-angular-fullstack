@@ -42,20 +42,20 @@ var all = {
   },
 <% if(filters.facebookAuth) { %>
   facebook: {
-    clientID:     requiredProcessEnv('FACEBOOK_ID'),
-    clientSecret: requiredProcessEnv('FACEBOOK_SECRET'),
+    clientID:     process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL:  'http://localhost:9000/auth/facebook/callback'
   },
 <% } %><% if(filters.twitterAuth) { %>
   twitter: {
-    clientID:     requiredProcessEnv('TWITTER_ID'),
-    clientSecret: requiredProcessEnv('TWITTER_SECRET'),
+    clientID:     process.env.TWITTER_ID,
+    clientSecret: process.env.TWITTER_SECRET,
     callbackURL:  'http://localhost:9000/auth/twitter/callback'
   },
 <% } %><% if(filters.googleAuth) { %>
   google: {
-    clientID:     requiredProcessEnv('GOOGLE_ID'),
-    clientSecret: requiredProcessEnv('GOOGLE_SECRET'),
+    clientID:     process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
     callbackURL:  'http://localhost:9000/auth/google/callback'
   }<% } %>
 };
