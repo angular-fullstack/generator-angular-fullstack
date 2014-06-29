@@ -17,7 +17,7 @@ exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   res.json([
   {
   name : 'Development Tools',
-  info : 'Integration with popular tools such as Bower, Grunt, Karma, JSHint, Node Inspector, Livereload, Protractor, Jade, SCSS, CoffeScript, and LESS.'
+  info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Sass, CoffeeScript, and Less.'
   }, {
   name : 'Server and Client integration',
   info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
@@ -32,7 +32,7 @@ exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
   },{
   name : 'Deployment Ready',
-  info : 'Easily deploy your app to Heroku or Openshift with the :heroku and :openshift subgenerators'
+  info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   }
   ]);<% } %><% if (filters.mongoose) { %>
   Thing.find(function (err, things) {
