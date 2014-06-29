@@ -114,21 +114,19 @@ yo angular-fullstack
 ```
 ###Openshift
 
-Depending on your configuration, deploying to OpenShift can be done in just a few steps:
+Deploying to OpenShift can be done in just a few steps:
 
     yo angular-fullstack:openshift
 
 A live application URL will be available in the output.
 
-> #### Additional Configuration 
-> 
 > **Enabling web sockets**
 >
 > If you're using socket.io, you will need to update the client to connect to the correct port for sockets to work. 
 > 
 > In `/client/app/components/socket/socket.service` update the socket to connect to port 8000. (with `my-openshift-app` being the deployed name of your app):
 >
->    var ioSocket = io.connect('my-openshift-app.com:8000');
+>     var ioSocket = io.connect('my-openshift-app.com:8000');
 > 
 > **oAuth**
 >
@@ -164,14 +162,11 @@ If you're using mongoDB you will need to add a database to your app:
 
 Your app should now be live. To view it run `heroku open`
 
-> #### Additional Configuration 
->
-> 
 > **Enabling web sockets**
 >
 > If you're using socket.io you will need to enable websockets on your app: 
 >
->    heroku labs:enable websockets
+>     heroku labs:enable websockets
 >
 > **oAuth**
 >
@@ -180,7 +175,7 @@ Your app should now be live. To view it run `heroku open`
 >     heroku config:set FACEBOOK_ID=id
 >     heroku config:set FACEBOOK_SECRET=secret
 
-**Pushing Updates**
+#### Pushing Updates
 
     grunt
     
