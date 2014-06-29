@@ -143,7 +143,7 @@ A live application URL will be available in the output.
     
 **Pushing Updates**
 
-    grunt build
+    grunt
     
 Commit and push the resulting build, located in your dist folder:
 
@@ -182,7 +182,7 @@ Your app should now be live. To view it run `heroku open`
 
 **Pushing Updates**
 
-    grunt build
+    grunt
     
 Commit and push the resulting build, located in your dist folder:
 
@@ -238,7 +238,7 @@ yo angular-fullstack:controller user
 
 Produces: 
 
-    client/app/user/user.controller.create
+    client/app/user/user.controller.js
     client/app/user/user.controller.spec.js
 
 ### Directive
