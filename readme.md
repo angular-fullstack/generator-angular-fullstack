@@ -122,22 +122,22 @@ A live application URL will be available in the output.
 
 > #### Additional Configuration 
 > 
-**Enabling web sockets**
-If you're using socket.io, you will need to update the client to connect to the correct port for sockets to work. 
+> **Enabling web sockets**
+> If you're using socket.io, you will need to update the client to connect to the correct port for sockets to work. 
 > 
-In `/client/app/components/socket/socket.service` update the socket to connect to port 8000. (with `my-openshift-app` being the deployed name of your app):
+> In `/client/app/components/socket/socket.service` update the socket to connect to port 8000. (with `my-openshift-app` being the deployed name of your app):
 >
-    var ioSocket = io.connect('my-openshift-app.com:8000');
+>    var ioSocket = io.connect('my-openshift-app.com:8000');
 > 
 **oAuth**
-If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using Facebook oAuth we would do this :
+> If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using Facebook oAuth we would do this :
 > 
-    rhc set-env FACEBOOK_ID=id -a my-openshift-app
-    rhc set-env FACEBOOK_SECRET=secret -a my-openshift-app
+>     rhc set-env FACEBOOK_ID=id -a my-openshift-app
+>     rhc set-env FACEBOOK_SECRET=secret -a my-openshift-app
 > 
-After you've set the required environment variables, restart the server: 
+> After you've set the required environment variables, restart the server: 
 > 
-    rhc app-restart -a my-openshift-app
+>     rhc app-restart -a my-openshift-app
     
 **Pushing Updates**
 
@@ -165,15 +165,15 @@ Your app should now be live. To view it run `heroku open`
 > #### Additional Configuration 
 >
 > 
-**Enabling web sockets**
-If you're using socket.io you will need to enable websockets on your app: 
+> **Enabling web sockets**
+> If you're using socket.io you will need to enable websockets on your app: 
 >
     heroku labs:enable websockets
 **oAuth**
-If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using Facebook oAuth we would do this :
+> If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using Facebook oAuth we would do this :
 > 
-    heroku config:set FACEBOOK_ID=id
-    heroku config:set FACEBOOK_SECRET=secret
+>     heroku config:set FACEBOOK_ID=id
+>     heroku config:set FACEBOOK_SECRET=secret
 
 **Pushing Updates**
 
