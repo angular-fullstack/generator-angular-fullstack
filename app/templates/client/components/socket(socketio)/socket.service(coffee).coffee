@@ -37,28 +37,28 @@ angular.module('<%= scriptAppName %>').factory 'socket', (socketFactory) ->
     ###
     Syncs item creation/updates on 'model:save'
     ###
-    socket.on modelName + ":save", (newItem) ->
+    socket.on modelName + ":save", (item) ->
       oldItem = _.find(array,
-        _id: newItem._id
+        _id: item._id
       )
       index = array.indexOf(oldItem)
 
       # replace oldItem if it exists
-      # otherwise just add newItem to the collection
+      # otherwise just add item to the collection
       if oldItem
-        array.splice index, 1, newItem
+        array.splice index, 1, item
       else
-        array.push newItem
-      cb array
+        array.push item
+      cb item, array
 
     ###
     Syncs removed items on 'model:remove'
     ###
-    socket.on modelName + ":remove", (newItem) ->
+    socket.on modelName + ":remove", (item) ->
       _.remove array,
-        _id: newItem._id
+        _id: item._id
 
-      cb array
+      cb item, array
 
   ###
   Removes listeners for a models updates on the socket
