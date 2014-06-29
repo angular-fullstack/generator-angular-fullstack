@@ -2,22 +2,6 @@
 
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
-## Supported Configurations
-
-**Client**
-
-* Scripts: `JavaScript`, `CoffeeScript`
-* Markup:  `HTML`, `Jade`
-* Stylesheets: `CSS`, `Sass`, `Less`,
-* Angular Routers: `ngRoute`, `ui-router`
-
-**Server**
-
-* Database: `None`, `MongoDB`
-* Authentication boilerplate: `Yes`, `No` 
-* oAuth integrations: `Facebook` `Twitter` `Google` 
-* Socket.io integration: `Yes`, `No`
-
 ## Usage
 
 Install `generator-angular-fullstack`:
@@ -36,6 +20,22 @@ yo angular-fullstack [app-name]
 ```
 
 Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for a preview of the built app.
+
+## Supported Configurations
+
+**Client**
+
+* Scripts: `JavaScript`, `CoffeeScript`
+* Markup:  `HTML`, `Jade`
+* Stylesheets: `CSS`, `Sass`, `Less`,
+* Angular Routers: `ngRoute`, `ui-router`
+
+**Server**
+
+* Database: `None`, `MongoDB`
+* Authentication boilerplate: `Yes`, `No` 
+* oAuth integrations: `Facebook` `Twitter` `Google` 
+* Socket.io integration: `Yes`, `No`
 
 ## Project Structure
 
