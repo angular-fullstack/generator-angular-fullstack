@@ -4,13 +4,13 @@
 
 'use strict';
 
-var <%= name %> = require('./<%= name %>.model');
+var <%= classedName %> = require('./<%= name %>.model');
 
 exports.register = function(socket) {
-  <%= name %>.schema.post('save', function (doc) {
+  <%= classedName %>.schema.post('save', function (doc) {
     onSave(socket, doc);
   });
-  <%= name %>.schema.post('remove', function (doc) {
+  <%= classedName %>.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
 }
