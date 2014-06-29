@@ -10,7 +10,8 @@ var wiredep = require('wiredep');
 var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   init: function () {
-    this.appname = this.appname || path.basename(process.cwd());
+    this.argument('name', { type: String, required: false });
+    this.appname = this.name || path.basename(process.cwd());
     this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
 
     this.option('app-suffix', {
