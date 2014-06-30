@@ -21,6 +21,12 @@ yo angular-fullstack [app-name]
 
 Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for a preview of the built app.
 
+## Example project
+
+Generated with defaults: http://fullstack-demo.herokuapp.com/. 
+
+Have a look at the source code: https://github.com/DaftMonk/fullstack-demo
+
 ## Supported Configurations
 
 **Client**
@@ -135,6 +141,8 @@ A live application URL will be available in the output.
 >     rhc set-env FACEBOOK_ID=id -a my-openshift-app
 >     rhc set-env FACEBOOK_SECRET=secret -a my-openshift-app
 > 
+> You will also need to update the callback urls for your oAuth strategies in your `server/config/environment/index.js`
+>
 > After you've set the required environment variables, restart the server: 
 > 
 >     rhc app-restart -a my-openshift-app
@@ -174,6 +182,9 @@ Your app should now be live. To view it run `heroku open`
 > 
 >     heroku config:set FACEBOOK_ID=id
 >     heroku config:set FACEBOOK_SECRET=secret
+>
+> You will also need to update the callback urls for your oAuth strategies in your `server/config/environment/index.js`
+>
 
 #### Pushing Updates
 
