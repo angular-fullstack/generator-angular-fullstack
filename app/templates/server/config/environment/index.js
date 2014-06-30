@@ -42,20 +42,20 @@ var all = {
   },
 <% if(filters.facebookAuth) { %>
   facebook: {
-    clientID:     process.env.FACEBOOK_ID,
-    clientSecret: process.env.FACEBOOK_SECRET,
+    clientID:     process.env.FACEBOOK_ID || 'id',
+    clientSecret: process.env.FACEBOOK_SECRET || 'secret',
     callbackURL:  'http://localhost:9000/auth/facebook/callback'
   },
 <% } %><% if(filters.twitterAuth) { %>
   twitter: {
-    clientID:     process.env.TWITTER_ID,
-    clientSecret: process.env.TWITTER_SECRET,
+    clientID:     process.env.TWITTER_ID || 'id',
+    clientSecret: process.env.TWITTER_SECRET || 'secret',
     callbackURL:  'http://localhost:9000/auth/twitter/callback'
   },
 <% } %><% if(filters.googleAuth) { %>
   google: {
-    clientID:     process.env.GOOGLE_ID,
-    clientSecret: process.env.GOOGLE_SECRET,
+    clientID:     process.env.GOOGLE_ID || 'id',
+    clientSecret: process.env.GOOGLE_SECRET || 'secret',
     callbackURL:  'http://localhost:9000/auth/google/callback'
   }<% } %>
 };
