@@ -429,9 +429,16 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
 
 Generator.prototype.packageFiles = function () {
   this.coffee = this.env.options.coffee;
+  this.jade = this.env.options.jade;
+
   this.template('../../templates/common/_bower.json', 'bower.json');
   this.template('../../templates/common/_package.json', 'package.json');
-  this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+
+  if (this.coffee) {
+    this.template('../../templates/common/Gruntfile.coffee', 'Gruntfile.coffee');
+  } else {
+    this.template('../../templates/common/Gruntfile.js', 'Gruntfile.js');
+  }
 };
 
 Generator.prototype.imageFiles = function () {
@@ -470,30 +477,47 @@ Generator.prototype._injectDependencies = function _injectDependencies() {
 };
 
 Generator.prototype.serverFiles = function () {
-  this.template('../../templates/express/server.js', 'server.js');
-  this.copy('../../templates/express/jshintrc', 'lib/.jshintrc');
-  this.template('../../templates/express/controllers/api.js', 'lib/controllers/api.js');
-  this.template('../../templates/express/controllers/index.js', 'lib/controllers/index.js');
-  this.template('../../templates/express/routes.js', 'lib/routes.js');
-  this.template('../../templates/express/test/thing/api.js', 'test/server/thing/api.js');
+  var sourceRoot = '../../templates/express',
+    scriptSuffix = '.js';
 
-  this.template('../../templates/express/config/express.js', 'lib/config/express.js');
-  this.template('../../templates/express/config/config.js', 'lib/config/config.js');
-  this.template('../../templates/express/config/env/all.js', 'lib/config/env/all.js');
-  this.template('../../templates/express/config/env/development.js', 'lib/config/env/development.js');
-  this.template('../../templates/express/config/env/production.js', 'lib/config/env/production.js');
-  this.template('../../templates/express/config/env/test.js', 'lib/config/env/test.js');
+  if (this.env.options.coffee) {
+    sourceRoot = '../../templates/express-coffeescript';
+    scriptSuffix = '.coffee';
+  }
+
+  if (!this.env.options.coffee) {
+    this.copy(sourceRoot + '/jshintrc', 'lib/.jshintrc');
+  }
+  this.template(sourceRoot + '/server' + scriptSuffix, 'server' + scriptSuffix);
+  this.template(sourceRoot + '/controllers/api' + scriptSuffix, 'lib/controllers/api' + scriptSuffix);
+  this.template(sourceRoot + '/controllers/index' + scriptSuffix, 'lib/controllers/index' + scriptSuffix);
+  this.template(sourceRoot + '/routes' + scriptSuffix, 'lib/routes' + scriptSuffix);
+  this.template(sourceRoot + '/test/thing/api' + scriptSuffix, 'test/server/thing/api' + scriptSuffix);
+
+  this.template(sourceRoot + '/config/express' + scriptSuffix, 'lib/config/express' + scriptSuffix);
+  this.template(sourceRoot + '/config/config' + scriptSuffix, 'lib/config/config' + scriptSuffix);
+  this.template(sourceRoot + '/config/env/all' + scriptSuffix, 'lib/config/env/all' + scriptSuffix);
+  this.template(sourceRoot + '/config/env/development' + scriptSuffix, 'lib/config/env/development' + scriptSuffix);
+  this.template(sourceRoot + '/config/env/production' + scriptSuffix, 'lib/config/env/production' + scriptSuffix);
+  this.template(sourceRoot + '/config/env/test' + scriptSuffix, 'lib/config/env/test' + scriptSuffix);
 };
 
 Generator.prototype.mongoFiles = function () {
+  var sourceRoot = '../../templates/express',
+    scriptSuffix = '.js';
+
+  if (this.env.options.coffee) {
+    sourceRoot = '../../templates/express-coffeescript';
+    scriptSuffix = '.coffee';
+  }
 
   if (!this.mongo) {
     return;  // Skip if disabled.
   }
   this.env.options.mongo = this.mongo;
 
-  this.template('../../templates/express/config/dummydata.js', 'lib/config/dummydata.js');
-  this.template('../../templates/express/models/thing.js', 'lib/models/thing.js');
+  this.template(sourceRoot + '/config/dummydata' + scriptSuffix, 'lib/config/dummydata' + scriptSuffix);
+  this.template(sourceRoot + '/models/thing' + scriptSuffix, 'lib/models/thing' + scriptSuffix);
 
   if(!this.mongoPassportUser) {
     return;  // Skip if disabled.
@@ -512,14 +536,14 @@ Generator.prototype.mongoFiles = function () {
   copyScriptWithEnvOptions(this, 'directives/mongooseError', 'app/scripts/');
 
   // middleware
-  this.template('../../templates/express/middleware.js', 'lib/middleware.js');
+  this.template(sourceRoot + '/middleware' + scriptSuffix, 'lib/middleware' + scriptSuffix);
   // config
-  this.template('../../templates/express/config/passport.js', 'lib/config/passport.js');
+  this.template(sourceRoot + '/config/passport' + scriptSuffix, 'lib/config/passport' + scriptSuffix);
   // models
-  this.template('../../templates/express/models/user.js', 'lib/models/user.js');
+  this.template(sourceRoot + '/models/user' + scriptSuffix, 'lib/models/user' + scriptSuffix);
   // controllers
-  this.template('../../templates/express/controllers/session.js', 'lib/controllers/session.js');
-  this.template('../../templates/express/controllers/users.js', 'lib/controllers/users.js');
+  this.template(sourceRoot + '/controllers/session' + scriptSuffix, 'lib/controllers/session' + scriptSuffix);
+  this.template(sourceRoot + '/controllers/users' + scriptSuffix, 'lib/controllers/users' + scriptSuffix);
   // tests
-  this.template('../../templates/express/test/user/model.js', 'test/server/user/model.js');  
+  this.template(sourceRoot + '/test/user/model' + scriptSuffix, 'test/server/user/model' + scriptSuffix);  
 };
