@@ -27,6 +27,10 @@ Generated with defaults: http://fullstack-demo.herokuapp.com/.
 
 Have a look at the source code: https://github.com/DaftMonk/fullstack-demo
 
+## Prerequisites
+
+* MongoDB - Download and Install [MongoDB](http://www.mongodb.org/downloads) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
+
 ## Supported Configurations
 
 **Client**
