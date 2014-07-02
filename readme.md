@@ -47,44 +47,6 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 * oAuth integrations: `Facebook` `Twitter` `Google` 
 * Socket.io integration: `Yes`, `No`
 
-## Project Structure
-
-Overview
-
-    ├── client
-    │   ├── app                 - All of our app specific components go in here
-    │   ├── assets              - Custom assets: fonts, images, etc… 
-    │   ├── components          - Our reusable components, non-specific to to our app
-    │ 
-    ├── e2e                     - Our protractor end to end tests
-    │
-    └── server
-        ├── api                 - Our apps server api
-        ├── auth                - For handling authentication with different auth strategies
-        ├── components          - Our reusable or app-wide components
-        ├── config              - Where we do the bulk of our apps configuration
-        │   └── local.env.js    - Keep our environment variables out of source control
-        │   └── environment     - Configuration specific to the node environment
-        └── views               - Server rendered views
-
-An example client component in `client/app`
-
-    main
-    ├── main.js                 - Routes
-    ├── main.controller.js      - Controller for our main route
-    ├── main.controller.spec.js - Test
-    ├── main.html               - View
-    └── main.less               - Styles
-
-An example server component in `server/api`
-
-    thing
-    ├── index.js                - Routes
-    ├── thing.controller.js     - Controller for our `thing` endpoint
-    ├── thing.model.js          - Database model
-    ├── thing.socket.js         - Register socket events
-    └── thing.spec.js           - Test
-    
 ## Injection
 
 A grunt task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block. 
@@ -411,6 +373,7 @@ Use `grunt test:e2e` to have protractor go through tests located in the `e2e` fo
 ## Environment Variables
 
 Keeping your app secrets and other sensitive information in source control isn't a good idea. To have grunt launch your app with specific environment variables, add them to the git ignored environment config file: `server/config/local.env.js`.
+
 
 ## Contribute
 
