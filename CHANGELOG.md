@@ -1,3 +1,14 @@
+<a name="v1.4.3"></a>
+### v1.4.3 (2014-05-25)
+
+
+#### Bug Fixes
+
+* **config:** fix issue where `config.ip` is undefined in non-production environments ([087f5bca](http://github.com/DaftMonk/generator-angular-fullstack/commit/087f5bca1610e8250de50ce11a16e879908e3177))
+* **package:** update connect-mongo to correct version
+* **app:** add require attribute to login.html inputs so it validates on client side
+* **gen:** use lowercase filenames for scripts
+
 <a name="v1.4.2"></a>
 ### v1.4.2 (2014-04-16)
 
