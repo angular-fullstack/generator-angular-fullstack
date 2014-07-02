@@ -1,3 +1,39 @@
+<a name="v2.0.0"></a>
+## v2.0.0 (2014-07-02)
+
+#### Features
+
+* **app:**
+    * Follow googles AngularJS project recommendations to make a very modular app structure.
+    * New look for generated app
+    * Add basic crud interface to app
+    * Support for UI Router
+    * Support for LESS
+    * Built in support for protractor e2e tests
+    * Add angular-bootstrap and lodash to default app
+    * More consistent and understandable naming conventions for files
+* **server:**
+    * Modular project structure for express server
+    * Support for social auths with facebook/twitter/google
+    * Role based authentication
+    * Replace session based authentication with JWT authentication
+    * Optional integration with socket.io
+    * Added config file, ignored by git, for setting local environment variables, api keys, secrets.. etc.
+* **gruntfile:**
+    * Optimizations to the gruntfile
+    * Automate injection of new scripts into index file with grunt
+    * Use ng-templates to concatenate all the html/jade views into the javascript payload
+* **gen:**
+    * Abstract client-side generators into generator-ng-component, use new composition feature of yeoman to keep them available in the generator.
+    * Add useful tests to the generator, start using travis CI
+    * use .yo-rc file to keep track of generated configurations
+    * Add endpoint generator to angular-fullstack, generates model / route / controller / test / socket updates
+
+#### Breaking Changes
+ * New project structure
+ * Deprecated value and constant sub generators 
+ * Sub-generators generate components in a single directory and don't inject themselves into the index file (this is done by a grunt task now)
+
 <a name="v1.4.3"></a>
 ### v1.4.3 (2014-05-25)
 
