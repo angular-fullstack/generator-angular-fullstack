@@ -1,3 +1,12 @@
+<a name="v2.0.2"></a>
+### v2.0.2 (2014-07-02)
+
+#### Bug Fixes
+
+* **gen:endpoint**
+    * fix endpoint spec not properly adjusting to users route url
+    * fix some valid route urls causing failing tests
+    
 <a name="v2.0.0"></a>
 ## v2.0.0 (2014-07-02)
 
