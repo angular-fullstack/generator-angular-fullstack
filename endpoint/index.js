@@ -23,6 +23,10 @@ Generator.prototype.askFor = function askFor() {
   ];
 
   this.prompt(prompts, function (props) {
+    if(props.route.charAt(0) !== '/') {
+      props.route = '/' + props.route;
+    }
+
     this.route = props.route;
     done();
   }.bind(this));
