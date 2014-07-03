@@ -6,9 +6,9 @@ var <%= classedName %> = require('./<%= name %>.model');<% } %>
 // Get list of <%= name %>s
 exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   res.json([]);<% } %><% if (filters.mongoose) { %>
-  <%= classedName %>.find(function (err, <%= name %>s) {
+  <%= classedName %>.find(function (err, <%= name %>) {
     if(err) { return handleError(res, err); }
-    return res.json(200, <%= name %>s);
+    return res.json(200, <%= name %>);
   });<% } %>
 };<% if (filters.mongoose) { %>
 
