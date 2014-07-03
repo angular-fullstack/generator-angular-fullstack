@@ -87,12 +87,25 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         message: "What Angular router would you like to use?",
         choices: [ "ngRoute", "uiRouter"],
         filter: function( val ) { return val.toLowerCase(); }
+      }, {
+        type: "confirm",
+        name: "bootstrap",
+        message: "Would you like to include Bootstrap?"
+      }, {
+        type: "confirm",
+        name: "uibootstrap",
+        message: "Would you like to include UI Bootstrap?",
+        when: function (answers) {
+          return answers.bootstrap;
+        }
       }], function (answers) {
         this.filters[answers.script] = true;
         this.filters[answers.markup] = true;
         this.filters[answers.stylesheet] = true;
         this.filters[answers.router] = true;
-        cb();
+        if(answers.bootstrap) this.filters[answers.bootstrap] = true;
+        if(answers.uibootstrap) this.filters[answers.uibootstrap] = true;
+      cb();
       }.bind(this));
   },
 
@@ -209,12 +222,12 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     var angModules = [
       "'ngCookies'",
       "'ngResource'",
-      "'ngSanitize'",
-      "'ui.bootstrap'"
+      "'ngSanitize'"
     ];
     if(this.filters['ngroute']) angModules.push("'ngRoute'");
     if(this.filters['socketio']) angModules.push("'btford.socket-io'");
     if(this.filters['uirouter']) angModules.push("'ui.router'");
+    if(this.filters['uibootstrap']) angModules.push("'ui.bootstrap'");
 
     this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
   },
