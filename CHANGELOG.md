@@ -1,3 +1,11 @@
+<a name="v2.0.3"></a>
+### v2.0.3 (2014-07-04)
+
+
+#### Bug Fixes
+
+* **server:** only enable sessions if twitter oauth was selected ([bcd00dc0](http://github.com/DaftMonk/generator-angular-fullstack/commit/bcd00dc02d270486adafe6dbf973a4ec25499a5e))
+
 <a name="v2.0.2"></a>
 ### v2.0.2 (2014-07-02)
 
