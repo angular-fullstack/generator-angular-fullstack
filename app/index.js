@@ -103,8 +103,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         this.filters[answers.markup] = true;
         this.filters[answers.stylesheet] = true;
         this.filters[answers.router] = true;
-        if(answers.bootstrap) this.filters[answers.bootstrap] = true;
-        if(answers.uibootstrap) this.filters[answers.uibootstrap] = true;
+        if(answers.bootstrap) this.filters['bootstrap'] = true;
+        if(answers.uibootstrap) this.filters['uibootstrap'] = true;
       cb();
       }.bind(this));
   },
