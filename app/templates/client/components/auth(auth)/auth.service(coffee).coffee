@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>').factory 'Auth', Auth = ($location, $rootScope, $http, User, $cookieStore, $q) ->
+angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
   currentUser = {}
   currentUser = User.get() if $cookieStore.get('token')
 
