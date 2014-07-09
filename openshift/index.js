@@ -15,7 +15,7 @@ var Generator = module.exports = function Generator() {
     this.appname = path.basename(process.cwd());
   }
   this.appname = this._.slugify(this.appname).split('-').join('');
-  this.filters = this.config.get('filters');
+  this.filters = this.config.get('filters') || {};
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
