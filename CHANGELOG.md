@@ -1,3 +1,12 @@
+<a name="v2.0.4"></a>
+### v2.0.4 (2014-07-08)
+
+
+#### Bug Fixes
+
+* **app:** fix dependency injection minsafe problem in auth service coffeescript. ([03742a80](http://github.com/DaftMonk/generator-angular-fullstack/commit/03742a8000f19efdf14791ff1aae52a90e86c149))
+* **gen:** heroku and openshift generators requiring .yo-rc file to work ([88ebfc8c](http://github.com/DaftMonk/generator-angular-fullstack/commit/88ebfc8c835ac6ec04b6d42fcf9357cfb0bcc47d))
+
 <a name="v2.0.3"></a>
 ### v2.0.3 (2014-07-04)
 
