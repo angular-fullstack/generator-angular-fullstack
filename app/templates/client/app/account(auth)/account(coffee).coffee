@@ -5,7 +5,8 @@ angular.module('<%= scriptAppName %>')
     $routeProvider
     .when('/login',
       templateUrl: 'app/account/login/login.html'
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl',
+
     )
     .when('/signup',
       templateUrl: 'app/account/signup/signup.html'
@@ -13,7 +14,8 @@ angular.module('<%= scriptAppName %>')
     )
     .when('/settings',
       templateUrl: 'app/account/settings/settings.html'
-      controller: 'SettingsCtrl'
+      controller: 'SettingsCtrl',
+      authenticate: true
     )<% } %><% if(filters.uirouter) { %>.config ($stateProvider) ->
     $stateProvider
     .state('login',
@@ -29,5 +31,6 @@ angular.module('<%= scriptAppName %>')
     .state('settings',
       url: '/settings',
       templateUrl: 'app/account/settings/settings.html'
-      controller: 'SettingsCtrl'
+      controller: 'SettingsCtrl',
+      authenticate: true
     )<% } %>
