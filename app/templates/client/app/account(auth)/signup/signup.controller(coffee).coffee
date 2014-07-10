@@ -23,3 +23,6 @@ angular.module('<%= scriptAppName %>').controller 'SignupCtrl', ($scope, Auth, $
         angular.forEach err.errors, (error, field) ->
           form[field].$setValidity 'mongoose', false
           $scope.errors[field] = error.message
+
+  $scope.loginOauth = (provider) ->
+    $window.location.href = '/auth/' + provider

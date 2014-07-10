@@ -30,4 +30,8 @@ angular.module('<%= scriptAppName %>')
         });
       }
     };
+
+    $scope.loginOauth = function(provider) {
+      $window.location.href = '/auth/' + provider;
+    };
   });
