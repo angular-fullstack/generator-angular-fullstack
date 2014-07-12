@@ -81,7 +81,6 @@ Generator.prototype.herokuCreate = function herokuCreate() {
     var output = data.toString();
     this.log(output);
   }.bind(this));
-  child.stdin.write('\n\n');
 };
 
 Generator.prototype.copyProcfile = function copyProcfile() {
