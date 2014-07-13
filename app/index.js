@@ -22,6 +22,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.scriptAppName = this.appname + genUtils.appName(this);
     this.appPath = this.env.options.appPath;
     this.pkg = require('../package.json');
+
     this.filters = {};
   },
 
@@ -103,8 +104,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         this.filters[answers.markup] = true;
         this.filters[answers.stylesheet] = true;
         this.filters[answers.router] = true;
-        if(answers.bootstrap) this.filters['bootstrap'] = true;
-        if(answers.uibootstrap) this.filters['uibootstrap'] = true;
+        this.filters['bootstrap'] = answers.bootstrap;
+        this.filters['uibootstrap'] =  answers.uibootstrap;
       cb();
       }.bind(this));
   },
@@ -218,7 +219,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   ngModules: function() {
-    this.filters = this.config.get('filters');
+    this.filters = this._.defaults(this.config.get('filters'), {
+      bootstrap: true,
+      uibootstrap: true
+    });
+
     var angModules = [
       "'ngCookies'",
       "'ngResource'",
