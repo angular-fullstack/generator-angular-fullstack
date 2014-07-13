@@ -26,7 +26,8 @@ module.exports = function(app) {
   app.set('view engine', 'html');<% } %><% if (filters.jade) { %>
   app.set('view engine', 'jade');<% } %>
   app.use(compression());
-  app.use(bodyParser());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
   <% if (filters.auth) { %>app.use(passport.initialize());<% } %><% if (filters.twitterAuth) { %>
@@ -35,6 +36,8 @@ module.exports = function(app) {
   // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
   app.use(session({
     secret: config.secrets.session,
+    resave: true,
+    saveUninitialized: true,
     store: new mongoStore({
       url: config.mongo.uri,
       collection: 'sessions'
