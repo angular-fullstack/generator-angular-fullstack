@@ -197,7 +197,7 @@ describe('angular-fullstack generator', function () {
         helpers.mockPrompt(gen, {
           script: 'coffee',
           markup: 'jade',
-          stylesheet: 'less',
+          stylesheet: 'stylus',
           router: 'ngroute',
           mongoose: false,
           auth: false,

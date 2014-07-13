@@ -6,6 +6,7 @@
     "es5-shim": "~3.0.1",
     "jquery": "~1.11.0",
     "bootstrap-sass-official": "~3.1.1",
+    "bootstrap-stylus": "latest",
     "bootstrap": "~3.1.1",
     "angular-resource": ">=1.2.*",
     "angular-cookies": ">=1.2.*",

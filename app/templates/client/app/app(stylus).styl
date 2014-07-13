@@ -1,0 +1,27 @@
+$icon-font-path = 	"/bower_components/bootstrap-stylus/fonts"
+$fa-font-path = 	"/bower_components/font-awesome/fonts"
+
+@import 			"bootstrap-stylus/stylus/bootstrap"
+@import 			"font-awesome/css/font-awesome.css"
+
+// 
+// App-wide Styles
+// 
+
+.browsehappy
+    background		#ccc
+    color			#000
+    margin			0.2em 0
+    padding			0.2em 0
+
+// Responsive: Portrait tablets and up
+@media screen and (min-width: 768px)
+    .container
+        max-width	730px
+
+// Component styles are injected through grunt
+// injector
+@import "account/login/login"
+@import "admin/admin"
+@import "main/main"
+// endinjector

@@ -60,8 +60,9 @@
     "grunt-protractor-runner": "^0.2.4",
     "grunt-asset-injector": "^0.1.0",
     "grunt-karma": "~0.8.2",
-    "grunt-mocha-test": "~0.10.2",
-    "grunt-contrib-sass": "^0.7.3",
+    "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
+    "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
+    "grunt-contrib-stylus": "latest",<% } %>
     "jit-grunt": "^0.5.0",
     "time-grunt": "~0.3.1",
     "grunt-express-server": "~0.4.17",
