@@ -10,7 +10,7 @@
     url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'),
     url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
     url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
+}<% } %>
 
 /**
  *Font Awesome Fonts
@@ -27,7 +27,7 @@
     font-style: normal;
 }
 
-<% } %>/**
+/**
  * App-wide Styles
  */
 
