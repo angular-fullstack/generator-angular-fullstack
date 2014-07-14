@@ -14,11 +14,22 @@ util.inherits(Generator, ScriptBase);
 Generator.prototype.askFor = function askFor() {
   var done = this.async();
   var name = this.name;
+
+  var base = this.config.get('routesBase') || '/api/';
+  if(base.charAt(base.length-1) !== '/') {
+    base = base + '/';
+  }
+
+  // pluralization defaults to true for backwards compat
+  if (this.config.get('pluralizeRoutes') !== false) {
+    name = name + 's';
+  }
+
   var prompts = [
     {
       name: 'route',
       message: 'What will the url of your endpoint to be?',
-      default: '/api/' + name + 's'
+      default: base + name
     }
   ];
 
