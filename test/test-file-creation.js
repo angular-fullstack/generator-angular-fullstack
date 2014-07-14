@@ -181,6 +181,17 @@ describe('angular-fullstack generator', function () {
         });
       });
 
+      it('should pass jshint', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt jshint', function (error, stdout, stderr) {
+            expect(stdout).to.contain('Running "jshint:server" (jshint) task\u001b[24m\n\n✔ No problems');
+            expect(stdout).to.contain('Running "jshint:all" (jshint) task\u001b[24m\n\n✔ No problems');
+            done();
+          });
+        });
+      });
+
       it('should run server tests successfully', function(done) {
         this.timeout(60000);
         gen.run({}, function () {
@@ -211,6 +222,17 @@ describe('angular-fullstack generator', function () {
         gen.run({}, function () {
           exec('grunt test:client', function (error, stdout, stderr) {
             expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
+            done();
+          });
+        });
+      });
+      
+      it('should pass jshint', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt jshint', function (error, stdout, stderr) {
+            expect(stdout).to.contain('Running "jshint:server" (jshint) task\u001b[24m\n\n✔ No problems');
+            expect(stdout).to.contain('Running "jshint:all" (jshint) task\u001b[24m\n\n✔ No problems');
             done();
           });
         });
@@ -246,6 +268,17 @@ describe('angular-fullstack generator', function () {
         gen.run({}, function () {
           exec('grunt test:client', function (error, stdout, stderr) {
             expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
+            done();
+          });
+        });
+      });
+
+      it('should pass jshint', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt jshint', function (error, stdout, stderr) {
+            expect(stdout).to.contain('Running "jshint:server" (jshint) task\u001b[24m\n\n✔ No problems');
+            expect(stdout).to.contain('Running "jshint:all" (jshint) task\u001b[24m\n\n✔ No problems');
             done();
           });
         });

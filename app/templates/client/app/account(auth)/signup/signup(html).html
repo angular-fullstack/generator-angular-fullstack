@@ -62,7 +62,22 @@
             Login
           </a>
         </div>
+
+        <% if(filters.facebookAuth || filters.twitterAuth || filters.googleAuth) {%>
+        <hr>
+        <div><% if(filters.facebookAuth) {%>
+          <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+            <i class="fa fa-facebook"></i> Connect with Facebook
+          </a><% } %><% if(filters.googleAuth) {%>
+          <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+            <i class="fa fa-google-plus"></i> Connect with Google+
+          </a><% } %><% if(filters.twitterAuth) {%>
+          <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+            <i class="fa fa-twitter"></i> Connect with Twitter
+          </a><% } %>
+        </div><% } %>
       </form>
     </div>
   </div>
+  <hr>
 </div>

@@ -111,6 +111,23 @@ angular.module('<%= scriptAppName %>')
       },
 
       /**
+       * Waits for currentUser to resolve before checking if user is logged in
+       */
+      isLoggedInAsync: function(cb) {
+        if(currentUser.hasOwnProperty('$promise')) {
+          currentUser.$promise.then(function() {
+            cb(true);
+          }).catch(function() {
+            cb(false);
+          });
+        } else if(currentUser.hasOwnProperty('role')) {
+          cb(true);
+        } else {
+          cb(false);
+        }
+      },
+
+      /**
        * Check if a user is an admin
        *
        * @return {Boolean}

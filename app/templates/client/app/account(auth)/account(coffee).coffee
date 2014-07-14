@@ -13,7 +13,8 @@ angular.module('<%= scriptAppName %>')
     )
     .when('/settings',
       templateUrl: 'app/account/settings/settings.html'
-      controller: 'SettingsCtrl'
+      controller: 'SettingsCtrl',
+      authenticate: true
     )<% } %><% if(filters.uirouter) { %>.config ($stateProvider) ->
     $stateProvider
     .state('login',
@@ -29,5 +30,6 @@ angular.module('<%= scriptAppName %>')
     .state('settings',
       url: '/settings',
       templateUrl: 'app/account/settings/settings.html'
-      controller: 'SettingsCtrl'
+      controller: 'SettingsCtrl',
+      authenticate: true
     )<% } %>

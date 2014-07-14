@@ -92,13 +92,30 @@ angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $
 
 
   ###
-  Check if a user is logged in
+  Check if a user is logged in synchronously
 
   @return {Boolean}
   ###
   isLoggedIn: ->
     currentUser.hasOwnProperty 'role'
 
+
+  ###
+  Waits for currentUser to resolve before checking if user is logged in
+  ###
+  isLoggedInAsync: (cb) ->
+    if currentUser.hasOwnProperty('$promise')
+      currentUser.$promise.then(->
+        cb true
+        return
+      ).catch ->
+        cb false
+        return
+
+    else if currentUser.hasOwnProperty('role')
+      cb true
+    else
+      cb false
 
   ###
   Check if a user is an admin
