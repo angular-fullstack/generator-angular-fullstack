@@ -70,7 +70,17 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.mock.js'
         ],
         tasks: ['newer:jshint:all', 'karma']
-      },<% if(filters.sass) { %>
+      },<% if(filters.stylus) { %>
+      injectStylus: {
+        files: [
+          '<%%= yeoman.client %>/{app,components}/**/*.styl'],
+        tasks: ['injector:stylus']
+      },
+      stylus: {
+        files: [
+          '<%%= yeoman.client %>/{app,components}/**/*.styl'],
+        tasks: ['stylus', 'autoprefixer']
+      },<% } %><% if(filters.sass) { %>
       injectSass: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
@@ -394,13 +404,15 @@ module.exports = function (grunt) {
     concurrent: {
       server: [<% if(filters.coffee) { %>
         'coffee',<% } %><% if(filters.jade) { %>
-        'jade',<% } %><% if(filters.sass) { %>
+        'jade',<% } %><% if(filters.stylus) { %>
+        'stylus',<% } %><% if(filters.sass) { %>
         'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
       ],
       test: [<% if(filters.coffee) { %>
         'coffee',<% } %><% if(filters.jade) { %>
-        'jade',<% } %><% if(filters.sass) { %>
+        'jade',<% } %><% if(filters.stylus) { %>
+        'stylus',<% } %><% if(filters.sass) { %>
         'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
       ],
@@ -415,7 +427,8 @@ module.exports = function (grunt) {
       },
       dist: [<% if(filters.coffee) { %>
         'coffee',<% } %><% if(filters.jade) { %>
-        'jade',<% } %><% if(filters.sass) { %>
+        'jade',<% } %><% if(filters.stylus) { %>
+        'stylus',<% } %><% if(filters.sass) { %>
         'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
         'imagemin',
@@ -499,6 +512,23 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
+    },<% } %><% if(filters.stylus) { %>
+
+    // Compiles Stylus to CSS
+    stylus: {
+      server: {
+        options: {
+          paths: [
+            '<%%= yeoman.client %>/bower_components',
+            '<%%= yeoman.client %>/app',
+            '<%%= yeoman.client %>/components'
+          ],
+          "include css": true
+        },
+        files: {
+          '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.styl'
+        }
+      }
     },<% } %><% if(filters.sass) { %>
 
     // Compiles Sass to CSS
@@ -557,7 +587,26 @@ module.exports = function (grunt) {
                '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js']
             ]
         }
-      },<% if(filters.sass) { %>
+      },<% if(filters.stylus) { %>
+
+      // Inject component styl into app.styl
+      stylus: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/client/app/', '');
+            filePath = filePath.replace('/client/components/', '');
+            return '@import \'' + filePath + '\';';
+          },
+          starttag: '// injector',
+          endtag: '// endinjector'
+        },
+        files: {
+          '<%%= yeoman.client %>/app/app.styl': [
+            '<%%= yeoman.client %>/{app,components}/**/*.styl',
+            '!<%%= yeoman.client %>/app/app.styl'
+          ]
+        }
+      },<% } %><% if(filters.sass) { %>
 
       // Inject component scss into app.scss
       sass: {

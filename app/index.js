@@ -79,7 +79,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         name: "stylesheet",
         default: 1,
         message: "What would you like to write stylesheets with?",
-        choices: [ "CSS", "Sass", "Less"],
+        choices: [ "CSS", "Sass", "Stylus", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
       },  {
         type: "list",
@@ -202,6 +202,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     if(this.filters['html']) extensions.push('html');
     if(this.filters['jade']) extensions.push('jade');
     if(this.filters['css']) extensions.push('css');
+    if(this.filters['stylus']) extensions.push('styl');
     if(this.filters['sass']) extensions.push('scss');
     if(this.filters['less']) extensions.push('less');
 
