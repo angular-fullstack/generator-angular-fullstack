@@ -690,7 +690,8 @@ module.exports = function (grunt) {
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
-        'env:all',<% if(filters.less) { %>
+        'env:all',<% if(filters.stylus) { %>
+        'injector:stylus', <% } %><% if(filters.less) { %>
         'injector:less', <% } %><% if(filters.sass) { %>
         'injector:sass', <% } %>
         'concurrent:server',
@@ -703,7 +704,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'env:all',<% if(filters.less) { %>
+      'env:all',<% if(filters.stylus) { %>
+      'injector:stylus', <% } %><% if(filters.less) { %>
       'injector:less', <% } %><% if(filters.sass) { %>
       'injector:sass', <% } %>
       'concurrent:server',
@@ -734,7 +736,8 @@ module.exports = function (grunt) {
     else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
-        'env:all',<% if(filters.less) { %>
+        'env:all',<% if(filters.stylus) { %>
+        'injector:stylus', <% } %><% if(filters.less) { %>
         'injector:less', <% } %><% if(filters.sass) { %>
         'injector:sass', <% } %>
         'concurrent:test',
@@ -748,7 +751,8 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'env:test',<% if(filters.less) { %>
+        'env:test',<% if(filters.stylus) { %>
+        'injector:stylus', <% } %><% if(filters.less) { %>
         'injector:less', <% } %><% if(filters.sass) { %>
         'injector:sass', <% } %>
         'concurrent:test',
@@ -767,7 +771,8 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
-    'clean:dist',<% if(filters.less) { %>
+    'clean:dist',<% if(filters.stylus) { %>
+    'injector:stylus', <% } %><% if(filters.less) { %>
     'injector:less', <% } %><% if(filters.sass) { %>
     'injector:sass', <% } %>
     'concurrent:dist',
