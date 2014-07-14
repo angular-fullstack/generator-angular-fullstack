@@ -25,7 +25,7 @@
     "passport-google-oauth": "latest",<% } %>
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1"<% if(filters.socketio) { %>,
-    "socket.io": "~0.9.16",
+    "socket.io": "~1.0.6",
     "socketio-jwt": "^2.0.2"<% } %>
   },
   "devDependencies": {
