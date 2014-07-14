@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>').controller 'MainCtrl', ($scope, $http<% if(filters.socketio) { %>, socket<% } %>) ->
+angular.module '<%= scriptAppName %>'
+.controller 'MainCtrl', ($scope, $http<% if(filters.socketio) { %>, socket<% } %>) ->
   $scope.awesomeThings = []
 
   $http.get('/api/things').success (awesomeThings) ->
