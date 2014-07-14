@@ -78,7 +78,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         name: "stylesheet",
         default: 1,
         message: "What would you like to write stylesheets with?",
-        choices: [ "CSS", "Stylus", "Sass", "Less"],
+        choices: [ "CSS", "Sass", "Stylus", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
       },  {
         type: "list",
