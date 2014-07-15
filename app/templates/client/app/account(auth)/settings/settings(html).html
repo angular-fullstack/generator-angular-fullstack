@@ -1,6 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
+<div class="container" ng-show="isPasswordChangeable()">
   <div class="row">
     <div class="col-sm-12">
       <h1>Change Password</h1>
@@ -34,6 +34,14 @@
 
         <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-hide="isPasswordChangeable()">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Your password can not be changed</h1>
     </div>
   </div>
 </div>
