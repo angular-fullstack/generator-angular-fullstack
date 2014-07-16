@@ -141,6 +141,15 @@ angular.module('<%= scriptAppName %>')
        */
       getToken: function() {
         return $cookieStore.get('token');
+      },
+
+      /**
+       * Check is password is changeable
+       * (only local account have changeable password)
+       */
+      isPasswordChangeable : function(){
+        return currentUser.provider === 'local';
       }
+
     };
   });
