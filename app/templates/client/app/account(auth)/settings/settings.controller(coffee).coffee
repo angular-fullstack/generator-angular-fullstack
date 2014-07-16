@@ -2,6 +2,7 @@
 
 angular.module('<%= scriptAppName %>').controller 'SettingsCtrl', ($scope, User, Auth) ->
   $scope.errors = {}
+  $scope.isPasswordChangeable = Auth.isPasswordChangeable
   $scope.changePassword = (form) ->
     $scope.submitted = true
 
