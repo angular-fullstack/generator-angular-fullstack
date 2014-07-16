@@ -137,4 +137,9 @@ angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $
   (only local account have changeable password)
   ###
   isPasswordChangeable: ->
+<<<<<<< HEAD
     currentUser.provider is 'local'
+=======
+    $cookieStore.get 'token'
+    currentUser.provider === 'local'
+>>>>>>> FETCH_HEAD
