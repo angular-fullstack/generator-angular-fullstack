@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>').controller 'NavbarCtrl', ($scope, $location<% if(filters.auth) {%>, Auth<% } %>) ->
+angular.module '<%= scriptAppName %>'
+.controller 'NavbarCtrl', ($scope, $location<% if(filters.auth) {%>, Auth<% } %>) ->
   $scope.menu = [
     title: 'Home'
     link: '/'
@@ -9,7 +10,7 @@ angular.module('<%= scriptAppName %>').controller 'NavbarCtrl', ($scope, $locati
   $scope.isLoggedIn = Auth.isLoggedIn
   $scope.isAdmin = Auth.isAdmin
   $scope.getCurrentUser = Auth.getCurrentUser
-  
+
   $scope.logout = ->
     Auth.logout()
     $location.path '/login'<% } %>

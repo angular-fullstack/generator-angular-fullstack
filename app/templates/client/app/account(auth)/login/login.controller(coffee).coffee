@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>').controller 'LoginCtrl', ($scope, Auth, $location, $window) ->
+angular.module '<%= scriptAppName %>'
+.controller 'LoginCtrl', ($scope, Auth, $location, $window) ->
   $scope.user = {}
   $scope.errors = {}
   $scope.login = (form) ->
@@ -8,12 +9,14 @@ angular.module('<%= scriptAppName %>').controller 'LoginCtrl', ($scope, Auth, $l
 
     if form.$valid
       # Logged in, redirect to home
-      Auth.login(
+      Auth.login
         email: $scope.user.email
         password: $scope.user.password
-      ).then(->
+
+      .then ->
         $location.path '/'
-      ).catch (err) ->
+
+      .catch (err) ->
         $scope.errors.other = err.message
 
   $scope.loginOauth = (provider) ->
