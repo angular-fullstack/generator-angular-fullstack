@@ -9,11 +9,6 @@ var MainPage = function() {
   this.heroEl = element(by.css('.hero-unit'));
   this.h1El = this.heroEl.element(by.css('h1'));
   this.imgEl = this.heroEl.element(by.css('img'));
-  this.anchorEl = this.heroEl.element(by.css('a'));
-
-  this.repeater = by.repeater('thing in awesomeThings');
-  this.firstAwesomeThingNameEl = element(this.repeater.row(0).column('{{thing.name}}'));
-  this.awesomeThingsCount = element.all(this.repeater).count();
 };
 
 module.exports = new MainPage();

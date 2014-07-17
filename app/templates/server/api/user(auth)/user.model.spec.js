@@ -12,7 +12,7 @@ var user = new User({
 });
 
 describe('User Model', function() {
-  beforeEach(function(done) {
+  before(function(done) {
     // Clear users before testing
     User.remove().exec().then(function() {
       done();
