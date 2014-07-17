@@ -37,8 +37,7 @@
             Register
           </a>
         </div>
-
-        <% if(filters.facebookAuth || filters.twitterAuth || filters.googleAuth) {%>
+<% if(filters.oauth) {%>
         <hr>
         <div><% if(filters.facebookAuth) {%>
           <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">

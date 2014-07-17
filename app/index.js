@@ -166,6 +166,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       if(answers.mongoose) this.filters['mongoose'] = true;
       if(answers.auth) this.filters['auth'] = true;
       if(answers.oauth) {
+        if(answers.oauth.length) this.filters['oauth'] = true;
         answers.oauth.forEach(function(oauthStrategy) {
           this.filters[oauthStrategy] = true;
         }.bind(this));
