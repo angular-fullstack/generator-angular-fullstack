@@ -1,8 +1,8 @@
 'use strict'
 
-angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
-  currentUser = {}
-  currentUser = User.get() if $cookieStore.get('token')
+angular.module '<%= scriptAppName %>'
+.factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
+  currentUser = if $cookieStore.get 'token' then User.get() else {}
 
   ###
   Authenticate user and save token
@@ -12,21 +12,22 @@ angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $
   @return {Promise}
   ###
   login: (user, callback) ->
-    cb = callback or angular.noop
     deferred = $q.defer()
-    $http.post('/auth/local',
+    $http.post '/auth/local',
       email: user.email
       password: user.password
-    ).success((data) ->
+
+    .success (data) ->
       $cookieStore.put 'token', data.token
       currentUser = User.get()
       deferred.resolve data
-      cb()
-    ).error ((err) ->
+      callback?()
+
+    .error (err) =>
       @logout()
       deferred.reject err
-      cb err
-    ).bind(this)
+      callback? err
+
     deferred.promise
 
 
@@ -49,15 +50,17 @@ angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $
   @return {Promise}
   ###
   createUser: (user, callback) ->
-    cb = callback or angular.noop
-    User.save(user, (data) ->
-      $cookieStore.put 'token', data.token
-      currentUser = User.get()
-      cb user
-    , ((err) ->
-      @logout()
-      cb err
-    ).bind(this)).$promise
+    User.save user,
+      (data) ->
+        $cookieStore.put 'token', data.token
+        currentUser = User.get()
+        callback? user
+
+      , (err) =>
+        @logout()
+        callback? err
+
+    .$promise
 
 
   ###
@@ -69,17 +72,19 @@ angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $
   @return {Promise}
   ###
   changePassword: (oldPassword, newPassword, callback) ->
-    cb = callback or angular.noop
-    User.changePassword(
+    User.changePassword
       id: currentUser._id
     ,
       oldPassword: oldPassword
       newPassword: newPassword
+
     , (user) ->
-      cb user
+      callback? user
+
     , (err) ->
-      cb err
-    ).$promise
+      callback? err
+
+    .$promise
 
 
   ###
@@ -103,19 +108,17 @@ angular.module('<%= scriptAppName %>').factory 'Auth', ($location, $rootScope, $
   ###
   Waits for currentUser to resolve before checking if user is logged in
   ###
-  isLoggedInAsync: (cb) ->
-    if currentUser.hasOwnProperty('$promise')
-      currentUser.$promise.then(->
-        cb true
+  isLoggedInAsync: (callback) ->
+    if currentUser.hasOwnProperty '$promise'
+      currentUser.$promise.then ->
+        callback? true
         return
-      ).catch ->
-        cb false
+      .catch ->
+        callback? false
         return
 
-    else if currentUser.hasOwnProperty('role')
-      cb true
     else
-      cb false
+      callback? currentUser.hasOwnProperty 'role'
 
   ###
   Check if a user is an admin
