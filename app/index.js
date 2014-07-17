@@ -79,7 +79,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         name: "stylesheet",
         default: 1,
         message: "What would you like to write stylesheets with?",
-        choices: [ "CSS", "Sass", "Less"],
+        choices: [ "CSS", "Sass", "Stylus", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
       },  {
         type: "list",
@@ -181,6 +181,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.config.set('registerRoutesFile', 'server/routes.js');
     this.config.set('routesNeedle', '// Insert routes below');
 
+    this.config.set('routesBase', '/api/');
+    this.config.set('pluralizeRoutes', true);
+
     this.config.set('insertSockets', true);
     this.config.set('registerSocketsFile', 'server/config/socketio.js');
     this.config.set('socketsNeedle', '// Insert sockets below');
@@ -202,6 +205,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     if(this.filters['html']) extensions.push('html');
     if(this.filters['jade']) extensions.push('jade');
     if(this.filters['css']) extensions.push('css');
+    if(this.filters['stylus']) extensions.push('styl');
     if(this.filters['sass']) extensions.push('scss');
     if(this.filters['less']) extensions.push('less');
 

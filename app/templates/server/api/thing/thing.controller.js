@@ -17,7 +17,7 @@ exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   res.json([
   {
   name : 'Development Tools',
-  info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Sass, CoffeeScript, and Less.'
+  info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
   }, {
   name : 'Server and Client integration',
   info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
@@ -62,11 +62,11 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Thing.findById(req.params.id, function (err, thing) {
-    if (err) { return handleError(err); }
+    if (err) { return handleError(res, err); }
     if(!thing) { return res.send(404); }
     var updated = _.merge(thing, req.body);
     updated.save(function (err) {
-      if (err) { return handleError(err); }
+      if (err) { return handleError(res, err); }
       return res.json(200, thing);
     });
   });

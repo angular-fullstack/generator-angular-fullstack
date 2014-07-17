@@ -3,15 +3,15 @@
 describe 'Controller: MainCtrl', ->
 
   # load the controller's module
-  beforeEach module('<%= scriptAppName %>')<% if(filters.socketio) {%>
-  beforeEach module('socketMock')<% } %>
+  beforeEach module '<%= scriptAppName %>' <% if(filters.socketio) {%>
+  beforeEach module 'socketMock' <% } %>
 
   MainCtrl = undefined
   scope = undefined
   $httpBackend = undefined
 
   # Initialize the controller and a mock scope
-  beforeEach inject((_$httpBackend_, $controller, $rootScope) ->
+  beforeEach inject (_$httpBackend_, $controller, $rootScope) ->
     $httpBackend = _$httpBackend_
     $httpBackend.expectGET('/api/things').respond [
       'HTML5 Boilerplate'
@@ -20,10 +20,8 @@ describe 'Controller: MainCtrl', ->
       'Express'
     ]
     scope = $rootScope.$new()
-    MainCtrl = $controller('MainCtrl',
+    MainCtrl = $controller 'MainCtrl',
       $scope: scope
-    )
-  )
 
   it 'should attach a list of things to the scope', ->
     $httpBackend.flush()

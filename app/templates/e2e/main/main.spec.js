@@ -13,11 +13,4 @@ describe('Main View', function() {
     expect(page.imgEl.getAttribute('src')).toMatch(/assets\/images\/yeoman.png$/);
     expect(page.imgEl.getAttribute('alt')).toBe('I\'m Yeoman');
   });
-
-  it('should render awesomeThings', function() {
-    expect(page.firstAwesomeThingNameEl.getText()).toContain('Development Tools');
-    page.awesomeThingsCount.then(function(count) {
-      expect(count).toBe(6);
-    });
-  });
 });
