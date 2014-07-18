@@ -1,3 +1,29 @@
+<a name="v2.0.5"></a>
+### v2.0.5 (2014-07-17)
+
+#### Bug Fixes
+
+* **account:** add authentication requirement for settings view ([9105c0fd](http://github.com/DaftMonk/generator-angular-fullstack/commit/9105c0fdbabdbde68fb6cf0fe0d6993ead6e7095), closes [#327](http://github.com/DaftMonk/generator-angular-fullstack/issues/327))
+* **app:**
+  * use correct path for font awesome and glyphicons ([1917ba31](http://github.com/DaftMonk/generator-angular-fullstack/commit/1917ba31264fc90bea0fce36b8d144f897e8bf08))
+  * wait for currentUser to resolve before checking if logged in on route changes ([6d6090d9](http://github.com/DaftMonk/generator-angular-fullstack/commit/6d6090d9c4dcd5d8a1f6ecb2cf5dc0bb4c8598fe))
+  * bootstrap glyphicons not correctly linked on grunt build ([53d193d0](http://github.com/DaftMonk/generator-angular-fullstack/commit/53d193d011c7c1ea8c9477e8f17ad56cc4214362))
+* **dependencies:** include certain dependencies only when answering yes to their respective prompts ([040c57de](http://github.com/DaftMonk/generator-angular-fullstack/commit/040c57de8689f2e0fc35410d0b6935363aaa8458))
+* **server:**
+  * fix seeding of db in test mode causing tests to randomly fail ([05f7f433](http://github.com/DaftMonk/generator-angular-fullstack/commit/05f7f43372bc3bd54bead811952b775adeec1f05))
+  * make user tests run more consistently ([addb5061](http://github.com/DaftMonk/generator-angular-fullstack/commit/addb5061f62696c7a0078a8d2c7443d428e69376))
+  * warnings that express was using deprecated features ([8dc2f1e4](http://github.com/DaftMonk/generator-angular-fullstack/commit/8dc2f1e48503c27cbd2aac3c455adac7781a6539))
+  * missing `res` param for handleError ([eb7d50c8](http://github.com/DaftMonk/generator-angular-fullstack/commit/eb7d50c8d27820a6b26caf2a1aaa0e4fa8eee367))
+
+#### Features
+
+* **app:** 
+  * added oath buttons to signup page ([a408f58e](http://github.com/DaftMonk/generator-angular-fullstack/commit/a408f58edb923cd14bf7c7b3411b874dce5f0724))
+  * upgrade socket.io to use v1.0.6
+* **gen:**
+  * add option for Stylus as a preprocessor ([1b90c448](http://github.com/DaftMonk/generator-angular-fullstack/commit/1b90c448fbf374287fe07f782f9788dfb9a23613))
+  * make bootstrap and bootstrap ui optional ([f50d0942](http://github.com/DaftMonk/generator-angular-fullstack/commit/f50d094226fdbf6a7e65ba3783a26efc8544ba08))
+
 <a name="v2.0.4"></a>
 ### v2.0.4 (2014-07-08)
 
