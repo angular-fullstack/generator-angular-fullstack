@@ -105,7 +105,7 @@ Generator.prototype.rhcAppShow = function rhcAppShow() {
       this.abort = true;
     }
     // No remote found
-    else if (!stdout.search('not found.') >= 0) {
+    else if (stdout.search('not found.') < 0) {
       console.log('No existing app found.');
     }
     // Error
