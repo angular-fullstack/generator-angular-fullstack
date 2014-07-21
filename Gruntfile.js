@@ -25,6 +25,13 @@ module.exports = function (grunt) {
       options: {
         files: ['CHANGELOG.md']
       }
+    },
+    jshint: {
+      options: {
+        curly: false,
+        node: true
+      },
+      all: ['Gruntfile.js', '*/index.js']
     }
   });
 
