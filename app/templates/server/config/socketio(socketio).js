@@ -38,8 +38,10 @@ module.exports = function (socketio) {
   // }));
 
   socketio.on('connection', function (socket) {
-    socket.address = socket.handshake.address.address + ':' +
-                     socket.handshake.address.port;
+    socket.address = socket.handshake.address !== null ?
+            socket.handshake.address.address + ':' + socket.handshake.address.port :
+            process.env.DOMAIN;
+
     socket.connectedAt = new Date();
 
     // Call onDisconnect.
