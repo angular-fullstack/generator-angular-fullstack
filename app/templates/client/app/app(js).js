@@ -17,13 +17,14 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
     $httpProvider.interceptors.push('authInterceptor');<% } %>
   })<% } %><% if(filters.auth) { %>
 
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+  .factory('authInterceptor', function ($rootScope, $q, $localStorage, $sessionStorage, $location) {
     return {
       // Add authorization token to headers
       request: function (config) {
         config.headers = config.headers || {};
-        if ($cookieStore.get('token')) {
-          config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+        var token = $localStorage.token||$sessionStorage.token;
+        if (token) {
+          config.headers.Authorization = 'Bearer ' + token;
         }
         return config;
       },
@@ -33,7 +34,8 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
         if(response.status === 401) {
           $location.path('/login');
           // remove any stale tokens
-          $cookieStore.remove('token');
+          delete $localStorage.token;
+          delete $sessionStorage.token;
           return $q.reject(response);
         }
         else {
