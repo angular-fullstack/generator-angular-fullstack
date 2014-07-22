@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
+  .controller('LoginCtrl', function ($scope, Auth, $location<% if (filters.oauth) { %>, $window<% } %>) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -22,8 +22,8 @@ angular.module('<%= scriptAppName %>')
         });
       }
     };
-
+<% if(filters.oauth) {%>
     $scope.loginOauth = function(provider) {
       $window.location.href = '/auth/' + provider;
-    };
+    };<% } %>
   });

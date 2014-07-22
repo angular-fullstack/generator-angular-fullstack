@@ -1,38 +1,30 @@
-<% if(filters.bootstrap) { %>
-// Colors
+<% if(filters.bootstrap) { %>// Colors
 // --------------------------------------------------
 
 $btnText:                           #fff;
-$btnTextAlt:                        #000;
-
+$btnTextAlt:                        #000;<% if (filters.oauth) { %>
+<% if (filters.facebookAuth) { %>
 $btnFacebookBackground:             #3B5998;
-$btnFacebookBackgroundHighlight:    #133783;
-
+$btnFacebookBackgroundHighlight:    #133783;<% } if (filters.twitterAuth) { %>
 $btnTwitterBackground:              #2daddc;
-$btnTwitterBackgroundHighlight:     #0271bf;
-
+$btnTwitterBackgroundHighlight:     #0271bf;<% } if (filters.googleAuth) { %>
+$btnGooglePlusBackground:           #dd4b39;
+$btnGooglePlusBackgroundHighlight:  #c53727;<% } %>
 $btnGithubBackground:               #fafafa;
 $btnGithubBackgroundHighlight:      #ccc;
 
-$btnGooglePlusBackground:           #dd4b39;
-$btnGooglePlusBackgroundHighlight:  #c53727;
-
-
 // Social buttons
 // --------------------------------------------------
-
+<% if (filters.facebookAuth) { %>
 .btn-facebook {
   @include button-variant($btnText, $btnFacebookBackgroundHighlight, $btnFacebookBackgroundHighlight);
-}
-
+}<% } if (filters.twitterAuth) { %>
 .btn-twitter {
   @include button-variant($btnText, $btnTwitterBackground, $btnTwitterBackgroundHighlight);
-}
-
-.btn-github {
-  @include button-variant($btnTextAlt, $btnGithubBackground, $btnGithubBackgroundHighlight);
-}
-
+}<% } if (filters.googleAuth) { %>
 .btn-google-plus {
   @include button-variant($btnText, $btnGooglePlusBackground, $btnGooglePlusBackgroundHighlight);
 }<% } %>
+.btn-github {
+  @include button-variant($btnTextAlt, $btnGithubBackground, $btnGithubBackgroundHighlight);
+}<% } %><% } %>

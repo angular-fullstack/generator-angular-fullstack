@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.controller 'LoginCtrl', ($scope, Auth, $location, $window) ->
+.controller 'LoginCtrl', ($scope, Auth, $location<% if(filters.oauth) {%>, $window<% } %>) ->
   $scope.user = {}
   $scope.errors = {}
   $scope.login = (form) ->
@@ -18,6 +18,6 @@ angular.module '<%= scriptAppName %>'
 
       .catch (err) ->
         $scope.errors.other = err.message
-
+<% if(filters.oauth) {%>
   $scope.loginOauth = (provider) ->
-    $window.location.href = '/auth/' + provider
+    $window.location.href = '/auth/' + provider<% } %>

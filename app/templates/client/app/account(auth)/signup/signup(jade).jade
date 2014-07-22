@@ -39,8 +39,7 @@ div(ng-include='"components/navbar/navbar.html"')
           a.btn.btn-default.btn-lg.btn-register(href='/login')
             | Login
 
-
-        <% if(filters.facebookAuth || filters.twitterAuth || filters.googleAuth) {%>
+<% if(filters.oauth) {%>
         hr
 
         div<% if(filters.facebookAuth) {%>
