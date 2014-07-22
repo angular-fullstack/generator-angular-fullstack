@@ -8,12 +8,16 @@
 module.exports = {
   DOMAIN: 'http://localhost:9000',
   SESSION_SECRET: "<%= _.slugify(appname) + '-secret' %>",<% if (filters.facebookAuth) { %>
+
   FACEBOOK_ID: 'app-id',
   FACEBOOK_SECRET: 'secret',<% } if (filters.twitterAuth) { %>
+
   TWITTER_ID: 'app-id',
   TWITTER_SECRET: 'secret',<% } if (filters.googleAuth) { %>
+
   GOOGLE_ID: 'app-id',
-  GOOGLE_SECRET: 'secret',<% } %>
+  GOOGLE_SECRET: 'secret',
+<% } %>
   // Control debug level for modules using visionmedia/debug
   DEBUG: ''
 };
