@@ -34,6 +34,23 @@ Generator.prototype.askForName = function askForName() {
   }.bind(this));
 };
 
+Generator.prototype.askForRegion = function askForRegion() {
+  var done = this.async();
+
+  var prompts = [{
+    type: "list",
+    name: 'region',
+    message: 'On which region do you want to deploy ?',
+    choices: [ "US", "EU"],
+    default: 0
+  }];
+
+  this.prompt(prompts, function (props) {
+    this.region = props.region.toLowerCase();
+    done();
+  }.bind(this));
+};
+
 Generator.prototype.checkInstallation = function checkInstallation() {
   if(this.abort) return;
   var done = this.async();
@@ -65,9 +82,10 @@ Generator.prototype.gitInit = function gitInit() {
 Generator.prototype.herokuCreate = function herokuCreate() {
   if(this.abort) return;
   var done = this.async();
+  var regionParams = (this.region !== 'us') ? ' --region ' + this.region : '';
 
   this.log(chalk.bold('Creating heroku app and setting node environment'));
-  var child = exec('heroku apps:create ' + this.deployedName + ' && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
+  var child = exec('heroku apps:create ' + this.deployedName + regionParams + ' && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.abort = true;
       this.log.error(err);
