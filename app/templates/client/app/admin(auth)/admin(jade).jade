@@ -6,6 +6,9 @@ div(ng-include='"components/navbar/navbar.html"')
     li.list-group-item(ng-repeat='user in users')
       strong {{user.name}}
       br
-      span.text-muted {{user.email}}
-      a.trash(ng-click='delete(user)')
+      span.text-muted {{user.credentials[0].value}}
+      a(ng-click='confirm(user)', ng-class="user.credentials[0].confirmed ? 'confirmed' : 'confirm'", title='confirm email')
+        span.glyphicon.glyphicon-ok-circle
+
+      a.trash(ng-click='delete(user)', title='delete user')
         span.glyphicon.glyphicon-trash.pull-right

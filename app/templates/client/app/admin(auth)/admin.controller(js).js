@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User) {
+  .controller('AdminCtrl', function ($scope, $http, User) {
 
     $http.get('/api/users').success(function(users) {
       $scope.users = users;
@@ -14,5 +14,9 @@ angular.module('<%= scriptAppName %>')
           $scope.users.splice(i, 1);
         }
       });
+    };
+
+    $scope.confirm = function(user) {
+      User.confirm({ id:user._id }, null);
     };
   });

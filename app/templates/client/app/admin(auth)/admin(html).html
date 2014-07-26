@@ -6,6 +6,7 @@
     <li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
         <span class="text-muted">{{user.email}}</span>
+        <a ng-click="confirm(user)" ng-class="user.credentials[0].confirmed ? 'confirmed' : 'confirm'"><span class="glyphicon glyphicon-ok-circle"></span></a>
         <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>

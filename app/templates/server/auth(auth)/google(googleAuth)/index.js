@@ -6,13 +6,16 @@ var auth = require('../auth.service');
 
 var router = express.Router();
 
+
+// available scopes:
+//    https://developers.google.com/+/api/oauth
+var SCOPE = [ 'profile', 'email' ];
+
+
 router
   .get('/', passport.authenticate('google', {
+    scope: SCOPE,
     failureRedirect: '/signup',
-    scope: [
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email'
-    ],
     session: false
   }))
 
