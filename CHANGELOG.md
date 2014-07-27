@@ -1,3 +1,21 @@
+<a name="v2.0.6"></a>
+### v2.0.6 (2014-07-27)
+
+
+#### Bug Fixes
+
+* **app:** 
+  * `things` made a little bit more responsive ([58aa7a48](http://github.com/DaftMonk/generator-angular-fullstack/commit/58aa7a489ae28c22be59b3a61db027ccf2f1ae46))
+* **dependencies:** change ngmin to ng-annotate ([dd023fa5](http://github.com/DaftMonk/generator-angular-fullstack/commit/dd023fa5fd90b8b541b8cc60c87186ee619e4844))
+* **bootstrap:** removed styles breaking responsiveness for high-res screens ([053fedb8](http://github.com/DaftMonk/generator-angular-fullstack/commit/053fedb89f64294a55538ad9b806b2d7de4d1c7f))
+* **socketio:** fallback for servers where `socket.handshake.address` is not provided ([f6a19348](http://github.com/DaftMonk/generator-angular-fullstack/commit/f6a19348ad404aa72c31eef8dc84aac8db0e904a))
+* **stylus:** remove bootstrap css import in stylus when bootstrap is not selected ([f7c3d0ad](http://github.com/DaftMonk/generator-angular-fullstack/commit/f7c3d0ad41da5f0072c2cf64ff5c9a894052d194), closes [#368](http://github.com/DaftMonk/generator-angular-fullstack/issues/368))
+
+
+#### Features
+
+* **oauth:** remove code according to user prompts ([316bd9dd](http://github.com/DaftMonk/generator-angular-fullstack/commit/316bd9dd3632622b0fb434cacfc4150f01d18e4c))
+
 <a name="v2.0.5"></a>
 ### v2.0.5 (2014-07-17)
 
