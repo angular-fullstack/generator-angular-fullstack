@@ -4,7 +4,7 @@
 
 ## Example project
 
-Generated with defaults: http://fullstack-demo.herokuapp.com/. 
+Generated with defaults: http://fullstack-demo.herokuapp.com/.
 
 Source code: https://github.com/DaftMonk/fullstack-demo
 
@@ -43,13 +43,13 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 **Server**
 
 * Database: `None`, `MongoDB`
-* Authentication boilerplate: `Yes`, `No` 
-* oAuth integrations: `Facebook` `Twitter` `Google` 
+* Authentication boilerplate: `Yes`, `No`
+* oAuth integrations: `Facebook` `Twitter` `Google`
 * Socket.io integration: `Yes`, `No`
 
 ## Injection
 
-A grunt task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block. 
+A grunt task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
 
 * `less` files into `client/app.less`
 * `scss` files into `client/app.scss`
@@ -62,7 +62,7 @@ A grunt task looks for new files in your `client/app` and `client/components` fo
 
 Available generators:
 
-* App 
+* App
     - [angular-fullstack](#app) (aka [angular-fullstack:app](#app))
 * Server Side
     - [angular-fullstack:endpoint](#endpoint)
@@ -80,7 +80,7 @@ Available generators:
     - [angular-fullstack:heroku](#heroku)
 
 ### App
-Sets up a new AngularJS + Express app, generating all the boilerplate you need to get started. 
+Sets up a new AngularJS + Express app, generating all the boilerplate you need to get started.
 
 Example:
 ```bash
@@ -98,7 +98,7 @@ yo angular-fullstack:endpoint message
 ```
 
 Produces:
-    
+
     server/api/message/index.js
     server/api/message/message.spec.js
     server/api/message/message.controller.js
@@ -116,13 +116,13 @@ yo angular-fullstack:route myroute
 ```
 
 Produces:
-    
+
     client/app/myroute/myroute.js
     client/app/myroute/myroute.controller.js
     client/app/myroute/myroute.controller.spec.js
     client/app/myroute/myroute.html
     client/app/myroute/myroute.scss
-   
+
 
 ### Controller
 Generates a controller.
@@ -133,7 +133,7 @@ yo angular-fullstack:controller user
 [?] Where would you like to create this controller? client/app/
 ```
 
-Produces: 
+Produces:
 
     client/app/user/user.controller.js
     client/app/user/user.controller.spec.js
@@ -178,7 +178,7 @@ yo angular-fullstack:filter myFilter
 [?] Where would you like to create this filter? client/app/
 ```
 
-Produces: 
+Produces:
 
     client/app/myFilter/myFilter.filter.js
     client/app/myFilter/myFilter.filter.spec.js
@@ -209,10 +209,10 @@ yo angular-fullstack:decorator serviceName
 [?] Where would you like to create this decorator? client/app/
 ```
 
-Produces 
+Produces
 
     client/app/serviceName/serviceName.decorator.js
-    
+
 ###Openshift
 
 Deploying to OpenShift can be done in just a few steps:
@@ -223,29 +223,37 @@ A live application URL will be available in the output.
 
 > **Enabling web sockets**
 >
-> If you're using socket.io, you will need to update the client to connect to the correct port for sockets to work. 
-> 
+> If you're using socket.io, you will need to update the client to connect to the correct port for sockets to work.
+>
 > In `/client/app/components/socket/socket.service` update the socket to connect to port 8000. (with `my-openshift-app` being the deployed name of your app):
 >
 >     var ioSocket = io.connect('my-openshift-app.com:8000');
-> 
+>
 > **oAuth**
 >
 > If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using Facebook oAuth we would do this :
-> 
+>
 >     rhc set-env FACEBOOK_ID=id -a my-openshift-app
 >     rhc set-env FACEBOOK_SECRET=secret -a my-openshift-app
-> 
-> You will also need to update the callback urls for your oAuth strategies in your `server/config/environment/index.js`
 >
-> After you've set the required environment variables, restart the server: 
-> 
+> You will also need to set `DOMAIN` environment variable:
+>
+>     rhc config:set DOMAIN=<your-openshift-app-name>.rhcloud.com
+>
+>     # or (if you're using it):
+>
+>     rhc config:set DOMAIN=<your-custom-domain>
+>
+> After you've set the required environment variables, restart the server:
+>
 >     rhc app-restart -a my-openshift-app
-    
+
+To make your deployment process easier consider using [grunt-build-control](https://github.com/robwierzbowski/grunt-build-control).
+
 **Pushing Updates**
 
     grunt
-    
+
 Commit and push the resulting build, located in your dist folder:
 
     cd dist && git add -A && git commit -m "describe your changes here"
@@ -255,36 +263,38 @@ Commit and push the resulting build, located in your dist folder:
 
 Deploying to heroku only takes a few steps.
 
-    yo angular-fullstack:heroku 
+    yo angular-fullstack:heroku
 
 To work with your new heroku app using the command line, you will need to run any `heroku` commands from the `dist` folder.
+
 
 If you're using mongoDB you will need to add a database to your app:
 
     heroku addons:add mongohq
 
-Your app should now be live. To view it run `heroku open`
+Your app should now be live. To view it run `heroku open`.
 
-> **Enabling web sockets**
 >
-> If you're using socket.io you will need to enable websockets on your app: 
+> If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using **Facebook** oAuth we would do this :
 >
->     heroku labs:enable websockets
->
-> **oAuth**
->
-> If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using Facebook oAuth we would do this :
-> 
 >     heroku config:set FACEBOOK_ID=id
 >     heroku config:set FACEBOOK_SECRET=secret
 >
-> You will also need to update the callback urls for your oAuth strategies in your `server/config/environment/index.js`
+> You will also need to set `DOMAIN` environment variable:
 >
+>     heroku config:set DOMAIN=<your-heroku-app-name>.herokuapp.com
+>
+>     # or (if you're using it):
+>
+>     heroku config:set DOMAIN=<your-custom-domain>
+>
+
+To make your deployment process easier consider using [grunt-build-control](https://github.com/robwierzbowski/grunt-build-control).
 
 #### Pushing Updates
 
     grunt
-    
+
 Commit and push the resulting build, located in your dist folder:
 
     cd dist && git add -A && git commit -m "describe your changes here"
@@ -332,7 +342,7 @@ Use `grunt test:client` to only run client tests.
 
 **Protractor tests**
 
-To setup protractor e2e tests, you must first run 
+To setup protractor e2e tests, you must first run
 
 `npm run update-webdriver`
 
@@ -348,9 +358,9 @@ Overview
 
     ├── client
     │   ├── app                 - All of our app specific components go in here
-    │   ├── assets              - Custom assets: fonts, images, etc… 
+    │   ├── assets              - Custom assets: fonts, images, etc…
     │   ├── components          - Our reusable components, non-specific to to our app
-    │ 
+    │
     ├── e2e                     - Our protractor end to end tests
     │
     └── server
