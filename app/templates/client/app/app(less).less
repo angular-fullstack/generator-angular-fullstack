@@ -14,14 +14,14 @@
     color: #000;
     padding: 0.2em 0;
 }
-
+<% if (!filters.bootstrap) { %>
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
         max-width: 730px;
     }
 }
-
+<% } %>
 // injector
 @import 'account/login/login.less';
 @import 'admin/admin.less';
