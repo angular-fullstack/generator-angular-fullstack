@@ -1,3 +1,12 @@
+<a name="v2.0.7"></a>
+### v2.0.7 (2014-07-27)
+
+
+#### Bug Fixes
+
+* **gruntfile:** grunt tasks should run if no local config exists ([422d6bca](http://github.com/DaftMonk/generator-angular-fullstack/commit/422d6bca07283057b0fa275dba0de447c9f4f167))
+* **server:** fix setting TTL index on collection : sessions error ([0581ed09](http://github.com/DaftMonk/generator-angular-fullstack/commit/0581ed094b2c6141ab9e0c016eda22aa49e1d075))
+
 <a name="v2.0.6"></a>
 ### v2.0.6 (2014-07-27)
 
