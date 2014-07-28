@@ -157,7 +157,7 @@ describe('angular-fullstack generator', function () {
 //      });
     });
 
-    describe('with other preprocessors', function() {
+    describe('with other preprocessors and oauth', function() {
       beforeEach(function() {
         helpers.mockPrompt(gen, {
           script: 'coffee',
@@ -166,7 +166,7 @@ describe('angular-fullstack generator', function () {
           router: 'uirouter',
           mongoose: true,
           auth: true,
-          oauth: [],
+          oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
           socketio: true
         });
       });
