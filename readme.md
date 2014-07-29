@@ -306,13 +306,11 @@ Commit and push the resulting build, located in your dist folder:
 The following packages are always installed by the [app](#app) generator:
 
 * angular
-* angular-bootstrap
 * angular-cookies
 * angular-mocks
 * angular-resource
 * angular-sanitize
 * angular-scenario
-* bootstrap
 * es5-shim
 * font-awesome
 * json3
@@ -324,6 +322,8 @@ These packages are installed optionally depending on your configuration:
 * angular-route
 * angular-ui-router
 * angular-socket-io
+* angular-bootstrap
+* bootstrap
 
 All of these can be updated with `bower update` as new versions are released.
 
