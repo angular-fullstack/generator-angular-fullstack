@@ -5,8 +5,8 @@
 angular.module '<%= scriptAppName %>'
 .factory 'socket', (socketFactory) ->
   retryInterval = 5000
-  retryTimer = undefined
   clearInterval retryTimer
+  retryTimer = undefined
   ioSocket = io.connect '',
     'force new connection': true
     'max reconnection attempts': Infinity
