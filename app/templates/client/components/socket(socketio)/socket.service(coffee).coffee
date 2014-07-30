@@ -4,19 +4,13 @@
 
 angular.module '<%= scriptAppName %>'
 .factory 'socket', (socketFactory) ->
-  retryInterval = 5000
-  retryTimer = undefined
-  clearInterval retryTimer
-  ioSocket = io.connect '',
-    'force new connection': true
-    'max reconnection attempts': Infinity
+
+  # socket.io now auto-configures its connection when we omit a connection url
+  ioSocket = io null,
     'reconnection limit': 10 * 1000
-    # Send auth token on connection
+    # Send auth token on connection, you will need to DI the Auth service above
     # 'query': 'token=' + Auth.getToken()
 
-  retryTimer = setInterval ->
-    ioSocket.connect() if not ioSocket.socket.connected and not ioSocket.socket.connecting and not ioSocket.socket.reconnecting
-  , retryInterval
   socket = socketFactory ioSocket: ioSocket
 
   socket: socket
