@@ -3,9 +3,8 @@
 angular.module('<%= scriptAppName %>')
   .controller('AdminCtrl', function ($scope, $http, Auth, User) {
 
-    $http.get('/api/users').success(function(users) {
-      $scope.users = users;
-    });
+    // Use the User $resource to fetch all users
+    $scope.users = User.query();
 
     $scope.delete = function(user) {
       User.remove({ id: user._id });
