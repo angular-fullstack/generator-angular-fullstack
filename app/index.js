@@ -42,6 +42,16 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         default: true,
       }], function (answers) {
         this.skipConfig = answers.skipConfig;
+
+        // NOTE: temp(?) fix for #403
+        if(typeof this.oauth==='undefined') {
+          var strategies = Object.keys(this.filters).filter(function(key) {
+            return key.match(/Auth$/) && key;
+          });
+
+          if(strategies.length) this.config.set('oauth', true);
+        }
+
         cb();
       }.bind(this));
     } else {
