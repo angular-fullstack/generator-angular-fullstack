@@ -24,17 +24,11 @@ var socketio = require('socket.io').listen(server);
 require('./config/socketio')(socketio);<% } %>
 require('./config/express')(app);
 require('./routes')(app);
-<% if (filters.twitterAuth) { %>
-mongoose.connection.on('connected', function () {
-	// Start server
-	server.listen(config.port, config.ip, function() {
-	    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
-	});
-});<% } else { %>
+
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
-});<% } %>
+});
 
 // Expose app
 exports = module.exports = app;
