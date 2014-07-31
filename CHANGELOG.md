@@ -1,3 +1,19 @@
+<a name="v2.0.8"></a>
+### v2.0.8 (2014-07-31)
+
+
+#### Bug Fixes
+
+* **coffee:** update socket service to match javascript version ([c27cefe2](http://github.com/DaftMonk/generator-angular-fullstack/commit/c27cefe24d8ec64d905f908c66a56bf602303dce))
+* **gen:** Fixed missing `oauth` property in `.yo-rc.json` after 2.0.5 update ([11d324b9](http://github.com/DaftMonk/generator-angular-fullstack/commit/11d324b95992b68bd19f402401e98f5936cdb343))
+* **travis:** install sass gem if sass is enabled ([ceeac27b](http://github.com/DaftMonk/generator-angular-fullstack/commit/ceeac27b8f912aa6dec2caf3bf20dd7551f2d754))
+* **twitter:** revert mongoose connection change ([8675a002](http://github.com/DaftMonk/generator-angular-fullstack/commit/8675a002e301957569374fdcad87aab0bff6b3b4))
+
+
+#### Features
+
+* **user-management:** use the User $resource to populate users for the admin page ([708f0729](http://github.com/DaftMonk/generator-angular-fullstack/commit/708f07290d98d6bd73723f9db49cce7758c3d12b))
+
 <a name="v2.0.7"></a>
 ### v2.0.7 (2014-07-27)
 
