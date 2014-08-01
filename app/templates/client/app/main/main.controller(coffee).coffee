@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.controller 'MainCtrl', ($scope, $http<% if(filters.socketio) { %>, socket<% } %>) ->
+.controller 'MainCtrl', ($scope, $http<% if(filters.socketio) { %>, socket<% } %><% if(filters.uibootstrap && filters.mongoose) { %>, Modal<% } %>) ->
   $scope.awesomeThings = []
 
   $http.get('/api/things').success (awesomeThings) ->
@@ -15,7 +15,7 @@ angular.module '<%= scriptAppName %>'
 
     $scope.newThing = ''
 
-  $scope.deleteThing = (thing) ->
+  $scope.deleteThing = <% if(filters.uibootstrap) { %>Modal.confirm.delete <% } %>(thing) ->
     $http.delete '/api/things/' + thing._id<% } %><% if(filters.socketio) { %>
 
   $scope.$on '$destroy', ->
