@@ -7,5 +7,5 @@ div(ng-include='"components/navbar/navbar.html"')
       strong {{user.name}}
       br
       span.text-muted {{user.email}}
-      a.trash(ng-click='delete(user)')
+      a.trash(ng-click='delete(<% if(filters.uibootstrap) { %>user.name + " (" + user.email + ")", <% } %>user)')
         span.glyphicon.glyphicon-trash.pull-right
