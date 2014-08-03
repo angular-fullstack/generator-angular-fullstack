@@ -12,6 +12,7 @@ angular.module '<%= scriptAppName %>'
       Auth.login
         email: $scope.user.email
         password: $scope.user.password
+        rememberme : $scope.user.rememberme
 
       .then ->
         $location.path '/'

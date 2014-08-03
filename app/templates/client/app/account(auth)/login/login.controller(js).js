@@ -11,7 +11,8 @@ angular.module('<%= scriptAppName %>')
       if(form.$valid) {
         Auth.login({
           email: $scope.user.email,
-          password: $scope.user.password
+          password: $scope.user.password,
+          rememberme : $scope.user.rememberme
         })
         .then( function() {
           // Logged in, redirect to home

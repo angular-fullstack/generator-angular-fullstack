@@ -15,11 +15,12 @@ angular.module '<%= scriptAppName %>', [<%= angularModules %>]
   $locationProvider.html5Mode true<% if(filters.auth) { %>
   $httpProvider.interceptors.push 'authInterceptor'<% } %>
 <% } %><% if(filters.auth) { %>
-.factory 'authInterceptor', ($rootScope, $q, $cookieStore, $location) ->
+.factory 'authInterceptor', ($rootScope, $q, $localStorage, $sessionStorage, $location) ->
   # Add authorization token to headers
   request: (config) ->
     config.headers = config.headers or {}
-    config.headers.Authorization = 'Bearer ' + $cookieStore.get 'token' if $cookieStore.get 'token'
+    token = $localStorage.token||$sessionStorage.token
+    config.headers.Authorization = 'Bearer ' + token if token
     config
 
   # Intercept 401s and redirect you to login
