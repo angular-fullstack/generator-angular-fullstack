@@ -9,6 +9,7 @@
     "bootstrap-stylus": "latest",
     "bootstrap": "~3.1.1",
     "angular-resource": ">=1.2.*",
+    "angular-cookies": "~1.2.21",
     "ngstorage": "~0.3.0",
     "angular-sanitize": ">=1.2.*",
     "angular-route": ">=1.2.*",

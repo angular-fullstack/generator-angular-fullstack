@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $localStorage, $sessionStorage, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, User, $localStorage, $cookies, $q) {
     
-    var currentUser = ($localStorage.token||$sessionStorage.token) ? User.get() : {};
+    var currentUser = ($localStorage.token||$cookies.token) ? User.get() : {};
 
     return {
 
@@ -27,7 +27,7 @@ angular.module('<%= scriptAppName %>')
           if (user.rememberme) {
             $localStorage.token = data.token;
           } else {
-            $sessionStorage.token = data.token;
+            $cookies.token = data.token;
           }
           currentUser = User.get();
           deferred.resolve(data);
@@ -49,7 +49,7 @@ angular.module('<%= scriptAppName %>')
        */
       logout: function() {
         delete $localStorage.token;
-        delete $sessionStorage.token;
+        delete $cookies.token;
         currentUser = {};
       },
 
@@ -65,7 +65,7 @@ angular.module('<%= scriptAppName %>')
 
         return User.save(user,
           function(data) {
-            $sessionStorage.token = data.token;
+            $cookies.token = data.token;
             currentUser = User.get();
             return cb(user);
           },
@@ -144,7 +144,7 @@ angular.module('<%= scriptAppName %>')
        * Get auth token
        */
       getToken: function() {
-        return $localStorage.token||$sessionStorage.token;
+        return $localStorage.token||$cookies.token;
       }
     };
   });

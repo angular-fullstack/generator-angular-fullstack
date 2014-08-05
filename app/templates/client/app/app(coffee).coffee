@@ -15,11 +15,11 @@ angular.module '<%= scriptAppName %>', [<%= angularModules %>]
   $locationProvider.html5Mode true<% if(filters.auth) { %>
   $httpProvider.interceptors.push 'authInterceptor'<% } %>
 <% } %><% if(filters.auth) { %>
-.factory 'authInterceptor', ($rootScope, $q, $localStorage, $sessionStorage, $location) ->
+.factory 'authInterceptor', ($rootScope, $q, $localStorage, $cookies, $location) ->
   # Add authorization token to headers
   request: (config) ->
     config.headers = config.headers or {}
-    token = $localStorage.token||$sessionStorage.token
+    token = $localStorage.token||$cookies.token
     config.headers.Authorization = 'Bearer ' + token if token
     config
 
