@@ -225,7 +225,7 @@ A live application URL will be available in the output.
 >
 > If you're using socket.io, you will need to update the client to connect to the correct port for sockets to work.
 >
-> In `/client/app/components/socket/socket.service` update the socket to connect to port 8000. (with `my-openshift-app` being the deployed name of your app):
+> In `/client/components/socket/socket.service` update the socket to connect to port 8000. (with `my-openshift-app` being the deployed name of your app):
 >
 >     var ioSocket = io.connect('my-openshift-app.com:8000');
 >
