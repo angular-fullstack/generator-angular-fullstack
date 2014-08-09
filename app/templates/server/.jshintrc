@@ -11,5 +11,8 @@
   "undef": true,
   "smarttabs": true,
   "asi": true,
-  "debug": true
+  "debug": true,
+  "globals": {
+    "rootRequire": false
+  }
 }

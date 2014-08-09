@@ -2,8 +2,8 @@
 
 var express = require('express');
 var passport = require('passport');
-var config = require('../config/environment');
-var User = require('../api/user/user.model');
+var config = rootRequire('config/environment');
+var User = rootRequire('api/user/user.model');
 
 // Passport Configuration
 require('./local/passport').setup(User, config);<% if (filters.facebookAuth) { %>
