@@ -247,7 +247,7 @@ module.exports = function (grunt) {
     },
 
     // Automatically inject Bower components into the app
-    bowerInstall: {
+    wiredep: {
       target: {
         src: '<%%= yeoman.client %>/index.html',
         ignorePath: '<%%= yeoman.client %>/',
@@ -703,7 +703,7 @@ module.exports = function (grunt) {
         'injector:sass', <% } %>
         'concurrent:server',
         'injector',
-        'bowerInstall',
+        'wiredep',
         'autoprefixer',
         'concurrent:debug'
       ]);
@@ -717,7 +717,7 @@ module.exports = function (grunt) {
       'injector:sass', <% } %>
       'concurrent:server',
       'injector',
-      'bowerInstall',
+      'wiredep',
       'autoprefixer',
       'express:dev',
       'wait',
@@ -764,7 +764,7 @@ module.exports = function (grunt) {
         'injector:sass', <% } %>
         'concurrent:test',
         'injector',
-        'bowerInstall',
+        'wiredep',
         'autoprefixer',
         'express:dev',
         'protractor'
@@ -784,7 +784,7 @@ module.exports = function (grunt) {
     'injector:sass', <% } %>
     'concurrent:dist',
     'injector',
-    'bowerInstall',
+    'wiredep',
     'useminPrepare',
     'autoprefixer',
     'ngtemplates',
