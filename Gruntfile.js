@@ -1,11 +1,18 @@
 'use strict';
 var markdown = require('marked');
 var semver = require('semver');
+var _s = require('underscore.string');
+var shell = require('shelljs');
+var process = require('child_process');
+var Q = require('q');
 
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
+    config: {
+      demo: 'demo'
+    },
     pkg: grunt.file.readJSON('package.json'),
     changelog: {
       options: {
@@ -32,6 +39,17 @@ module.exports = function (grunt) {
         node: true
       },
       all: ['Gruntfile.js', '*/index.js']
+    },
+    clean: {
+      demo: {
+        files: [{
+          dot: true,
+          src: [
+            '<%= config.demo %>/*',
+            '!<%= config.demo %>/dist'
+          ]
+        }]
+      }
     }
   });
 
@@ -62,6 +80,56 @@ module.exports = function (grunt) {
       args: ['add'].concat(files)
     }, grunt.task.current.async());
   });
+
+  grunt.registerTask('generate', 'generate demo', function () {
+    var done = this.async();
+
+    shell.cd(grunt.config('config').demo);
+
+    Q()
+      .then(generateDemo)
+      .then(gruntRelease)
+      .catch(function(msg){
+        grunt.fail.warn(msg || 'failed to generate demo')
+      })
+      .finally(done);
+
+    function generateDemo() {
+      var deferred = Q.defer();
+      var generator = shell.exec('yo angular-fullstack', {async:true});
+
+      generator.stdout.on('data', function (data) {
+        if(_s.include(data, '[?]')) {
+          generator.stdin.write('\n');
+        }
+        grunt.verbose.writeln(data);
+      });
+
+      generator.on('close', function (code) {
+        deferred.resolve();
+      });
+
+      return deferred.promise;
+    }
+
+    function gruntRelease() {
+      var deferred = Q.defer();
+      var generator = shell.exec('grunt build', {async:true});
+      generator.stdout.on('data', function (data) {
+        grunt.verbose.writeln(data);
+      });
+      generator.on('exit', function (code) {
+        deferred.resolve();
+      });
+
+      return deferred.promise;
+    }
+  });
+
+  grunt.registerTask('demo', [
+    'clean:demo',
+    'generate'
+  ]);
 
   //grunt.registerTask('default', ['bump', 'changelog', 'stage', 'release']);
 };
