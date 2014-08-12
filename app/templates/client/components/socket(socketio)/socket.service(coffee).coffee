@@ -6,7 +6,7 @@ angular.module '<%= scriptAppName %>'
 .factory 'socket', (socketFactory) ->
 
   # socket.io now auto-configures its connection when we omit a connection url
-  ioSocket = io null,
+  ioSocket = io '',
     'reconnection limit': 10 * 1000
     # Send auth token on connection, you will need to DI the Auth service above
     # 'query': 'token=' + Auth.getToken()
