@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
-    var currentUser = {};
-    if($cookieStore.get('token')) {
-      currentUser = User.get();
-    }
+  .factory('Auth', function Auth($location, $rootScope, $http, User, $localStorage, $q) {
+    
+    var currentUser = $localStorage.token ? User.get() : {};
 
     return {
 
@@ -22,10 +20,11 @@ angular.module('<%= scriptAppName %>')
 
         $http.post('/auth/local', {
           email: user.email,
-          password: user.password
+          password: user.password,
+          rememberme : user.rememberme
         }).
         success(function(data) {
-          $cookieStore.put('token', data.token);
+          $localStorage.token = data.token;
           currentUser = User.get();
           deferred.resolve(data);
           return cb();
@@ -45,7 +44,7 @@ angular.module('<%= scriptAppName %>')
        * @param  {Function}
        */
       logout: function() {
-        $cookieStore.remove('token');
+        delete $localStorage.token;
         currentUser = {};
       },
 
@@ -61,7 +60,7 @@ angular.module('<%= scriptAppName %>')
 
         return User.save(user,
           function(data) {
-            $cookieStore.put('token', data.token);
+            $localStorage.token = data.token;
             currentUser = User.get();
             return cb(user);
           },
@@ -140,7 +139,19 @@ angular.module('<%= scriptAppName %>')
        * Get auth token
        */
       getToken: function() {
-        return $cookieStore.get('token');
+        return $localStorage.token;
+      },
+
+      /**
+       * Set session token
+       *
+       * @param  {String}   session token
+       * @return {Promise}
+       */
+      setSessionToken: function(sessionToken, callback) {
+        var cb = callback || angular.noop;
+        $localStorage.token = sessionToken;
+        currentUser = User.get(cb);
       }
     };
   });
