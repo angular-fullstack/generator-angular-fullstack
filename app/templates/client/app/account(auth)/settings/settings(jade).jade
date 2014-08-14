@@ -1,5 +1,5 @@
 div(ng-include='"components/navbar/navbar.html"')
-.container
+.container(ng-show="isPasswordChangeable()")
   .row
     .col-sm-12
       h1 Change Password
@@ -19,3 +19,8 @@ div(ng-include='"components/navbar/navbar.html"')
         p.help-block  {{ message }}
 
         button.btn.btn-lg.btn-primary(type='submit') Save changes
+
+.container(ng-hide="isPasswordChangeable()")
+  .row
+    .col-sm-12
+      h1 Your password can not be changed

@@ -134,3 +134,10 @@ angular.module '<%= scriptAppName %>'
   ###
   getToken: ->
     $cookieStore.get 'token'
+
+  ###
+  Check is password is changeable
+  (only local account have changeable password)
+  ###
+  isPasswordChangeable: ->
+    currentUser.provider is 'local'
