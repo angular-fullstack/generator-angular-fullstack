@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.controller 'SignupCtrl', ($scope, Auth, $location<% if(filters.oauth) {%>, $window<% } %>) ->
+.controller 'SignupCtrl', ($scope, Auth<% if(filters.ngroute) { %>, $location<% } %><% if(filters.uirouter) { %>, $state<% } %><% if(filters.oauth) {%>, $window<% } %>) ->
   $scope.user = {}
   $scope.errors = {}
   $scope.register = (form) ->
@@ -15,7 +15,7 @@ angular.module '<%= scriptAppName %>'
         password: $scope.user.password
 
       .then ->
-        $location.path '/'
+        <% if(filters.ngroute) { %>$location.path '/'<% } %><% if(filters.uirouter) { %>$state.go 'main'<% } %>
 
       .catch (err) ->
         err = err.data

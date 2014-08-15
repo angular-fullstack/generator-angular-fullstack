@@ -3,20 +3,23 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('<%= scriptAppName %>'));<% if(filters.socketio) {%>
+  beforeEach(module('<%= scriptAppName %>'));<% if(filters.uirouter) {%>
+  beforeEach(module('stateMock'));<% } %><% if(filters.socketio) {%>
   beforeEach(module('socketMock'));<% } %>
 
   var MainCtrl,
-      scope,
+      scope,<% if(filters.uirouter) {%>
+      state,<% } %>
       $httpBackend;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
+  beforeEach(inject(function (_$httpBackend_, $controller, $rootScope<% if(filters.uirouter) {%>, $state<% } %>) {
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/api/things')
       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
 
-    scope = $rootScope.$new();
+    scope = $rootScope.$new();<% if(filters.uirouter) {%>
+    state = $state;<% } %>
     MainCtrl = $controller('MainCtrl', {
       $scope: scope
     });
