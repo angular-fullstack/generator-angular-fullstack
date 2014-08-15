@@ -5,6 +5,7 @@ var _s = require('underscore.string');
 var shell = require('shelljs');
 var process = require('child_process');
 var Q = require('q');
+var helpers = require('yeoman-generator').test;
 
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
@@ -33,6 +34,21 @@ module.exports = function (grunt) {
         files: ['CHANGELOG.md']
       }
     },
+    buildcontrol: {
+      options: {
+        dir: 'demo',
+        commit: true,
+        push: true,
+        connectCommits: false,
+        message: 'Built using Angular Fullstack v<%= pkg.version %> from commit %sourceCommit%'
+      },
+      release: {
+        options: {
+          remote: 'origin',
+          branch: 'master'
+        }
+      }
+    },
     jshint: {
       options: {
         curly: false,
@@ -46,6 +62,7 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '<%= config.demo %>/*',
+            '!<%= config.demo %>/.git',
             '!<%= config.demo %>/dist'
           ]
         }]
@@ -88,6 +105,7 @@ module.exports = function (grunt) {
 
     Q()
       .then(generateDemo)
+      .then(gruntBuild)
       .then(gruntRelease)
       .catch(function(msg){
         grunt.fail.warn(msg || 'failed to generate demo')
@@ -96,25 +114,38 @@ module.exports = function (grunt) {
 
     function generateDemo() {
       var deferred = Q.defer();
-      var generator = shell.exec('yo angular-fullstack', {async:true});
+      var options = {
+        script: 'js',
+        markup: 'html',
+        stylesheet: 'sass',
+        router: 'uirouter',
+        mongoose: true,
+        auth: true,
+        oauth: ['googleAuth', 'twitterAuth'],
+        socketio: true
+      };
 
-      generator.stdout.on('data', function (data) {
-        if(_s.include(data, '[?]')) {
-          generator.stdin.write('\n');
-        }
-        grunt.verbose.writeln(data);
-      });
+      var deps = [
+        '../app',
+        [
+          helpers.createDummyGenerator(),
+          'ng-component:app'
+        ]
+      ];
 
-      generator.on('close', function (code) {
+      var gen = helpers.createGenerator('angular-fullstack:app', deps);
+
+      helpers.mockPrompt(gen, options);
+      gen.run({}, function () {
         deferred.resolve();
       });
 
       return deferred.promise;
     }
 
-    function gruntRelease() {
+    function run(cmd) {
       var deferred = Q.defer();
-      var generator = shell.exec('grunt build', {async:true});
+      var generator = shell.exec(cmd, {async:true});
       generator.stdout.on('data', function (data) {
         grunt.verbose.writeln(data);
       });
@@ -123,6 +154,14 @@ module.exports = function (grunt) {
       });
 
       return deferred.promise;
+    }
+
+    function gruntBuild() {
+      return run('grunt');
+    }
+
+    function gruntRelease() {
+      return run('grunt buildcontrol');
     }
   });
 

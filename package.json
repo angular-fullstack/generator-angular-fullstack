@@ -41,6 +41,7 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-conventional-changelog": "~1.0.0",
+    "grunt-build-control": "DaftMonk/grunt-build-control",
     "grunt-release": "~0.6.0",
     "load-grunt-tasks": "~0.2.0",
     "marked": "~0.2.8",
