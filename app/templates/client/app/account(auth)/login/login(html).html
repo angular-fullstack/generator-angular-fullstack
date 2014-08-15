@@ -37,7 +37,7 @@
           <button class="btn btn-inverse btn-lg btn-login" type="submit">
             Login
           </button>
-          <a class="btn btn-default btn-lg btn-register" href="/signup">
+          <a class="btn btn-default btn-lg btn-register" <% if(filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>
             Register
           </a>
         </div>
