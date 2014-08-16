@@ -62,6 +62,7 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '<%= config.demo %>/*',
+            '!<%= config.demo %>/readme.md',
             '!<%= config.demo %>/.git',
             '!<%= config.demo %>/dist'
           ]
