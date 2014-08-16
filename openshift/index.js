@@ -1,9 +1,11 @@
 'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
-var exec = require('child_process').exec;
+var childProcess = require('child_process');
 var chalk = require('chalk');
 var path = require('path');
+var exec = childProcess.exec;
+var spawn = childProcess.spawn;
 
 var Generator = module.exports = function Generator() {
   yeoman.generators.Base.apply(this, arguments);
@@ -66,14 +68,14 @@ Generator.prototype.gitRemoteCheck = function gitRemoteCheck() {
   if(this.abort || typeof this.dist_repo_url !== 'undefined') return;
   var done = this.async();
 
-  this.log(chalk.bold("\nChecking for an existing git remote named '"+this.deployedName+"'..."));
+  this.log(chalk.bold("\nChecking for an existing git remote named '"+'openshift'+"'..."));
   exec('git remote -v', { cwd: 'dist' }, function (err, stdout, stderr) {
     var lines = stdout.split('\n');
     var dist_repo = '';
     if (err && stderr.search('DL is deprecated') === -1) {
       this.log.error(err);
     } else {
-      var repo_url_finder = new RegExp(this.deployedName+"[  ]*");
+      var repo_url_finder = new RegExp('openshift'+"[  ]*");
       lines.forEach(function(line) {
         if(line.search(repo_url_finder) === 0 && dist_repo === '') {
           var dist_repo_detailed = line.slice(line.match(repo_url_finder)[0].length);
@@ -166,7 +168,7 @@ Generator.prototype.gitRemoteAdd = function gitRemoteAdd() {
   var done = this.async();
   this.log(chalk.bold("\nAdding remote repo url: "+this.dist_repo_url));
 
-  var child = exec('git remote add '+this.deployedName+' '+this.dist_repo_url, { cwd: 'dist' }, function (err, stdout, stderr) {
+  var child = exec('git remote add '+'openshift'+' '+this.dist_repo_url, { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.log.error(err);
     } else {
@@ -229,58 +231,70 @@ Generator.prototype.gitCommit = function gitInit() {
 };
 
 Generator.prototype.gitForcePush = function gitForcePush() {
-  if(this.abort || !this.openshift_remote_exists ) return;
+  if (this.abort || !this.openshift_remote_exists) return;
   var done = this.async();
-  this.log(chalk.bold("\nUploading your initial application code.\n This may take "+chalk.cyan('several minutes')+" depending on your connection speed..."));
+  this.log(chalk.bold("\nUploading your initial application code.\n This may take " + chalk.cyan('several minutes') + " depending on your connection speed..."));
 
-  var child = exec('git push -f '+this.deployedName+' master', { cwd: 'dist' }, function (err, stdout, stderr) {
-    if (err) {
-      this.log.error(err);
-    } else {
-      var host_url = '';
-      var hasWarning = false;
-      var before_hostname = this.dist_repo_url.indexOf('@') + 1;
-      var after_hostname = this.dist_repo_url.length - ( this.deployedName.length + 12 );
-      host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
+  var push = spawn('git', ['push', '-f', 'openshift', 'master'], {cwd: 'dist'});
+  var error = null;
 
-      if(this.filters.socketio) {
-        this.log(chalk.yellow('Openshift websockets use port 8000, you will need to update the client to connect to the correct port for sockets to work.\n\t' + 'in `/client/app/components/socket/socket.service`: ' + chalk.bold('var ioSocket = io.connect(\'' + host_url + ':8000' + '\')' + '\n')));
-        hasWarning = true;
-      }
+  push.stderr.on('data', function (data) {
+    var output = data.toString();
+    this.log.error(output);
+  }.bind(this));
 
-      if(this.filters.facebookAuth) {
-        this.log(chalk.yellow('You will need to set environment variables for facebook auth:\n\t' +
-        chalk.bold('rhc set-env FACEBOOK_ID=id -a ' + this.deployedName + '\n\t') +
-        chalk.bold('rhc set-env FACEBOOK_SECRET=secret -a ' + this.deployedName + '\n')));
-        hasWarning = true;
-      }
-      if(this.filters.googleAuth) {
-        this.log(chalk.yellow('You will need to set environment variables for google auth:\n\t' +
-        chalk.bold('rhc set-env GOOGLE_ID=id -a ' + this.deployedName + '\n\t') +
-        chalk.bold('rhc set-env GOOGLE_SECRET=secret -a ' + this.deployedName + '\n')));
-        hasWarning = true;
-      }
-      if(this.filters.twitterAuth) {
-        this.log(chalk.yellow('You will need to set environment variables for twitter auth:\n\t' +
-        chalk.bold('rhc set-env TWITTER_ID=id -a ' + this.deployedName + '\n\t') +
-        chalk.bold('rhc set-env TWITTER_SECRET=secret -a ' + this.deployedName + '\n')));
-        hasWarning = true;
-      }
+  push.stdout.on('data', function (data) {
+    var output = data.toString();
+    this.log.stdin(output);
+  }.bind(this));
 
-      this.log(chalk.green('\nYour app should now be live at \n\t' + chalk.bold(host_url)));
-      if(hasWarning) {
-        this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly \n\t' +
-          'rhc app-restart -a ' + this.deployedName));
-      }
-      this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
-      '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
-      this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push -f '+this.deployedName+' master')));
+  push.on('exit', function (code) {
+    if (code !== 0) {
+      this.abort = true;
+      return done();
     }
     done();
   }.bind(this));
+};
 
-  child.stdout.on('data', function(data) {
-    var output = data.toString();
-    this.log(output);
+Generator.prototype.restartApp = function restartApp() {
+  if(this.abort || !this.openshift_remote_exists ) return;
+  this.log(chalk.bold("\nRestarting your openshift app.\n"));
+
+  var child = exec('rhc app restart -a ' + this.deployedName, function(err, stdout, stderr) {
+
+    var host_url = '';
+    var hasWarning = false;
+    var before_hostname = this.dist_repo_url.indexOf('@') + 1;
+    var after_hostname = this.dist_repo_url.length - ( 'openshift'.length + 12 );
+    host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
+
+    if(this.filters.facebookAuth) {
+      this.log(chalk.yellow('You will need to set environment variables for facebook auth:\n\t' +
+      chalk.bold('rhc set-env FACEBOOK_ID=id -a ' + this.deployedName + '\n\t') +
+      chalk.bold('rhc set-env FACEBOOK_SECRET=secret -a ' + this.deployedName + '\n')));
+      hasWarning = true;
+    }
+    if(this.filters.googleAuth) {
+      this.log(chalk.yellow('You will need to set environment variables for google auth:\n\t' +
+      chalk.bold('rhc set-env GOOGLE_ID=id -a ' + this.deployedName + '\n\t') +
+      chalk.bold('rhc set-env GOOGLE_SECRET=secret -a ' + this.deployedName + '\n')));
+      hasWarning = true;
+    }
+    if(this.filters.twitterAuth) {
+      this.log(chalk.yellow('You will need to set environment variables for twitter auth:\n\t' +
+      chalk.bold('rhc set-env TWITTER_ID=id -a ' + this.deployedName + '\n\t') +
+      chalk.bold('rhc set-env TWITTER_SECRET=secret -a ' + this.deployedName + '\n')));
+      hasWarning = true;
+    }
+
+    this.log(chalk.green('\nYour app should now be live at \n\t' + chalk.bold(host_url)));
+    if(hasWarning) {
+      this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly \n\t' +
+      'rhc app-restart -a ' + this.deployedName));
+    }
+    this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
+    '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
+    this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push -f '+'openshift'+' master')));
   }.bind(this));
 };
