@@ -161,10 +161,6 @@ Generator.prototype.gitForcePush = function gitForcePush() {
         this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
         hasWarning = true;
       }
-      if(this.filters.socketio) {
-        this.log(chalk.yellow('Because you\'re using socketIO, you must enable websockets on your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku labs:enable websockets') + '\n'));
-        hasWarning = true;
-      }
 
       if(this.filters.facebookAuth) {
         this.log(chalk.yellow('You will need to set environment variables for facebook auth. From `/dist`:\n\t' +
@@ -190,9 +186,8 @@ Generator.prototype.gitForcePush = function gitForcePush() {
         this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly.'));
       }
 
-      this.log(chalk.cyan('\nTo deploy a new build\n\t' + chalk.bold('grunt build') +
-                '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
-      this.log(chalk.cyan('Finally, deploy your updated build to Heroku with\n\t' + chalk.bold('git push -f heroku master')));
+      this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
+      '\nThen deploy with\n\t' + chalk.bold('grunt buildcontrol:heroku')));
     }
     done();
   }.bind(this));
