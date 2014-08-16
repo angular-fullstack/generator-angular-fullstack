@@ -267,7 +267,7 @@ Generator.prototype.restartApp = function restartApp() {
     var hasWarning = false;
     var before_hostname = this.dist_repo_url.indexOf('@') + 1;
     var after_hostname = this.dist_repo_url.length - ( 'openshift'.length + 12 );
-    host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname);
+    host_url = 'http://' + this.dist_repo_url.slice(before_hostname, after_hostname) + 'com';
 
     if(this.filters.facebookAuth) {
       this.log(chalk.yellow('You will need to set environment variables for facebook auth:\n\t' +
@@ -294,7 +294,6 @@ Generator.prototype.restartApp = function restartApp() {
       'rhc app-restart -a ' + this.deployedName));
     }
     this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
-    '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
-    this.log(chalk.green('Finally, deploy your updated build to OpenShift with\n\t' + chalk.bold('git push -f '+'openshift'+' master')));
+    '\nThen deploy with\n\t' + chalk.bold('grunt buildcontrol:openshift')));
   }.bind(this));
 };
