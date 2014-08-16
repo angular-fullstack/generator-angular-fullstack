@@ -1,3 +1,11 @@
+<a name="v2.0.10"></a>
+### v2.0.10 (2014-08-16)
+
+
+#### Bug Fixes
+
+* **server:** undefined domain env variable causing issues ([cb683dde](http://github.com/DaftMonk/generator-angular-fullstack/commit/cb683dde6814959328a58267215ce477aa723e35))
+
 <a name="v2.0.9"></a>
 ### v2.0.9 (2014-08-15)
 
