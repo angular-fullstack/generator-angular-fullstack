@@ -42,7 +42,7 @@ exports.show = function (req, res, next) {
 
   User.findById(userId, function (err, user) {
     if (err) return next(err);
-    if (!user) return res.send(401);
+    if (!user) return res.send(404);
     res.json(user.profile);
   });
 };
@@ -88,7 +88,7 @@ exports.me = function(req, res, next) {
     _id: userId
   }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
     if (err) return next(err);
-    if (!user) return res.json(401);
+    if (!user) return res.json(404);
     res.json(user);
   });
 };
