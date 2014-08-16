@@ -108,6 +108,9 @@ module.exports = function (grunt) {
       .then(generateDemo)
       .then(gruntBuild)
       .then(gruntRelease)
+      .then(function() {
+        shell.cd('../');
+      })
       .catch(function(msg){
         grunt.fail.warn(msg || 'failed to generate demo')
       })
