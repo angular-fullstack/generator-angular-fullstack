@@ -161,13 +161,14 @@ module.exports = function (grunt) {
     }
 
     function gruntRelease() {
-      return run('grunt buildcontrol');
+      return run('grunt buildcontrol:heroku');
     }
   });
 
   grunt.registerTask('demo', [
     'clean:demo',
-    'generate'
+    'generate',
+    'buildcontrol:release'
   ]);
 
   //grunt.registerTask('default', ['bump', 'changelog', 'stage', 'release']);
