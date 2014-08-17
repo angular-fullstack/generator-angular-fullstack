@@ -1,7 +1,7 @@
 node_modules
 public
-.tmp
-.sass-cache
+.tmp<% if(filters.sass) { %>
+.sass-cache<% } %>
 .idea
 client/bower_components
 dist
