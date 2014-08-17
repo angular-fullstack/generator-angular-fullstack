@@ -1,40 +1,35 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
+.factory 'Auth', ($http, User, $cookieStore, $q) ->
   currentUser = if $cookieStore.get 'token' then User.get() else {}
 
   ###
   Authenticate user and save token
 
   @param  {Object}   user     - login info
-  @param  {Function} callback - optional
+  @param  {Function} callback - optional, function(error)
   @return {Promise}
   ###
   login: (user, callback) ->
-    deferred = $q.defer()
     $http.post '/auth/local',
       email: user.email
       password: user.password
 
-    .success (data) ->
-      $cookieStore.put 'token', data.token
+    .then (res) ->
+      $cookieStore.put 'token', res.data.token
       currentUser = User.get()
-      deferred.resolve data
       callback?()
+      res.data
 
-    .error (err) =>
+    , (err) =>
       @logout()
-      deferred.reject err
-      callback? err
-
-    deferred.promise
+      callback? err.data
+      $q.reject err.data
 
 
   ###
   Delete access token and user info
-
-  @param  {Function}
   ###
   logout: ->
     $cookieStore.remove 'token'
@@ -46,7 +41,7 @@ angular.module '<%= scriptAppName %>'
   Create a new user
 
   @param  {Object}   user     - user info
-  @param  {Function} callback - optional
+  @param  {Function} callback - optional, function(error, user)
   @return {Promise}
   ###
   createUser: (user, callback) ->
@@ -54,7 +49,7 @@ angular.module '<%= scriptAppName %>'
       (data) ->
         $cookieStore.put 'token', data.token
         currentUser = User.get()
-        callback? user
+        callback? null, user
 
       , (err) =>
         @logout()
@@ -68,7 +63,7 @@ angular.module '<%= scriptAppName %>'
 
   @param  {String}   oldPassword
   @param  {String}   newPassword
-  @param  {Function} callback    - optional
+  @param  {Function} callback    - optional, function(error, user)
   @return {Promise}
   ###
   changePassword: (oldPassword, newPassword, callback) ->
@@ -79,7 +74,7 @@ angular.module '<%= scriptAppName %>'
       newPassword: newPassword
 
     , (user) ->
-      callback? user
+      callback? null, user
 
     , (err) ->
       callback? err
@@ -88,45 +83,61 @@ angular.module '<%= scriptAppName %>'
 
 
   ###
-  Gets all available info on authenticated user
+  Gets all available info on a user
+    (synchronous|asynchronous)
 
-  @return {Object} user
+  @param  {Function|*} callback - optional, funciton(user)
+  @return {Object|Promise}
   ###
-  getCurrentUser: ->
-    currentUser
+  getCurrentUser: (callback) ->
+    return currentUser  if arguments.length is 0
+
+    value = if (currentUser.hasOwnProperty("$promise")) then currentUser.$promise else currentUser
+    $q.when value
+
+    .then (user) ->
+      callback? user
+      user
+
+    , ->
+      callback? {}
+      {}
 
 
   ###
-  Check if a user is logged in synchronously
+  Check if a user is logged in
+    (synchronous|asynchronous)
 
-  @return {Boolean}
+  @param  {Function|*} callback - optional, function(is)
+  @return {Bool|Promise}
   ###
-  isLoggedIn: ->
-    currentUser.hasOwnProperty 'role'
+  isLoggedIn: (callback) ->
+    return currentUser.hasOwnProperty("role")  if arguments.length is 0
 
+    @getCurrentUser null
 
-  ###
-  Waits for currentUser to resolve before checking if user is logged in
-  ###
-  isLoggedInAsync: (callback) ->
-    if currentUser.hasOwnProperty '$promise'
-      currentUser.$promise.then ->
-        callback? true
-        return
-      .catch ->
-        callback? false
-        return
+    .then (user) ->
+      is_ = user.hasOwnProperty("role")
+      callback? is_
+      is_
 
-    else
-      callback? currentUser.hasOwnProperty 'role'
 
   ###
   Check if a user is an admin
+    (synchronous|asynchronous)
 
-  @return {Boolean}
+  @param  {Function|*} callback - optional, function(is)
+  @return {Bool|Promise}
   ###
-  isAdmin: ->
-    currentUser.role is 'admin'
+  isAdmin: (callback) ->
+    return currentUser.role is "admin"  if arguments_.length is 0
+
+    @getCurrentUser null
+
+    .then (user) ->
+      is_ = user.role is "admin"
+      callback? is_
+      is_
 
 
   ###
