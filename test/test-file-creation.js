@@ -200,7 +200,7 @@ describe('angular-fullstack generator', function () {
           });
         });
       });
-      
+
       it('should pass jshint', function(done) {
         this.timeout(60000);
         gen.run({}, function () {
