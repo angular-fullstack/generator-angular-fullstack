@@ -1,11 +1,9 @@
 'use strict';
 
-var passport  = require('passport');
-var jwt       = require('jsonwebtoken');
-
-var User      = require('./user.model');
-var config    = require('../../config/environment');
-
+var passport = require('passport');
+var jwt = require('jsonwebtoken');
+var User = require('./user.model');
+var config = require('../../config/environment');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -27,7 +25,7 @@ exports.create = function(req, res) {
 exports.show = function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) return next(err);
-    if (!user) return res.send(401);
+    if (!user) return res.send(404);
 
     return res.json(user.profile);
   });
@@ -72,7 +70,7 @@ exports.setPassword = function(req, res) {
 exports.changeEmail = function(req, res) {
   User.findById(req.user._id, function(err, user) {
     if (err) return res.send(500, err);
-    if (!user) return res.json(401);
+    if (!user) return res.json(404);
 
     user.changeEmail(req.body.oldEmail, req.body.newEmail, function(err) {
       if (err) return res.send(500, err);
@@ -86,8 +84,7 @@ exports.changeEmail = function(req, res) {
 exports.me = function(req, res, next) {
   User.findById(req.user._id, excludedFields, function(err, user) {
     if (err) return next(err);
-    if (!user) return res.json(401);
-
+    if (!user) return res.json(404);
     res.json(user);
   });
 };

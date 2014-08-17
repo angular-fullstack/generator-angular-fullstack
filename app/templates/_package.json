@@ -25,13 +25,14 @@
     "passport-google-oauth": "latest",<% } %>
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1"<% if(filters.socketio) { %>,
-    "socket.io": "~1.0.6",
+    "socket.io": "^1.0.6",
+    "socket.io-client": "^1.0.6",
     "socketio-jwt": "^2.0.2"<% } %>
   },
   "devDependencies": {
     "grunt": "~0.4.4",
     "grunt-autoprefixer": "~0.7.2",
-    "grunt-bower-install": "~1.4.0",
+    "grunt-wiredep": "~1.8.0",
     "grunt-concurrent": "~0.5.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-concat": "~0.4.0",
@@ -56,9 +57,10 @@
     "grunt-nodemon": "~0.2.0",
     "grunt-angular-templates": "^0.5.4",
     "grunt-dom-munger": "^3.4.0",
-    "grunt-protractor-runner": "^0.2.4",
+    "grunt-protractor-runner": "^1.1.0",
     "grunt-asset-injector": "^0.1.0",
     "grunt-karma": "~0.8.2",
+    "grunt-build-control": "DaftMonk/grunt-build-control",
     "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
     "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "latest",<% } %>

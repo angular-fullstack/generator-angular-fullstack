@@ -1,3 +1,76 @@
+<a name="v2.0.10"></a>
+### v2.0.10 (2014-08-16)
+
+
+#### Bug Fixes
+
+* **server:** undefined domain env variable causing issues ([cb683dde](http://github.com/DaftMonk/generator-angular-fullstack/commit/cb683dde6814959328a58267215ce477aa723e35))
+
+<a name="v2.0.9"></a>
+### v2.0.9 (2014-08-15)
+
+
+#### Bug Fixes
+
+* **app:**
+  * add .idea folder to gitignore ([2e1f1182](http://github.com/DaftMonk/generator-angular-fullstack/commit/2e1f1182684594300ac5ca85ffab175bfcafd3ec))
+  * Missing user response code ([c1766604](http://github.com/DaftMonk/generator-angular-fullstack/commit/c1766604d7ae7ab1eb8713f37285d13341dc8ae1))
+  * use `''` instead `null` as URL to open ioSocket ([0f0d0fdc](http://github.com/DaftMonk/generator-angular-fullstack/commit/0f0d0fdce38d42f04f71d9e1174400adfb699061))
+  * save the version of the generator that was used ([2b76b17b](http://github.com/DaftMonk/generator-angular-fullstack/commit/2b76b17bb5fa1980b449498beec87ab58ceee012))
+* **gruntfile:** incorrect path to index.html for cdnify ([0ad646cb](http://github.com/DaftMonk/generator-angular-fullstack/commit/0ad646cbd48dbb2f65fc00b930a9f243174611be))
+* **openshift:** fix issues with openshift deployment ([ace07238](http://github.com/DaftMonk/generator-angular-fullstack/commit/ace07238e3299d6002337ba12f7862ce84beafd8))
+
+
+#### Features
+
+* **gen:** add automatic demo releases with grunt task ([44852233](http://github.com/DaftMonk/generator-angular-fullstack/commit/44852233fcf28d5ff8681fcabc3bfb4130778a22))
+* **gruntfile:** add grunt buildcontrol tasks to app, for easier deployment ([036478df](http://github.com/DaftMonk/generator-angular-fullstack/commit/036478dfd7067d38ab19ca86c0c5196678412799))
+* **heroku:** provide prompt to set the deployment region ([13cd5e7d](http://github.com/DaftMonk/generator-angular-fullstack/commit/13cd5e7d42f2845268f38ba19e0d253ae675c594))
+* **server:** add sample env config file that can be tracked by git ([c9f80bcd](http://github.com/DaftMonk/generator-angular-fullstack/commit/c9f80bcd67d6e3eef2c78ccbceff78f763ae88d1))
+
+<a name="v2.0.8"></a>
+### v2.0.8 (2014-07-31)
+
+
+#### Bug Fixes
+
+* **coffee:** update socket service to match javascript version ([c27cefe2](http://github.com/DaftMonk/generator-angular-fullstack/commit/c27cefe24d8ec64d905f908c66a56bf602303dce))
+* **gen:** Fixed missing `oauth` property in `.yo-rc.json` after 2.0.5 update ([11d324b9](http://github.com/DaftMonk/generator-angular-fullstack/commit/11d324b95992b68bd19f402401e98f5936cdb343))
+* **travis:** install sass gem if sass is enabled ([ceeac27b](http://github.com/DaftMonk/generator-angular-fullstack/commit/ceeac27b8f912aa6dec2caf3bf20dd7551f2d754))
+* **twitter:** revert mongoose connection change ([8675a002](http://github.com/DaftMonk/generator-angular-fullstack/commit/8675a002e301957569374fdcad87aab0bff6b3b4))
+
+
+#### Features
+
+* **user-management:** use the User $resource to populate users for the admin page ([708f0729](http://github.com/DaftMonk/generator-angular-fullstack/commit/708f07290d98d6bd73723f9db49cce7758c3d12b))
+
+<a name="v2.0.7"></a>
+### v2.0.7 (2014-07-27)
+
+
+#### Bug Fixes
+
+* **gruntfile:** grunt tasks should run if no local config exists ([422d6bca](http://github.com/DaftMonk/generator-angular-fullstack/commit/422d6bca07283057b0fa275dba0de447c9f4f167))
+* **server:** fix setting TTL index on collection : sessions error ([0581ed09](http://github.com/DaftMonk/generator-angular-fullstack/commit/0581ed094b2c6141ab9e0c016eda22aa49e1d075))
+
+<a name="v2.0.6"></a>
+### v2.0.6 (2014-07-27)
+
+
+#### Bug Fixes
+
+* **app:** 
+  * `things` made a little bit more responsive ([58aa7a48](http://github.com/DaftMonk/generator-angular-fullstack/commit/58aa7a489ae28c22be59b3a61db027ccf2f1ae46))
+* **dependencies:** change ngmin to ng-annotate ([dd023fa5](http://github.com/DaftMonk/generator-angular-fullstack/commit/dd023fa5fd90b8b541b8cc60c87186ee619e4844))
+* **bootstrap:** removed styles breaking responsiveness for high-res screens ([053fedb8](http://github.com/DaftMonk/generator-angular-fullstack/commit/053fedb89f64294a55538ad9b806b2d7de4d1c7f))
+* **socketio:** fallback for servers where `socket.handshake.address` is not provided ([f6a19348](http://github.com/DaftMonk/generator-angular-fullstack/commit/f6a19348ad404aa72c31eef8dc84aac8db0e904a))
+* **stylus:** remove bootstrap css import in stylus when bootstrap is not selected ([f7c3d0ad](http://github.com/DaftMonk/generator-angular-fullstack/commit/f7c3d0ad41da5f0072c2cf64ff5c9a894052d194), closes [#368](http://github.com/DaftMonk/generator-angular-fullstack/issues/368))
+
+
+#### Features
+
+* **oauth:** remove code according to user prompts ([316bd9dd](http://github.com/DaftMonk/generator-angular-fullstack/commit/316bd9dd3632622b0fb434cacfc4150f01d18e4c))
+
 <a name="v2.0.5"></a>
 ### v2.0.5 (2014-07-17)
 

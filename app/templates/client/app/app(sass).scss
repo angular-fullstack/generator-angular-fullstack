@@ -14,14 +14,14 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     color: #000;
     padding: 0.2em 0;
 }
-
+<% if (!filters.bootstrap) { %>
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
         max-width: 730px;
     }
 }
-
+<% } %>
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';

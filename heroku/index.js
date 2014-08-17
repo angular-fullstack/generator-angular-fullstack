@@ -34,6 +34,23 @@ Generator.prototype.askForName = function askForName() {
   }.bind(this));
 };
 
+Generator.prototype.askForRegion = function askForRegion() {
+  var done = this.async();
+
+  var prompts = [{
+    type: "list",
+    name: 'region',
+    message: 'On which region do you want to deploy ?',
+    choices: [ "US", "EU"],
+    default: 0
+  }];
+
+  this.prompt(prompts, function (props) {
+    this.region = props.region.toLowerCase();
+    done();
+  }.bind(this));
+};
+
 Generator.prototype.checkInstallation = function checkInstallation() {
   if(this.abort) return;
   var done = this.async();
@@ -65,9 +82,10 @@ Generator.prototype.gitInit = function gitInit() {
 Generator.prototype.herokuCreate = function herokuCreate() {
   if(this.abort) return;
   var done = this.async();
+  var regionParams = (this.region !== 'us') ? ' --region ' + this.region : '';
 
   this.log(chalk.bold('Creating heroku app and setting node environment'));
-  var child = exec('heroku apps:create ' + this.deployedName + ' && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
+  var child = exec('heroku apps:create ' + this.deployedName + regionParams + ' && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.abort = true;
       this.log.error(err);
@@ -143,10 +161,6 @@ Generator.prototype.gitForcePush = function gitForcePush() {
         this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
         hasWarning = true;
       }
-      if(this.filters.socketio) {
-        this.log(chalk.yellow('Because you\'re using socketIO, you must enable websockets on your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku labs:enable websockets') + '\n'));
-        hasWarning = true;
-      }
 
       if(this.filters.facebookAuth) {
         this.log(chalk.yellow('You will need to set environment variables for facebook auth. From `/dist`:\n\t' +
@@ -172,9 +186,8 @@ Generator.prototype.gitForcePush = function gitForcePush() {
         this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly.'));
       }
 
-      this.log(chalk.cyan('\nTo deploy a new build\n\t' + chalk.bold('grunt build') +
-                '\nThen enter the dist folder to commit these updates:\n\t' + chalk.bold('cd dist && git add -A && git commit -m "describe your changes here"')));
-      this.log(chalk.cyan('Finally, deploy your updated build to Heroku with\n\t' + chalk.bold('git push -f heroku master')));
+      this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
+      '\nThen deploy with\n\t' + chalk.bold('grunt buildcontrol:heroku')));
     }
     done();
   }.bind(this));

@@ -53,32 +53,6 @@ describe('angular-fullstack generator', function () {
     }.bind(this));
   });
 
-  it('should generate expected files', function (done) {
-    helpers.mockPrompt(gen, defaultOptions);
-
-    gen.run({}, function () {
-      helpers.assertFile([
-        'client/.htaccess',
-        'client/favicon.ico',
-        'client/robots.txt',
-        'client/app/main/main.scss',
-        'client/app/main/main.html',
-        'client/index.html',
-        'client/.jshintrc',
-        'client/assets/images/yeoman.png',
-        '.bowerrc',
-        '.editorconfig',
-        '.gitignore',
-        'Gruntfile.js',
-        'package.json',
-        'bower.json',
-        'server/app.js',
-        'server/config/express.js',
-        'server/api/thing/index.js']);
-      done();
-    });
-  });
-
   describe('running app', function() {
     beforeEach(function() {
       this.timeout(20000);
@@ -157,7 +131,7 @@ describe('angular-fullstack generator', function () {
 //      });
     });
 
-    describe('with other preprocessors', function() {
+    describe('with other preprocessors and oauth', function() {
       beforeEach(function() {
         helpers.mockPrompt(gen, {
           script: 'coffee',
@@ -166,7 +140,7 @@ describe('angular-fullstack generator', function () {
           router: 'uirouter',
           mongoose: true,
           auth: true,
-          oauth: [],
+          oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
           socketio: true
         });
       });
@@ -294,6 +268,31 @@ describe('angular-fullstack generator', function () {
         });
       });
 
+      it('should generate expected files', function (done) {
+        helpers.mockPrompt(gen, defaultOptions);
+
+        gen.run({}, function () {
+          helpers.assertFile([
+            'client/.htaccess',
+            'client/favicon.ico',
+            'client/robots.txt',
+            'client/app/main/main.scss',
+            'client/app/main/main.html',
+            'client/index.html',
+            'client/.jshintrc',
+            'client/assets/images/yeoman.png',
+            '.bowerrc',
+            '.editorconfig',
+            '.gitignore',
+            'Gruntfile.js',
+            'package.json',
+            'bower.json',
+            'server/app.js',
+            'server/config/express.js',
+            'server/api/thing/index.js']);
+          done();
+        });
+      });
     });
   });
 });
