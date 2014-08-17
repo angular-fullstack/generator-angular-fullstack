@@ -44,10 +44,10 @@
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-<% if(filters.socketio) { %>    <script src="socket.io/socket.io.js"></script><% } %>
-    <!-- build:js(client) app/vendor.js -->
+    <!-- build:js({client<% if(filters.socketio) { %>,node_modules<% } %>}) app/vendor.js -->
       <!-- bower:js -->
       <!-- endbower -->
+      <% if(filters.socketio) { %><script src="socket.io-client/socket.io.js"></script><% } %>
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->

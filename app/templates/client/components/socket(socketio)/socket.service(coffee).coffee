@@ -7,9 +7,9 @@ angular.module '<%= scriptAppName %>'
 
   # socket.io now auto-configures its connection when we omit a connection url
   ioSocket = io '',
-    'reconnection limit': 10 * 1000
     # Send auth token on connection, you will need to DI the Auth service above
     # 'query': 'token=' + Auth.getToken()
+    path: '/socket.io-client'
 
   socket = socketFactory ioSocket: ioSocket
 
