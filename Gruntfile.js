@@ -103,6 +103,7 @@ module.exports = function (grunt) {
   grunt.registerTask('generateDemo', 'generate demo', function () {
     var done = this.async();
 
+    shell.mkdir(grunt.config('config').demo);
     shell.cd(grunt.config('config').demo);
 
     Q()
