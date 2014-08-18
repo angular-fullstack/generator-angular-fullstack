@@ -1,7 +1,7 @@
 'use strict';
 
-var passport        = require('passport');
-var FacebookStrategy= require('passport-facebook').Strategy;
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 exports.setup = function (User, config) {
   passport.use(new FacebookStrategy(config.facebook,
