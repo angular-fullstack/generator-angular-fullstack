@@ -48,8 +48,8 @@ var all = {
   },
 <% } if(filters.twitterAuth) { %>
   twitter: {
-    clientID:     process.env.TWITTER_ID || 'id',
-    clientSecret: process.env.TWITTER_SECRET || 'secret',
+    consumerKey:     process.env.TWITTER_ID || 'id',
+    consumerSecret: process.env.TWITTER_SECRET || 'secret',
     callbackURL:  process.env.DOMAIN || '' + '/auth/twitter/callback'
   },
 <% } if(filters.googleAuth) { %>
