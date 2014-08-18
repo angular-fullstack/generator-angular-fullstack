@@ -17,9 +17,9 @@ angular.module('<%= scriptAppName %>')
       $scope.newThing = '';
     };
 
-    $scope.deleteThing = <% if(filters.uibootstrap) { %>Modal.confirm.delete(<% } %>function(thing) {
+    $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
-    }<% if(filters.uibootstrap) { %>)<% } %>;<% } %><% if(filters.socketio) { %>
+    };<% } %><% if(filters.socketio) { %>
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');

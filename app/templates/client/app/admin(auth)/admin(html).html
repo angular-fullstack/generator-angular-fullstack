@@ -6,7 +6,7 @@
     <li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
         <span class="text-muted">{{user.credentials[0].value}}</span>
-      <a ng-click="delete(<% if(filters.uibootstrap) { %>user.name + ' (' + user.email + ')', <% } %>user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+      <a ng-click="delete(<% if(filters.uibootstrap) { %>user.name + ' (' + user.credentials[0].value + ')', <% } %>user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
 </div>

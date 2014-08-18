@@ -15,7 +15,7 @@ angular.module '<%= scriptAppName %>'
 
     $scope.newThing = ''
 
-  $scope.deleteThing = <% if(filters.uibootstrap) { %>Modal.confirm.delete <% } %>(thing) ->
+  $scope.deleteThing = (thing) ->
     $http.delete '/api/things/' + thing._id<% } %><% if(filters.socketio) { %>
 
   $scope.$on '$destroy', ->
