@@ -63,6 +63,7 @@ module.exports = function (grunt) {
           src: [
             '<%= config.demo %>/*',
             '!<%= config.demo %>/readme.md',
+            '!<%= config.demo %>/node_modules',
             '!<%= config.demo %>/.git',
             '!<%= config.demo %>/dist'
           ]
@@ -99,15 +100,13 @@ module.exports = function (grunt) {
     }, grunt.task.current.async());
   });
 
-  grunt.registerTask('generate', 'generate demo', function () {
+  grunt.registerTask('generateDemo', 'generate demo', function () {
     var done = this.async();
 
     shell.cd(grunt.config('config').demo);
 
     Q()
       .then(generateDemo)
-      .then(gruntBuild)
-      .then(gruntRelease)
       .then(function() {
         shell.cd('../');
       })
@@ -146,6 +145,23 @@ module.exports = function (grunt) {
 
       return deferred.promise;
     }
+  });
+
+  grunt.registerTask('releaseDemoBuild', 'builds and releases demo', function () {
+    var done = this.async();
+
+    shell.cd(grunt.config('config').demo);
+
+    Q()
+      .then(gruntBuild)
+      .then(gruntRelease)
+      .then(function() {
+        shell.cd('../');
+      })
+      .catch(function(msg){
+        grunt.fail.warn(msg || 'failed to release demo')
+      })
+      .finally(done);
 
     function run(cmd) {
       var deferred = Q.defer();
@@ -171,7 +187,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('demo', [
     'clean:demo',
-    'generate',
+    'generateDemo'
+  ]);
+
+  grunt.registerTask('releaseDemo', [
+    'demo',
+    'releaseDemoBuild',
     'buildcontrol:release'
   ]);
 
