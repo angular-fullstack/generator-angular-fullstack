@@ -1,3 +1,33 @@
+<a name="v2.0.10"></a>
+### v2.0.10 (2014-08-16)
+
+
+#### Bug Fixes
+
+* **server:** undefined domain env variable causing issues ([cb683dde](http://github.com/DaftMonk/generator-angular-fullstack/commit/cb683dde6814959328a58267215ce477aa723e35))
+
+<a name="v2.0.9"></a>
+### v2.0.9 (2014-08-15)
+
+
+#### Bug Fixes
+
+* **app:**
+  * add .idea folder to gitignore ([2e1f1182](http://github.com/DaftMonk/generator-angular-fullstack/commit/2e1f1182684594300ac5ca85ffab175bfcafd3ec))
+  * Missing user response code ([c1766604](http://github.com/DaftMonk/generator-angular-fullstack/commit/c1766604d7ae7ab1eb8713f37285d13341dc8ae1))
+  * use `''` instead `null` as URL to open ioSocket ([0f0d0fdc](http://github.com/DaftMonk/generator-angular-fullstack/commit/0f0d0fdce38d42f04f71d9e1174400adfb699061))
+  * save the version of the generator that was used ([2b76b17b](http://github.com/DaftMonk/generator-angular-fullstack/commit/2b76b17bb5fa1980b449498beec87ab58ceee012))
+* **gruntfile:** incorrect path to index.html for cdnify ([0ad646cb](http://github.com/DaftMonk/generator-angular-fullstack/commit/0ad646cbd48dbb2f65fc00b930a9f243174611be))
+* **openshift:** fix issues with openshift deployment ([ace07238](http://github.com/DaftMonk/generator-angular-fullstack/commit/ace07238e3299d6002337ba12f7862ce84beafd8))
+
+
+#### Features
+
+* **gen:** add automatic demo releases with grunt task ([44852233](http://github.com/DaftMonk/generator-angular-fullstack/commit/44852233fcf28d5ff8681fcabc3bfb4130778a22))
+* **gruntfile:** add grunt buildcontrol tasks to app, for easier deployment ([036478df](http://github.com/DaftMonk/generator-angular-fullstack/commit/036478dfd7067d38ab19ca86c0c5196678412799))
+* **heroku:** provide prompt to set the deployment region ([13cd5e7d](http://github.com/DaftMonk/generator-angular-fullstack/commit/13cd5e7d42f2845268f38ba19e0d253ae675c594))
+* **server:** add sample env config file that can be tracked by git ([c9f80bcd](http://github.com/DaftMonk/generator-angular-fullstack/commit/c9f80bcd67d6e3eef2c78ccbceff78f763ae88d1))
+
 <a name="v2.0.8"></a>
 ### v2.0.8 (2014-07-31)
 

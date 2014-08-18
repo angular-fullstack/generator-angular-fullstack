@@ -221,14 +221,6 @@ Deploying to OpenShift can be done in just a few steps:
 
 A live application URL will be available in the output.
 
-> **Enabling web sockets**
->
-> If you're using socket.io, you will need to update the client to connect to the correct port for sockets to work.
->
-> In `/client/components/socket/socket.service` update the socket to connect to port 8000. (with `my-openshift-app` being the deployed name of your app):
->
->     var ioSocket = io.connect('my-openshift-app.com:8000');
->
 > **oAuth**
 >
 > If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using Facebook oAuth we would do this :
@@ -256,8 +248,7 @@ To make your deployment process easier consider using [grunt-build-control](http
 
 Commit and push the resulting build, located in your dist folder:
 
-    cd dist && git add -A && git commit -m "describe your changes here"
-    git push -f my-openshift-app master
+    grunt buildcontrol:openshift
 
 ### Heroku
 
@@ -297,8 +288,7 @@ To make your deployment process easier consider using [grunt-build-control](http
 
 Commit and push the resulting build, located in your dist folder:
 
-    cd dist && git add -A && git commit -m "describe your changes here"
-    git push -f heroku master
+    grunt buildcontrol:heroku
 
 
 ## Bower Components
