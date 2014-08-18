@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
-  currentUser = if $cookieStore.get 'token' then User.get() else {}
+.factory 'Auth', ($location, $rootScope, $http, User, $localStorage, $cookies, $q) ->
+  currentUser = if $localStorage.token||$cookies.token then User.get() else {}
 
   ###
   Authenticate user and save token
@@ -16,9 +16,13 @@ angular.module '<%= scriptAppName %>'
     $http.post '/auth/local',
       email: user.email
       password: user.password
+      rememberme : user.rememberme
 
     .success (data) ->
-      $cookieStore.put 'token', data.token
+      if user.rememberme
+        $localStorage.token = data.token
+      else
+        $cookies.token = data.token
       currentUser = User.get()
       deferred.resolve data
       callback?()
@@ -37,7 +41,8 @@ angular.module '<%= scriptAppName %>'
   @param  {Function}
   ###
   logout: ->
-    $cookieStore.remove 'token'
+    delete $localStorage.token
+    delete $cookies.token
     currentUser = {}
     return
 
@@ -52,7 +57,7 @@ angular.module '<%= scriptAppName %>'
   createUser: (user, callback) ->
     User.save user,
       (data) ->
-        $cookieStore.put 'token', data.token
+        $cookies.token = data.token
         currentUser = User.get()
         callback? user
 
@@ -133,4 +138,4 @@ angular.module '<%= scriptAppName %>'
   Get auth token
   ###
   getToken: ->
-    $cookieStore.get 'token'
+    $localStorage.token||$cookies.token
