@@ -13,7 +13,7 @@
     <div class="col-lg-12">
       <h1 class="page-header">Features:</h1>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<% if(filters.socketio) { %><button type="button" class="close" ng-click="deleteThing(<% if(filters.uibootstrap) { %>thing.name, <% } %>thing)">&times;</button><% } %></a></li>
+        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<% if(filters.socketio) { %><button type="button" class="close" ng-click="deleteThing(thing)">&times;</button><% } %></a></li>
       </ul>
     </div>
   </div><% if(filters.socketio) { %>
