@@ -5,3 +5,5 @@ demo
 .idea
 .DS_Store
 release.txt
+fixtures/bower.json
+fixtures/package.json

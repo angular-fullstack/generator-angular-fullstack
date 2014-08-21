@@ -5,5 +5,4 @@ before_install:
   - gem update --system
   - gem install sass --version "=3.3.7"
   - npm install -g bower grunt-cli
-  - cd test/fixtures && npm install && bower install && cd .. && cd ..
 services: mongodb
