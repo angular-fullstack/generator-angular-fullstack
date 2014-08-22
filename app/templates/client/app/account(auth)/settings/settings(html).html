@@ -9,9 +9,10 @@
       <form class="form" name="form" ng-submit="changePassword(form)" novalidate>
 
         <div class="form-group">
-          <label>Current Password</label>
+          <label for="password">Current Password</label>
 
           <input type="password" name="password" class="form-control" ng-model="user.oldPassword"
+                 id="password"
                  mongoose-error/>
           <p class="help-block" ng-show="form.password.$error.mongoose">
               {{ errors.other }}
@@ -19,14 +20,31 @@
         </div>
 
         <div class="form-group">
-          <label>New Password</label>
+          <label for="newPassword">New Password</label>
 
           <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword"
+                 id="newPassword"
                  ng-minlength="3"
                  required/>
           <p class="help-block"
              ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
             Password must be at least 3 characters.
+          </p>
+        </div>
+
+
+        <div class="form-group">
+          <label for="passwordConfirm">Confirm New Password</label>
+
+          <input type="password" name="passwordConfirm" class="form-control" ng-model="passwordConfirm"
+                 id="passwordConfirm"
+                 ng-minlength="3"
+                 required
+                 ng-confirm-field
+                 confirm-against="user.newPassword"/>
+          <p class="help-block"
+             ng-show="form.passwordConfirm.$error.noMatch && submitted">
+            Passwords must match.
           </p>
         </div>
 
