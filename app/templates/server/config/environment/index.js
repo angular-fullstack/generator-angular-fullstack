@@ -26,7 +26,7 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: '<%= _.slugify(_.humanize(appname)) + '-secret' %>'
+    session: '<%= _.slugify(_.humanize(appname)) + "-secret" %>'
   },
 
   // List of user roles
@@ -44,19 +44,19 @@ var all = {
   facebook: {
     clientID:     process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
-    callbackURL:  process.env.DOMAIN || '' + '/auth/facebook/callback'
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
   },
-<% } %><% if(filters.twitterAuth) { %>
+<% } if(filters.twitterAuth) { %>
   twitter: {
-    clientID:     process.env.TWITTER_ID || 'id',
-    clientSecret: process.env.TWITTER_SECRET || 'secret',
-    callbackURL:  process.env.DOMAIN || '' + '/auth/twitter/callback'
+    consumerKey:     process.env.TWITTER_ID || 'id',
+    consumerSecret: process.env.TWITTER_SECRET || 'secret',
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/twitter/callback'
   },
-<% } %><% if(filters.googleAuth) { %>
+<% } if(filters.googleAuth) { %>
   google: {
     clientID:     process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL:  process.env.DOMAIN || '' + '/auth/google/callback'
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
   }<% } %>
 };
 

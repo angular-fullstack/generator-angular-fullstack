@@ -86,6 +86,50 @@ angular.module '<%= scriptAppName %>'
 
     .$promise
 
+<% if (filters.oauth) { %>
+  ###
+  Set password (vel create LocalStrategy)
+
+  @param  {String}   newPassword
+  @param  {Function} callback    - optional
+  @return {Promise}
+  ###
+  setPassword: (newPassword, callback) ->
+    User.setPassword
+      id: currentUser._id
+    ,
+      newPassword: newPassword
+
+    , (user) ->
+      callback? user
+
+    , (err) ->
+      callback? err
+
+    .$promise
+<% } %>
+  ###
+  Change email
+
+  @param  {String}   email
+  @param  {Function} callback   - optional
+  @return {Promise}
+  ###
+  changeEmail: (oldEmail, newEmail, callback) ->
+    User.changeEmail
+      id: currentUser._id
+    ,
+      oldEmail: oldEmail
+      newEmail: newEmail
+
+    , (user) ->
+      callback? user
+
+    , (err) ->
+      callback? err
+
+    .$promise
+
 
   ###
   Gets all available info on authenticated user

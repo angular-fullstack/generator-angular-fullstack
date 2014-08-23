@@ -1,101 +1,130 @@
 'use strict';
 
-var User = require('./user.model');
 var passport = require('passport');
-var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var User = require('./user.model');
+var config = require('../../config/environment');
 
 var validationError = function(res, err) {
   return res.json(422, err);
 };
 
-/**
- * Get list of users
- * restriction: 'admin'
- */
-exports.index = function(req, res) {
-  User.find({}, '-salt -hashedPassword', function (err, users) {
-    if(err) return res.send(500, err);
-    res.json(200, users);
-  });
-};
+var excludedFields = '-salt -hashedPassword';
 
-/**
- * Creates a new user
- */
-exports.create = function (req, res, next) {
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  newUser.save(function(err, user) {
+// Create new LocalStrategy user
+exports.create = function(req, res) {
+  User.create(req.body, function(err, user) {
     if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+
+    var token = jwt.sign({ _id: user._id }, config.secrets.session, { expiresInMinutes: 30 * 24 * 60 });
     res.json({ token: token });
   });
 };
 
-/**
- * Get a single user
- */
-exports.show = function (req, res, next) {
-  var userId = req.params.id;
-
-  User.findById(userId, function (err, user) {
+// Get a single user
+exports.show = function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
     if (err) return next(err);
     if (!user) return res.send(404);
-    res.json(user.profile);
+
+    return res.json(user.profile);
   });
 };
 
-/**
- * Deletes a user
- * restriction: 'admin'
- */
-exports.destroy = function(req, res) {
-  User.findByIdAndRemove(req.params.id, function(err, user) {
-    if(err) return res.send(500, err);
-    return res.send(204);
-  });
-};
-
-/**
- * Change a users password
- */
-exports.changePassword = function(req, res, next) {
-  var userId = req.user._id;
+// Change user's password
+exports.changePassword = function(req, res) {
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
 
-  User.findById(userId, function (err, user) {
-    if(user.authenticate(oldPass)) {
+  User.findById(req.user._id, function(err, user) {
+    if (user.authenticate(oldPass)) {
       user.password = newPass;
       user.save(function(err) {
         if (err) return validationError(res, err);
+
         res.send(200);
       });
-    } else {
-      res.send(403);
-    }
+
+    } else res.send(403);
+  });
+};
+<% if (filters.oauth) { %>
+// Set password (vel. enable LocalStrategy)
+exports.setPassword = function(req, res) {
+  User.findById(req.user._id, function(err, user) {
+    // TODO: should anything else except jwt be checked here?
+    if (true) {
+      user.password = String(req.body.newPassword);
+      user.save(function(err) {
+        if (err) return validationError(res, err);
+
+        res.send(200);
+      });
+
+    } else res.send(403);
+
+  });
+};
+<% } %>
+// Change email
+exports.changeEmail = function(req, res) {
+  User.findById(req.user._id, function(err, user) {
+    if (err) return res.send(500, err);
+    if (!user) return res.json(404);
+
+    user.changeEmail(req.body.oldEmail, req.body.newEmail, function(err) {
+      if (err) return res.send(500, err);
+
+      res.send(200, user);
+    });
   });
 };
 
-/**
- * Get my info
- */
+// Get currently logged in user info
 exports.me = function(req, res, next) {
-  var userId = req.user._id;
-  User.findOne({
-    _id: userId
-  }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
+  User.findById(req.user._id, excludedFields, function(err, user) {
     if (err) return next(err);
     if (!user) return res.json(404);
     res.json(user);
   });
 };
 
+// Authentication callback
+exports.authCallback = function(req, res) {
+  return res.redirect('/');
+};
+
+
 /**
- * Authentication callback
- */
-exports.authCallback = function(req, res, next) {
-  res.redirect('/');
+ * Admin methods
+ **/
+
+// Get list of users
+exports.index = function(req, res) {
+  User.find({}, excludedFields, function(err, users) {
+    if (err) return res.send(500, err);
+
+    res.json(200, users);
+  });
+};
+
+exports.confirm = function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) return res.send(500, err);
+
+    user.confirm(user.email, function(err) {
+      if (err) return res.send(500, err);
+
+      res.send(200, user);
+    });
+  });
+};
+
+//  Delete a user
+exports.destroy = function(req, res) {
+  User.findByIdAndRemove(req.params.id, function(err, user) {
+    if (err) return res.send(500, err);
+
+    res.send(204);
+  });
 };

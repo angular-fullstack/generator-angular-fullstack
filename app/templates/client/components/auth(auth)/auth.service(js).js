@@ -91,6 +91,45 @@ angular.module('<%= scriptAppName %>')
           return cb(err);
         }).$promise;
       },
+<% if (filters.oauth) { %>
+      /**
+       * Set password (vel create LocalStrategy)
+       *
+       * @param  {String}   newPassword
+       * @param  {Function} callback    - optional
+       * @return {Promise}
+       */
+      setPassword: function(newPassword, callback) {
+        var cb = callback || angular.noop;
+
+        return User.setPassword({ id: currentUser._id }, {
+          newPassword: newPassword
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
+<% } %>
+      /**
+       * Change email
+       *
+       * @param  {String}   email
+       * @param  {Function} callback   - optional
+       * @return {Promise}
+       */
+      changeEmail: function(oldEmail, newEmail, callback) {
+        var cb = callback || angular.noop;
+
+        return User.changeEmail({ id: currentUser._id }, {
+          oldEmail: oldEmail,
+          newEmail: newEmail
+        }, function(user) {
+          return cb(user);
+        }, function(err) {
+          return cb(err);
+        }).$promise;
+      },
 
       /**
        * Gets all available info on authenticated user
