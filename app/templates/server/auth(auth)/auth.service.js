@@ -2,11 +2,11 @@
 
 var mongoose = require('mongoose');
 var passport = require('passport');
-var config = require('../config/environment');
+var config = rootRequire('config/environment');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var compose = require('composable-middleware');
-var User = require('../api/user/user.model');
+var User = rootRequire('api/user/user.model');
 var validateJwt = expressJwt({ secret: config.secrets.session });
 
 /**

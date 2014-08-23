@@ -2,8 +2,8 @@
 
 var express = require('express');
 var controller = require('./user.controller');
-var config = require('../../config/environment');
-var auth = require('../../auth/auth.service');
+var config = rootRequire('config/environment');
+var auth = rootRequire('auth/auth.service');
 
 var router = express.Router();
 

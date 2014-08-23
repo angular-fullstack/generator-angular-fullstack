@@ -4,6 +4,14 @@
 
 'use strict';
 
+var path = require('path');
+
+// a better require statement starting from `server/`
+global.rootRequire = function (name) {
+  return require(path.normalize(__dirname + '/' + name));
+};
+
+
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
