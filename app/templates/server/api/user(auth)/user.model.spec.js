@@ -4,13 +4,6 @@ var should = require('should');
 var app = require('../../app');
 var User = require('./user.model');
 
-var user = new User({
-  provider: 'local',
-  name: 'Fake User',
-  email: 'test@test.com',
-  password: 'password'
-});
-
 describe('User Model', function() {
   before(function(done) {
     // Clear users before testing
@@ -20,6 +13,15 @@ describe('User Model', function() {
   });
 
   afterEach(function(done) {
+    // Start from scratch
+    this.user = new User({
+      provider: 'local',
+      name: 'Fake User',
+      email: 'test@test.com',
+      password: 'password'
+    });
+
+    // Clear all users
     User.remove().exec().then(function() {
       done();
     });
@@ -33,6 +35,7 @@ describe('User Model', function() {
   });
 
   it('should fail when saving a duplicate user', function(done) {
+    var user = this.user;
     user.save(function() {
       var userDup = new User(user);
       userDup.save(function(err) {
@@ -43,6 +46,7 @@ describe('User Model', function() {
   });
 
   it('should fail when saving without an email', function(done) {
+    var user = this.user;
     user.email = '';
     user.save(function(err) {
       should.exist(err);
@@ -50,11 +54,37 @@ describe('User Model', function() {
     });
   });
 
-  it("should authenticate user if password is valid", function() {
-    user.authenticate('password').should.be.true;
+  it("should authenticate user if password is valid", function(done) {
+    var user = this.user;
+    user.save(function(err, newUser) {
+      newUser.authenticate('password', function(authErr, authenticated) {
+        authenticated.should.be.true;
+        done();
+      });
+    });
   });
 
-  it("should not authenticate user if password is invalid", function() {
-    user.authenticate('blah').should.not.be.true;
+  it("should not authenticate user if password is invalid", function(done) {
+    var user = this.user;
+    user.save(function(err, newUser) {
+      newUser.authenticate('invalidPassword', function(authErr, authenticated) {
+        authenticated.should.not.be.true;
+        done();
+      });
+    });
   });
+
+  it("should authenticate after updating password", function(done) {
+    var user = this.user;
+    user.save(function(err, newUser) {
+      newUser.password = 'newPassword';
+      newUser.save(function() {
+        newUser.authenticate('newPassword', function(authErr, authenticated) {
+          authenticated.should.be.true;
+          done();
+        });
+      });
+    });
+  });
+
 });

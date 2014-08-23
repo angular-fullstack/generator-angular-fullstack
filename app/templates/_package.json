@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    "bcrypt": "~0.8.0",
     "express": "~4.0.0",
     "morgan": "~1.0.0",
     "body-parser": "~1.5.0",

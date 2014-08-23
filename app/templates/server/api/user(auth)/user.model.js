@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var crypto = require('crypto');<% if(filters.oauth) { %>
+var bcrypt = require('bcrypt');<% if(filters.oauth) { %>
 var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
 var UserSchema = new Schema({
@@ -12,7 +12,7 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
-  hashedPassword: String,
+  password: String,
   provider: String,
   salt: String<% if (filters.oauth) { %>,<% if (filters.facebookAuth) { %>
   facebook: {},<% } %><% if (filters.twitterAuth) { %>
@@ -24,16 +24,6 @@ var UserSchema = new Schema({
 /**
  * Virtuals
  */
-UserSchema
-  .virtual('password')
-  .set(function(password) {
-    this._password = password;
-    this.salt = this.makeSalt();
-    this.hashedPassword = this.encryptPassword(password);
-  })
-  .get(function() {
-    return this._password;
-  });
 
 // Public profile information
 UserSchema
@@ -69,10 +59,10 @@ UserSchema
 
 // Validate empty password
 UserSchema
-  .path('hashedPassword')
-  .validate(function(hashedPassword) {<% if (filters.oauth) { %>
+  .path('password')
+  .validate(function(password) {<% if (filters.oauth) { %>
     if (authTypes.indexOf(this.provider) !== -1) return true;<% } %>
-    return hashedPassword.length;
+    return password.length;
   }, 'Password cannot be blank');
 
 // Validate email is not taken
@@ -99,12 +89,26 @@ var validatePresenceOf = function(value) {
  */
 UserSchema
   .pre('save', function(next) {
-    if (!this.isNew) return next();
+    // Handle new/update passwords
+    if (this.password) {
+      if (!validatePresenceOf(this.password)<% if (filters.oauth) { %> && authTypes.indexOf(this.provider) === -1<% } %>)
+        next(new Error('Invalid password'));
 
-    if (!validatePresenceOf(this.hashedPassword)<% if (filters.oauth) { %> && authTypes.indexOf(this.provider) === -1<% } %>)
-      next(new Error('Invalid password'));
-    else
+      // Make salt with a callback
+      var _this = this;
+      this.makeSalt(function(saltErr, salt) {
+        if (saltErr) next(saltErr);
+        _this.salt = salt;
+        // Async hash
+        _this.encryptPassword(_this.password, function(encryptErr, hashedPassword) {
+          if (encryptErr) next(encryptErr);
+          _this.password = hashedPassword;
+          next();
+        });
+      });
+    } else {
       next();
+    }
   });
 
 /**
@@ -115,34 +119,65 @@ UserSchema.methods = {
    * Authenticate - check if the passwords are the same
    *
    * @param {String} plainText
+   * @callback {callback} Optional callback
    * @return {Boolean}
    * @api public
    */
-  authenticate: function(plainText) {
-    return this.encryptPassword(plainText) === this.hashedPassword;
+  authenticate: function(plainText, callback) {
+    if (!callback)
+      return bcrypt.compareSync(plainText, this.password);
+
+    return bcrypt.compare(plainText, this.password, callback);
   },
 
   /**
    * Make salt
    *
+   * @param {Number} rounds Optional rounds, defaults to 10
+   * @callback {callback} Optional callback
    * @return {String}
    * @api public
    */
-  makeSalt: function() {
-    return crypto.randomBytes(16).toString('base64');
+  makeSalt: function(rounds, callback) {
+    var defaultRounds = 10;
+
+    if (typeof arguments[0] === 'function') {
+      callback = arguments[0];
+      rounds = defaultRounds;
+    } else if (typeof arguments[1] === 'function') {
+      callback = arguments[1];
+    }
+
+    if (!rounds)
+      rounds = defaultRounds;
+
+    if (!callback)
+      return bcrypt.genSaltSync(rounds);
+
+    return bcrypt.genSalt(rounds, callback);
   },
 
   /**
    * Encrypt password
    *
    * @param {String} password
+   * @callback {callback} Optional callback
    * @return {String}
    * @api public
    */
-  encryptPassword: function(password) {
-    if (!password || !this.salt) return '';
-    var salt = new Buffer(this.salt, 'base64');
-    return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+  encryptPassword: function(password, callback) {
+    if (!password || !this.salt) {
+      if (!callback) {
+        return '';
+      } else {
+        callback(new Error('Need password and salt to create hash'));
+      }
+    }
+
+    if (!callback)
+      return bcrypt.hashSync(password, this.salt);
+
+    return bcrypt.hash(password, this.salt, callback);
   }
 };
 
