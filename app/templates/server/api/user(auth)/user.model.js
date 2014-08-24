@@ -81,7 +81,7 @@ UserSchema
   // returns only first found email
   // TODO: in case of multiple emails, should prioritize confirmed ones
   return this.credentials.filter(function(c) {
-    return c.type==='email';
+    return c.type === 'email';
 
   })[0].value;
 });
@@ -90,7 +90,7 @@ UserSchema
 .virtual('emails')
 .get(function() {
   return this.credentials
-    .filter(function(c) { return c.type==='email'; })
+    .filter(function(c) { return c.type === 'email'; })
     .map(function(c) { return c.value; });
 
 });
@@ -98,13 +98,13 @@ UserSchema
 UserSchema
 .pre('save', function(next) {<% if (filters.oauth) { %>
   if(!this.localEnabled) {
-    if (Object.keys(this.strategies).length===0) {
+    if (Object.keys(this.strategies).length === 0) {
       return next(new Error('No connected accounts'));
     }
     return next();
   }<% } %>
 
-  mongoose.models['User']<% if (filters.oauth) { %>
+  mongoose.models.User<% if (filters.oauth) { %>
     .find({ localEnabled:true })<% } %>
     .where('credentials.type').equals('email')
     .where('credentials.value').equals(this.email)
@@ -132,7 +132,7 @@ UserSchema.methods = {
   },
   confirm: function(emailOrPhone, cb) {
     this.credentials.forEach(function(c) {
-      if (c.value===emailOrPhone) {
+      if (c.value === emailOrPhone) {
         c.confirmed = true;
       }
     });
@@ -140,7 +140,7 @@ UserSchema.methods = {
   },
   changeEmail: function(oldEmail, newEmail, cb) {
     this.credentials.forEach(function(c) {
-      if (c.value===oldEmail) {
+      if (c.value === oldEmail) {
         c.value = newEmail;
         c.confirmed = false;
       }
@@ -177,14 +177,14 @@ UserSchema.statics = {
     var dataFormatted;
     dataFormatted = [];
 
-    if (data.email != null) {
+    if (data.email !== null) {
       dataFormatted.push({
         'credentials.type': 'email',
         'credentials.value': data.email
       });
     }
 
-    if (data.phone != null) {
+    if (data.phone !== null) {
       dataFormatted.push({
         'credentials.type': 'phone',
         'credentials.value': data.phone
@@ -195,7 +195,7 @@ UserSchema.statics = {
     .or(dataFormatted)
     .exec(function(err, users) {
       if (err) return cb(err);
-      if (users.length===0) return cb(null, null);
+      if (users.length === 0) return cb(null, null);
 
       cb(null, users);
     });

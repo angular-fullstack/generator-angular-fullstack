@@ -8,6 +8,6 @@ angular.module('<%= scriptAppName %>')
 
     $scope.delete = <% if(filters.uibootstrap) { %>Modal.confirm.delete(<% } %>function(user) {
       User.remove({ id: user._id });
-      _.remove($scope.users, user)
+      _.remove($scope.users, user);
     }<% if(filters.uibootstrap) { %>)<% } %>;
   });

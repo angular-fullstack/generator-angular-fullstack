@@ -8,13 +8,15 @@ angular.module('<%= scriptAppName %>')
     $scope.email = {};
 
     var getEmail = function(user) {
-      if (!$scope.user.credentials.length) {
+      if (!user.credentials.length) {
         return null;
       }
 
-      for(var i in $scope.user.credentials) {
-        var c = $scope.user.credentials[i];
-        if(c.type==='email') return [c.value, c.confirmed];
+      for(var i in user.credentials) {
+        var c = user.credentials[i];
+        if (c.type === 'email') {
+          return [c.value, c.confirmed];
+        }
       }
     };
 
@@ -36,7 +38,7 @@ angular.module('<%= scriptAppName %>')
           $scope.message = '';
         });
       }
-    }
+    };
 
     $scope.changePassword = function() {
       $scope.pwd.submitted = true;
