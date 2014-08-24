@@ -24,16 +24,23 @@ div(ng-include='"components/navbar/navbar.html"')
       form(role='form', name='pwd', ng-submit='<% if(filters.oauth) { %>!user.localEnabled ? setPassword() : <% } %>changePassword()', novalidate)
 
         .form-group
-          label Current Password
-          input.form-control(type='password', name='old', placeholder='ex. password123', ng-model='user.oldPassword', <% if (filters.oauth) { %>ng-disabled='!user.localEnabled', <% } %>mongoose-error='')
+          label(for="oldPass") Current Password
+          input.form-control#oldPass(type='password', name='old', placeholder='ex. password123', ng-model='user.oldPassword', <% if (filters.oauth) { %>ng-disabled='!user.localEnabled', <% } %>mongoose-error='')
           p.help-block(ng-show='pwd.old.$error.mongoose')
             | {{ errors.other }}
 
         .form-group
-          label New Password
-          input.form-control(type='password', name='new', placeholder='ex. GoofyM1ckeyDonald&Pluto', ng-model='user.newPassword', ng-minlength='3', required)
+          label(for="newPass") New Password
+          input.form-control#newPass(type='password', name='new', placeholder='ex. GoofyM1ckeyDonald&Pluto', ng-model='user.newPassword', ng-minlength='3', required)
           p.help-block(ng-show='(pwd.new.$error.minlength || pwd.new.$error.required) && (pwd.new.$dirty || pwd.submitted)')
             | Password must be at least 3 characters.
+
+        .form-group
+          label(for="passwordConfirm") Confirm New Password
+          input.form-control#passwordConfirm(type='password', name='passwordConfirm', ng-model='passwordConfirm', ng-minlength='3', required='\
+          ', ng-confirm-field='', confirm-against="user.newPassword")
+          p.help-block(ng-show='form.passwordConfirm.$error.noMatch && pwd.submitted')
+            | Passwords must match.
 
         p.help-block {{ message }}
 
