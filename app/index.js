@@ -248,6 +248,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     if(this.filters.socketio) angModules.push("'btford.socket-io'");
     if(this.filters.uirouter) angModules.push("'ui.router'");
     if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
+    if(this.filters.auth) angModules.push("'ng.confirmField'");
 
     this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
   },
