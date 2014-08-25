@@ -56,9 +56,11 @@ angular.module('<%= scriptAppName %>')
     $scope.setPassword = function() {
       $scope.submitted = true;
       if($scope.pwd.$valid) {
-        Auth.changePassword( $scope.user.newPassword )
+        Auth.setPassword( $scope.user.newPassword )
         .then( function() {
           $scope.message = 'Password successfully set';
+          $scope.user.localEnabled = true;
+          $scope.user.newPassword = '';
         })
         .catch( function() {
           $scope.pwd.old.$setValidity('mongoose', false);
