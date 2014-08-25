@@ -17,7 +17,7 @@ describe('angular-fullstack generator', function () {
     auth: true,
     oauth: [],
     socketio: true
-  };
+  }, dependenciesInstalled = false;
 
   function generatorTest(generatorType, name, mockPrompt, callback) {
     gen.run({}, function () {
@@ -54,10 +54,12 @@ describe('angular-fullstack generator', function () {
   });
 
   describe('running app', function() {
+;
     beforeEach(function() {
       this.timeout(20000);
-      fs.copySync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
-      fs.copySync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
+      fs.mkdirSync(__dirname + '/temp/client');
+      fs.symlinkSync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
+      fs.symlinkSync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
     });
 
     describe('with default options', function() {
@@ -178,7 +180,7 @@ describe('angular-fullstack generator', function () {
     });
 
     describe('with other preprocessors and no server options', function() {
-      beforeEach(function() {
+      beforeEach(function(done) {
         helpers.mockPrompt(gen, {
           script: 'coffee',
           markup: 'jade',
@@ -189,6 +191,7 @@ describe('angular-fullstack generator', function () {
           oauth: [],
           socketio: false
         });
+        done();
       });
 
       it('should run client tests successfully', function(done) {
@@ -224,7 +227,7 @@ describe('angular-fullstack generator', function () {
     });
 
     describe('with no preprocessors and no server options', function() {
-      beforeEach(function() {
+      beforeEach(function(done) {
         helpers.mockPrompt(gen, {
           script: 'js',
           markup: 'html',
@@ -235,6 +238,7 @@ describe('angular-fullstack generator', function () {
           oauth: [],
           socketio: false
         });
+        done();
       });
 
       it('should run client tests successfully', function(done) {
