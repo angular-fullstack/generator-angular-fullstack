@@ -37,7 +37,7 @@ describe('Thing API Router:', function() {
   describe('GET /api/things', function() {
 
     it('should route to thing.controller.index', function() {
-      return router.get.withArgs('/', 'thingCtrl.index').should.have.been.calledOnce;
+      router.get.withArgs('/', 'thingCtrl.index').should.have.been.calledOnce;
     });
 
   });<% if(filters.mongoose) { %>
@@ -45,7 +45,7 @@ describe('Thing API Router:', function() {
   describe('GET /api/things/:id', function() {
 
     it('should route to thing.controller.show', function() {
-      return router.get.withArgs('/:id', 'thingCtrl.show').should.have.been.calledOnce;
+      router.get.withArgs('/:id', 'thingCtrl.show').should.have.been.calledOnce;
     });
 
   });
@@ -53,7 +53,7 @@ describe('Thing API Router:', function() {
   describe('POST /api/things', function() {
 
     it('should route to thing.controller.create', function() {
-      return router.post.withArgs('/', 'thingCtrl.create').should.have.been.calledOnce;
+      router.post.withArgs('/', 'thingCtrl.create').should.have.been.calledOnce;
     });
 
   });
@@ -61,7 +61,7 @@ describe('Thing API Router:', function() {
   describe('PUT /api/things/:id', function() {
 
     it('should route to thing.controller.update', function() {
-      return router.put.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
+      router.put.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
     });
 
   });
@@ -69,7 +69,7 @@ describe('Thing API Router:', function() {
   describe('PATCH /api/things/:id', function() {
 
     it('should route to thing.controller.update', function() {
-      return router.patch.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
+      router.patch.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
     });
 
   });
@@ -77,7 +77,7 @@ describe('Thing API Router:', function() {
   describe('DELETE /api/things/:id', function() {
 
     it('should route to thing.controller.destroy', function() {
-      return router.delete.withArgs('/:id', 'thingCtrl.destroy').should.have.been.calledOnce;
+      router.delete.withArgs('/:id', 'thingCtrl.destroy').should.have.been.calledOnce;
     });
 
   });<% } %>
