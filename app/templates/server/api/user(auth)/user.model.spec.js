@@ -34,21 +34,24 @@ describe('User Model:', function() {
       });
 
       it('should fail when saving a duplicate user', function(done) {
-        user.save(function() {
-          var userDup = new User(user);
-          userDup.save(function(err) {
-            err.should.be.instanceOf(Error);
-            done();
+        user.saveAsync()
+          .then(function() {
+            var userDup = new User(user);
+            userDup.saveAsync()
+              .catch(function(err) {
+                err.should.be.instanceOf(Error);
+                done();
+              });
           });
-        });
       });
 
       it('should fail when saving without an email', function(done) {
         user.email = '';
-        user.save(function(err) {
-          err.should.be.instanceOf(Error);
-          done();
-        });
+        user.saveAsync()
+          .catch(function(err) {
+            err.should.be.instanceOf(Error);
+            done();
+          });
       });
 
     });
