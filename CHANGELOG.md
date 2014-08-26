@@ -1,3 +1,23 @@
+<a name="v2.0.11"></a>
+### v2.0.11 (2014-08-25)
+
+
+#### Bug Fixes
+
+* **app:** Use parentheses to fix string concat in config ([c6a50ce7](http://github.com/DaftMonk/generator-angular-fullstack/commit/c6a50ce791ab633a17654ce9b0090007d7152463), closes [#466](http://github.com/DaftMonk/generator-angular-fullstack/issues/466))
+  * improve jshint usage ([35fcf490](http://github.com/DaftMonk/generator-angular-fullstack/commit/35fcf4902dbbdab2ca6b394ab87ef8e3cc3d052b), closes [#463](http://github.com/DaftMonk/generator-angular-fullstack/issues/463), [#486](http://github.com/DaftMonk/generator-angular-fullstack/issues/486))
+* **gen:** use more restrictive version range for ng-component ([19698973](http://github.com/DaftMonk/generator-angular-fullstack/commit/196989730c8922fa5e1dc9caa45eb85052535e30))
+
+
+#### Features
+
+* **socket.io:** build socket.io into vendor.js ([06f2e46e](http://github.com/DaftMonk/generator-angular-fullstack/commit/06f2e46ef382b5af1691f34b6cf504f1e5640b86))
+* **docs:** Inform users/developers of the `canary` branch ([74693623](http://github.com/DaftMonk/generator-angular-fullstack/commit/74693623eb23c9399495a3baff7e3479a1d9f3ba))
+* **gen:** make generator tests faster, and easier to run ([84acb744](http://github.com/DaftMonk/generator-angular-fullstack/commit/84acb7448ccc7c55b72bdd19bfae50c33d527296))
+* **app:** add additional node version to travis.yml ([e4f00b08](http://github.com/DaftMonk/generator-angular-fullstack/commit/e4f00b083a880713ca563e3447b9fb3f56a54ebc))
+* **oauth:** multiple strategies per account; changeable email ([ef062728](http://github.com/DaftMonk/generator-angular-fullstack/commit/ef062728a2ec61d990fa87d965f2507b4bcc5b20))
+* **uibootstrap:** add basic modal service and template when using uibootstrap ([7c14bed4](http://github.com/DaftMonk/generator-angular-fullstack/commit/7c14bed4873b92124bcbe422fed918836b8f5df5))
+
 <a name="v2.0.10"></a>
 ### v2.0.10 (2014-08-16)
 
