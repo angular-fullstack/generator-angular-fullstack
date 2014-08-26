@@ -4,7 +4,7 @@
   "bitwise": true,
   "eqeqeq": true,
   "immed": true,
-  "latedef": true,
+  "latedef": "nofunc",
   "newcap": true,
   "noarg": true,
   "regexp": true,

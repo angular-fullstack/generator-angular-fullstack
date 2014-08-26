@@ -149,17 +149,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         {
           value: 'googleAuth',
           name: 'Google',
-          checked: true
+          checked: false
         },
         {
           value: 'facebookAuth',
           name: 'Facebook',
-          checked: true
+          checked: false
         },
         {
           value: 'twitterAuth',
           name: 'Twitter',
-          checked: true
+          checked: false
         }
       ]
     }, {
