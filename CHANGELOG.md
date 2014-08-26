@@ -1,3 +1,10 @@
+<a name="v2.0.12"></a>
+### v2.0.12 (2014-08-25)
+
+#### Bug Fixes
+
+* revert multiple strategies per account, which shouldn't go in a patch release
+
 <a name="v2.0.11"></a>
 ### v2.0.11 (2014-08-25)
 
