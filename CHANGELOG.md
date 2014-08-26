@@ -15,7 +15,6 @@
 * **docs:** Inform users/developers of the `canary` branch ([74693623](http://github.com/DaftMonk/generator-angular-fullstack/commit/74693623eb23c9399495a3baff7e3479a1d9f3ba))
 * **gen:** make generator tests faster, and easier to run ([84acb744](http://github.com/DaftMonk/generator-angular-fullstack/commit/84acb7448ccc7c55b72bdd19bfae50c33d527296))
 * **app:** add additional node version to travis.yml ([e4f00b08](http://github.com/DaftMonk/generator-angular-fullstack/commit/e4f00b083a880713ca563e3447b9fb3f56a54ebc))
-* **oauth:** multiple strategies per account; changeable email ([ef062728](http://github.com/DaftMonk/generator-angular-fullstack/commit/ef062728a2ec61d990fa87d965f2507b4bcc5b20))
 * **uibootstrap:** add basic modal service and template when using uibootstrap ([7c14bed4](http://github.com/DaftMonk/generator-angular-fullstack/commit/7c14bed4873b92124bcbe422fed918836b8f5df5))
 
 <a name="v2.0.10"></a>

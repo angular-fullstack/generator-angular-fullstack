@@ -1,205 +1,149 @@
 'use strict';
 
-var mongoose  = require('mongoose');
-var Schema    = mongoose.Schema;
-var crypto    = require('crypto');
-
-
-var CredentialSchema = new Schema({
-  type: {
-    type: String,
-    "default": 'email',
-    "enum": ['email', 'phone']
-  },
-  value: {
-    type: String,
-    required: true,
-    lowercase: true,
-    trim: true
-  },
-  confirmed: {
-    type: Boolean,
-    "default": false
-  }
-}, { _id:false });
-
-
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var crypto = require('crypto');<% if(filters.oauth) { %>
+var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
 var UserSchema = new Schema({
   name: String,
+  email: { type: String, lowercase: true },
   role: {
     type: String,
-    "default": 'user'
+    default: 'user'
   },
-  username: String,
-  salt: String,
   hashedPassword: String,
-
-  credentials: [ CredentialSchema ]<% if (filters.oauth) { %>,
-
-  //  NOTE: using `Mixed` is tricky. Should be changed to sth else.
-  strategies: {
-    type: Schema.Types.Mixed,
-    "default": {}
-  },
-  localEnabled: {
-    type: Boolean,
-    "default": false
-  }<% } %>
+  provider: String,
+  salt: String<% if (filters.oauth) { %>,<% if (filters.facebookAuth) { %>
+  facebook: {},<% } %><% if (filters.twitterAuth) { %>
+  twitter: {},<% } %><% if (filters.googleAuth) { %>
+  google: {},<% } %>
+  github: {}<% } %>
 });
 
+/**
+ * Virtuals
+ */
 UserSchema
-.virtual('password')
-.set(function(pwd) {
-  this.salt = this.makeSalt();
-  this.hashedPassword = this.encryptPassword(pwd);
-
-  <% if (filters.oauth) { %>// Setting password implies enabling LocalStrategy
-  this.localEnabled = true;<% } %>
-});
-
-UserSchema
-.path('hashedPassword')<% if (filters.oauth) { %>
-.validate(function(hashedPwd) {
-  return !!this.emails.length;
-
-}, 'Cannot set password with empty email')<% } %>
-.validate(function(hashedPwd) {<% if (filters.oauth) { %>
-  if (!this.localEnabled) return true;<% } %>
-
-  return !!hashedPwd.length;
-}, 'Password cannot be blank');
-
-UserSchema
-.virtual('email')
-.set(function(email) {
-  this.credentials.push({
-    value: email
+  .virtual('password')
+  .set(function(password) {
+    this._password = password;
+    this.salt = this.makeSalt();
+    this.hashedPassword = this.encryptPassword(password);
+  })
+  .get(function() {
+    return this._password;
   });
 
-}).get(function() {
-  // returns only first found email
-  // TODO: in case of multiple emails, should prioritize confirmed ones
-  return this.credentials.filter(function(c) {
-    return c.type === 'email';
-
-  })[0].value;
-});
-
+// Public profile information
 UserSchema
-.virtual('emails')
-.get(function() {
-  return this.credentials
-    .filter(function(c) { return c.type === 'email'; })
-    .map(function(c) { return c.value; });
+  .virtual('profile')
+  .get(function() {
+    return {
+      'name': this.name,
+      'role': this.role
+    };
+  });
 
-});
-
+// Non-sensitive info we'll be putting in the token
 UserSchema
-.pre('save', function(next) {<% if (filters.oauth) { %>
-  if(!this.localEnabled) {
-    if (Object.keys(this.strategies).length === 0) {
-      return next(new Error('No connected accounts'));
-    }
-    return next();
-  }<% } %>
+  .virtual('token')
+  .get(function() {
+    return {
+      '_id': this._id,
+      'role': this.role
+    };
+  });
 
-  mongoose.models.User<% if (filters.oauth) { %>
-    .find({ localEnabled:true })<% } %>
-    .where('credentials.type').equals('email')
-    .where('credentials.value').equals(this.email)
-    .where('_id').ne(String(this._id))
-    .exec(function(err, users) {
-      if (users.length) {
-        return next(new Error('Account with this email address already exists'));
-      }
-      next();
-    });
+/**
+ * Validations
+ */
 
-});
+// Validate empty email
+UserSchema
+  .path('email')
+  .validate(function(email) {<% if (filters.oauth) { %>
+    if (authTypes.indexOf(this.provider) !== -1) return true;<% } %>
+    return email.length;
+  }, 'Email cannot be blank');
 
-UserSchema.methods = {
-  authenticate: function(pwd) {
-    return this.hashedPassword === this.encryptPassword(pwd);
-  },
-  encryptPassword: function(pwd) {
-    var salt;
-    if (!pwd || !this.salt) {
-      return null;
-    }
-    salt = new Buffer(this.salt, 'base64');
-    return crypto.pbkdf2Sync(pwd, salt, 10000, 64).toString('base64');
-  },
-  confirm: function(emailOrPhone, cb) {
-    this.credentials.forEach(function(c) {
-      if (c.value === emailOrPhone) {
-        c.confirmed = true;
+// Validate empty password
+UserSchema
+  .path('hashedPassword')
+  .validate(function(hashedPassword) {<% if (filters.oauth) { %>
+    if (authTypes.indexOf(this.provider) !== -1) return true;<% } %>
+    return hashedPassword.length;
+  }, 'Password cannot be blank');
+
+// Validate email is not taken
+UserSchema
+  .path('email')
+  .validate(function(value, respond) {
+    var self = this;
+    this.constructor.findOne({email: value}, function(err, user) {
+      if(err) throw err;
+      if(user) {
+        if(self.id === user.id) return respond(true);
+        return respond(false);
       }
+      respond(true);
     });
-    this.save(cb);
-  },
-  changeEmail: function(oldEmail, newEmail, cb) {
-    this.credentials.forEach(function(c) {
-      if (c.value === oldEmail) {
-        c.value = newEmail;
-        c.confirmed = false;
-      }
-    });
-    this.save(cb);
-  },
-  makeSalt: function() {
-    return crypto.randomBytes(16).toString('base64');
-  }<% if (filters.oauth) { %>,
-  absorb: function(name, profile) {
-    if (!this.strategies[name]) {
-      this.strategies[name] = profile;
-      this.markModified('strategies');
-      this.save();
-    } else {
-      // TODO: move current to archive, and save current as current
-      console.log("update profile");
-    }
-  }<% } %>
+}, 'The specified email address is already in use.');
+
+var validatePresenceOf = function(value) {
+  return value && value.length;
 };
 
-UserSchema.statics = {
-  findOneByEmail: function(email, cb) {
-    this.find({ 'credentials.value': email.toLowerCase() })
-    .where('credentials.type').equals('email')
-    .exec(function(err, user) {
-      if (err) return cb(err);
-      if (user.length === 0) return cb(null, null);
+/**
+ * Pre-save hook
+ */
+UserSchema
+  .pre('save', function(next) {
+    if (!this.isNew) return next();
 
-      cb(null, user[0]);
-    });
-  }<% if (filters.oauth) { %>,
-  findDuplicates: function(data, cb) {
-    var dataFormatted;
-    dataFormatted = [];
+    if (!validatePresenceOf(this.hashedPassword)<% if (filters.oauth) { %> && authTypes.indexOf(this.provider) === -1<% } %>)
+      next(new Error('Invalid password'));
+    else
+      next();
+  });
 
-    if (data.email !== null) {
-      dataFormatted.push({
-        'credentials.type': 'email',
-        'credentials.value': data.email
-      });
-    }
+/**
+ * Methods
+ */
+UserSchema.methods = {
+  /**
+   * Authenticate - check if the passwords are the same
+   *
+   * @param {String} plainText
+   * @return {Boolean}
+   * @api public
+   */
+  authenticate: function(plainText) {
+    return this.encryptPassword(plainText) === this.hashedPassword;
+  },
 
-    if (data.phone !== null) {
-      dataFormatted.push({
-        'credentials.type': 'phone',
-        'credentials.value': data.phone
-      });
-    }
+  /**
+   * Make salt
+   *
+   * @return {String}
+   * @api public
+   */
+  makeSalt: function() {
+    return crypto.randomBytes(16).toString('base64');
+  },
 
-    this.find({ 'credentials.confirmed':true })
-    .or(dataFormatted)
-    .exec(function(err, users) {
-      if (err) return cb(err);
-      if (users.length === 0) return cb(null, null);
-
-      cb(null, users);
-    });
-  }<% } %>
+  /**
+   * Encrypt password
+   *
+   * @param {String} password
+   * @return {String}
+   * @api public
+   */
+  encryptPassword: function(password) {
+    if (!password || !this.salt) return '';
+    var salt = new Buffer(this.salt, 'base64');
+    return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+  }
 };
 
 module.exports = mongoose.model('User', UserSchema);

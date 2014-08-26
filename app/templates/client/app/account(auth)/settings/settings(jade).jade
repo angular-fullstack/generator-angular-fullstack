@@ -2,47 +2,20 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   .row
     .col-sm-12
-      h1 Email
-
+      h1 Change Password
     .col-sm-12
-      form(role='form', name='email', ng-submit='changeEmail()', novalidate)
-
-        .form-group.has-feedback
-          label Current Email
-          input.form-control(type='email', name='email', ng-model='user.email', placeholder='ex. me@awesome.com')
-          span.glyphicon.glyphicon-ok.form-control-feedback(ng-if='email.confirmed', title='email confirmed')
-          p.help-block(ng-show='!email.email.$valid')
-            | Email not valid
-
-        button.btn.btn-lg.btn-primary(type='submit') Save changes
-
-  .row
-    .col-sm-12
-      h1 <% if (filters.oauth) { %>{{ user.localEnabled ? 'Change' : 'Set' }}<% } else { %>Change<% } %> Password
-
-    .col-sm-12
-      form(role='form', name='pwd', ng-submit='<% if(filters.oauth) { %>!user.localEnabled ? setPassword() : <% } %>changePassword()', novalidate)
-
+      form.form(name='form', ng-submit='changePassword(form)', novalidate='')
         .form-group
           label Current Password
-          input.form-control(type='password', name='old', placeholder='ex. password123', ng-model='user.oldPassword', <% if (filters.oauth) { %>ng-disabled='!user.localEnabled', <% } %>mongoose-error='')
-          p.help-block(ng-show='pwd.old.$error.mongoose')
+          input.form-control(type='password', name='password', ng-model='user.oldPassword', mongoose-error='')
+          p.help-block(ng-show='form.password.$error.mongoose')
             | {{ errors.other }}
-
         .form-group
           label New Password
-          input.form-control(type='password', name='new', placeholder='ex. GoofyM1ckeyDonald&Pluto', ng-model='user.newPassword', ng-minlength='3', required)
-          p.help-block(ng-show='(pwd.new.$error.minlength || pwd.new.$error.required) && (pwd.new.$dirty || pwd.submitted)')
+          input.form-control(type='password', name='newPassword', ng-model='user.newPassword', ng-minlength='3', required='')
+          p.help-block(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)')
             | Password must be at least 3 characters.
 
-        p.help-block {{ message }}
+        p.help-block  {{ message }}
 
         button.btn.btn-lg.btn-primary(type='submit') Save changes
-
-<% if (filters.oauth) { %>
-  //- .row
-  //-   .col-sm-12
-  //-     h1 Social accounts
-
-  //-   .col-sm-12
-<% } %>

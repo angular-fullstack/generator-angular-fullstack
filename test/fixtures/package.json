@@ -7,7 +7,7 @@
     "morgan": "~1.0.0",
     "body-parser": "~1.5.0",
     "method-override": "~1.0.0",
-    "serve-favicon": "^2.0.1",
+    "serve-favicon": "~2.0.1",
     "cookie-parser": "~1.0.1",
     "express-session": "~1.0.2",
     "errorhandler": "~1.0.0",
