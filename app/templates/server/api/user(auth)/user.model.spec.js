@@ -4,14 +4,9 @@ var should = require('should');
 var app = require('../../app');
 var User = require('./user.model');
 
-var user = new User({
-  provider: 'local',
-  name: 'Fake User',
-  email: 'test@test.com',
-  password: 'password'
-});
-
 describe('User Model', function() {
+  var user;
+
   before(function(done) {
     // Clear users before testing
     User.remove().exec().then(function() {
@@ -20,6 +15,15 @@ describe('User Model', function() {
   });
 
   afterEach(function(done) {
+    // Start from scratch
+    user = new User({
+      provider: 'local',
+      name: 'Fake User',
+      email: 'test@test.com',
+      password: 'password'
+    });
+
+    // Clear all users
     User.remove().exec().then(function() {
       done();
     });
@@ -50,11 +54,34 @@ describe('User Model', function() {
     });
   });
 
-  it("should authenticate user if password is valid", function() {
-    return user.authenticate('password').should.be.true;
+  it("should authenticate user if password is valid", function(done) {
+    user.save(function(err, newUser) {
+      newUser.authenticate('password', function(authErr, authenticated) {
+        authenticated.should.be.true;
+        done();
+      });
+    });
   });
 
-  it("should not authenticate user if password is invalid", function() {
-    return user.authenticate('blah').should.not.be.true;
+  it("should not authenticate user if password is invalid", function(done) {
+    user.save(function(err, newUser) {
+      newUser.authenticate('invalidPassword', function(authErr, authenticated) {
+        authenticated.should.not.be.true;
+        done();
+      });
+    });
   });
+
+  it("should authenticate after updating password", function(done) {
+    user.save(function(err, newUser) {
+      newUser.password = 'newPassword';
+      newUser.save(function() {
+        newUser.authenticate('newPassword', function(authErr, authenticated) {
+          authenticated.should.be.true;
+          done();
+        });
+      });
+    });
+  });
+
 });
