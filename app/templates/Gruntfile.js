@@ -167,7 +167,16 @@ module.exports = function (grunt) {
         options: {
           jshintrc: 'server/.jshintrc'
         },
-        src: [ 'server/{,*/}*.js']
+        src: [
+          'server/**/*.js',
+          '!server/**/*.spec.js'
+        ]
+      },
+      serverTest: {
+        options: {
+          jshintrc: 'server/.jshintrc-spec'
+        },
+        src: ['server/**/*.spec.js']
       },
       all: [
         '<%%= yeoman.client %>/{app,components}/**/*.js',

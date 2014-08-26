@@ -21,7 +21,7 @@ exports.setup = function (User, config) {
         }, function (err, users) {
           if (err) return done(err);
           if (users) {
-            var user = users[0];
+            user = users[0];
             user.absorb(profile.provider, profile);
 
             // we can do that because we have it handled by Facebook
@@ -29,7 +29,7 @@ exports.setup = function (User, config) {
             return done(null, user);
           }
 
-          var user = new User({
+          user = new User({
             name: profile.displayName,
             email: profile.emails[0].value,
             username: profile.username,

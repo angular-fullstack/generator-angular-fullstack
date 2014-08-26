@@ -51,10 +51,10 @@ describe('User Model', function() {
   });
 
   it("should authenticate user if password is valid", function() {
-    user.authenticate('password').should.be.true;
+    return user.authenticate('password').should.be.true;
   });
 
   it("should not authenticate user if password is invalid", function() {
-    user.authenticate('blah').should.not.be.true;
+    return user.authenticate('blah').should.not.be.true;
   });
 });

@@ -8,9 +8,9 @@ angular.module '<%= scriptAppName %>'
   $scope.email = {}
 
   getEmail = (user) ->
-    return [null, null] unless $scope.user.credentials.length
+    return [null, null] unless user.credentials.length
 
-    for c in $scope.user.credentials when c.type is 'email'
+    for c in user.credentials when c.type is 'email'
       return [c.value, c.confirmed]
 
     [null, null]
