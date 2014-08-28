@@ -3,35 +3,16 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Email</h1>
+      <h1>Change Password</h1>
     </div>
     <div class="col-sm-12">
-      <form role="form" name="email" ng-submit="changeEmail()" novalidate>
-
-        <div class="form-group has-feedback">
-          <label>Current Email</label>
-          <input type="email" name="email" class="form-control" ng-model="user.email" placeholder='ex. me@awesome.com' />
-          <p class="help-block" ng-show="!email.email.$valid">
-              | Email not valid
-          </p>
-        </div>
-
-        <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
-      </form>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <h1><% if (filters.oauth) { %>{{ user.localEnabled ? 'Change' : 'Set' }}<% } else { %>Change<% } %> Password</h1>
-    </div>
-    <div class="col-sm-12">
-      <form name="pwd" ng-submit="<% if(filters.oauth) { %>!user.localEnabled ? setPassword() : <% } %>changePassword()" novalidate>
+      <form class="form" name="form" ng-submit="changePassword(form)" novalidate>
 
         <div class="form-group">
           <label>Current Password</label>
 
-          <input type="password" name="old" placeholder='ex. password123' class="form-control" ng-model="user.oldPassword"
-                 mongoose-error <% if (filters.oauth) { %>ng-disabled='!user.localEnabled' <% } %>/>
+          <input type="password" name="password" class="form-control" ng-model="user.oldPassword"
+                 mongoose-error/>
           <p class="help-block" ng-show="form.password.$error.mongoose">
               {{ errors.other }}
           </p>
@@ -40,11 +21,11 @@
         <div class="form-group">
           <label>New Password</label>
 
-          <input type="password" name="new" placeholder='ex. GoofyM1ckeyDonald&Pluto' class="form-control" ng-model="user.newPassword"
+          <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword"
                  ng-minlength="3"
-                 required />
+                 required/>
           <p class="help-block"
-             ng-show="(pwd.new.$error.minlength || pwd.new.$error.required) && (pwd.new.$dirty || pwd.submitted)">
+             ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
             Password must be at least 3 characters.
           </p>
         </div>
@@ -55,12 +36,4 @@
       </form>
     </div>
   </div>
-  <% if (filters.oauth) { %>
-  <!-- <div class="row">
-    <div class="col-sm-12">
-      <h1>Social accounts</h1>
-    </div>
-    <div class="col-sm-12"></div>
-  </div> -->
-  <% } %>
 </div>

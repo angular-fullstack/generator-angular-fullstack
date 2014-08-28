@@ -11,29 +11,11 @@ angular.module('<%= scriptAppName %>')
         params: {
           controller:'password'
         }
-      }<% if (filters.oauth) { %>,
-      setPassword: {
-        method: 'POST',
-        params: {
-          controller: 'password'
-        }
-      }<% } %>,
-      changeEmail: {
-        method: 'PUT',
-        params: {
-          controller: 'email'
-        }
       },
       get: {
         method: 'GET',
         params: {
           id:'me'
-        }
-      },
-      confirm: {
-        method: 'POST',
-        params: {
-          controller: 'confirm'
         }
       }
 	  });
