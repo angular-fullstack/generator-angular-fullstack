@@ -1,6 +1,5 @@
 'use strict';
 
-var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
 
@@ -13,7 +12,7 @@ describe('GET <%= route %>', function() {
       .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        res.body.should.be.instanceof(Array);
+        res.body.should.be.instanceOf(Array);
         done();
       });
   });

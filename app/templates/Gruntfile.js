@@ -486,7 +486,8 @@ module.exports = function (grunt) {
 
     mochaTest: {
       options: {
-        reporter: 'spec'
+        reporter: 'spec',
+        require: 'mocha.conf.js'
       },
       src: ['server/**/*.spec.js']
     },

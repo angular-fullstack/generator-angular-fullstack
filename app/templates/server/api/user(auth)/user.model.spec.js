@@ -1,6 +1,5 @@
 'use strict';
 
-var should = require('should');
 var app = require('../../app');
 var User = require('./user.model');
 
@@ -12,17 +11,14 @@ var user = new User({
 });
 
 describe('User Model', function() {
-  before(function(done) {
-    // Clear users before testing
-    User.remove().exec().then(function() {
-      done();
-    });
+
+  // Clear users before testing
+  before(function() {
+    return User.remove().exec();
   });
 
-  afterEach(function(done) {
-    User.remove().exec().then(function() {
-      done();
-    });
+  afterEach(function() {
+    return User.remove().exec();
   });
 
   it('should begin with no users', function(done) {
@@ -36,7 +32,7 @@ describe('User Model', function() {
     user.save(function() {
       var userDup = new User(user);
       userDup.save(function(err) {
-        should.exist(err);
+        err.should.be.instanceOf(Error);
         done();
       });
     });
@@ -45,7 +41,7 @@ describe('User Model', function() {
   it('should fail when saving without an email', function(done) {
     user.email = '';
     user.save(function(err) {
-      should.exist(err);
+      err.should.be.instanceOf(Error);
       done();
     });
   });
