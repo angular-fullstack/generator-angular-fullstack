@@ -17,7 +17,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    istanbul_check_coverage: 'grunt-mocha-istanbul'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -508,7 +509,7 @@ module.exports = function (grunt) {
           reporter: 'spec',
           require: ['mocha.conf.js'],
           mask: '**/*.spec.js',
-          coverageFolder: 'coverage/unit'
+          coverageFolder: 'coverage/server/unit'
         },
         src: 'server'
       },
@@ -522,7 +523,7 @@ module.exports = function (grunt) {
           reporter: 'spec',
           require: ['mocha.conf.js'],
           mask: '**/*.e2e.js',
-          coverageFolder: 'coverage/e2e'
+          coverageFolder: 'coverage/server/e2e'
         },
         src: 'server'
       }
@@ -531,7 +532,7 @@ module.exports = function (grunt) {
     istanbul_check_coverage: {
       default: {
         options: {
-          coverageFolder: 'coverage/*',
+          coverageFolder: 'coverage/**',
           check: {
             lines: 80,
             statements: 80,
@@ -815,7 +816,7 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('test', function(target) {
+  grunt.registerTask('test', function(target, option) {
     if (target === 'server') {
       return grunt.task.run([
         'env:all',
