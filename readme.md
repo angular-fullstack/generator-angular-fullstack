@@ -338,6 +338,19 @@ To setup protractor e2e tests, you must first run
 
 Use `grunt test:e2e` to have protractor go through tests located in the `e2e` folder.
 
+**Code Coverage**
+
+Use `grunt test:coverage` to run mocha-istanbul and generate code coverage reports.
+
+`coverage/server` will be populated with `e2e` and `unit` folders containing the `lcov` reports.
+
+The coverage taget has 3 available options:
+- `test:coverage:unit` generate server unit test coverage
+- `test:coverage:e2e` generate server e2e test coverage
+- `test:coverage:check` combine the coverage reports and check against predefined thresholds
+
+* *when no option is given `test:coverage` runs all options in the above order*
+
 ## Environment Variables
 
 Keeping your app secrets and other sensitive information in source control isn't a good idea. To have grunt launch your app with specific environment variables, add them to the git ignored environment config file: `server/config/local.env.js`.
