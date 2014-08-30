@@ -7,6 +7,8 @@ var chaiAsPromised = require('chai-as-promised');
 
 global.expect = chai.expect;
 global.assert = chai.assert;
+global.sinon = sinon;
+
 chai.should();
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
