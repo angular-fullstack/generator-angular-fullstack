@@ -17,7 +17,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    istanbul_check_coverage: 'grunt-mocha-istanbul'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -169,14 +170,14 @@ module.exports = function (grunt) {
         },
         src: [
           'server/**/*.js',
-          '!server/**/*.spec.js'
+          '!server/**/*.{spec,e2e}.js'
         ]
       },
       serverTest: {
         options: {
           jshintrc: 'server/.jshintrc-spec'
         },
-        src: ['server/**/*.spec.js']
+        src: ['server/**/*.{spec,e2e}.js']
       },
       all: [
         '<%%= yeoman.client %>/{app,components}/**/*.js',
@@ -486,9 +487,60 @@ module.exports = function (grunt) {
 
     mochaTest: {
       options: {
-        reporter: 'spec'
+        reporter: 'spec',
+        require: 'mocha.conf.js'
       },
-      src: ['server/**/*.spec.js']
+      unit: {
+        src: ['server/**/*.spec.js']
+      },
+      e2e: {
+        src: ['server/**/*.e2e.js']
+      }
+    },
+
+    mocha_istanbul: {
+      unit: {
+        options: {
+          excludes: [
+            '**/*.spec.js',
+            '**/*.mock.js',
+            '**/*.e2e.js'
+          ],
+          reporter: 'spec',
+          require: ['mocha.conf.js'],
+          mask: '**/*.spec.js',
+          coverageFolder: 'coverage/server/unit'
+        },
+        src: 'server'
+      },
+      e2e: {
+        options: {
+          excludes: [
+            '**/*.spec.js',
+            '**/*.mock.js',
+            '**/*.e2e.js'
+          ],
+          reporter: 'spec',
+          require: ['mocha.conf.js'],
+          mask: '**/*.e2e.js',
+          coverageFolder: 'coverage/server/e2e'
+        },
+        src: 'server'
+      }
+    },
+
+    istanbul_check_coverage: {
+      default: {
+        options: {
+          coverageFolder: 'coverage/**',
+          check: {
+            lines: 80,
+            statements: 80,
+            branches: 80,
+            functions: 80
+          }
+        }
+      }
     },
 
     protractor: {
@@ -764,12 +816,13 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('test', function(target) {
+  grunt.registerTask('test', function(target, option) {
     if (target === 'server') {
       return grunt.task.run([
         'env:all',
         'env:test',
-        'mochaTest'
+        'mochaTest:unit',
+        'mochaTest:e2e'
       ]);
     }
 
@@ -802,6 +855,41 @@ module.exports = function (grunt) {
         'express:dev',
         'protractor'
       ]);
+    }
+
+    else if (target === 'coverage') {
+
+      if (option === 'unit') {
+        return grunt.task.run([
+          'env:all',
+          'env:test',
+          'mocha_istanbul:unit'
+        ]);
+      }
+
+      else if (option === 'e2e') {
+        return grunt.task.run([
+          'env:all',
+          'env:test',
+          'mocha_istanbul:e2e'
+        ]);
+      }
+
+      else if (option === 'check') {
+        return grunt.task.run([
+          'istanbul_check_coverage'
+        ]);
+      }
+
+      else {
+        return grunt.task.run([
+          'env:all',
+          'env:test',
+          'mocha_istanbul',
+          'istanbul_check_coverage'
+        ]);
+      }
+
     }
 
     else grunt.task.run([
