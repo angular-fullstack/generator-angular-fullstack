@@ -1,7 +1,7 @@
 'use strict';
 
-var _ = require('lodash');
 <% if (filters.mongoose) { %>
+var _ = require('lodash');
 var <%= classedName %> = require('./<%= name %>.model');
 
 function handleError(res, statusCode){
@@ -33,9 +33,10 @@ function handleEntityNotFound(res){
 function saveUpdates(updates){
   return function(entity){
     var updated = _.merge(entity, updates);
-    return updated.saveAsync(function () {
-      return updated;
-    });
+    return updated.saveAsync()
+      .then(function () {
+        return updated;
+      });
   };
 }
 

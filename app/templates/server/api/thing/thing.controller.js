@@ -9,10 +9,9 @@
 
 'use strict';
 
-var _ = require('lodash');
 <% if (filters.mongoose) { %>
+var _ = require('lodash');
 var Thing = require('./thing.model');
-<% } %>
 
 function handleError(res, statusCode){
   statusCode = statusCode || 500;
@@ -61,6 +60,7 @@ function removeEntity(res){
     }
   };
 }
+<% } %>
 
 // Get list of things
 exports.index = function(req, res) {
@@ -86,12 +86,12 @@ exports.index = function(req, res) {
   info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   }
   ]);
-  <% } %>
-  <% if (filters.mongoose) { %>
+<% } %>
+<% if (filters.mongoose) { %>
   Thing.findAsync()
     .then(responseWithResult(res))
     .catch(handleError(res));
-  <% } %>
+<% } %>
 };
 
 <% if (filters.mongoose) { %>

@@ -1,6 +1,5 @@
 'use strict';
 
-var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
 
@@ -23,5 +22,5 @@ describe('GET <%= route %>', function() {
       .get('<%= route %>/520169c8f727f28610e3395f')
       .expect(404, done);
   });
-  
+
 });

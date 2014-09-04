@@ -79,7 +79,7 @@ describe('<%= classedName %> API:', function() {
   });
 
   describe('PUT <%= route %>/:id', function() {
-    var updated<%= classedName %>
+    var updated<%= classedName %>;
 
     beforeEach(function(done) {
       request(app)
