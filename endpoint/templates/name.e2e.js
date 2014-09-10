@@ -8,7 +8,7 @@ var new<%= classedName %>;<% } %>
 describe('<%= classedName %> API:', function() {
 
   describe('GET <%= route %>', function() {
-    var <%= name %>s;
+    var <%= cameledName %>s;
 
     beforeEach(function(done) {
       request(app)
@@ -17,13 +17,13 @@ describe('<%= classedName %> API:', function() {
         .expect('Content-Type', /json/)
         .end(function(err, res) {
           if (err) return done(err);
-          <%= name %>s = res.body;
+          <%= cameledName %>s = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      <%= name %>s.should.be.instanceOf(Array);
+      <%= cameledName %>s.should.be.instanceOf(Array);
     });
 
   });<% if(filters.mongoose) { %>
@@ -53,7 +53,7 @@ describe('<%= classedName %> API:', function() {
   });
 
   describe('GET <%= route %>/:id', function() {
-    var <%= name %>;
+    var <%= cameledName %>;
 
     beforeEach(function(done) {
       request(app)
@@ -62,18 +62,18 @@ describe('<%= classedName %> API:', function() {
         .expect('Content-Type', /json/)
         .end(function(err, res) {
           if (err) return done(err);
-          <%= name %> = res.body;
+          <%= cameledName %> = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      <%= name %> = {};
+      <%= cameledName %> = {};
     });
 
     it('should respond with the requested <%= name %>', function() {
-      <%= name %>.name.should.equal('New <%= classedName %>');
-      <%= name %>.info.should.equal('This is the brand new <%= name %>!!!');
+      <%= cameledName %>.name.should.equal('New <%= classedName %>');
+      <%= cameledName %>.info.should.equal('This is the brand new <%= name %>!!!');
     });
 
   });

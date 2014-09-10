@@ -3,7 +3,7 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 
     /* <%= name %>.controller stub */
-var <%= name %>Ctrl = {
+var <%= cameledName %>Ctrl = {
       index: '<%= name %>Ctrl.index'<% if(filters.mongoose) { %>,
       show: '<%= name %>Ctrl.show',
       create: '<%= name %>Ctrl.create',
@@ -25,7 +25,7 @@ var <%= name %>Ctrl = {
           return router;
         }
       },
-      './<%= name %>.controller': <%= name %>Ctrl
+      './<%= name %>.controller': <%= cameledName %>Ctrl
     });
 
 describe('<%= classedName %> API Router:', function() {
