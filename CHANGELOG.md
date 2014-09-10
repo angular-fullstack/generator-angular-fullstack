@@ -1,3 +1,13 @@
+<a name="v2.0.13"></a>
+### v2.0.13 (2014-08-29)
+
+
+#### Bug Fixes
+
+* **gen:**
+  * use bool for bootstrap filters ([a5decbc3](http://github.com/DaftMonk/generator-angular-fullstack/commit/a5decbc36e933f94c69d9e9bb58bd8e07148c34d), closes [#496](http://github.com/DaftMonk/generator-angular-fullstack/issues/496))
+  * fix build when not selecting socket.io ([fdf063c6](http://github.com/DaftMonk/generator-angular-fullstack/commit/fdf063c6cc2ec4eeef252f13b2e0d301931fa83c))
+
 <a name="v2.0.12"></a>
 ### v2.0.12 (2014-08-25)
 

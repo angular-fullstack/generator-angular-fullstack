@@ -14,6 +14,8 @@ describe('angular-fullstack generator', function () {
     markup: 'html',
     stylesheet: 'sass',
     router: 'uirouter',
+    bootstrap: true,
+    uibootstrap: true,
     mongoose: true,
     auth: true,
     oauth: [],
