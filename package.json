@@ -48,6 +48,7 @@
     "marked": "~0.2.8",
     "mocha": "~1.21.0",
     "q": "^1.0.1",
+    "recursive-readdir": "^1.2.0",
     "semver": "~2.2.1",
     "shelljs": "^0.3.0",
     "underscore.string": "^2.3.3"
