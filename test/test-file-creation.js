@@ -345,7 +345,9 @@ describe('angular-fullstack generator', function () {
         mongoose: true,
         auth: true,
         oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
-        socketio: true
+        socketio: true,
+        bootstrap: true,
+        uibootstrap: true
       };
 
       beforeEach(function() {
@@ -387,7 +389,9 @@ describe('angular-fullstack generator', function () {
         mongoose: false,
         auth: false,
         oauth: [],
-        socketio: false
+        socketio: false,
+        bootstrap: false,
+        uibootstrap: false
       };
 
       beforeEach(function(done) {
@@ -430,7 +434,9 @@ describe('angular-fullstack generator', function () {
         mongoose: false,
         auth: false,
         oauth: [],
-        socketio: false
+        socketio: false,
+        bootstrap: true,
+        uibootstrap: true
       };
 
       beforeEach(function(done) {
