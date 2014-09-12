@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose-bird')(),
     Schema = mongoose.Schema;
 
 var <%= classedName %>Schema = new Schema({

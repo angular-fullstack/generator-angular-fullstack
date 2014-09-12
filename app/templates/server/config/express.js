@@ -17,7 +17,7 @@ var config = require('./environment');<% if (filters.auth) { %>
 var passport = require('passport');<% } %><% if (filters.twitterAuth) { %>
 var session = require('express-session');
 var mongoStore = require('connect-mongo')(session);
-var mongoose = require('mongoose');<% } %>
+var mongoose = require('mongoose-bird')();<% } %>
 
 module.exports = function(app) {
   var env = app.get('env');
