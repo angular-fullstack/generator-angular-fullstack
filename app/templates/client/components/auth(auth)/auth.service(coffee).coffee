@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.factory 'Auth', ($location, $rootScope, $http, User, $cookieStore, $q) ->
-  currentUser = if $cookieStore.get 'token' then User.get() else {}
+.factory 'Auth', ($location, $rootScope, $http, User, $localStorage, $q) ->
+  currentUser = if $localStorage.token then User.get() else {}
 
   ###
   Authenticate user and save token
@@ -18,7 +18,7 @@ angular.module '<%= scriptAppName %>'
       password: user.password
 
     .success (data) ->
-      $cookieStore.put 'token', data.token
+      $localStorage.token = data.token
       currentUser = User.get()
       deferred.resolve data
       callback?()
@@ -37,7 +37,7 @@ angular.module '<%= scriptAppName %>'
   @param  {Function}
   ###
   logout: ->
-    $cookieStore.remove 'token'
+    delete $localStorage.token
     currentUser = {}
     return
 
@@ -52,7 +52,7 @@ angular.module '<%= scriptAppName %>'
   createUser: (user, callback) ->
     User.save user,
       (data) ->
-        $cookieStore.put 'token', data.token
+        $localStorage.token = data.token
         currentUser = User.get()
         callback? user
 
@@ -133,4 +133,17 @@ angular.module '<%= scriptAppName %>'
   Get auth token
   ###
   getToken: ->
-    $cookieStore.get 'token'
+    $localStorage.token
+
+
+  ###
+  Set session token
+  @param  {String}   session token
+  @return {Promise}
+  ###
+  
+  setSessionToken: (sessionToken, callback) ->
+    cb = callback || angular.noop;
+    $localStorage.token = sessionToken
+    currentUser = User.get(cb)
+    return

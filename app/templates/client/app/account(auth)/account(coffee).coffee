@@ -7,6 +7,13 @@ angular.module '<%= scriptAppName %>'
     templateUrl: 'app/account/login/login.html'
     controller: 'LoginCtrl'
 
+  .when '/login/:sessionToken',
+    template: ' '
+    controller: ($routeParams, Auth, $location) ->
+      if $routeParams.sessionToken
+        Auth.setSessionToken $routeParams.sessionToken, ->
+          $location.path "/"
+          return
   .when '/signup',
     templateUrl: 'app/account/signup/signup.html'
     controller: 'SignupCtrl'
@@ -22,6 +29,14 @@ angular.module '<%= scriptAppName %>'
     templateUrl: 'app/account/login/login.html'
     controller: 'LoginCtrl'
 
+  .state 'loginWithToken',
+    url: '/login/:sessionToken'
+    template: ' '
+    controller: ($stateParams, Auth, $location) ->
+      if $stateParams.sessionToken
+        Auth.setSessionToken $stateParams.sessionToken, ->
+          $location.path "/"
+          return      
   .state 'signup',
     url: '/signup'
     templateUrl: 'app/account/signup/signup.html'

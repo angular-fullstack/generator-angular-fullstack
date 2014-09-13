@@ -29,6 +29,10 @@ var all = {
     session: '<%= _.slugify(_.humanize(appname)) + '-secret' %>'
   },
 
+  tokenDuration : {
+    session: 60 * 24 * 30
+  },
+
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
 
