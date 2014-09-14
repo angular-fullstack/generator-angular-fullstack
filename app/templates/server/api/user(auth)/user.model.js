@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose-bird')();
 var Schema = mongoose.Schema;
 var crypto = require('crypto');<% if(filters.oauth) { %>
 var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
@@ -53,7 +53,9 @@ UserSchema
 UserSchema
   .path('email')
   .validate(function(email) {<% if (filters.oauth) { %>
-    if (authTypes.indexOf(this.provider) !== -1) return true;<% } %>
+    if (authTypes.indexOf(this.provider) !== -1){
+      return true;
+    } <% } %>
     return email.length;
   }, 'Email cannot be blank');
 
@@ -61,7 +63,9 @@ UserSchema
 UserSchema
   .path('password')
   .validate(function(password) {<% if (filters.oauth) { %>
-    if (authTypes.indexOf(this.provider) !== -1) return true;<% } %>
+    if (authTypes.indexOf(this.provider) !== -1){
+      return true;
+    } <% } %>
     return password.length;
   }, 'Password cannot be blank');
 
@@ -70,14 +74,19 @@ UserSchema
   .path('email')
   .validate(function(value, respond) {
     var self = this;
-    this.constructor.findOne({email: value}, function(err, user) {
-      if(err) throw err;
-      if(user) {
-        if(self.id === user.id) return respond(true);
-        return respond(false);
-      }
-      respond(true);
-    });
+    return this.constructor.findOneAsync({email: value})
+      .then(function(user) {
+        if(user) {
+          if(self.id === user.id) {
+            return respond(true);
+          }
+          return respond(false);
+        }
+        return respond(true);
+      })
+      .catch(function(err){
+        throw err;
+      });
 }, 'The specified email address is already in use.');
 
 var validatePresenceOf = function(value) {

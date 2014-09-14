@@ -8,7 +8,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');<% if (filters.mongoose) { %>
-var mongoose = require('mongoose');<% } %>
+var mongoose = require('mongoose-bird')();<% } %>
 var config = require('./config/environment');
 <% if (filters.mongoose) { %>
 // Connect to database
