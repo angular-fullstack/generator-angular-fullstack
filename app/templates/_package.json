@@ -16,8 +16,7 @@
     "jade": "~1.2.0",<% } %><% if(filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if(filters.mongoose) { %>
     "mongoose": "~3.8.8",
-    "mongoose-bird": "~0.0.1",
-    <% } %><% if(filters.auth) { %>
+    "mongoose-bird": "~0.0.1",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^0.3.0",
     "express-jwt": "^0.1.3",
     "passport": "~0.2.0",
