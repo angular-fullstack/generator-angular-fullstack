@@ -10,59 +10,39 @@ var user = new User({
   password: 'password'
 });
 
-describe('User Model:', function() {
-
-  // Clear users before testing
+describe('User Model', function() {
   before(function() {
+    // Clear users before testing
     return User.remove().exec();
   });
 
-  describe('User (schema)', function() {
-
-    it('should begin with no users', function() {
-      return User.find({}).exec().should.eventually.have.length(0);
-    });
-
+  afterEach(function() {
+    return User.remove().exec();
   });
 
-  describe('user (instance)', function() {
+  it('should begin with no users', function() {
+    return User.findAsync({})
+      .should.eventually.have.length(0);
+  });
 
-    describe('.save()', function() {
-      // Clear users after tests
-      afterEach(function() {
-        return User.remove().exec();
-      });
+  it('should fail when saving a duplicate user', function() {
+    return user.saveAsync()
+      .then(function() {
+        var userDup = new User(user);
+        return userDup.saveAsync();
+      }).should.be.rejected;
+  });
 
-      it('should fail when saving a duplicate user', function(done) {
-        user.save(function() {
-          var userDup = new User(user);
-          userDup.save(function(err) {
-            err.should.be.instanceOf(Error);
-            done();
-          });
-        });
-      });
+  it('should fail when saving without an email', function() {
+    user.email = '';
+    return user.saveAsync().should.be.rejected;
+  });
 
-      it('should fail when saving without an email', function(done) {
-        user.email = '';
-        user.save(function(err) {
-          err.should.be.instanceOf(Error);
-          done();
-        });
-      });
+  it("should authenticate user if password is valid", function() {
+    user.authenticate('password').should.be.true;
+  });
 
-    });
-
-    describe('.authenticate()', function() {
-
-      it("should authenticate user if password is valid", function() {
-        return user.authenticate('password').should.be.true;
-      });
-
-      it("should not authenticate user if password is invalid", function() {
-        return user.authenticate('blah').should.not.be.true;
-      });
-
-    });
+  it("should not authenticate user if password is invalid", function() {
+    user.authenticate('blah').should.not.be.true;
   });
 });

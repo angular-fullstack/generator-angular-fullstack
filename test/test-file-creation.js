@@ -39,13 +39,16 @@ describe('angular-fullstack generator', function () {
     path = path || './';
     skip = skip || ['e2e', 'node_modules', 'client/bower_components'];
 
-    recursiveReadDir(path, skip, function(err, files) {
+    recursiveReadDir(path, skip, function(err, actualFiles) {
       if (err) { return done(err); }
+      var files = actualFiles.concat();
 
-      for (var i = 0, expectedFilesLength = expectedFiles.length; i < expectedFilesLength; i++) {
-        var index = files.indexOf(expectedFiles[i]);
-        files.splice(index, 1);
-      }
+      expectedFiles.forEach(function(file, i) {
+        var index = files.indexOf(file);
+        if (index >= 0) {
+          files.splice(index, 1);
+        }
+      });
 
       if (files.length !== 0) {
         err = new Error('unexpected files found');
@@ -58,11 +61,16 @@ describe('angular-fullstack generator', function () {
     });
   }
 
-  function runTest(type, self, cb, timeout) {
+  function runTest(cmd, self, cb) {
+    var args = Array.prototype.slice.call(arguments),
+        endpoint = (args[3] && typeof args[3] === 'string') ? args.splice(3, 1)[0] : null,
+        timeout = (args[3] && typeof args[3] === 'number') ? args.splice(3, 1)[0] : null;
+
     self.timeout(timeout || 60000);
-    gen.run({}, function() {
-      exec(type, function(error, stdout, stderr) {
-        switch(type) {
+
+    var execFn = function() {
+      exec(cmd, function(error, stdout, stderr) {
+        switch(cmd) {
           case 'grunt test:client':
             expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
             break;
@@ -78,7 +86,13 @@ describe('angular-fullstack generator', function () {
 
         cb();
       });
-    });
+    };
+
+    if (endpoint) {
+      generatorTest('endpoint', endpoint, {}, execFn);
+    } else {
+      gen.run({}, execFn);
+    }
   }
 
   function genFiles(ops) {
@@ -206,10 +220,9 @@ describe('angular-fullstack generator', function () {
     }
 
     if (ops.oauth) {
-      var oauth = ops.oauth;
-      for (var i = 0, oauthLength = oauth.length; i < oauthLength; i++) {
-        files = files.concat(oauthFiles(oauth[i].replace('Auth', '')));
-      }
+      ops.oauth.forEach(function(type, i) {
+        files = files.concat(oauthFiles(type.replace('Auth', '')));
+      });
     }
 
     if (ops.socketio) {
@@ -224,11 +237,10 @@ describe('angular-fullstack generator', function () {
     return files;
   }
 
-  function everyFile(files, ops) {
-    ops = ops || {
-      skip: ['node_modules', 'client/bower_components', 'e2e']
-    }
-  }
+
+  /**
+   * Generator tests
+   */
 
   beforeEach(function (done) {
     this.timeout(10000);
@@ -269,7 +281,7 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
-      it('should pass jshint', function(done) {
+      it('should pass lint', function(done) {
         runTest('grunt jshint', this, done);
       });
 
@@ -277,14 +289,20 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:server', this, done);
       });
 
+      it('should pass lint with generated endpoint', function(done) {
+        runTest('grunt jshint', this, done, 'foo');
+      });
+
       it('should run server tests successfully with generated endpoint', function(done) {
-        this.timeout(60000);
-        generatorTest('endpoint', 'foo', {}, function() {
-          exec('grunt test:server', function (error, stdout, stderr) {
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
-            done();
-          });
-        });
+        runTest('grunt test:server', this, done, 'foo');
+      });
+
+      it('should pass lint with generated capitalized endpoint', function(done) {
+        runTest('grunt jshint', this, done, 'Foo');
+      });
+
+      it('should run server tests successfully with generated capitalized endpoint', function(done) {
+        runTest('grunt test:server', this, done, 'Foo');
       });
 
       it('should use existing config if available', function(done) {
@@ -358,12 +376,20 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
-      it('should pass jshint', function(done) {
+      it('should pass lint', function(done) {
         runTest('grunt jshint', this, done);
       });
 
       it('should run server tests successfully', function(done) {
         runTest('grunt test:server', this, done);
+      });
+
+      it('should pass lint with generated snake-case endpoint', function(done) {
+        runTest('grunt jshint', this, done, 'foo-bar');
+      });
+
+      it('should run server tests successfully with generated snake-case endpoint', function(done) {
+        runTest('grunt test:server', this, done, 'foo-bar');
       });
 
       it('should generate expected files', function (done) {
@@ -403,12 +429,20 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
-      it('should pass jshint', function(done) {
+      it('should pass lint', function(done) {
         runTest('grunt jshint', this, done);
       });
 
       it('should run server tests successfully', function(done) {
         runTest('grunt test:server', this, done);
+      });
+
+      it('should pass lint with generated endpoint', function(done) {
+        runTest('grunt jshint', this, done, 'foo');
+      });
+
+      it('should run server tests successfully with generated endpoint', function(done) {
+        runTest('grunt test:server', this, done, 'foo');
       });
 
       it('should generate expected files', function (done) {
@@ -448,7 +482,7 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
-      it('should pass jshint', function(done) {
+      it('should pass lint', function(done) {
         runTest('grunt jshint', this, done);
       });
 

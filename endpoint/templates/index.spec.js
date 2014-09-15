@@ -37,7 +37,7 @@ describe('<%= classedName %> API Router:', function() {
   describe('GET <%= route %>', function() {
 
     it('should route to <%= name %>.controller.index', function() {
-      return router.get.withArgs('/', '<%= name %>Ctrl.index').should.have.been.calledOnce;
+      router.get.withArgs('/', '<%= name %>Ctrl.index').should.have.been.calledOnce;
     });
 
   });<% if(filters.mongoose) { %>
@@ -45,7 +45,7 @@ describe('<%= classedName %> API Router:', function() {
   describe('GET <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.show', function() {
-      return router.get.withArgs('/:id', '<%= name %>Ctrl.show').should.have.been.calledOnce;
+      router.get.withArgs('/:id', '<%= name %>Ctrl.show').should.have.been.calledOnce;
     });
 
   });
@@ -53,7 +53,7 @@ describe('<%= classedName %> API Router:', function() {
   describe('POST <%= route %>', function() {
 
     it('should route to <%= name %>.controller.create', function() {
-      return router.post.withArgs('/', '<%= name %>Ctrl.create').should.have.been.calledOnce;
+      router.post.withArgs('/', '<%= name %>Ctrl.create').should.have.been.calledOnce;
     });
 
   });
@@ -61,7 +61,7 @@ describe('<%= classedName %> API Router:', function() {
   describe('PUT <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.update', function() {
-      return router.put.withArgs('/:id', '<%= name %>Ctrl.update').should.have.been.calledOnce;
+      router.put.withArgs('/:id', '<%= name %>Ctrl.update').should.have.been.calledOnce;
     });
 
   });
@@ -69,7 +69,7 @@ describe('<%= classedName %> API Router:', function() {
   describe('PATCH <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.update', function() {
-      return router.patch.withArgs('/:id', '<%= name %>Ctrl.update').should.have.been.calledOnce;
+      router.patch.withArgs('/:id', '<%= name %>Ctrl.update').should.have.been.calledOnce;
     });
 
   });
@@ -77,7 +77,7 @@ describe('<%= classedName %> API Router:', function() {
   describe('DELETE <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.destroy', function() {
-      return router.delete.withArgs('/:id', '<%= name %>Ctrl.destroy').should.have.been.calledOnce;
+      router.delete.withArgs('/:id', '<%= name %>Ctrl.destroy').should.have.been.calledOnce;
     });
 
   });<% } %>

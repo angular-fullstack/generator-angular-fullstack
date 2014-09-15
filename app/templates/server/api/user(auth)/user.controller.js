@@ -5,19 +5,37 @@ var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 
-var validationError = function(res, err) {
-  return res.json(422, err);
+var validationError = function(res, statusCode) {
+  statusCode = statusCode || 422;
+  return function(err){
+    res.json(statusCode, err);
+  };
 };
+
+function handleError(res, statusCode){
+  statusCode = statusCode || 500;
+  return function(err){
+    res.send(statusCode, err);
+  };
+}
+
+function respondWith(res, statusCode){
+  statusCode = statusCode || 200;
+  return function(){
+    res.send(statusCode);
+  };
+}
 
 /**
  * Get list of users
  * restriction: 'admin'
  */
 exports.index = function(req, res) {
-  User.find({}, '-salt -password', function (err, users) {
-    if(err) return res.send(500, err);
-    res.json(200, users);
-  });
+  User.findAsync({}, '-salt -hashedPassword')
+    .then(function (users) {
+      res.json(200, users);
+    })
+    .catch(handleError(res));
 };
 
 /**
@@ -27,11 +45,12 @@ exports.create = function (req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
-  newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-  });
+  newUser.saveAsync()
+    .then(function(user) {
+      var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+      res.json({ token: token });
+    })
+    .catch(validationError(res));
 };
 
 /**
@@ -40,11 +59,16 @@ exports.create = function (req, res, next) {
 exports.show = function (req, res, next) {
   var userId = req.params.id;
 
-  User.findById(userId, function (err, user) {
-    if (err) return next(err);
-    if (!user) return res.send(401);
-    res.json(user.profile);
-  });
+  User.findByIdAsync(userId)
+    .then(function (user) {
+      if(!user) {
+        return res.send(401);
+      }
+      res.json(user.profile);
+    })
+    .catch(function(err){
+      return next(err);
+    });
 };
 
 /**
@@ -52,10 +76,9 @@ exports.show = function (req, res, next) {
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-  User.findByIdAndRemove(req.params.id, function(err, user) {
-    if(err) return res.send(500, err);
-    return res.send(204);
-  });
+  User.findByIdAndRemoveAsync(req.params.id)
+    .then(respondWith(res, 204))
+    .catch(handleError(res));
 };
 
 /**
@@ -66,21 +89,17 @@ exports.changePassword = function(req, res, next) {
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
 
-  User.findById(userId, function (err, user) {
-    user.authenticate(oldPass, function(authErr, authenticated) {
-      if (authErr) res.send(403);
-
-      if (authenticated) {
+  User.findByIdAsync(userId)
+    .then(function(user) {
+      if(user.authenticate(oldPass)) {
         user.password = newPass;
-        user.save(function(err) {
-          if (err) return validationError(res, err);
-          res.send(200);
-        });
+        return user.saveAsync()
+          .then(respondWith(res, 200))
+          .catch(validationError(res));
       } else {
-        res.send(403);
+        return res.send(403);
       }
     });
-  });
 };
 
 /**
@@ -88,13 +107,13 @@ exports.changePassword = function(req, res, next) {
  */
 exports.me = function(req, res, next) {
   var userId = req.user._id;
-  User.findOne({
-    _id: userId
-  }, '-salt -password', function(err, user) { // don't ever give out the password or salt
-    if (err) return next(err);
-    if (!user) return res.json(401);
-    res.json(user);
-  });
+
+  User.findOneAsync({ _id: userId }, '-salt -hashedPassword')
+    .then(function(user) { // don't ever give out the password or salt
+      if (!user) { return res.json(401); }
+      res.json(user);
+    })
+    .catch(function(err){ return next(err); });
 };
 
 /**
