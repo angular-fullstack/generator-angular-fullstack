@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .controller('SignupCtrl', function ($scope, Auth, $location<% if (filters.oauth) { %>, $window<% } %>) {
+  .controller('SignupCtrl', function ($scope, Auth<% if(filters.ngroute) { %>, $location<% } %><% if(filters.uirouter) { %>, $state<% } %><% if (filters.oauth) { %>, $window<% } %>) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -16,7 +16,7 @@ angular.module('<%= scriptAppName %>')
         })
         .then( function() {
           // Account created, redirect to home
-          $location.path('/');
+          <% if(filters.ngroute) { %>$location.path('/');<% } %><% if(filters.uirouter) { %>$state.go('main');<% } %>
         })
         .catch( function(err) {
           err = err.data;
