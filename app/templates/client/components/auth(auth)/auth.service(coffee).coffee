@@ -130,7 +130,7 @@ angular.module '<%= scriptAppName %>'
   @return {Bool|Promise}
   ###
   isAdmin: (callback) ->
-    return currentUser.role is "admin"  if arguments_.length is 0
+    return currentUser.role is "admin"  if arguments.length is 0
 
     @getCurrentUser null
 
