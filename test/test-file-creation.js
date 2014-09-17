@@ -174,11 +174,17 @@ describe('angular-fullstack generator', function () {
       'protractor.conf.js'
     ]);
 
+    if (ops.router === 'uirouter') {
+      files = files.concat([
+        'client/components/ui-router/ui-router.mock.' + script
+      ]);
+    }
+
     if (ops.uibootstrap) {
       files = files.concat([
         'client/components/modal/modal.' + markup,
         'client/components/modal/modal.' + stylesheet,
-        'client/components/modal/modal.service.' + script,
+        'client/components/modal/modal.service.' + script
       ]);
     }
 
