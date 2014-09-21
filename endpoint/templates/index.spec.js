@@ -19,7 +19,7 @@ var routerStub = {
 };
 
 // require the index with our stubbed out modules
-var <%= name %>Index = proxyquire('./index.js', {
+var <%= cameledName %>Index = proxyquire('./index.js', {
   'express': {
     Router: function() {
       return routerStub;
@@ -31,7 +31,7 @@ var <%= name %>Index = proxyquire('./index.js', {
 describe('<%= classedName %> API Router:', function() {
 
   it('should return an express router instance', function() {
-    <%= name %>Index.should.equal(router);
+    <%= cameledName %>Index.should.equal(routerStub);
   });
 
   describe('GET <%= route %>', function() {
