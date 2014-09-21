@@ -4,8 +4,8 @@ node_js:
   - '0.11'
 env:
   global:
-    - secure: fBqMlUrbIwaRJeKe39zxVsRcvtPIP/R98JNzrD0ycHzdfbhsWge0J7FCpdKjgRCf99ggqMhyevJafSJv7cfiVgJhB6kYudhG0G60V+vBjj4NIZnOelpVeQHXyLlekRpu+Qa/DaL43jovRAI0I11cwVfIRWtXZwiQOjCd/Elsdl8=
-    - secure: GZ95FcH0K88RG7P0SJjoIcHLfUalFRHeu5Vd7Kh0wXTh3O6Zku7iauk6Cd+aYGuFedL5wSzht5qnVBRm10VxhhJMxHiZ+I+VBxt4bysKM0axMZ+SMTfPK3zajVVXKfzIsIYO0m0qwYtHCgSXUrMnwAczESxczxq48VxA/rCXbYc=
+    - secure: hwJX8w4D15UPdU4UIS+iB4XC/lxmh/y6m3IN5Ia5ha++rHs2JZ3FVOPdosb03fMoXYpR2682pzvTEHrZw6Ks0dpmJs3KJWB4kgsK7slfKyKA38j8rDvSU+iBfiB2lo8lTmj9g5Ua8c2hiJcw6EMt8VlLlhgoJLy3heycPTsW04A=
+    - secure: gl/h7p5S+hfR7Cv2tl53c+biW3Mfhh6P4VI4VxrPFj5Mm1ha89dbMYjPn0PuLkmjaZ2+n9siU7j6lwlOdyWGAo0tkPtK/EC62L2Q938O204jD8VXnvjQ8kbP9zcjHogicD+elF0X5hvnXApW9I7nOZIs59V5Pp8DXkuHEWMIo8U=
 addons:
   sauce_connect: true
 before_install:
