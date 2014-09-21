@@ -3,7 +3,7 @@
 
 'use strict';
 
-exports.config = {
+var config = {
   // The timeout for each script run on the browser. This should be longer
   // than the maximum time your application needs to stabilize between tasks.
   allScriptsTimeout: 110000,
@@ -47,5 +47,21 @@ exports.config = {
   // See the full list at https://github.com/juliemr/minijasminenode
   jasmineNodeOpts: {
     defaultTimeoutInterval: 30000
+  },
+
+  // Prepare environment for tests
+  params: {
+    serverConfig: require('./server/config/environment')
+  },
+
+  onPrepare: function() {
+    var serverConfig = config.params.serverConfig;
+
+    // Setup mongo tests
+    var mongoose = require('mongoose-bird')();
+    mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database
   }
 };
+
+config.params.baseUrl = config.baseUrl;
+exports.config = config;
