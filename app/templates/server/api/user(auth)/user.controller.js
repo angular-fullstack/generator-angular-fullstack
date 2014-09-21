@@ -46,7 +46,7 @@ exports.create = function (req, res, next) {
   newUser.provider = 'local';
   newUser.role = 'user';
   newUser.saveAsync()
-    .then(function(user) {
+    .spread(function(user) {
       var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
       res.json({ token: token });
     })
@@ -94,7 +94,7 @@ exports.changePassword = function(req, res, next) {
       if(user.authenticate(oldPass)) {
         user.password = newPass;
         return user.saveAsync()
-          .then(respondWith(res, 200))
+          .spread(respondWith(res, 200))
           .catch(validationError(res));
       } else {
         return res.send(403);

@@ -33,7 +33,7 @@ function saveUpdates(updates){
   return function(entity){
     var updated = _.merge(entity, updates);
     return updated.saveAsync()
-      .then(function () {
+      .spread(function (updated) {
         return updated;
       });
   };
