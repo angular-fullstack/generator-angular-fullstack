@@ -10,6 +10,7 @@ angular.module('<%= scriptAppName %>')
       .when('/logout', {
         name: 'logout',
         referrer: '/',
+        template: '',
         controller: function($location, $route, Auth) {
           var referrer = $route.current.params.referrer ||
                           $route.current.referrer ||
@@ -44,6 +45,7 @@ angular.module('<%= scriptAppName %>')
       .state('logout', {
         url: '/logout?referrer',
         referrer: 'main',
+        template: '',
         controller: function($state, Auth) {
           var referrer = $state.params.referrer ||
                           $state.current.referrer ||
