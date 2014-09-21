@@ -170,14 +170,14 @@ module.exports = function (grunt) {
         },
         src: [
           'server/**/*.js',
-          '!server/**/*.{spec,e2e}.js'
+          '!server/**/*.{spec,integration}.js'
         ]
       },
       serverTest: {
         options: {
           jshintrc: 'server/.jshintrc-spec'
         },
-        src: ['server/**/*.{spec,e2e}.js']
+        src: ['server/**/*.{spec,integration}.js']
       },
       all: [
         '<%%= yeoman.client %>/{app,components}/**/*.js',
@@ -493,8 +493,8 @@ module.exports = function (grunt) {
       unit: {
         src: ['server/**/*.spec.js']
       },
-      e2e: {
-        src: ['server/**/*.e2e.js']
+      integration: {
+        src: ['server/**/*.integration.js']
       }
     },
 
@@ -504,7 +504,7 @@ module.exports = function (grunt) {
           excludes: [
             '**/*.spec.js',
             '**/*.mock.js',
-            '**/*.e2e.js'
+            '**/*.integration.js'
           ],
           reporter: 'spec',
           require: ['mocha.conf.js'],
@@ -513,17 +513,17 @@ module.exports = function (grunt) {
         },
         src: 'server'
       },
-      e2e: {
+      integration: {
         options: {
           excludes: [
             '**/*.spec.js',
             '**/*.mock.js',
-            '**/*.e2e.js'
+            '**/*.integration.js'
           ],
           reporter: 'spec',
           require: ['mocha.conf.js'],
-          mask: '**/*.e2e.js',
-          coverageFolder: 'coverage/server/e2e'
+          mask: '**/*.integration.js',
+          coverageFolder: 'coverage/server/integration'
         },
         src: 'server'
       }
@@ -822,7 +822,7 @@ module.exports = function (grunt) {
         'env:all',
         'env:test',
         'mochaTest:unit',
-        'mochaTest:e2e'
+        'mochaTest:integration'
       ]);
     }
 
@@ -867,11 +867,11 @@ module.exports = function (grunt) {
         ]);
       }
 
-      else if (option === 'e2e') {
+      else if (option === 'integration') {
         return grunt.task.run([
           'env:all',
           'env:test',
-          'mocha_istanbul:e2e'
+          'mocha_istanbul:integration'
         ]);
       }
 
