@@ -2,42 +2,42 @@
 
 var proxyquire = require('proxyquire').noPreserveCache();
 
-    /* thing.controller stub */
-var thingCtrl = {
-      index: 'thingCtrl.index'<% if(filters.mongoose) { %>,
-      show: 'thingCtrl.show',
-      create: 'thingCtrl.create',
-      update: 'thingCtrl.update',
-      destroy: 'thingCtrl.destroy'<% } %>
-    },
-    /* express.Router().router stub */
-    router = {
-      get: sinon.spy()<% if(filters.mongoose) { %>,
-      put: sinon.spy(),
-      patch: sinon.spy(),
-      post: sinon.spy(),
-      delete: sinon.spy()<% } %>
-    },
-    /* stubbed thing router */
-    index = proxyquire('./index.js', {
-      'express': {
-        Router: function() {
-          return router;
-        }
-      },
-      './thing.controller': thingCtrl
-    });
+var thingCtrlStub = {
+  index: 'thingCtrl.index'<% if(filters.mongoose) { %>,
+  show: 'thingCtrl.show',
+  create: 'thingCtrl.create',
+  update: 'thingCtrl.update',
+  destroy: 'thingCtrl.destroy'<% } %>
+};
+
+var routerStub = {
+  get: sinon.spy()<% if(filters.mongoose) { %>,
+  put: sinon.spy(),
+  patch: sinon.spy(),
+  post: sinon.spy(),
+  delete: sinon.spy()<% } %>
+};
+
+// require the index with our stubbed out modules
+var thingIndex = proxyquire('./index.js', {
+  'express': {
+    Router: function() {
+      return routerStub;
+    }
+  },
+  './thing.controller': thingCtrlStub
+});
 
 describe('Thing API Router:', function() {
 
   it('should return an express router instance', function() {
-    index.should.equal(router);
+    thingIndex.should.equal(routerStub);
   });
 
   describe('GET /api/things', function() {
 
     it('should route to thing.controller.index', function() {
-      router.get.withArgs('/', 'thingCtrl.index').should.have.been.calledOnce;
+      routerStub.get.withArgs('/', 'thingCtrl.index').should.have.been.calledOnce;
     });
 
   });<% if(filters.mongoose) { %>
@@ -45,7 +45,7 @@ describe('Thing API Router:', function() {
   describe('GET /api/things/:id', function() {
 
     it('should route to thing.controller.show', function() {
-      router.get.withArgs('/:id', 'thingCtrl.show').should.have.been.calledOnce;
+      routerStub.get.withArgs('/:id', 'thingCtrl.show').should.have.been.calledOnce;
     });
 
   });
@@ -53,7 +53,7 @@ describe('Thing API Router:', function() {
   describe('POST /api/things', function() {
 
     it('should route to thing.controller.create', function() {
-      router.post.withArgs('/', 'thingCtrl.create').should.have.been.calledOnce;
+      routerStub.post.withArgs('/', 'thingCtrl.create').should.have.been.calledOnce;
     });
 
   });
@@ -61,7 +61,7 @@ describe('Thing API Router:', function() {
   describe('PUT /api/things/:id', function() {
 
     it('should route to thing.controller.update', function() {
-      router.put.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
+      routerStub.put.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
     });
 
   });
@@ -69,7 +69,7 @@ describe('Thing API Router:', function() {
   describe('PATCH /api/things/:id', function() {
 
     it('should route to thing.controller.update', function() {
-      router.patch.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
+      routerStub.patch.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
     });
 
   });
@@ -77,7 +77,7 @@ describe('Thing API Router:', function() {
   describe('DELETE /api/things/:id', function() {
 
     it('should route to thing.controller.destroy', function() {
-      router.delete.withArgs('/:id', 'thingCtrl.destroy').should.have.been.calledOnce;
+      routerStub.delete.withArgs('/:id', 'thingCtrl.destroy').should.have.been.calledOnce;
     });
 
   });<% } %>
