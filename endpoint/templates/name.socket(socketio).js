@@ -13,7 +13,7 @@ exports.register = function(socket) {
   <%= classedName %>.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
-}
+};
 
 function onSave(socket, doc, cb) {
   socket.emit('<%= name %>:save', doc);
