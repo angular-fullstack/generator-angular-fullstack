@@ -149,7 +149,7 @@ describe('angular-fullstack generator', function () {
       'server/api/thing/index.js',
       'server/api/thing/index.spec.js',
       'server/api/thing/thing.controller.js',
-      'server/api/thing/thing.e2e.js',
+      'server/api/thing/thing.integration.js',
       'server/components/errors/index.js',
       'server/config/local.env.js',
       'server/config/local.env.sample.js',
@@ -215,7 +215,7 @@ describe('angular-fullstack generator', function () {
         'server/api/user/index.js',
         'server/api/user/index.spec.js',
         'server/api/user/user.controller.js',
-        'server/api/user/user.e2e.js',
+        'server/api/user/user.integration.js',
         'server/api/user/user.model.js',
         'server/api/user/user.model.spec.js',
         'server/auth/index.js',
@@ -347,17 +347,15 @@ describe('angular-fullstack generator', function () {
         });
       });
 
-//      it('should run e2e tests successfully', function(done) {
-//        this.timeout(80000);
-//        gen.run({}, function () {
-//          exec('npm run update-webdriver', function (error, stdout, stderr) {
-//            exec('grunt test:e2e', function (error, stdout, stderr) {
-//              expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
-//              done();
-//            });
-//          });
-//        })
-//      });
+      it('should run e2e tests successfully', function(done) {
+        this.timeout(80000);
+        gen.run({}, function () {
+          exec('grunt test:e2e', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
+            done();
+          });
+        });
+      });
     });
 
     describe('with other preprocessors and oauth', function() {
