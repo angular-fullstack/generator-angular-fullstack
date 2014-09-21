@@ -233,6 +233,7 @@ module.exports = function (grunt) {
       child_process.exec('bower install', {cwd: '../fixtures'}, function (error, stdout, stderr) {
 
         if(!process.env.SAUCE_USERNAME) {
+          grunt.log.ok('running npm run update-webdriver');
           child_process.exec('npm run update-webdriver', function() {
             shell.cd('../../');
             done();
