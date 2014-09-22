@@ -8,11 +8,6 @@ env:
     - secure: gl/h7p5S+hfR7Cv2tl53c+biW3Mfhh6P4VI4VxrPFj5Mm1ha89dbMYjPn0PuLkmjaZ2+n9siU7j6lwlOdyWGAo0tkPtK/EC62L2Q938O204jD8VXnvjQ8kbP9zcjHogicD+elF0X5hvnXApW9I7nOZIs59V5Pp8DXkuHEWMIo8U=
 addons:
   sauce_connect: true
-cache:
-  directories:
-    - node_modules
-    - test/fixtures/node_modules
-    - test/fixtures/bower_components
 before_install:
   - gem update --system
   - gem install sass --version "=3.3.7"
