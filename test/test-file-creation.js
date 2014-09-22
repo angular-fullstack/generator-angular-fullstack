@@ -61,6 +61,16 @@ describe('angular-fullstack generator', function () {
     });
   }
 
+  function runE2E() {
+    this.timeout(240000); // 4 minutes
+    gen.run({}, function () {
+      exec('grunt test:e2e', function (error, stdout, stderr) {
+        expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
+        done();
+      });
+    });
+  };
+
   function runTest(cmd, self, cb) {
     var args = Array.prototype.slice.call(arguments),
         endpoint = (args[3] && typeof args[3] === 'string') ? args.splice(3, 1)[0] : null,
@@ -348,13 +358,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        this.timeout(240000); // 4 minutes
-        gen.run({}, function () {
-          exec('grunt test:e2e', function (error, stdout, stderr) {
-            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
-            done();
-          });
-        });
+        runE2E();
       });
     });
 
@@ -410,13 +414,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        this.timeout(240000); // 4 minutes
-        gen.run({}, function () {
-          exec('grunt test:e2e', function (error, stdout, stderr) {
-            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
-            done();
-          });
-        });
+        runE2E();
       });
     });
 
@@ -473,13 +471,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        this.timeout(240000); // 4 minutes
-        gen.run({}, function () {
-          exec('grunt test:e2e', function (error, stdout, stderr) {
-            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
-            done();
-          });
-        });
+        runE2E();
       });
     });
 
@@ -528,13 +520,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        this.timeout(240000); // 4 minutes
-        gen.run({}, function () {
-          exec('grunt test:e2e', function (error, stdout, stderr) {
-            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
-            done();
-          });
-        });
+        runE2E();
       });
     });
   });
