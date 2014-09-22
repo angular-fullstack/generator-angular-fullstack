@@ -35,9 +35,18 @@ describe('angular-fullstack generator', function () {
     });
   }
 
+  /**
+   * Assert that only an array of files exist at a given path
+   *
+   * @param  {Array}    expectedFiles - array of files
+   * @param  {Function} done          - callback(error{Error})
+   * @param  {String}   path          - top level path to assert files at (optional)
+   * @param  {Array}    skip          - array of paths to skip/ignore (optional)
+   *
+   */
   function assertOnlyFiles(expectedFiles, done, path, skip) {
     path = path || './';
-    skip = skip || ['e2e', 'node_modules', 'client/bower_components'];
+    skip = skip || ['node_modules', 'client/bower_components'];
 
     recursiveReadDir(path, skip, function(err, actualFiles) {
       if (err) { return done(err); }
@@ -61,16 +70,16 @@ describe('angular-fullstack generator', function () {
     });
   }
 
-  function runE2E(self, done) {
-    self.timeout(240000); // 4 minutes
-    gen.run({}, function () {
-      exec('grunt test:e2e', function (error, stdout, stderr) {
-        expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
-        done();
-      });
-    });
-  };
-
+  /**
+   * Exec a command and run test assertion(s) based on command type
+   *
+   * @param  {String}   cmd      - the command to exec
+   * @param  {Object}   self     - context of the test
+   * @param  {Function} cb       - callback()
+   * @param  {String}   endpoint - endpoint to generate before exec (optional)
+   * @param  {Number}   timeout  - timeout for the exec and test (optional)
+   *
+   */
   function runTest(cmd, self, cb) {
     var args = Array.prototype.slice.call(arguments),
         endpoint = (args[3] && typeof args[3] === 'string') ? args.splice(3, 1)[0] : null,
@@ -83,6 +92,9 @@ describe('angular-fullstack generator', function () {
         switch(cmd) {
           case 'grunt test:client':
             expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
+            break;
+          case 'grunt test:e2e':
+            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
             break;
           case 'grunt jshint':
             expect(stdout).to.contain('Done, without errors.');
@@ -108,6 +120,13 @@ describe('angular-fullstack generator', function () {
     }
   }
 
+  /**
+   * Generate an array of files to expect from a set of options
+   *
+   * @param  {Object} ops - generator options
+   * @return {Array}      - array of files
+   *
+   */
   function genFiles(ops) {
     var mapping = {
       stylesheet: {
@@ -127,6 +146,13 @@ describe('angular-fullstack generator', function () {
     },
     files = [];
 
+    /**
+     * Generate an array of OAuth files based on type
+     *
+     * @param  {String} type - type of oauth
+     * @return {Array}       - array of files
+     *
+     */
     var oauthFiles = function(type) {
       return [
         'server/auth/' + type + '/index.js',
@@ -139,6 +165,7 @@ describe('angular-fullstack generator', function () {
         markup = mapping.markup[ops.markup],
         stylesheet = mapping.stylesheet[ops.stylesheet];
 
+    /* Core Files */
     files = files.concat([
       'client/.htaccess',
       'client/.jshintrc',
@@ -172,6 +199,9 @@ describe('angular-fullstack generator', function () {
       'server/config/environment/production.js',
       'server/config/environment/test.js',
       'server/views/404.' + markup,
+      'e2e/main/main.po.js',
+      'e2e/main/main.spec.js',
+      'e2e/components/navbar/navbar.po.js',
       '.bowerrc',
       '.buildignore',
       '.editorconfig',
@@ -187,12 +217,14 @@ describe('angular-fullstack generator', function () {
       'protractor.conf.js'
     ]);
 
+    /* Ui-Router */
     if (ops.router === 'uirouter') {
       files = files.concat([
         'client/components/ui-router/ui-router.mock.' + script
       ]);
     }
 
+    /* Ui-Bootstrap */
     if (ops.uibootstrap) {
       files = files.concat([
         'client/components/modal/modal.' + markup,
@@ -201,6 +233,7 @@ describe('angular-fullstack generator', function () {
       ]);
     }
 
+    /* Mongoose */
     if (ops.mongoose) {
       files = files.concat([
         'server/api/thing/thing.model.js',
@@ -208,6 +241,7 @@ describe('angular-fullstack generator', function () {
       ]);
     }
 
+    /* Authentication */
     if (ops.auth) {
       files = files.concat([
         'client/app/account/account.' + script,
@@ -234,16 +268,23 @@ describe('angular-fullstack generator', function () {
         'server/auth/index.js',
         'server/auth/auth.service.js',
         'server/auth/local/index.js',
-        'server/auth/local/passport.js'
+        'server/auth/local/passport.js',
+        'e2e/account/login/login.po.js',
+        'e2e/account/login/login.spec.js',
+        'e2e/account/logout/logout.spec.js',
+        'e2e/account/signup/signup.po.js',
+        'e2e/account/signup/signup.spec.js'
       ]);
     }
 
+    /* OAuth (see oauthFiles function above) */
     if (ops.oauth) {
       ops.oauth.forEach(function(type, i) {
         files = files.concat(oauthFiles(type.replace('Auth', '')));
       });
     }
 
+    /* Socket.IO */
     if (ops.socketio) {
       files = files.concat([
         'client/components/socket/socket.service.' + script,
@@ -361,7 +402,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E(this, done);
+        runTest('grunt test:e2e', this, done, 240000);
       });
     });
 
@@ -417,7 +458,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E(this, done);
+        runTest('grunt test:e2e', this, done, 240000);
       });
     });
 
@@ -474,7 +515,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E(this, done);
+        runTest('grunt test:e2e', this, done, 240000);
       });
     });
 
@@ -523,7 +564,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E(this, done);
+        runTest('grunt test:e2e', this, done, 240000);
       });
     });
   });
