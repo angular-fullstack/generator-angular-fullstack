@@ -61,8 +61,8 @@ describe('angular-fullstack generator', function () {
     });
   }
 
-  function runE2E() {
-    this.timeout(240000); // 4 minutes
+  function runE2E(self, done) {
+    self.timeout(240000); // 4 minutes
     gen.run({}, function () {
       exec('grunt test:e2e', function (error, stdout, stderr) {
         expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
@@ -85,6 +85,9 @@ describe('angular-fullstack generator', function () {
             expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
             break;
           case 'grunt jshint':
+            expect(stdout).to.contain('Done, without errors.');
+            break;
+          case 'grunt jscs':
             expect(stdout).to.contain('Done, without errors.');
             break;
           case 'grunt test:server':
@@ -358,7 +361,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E();
+        runE2E(this, done);
       });
     });
 
@@ -414,7 +417,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E();
+        runE2E(this, done);
       });
     });
 
@@ -471,7 +474,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E();
+        runE2E(this, done);
       });
     });
 
@@ -520,7 +523,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        runE2E();
+        runE2E(this, done);
       });
     });
   });
