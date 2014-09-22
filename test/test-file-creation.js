@@ -408,6 +408,16 @@ describe('angular-fullstack generator', function () {
           assertOnlyFiles(genFiles(testOptions), done);
         });
       });
+
+      it('should run e2e tests successfully', function(done) {
+        this.timeout(240000); // 4 minutes
+        gen.run({}, function () {
+          exec('grunt test:e2e', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
+            done();
+          });
+        });
+      });
     });
 
     describe('with other preprocessors and no server options', function() {
@@ -461,6 +471,16 @@ describe('angular-fullstack generator', function () {
           assertOnlyFiles(genFiles(testOptions), done);
         });
       });
+
+      it('should run e2e tests successfully', function(done) {
+        this.timeout(240000); // 4 minutes
+        gen.run({}, function () {
+          exec('grunt test:e2e', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
+            done();
+          });
+        });
+      });
     });
 
     describe('with no preprocessors and no server options', function() {
@@ -504,6 +524,16 @@ describe('angular-fullstack generator', function () {
       it('should not generate unexpected files', function (done) {
         gen.run({}, function () {
           assertOnlyFiles(genFiles(testOptions), done);
+        });
+      });
+
+      it('should run e2e tests successfully', function(done) {
+        this.timeout(240000); // 4 minutes
+        gen.run({}, function () {
+          exec('grunt test:e2e', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
+            done();
+          });
         });
       });
     });
