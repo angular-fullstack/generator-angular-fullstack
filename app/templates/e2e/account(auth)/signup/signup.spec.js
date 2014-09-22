@@ -12,7 +12,7 @@ describe('Signup View', function() {
   };
 
   var testUser = {
-    name: 'Test User',
+    name: 'Test',
     email: 'test@test.com',
     password: 'test'
   };

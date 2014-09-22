@@ -348,7 +348,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should run e2e tests successfully', function(done) {
-        this.timeout(80000);
+        this.timeout(240000); // 4 minutes
         gen.run({}, function () {
           exec('grunt test:e2e', function (error, stdout, stderr) {
             expect(stdout, 'Client tests failed \n' + stdout).to.contain('0 failures');
