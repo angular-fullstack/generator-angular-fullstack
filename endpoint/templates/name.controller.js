@@ -29,6 +29,19 @@ exports.create = function(req, res) {
   });
 };
 
+// Sets the sent <%= name %> as available at :id
+exports.replace = function(req, res) {
+  if(!req.params.id) { return res.send(404); }
+  req.body._id = req.params.id;
+
+  <%= classedName %>.findByIdAndUpdate(req.params.id, req.body, {upsert: true}, function(err, <%= name %>) {
+    if(err) { return handleError(res, err); }
+    if(!<%= name %>) { return res.send(500); }
+
+    return res.json(200, <%= name %>);
+  });
+};
+
 // Updates an existing <%= name %> in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
