@@ -4,7 +4,7 @@ node_js:
   - '0.11'
 env:
   global:
-    - SAUCE_USERNAME=fullstack-ci
+    - SAUCE_USERNAME=fullstack_ci
     - SAUCE_ACCESS_KEY=1a527ca6-4aa5-4618-86ce-0278bf158cbf
 addons:
   sauce_connect: true
