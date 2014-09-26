@@ -30,6 +30,12 @@ Generator.prototype.askFor = function askFor() {
       name: 'route',
       message: 'What will the url of your endpoint to be?',
       default: base + name
+    },
+    {
+      name: 'authenticated',
+      message: 'Is this endpoint protected? (Login-specific)',
+      type: 'confirm',
+      default: false
     }
   ];
 
@@ -39,6 +45,7 @@ Generator.prototype.askFor = function askFor() {
     }
 
     this.route = props.route;
+    this.authenticated = props.authenticated;
     done();
   }.bind(this));
 };
