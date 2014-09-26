@@ -6,7 +6,11 @@ var controller = require('./<%= name %>.controller');
 var router = express.Router();
 <% if(filters.mongoose && authenticated) { %>
 router.use(auth.isAuthenticated(), function(req, res, next) {
-  req.query.user = req.user._id;
+  if(req.user.role !== 'admin') {
+    if(req.query.user && req.query.user !== req.user._id) { return res.send(403); }
+    req.query.user = req.user._id;
+  }
+
   next();
 });<% } %>
 
