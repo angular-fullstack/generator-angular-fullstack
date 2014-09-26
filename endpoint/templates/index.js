@@ -6,9 +6,9 @@ var controller = require('./<%= name %>.controller');
 var router = express.Router();
 
 router.get('/', <% if(filters.mongoose && authenticated) { %>auth.hasRole('admin'), <% } %>controller.index);<% if(filters.mongoose) { %>
-router.get('/:id',<% if(filters.mongoose && authenticated) { %>auth.isAuthenticated(), <% } %> controller.show);
+router.get('/:id', <% if(filters.mongoose && authenticated) { %>auth.isAuthenticated(), <% } %>controller.show);
 router.post('/', <% if(filters.mongoose && authenticated) { %>auth.isAuthenticated(), <% } %>controller.create);
-router.put('/:id', <% if(filters.mongoose && authenticated) { %>auth.isAuthenticated(), <% } %>controller.update);
+router.put('/:id', <% if(filters.mongoose && authenticated) { %>auth.isAuthenticated(), <% } %>controller.replace);
 router.patch('/:id', <% if(filters.mongoose && authenticated) { %>auth.isAuthenticated(), <% } %>controller.update);
 router.delete('/:id', <% if(filters.mongoose && authenticated) { %>auth.hasRole('admin'), <% } %>controller.destroy);<% } %>
 
