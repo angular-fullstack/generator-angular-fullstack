@@ -7,21 +7,21 @@ var jwt = require('jsonwebtoken');
 
 var validationError = function(res, statusCode) {
   statusCode = statusCode || 422;
-  return function(err){
+  return function(err) {
     res.json(statusCode, err);
   };
 };
 
-function handleError(res, statusCode){
+function handleError(res, statusCode) {
   statusCode = statusCode || 500;
-  return function(err){
+  return function(err) {
     res.send(statusCode, err);
   };
 }
 
-function respondWith(res, statusCode){
+function respondWith(res, statusCode) {
   statusCode = statusCode || 200;
-  return function(){
+  return function() {
     res.send(statusCode);
   };
 }
@@ -32,7 +32,7 @@ function respondWith(res, statusCode){
  */
 exports.index = function(req, res) {
   User.findAsync({}, '-salt -hashedPassword')
-    .then(function (users) {
+    .then(function(users) {
       res.json(200, users);
     })
     .catch(handleError(res));
@@ -41,13 +41,15 @@ exports.index = function(req, res) {
 /**
  * Creates a new user
  */
-exports.create = function (req, res, next) {
+exports.create = function(req, res, next) {
   var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
   newUser.saveAsync()
     .spread(function(user) {
-      var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
+      var token = jwt.sign({ _id: user._id }, config.secrets.session, {
+        expiresInMinutes: 60 * 5
+      });
       res.json({ token: token });
     })
     .catch(validationError(res));
@@ -56,17 +58,17 @@ exports.create = function (req, res, next) {
 /**
  * Get a single user
  */
-exports.show = function (req, res, next) {
+exports.show = function(req, res, next) {
   var userId = req.params.id;
 
   User.findByIdAsync(userId)
-    .then(function (user) {
-      if(!user) {
+    .then(function(user) {
+      if (!user) {
         return res.send(401);
       }
       res.json(user.profile);
     })
-    .catch(function(err){
+    .catch(function(err) {
       return next(err);
     });
 };
@@ -91,7 +93,7 @@ exports.changePassword = function(req, res, next) {
 
   User.findByIdAsync(userId)
     .then(function(user) {
-      if(user.authenticate(oldPass)) {
+      if (user.authenticate(oldPass)) {
         user.password = newPass;
         return user.saveAsync()
           .spread(respondWith(res, 200))
@@ -113,7 +115,9 @@ exports.me = function(req, res, next) {
       if (!user) { return res.json(401); }
       res.json(user);
     })
-    .catch(function(err){ return next(err); });
+    .catch(function(err) {
+      return next(err);
+    });
 };
 
 /**

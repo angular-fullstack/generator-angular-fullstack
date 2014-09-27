@@ -3,7 +3,7 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 
 var thingCtrlStub = {
-  index: 'thingCtrl.index'<% if(filters.mongoose) { %>,
+  index: 'thingCtrl.index'<% if (filters.mongoose) { %>,
   show: 'thingCtrl.show',
   create: 'thingCtrl.create',
   update: 'thingCtrl.update',
@@ -11,7 +11,7 @@ var thingCtrlStub = {
 };
 
 var routerStub = {
-  get: sinon.spy()<% if(filters.mongoose) { %>,
+  get: sinon.spy()<% if (filters.mongoose) { %>,
   put: sinon.spy(),
   patch: sinon.spy(),
   post: sinon.spy(),
@@ -37,15 +37,19 @@ describe('Thing API Router:', function() {
   describe('GET /api/things', function() {
 
     it('should route to thing.controller.index', function() {
-      routerStub.get.withArgs('/', 'thingCtrl.index').should.have.been.calledOnce;
+      routerStub.get
+                .withArgs('/', 'thingCtrl.index')
+                .should.have.been.calledOnce;
     });
 
-  });<% if(filters.mongoose) { %>
+  });<% if (filters.mongoose) { %>
 
   describe('GET /api/things/:id', function() {
 
     it('should route to thing.controller.show', function() {
-      routerStub.get.withArgs('/:id', 'thingCtrl.show').should.have.been.calledOnce;
+      routerStub.get
+                .withArgs('/:id', 'thingCtrl.show')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -53,7 +57,9 @@ describe('Thing API Router:', function() {
   describe('POST /api/things', function() {
 
     it('should route to thing.controller.create', function() {
-      routerStub.post.withArgs('/', 'thingCtrl.create').should.have.been.calledOnce;
+      routerStub.post
+                .withArgs('/', 'thingCtrl.create')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -61,7 +67,9 @@ describe('Thing API Router:', function() {
   describe('PUT /api/things/:id', function() {
 
     it('should route to thing.controller.update', function() {
-      routerStub.put.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
+      routerStub.put
+                .withArgs('/:id', 'thingCtrl.update')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -69,7 +77,9 @@ describe('Thing API Router:', function() {
   describe('PATCH /api/things/:id', function() {
 
     it('should route to thing.controller.update', function() {
-      routerStub.patch.withArgs('/:id', 'thingCtrl.update').should.have.been.calledOnce;
+      routerStub.patch
+                .withArgs('/:id', 'thingCtrl.update')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -77,7 +87,9 @@ describe('Thing API Router:', function() {
   describe('DELETE /api/things/:id', function() {
 
     it('should route to thing.controller.destroy', function() {
-      routerStub.delete.withArgs('/:id', 'thingCtrl.destroy').should.have.been.calledOnce;
+      routerStub.delete
+                .withArgs('/:id', 'thingCtrl.destroy')
+                .should.have.been.calledOnce;
     });
 
   });<% } %>

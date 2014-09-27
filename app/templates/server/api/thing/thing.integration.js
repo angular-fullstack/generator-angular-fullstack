@@ -1,7 +1,7 @@
 'use strict';
 
 var app = require('../../app');
-var request = require('supertest');<% if(filters.mongoose) { %>
+var request = require('supertest');<% if (filters.mongoose) { %>
 
 var newThing;<% } %>
 
@@ -16,7 +16,9 @@ describe('Thing API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           things = res.body;
           done();
         });
@@ -26,7 +28,7 @@ describe('Thing API:', function() {
       things.should.be.instanceOf(Array);
     });
 
-  });<% if(filters.mongoose) { %>
+  });<% if (filters.mongoose) { %>
 
   describe('POST /api/things', function() {
     beforeEach(function(done) {
@@ -39,7 +41,9 @@ describe('Thing API:', function() {
         .expect(201)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           newThing = res.body;
           done();
         });
@@ -61,7 +65,9 @@ describe('Thing API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           thing = res.body;
           done();
         });
@@ -91,7 +97,9 @@ describe('Thing API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           updatedThing = res.body;
           done();
         });
@@ -115,7 +123,9 @@ describe('Thing API:', function() {
         .delete('/api/things/' + newThing._id)
         .expect(204)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           done();
         });
     });
@@ -125,7 +135,9 @@ describe('Thing API:', function() {
         .delete('/api/things/' + newThing._id)
         .expect(404)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           done();
         });
     });

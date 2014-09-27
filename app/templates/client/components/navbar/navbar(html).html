@@ -11,18 +11,18 @@
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in menu" <% if(filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive(item.link)}"<% } %>>
-            <a <% if(filters.uirouter) { %>ui-sref="{{item.state}}"<% } else { %>ng-href="{{item.link}}"<% } %>>{{item.title}}</a>
-        </li><% if(filters.auth) { %>
-        <li ng-show="isAdmin()" <% if(filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/admin')}"<% } %>><a <% if(filters.uirouter) { %>ui-sref="admin"<% } else { %>href="/admin"<% } %>>Admin</a></li><% } %>
-      </ul><% if(filters.auth) { %>
+        <li ng-repeat="item in menu" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive(item.link)}"<% } %>>
+            <a <% if (filters.uirouter) { %>ui-sref="{{item.state}}"<% } else { %>ng-href="{{item.link}}"<% } %>>{{item.title}}</a>
+        </li><% if (filters.auth) { %>
+        <li ng-show="isAdmin()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/admin')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="admin"<% } else { %>href="/admin"<% } %>>Admin</a></li><% } %>
+      </ul><% if (filters.auth) { %>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="isLoggedIn()" <% if(filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/signup')}"<% } %>><a <% if(filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>Sign up</a></li>
-        <li ng-hide="isLoggedIn()" <% if(filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/login')}"<% } %>><a <% if(filters.uirouter) { %>ui-sref="login"<% } else { %>href="/login"<% } %>>Login</a></li>
+        <li ng-hide="isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/signup')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>Sign up</a></li>
+        <li ng-hide="isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/login')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="login"<% } else { %>href="/login"<% } %>>Login</a></li>
         <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
-        <li ng-show="isLoggedIn()" <% if(filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/settings')}"<% } %>><a <% if(filters.uirouter) { %>ui-sref="settings"<% } else { %>href="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="isLoggedIn()"><a <% if(filters.uirouter) { %>ui-sref="logout"<% } else { %>href="/logout"<% } %>>Logout</a></li>
+        <li ng-show="isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: isActive('/settings')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="settings"<% } else { %>href="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li ng-show="isLoggedIn()"><a <% if (filters.uirouter) { %>ui-sref="logout"<% } else { %>href="/logout"<% } %>>Logout</a></li>
       </ul><% } %>
     </div>
   </div>

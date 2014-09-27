@@ -6,8 +6,8 @@ module.exports = function(config) {
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
-    // testing framework to use (jasmine/mocha/qunit/...)<% if(filters.jasmine) { %>
-    frameworks: ['jasmine'],<% } if(filters.mocha) { %>
+    // testing framework to use (jasmine/mocha/qunit/...)<% if (filters.jasmine) { %>
+    frameworks: ['jasmine'],<% } if (filters.mocha) { %>
     frameworks: ['mocha', 'chai', 'sinon-chai', 'chai-as-promised', 'chai-things'],<% } %>
 
     // list of files / patterns to load in the browser
@@ -18,10 +18,10 @@ module.exports = function(config) {
       'client/bower_components/angular-resource/angular-resource.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
-      'client/bower_components/angular-route/angular-route.js',<% if(filters.uibootstrap) { %>
+      'client/bower_components/angular-route/angular-route.js',<% if (filters.uibootstrap) { %>
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',<% } %>
-      'client/bower_components/lodash/dist/lodash.compat.js',<% if(filters.socketio) { %>
-      'client/bower_components/angular-socket-io/socket.js',<% } %><% if(filters.uirouter) { %>
+      'client/bower_components/lodash/dist/lodash.compat.js',<% if (filters.socketio) { %>
+      'client/bower_components/angular-socket-io/socket.js',<% } %><% if (filters.uirouter) { %>
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',<% } %>
       'client/app/app.js',
       'client/app/app.coffee',

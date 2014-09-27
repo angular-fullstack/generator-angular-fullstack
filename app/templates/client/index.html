@@ -27,7 +27,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <% if(filters.ngroute) { %><div ng-view=""></div><% } %><% if(filters.uirouter) { %><div ui-view=""></div><% } %>
+    <% if (filters.ngroute) { %><div ng-view=""></div><% } %><% if (filters.uirouter) { %><div ui-view=""></div><% } %>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -46,7 +46,7 @@
     <![endif]-->
     <!-- build:js({client,node_modules}) app/vendor.js -->
       <!-- bower:js -->
-      <!-- endbower --><% if(filters.socketio) { %>
+      <!-- endbower --><% if (filters.socketio) { %>
       <script src="socket.io-client/socket.io.js"></script><% } %>
     <!-- endbuild -->
 

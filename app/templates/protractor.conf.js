@@ -43,14 +43,14 @@ var config = {
   // Jasmine and Cucumber are fully supported as a test and assertion framework.
   // Mocha has limited beta support. You will need to include your own
   // assertion framework if working with mocha.
-  framework: '<% if(filters.jasmine) { %>jasmine<% } if(filters.mocha) { %>mocha<% } %>',
-<% if(filters.jasmine) { %>
+  framework: '<% if (filters.jasmine) { %>jasmine<% } if (filters.mocha) { %>mocha<% } %>',
+<% if (filters.jasmine) { %>
   // ----- Options to be passed to minijasminenode -----
   //
   // See the full list at https://github.com/juliemr/minijasminenode
   jasmineNodeOpts: {
     defaultTimeoutInterval: 30000
-  },<% } if(filters.mocha) { %>
+  },<% } if (filters.mocha) { %>
   // ----- Options to be passed to mocha -----
   mochaOpts: {
     reporter: 'spec',
@@ -63,7 +63,7 @@ var config = {
     serverConfig: require('./server/config/environment')
   },
 
-  onPrepare: function() {<% if(filters.mocha) { %>
+  onPrepare: function() {<% if (filters.mocha) { %>
     // Load Mocha and Chai + plugins
     require('./mocha.conf');
 

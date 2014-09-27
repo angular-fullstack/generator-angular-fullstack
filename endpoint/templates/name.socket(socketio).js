@@ -7,10 +7,10 @@
 var <%= classedName %> = require('./<%= name %>.model');
 
 exports.register = function(socket) {
-  <%= classedName %>.schema.post('save', function (doc) {
+  <%= classedName %>.schema.post('save', function(doc) {
     onSave(socket, doc);
   });
-  <%= classedName %>.schema.post('remove', function (doc) {
+  <%= classedName %>.schema.post('remove', function(doc) {
     onRemove(socket, doc);
   });
 };

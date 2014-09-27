@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-<% if(filters.ngroute) { %>.config ($routeProvider) ->
+<% if (filters.ngroute) { %>.config ($routeProvider) ->
   $routeProvider
   .when '/login',
     templateUrl: 'app/account/login/login.html'
@@ -27,7 +27,7 @@ angular.module '<%= scriptAppName %>'
 .run ($rootScope) ->
   $rootScope.$on '$routeChangeStart', (event, next, current) ->
     next.referrer = current.originalPath  if next.name is "logout" and current and current.originalPath and not current.authenticate
-<% } %><% if(filters.uirouter) { %>.config ($stateProvider) ->
+<% } %><% if (filters.uirouter) { %>.config ($stateProvider) ->
   $stateProvider
   .state 'login',
     url: '/login'

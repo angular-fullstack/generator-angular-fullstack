@@ -1,4 +1,4 @@
-<% if(filters.bootstrap) { %>
+<% if (filters.bootstrap) { %>
 /**
  * Bootstrap Fonts
  */
@@ -37,7 +37,7 @@
     color: #000;
     padding: 0.2em 0;
 }
-<% if (!filters.bootstrap) { %>
+<% if(!filters.bootstrap) { %>
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {

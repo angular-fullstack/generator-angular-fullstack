@@ -17,7 +17,9 @@ describe('User API:', function() {
       });
 
       user.save(function(err) {
-        if (err) return done(err);
+        if (err) {
+          return done(err);
+        }
         done();
       });
     });

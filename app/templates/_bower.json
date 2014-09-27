@@ -5,17 +5,17 @@
     "angular": ">=1.2.*",
     "json3": "~3.3.1",
     "es5-shim": "~3.0.1",
-    "jquery": "~1.11.0",<% if(filters.bootstrap) { %><% if (filters.sass) { %>
+    "jquery": "~1.11.0",<% if (filters.bootstrap) { %><% if (filters.sass) { %>
     "bootstrap-sass-official": "~3.1.1",<% } %>
     "bootstrap": "~3.1.1",<% } %>
     "angular-resource": ">=1.2.*",
     "angular-cookies": ">=1.2.*",
-    "angular-sanitize": ">=1.2.*",<% if(filters.ngroute) { %>
-    "angular-route": ">=1.2.*",<% } %><% if(filters.uibootstrap) { %>
+    "angular-sanitize": ">=1.2.*",<% if (filters.ngroute) { %>
+    "angular-route": ">=1.2.*",<% } %><% if (filters.uibootstrap) { %>
     "angular-bootstrap": "~0.11.0",<% } %>
     "font-awesome": ">=4.1.0",
-    "lodash": "~2.4.1"<% if(filters.socketio) { %>,
-    "angular-socket-io": "~0.6.0"<% } %><% if(filters.uirouter) { %>,
+    "lodash": "~2.4.1"<% if (filters.socketio) { %>,
+    "angular-socket-io": "~0.6.0"<% } %><% if (filters.uirouter) { %>,
     "angular-ui-router": "~0.2.10"<% } %>
   },
   "devDependencies": {

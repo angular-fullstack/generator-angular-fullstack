@@ -37,19 +37,19 @@
           <button class="btn btn-inverse btn-lg btn-login" type="submit">
             Login
           </button>
-          <a class="btn btn-default btn-lg btn-register" <% if(filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>
+          <a class="btn btn-default btn-lg btn-register" <% if (filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>
             Register
           </a>
         </div>
-<% if(filters.oauth) {%>
+<% if (filters.oauth) {%>
         <hr>
-        <div><% if(filters.facebookAuth) {%>
+        <div><% if (filters.facebookAuth) {%>
           <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
             <i class="fa fa-facebook"></i> Connect with Facebook
-          </a><% } %><% if(filters.googleAuth) {%>
+          </a><% } %><% if (filters.googleAuth) {%>
           <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
             <i class="fa fa-google-plus"></i> Connect with Google+
-          </a><% } %><% if(filters.twitterAuth) {%>
+          </a><% } %><% if (filters.twitterAuth) {%>
           <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
             <i class="fa fa-twitter"></i> Connect with Twitter
           </a><% } %>

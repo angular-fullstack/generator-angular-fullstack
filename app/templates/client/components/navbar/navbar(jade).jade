@@ -10,25 +10,25 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
 
     div#navbar-main.navbar-collapse.collapse(collapse='isCollapsed')
       ul.nav.navbar-nav
-        li(ng-repeat='item in menu', <% if(filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive(item.link)}'<% } %>)
-          a(<% if(filters.uirouter) { %>ui-sref='{{item.state}}'<% } else { %>ng-href='{{item.link}}'<% } %>) {{item.title}}<% if(filters.auth) { %>
+        li(ng-repeat='item in menu', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive(item.link)}'<% } %>)
+          a(<% if (filters.uirouter) { %>ui-sref='{{item.state}}'<% } else { %>ng-href='{{item.link}}'<% } %>) {{item.title}}<% if (filters.auth) { %>
 
-        li(ng-show='isAdmin()', <% if(filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/admin")}'<% } %>)
-          a(<% if(filters.uirouter) { %>ui-sref='admin'<% } else { %>href='/admin'<% } %>) Admin
+        li(ng-show='isAdmin()', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/admin")}'<% } %>)
+          a(<% if (filters.uirouter) { %>ui-sref='admin'<% } else { %>href='/admin'<% } %>) Admin
 
       ul.nav.navbar-nav.navbar-right
-        li(ng-hide='isLoggedIn()', <% if(filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/signup")}'<% } %>)
-          a(<% if(filters.uirouter) { %>ui-sref='signup'<% } else { %>href='/signup'<% } %>) Sign up
+        li(ng-hide='isLoggedIn()', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/signup")}'<% } %>)
+          a(<% if (filters.uirouter) { %>ui-sref='signup'<% } else { %>href='/signup'<% } %>) Sign up
 
-        li(ng-hide='isLoggedIn()', <% if(filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/login")}'<% } %>)
-          a(<% if(filters.uirouter) { %>ui-sref='login'<% } else { %>href='/login'<% } %>) Login
+        li(ng-hide='isLoggedIn()', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/login")}'<% } %>)
+          a(<% if (filters.uirouter) { %>ui-sref='login'<% } else { %>href='/login'<% } %>) Login
 
         li(ng-show='isLoggedIn()')
           p.navbar-text Hello {{ getCurrentUser().name }}
 
-        li(ng-show='isLoggedIn()', <% if(filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/settings")}'<% } %>)
-          a(<% if(filters.uirouter) { %>ui-sref='settings'<% } else { %>href='/settings'<% } %>)
+        li(ng-show='isLoggedIn()', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: isActive("/settings")}'<% } %>)
+          a(<% if (filters.uirouter) { %>ui-sref='settings'<% } else { %>href='/settings'<% } %>)
             span.glyphicon.glyphicon-cog
 
         li(ng-show='isLoggedIn()')
-          a(<% if(filters.uirouter) { %>ui-sref='logout'<% } else { %>href='/logout'<% } %>) Logout<% } %>
+          a(<% if (filters.uirouter) { %>ui-sref='logout'<% } else { %>href='/logout'<% } %>) Logout<% } %>

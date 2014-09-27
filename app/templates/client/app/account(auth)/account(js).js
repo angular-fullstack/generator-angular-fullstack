@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  <% if(filters.ngroute) { %>.config(function ($routeProvider) {
+  <% if (filters.ngroute) { %>.config(function($routeProvider) {
     $routeProvider
       .when('/login', {
         templateUrl: 'app/account/login/login.html',
@@ -35,7 +35,7 @@ angular.module('<%= scriptAppName %>')
         next.referrer = current.originalPath;
       }
     });
-  });<% } %><% if(filters.uirouter) { %>.config(function ($stateProvider) {
+  });<% } %><% if (filters.uirouter) { %>.config(function($stateProvider) {
     $stateProvider
       .state('login', {
         url: '/login',

@@ -206,6 +206,7 @@ describe('angular-fullstack generator', function () {
       '.gitattributes',
       '.gitignore',
       '.travis.yml',
+      '.jscs.json',
       '.yo-rc.json',
       'Gruntfile.js',
       'package.json',
@@ -339,12 +340,20 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
+      it('should pass jscs', function(done) {
+        runTest('grunt jscs', this, done);
+      });
+
       it('should pass lint', function(done) {
         runTest('grunt jshint', this, done);
       });
 
       it('should run server tests successfully', function(done) {
         runTest('grunt test:server', this, done);
+      });
+
+      it('should pass jscs with generated endpoint', function(done) {
+        runTest('grunt jscs', this, done, 'foo');
       });
 
       it('should pass lint with generated endpoint', function(done) {
@@ -427,12 +436,20 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
+      it('should pass jscs', function(done) {
+        runTest('grunt jscs', this, done);
+      });
+
       it('should pass lint', function(done) {
         runTest('grunt jshint', this, done);
       });
 
       it('should run server tests successfully', function(done) {
         runTest('grunt test:server', this, done);
+      });
+
+      it('should pass jscs with generated endpoint', function(done) {
+        runTest('grunt jscs', this, done, 'foo');
       });
 
       it('should pass lint with generated snake-case endpoint', function(done) {
@@ -486,12 +503,20 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
+      it('should pass jscs', function(done) {
+        runTest('grunt jscs', this, done);
+      });
+
       it('should pass lint', function(done) {
         runTest('grunt jshint', this, done);
       });
 
       it('should run server tests successfully', function(done) {
         runTest('grunt test:server', this, done);
+      });
+
+      it('should pass jscs with generated endpoint', function(done) {
+        runTest('grunt jscs', this, done, 'foo');
       });
 
       it('should pass lint with generated endpoint', function(done) {
@@ -542,6 +567,10 @@ describe('angular-fullstack generator', function () {
 
       it('should run client tests successfully', function(done) {
         runTest('grunt test:client', this, done);
+      });
+
+      it('should pass jscs', function(done) {
+        runTest('grunt jscs', this, done);
       });
 
       it('should pass lint', function(done) {

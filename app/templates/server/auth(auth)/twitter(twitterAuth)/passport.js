@@ -1,4 +1,4 @@
-exports.setup = function (User, config) {
+exports.setup = function(User, config) {
   var passport = require('passport');
   var TwitterStrategy = require('passport-twitter').Strategy;
 
@@ -23,13 +23,14 @@ exports.setup = function (User, config) {
           twitter: profile._json
         });
         user.save(function(err) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           return done(err, user);
         });
       } else {
         return done(err, user);
       }
     });
-    }
-  ));
+  }));
 };

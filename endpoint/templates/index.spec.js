@@ -37,7 +37,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('GET <%= route %>', function() {
 
     it('should route to <%= name %>.controller.index', function() {
-      routerStub.get.withArgs('/', '<%= name %>Ctrl.index').should.have.been.calledOnce;
+      routerStub.get
+                .withArgs('/', '<%= name %>Ctrl.index')
+                .should.have.been.calledOnce;
     });
 
   });<% if(filters.mongoose) { %>
@@ -45,7 +47,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('GET <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.show', function() {
-      routerStub.get.withArgs('/:id', '<%= name %>Ctrl.show').should.have.been.calledOnce;
+      routerStub.get
+                .withArgs('/:id', '<%= name %>Ctrl.show')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -53,7 +57,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('POST <%= route %>', function() {
 
     it('should route to <%= name %>.controller.create', function() {
-      routerStub.post.withArgs('/', '<%= name %>Ctrl.create').should.have.been.calledOnce;
+      routerStub.post
+                .withArgs('/', '<%= name %>Ctrl.create')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -61,7 +67,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('PUT <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.update', function() {
-      routerStub.put.withArgs('/:id', '<%= name %>Ctrl.update').should.have.been.calledOnce;
+      routerStub.put
+                .withArgs('/:id', '<%= name %>Ctrl.update')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -69,7 +77,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('PATCH <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.update', function() {
-      routerStub.patch.withArgs('/:id', '<%= name %>Ctrl.update').should.have.been.calledOnce;
+      routerStub.patch
+                .withArgs('/:id', '<%= name %>Ctrl.update')
+                .should.have.been.calledOnce;
     });
 
   });
@@ -77,7 +87,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('DELETE <%= route %>/:id', function() {
 
     it('should route to <%= name %>.controller.destroy', function() {
-      routerStub.delete.withArgs('/:id', '<%= name %>Ctrl.destroy').should.have.been.calledOnce;
+      routerStub.delete
+                .withArgs('/:id', '<%= name %>Ctrl.destroy')
+                .should.have.been.calledOnce;
     });
 
   });<% } %>

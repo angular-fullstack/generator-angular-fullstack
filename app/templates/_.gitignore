@@ -1,6 +1,6 @@
 node_modules
 public
-.tmp<% if(filters.sass) { %>
+.tmp<% if (filters.sass) { %>
 .sass-cache<% } %>
 .idea
 client/bower_components

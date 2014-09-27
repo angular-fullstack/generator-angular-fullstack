@@ -16,7 +16,9 @@ describe('<%= classedName %> API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           <%= cameledName %>s = res.body;
           done();
         });
@@ -39,7 +41,9 @@ describe('<%= classedName %> API:', function() {
         .expect(201)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           new<%= classedName %> = res.body;
           done();
         });
@@ -61,7 +65,9 @@ describe('<%= classedName %> API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           <%= cameledName %> = res.body;
           done();
         });
@@ -91,7 +97,9 @@ describe('<%= classedName %> API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           updated<%= classedName %> = res.body;
           done();
         });
@@ -115,7 +123,9 @@ describe('<%= classedName %> API:', function() {
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(204)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           done();
         });
     });
@@ -125,7 +135,9 @@ describe('<%= classedName %> API:', function() {
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(404)
         .end(function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           done();
         });
     });
