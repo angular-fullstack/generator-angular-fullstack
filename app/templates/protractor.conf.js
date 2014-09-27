@@ -43,24 +43,40 @@ var config = {
   // Jasmine and Cucumber are fully supported as a test and assertion framework.
   // Mocha has limited beta support. You will need to include your own
   // assertion framework if working with mocha.
-  framework: 'jasmine',
-
+  framework: '<% if(filters.jasmine) { %>jasmine<% } if(filters.mocha) { %>mocha<% } %>',
+<% if(filters.jasmine) { %>
   // ----- Options to be passed to minijasminenode -----
   //
   // See the full list at https://github.com/juliemr/minijasminenode
   jasmineNodeOpts: {
     defaultTimeoutInterval: 30000
-  },
+  },<% } if(filters.mocha) { %>
+  // ----- Options to be passed to mocha -----
+  mochaOpts: {
+    reporter: 'spec',
+    timeout: 30000,
+    defaultTimeoutInterval: 30000
+  },<% } %>
 
   // Prepare environment for tests
   params: {
     serverConfig: require('./server/config/environment')
   },
 
-  onPrepare: function() {
+  onPrepare: function() {<% if(filters.mocha) { %>
+    // Load Mocha and Chai + plugins
+    require('./mocha.conf');
+
+    // Expose should assertions (see https://github.com/angular/protractor/issues/633)
+    Object.defineProperty(
+      protractor.promise.Promise.prototype,
+      'should',
+      Object.getOwnPropertyDescriptor(Object.prototype, 'should')
+    );
+<% } %>
     var serverConfig = config.params.serverConfig;
 
-    // Setup mongo tests
+    // Setup mongo for tests
     var mongoose = require('mongoose-bird')();
     mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database
   }

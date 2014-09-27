@@ -6,8 +6,9 @@ module.exports = function(config) {
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
-    // testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ['jasmine'],
+    // testing framework to use (jasmine/mocha/qunit/...)<% if(filters.jasmine) { %>
+    frameworks: ['jasmine'],<% } if(filters.mocha) { %>
+    frameworks: ['mocha', 'chai', 'sinon-chai', 'chai-as-promised', 'chai-things'],<% } %>
 
     // list of files / patterns to load in the browser
     files: [
@@ -58,6 +59,14 @@ module.exports = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
+    // reporter types:
+    // - dots
+    // - progress (default)
+    // - spec (karma-spec-reporter)
+    // - junit
+    // - growl
+    // - coverage
+    reporters: ['spec'],
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
