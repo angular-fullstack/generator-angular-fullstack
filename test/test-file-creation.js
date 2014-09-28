@@ -389,8 +389,30 @@ describe('angular-fullstack generator', function () {
         gen.run({}, function () {
           helpers.assertFile([
             'client/app/main/main.less',
-            'client/app/main/main.coffee'
+            'client/app/main/main.coffee',
+            'server/auth/google/passport.js'
           ]);
+          done();
+        });
+      });
+
+      it('should add oauth option if existing config had oauth strategy selected', function(done) {
+        this.timeout(60000);
+        fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
+        var gen = helpers.createGenerator('angular-fullstack:app', [
+          '../../app',
+          [
+            helpers.createDummyGenerator(),
+            'ng-component:app'
+          ]
+        ]);
+        gen.options['skip-install'] = true;
+        helpers.mockPrompt(gen, {
+          skipConfig: true
+        });
+        gen.run({}, function () {
+          var yoConfig = require(__dirname + '/temp/.yo-rc.json');
+          expect(yoConfig['generator-angular-fullstack'].filters.oauth).to.be.true;
           done();
         });
       });

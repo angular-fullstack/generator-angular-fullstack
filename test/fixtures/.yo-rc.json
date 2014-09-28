@@ -13,7 +13,8 @@
       "uirouter": true,
       "socketio": true,
       "mongoose": true,
-      "auth": true
+      "auth": true,
+      "googleAuth": true
     }
   }
 }
