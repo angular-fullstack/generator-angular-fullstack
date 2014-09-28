@@ -50,7 +50,7 @@ function removeEntity(res){
   };
 }<% } %>
 
-// Get list of <%= name %>s
+// Gets list of <%= name %>s from the DB.
 exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   res.json([]);<% } if (filters.mongoose) { %>
   <%= classedName %>.findAsync()
@@ -58,7 +58,7 @@ exports.index = function(req, res) {<% if (!filters.mongoose) { %>
     .catch(handleError(res));<% } %>
 };<% if (filters.mongoose) { %>
 
-// Get a single <%= name %>
+// Gets a single <%= name %> from the DB.
 exports.show = function(req, res) {
   <%= classedName %>.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
