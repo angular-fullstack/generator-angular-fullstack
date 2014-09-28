@@ -856,20 +856,33 @@ module.exports = function (grunt) {
     }
 
     else if (target === 'e2e') {
-      return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'env:test',<% if (filters.stylus) { %>
-        'injector:stylus', <% } %><% if (filters.less) { %>
-        'injector:less', <% } %><% if (filters.sass) { %>
-        'injector:sass', <% } %>
-        'concurrent:test',
-        'injector',
-        'wiredep',
-        'autoprefixer',
-        'express:dev',
-        'protractor'
-      ]);
+
+      if (option === 'prod') {
+        return grunt.task.run([
+          'build',
+          'env:all',
+          'env:prod',
+          'express:prod',
+          'protractor'
+        ]);
+      }
+
+      else {
+        return grunt.task.run([
+          'clean:server',
+          'env:all',
+          'env:test',<% if (filters.stylus) { %>
+          'injector:stylus', <% } %><% if (filters.less) { %>
+          'injector:less', <% } %><% if (filters.sass) { %>
+          'injector:sass', <% } %>
+          'concurrent:test',
+          'injector',
+          'wiredep',
+          'autoprefixer',
+          'express:dev',
+          'protractor'
+        ]);
+      }
     }
 
     else if (target === 'coverage') {
