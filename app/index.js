@@ -52,14 +52,22 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       }], function (answers) {
         this.skipConfig = answers.skipConfig;
 
+        this.filters = this._.defaults(this.config.get('filters'), {
+          bootstrap: true,
+          uibootstrap: true,
+          jasmine: true
+        });
+
         // NOTE: temp(?) fix for #403
-        if(typeof this.oauth==='undefined') {
+        if(typeof this.filters.oauth==='undefined') {
           var strategies = Object.keys(this.filters).filter(function(key) {
             return key.match(/Auth$/) && key;
           });
 
-          if(strategies.length) this.config.set('oauth', true);
+          if(strategies.length) this.filters.oauth = true;
         }
+
+        this.config.forceSave();
 
         cb();
       }.bind(this));
@@ -228,8 +236,16 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       }
     }], function (answers) {
       this.filters[answers.testing] = true;
-      if (this.filters.mocha) {
+      if (answers.testing === 'mocha') {
+        this.filters.jasmine = false;
+        this.filters.should = false;
+        this.filters.expect = false;
         this.filters[answers.chai] = true;
+      }
+      if (answers.testing === 'jasmine') {
+        this.filters.mocha = false;
+        this.filters.should = false;
+        this.filters.expect = false;
       }
 
       cb();
@@ -289,11 +305,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   ngModules: function() {
-    this.filters = this._.defaults(this.config.get('filters'), {
-      bootstrap: true,
-      uibootstrap: true
-    });
-
     var angModules = [
       "'ngCookies'",
       "'ngResource'",
