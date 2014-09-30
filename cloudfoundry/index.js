@@ -31,7 +31,7 @@ Generator.prototype.askForRoute = function askForRoute() {
     }
   ];
 
-  this.prompt(prompts, function (props) {
+  this.prompt(prompts, function(props) {
     this.routeName = this._.slugify(props.routeName);
     done();
   }.bind(this));
@@ -41,10 +41,10 @@ Generator.prototype.checkInstallation = function checkInstallation() {
   if (this.abort) return;
   var done = this.async();
 
-  exec('cf --version', function (err) {
+  exec('cf --version', function(err) {
     if (err) {
       this.log.error('You don\'t have the Cloud Foundry CLI installed. ' +
-          'Grab it from https://github.com/cloudfoundry/cli');
+        'Grab it from https://github.com/cloudfoundry/cli');
       this.abort = true;
     }
     done();
@@ -63,7 +63,7 @@ Generator.prototype.askForApiEndpoint = function askForApiEndpoint() {
     }
   ];
 
-  this.prompt(prompts, function (props) {
+  this.prompt(prompts, function(props) {
     this.apiEndpoint = props.apiEndpoint;
     done();
   }.bind(this));
@@ -75,7 +75,7 @@ Generator.prototype.cfInit = function cfInit() {
 
   this.log(chalk.bold('Setting Cloud Foundry api endpoint'));
   this.mkdir('dist');
-  var child = exec('cf api ' + this.apiEndpoint, { cwd: 'dist' }, function (err, stdout, stderr) {
+  var child = exec('cf api ' + this.apiEndpoint, { cwd: 'dist' }, function(err, stdout, stderr) {
     if (err) {
       this.abort = true;
       this.log.error(err);
@@ -91,7 +91,7 @@ Generator.prototype.cfInit = function cfInit() {
     done();
   }.bind(this));
 
-  child.stdout.on('data', function (data) {
+  child.stdout.on('data', function(data) {
     this.log(this._.trim(data.toString(), "\n\r"));
   }.bind(this));
 }
@@ -101,7 +101,7 @@ Generator.prototype.copyProcfile = function copyProcfile() {
   var done = this.async();
   this.log(chalk.bold('Creating Procfile and manifest.yml'));
   genUtils.processDirectory(this, '.', './dist');
-  this.conflicter.resolve(function (err) {
+  this.conflicter.resolve(function(err) {
     done();
   });
 };
@@ -111,10 +111,10 @@ Generator.prototype.gruntBuild = function gruntBuild() {
   var done = this.async();
 
   this.log(chalk.bold('\nBuilding dist folder, please wait...'));
-  var child = exec('grunt build', function (err, stdout) {
+  var child = exec('grunt build', function(err, stdout) {
     done();
   }.bind(this));
-  child.stdout.on('data', function (data) {
+  child.stdout.on('data', function(data) {
     this.log(data.toString());
   }.bind(this));
 };
@@ -126,8 +126,44 @@ Generator.prototype.cfPush = function cfPush() {
   this.log(chalk.bold("\nUploading your initial application code.\n This may take " + chalk.cyan('several minutes') + " depending on your connection speed..."));
 
   var randomRoute = this.routeName === '' ? '--random-route' : '';
-  var child = exec(['cf push', this.appname, randomRoute].join(' '), { cwd: 'dist' }, function (err, stdout, stderr) {
+  var child = exec(['cf push', this.appname, randomRoute, ' --no-start'].join(' '), { cwd: 'dist' }, function(err, stdout, stderr) {
     if (err) {
+      this.abort = true;
+      this.log.error(err);
+    } else {
+      this.log('stdout: ' + stdout);
+    }
+    done();
+  }.bind(this));
+  child.stdout.on('data', function(data) {
+    this.log(this._.trim(data.toString(), "\n\r"));
+  }.bind(this));
+};
+
+Generator.prototype.cfSetEnvVars = function cfSetEnvVars() {
+  if (this.abort) return;
+  var done = this.async();
+
+  var child = exec('cf set-env ' + this.appname + ' NODE_ENV production', { cwd: 'dist' }, function(err, stdout, stderr) {
+    if (err) {
+      this.abort = true;
+      this.log.error(err);
+    }
+    done();
+
+  }.bind(this));
+  child.stdout.on('data', function(data) {
+    this.log(this._.trim(data.toString(), "\n\r"));
+  }.bind(this));
+};
+
+Generator.prototype.cfStart = function cfStart() {
+  if (this.abort) return;
+  var done = this.async();
+
+  var child = exec('cf start ' + this.appname, { cwd: 'dist' }, function(err, stdout, stderr) {
+    if (err) {
+      this.abort = true;
       this.log.error(err);
     } else {
       var hasWarning = false;
@@ -139,20 +175,20 @@ Generator.prototype.cfPush = function cfPush() {
 
       if (this.filters.facebookAuth) {
         this.log(chalk.yellow('You will need to set environment variables for facebook auth. From `/dist`:\n\t' +
-            chalk.bold('cf set-env ' + this.appName + ' FACEBOOK_ID appId\n\t') +
-            chalk.bold('cf set-env ' + this.appName + ' FACEBOOK_SECRET secret\n')));
+          chalk.bold('cf set-env ' + this.appname + ' FACEBOOK_ID appId\n\t') +
+          chalk.bold('cf set-env ' + this.appname + ' FACEBOOK_SECRET secret\n')));
         hasWarning = true;
       }
       if (this.filters.googleAuth) {
         this.log(chalk.yellow('You will need to set environment variables for google auth. From `/dist`:\n\t' +
-            chalk.bold('cf set-env ' + this.appName + ' GOOGLE_ID appId\n\t') +
-            chalk.bold('cf set-env ' + this.appName + ' GOOGLE_SECRET secret\n')));
+          chalk.bold('cf set-env ' + this.appname + ' GOOGLE_ID appId\n\t') +
+          chalk.bold('cf set-env ' + this.appname + ' GOOGLE_SECRET secret\n')));
         hasWarning = true;
       }
       if (this.filters.twitterAuth) {
         this.log(chalk.yellow('You will need to set environment variables for twitter auth. From `/dist`:\n\t' +
-            chalk.bold('cf set-env ' + this.appName + ' TWITTER_ID appId\n\t') +
-            chalk.bold('cf set-env ' + this.appName + ' TWITTER_SECRET secret\n')));
+          chalk.bold('cf set-env ' + this.appname + ' TWITTER_ID appId\n\t') +
+          chalk.bold('cf set-env ' + this.appname + ' TWITTER_SECRET secret\n')));
         hasWarning = true;
       }
 
@@ -160,15 +196,14 @@ Generator.prototype.cfPush = function cfPush() {
       if (hasWarning) {
         this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly.'));
       }
-      /*
-       todo: build grunt plugin grunt-cf-deploy and add to this generator
-       this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
-       '\nThen deploy with\n\t' + chalk.bold('grunt cfDeploy')));
-       */
+      this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
+        '\nThen deploy (from dist directory ) with\n\t' + chalk.bold('cf push')));
     }
     done();
+
   }.bind(this));
-  child.stdout.on('data', function (data) {
+  child.stdout.on('data', function(data) {
     this.log(this._.trim(data.toString(), "\n\r"));
   }.bind(this));
+
 };
