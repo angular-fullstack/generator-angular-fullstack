@@ -31,7 +31,12 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       client: require('./bower.json').appPath || 'client',
-      deploy_path: '/var/www',
+      deploy: {
+        hostname : 'root',
+        username : 'example.com',
+        password : '',
+        path : '/var/www'
+      },
       dist: 'dist'
     },
     express: {
@@ -715,12 +720,13 @@ module.exports = function (grunt) {
         live: {
           options: {
             servers: [{
-              host: 'example.com',
-              username: 'password',
+              host: '<%%= yeoman.deploy.hostname %>',
+              username: '<%%= yeoman.deploy.username %>',
+              password: '<%%= yeoman.deploy.password %>'
             }],
             execute : {
               before: [
-                'rm -rf <%%= yeoman.deploy_path %>/current/node_modules',
+                'rm -rf <%%= yeoman.deploy.path %>/current/node_modules',
               ],
               after: [
                 //create logs folder
@@ -732,11 +738,11 @@ module.exports = function (grunt) {
                 //start application
                 'forever -m 100 -a -e @current/logs/err.log -l @current/logs/logs.log start @current/server/app.js',
                 //log this release
-                'echo "Verstion \"@version\" deployed at `date`" >> <%%= yeoman.deploy_path %>/deploy.log'
+                'echo "Verstion \"@version\" deployed at `date`" >> <%%= yeoman.deploy.path %>/deploy.log'
               ],
             },
             source: process.cwd() + '/dist/*',
-            dest: '<%%= yeoman.deploy_path %>'
+            dest: '<%%= yeoman.deploy.path %>'
           }
         }
       },
