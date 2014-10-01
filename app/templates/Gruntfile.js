@@ -749,7 +749,6 @@ module.exports = function (grunt) {
 
     },
   });
-
   
   grunt.registerTask('deploy', function( mode ){
 
@@ -759,7 +758,8 @@ module.exports = function (grunt) {
 
     if( mode == 'noupdate') {
       return grunt.task.run([
-          'default',
+          'newer:jshint',
+          'test',
           'build',
           'up:live',
       ]);
@@ -767,27 +767,30 @@ module.exports = function (grunt) {
 
     if( mode == 'major') {
       return grunt.task.run([
-          'default',
+          'newer:jshint',
+          'test',
+          'build'
           'shell::versionmajor',
-          'build',
           'up:live',
       ]);
     }
 
     if( mode == 'minor' ) {
       return grunt.task.run([
-          'default',
+          'newer:jshint',
+          'test',
+          'build'
           'shell::versionminor',
-          'build',
           'up:live',
       ]);
     }
 
     if( mode == 'patch' ) {
       return grunt.task.run([
-          'default',
+          'newer:jshint',
+          'test',
+          'build'
           'shell::versionpatch',
-          'build',
           'up:live',
       ]);
     }
