@@ -58,6 +58,11 @@ module.exports = function (grunt) {
       },
       all: ['Gruntfile.js', '*/index.js']
     },
+    env: {
+      fast: {
+        SKIP_E2E: true
+      }
+    },
     mochaTest: {
       test: {
         src: [
@@ -252,6 +257,19 @@ module.exports = function (grunt) {
     'installFixtures',
     'mochaTest'
   ]);
+  grunt.registerTask('test', function(target, option) {
+    if (target === 'fast') {
+      grunt.task.run([
+        'env:fast'
+      ]);
+    }
+
+    return grunt.task.run([
+      'updateFixtures',
+      'installFixtures',
+      'mochaTest'
+    ])
+  });
 
   grunt.registerTask('demo', [
     'clean:demo',
