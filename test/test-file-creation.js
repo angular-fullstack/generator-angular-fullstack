@@ -427,9 +427,9 @@ describe('angular-fullstack generator', function () {
           runTest('grunt test:e2e', this, done, 240000);
         });
 
-        it('should run e2e tests successfully for production app', function(done) {
-          runTest('grunt test:e2e:prod', this, done, 240000);
-        });
+        //it('should run e2e tests successfully for production app', function(done) {
+        //  runTest('grunt test:e2e:prod', this, done, 240000);
+        //});
       }
     });
 
