@@ -90,24 +90,16 @@ describe('angular-fullstack generator', function () {
     self.timeout(timeout || 60000);
 
     var execFn = function() {
-      exec(cmd, function(error, stdout, stderr) {
-        switch(cmd) {
-          case 'grunt jshint':
-          case 'grunt jscs':
-            expect(stdout).to.contain('Done, without errors.');
-            break;
-          case 'grunt test:client':
-          case 'grunt test:e2e':
-            expect(stdout, 'Client tests failed \n' + stdout).to.contain('Done, without errors.');
-            break;
-          case 'grunt test:server':
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
-            break;
-          default:
-            expect(stderr).to.be.empty;
+      var cmdCode;
+      var cp = exec(cmd, function(error, stdout, stderr) {
+        if(cmdCode !== 0) {
+          console.error(stdout);
+          throw new Error('Error running command: ' + cmd);
         }
-
         cb();
+      });
+      cp.on('exit', function (code) {
+        cmdCode = code;
       });
     };
 
