@@ -1,4 +1,4 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack)
 
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
@@ -78,6 +78,7 @@ Available generators:
 * Deployment
     - [angular-fullstack:openshift](#openshift)
     - [angular-fullstack:heroku](#heroku)
+    - [angular-fullstack:cloudfoundry](#cloudfoundry)
 
 ### App
 Sets up a new AngularJS + Express app, generating all the boilerplate you need to get started.
@@ -289,6 +290,36 @@ To make your deployment process easier consider using [grunt-build-control](http
 Commit and push the resulting build, located in your dist folder:
 
     grunt buildcontrol:heroku
+
+
+### Cloud Foundry / Pivotal Web Services
+
+Deploying to Cloud Foundry can be done with these steps.
+
+    yo angular-fullstack:cloudfoundry
+
+To work with your new Cloud Foundry app using the command line, you will need to run any `cf` commands from the `dist` folder.
+
+
+If you're using mongoDB you will need to create a service (MongoLab) and bind it to your app:
+
+    cf create-service mongolab sandbox my-mongo
+    cf bind-service my-app my-mongo
+
+>
+> If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using **Facebook** oAuth we would do this :
+>
+>     cf set-env my-app FACEBOOK_ID id
+>     cf set-env my-app FACEBOOK_SECRET secret
+>
+
+#### Pushing Updates
+
+    grunt
+
+Deploy the resulting build, from your `dist` folder:
+
+    cf push
 
 
 ## Bower Components
