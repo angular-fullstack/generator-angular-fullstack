@@ -50,6 +50,26 @@ describe('User Model', function() {
     });
   });
 
+  it('should not have salt by default', function(done) {
+    user.save(function() {
+    });
+
+    User.find({name: user.name}, function(err, _user) {
+      _user.should.not.have.property('salt');
+      done();
+    });
+  });
+
+  it('should not have hashedPassword by default', function(done) {
+    user.save(function() {
+    });
+
+    User.find({name: user.name}, function(err, _user) {
+      _user.should.not.have.property('hashedPassword');
+      done();
+    });
+  });
+
   it("should authenticate user if password is valid", function() {
     return user.authenticate('password').should.be.true;
   });
