@@ -761,7 +761,7 @@ module.exports = function (grunt) {
           'newer:jshint',
           'test',
           'build',
-          'up:live',
+          'up:live'
       ]);
     }
 
@@ -769,9 +769,9 @@ module.exports = function (grunt) {
       return grunt.task.run([
           'newer:jshint',
           'test',
-          'build'
+          'build',
           'shell::versionmajor',
-          'up:live',
+          'up:live'
       ]);
     }
 
@@ -779,9 +779,9 @@ module.exports = function (grunt) {
       return grunt.task.run([
           'newer:jshint',
           'test',
-          'build'
+          'build',
           'shell::versionminor',
-          'up:live',
+          'up:live'
       ]);
     }
 
@@ -789,9 +789,9 @@ module.exports = function (grunt) {
       return grunt.task.run([
           'newer:jshint',
           'test',
-          'build'
+          'build',
           'shell::versionpatch',
-          'up:live',
+          'up:live'
       ]);
     }
 
