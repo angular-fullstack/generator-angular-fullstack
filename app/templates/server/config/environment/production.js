@@ -5,10 +5,10 @@
 
 // cloud foundry
 var getCfMongo = function() {
-  var vcap_services = JSON.parse(process.env.VCAP_SERVICES),
-  mongoUri;
-  if (vcap_services.mongolab && vcap_services.mongolab.length > 0) {
-    mongoUri = vcap_services.mongolab[0].credentials.uri;
+  var vcapServices = JSON.parse(process.env.vcapServices);
+  var mongoUri;
+  if (vcapServices.mongolab && vcapServices.mongolab.length > 0) {
+    mongoUri = vcapServices.mongolab[0].credentials.uri;
   }
   return mongoUri;
 };
