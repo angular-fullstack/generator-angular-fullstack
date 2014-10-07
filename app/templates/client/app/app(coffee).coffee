@@ -27,8 +27,6 @@ angular.module '<%= scriptAppName %>', [<%= angularModules %>]
   responseError: (response) ->
     if response.status is 401
       <% if (filters.ngroute) { %>$location.path '/login'<% } if (filters.uirouter) { %>(state || state = $injector.get '$state').go 'login'<% } %>
-      # remove any stale tokens
-      $cookieStore.remove 'token'
 
     $q.reject response
 

@@ -32,14 +32,9 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
       // Intercept 401s and redirect you to login
       responseError: function(response) {
         if (response.status === 401) {
-          <% if (filters.ngroute) { %>$location.path('/login');<% } if (filters.uirouter) { %>(state || (state = $injector.get('$state'))).go('login');<% } %>
-          // remove any stale tokens
-          $cookieStore.remove('token');
-          return $q.reject(response);
+          <% if(filters.ngroute) { %>$location.path('/login');<% } if(filters.uirouter) { %>(state || (state = $injector.get('$state'))).go('login');<% } %>
         }
-        else {
-          return $q.reject(response);
-        }
+        return $q.reject(response);
       }
     };
   })
