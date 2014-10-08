@@ -42,20 +42,20 @@ describe('angular-fullstack generator', function () {
    *
    * @param  {Array}    expectedFiles - array of files
    * @param  {Function} done          - callback(error{Error})
-   * @param  {String}   path          - top level path to assert files at (optional)
+   * @param  {String}   topLevelPath  - top level path to assert files at (optional)
    * @param  {Array}    skip          - array of paths to skip/ignore (optional)
    *
    */
-  function assertOnlyFiles(expectedFiles, done, path, skip) {
-    path = path || './';
+  function assertOnlyFiles(expectedFiles, done, topLevelPath, skip) {
+    topLevelPath = topLevelPath || './';
     skip = skip || ['node_modules', 'client/bower_components'];
 
-    recursiveReadDir(path, skip, function(err, actualFiles) {
+    recursiveReadDir(topLevelPath, skip, function(err, actualFiles) {
       if (err) { return done(err); }
       var files = actualFiles.concat();
 
       expectedFiles.forEach(function(file, i) {
-        var index = files.indexOf(file);
+        var index = files.indexOf(path.normalize(file));
         if (index >= 0) {
           files.splice(index, 1);
         }
@@ -63,7 +63,7 @@ describe('angular-fullstack generator', function () {
 
       if (files.length !== 0) {
         err = new Error('unexpected files found');
-        err.expected = '';
+        err.expected = expectedFiles.join('\n');
         err.actual = files.join('\n');
         return done(err);
       }
