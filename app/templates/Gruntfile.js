@@ -131,6 +131,13 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
+      //ADDED html watch for template files, run ngtemplates task
+      html: {
+        files:[
+        '<%= yeoman.client %>/{app,components}/**/*.html',
+        ],
+        tasks:['ngtemplates']
+      },      
       livereload: {
         files: [
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.css',
@@ -368,7 +375,8 @@ module.exports = function (grunt) {
       tmp: {
         cwd: '.tmp',
         src: ['{app,components}/**/*.html'],
-        dest: '.tmp/tmp-templates.js'
+        // dest: '.tmp/templates.js'
+        dest: 'client/app/templates.js' //added templates.js in app directory
       }
     },
 
@@ -744,6 +752,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',<% if(filters.stylus) { %>
+      'ngtemplates',//added ngtemplates
       'injector:stylus', <% } %><% if(filters.less) { %>
       'injector:less', <% } %><% if(filters.sass) { %>
       'injector:sass', <% } %>
