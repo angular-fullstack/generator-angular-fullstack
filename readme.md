@@ -51,9 +51,9 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 A grunt task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
 
-* `less` files into `client/app.less`
-* `scss` files into `client/app.scss`
-* `stylus` files into `client/app.styl`
+* `less` files into `client/app/app.less` between the comments '//injector' and '//endinjector'
+* `scss` files into `client/app/app.scss` between the comments '//injector' and '//endinjector'
+* `stylus` files into `client/app/app.styl` between the comments '//injector' and '//endinjector'
 * `css` files into `client/index.html`
 * `js` files into `client/index.html`
 * `coffeescript` temp `js` files into `client/index.html`
