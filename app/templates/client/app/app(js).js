@@ -23,7 +23,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
       // Add authorization token to headers
       request: function(config) {
         config.headers = config.headers || {};
-        if ($cookieStore.get('token') && config.url.indexOf('http')<0) {
+        if ($cookieStore.get('token') && config.url.indexOf('http') < 0) {
           config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
         }
         return config;
