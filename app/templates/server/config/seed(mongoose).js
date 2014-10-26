@@ -34,13 +34,13 @@ User.find({}).remove(function() {
   User.create({
     provider: 'local',
     name: 'Test User',
-    email: 'test@test.com',
+    email: 'test@example.com',
     password: 'test'
   }, {
     provider: 'local',
     role: 'admin',
     name: 'Admin',
-    email: 'admin@admin.com',
+    email: 'admin@example.com',
     password: 'admin'
   }, function() {
       console.log('finished populating users');
