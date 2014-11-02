@@ -15,7 +15,7 @@ describe('Signup View', function() {
 
   var testUser = {
     name: 'Test',
-    email: 'test@test.com',
+    email: 'test@example.com',
     password: 'test'
   };
 

@@ -7,7 +7,7 @@ var genUser = function() {
   user = User.build({
     provider: 'local',
     name: 'Fake User',
-    email: 'test@test.com',
+    email: 'test@example.com',
     password: 'password'
   });
   return user;
