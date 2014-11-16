@@ -1,0 +1,9 @@
+node_modules
+bower_components
+test/temp
+demo
+.idea
+.DS_Store
+release.txt
+fixtures/bower.json
+fixtures/package.json

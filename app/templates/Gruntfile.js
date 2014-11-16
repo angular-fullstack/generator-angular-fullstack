@@ -571,7 +571,7 @@ module.exports = function (grunt) {
       }
     },<% } %><% if(filters.sass) { %>
 
-    // Compiles Sass to CSS
+    // Compiles Sass to CSS using RubySass
     sass: {
       server: {
         options: {
@@ -582,6 +582,23 @@ module.exports = function (grunt) {
           ],
           compass: false
         },
+        files: {
+          '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.scss'
+        }
+      }
+    },<% } %><% if(filters.sass && filters.libsass) { %>
+
+    // Compiles Sass to CSS using LibSass
+    sass: {
+      options: {
+        includePaths: [
+          '<%%= yeoman.client %>/bower_components',
+          '<%%= yeoman.client %>/app',
+          '<%%= yeoman.client %>/components'
+        ],
+        imagePath: '<%%= yeoman.client %>/assets'
+      },
+      dist: {
         files: {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.scss'
         }

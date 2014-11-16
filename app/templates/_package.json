@@ -61,9 +61,10 @@
     "grunt-asset-injector": "^0.1.0",
     "grunt-karma": "~0.8.2",
     "grunt-build-control": "DaftMonk/grunt-build-control",
-    "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
+    "grunt-mocha-test": "~0.10.2",<% if(filters.sass && filters.rubysass) { %>
     "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
-    "grunt-contrib-stylus": "latest",<% } %>
+    "grunt-contrib-stylus": "latest",<% } %><% if(filters.sass && filters.libsass) { %>
+    "grunt-sass": "^0.16.0",<% } %>
     "jit-grunt": "^0.5.0",
     "time-grunt": "~0.3.1",
     "grunt-express-server": "~0.4.17",

@@ -91,7 +91,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         message: "What would you like to write stylesheets with?",
         choices: [ "CSS", "Sass", "Stylus", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
-      },  {
+      }, {
+        type: "list",
+        name: "sass",
+        default: 0,
+        message: "Which sass precompiler would you like to use?",
+        choices: [ "RubySass", "LibSass"],
+        filter: function( val ) { return val.toLowerCase(); },
+        when: function (answers) {
+          return answers.stylesheet === 'sass';
+        }
+      }, {
         type: "list",
         name: "router",
         default: 1,
@@ -113,6 +123,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         this.filters[answers.script] = true;
         this.filters[answers.markup] = true;
         this.filters[answers.stylesheet] = true;
+        this.filters[answers.sass] = true;
         this.filters[answers.router] = true;
         this.filters.bootstrap = !!answers.bootstrap;
         this.filters.uibootstrap =  !!answers.uibootstrap;
