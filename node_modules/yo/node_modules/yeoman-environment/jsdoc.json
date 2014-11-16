@@ -1,0 +1,13 @@
+{
+  "source": {
+    "include": ["lib"],
+    "includePattern": ".+\\.js(doc)?$"
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "../yeoman-environment-doc/"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ]
+}

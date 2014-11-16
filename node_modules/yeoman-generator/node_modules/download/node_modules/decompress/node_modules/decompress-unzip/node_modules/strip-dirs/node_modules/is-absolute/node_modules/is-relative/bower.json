@@ -1,0 +1,10 @@
+{
+  "name": "is-relative",
+  "version": "0.1.1",
+  "main": [
+    "index.js"
+  ],
+  "ignore": [
+    "test"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "angular-modules": {
+    "preprocessors": {
+      "script": "js",                  // support for 'coffee'
+      "markup": "html"                 // support for 'jade'
+    },
+    "paths": {
+      "app": "app.js",                 // for automatically adding routes
+      "components": "app/components",  // uses angular teams project guidelines
+      "views": "",
+      "services": "",
+      "controllers": "",
+      "directives": "",
+      "filters": ""
+    },
+    "templates": {                     // possibly allow people to replace some of the default templates with their own
+      "view": "",
+      "directive": "",
+      "directiveTest": "",
+      "service": "",
+      "serviceTest": "",
+      "controller": "",
+      "controllerTest": "",
+      "filter": "",
+      "filterTest": ""
+    },
+    "regex": {},                       // possibly allow include some variables for configuring how rotues are generated
+    "prompts": {}
+  }
+}
