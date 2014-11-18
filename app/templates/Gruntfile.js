@@ -569,7 +569,7 @@ module.exports = function (grunt) {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.styl'
         }
       }
-    },<% } %><% if(filters.sass) { %>
+    },<% } %><% if(filters.sass && filters.rubysass) { %>
 
     // Compiles Sass to CSS using RubySass
     sass: {
