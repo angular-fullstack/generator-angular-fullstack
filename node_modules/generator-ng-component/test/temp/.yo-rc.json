@@ -1,0 +1,17 @@
+{
+  "generator-ng-component": {
+    "routeDirectory": "client/app/",
+    "directiveDirectory": "client/app/",
+    "filterDirectory": "client/app/",
+    "serviceDirectory": "client/app/",
+    "filters": [
+      "ngroute"
+    ],
+    "extensions": [
+      "coffee",
+      "jade",
+      "less"
+    ],
+    "basePath": "app"
+  }
+}

@@ -1,0 +1,18 @@
+v0.1.1  -- 2014.04.29
+* Fix es6-symbol dependency version
+
+v0.1.0  --  2014.04.29
+* Assure strictly npm hosted dependencies
+* Remove sparse arrays dedicated handling (as per spec)
+* Add: isIterable, validIterable and chain (method)
+* Remove toArray, it's addressed by Array.from (polyfil can be found in es5-ext/array/from)
+* Add break possiblity to 'forOf' via 'doBreak' function argument
+* Provide dedicated iterator for array-likes (ArrayIterator) and for strings (StringIterator)
+* Provide @@toStringTag symbol
+* When available rely on @@iterator symbol
+* Remove 32bit integer maximum list length restriction
+* Improve Iterator internals
+* Update to use latest version of dependencies
+
+v0.0.0  --  2013.10.12
+Initial (dev version)

@@ -16,8 +16,12 @@
     "app"
   ],
   "homepage": "https://github.com/DaftMonk/generator-angular-fullstack",
-  "bugs": "https://github.com/DaftMonk/generator-angular-fullstack/issues",
-  "author": "Tyler Henkel",
+  "bugs": {
+    "url": "https://github.com/DaftMonk/generator-angular-fullstack/issues"
+  },
+  "author": {
+    "name": "Tyler Henkel"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/DaftMonk/generator-angular-fullstack.git"
@@ -38,7 +42,7 @@
     "chai": "^1.9.1",
     "fs-extra": "^0.9.1",
     "grunt": "~0.4.1",
-    "grunt-build-control": "DaftMonk/grunt-build-control",
+    "grunt-build-control": "git://github.com/DaftMonk/grunt-build-control",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-conventional-changelog": "~1.0.0",
@@ -60,5 +64,26 @@
     {
       "type": "BSD"
     }
-  ]
+  ],
+  "_id": "generator-angular-fullstack@2.0.13",
+  "_shasum": "866333e9ca1e557336342b57b585582f65dd61bb",
+  "_from": "generator-angular-fullstack@*",
+  "_npmVersion": "1.4.10",
+  "_npmUser": {
+    "name": "daftmonk",
+    "email": "tylerhenkel@hotmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "daftmonk",
+      "email": "tylerhenkel@hotmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "866333e9ca1e557336342b57b585582f65dd61bb",
+    "tarball": "http://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz",
+  "readme": "ERROR: No README data found!"
 }

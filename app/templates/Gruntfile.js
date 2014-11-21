@@ -16,6 +16,7 @@ module.exports = function (grunt) {
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
+    injector: 'grunt-asset-injector',
     buildcontrol: 'grunt-build-control'
   });
 
@@ -568,9 +569,9 @@ module.exports = function (grunt) {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.styl'
         }
       }
-    },<% } %><% if(filters.sass) { %>
+    },<% } %><% if(filters.sass && filters.rubysass) { %>
 
-    // Compiles Sass to CSS
+    // Compiles Sass to CSS using RubySass
     sass: {
       server: {
         options: {
@@ -581,6 +582,23 @@ module.exports = function (grunt) {
           ],
           compass: false
         },
+        files: {
+          '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.scss'
+        }
+      }
+    },<% } %><% if(filters.sass && filters.libsass) { %>
+
+    // Compiles Sass to CSS using LibSass
+    sass: {
+      options: {
+        includePaths: [
+          '<%%= yeoman.client %>/bower_components',
+          '<%%= yeoman.client %>/app',
+          '<%%= yeoman.client %>/components'
+        ],
+        imagePath: '<%%= yeoman.client %>/assets'
+      },
+      dist: {
         files: {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.scss'
         }

@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-ng-component' ]; then cd .. && eval "mv $currentfolder generator-ng-component" && cd generator-ng-component; fi
+

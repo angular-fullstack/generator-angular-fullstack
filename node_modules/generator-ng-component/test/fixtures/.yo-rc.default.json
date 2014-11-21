@@ -1,0 +1,17 @@
+{
+  "generator-ng-component": {
+    "routeDirectory": "app/components/",
+    "directiveDirectory": "app/components/",
+    "filterDirectory": "app/components/",
+    "serviceDirectory": "app/components/",
+    "filters": [
+      "uirouter"
+    ],
+    "extensions": [
+      "js",
+      "html",
+      "scss"
+    ],
+    "basePath": "app"
+  }
+}
