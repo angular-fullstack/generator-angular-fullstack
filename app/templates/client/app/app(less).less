@@ -4,6 +4,10 @@
 <% if(filters.bootstrap) { %>@icon-font-path: '/bower_components/bootstrap/fonts/';<% } %>
 @fa-font-path: '/bower_components/font-awesome/fonts';
 
+<% if (filters.bootstrap && (filters.facebookAuth || filters.twitterAuth || filters.googleAuth)) { %>
+@import '/bootstrap-social/bootstrap-social';
+<% } %>
+
 /**
  * App-wide Styles
  */

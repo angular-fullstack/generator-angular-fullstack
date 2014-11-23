@@ -17,11 +17,8 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
           a(href='/admin') Admin<% } %><% if(filters.auth) { %>
 
       ul.nav.navbar-nav.navbar-right
-        li(ng-hide='isLoggedIn()', ng-class='{active: isActive("/signup")}')
-          a(href='/signup') Sign up
-
         li(ng-hide='isLoggedIn()', ng-class='{active: isActive("/login")}')
-          a(href='/login') Login
+          a(href='/login') Log in
 
         li(ng-show='isLoggedIn()')
           p.navbar-text Hello {{ getCurrentUser().name }}
