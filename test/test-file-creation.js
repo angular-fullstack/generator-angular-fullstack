@@ -18,7 +18,7 @@ describe('angular-fullstack generator', function () {
     chai: 'expect',
     bootstrap: true,
     uibootstrap: true,
-    mongoose: true,
+    odms: [ 'mongoose' ],
     auth: true,
     oauth: [],
     socketio: true
@@ -153,7 +153,8 @@ describe('angular-fullstack generator', function () {
 
     var script = mapping.script[ops.script],
         markup = mapping.markup[ops.markup],
-        stylesheet = mapping.stylesheet[ops.stylesheet];
+        stylesheet = mapping.stylesheet[ops.stylesheet],
+        models = ops.models ? ops.models : ops.odms[0];
 
     /* Core Files */
     files = files.concat([
@@ -224,11 +225,18 @@ describe('angular-fullstack generator', function () {
       ]);
     }
 
-    /* Mongoose */
-    if (ops.mongoose) {
+    /* Models - Mongoose or Sequelize */
+    if (models) {
       files = files.concat([
         'server/api/thing/thing.model.js',
         'server/config/seed.js'
+      ]);
+    }
+
+    /* Sequelize */
+    if (ops.odms.indexOf('sequelize') !== -1) {
+      files = files.concat([
+        'server/sqldb/index.js'
       ]);
     }
 
@@ -475,7 +483,79 @@ describe('angular-fullstack generator', function () {
         stylesheet: 'less',
         router: 'uirouter',
         testing: 'jasmine',
-        mongoose: true,
+        odms: [ 'mongoose' ],
+        auth: true,
+        oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
+        socketio: true,
+        bootstrap: true,
+        uibootstrap: true
+      };
+
+      beforeEach(function() {
+        helpers.mockPrompt(gen, testOptions);
+      });
+
+      it('should run client tests successfully', function(done) {
+        runTest('grunt test:client', this, done);
+      });
+
+      it('should pass jscs', function(done) {
+        runTest('grunt jscs', this, done);
+      });
+
+      it('should pass lint', function(done) {
+        runTest('grunt jshint', this, done);
+      });
+
+      it('should run server tests successfully', function(done) {
+        runTest('grunt test:server', this, done);
+      });
+
+      it('should pass jscs with generated endpoint', function(done) {
+        runTest('grunt jscs', this, done, 'foo');
+      });
+
+      it('should pass lint with generated snake-case endpoint', function(done) {
+        runTest('grunt jshint', this, done, 'foo-bar');
+      });
+
+      it('should run server tests successfully with generated snake-case endpoint', function(done) {
+        runTest('grunt test:server', this, done, 'foo-bar');
+      });
+
+      it('should generate expected files', function (done) {
+        gen.run({}, function () {
+          helpers.assertFile(genFiles(testOptions));
+          done();
+        });
+      });
+
+      it('should not generate unexpected files', function (done) {
+        gen.run({}, function () {
+          assertOnlyFiles(genFiles(testOptions), done);
+        });
+      });
+
+      if(!process.env.SKIP_E2E) {
+        it('should run e2e tests successfully', function (done) {
+          runTest('grunt test:e2e', this, done, 240000);
+        });
+
+        //it('should run e2e tests successfully for production app', function (done) {
+        //  runTest('grunt test:e2e:prod', this, done, 240000);
+        //});
+      }
+
+    });
+
+    describe('with sequelize models, auth', function() {
+      var testOptions = {
+        script: 'js',
+        markup: 'jade',
+        stylesheet: 'stylus',
+        router: 'uirouter',
+        testing: 'jasmine',
+        odms: [ 'sequelize' ],
         auth: true,
         oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
         socketio: true,
@@ -548,7 +628,7 @@ describe('angular-fullstack generator', function () {
         router: 'ngroute',
         testing: 'mocha',
         chai: 'should',
-        mongoose: false,
+        odms: [],
         auth: false,
         oauth: [],
         socketio: false,
@@ -621,7 +701,7 @@ describe('angular-fullstack generator', function () {
         stylesheet: 'css',
         router: 'ngroute',
         testing: 'jasmine',
-        mongoose: false,
+        odms: [],
         auth: false,
         oauth: [],
         socketio: false,

@@ -8,27 +8,35 @@ exports.setup = function(User, config) {
     callbackURL: config.google.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({
+    <% if (filters.mongooseModels) { %>User.findOneAsync({<% }
+       if (filters.sequelizeModels) { %>User.find({<% } %>
       'google.id': profile.id
-    }, function(err, user) {
-      if (!user) {
-        user = new User({
-          name: profile.displayName,
-          email: profile.emails[0].value,
-          role: 'user',
-          username: profile.username,
-          provider: 'google',
-          google: profile._json
-        });
-        user.save(function(err) {
-          if (err) {
-            done(err);
-          }
-          return done(err, user);
-        });
-      } else {
-        return done(err, user);
-      }
-    });
+    })
+      .then(function(user) {
+        if (!user) {
+          <% if (filters.mongooseModels) { %>user = new User({<% }
+             if (filters.sequelizeModels) { %>user = User.build({<% } %>
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            role: 'user',
+            username: profile.username,
+            provider: 'google',
+            google: profile._json
+          });
+          <% if (filters.mongooseModels) { %>user.saveAsync()<% }
+             if (filters.sequelizeModels) { %>user.save()<% } %>
+            .then(function(user) {
+              return done(null, user);
+            })
+            .catch(function(err) {
+              return done(err);
+            });
+        } else {
+          return done(null, user);
+        }
+      })
+      .catch(function(err) {
+        return done(err);
+      });
   }));
 };
