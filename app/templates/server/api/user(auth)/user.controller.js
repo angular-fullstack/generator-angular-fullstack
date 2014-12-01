@@ -64,7 +64,7 @@ exports.show = function(req, res, next) {
   User.findByIdAsync(userId)
     .then(function(user) {
       if (!user) {
-        return res.send(401);
+        return res.send(404);
       }
       res.json(user.profile);
     })
