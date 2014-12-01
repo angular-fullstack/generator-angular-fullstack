@@ -1,7 +1,7 @@
 'use strict';
 
 var app = require('../../app');
-var request = require('supertest');<% if (filters.mongoose) { %>
+var request = require('supertest');<% if (filters.models) { %>
 
 var newThing;<% } %>
 
@@ -28,7 +28,7 @@ describe('Thing API:', function() {
       things.should.be.instanceOf(Array);
     });
 
-  });<% if (filters.mongoose) { %>
+  });<% if (filters.models) { %>
 
   describe('POST /api/things', function() {
     beforeEach(function(done) {
@@ -130,7 +130,7 @@ describe('Thing API:', function() {
         });
     });
 
-    it('should respond with 404 when thing does not exsist', function(done) {
+    it('should respond with 404 when thing does not exist', function(done) {
       request(app)
         .delete('/api/things/' + newThing._id)
         .expect(404)

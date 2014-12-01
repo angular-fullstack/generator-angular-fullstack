@@ -16,7 +16,9 @@
     "jade": "~1.2.0",<% } %><% if (filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if (filters.mongoose) { %>
     "mongoose": "~3.8.8",
-    "mongoose-bird": "~0.0.1",<% } %><% if (filters.auth) { %>
+    "mongoose-bird": "~0.0.1",<% } %><% if (filters.sequelize) { %>
+    "sequelize": "^2.0.0-rc2",
+    "sqlite3": "~3.0.2",<% } %><% if (filters.auth) { %>
     "jsonwebtoken": "^0.3.0",
     "express-jwt": "^0.1.3",
     "passport": "~0.2.0",
@@ -24,8 +26,8 @@
     "passport-facebook": "latest",<% } %><% if (filters.twitterAuth) { %>
     "passport-twitter": "latest",<% } %><% if (filters.googleAuth) { %>
     "passport-google-oauth": "latest",<% } %>
-    "composable-middleware": "^0.3.0",
-    "connect-mongo": "^0.4.1"<% if (filters.socketio) { %>,
+    "composable-middleware": "^0.3.0"<% if (filters.mongoose) { %>,
+    "connect-mongo": "^0.4.1"<% } %><% if (filters.socketio) { %>,
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
     "socketio-jwt": "^2.0.2"<% } %>

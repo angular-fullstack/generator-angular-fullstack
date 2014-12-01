@@ -5,7 +5,7 @@ var controller = require('./thing.controller');
 
 var router = express.Router();
 
-router.get('/', controller.index);<% if (filters.mongoose) { %>
+router.get('/', controller.index);<% if (filters.models) { %>
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

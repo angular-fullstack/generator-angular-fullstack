@@ -4,13 +4,22 @@
  */
 
 'use strict';
-
+<% if (filters.mongooseModels) { %>
 var Thing = require('../api/thing/thing.model');
 <% if (filters.auth) { %>var User = require('../api/user/user.model');<% } %>
-
-Thing.find({}).removeAsync()
+<% } %><% if (filters.sequelizeModels) { %>
+var sqldb = require('../sqldb');
+var Thing = sqldb.Thing;
+<% if (filters.auth) { %>var User = sqldb.User;<% } %>
+<% } %>
+<% if (filters.mongooseModels) { %>Thing.find({}).removeAsync()<% }
+   if (filters.sequelizeModels) { %>Thing.sync()
   .then(function() {
-    Thing.create({
+    return Thing.destroy();
+  })<% } %>
+  .then(function() {
+    <% if (filters.mongooseModels) { %>Thing.create({<% }
+       if (filters.sequelizeModels) { %>Thing.bulkCreate([{<% } %>
       name : 'Development Tools',
       info : 'Integration with popular tools such as Bower, Grunt, Karma, ' +
              'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
@@ -37,12 +46,18 @@ Thing.find({}).removeAsync()
       name : 'Deployment Ready',
       info : 'Easily deploy your app to Heroku or Openshift with the heroku ' +
              'and openshift subgenerators'
-    });
+    <% if (filters.mongooseModels) { %>});<% }
+       if (filters.sequelizeModels) { %>}]);<% } %>
   });
 <% if (filters.auth) { %>
-User.find({}).removeAsync()
+<% if (filters.mongooseModels) { %>User.find({}).removeAsync()<% }
+   if (filters.sequelizeModels) { %>User.sync()
   .then(function() {
-    User.create({
+    User.destroy();
+  })<% } %>
+  .then(function() {
+    <% if (filters.mongooseModels) { %>User.createAsync({<% }
+       if (filters.sequelizeModels) { %>User.bulkCreate([{<% } %>
       provider: 'local',
       name: 'Test User',
       email: 'test@test.com',
@@ -53,8 +68,9 @@ User.find({}).removeAsync()
       name: 'Admin',
       email: 'admin@admin.com',
       password: 'admin'
-    }, function() {
+    <% if (filters.mongooseModels) { %>})<% }
+       if (filters.sequelizeModels) { %>}])<% } %>
+    .then(function() {
       console.log('finished populating users');
     });
-  });
-<% } %>
+  });<% } %>

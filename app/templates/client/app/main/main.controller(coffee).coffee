@@ -7,7 +7,7 @@ angular.module '<%= scriptAppName %>'
   $http.get('/api/things').success (awesomeThings) ->
     $scope.awesomeThings = awesomeThings
     <% if (filters.socketio) { %>socket.syncUpdates 'thing', $scope.awesomeThings<% } %>
-<% if (filters.mongoose) { %>
+<% if (filters.models) { %>
   $scope.addThing = ->
     return if $scope.newThing is ''
     $http.post '/api/things',

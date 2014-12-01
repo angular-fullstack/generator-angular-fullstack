@@ -1,7 +1,8 @@
 'use strict';
 
-var config = protractor.getInstance().params;
-var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');
+var config = protractor.getInstance().params;<% if (filters.mongooseModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
 
 describe('Signup View', function() {
   var page;
@@ -35,7 +36,8 @@ describe('Signup View', function() {
   describe('with local auth', function() {
 
     it('should signup a new user, log them in, and redirecting to "/"', function(done) {
-      UserModel.remove(function() {
+      <% if (filters.mongooseModels) { %>UserModel.remove(function() {<% }
+         if (filters.sequelizeModels) { %>UserModel.destroy().then(function() {<% } %>
         page.signup(testUser);
 
         var navbar = require('../../components/navbar/navbar.po');

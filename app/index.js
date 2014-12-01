@@ -145,15 +145,38 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.log('\n# Server\n');
 
     this.prompt([{
-      type: 'confirm',
-      name: 'mongoose',
-      message: 'Would you like to use mongoDB with Mongoose for data modeling?'
+      type: 'checkbox',
+      name: 'odms',
+      message: 'What would you like to use for data modeling?',
+      choices: [
+        {
+          value: 'mongoose',
+          name: 'Mongoose (MongoDB)',
+          checked: true
+        },
+        {
+          value: 'sequelize',
+          name: 'Sequelize (MySQL, SQLite, MariaDB, PostgreSQL)',
+          checked: false
+        }
+      ]
+    }, {
+      type: 'list',
+      name: 'models',
+      message: 'What would you like to use for the default models?',
+      choices: [ 'Mongoose', 'Sequelize' ],
+      filter: function( val ) {
+        return val.toLowerCase();
+      },
+      when: function(answers) {
+        return answers.odms && answers.odms.length > 1;
+      }
     }, {
       type: 'confirm',
       name: 'auth',
       message: 'Would you scaffold out an authentication boilerplate?',
       when: function (answers) {
-        return answers.mongoose;
+        return answers.odms && answers.odms.length !== 0;
       }
     }, {
       type: 'checkbox',
@@ -183,15 +206,29 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       type: 'confirm',
       name: 'socketio',
       message: 'Would you like to use socket.io?',
-      // to-do: should not be dependent on mongoose
+      // to-do: should not be dependent on ODMs
       when: function (answers) {
-        return answers.mongoose;
+        return answers.odms && answers.odms.length !== 0;
       },
       default: true
     }], function (answers) {
       if(answers.socketio) this.filters.socketio = true;
-      if(answers.mongoose) this.filters.mongoose = true;
       if(answers.auth) this.filters.auth = true;
+      if(answers.odms.length > 0) {
+        var models;
+        if(!answers.models) {
+          models = answers.odms[0];
+        } else {
+          models = answers.models;
+        }
+        this.filters.models = true;
+        this.filters[models + 'Models'] = true;
+        answers.odms.forEach(function(odm) {
+          this.filters[odm] = true;
+        }.bind(this));
+      } else {
+        this.filters.noModels = true;
+      }
       if(answers.oauth) {
         if(answers.oauth.length) this.filters.oauth = true;
         answers.oauth.forEach(function(oauthStrategy) {
@@ -264,6 +301,10 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.config.set('insertSockets', true);
     this.config.set('registerSocketsFile', 'server/config/socketio.js');
     this.config.set('socketsNeedle', '// Insert sockets below');
+
+    this.config.set('insertModels', true);
+    this.config.set('registerModelsFile', 'server/sqldb/index.js');
+    this.config.set('modelsNeedle', '// Insert models below');
 
     this.config.set('filters', this.filters);
     this.config.forceSave();

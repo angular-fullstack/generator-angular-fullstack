@@ -7,6 +7,16 @@ module.exports = {
   mongo: {
     uri: 'mongodb://localhost/<%= _.slugify(appname) %>-dev'
   },
+  sequelize: {
+    uri: 'sqlite://',
+    options: {
+      logging: false,
+      storage: 'dev.sqlite',
+      define: {
+        timestamps: false
+      }
+    }
+  },
 
   seedDB: true
 };
