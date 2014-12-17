@@ -70,7 +70,10 @@ module.exports = function (grunt) {
         tasks: ['injector:css']
       },
       mochaTest: {
-        files: ['server/**/*.spec.js'],
+        files: [
+          'server/**/*.spec.js',
+          'server/**/*.integration.js'
+        ],
         tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
