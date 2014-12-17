@@ -1,7 +1,8 @@
 'use strict';
 
-var config = protractor.getInstance().params;
-var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');
+var config = protractor.getInstance().params;<% if (filters.mongooseModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
 
 describe('Login View', function() {
   var page;
@@ -19,15 +20,18 @@ describe('Login View', function() {
 
   before(function() {
     return UserModel
-      .removeAsync()
+      <% if (filters.mongooseModels) { %>.removeAsync()<% }
+         if (filters.sequelizeModels) { %>.destroy()<% } %>
       .then(function() {
-        return UserModel.createAsync(testUser);
+        <% if (filters.mongooseModels) { %>return UserModel.createAsync(testUser);<% }
+           if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
       })
       .then(loadPage);
   });
 
   after(function() {
-    return UserModel.removeAsync();
+    <% if (filters.mongooseModels) { %>return UserModel.removeAsync();<% }
+       if (filters.sequelizeModels) { %>return UserModel.destroy();<% } %>
   });
 
   it('should include login form with correct inputs and submit button', function() {

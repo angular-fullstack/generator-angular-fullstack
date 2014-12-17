@@ -1,7 +1,8 @@
 'use strict';
 
-var app = require('../../app');
-var User = require('./user.model');
+var app = require('../../app');<% if (filters.mongooseModels) { %>
+var User = require('./user.model');<% } %><% if (filters.sequelizeModels) { %>
+var User = require('../../sqldb').User;<% } %>
 var request = require('supertest');
 
 describe('User API:', function() {
@@ -9,25 +10,33 @@ describe('User API:', function() {
 
   // Clear users before testing
   before(function(done) {
-    User.remove(function() {
-      user = new User({
+    <% if (filters.mongooseModels) { %>User.remove(function() {<% }
+       if (filters.sequelizeModels) { %>User.destroy().then(function() {<% } %>
+      <% if (filters.mongooseModels) { %>user = new User({<% }
+         if (filters.sequelizeModels) { %>user = User.build({<% } %>
         name: 'Fake User',
         email: 'test@test.com',
         password: 'password'
       });
 
-      user.save(function(err) {
+      <% if (filters.mongooseModels) { %>user.save(function(err) {
         if (err) {
           return done(err);
         }
         done();
-      });
+      });<% }
+         if (filters.sequelizeModels) { %>user.save().then(function() {
+        done();
+      }, function(err) {
+        return done(err);
+      });<% } %>
     });
   });
 
   // Clear users after testing
   after(function() {
-    return User.remove().exec();
+    <% if (filters.mongooseModels) { %>return User.remove().exec();<% }
+       if (filters.sequelizeModels) { %>return User.destroy();<% } %>
   });
 
   describe('GET /api/users/me', function() {
@@ -55,7 +64,7 @@ describe('User API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          res.body._id.should.equal(user._id.toString());
+          res.body._id.toString().should.equal(user._id.toString());
           done();
         });
     });

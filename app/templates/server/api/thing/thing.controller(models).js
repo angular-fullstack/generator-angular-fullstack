@@ -7,10 +7,12 @@
  * DELETE  /things/:id          ->  destroy
  */
 
-'use strict';<% if (filters.mongoose) { %>
+'use strict';
 
-var _ = require('lodash');
-var Thing = require('./thing.model');
+var _ = require('lodash');<% if (filters.mongooseModels) { %>
+var Thing = require('./thing.model');<% } %><% if (filters.sequelizeModels) { %>
+var sqldb = require('../../sqldb')
+var Thing = sqldb.Thing;<% } %>
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
@@ -40,9 +42,11 @@ function handleEntityNotFound(res) {
 
 function saveUpdates(updates) {
   return function(entity) {
-    var updated = _.merge(entity, updates);
+    <% if (filters.mongooseModels) { %>var updated = _.merge(entity, updates);
     return updated.saveAsync()
-      .spread(function(updated) {
+      .spread(function(updated) {<% }
+       if (filters.sequelizeModels) { %>return entity.updateAttributes(updates)
+      .then(function(updated) {<% } %>
         return updated;
       });
   };
@@ -51,48 +55,31 @@ function saveUpdates(updates) {
 function removeEntity(res) {
   return function(entity) {
     if (entity) {
-      return entity.removeAsync()
+      <% if (filters.mongooseModels) { %>return entity.removeAsync()<% }
+         if (filters.sequelizeModels) { %>return entity.destroy()<% } %>
         .then(function() {
           return res.send(204);
         });
     }
   };
-}<% } %>
+}
 
 // Get list of things
-exports.index = function(req, res) {<% if(!filters.mongoose) { %>
-  res.json([{
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, ' +
-           'Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-  }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. ' +
-           'Automatic injection of scripts and styles into your index.html'
-  }, {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and ' +
-           'maximum scalability'
-  }, {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies ' +
-           'your scripts/css/images, and rewrites asset names for caching.'
-  }, {
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift ' +
-           'subgenerators'
-  }]);<% } if (filters.mongoose) { %>
-  Thing.findAsync()
+exports.index = function(req, res) {
+  <% if (filters.mongooseModels) { %>Thing.findAsync()<% }
+     if (filters.sequelizeModels) { %>Thing.findAll()<% } %>
     .then(responseWithResult(res))
-    .catch(handleError(res));<% } %>
-};<% if (filters.mongoose) { %>
+    .catch(handleError(res));
+};
 
 // Get a single thing
 exports.show = function(req, res) {
-  Thing.findByIdAsync(req.params.id)
+  <% if (filters.mongooseModels) { %>Thing.findByIdAsync(req.params.id)<% }
+     if (filters.sequelizeModels) { %>Thing.find({
+    where: {
+      _id: req.params.id
+    }
+  })<% } %>
     .then(handleEntityNotFound(res))
     .then(responseWithResult(res))
     .catch(handleError(res));
@@ -100,7 +87,8 @@ exports.show = function(req, res) {
 
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
-  Thing.createAsync(req.body)
+  <% if (filters.mongooseModels) { %>Thing.createAsync(req.body)<% }
+     if (filters.sequelizeModels) { %>Thing.create(req.body)<% } %>
     .then(responseWithResult(res, 201))
     .catch(handleError(res));
 };
@@ -110,7 +98,12 @@ exports.update = function(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Thing.findByIdAsync(req.params.id)
+  <% if (filters.mongooseModels) { %>Thing.findByIdAsync(req.params.id)<% }
+     if (filters.sequelizeModels) { %>Thing.find({
+    where: {
+      _id: req.params.id
+    }
+  })<% } %>
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(responseWithResult(res))
@@ -119,8 +112,13 @@ exports.update = function(req, res) {
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
-  Thing.findByIdAsync(req.params.id)
+  <% if (filters.mongooseModels) { %>Thing.findByIdAsync(req.params.id)<% }
+     if (filters.sequelizeModels) { %>Thing.find({
+    where: {
+      _id: req.params.id
+    }
+  })<% } %>
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
-};<% } %>
+};
