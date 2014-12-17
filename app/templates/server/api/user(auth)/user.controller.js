@@ -11,21 +11,21 @@ var jwt = require('jsonwebtoken');
 var validationError = function(res, statusCode) {
   statusCode = statusCode || 422;
   return function(err) {
-    res.json(statusCode, err);
+    return res.status(statusCode).json(err);
   };
 };
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
-    res.send(statusCode, err);
+    res.status(statusCode).send(err);
   };
 }
 
 function respondWith(res, statusCode) {
   statusCode = statusCode || 200;
   return function() {
-    res.send(statusCode);
+    res.status(statusCode).end();
   };
 }
 
