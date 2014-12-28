@@ -39,7 +39,7 @@ angular.module('<%= scriptAppName %>')
           /**
            * Open a delete confirmation modal
            * @param  {String} name   - name or info to show on modal
-           * @param  {All}           - any additional args are passed staight to del callback
+           * @param  {All}           - any additional args are passed straight to del callback
            */
           return function() {
             var args = Array.prototype.slice.call(arguments),
