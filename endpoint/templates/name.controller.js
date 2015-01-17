@@ -43,6 +43,18 @@ exports.update = function(req, res) {
   });
 };
 
+// Replaces a <%= name %> in the DB
+exports.replace = function(req, res) {
+  if(!req.params.id) { res.status(405).send('PUT to collection root not allowed'); }
+
+  if(req.body._id) { delete req.body._id; }
+  <%= classedName %>.update({ _id: req.params.id }, req.body, { override: true }, function(err) {
+    if(err) { return res.status('500').send('Could not save'); }
+    req.body._id = req.params.id
+    return res.json(req.body);
+  });
+};
+
 // Deletes a <%= name %> from the DB.
 exports.destroy = function(req, res) {
   <%= classedName %>.findById(req.params.id, function (err, <%= name %>) {
