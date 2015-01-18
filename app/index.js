@@ -35,9 +35,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     if(this.config.get('filters')) {
       this.prompt([{
-        type: "confirm",
-        name: "skipConfig",
-        message: "Existing .yo-rc configuration found, would you like to use it?",
+        type: 'confirm',
+        name: 'skipConfig',
+        message: 'Existing .yo-rc configuration found, would you like to use it?',
         default: true,
       }], function (answers) {
         this.skipConfig = answers.skipConfig;
@@ -65,46 +65,46 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.log('# Client\n');
 
     this.prompt([{
-        type: "list",
-        name: "script",
-        message: "What would you like to write scripts with?",
-        choices: [ "JavaScript", "CoffeeScript"],
+        type: 'list',
+        name: 'script',
+        message: 'What would you like to write scripts with?',
+        choices: [ 'JavaScript', "CoffeeScript"],
         filter: function( val ) {
           var filterMap = {
-            'JavaScript': 'js',
-            'CoffeeScript': 'coffee'
+            JavaScript: 'js',
+            CoffeeScript: 'coffee'
           };
 
           return filterMap[val];
         }
       }, {
-        type: "list",
-        name: "markup",
-        message: "What would you like to write markup with?",
-        choices: [ "HTML", "Jade"],
+        type: 'list',
+        name: 'markup',
+        message: 'What would you like to write markup with?',
+        choices: [ 'HTML', 'Jade'],
         filter: function( val ) { return val.toLowerCase(); }
       }, {
-        type: "list",
-        name: "stylesheet",
+        type: 'list',
+        name: 'stylesheet',
         default: 1,
-        message: "What would you like to write stylesheets with?",
-        choices: [ "CSS", "Sass", "Stylus", "Less"],
+        message: 'What would you like to write stylesheets with?',
+        choices: [ 'CSS', 'Sass', 'Stylus', 'Less'],
         filter: function( val ) { return val.toLowerCase(); }
       },  {
-        type: "list",
-        name: "router",
+        type: 'list',
+        name: 'router',
         default: 1,
-        message: "What Angular router would you like to use?",
-        choices: [ "ngRoute", "uiRouter"],
+        message: 'What Angular router would you like to use?',
+        choices: [ 'ngRoute', 'uiRouter'],
         filter: function( val ) { return val.toLowerCase(); }
       }, {
-        type: "confirm",
-        name: "bootstrap",
-        message: "Would you like to include Bootstrap?"
+        type: 'confirm',
+        name: 'bootstrap',
+        message: 'Would you like to include Bootstrap?'
       }, {
-        type: "confirm",
-        name: "uibootstrap",
-        message: "Would you like to include UI Bootstrap?",
+        type: 'confirm',
+        name: 'uibootstrap',
+        message: 'Would you like to include UI Bootstrap?',
         when: function (answers) {
           return answers.bootstrap;
         }
@@ -181,7 +181,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       if(answers.socketio) { this.filters.socketio = true; }
       if(answers.mongoose) {
         this.filters.mongoose = true;
-        this.mongoServer = answers.mongoServer;
+        this.config.set('mongoServer', answers.mongoServer);
       }
       if(answers.auth) { this.filters.auth = true; }
       if(answers.oauth) {
@@ -247,6 +247,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       bootstrap: true,
       uibootstrap: true
     });
+
+    this.mongoServer = this.config.get('mongoServer');
 
     var angModules = [
       '\'ngCookies\'',

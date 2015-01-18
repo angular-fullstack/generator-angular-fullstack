@@ -19,12 +19,12 @@ function onConnect(socket) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
 
-  var apiPath = path.resolve(__dirname, 'api');
+  var apiPath = path.resolve(__dirname, '..', 'api');
   fs.readdir(apiPath, function(err, apiDirs) {
     if(err) { throw err; }
 
     apiDirs.forEach(function(apiDir) {
-      var apiSocket = require(path.resolve(apiDir, apiDir)).socket;
+      var apiSocket = require(path.resolve(apiPath, apiDir)).socket;
 
       if(apiSocket) {
         apiSocket.register(socket);
