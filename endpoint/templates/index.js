@@ -13,5 +13,5 @@ router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);<% } %>
 
 exports.router = router;
-exports.name = '<%= name %>';<% if(filters.socketio) { %>
+exports.path = '<%= name %>';<% if(filters.socketio) { %>
 exports.socket = require('./<%= name %>.socket');<% } %>
