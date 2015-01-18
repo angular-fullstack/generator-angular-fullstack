@@ -13,7 +13,7 @@ describe 'Controller: MainCtrl', ->
   # Initialize the controller and a mock scope
   beforeEach inject (_$httpBackend_, $controller, $rootScope) ->
     $httpBackend = _$httpBackend_
-    $httpBackend.expectGET('/api/things').respond [
+    $httpBackend.expectGET('/api/v1/things').respond [
       'HTML5 Boilerplate'
       'AngularJS'
       'Karma'

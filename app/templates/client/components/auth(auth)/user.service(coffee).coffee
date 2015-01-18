@@ -2,7 +2,7 @@
 
 angular.module '<%= scriptAppName %>'
 .factory 'User', ($resource) ->
-  $resource '/api/users/:id/:controller',
+  $resource '/api/v1/users/:id/:controller',
     id: '@_id'
   ,
     changePassword:

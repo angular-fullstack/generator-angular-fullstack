@@ -43,32 +43,6 @@ Generator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-Generator.prototype.registerEndpoint = function registerEndpoint() {
-  if(this.config.get('insertRoutes')) {
-    var routeConfig = {
-      file: this.config.get('registerRoutesFile'),
-      needle: this.config.get('routesNeedle'),
-      splicable: [
-        "app.use(\'" + this.route +"\', require(\'./api/" + this.name + "\'));"
-      ]
-    };
-    ngUtil.rewriteFile(routeConfig);
-  }
-
-  if (this.filters.socketio) {
-    if(this.config.get('insertSockets')) {
-      var socketConfig = {
-        file: this.config.get('registerSocketsFile'),
-        needle: this.config.get('socketsNeedle'),
-        splicable: [
-          "require(\'../api/" + this.name + '/' + this.name + ".socket\').register(socket);"
-        ]
-      };
-      ngUtil.rewriteFile(socketConfig);
-    }
-  }
-};
-
 Generator.prototype.createFiles = function createFiles() {
   var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
   this.sourceRoot(path.join(__dirname, './templates'));

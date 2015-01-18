@@ -3,7 +3,7 @@
 angular.module '<%= scriptAppName %>'
 .controller 'AdminCtrl', ($scope, $http, Auth, User) ->
 
-  $http.get '/api/users'
+  $http.get '/api/v1/users'
   .success (users) ->
     $scope.users = users
 

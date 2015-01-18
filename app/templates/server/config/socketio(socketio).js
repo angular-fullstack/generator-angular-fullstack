@@ -5,6 +5,8 @@
 'use strict';
 
 var config = require('./environment');
+var fs = require('fs');
+var path = require('path');
 
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
@@ -17,6 +19,18 @@ function onConnect(socket) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
 
+  var apiPath = path.resolve(__dirname, 'api');
+  fs.readdir(apiPath, function(err, apiDirs) {
+    if(err) { throw err; }
+
+    apiDirs.forEach(function(apiDir) {
+      var apiSocket = require(path.resolve(apiDir, apiDir)).socket;
+
+      if(apiSocket) {
+        apiSocket.register(socket);
+      }
+    });
+  });
   // Insert sockets below
   require('../api/thing/thing.socket').register(socket);
 }
