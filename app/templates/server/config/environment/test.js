@@ -5,6 +5,6 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/<%= _.slugify(appname) %>-test'
+    uri: 'mongodb://<%= mongoServer %>/<%= _.slugify(appname) %>-test'
   }
 };

@@ -1,7 +1,6 @@
 'use strict';
 var fs = require('fs');
-var path = require('path');
-var util = require('util');
+var path = require('path'); var util = require('util');
 var genUtils = require('../util.js');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
@@ -128,13 +127,20 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.log('\n# Server\n');
 
     this.prompt([{
-      type: "confirm",
-      name: "mongoose",
-      message: "Would you like to use mongoDB with Mongoose for data modeling?"
+      type: 'confirm',
+      name: 'mongoose',
+      message: 'Would you like to use mongoDB with Mongoose for data modeling?'
     }, {
-      type: "confirm",
-      name: "auth",
-      message: "Would you scaffold out an authentication boilerplate?",
+      name: 'mongoServer',
+      default: 'localhost',
+      message: 'Which server would you like to use for MongoDB?',
+      when: function(answers) {
+        return answers.mongoose;
+      }
+    }, {
+      type: 'confirm',
+      name: 'auth',
+      message: 'Would you scaffold out an authentication boilerplate?',
       when: function (answers) {
         return answers.mongoose;
       }
@@ -163,18 +169,21 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         }
       ]
     }, {
-      type: "confirm",
-      name: "socketio",
-      message: "Would you like to use socket.io?",
+      type: 'confirm',
+      name: 'socketio',
+      message: 'Would you like to use socket.io?',
       // to-do: should not be dependent on mongoose
       when: function (answers) {
         return answers.mongoose;
       },
       default: true
     }], function (answers) {
-      if(answers.socketio) this.filters.socketio = true;
-      if(answers.mongoose) this.filters.mongoose = true;
-      if(answers.auth) this.filters.auth = true;
+      if(answers.socketio) { this.filters.socketio = true; }
+      if(answers.mongoose) {
+        this.filters.mongoose = true;
+        this.mongoServer = answers.mongoServer;
+      }
+      if(answers.auth) { this.filters.auth = true; }
       if(answers.oauth) {
         if(answers.oauth.length) this.filters.oauth = true;
         answers.oauth.forEach(function(oauthStrategy) {
@@ -209,26 +218,26 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     var extensions = [];
     var filters = [];
 
-    if(this.filters.ngroute) filters.push('ngroute');
-    if(this.filters.uirouter) filters.push('uirouter');
-    if(this.filters.coffee) extensions.push('coffee');
-    if(this.filters.js) extensions.push('js');
-    if(this.filters.html) extensions.push('html');
-    if(this.filters.jade) extensions.push('jade');
-    if(this.filters.css) extensions.push('css');
-    if(this.filters.stylus) extensions.push('styl');
-    if(this.filters.sass) extensions.push('scss');
-    if(this.filters.less) extensions.push('less');
+    if(this.filters.ngroute) { filters.push('ngroute'); }
+    if(this.filters.uirouter) { filters.push('uirouter'); }
+    if(this.filters.coffee) { extensions.push('coffee'); }
+    if(this.filters.js) { extensions.push('js'); }
+    if(this.filters.html) { extensions.push('html'); }
+    if(this.filters.jade) { extensions.push('jade'); }
+    if(this.filters.css) { extensions.push('css'); }
+    if(this.filters.stylus) { extensions.push('styl'); }
+    if(this.filters.sass) { extensions.push('scss'); }
+    if(this.filters.less) { extensions.push('less'); }
 
     this.composeWith('ng-component', {
       options: {
-        'routeDirectory': appPath,
-        'directiveDirectory': appPath,
-        'filterDirectory': appPath,
-        'serviceDirectory': appPath,
-        'filters': filters,
-        'extensions': extensions,
-        'basePath': 'client'
+        routeDirectory: appPath,
+        directiveDirectory: appPath,
+        filterDirectory: appPath,
+        serviceDirectory: appPath,
+        filters: filters,
+        extensions: extensions,
+        basePath: 'client'
       }
     }, { local: require.resolve('generator-ng-component/app/index.js') });
   },
@@ -240,16 +249,16 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     });
 
     var angModules = [
-      "'ngCookies'",
-      "'ngResource'",
-      "'ngSanitize'"
+      '\'ngCookies\'',
+      '\'ngResource\'',
+      '\'ngSanitize\''
     ];
-    if(this.filters.ngroute) angModules.push("'ngRoute'");
-    if(this.filters.socketio) angModules.push("'btford.socket-io'");
-    if(this.filters.uirouter) angModules.push("'ui.router'");
-    if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
+    if(this.filters.ngroute) { angModules.push('\'ngRoute\''); }
+    if(this.filters.socketio) { angModules.push('\'btford.socket-io\''); }
+    if(this.filters.uirouter) { angModules.push('\'ui.router\''); }
+    if(this.filters.uibootstrap) { angModules.push('\'ui.bootstrap\''); }
 
-    this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
+    this.angularModules = '\n  ' + angModules.join(',\n  ') +'\n';
   },
 
   generate: function() {

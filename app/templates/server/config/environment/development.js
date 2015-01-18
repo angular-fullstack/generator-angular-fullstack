@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/<%= _.slugify(appname) %>-dev'
+    uri: 'mongodb://<%= mongoServer %>/<%= _.slugify(appname) %>-dev'
   },
 
   seedDB: true
