@@ -49,7 +49,11 @@ Generator.prototype.registerEndpoint = function registerEndpoint() {
       file: this.config.get('registerRoutesFile'),
       needle: this.config.get('routesNeedle'),
       splicable: [
+        <% if(filters.coffee) { %>
+        "app.use \'" + this.route +"\', require \'./api/" + this.name + "\'"
+        <% } else { %>
         "app.use(\'" + this.route +"\', require(\'./api/" + this.name + "\'));"
+        <% } %>
       ]
     };
     ngUtil.rewriteFile(routeConfig);
@@ -61,7 +65,11 @@ Generator.prototype.registerEndpoint = function registerEndpoint() {
         file: this.config.get('registerSocketsFile'),
         needle: this.config.get('socketsNeedle'),
         splicable: [
+          <% if(filters.coffee) { %>
+          "(require \'../api/" + this.name + '/' + this.name + ".socket\').register socket"
+          <% } else { %>
           "require(\'../api/" + this.name + '/' + this.name + ".socket\').register(socket);"
+          <% } %>
         ]
       };
       ngUtil.rewriteFile(socketConfig);
