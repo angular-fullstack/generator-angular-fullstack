@@ -16,7 +16,7 @@ onConnect = (socket) ->
     console.info '[%s] %s', socket.address, JSON.stringify(data, null, 2)
 
   # Insert sockets below
-  require('../api/thing/thing.socket').register socket
+  (require '../api/thing/thing.socket').register socket
 
 module.exports = (socketio) ->
   # socket.io (v1.x.x) is powered by debug.

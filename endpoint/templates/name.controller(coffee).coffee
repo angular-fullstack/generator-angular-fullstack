@@ -18,7 +18,6 @@ exports.show = (req, res) ->
     return handleError res, err  if err
     return (res.status 404).send 'Not Found'  if not !<%= name %>
     res.json <%= name %>
-};
 
 # Creates a new <%= name %> in the DB.
 exports.create = (req, res) ->

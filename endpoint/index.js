@@ -47,15 +47,18 @@ Generator.prototype.registerEndpoint = function registerEndpoint() {
   if(this.config.get('insertRoutes')) {
     var routeConfig = {
       file: this.config.get('registerRoutesFile'),
-      needle: this.config.get('routesNeedle'),
-      splicable: [
-        <% if(filters.coffee) { %>
-        "app.use \'" + this.route +"\', require \'./api/" + this.name + "\'"
-        <% } else { %>
-        "app.use(\'" + this.route +"\', require(\'./api/" + this.name + "\'));"
-        <% } %>
-      ]
+      needle: this.config.get('routesNeedle')
     };
+
+    if (this.filters.coffee) {
+      routeConfig.splicable = [
+        "app.use \'" + this.route +"\', require \'./api/" + this.name + "\'"
+      ];
+    } else {
+      routeConfig.splicable = [
+        "app.use(\'" + this.route +"\', require(\'./api/" + this.name + "\'));"
+      ];
+    }
     ngUtil.rewriteFile(routeConfig);
   }
 
@@ -63,15 +66,18 @@ Generator.prototype.registerEndpoint = function registerEndpoint() {
     if(this.config.get('insertSockets')) {
       var socketConfig = {
         file: this.config.get('registerSocketsFile'),
-        needle: this.config.get('socketsNeedle'),
-        splicable: [
-          <% if(filters.coffee) { %>
-          "(require \'../api/" + this.name + '/' + this.name + ".socket\').register socket"
-          <% } else { %>
-          "require(\'../api/" + this.name + '/' + this.name + ".socket\').register(socket);"
-          <% } %>
-        ]
+        needle: this.config.get('socketsNeedle')
       };
+
+      if (this.filters.coffee) {
+        socketConfig.splicable = [
+          "(require \'../api/" + this.name + '/' + this.name + ".socket\').register socket"
+        ];
+      } else {
+        socketConfig.splicable = [
+          "require(\'../api/" + this.name + '/' + this.name + ".socket\').register(socket);"
+        ];
+      }
       ngUtil.rewriteFile(socketConfig);
     }
   }

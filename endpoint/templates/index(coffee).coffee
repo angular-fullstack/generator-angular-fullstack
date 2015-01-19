@@ -1,6 +1,6 @@
 'use strict'
 
-express = require' express'
+express = require 'express'
 controller = require './<%= name %>.controller'
 
 router = express.Router()
