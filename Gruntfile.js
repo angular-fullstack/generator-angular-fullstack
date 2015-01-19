@@ -132,7 +132,7 @@ module.exports = function (grunt) {
     function generateDemo() {
       var deferred = Q.defer();
       var options = {
-        script: 'js',
+        script: 'coffee',
         markup: 'html',
         stylesheet: 'sass',
         router: 'uirouter',
@@ -140,7 +140,7 @@ module.exports = function (grunt) {
         uibootstrap: true,
         mongoose: true,
         auth: true,
-        oauth: ['googleAuth', 'twitterAuth'],
+        oauth: ['facebookAuth', 'googleAuth', 'twitterAuth'],
         socketio: true
       };
 
