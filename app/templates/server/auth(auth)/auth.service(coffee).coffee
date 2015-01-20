@@ -23,7 +23,7 @@ isAuthenticated = ->
   ).use (req, res, next) ->
     User.findById req.user._id, (err, user) ->
       return next(err)  if err
-      return res.send(401)  unless user
+      return res.status(401).end()  unless user
       req.user = user
       next()
 
@@ -36,7 +36,7 @@ hasRole = (roleRequired) ->
     if config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)
       next()
     else
-      res.send 403
+      res.status(403).end()
 
 ###*
 Returns a jwt token signed by the app secret
@@ -44,18 +44,18 @@ Returns a jwt token signed by the app secret
 signToken = (id) ->
   jwt.sign
     _id: id
-  , config.secrets.session,
-    expiresInMinutes: 60 * 5
+  , config.secrets.session
+  , expiresInMinutes: 60 * 5
 
 ###*
 Set token cookie directly for oAuth strategies
 ###
 setTokenCookie = (req, res) ->
   unless req.user
-    return res.json(404,
+    return res.status(404).json
       message: 'Something went wrong, please try again.'
-    )
-  token = signToken(req.user._id, req.user.role)
+
+  token = signToken req.user._id, req.user.role
   res.cookie 'token', JSON.stringify(token)
   res.redirect '/'
 
