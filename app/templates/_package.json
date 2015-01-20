@@ -43,7 +43,8 @@
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-watch": "~0.6.1",<% if(filters.coffee) { %>
-    "grunt-contrib-coffee": "^0.10.1",<% } %><% if(filters.jade) { %>
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-coffeelint": "~0.0.13",<% } %><% if(filters.jade) { %>
     "grunt-contrib-jade": "^0.11.0",<% } %><% if(filters.less) { %>
     "grunt-contrib-less": "^0.11.0",<% } %>
     "grunt-google-cdn": "~0.4.0",
