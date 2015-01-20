@@ -5,6 +5,7 @@ Main application routes
 'use strict'
 
 errors = require './components/errors'
+path = require 'path'
 
 module.exports = (app) ->
 
@@ -19,4 +20,4 @@ module.exports = (app) ->
 
   # All other routes should redirect to the index.html
   app.route('/*').get (req, res) ->
-    res.sendfile app.get('appPath') + '/index.html'
+    res.sendFile path.resolve(app.get('appPath') + '/index.html')
