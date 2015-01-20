@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 _ = require 'lodash'<% if (filters.mongoose) { %>
 <%= classedName %> = require './<%= name %>.model'<% } %>

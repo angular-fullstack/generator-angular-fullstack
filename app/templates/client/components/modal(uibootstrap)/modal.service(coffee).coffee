@@ -22,7 +22,7 @@ angular.module '<%= scriptAppName %>'
   
   # Public API here
   
-  # Confirmation modals 
+  # Confirmation modals
   confirm:
     
     ###
