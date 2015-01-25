@@ -350,13 +350,14 @@ module.exports = function (grunt) {
         // This should be the name of your apps angular module
         module: '<%= scriptAppName %>',
         htmlmin: {
-          collapseBooleanAttributes: true,
+          collapseBooleanAttributes: false,
           collapseWhitespace: true,
-          removeAttributeQuotes: true,
-          removeEmptyAttributes: true,
-          removeRedundantAttributes: true,
-          removeScriptTypeAttributes: true,
-          removeStyleLinkTypeAttributes: true
+          removeAttributeQuotes: false,
+		  removeComments: false,
+          removeEmptyAttributes: false,
+          removeRedundantAttributes: false,
+          removeScriptTypeAttributes: false,
+          removeStyleLinkTypeAttributes: false
         },
         usemin: 'app/app.js'
       },
