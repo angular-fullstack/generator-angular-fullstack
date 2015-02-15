@@ -44,7 +44,7 @@ div(ng-include='"components/navbar/navbar.html"')
             i.fa.fa-facebook
             |  Connect with Facebook
           = ' '<% } %><% if(filters.googleAuth) {%>
-          a.btn.btn-google-plus(href='', ng-click='loginOauth("google")')
+          a.btn.google-plus-btn(href='', ng-click='loginOauth("google")')
             i.fa.fa-google-plus
             |  Connect with Google+
           = ' '<% } %><% if(filters.twitterAuth) {%>
