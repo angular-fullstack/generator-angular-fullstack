@@ -22,7 +22,7 @@ $btnGithubBackgroundHighlight:      #ccc;
 .btn-twitter {
   @include button-variant($btnText, $btnTwitterBackground, $btnTwitterBackgroundHighlight);
 }<% } if (filters.googleAuth) { %>
-.btn-google-plus {
+.google-plus-btn {
   @include button-variant($btnText, $btnGooglePlusBackground, $btnGooglePlusBackgroundHighlight);
 }<% } %>
 .btn-github {
