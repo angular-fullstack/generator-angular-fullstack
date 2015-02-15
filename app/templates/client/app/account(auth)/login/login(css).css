@@ -10,7 +10,7 @@
   border-color: #0271bf;
 }
 <% } if (filters.googleAuth) { %>
-.btn-google-plus {
+.google-plus-btn {
   color: #fff;
   background-color: #dd4b39;
   border-color: #c53727;
