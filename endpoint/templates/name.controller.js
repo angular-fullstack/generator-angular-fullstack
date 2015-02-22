@@ -6,10 +6,26 @@ var <%= classedName %> = require('./<%= name %>.model');<% } %>
 // Get list of <%= name %>s
 exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   res.json([]);<% } %><% if (filters.mongoose) { %>
-  <%= classedName %>.find(function (err, <%= name %>s) {
-    if(err) { return handleError(res, err); }
-    return res.status(200).json(<%= name %>s);
-  });<% } %>
+  // select fields to return. eg: ?fields?status,name,body
+  var queryFields = req.query.fields || '';
+  queryFields = queryFields.replace(',', ' ');
+  // page through results. eg: ?limit=10&page=2
+  var queryLimit = req.query.limit || null;
+  var queryPage = req.query.page * queryLimit || null;
+  // sort results. eg: ?sort=name&direction=asc
+  var querySortDirection = req.query.direction || '';
+  querySortDirection = (querySortDirection.toLowerCase() === 'desc') ? '-' : '';
+  var querySort = querySortDirection + req.query.sort || null;
+
+  <%= classedName %>.find({})
+    .select(queryFields)
+    .limit(queryLimit)
+    .skip(queryPage)
+    .sort(querySort)
+    .exec(function (err, <%= name %>s) {
+      if(err) { return handleError(res, err); }
+      return res.status(200).json(<%= name %>s);
+    });<% } %>
 };<% if (filters.mongoose) { %>
 
 // Get a single <%= name %>
