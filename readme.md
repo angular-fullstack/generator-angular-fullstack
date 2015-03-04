@@ -258,10 +258,13 @@ Deploying to heroku only takes a few steps.
 
 To work with your new heroku app using the command line, you will need to run any `heroku` commands from the `dist` folder.
 
+If you're using mongoDB you will need to add a database to your app (MongoLab has a free sandbox plan):
 
-If you're using mongoDB you will need to add a database to your app:
+    heroku addons:add mongolab
 
-    heroku addons:add mongohq
+Finally, you will need to set your database credentials. Heroku recommends storing them in a Heroku config variable to avoid hard coding credentials directly in your application code:
+
+    heroku config:set PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1,host2:port2/dbname
 
 Your app should now be live. To view it run `heroku open`.
 
