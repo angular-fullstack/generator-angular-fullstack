@@ -261,7 +261,11 @@ To work with your new heroku app using the command line, you will need to run an
 
 If you're using mongoDB you will need to add a database to your app:
 
-    heroku addons:add mongohq
+    heroku addons:add mongolab
+
+Heroku recommends storing your database credentials in a Heroku config variable to avoid hard coding credentials directly in your application code:
+
+    heroku config:set PROD_MONGODB=mongodb://dbuser:dbpass@host1:port1,host2:port2/dbname
 
 Your app should now be live. To view it run `heroku open`.
 
