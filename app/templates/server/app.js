@@ -14,6 +14,11 @@ var config = require('./config/environment');
 <% if (filters.mongoose) { %>
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connection.on('error', function(err) {
+	console.error('MongoDB connection error: ' + err);
+	process.exit(-1);
+	}
+);
 <% } %><% if (filters.models) { %>
 // Populate databases with sample data
 if (config.seedDB) { require('./config/seed'); }
