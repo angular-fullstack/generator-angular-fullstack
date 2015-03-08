@@ -1,12 +1,13 @@
 'use strict';
-
-var mongoose = require('mongoose-bird')();
+<% if (filters.mongooseModels) { %>
+var mongoose = require('mongoose-bird')();<% } %>
 var passport = require('passport');
 var config = require('../config/environment');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
-var compose = require('composable-middleware');
-var User = require('../api/user/user.model');
+var compose = require('composable-middleware');<% if (filters.mongooseModels) { %>
+var User = require('../api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
+var User = require('../sqldb').User;<% } %>
 var validateJwt = expressJwt({
   secret: config.secrets.session
 });
@@ -27,7 +28,12 @@ function isAuthenticated() {
     })
     // Attach user to request
     .use(function(req, res, next) {
-      User.findByIdAsync(req.user._id)
+      <% if (filters.mongooseModels) { %>User.findByIdAsync(req.user._id)<% }
+         if (filters.sequelizeModels) { %>User.find({
+        where: {
+          _id: req.user._id
+        }
+      })<% } %>
         .then(function(user) {
           if (!user) {
             return res.send(401);

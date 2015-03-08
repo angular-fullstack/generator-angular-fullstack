@@ -3,7 +3,7 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 
 var thingCtrlStub = {
-  index: 'thingCtrl.index'<% if (filters.mongoose) { %>,
+  index: 'thingCtrl.index'<% if (filters.models) { %>,
   show: 'thingCtrl.show',
   create: 'thingCtrl.create',
   update: 'thingCtrl.update',
@@ -11,7 +11,7 @@ var thingCtrlStub = {
 };
 
 var routerStub = {
-  get: sinon.spy()<% if (filters.mongoose) { %>,
+  get: sinon.spy()<% if (filters.models) { %>,
   put: sinon.spy(),
   patch: sinon.spy(),
   post: sinon.spy(),
@@ -42,7 +42,7 @@ describe('Thing API Router:', function() {
                 .should.have.been.calledOnce;
     });
 
-  });<% if (filters.mongoose) { %>
+  });<% if (filters.models) { %>
 
   describe('GET /api/things/:id', function() {
 

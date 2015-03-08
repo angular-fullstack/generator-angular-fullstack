@@ -39,20 +39,20 @@ var all = {
         safe: true
       }
     }
-  },
-<% if (filters.facebookAuth) { %>
+  }<% if (filters.facebookAuth) { %>,
+
   facebook: {
     clientID:     process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
-  },
-<% } %><% if (filters.twitterAuth) { %>
+  }<% } %><% if (filters.twitterAuth) { %>,
+
   twitter: {
     clientID:     process.env.TWITTER_ID || 'id',
     clientSecret: process.env.TWITTER_SECRET || 'secret',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/twitter/callback'
-  },
-<% } %><% if (filters.googleAuth) { %>
+  }<% } %><% if (filters.googleAuth) { %>,
+
   google: {
     clientID:     process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',

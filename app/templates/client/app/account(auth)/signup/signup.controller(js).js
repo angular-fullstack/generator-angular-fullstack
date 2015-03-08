@@ -21,12 +21,20 @@ angular.module('<%= scriptAppName %>')
         .catch(function(err) {
           err = err.data;
           $scope.errors = {};
-
+<% if (filters.mongooseModels) { %>
           // Update validity of form fields that match the mongoose errors
           angular.forEach(err.errors, function(error, field) {
             form[field].$setValidity('mongoose', false);
             $scope.errors[field] = error.message;
-          });
+          });<% }
+  if (filters.sequelizeModels) { %>
+          // Update validity of form fields that match the sequelize errors
+          if (err.name) {
+            angular.forEach(err.fields, function(field) {
+              form[field].$setValidity('mongoose', false);
+              $scope.errors[field] = err.message;
+            });
+          }<% } %>
         });
       }
     };

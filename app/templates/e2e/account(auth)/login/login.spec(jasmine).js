@@ -1,7 +1,8 @@
 'use strict';
 
-var config = protractor.getInstance().params;
-var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');
+var config = protractor.getInstance().params;<% if (filters.mongooseModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
 
 describe('Login View', function() {
   var page;
@@ -18,9 +19,11 @@ describe('Login View', function() {
   };
 
   beforeEach(function(done) {
-    UserModel.removeAsync()
+    <% if (filters.mongooseModels) { %>UserModel.removeAsync()<% }
+       if (filters.sequelizeModels) { %>UserModel.destroy()<% } %>
       .then(function() {
-        return UserModel.createAsync(testUser);
+        <% if (filters.mongooseModels) { %>return UserModel.createAsync(testUser);<% }
+           if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
       })
       .then(loadPage)
       .finally(done);
