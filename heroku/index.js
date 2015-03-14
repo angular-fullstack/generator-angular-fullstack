@@ -16,6 +16,10 @@ var Generator = module.exports = function Generator() {
   }
   this.appname = this._.slugify(this.appname);
   this.filters = this.config.get('filters') || {};
+  this.option('account', {
+    desc: 'Account to use if you are using https://github.com/ddollar/heroku-accounts',
+    type: String
+  });
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
@@ -83,9 +87,10 @@ Generator.prototype.herokuCreate = function herokuCreate() {
   if(this.abort) return;
   var done = this.async();
   var regionParams = (this.region !== 'us') ? ' --region ' + this.region : '';
+  this.accountParams = this.options.account ? ' --account ' + this.options.account : '';
 
-  this.log(chalk.bold('Creating heroku app and setting node environment'));
-  var child = exec('heroku apps:create ' + this.deployedName + regionParams + ' && heroku config:set NODE_ENV=production', { cwd: 'dist' }, function (err, stdout, stderr) {
+  this.log(chalk.bold('Creating heroku app'));
+  var child = exec('heroku apps:create ' + this.deployedName + regionParams + this.accountParams, { cwd: 'dist' }, function (err, stdout, stderr) {
     if (err) {
       this.abort = true;
       this.log.error(err);
@@ -98,8 +103,38 @@ Generator.prototype.herokuCreate = function herokuCreate() {
   child.stdout.on('data', function(data) {
     var output = data.toString();
     this.log(output);
+
+    if (!this.deployedName) {
+      // We get data multiple times.  Wait till we get the appname
+      try {
+        // https://arcane-caverns-2716.herokuapp.com/
+        var url = output.split('|')[0].trim();
+        // arcane-caverns-2716 (remove https and grab first element)
+        this.deployedName = url.slice(8).split('.')[0];
+      } catch(e) {}
+    }
   }.bind(this));
 };
+
+Generator.prototype.setConfig = function setConfig() {
+  if(this.abort) return;
+  var done = this.async();
+
+  this.log(chalk.bold('Setting node environment to production'));
+  var child = exec('heroku config:set NODE_ENV=production --app ' + this.deployedName + this.accountParams, { cwd: 'dist' }, function (err, stdout, stderr) {
+    if (err) {
+      this.abort = true;
+      this.log.error(err);
+    } else {
+      this.log('stdout: ' + stdout);
+    }
+    done();
+  }.bind(this));
+
+  child.stdout.on('data', function(data) {
+    this.log(data.toString());
+  }.bind(this));
+}
 
 Generator.prototype.copyProcfile = function copyProcfile() {
   if(this.abort) return;
