@@ -1,94 +1,60 @@
-'use strict';<% if(filters.mongoose) { %>
+'use strict';
 
-var _ = require('lodash');
-var <%= classedName %> = require('./<%= name %>.model');
+var _ = require('lodash');<% if (filters.mongoose) { %>
+var <%= classedName %> = require('./<%= name %>.model');<% } %>
 
-function handleError(res, statusCode) {
-  statusCode = statusCode || 500;
-  return function(err) {
-    res.send(statusCode, err);
-  };
-}
+// Get list of <%= name %>s
+exports.index = function(req, res) {<% if (!filters.mongoose) { %>
+  res.status(200).json([]);<% } %><% if (filters.mongoose) { %>
+  <%= classedName %>.find(function (err, <%= name %>s) {
+    if(err) { return handleError(res, err); }
+    return res.status(200).json(<%= name %>s);
+  });<% } %>
+};<% if (filters.mongoose) { %>
 
-function responseWithResult(res, statusCode) {
-  statusCode = statusCode || 200;
-  return function(entity) {
-    if (entity) {
-      return res.json(statusCode, entity);
-    }
-  };
-}
-
-function handleEntityNotFound(res) {
-  return function(entity) {
-    if (!entity) {
-      res.send(404);
-      return null;
-    }
-    return entity;
-  };
-}
-
-function saveUpdates(updates) {
-  return function(entity) {
-    var updated = _.merge(entity, updates);
-    return updated.saveAsync()
-      .spread(function(updated) {
-        return updated;
-      });
-  };
-}
-
-function removeEntity(res) {
-  return function(entity) {
-    if (entity) {
-      return entity.removeAsync()
-        .then(function() {
-          return res.send(204);
-        });
-    }
-  };
-}<% } %>
-
-// Gets list of <%= name %>s from the DB.
-exports.index = function(req, res) {<% if(!filters.mongoose) { %>
-  res.json([]);<% } if (filters.mongoose) { %>
-  <%= classedName %>.findAsync()
-    .then(responseWithResult(res))
-    .catch(handleError(res));<% } %>
-};<% if(filters.mongoose) { %>
-
-// Gets a single <%= name %> from the DB.
+// Get a single <%= name %>
 exports.show = function(req, res) {
-  <%= classedName %>.findByIdAsync(req.params.id)
-    .then(handleEntityNotFound(res))
-    .then(responseWithResult(res))
-    .catch(handleError(res));
+  <%= classedName %>.findById(req.params.id, function (err, <%= name %>) {
+    if(err) { return handleError(res, err); }
+    if(!<%= name %>) { return res.send(404); }
+    return res.status(200).json(<%= name %>);
+  });
 };
 
 // Creates a new <%= name %> in the DB.
 exports.create = function(req, res) {
-  <%= classedName %>.createAsync(req.body)
-    .then(responseWithResult(res, 201))
-    .catch(handleError(res));
+  <%= classedName %>.create(req.body, function(err, <%= name %>) {
+    if(err) { return handleError(res, err); }
+    return res.status(201).json(<%= name %>);
+  });
 };
 
 // Updates an existing <%= name %> in the DB.
 exports.update = function(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  <%= classedName %>.findByIdAsync(req.params.id)
-    .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
-    .then(responseWithResult(res))
-    .catch(handleError(res));
+  if(req.body._id) { delete req.body._id; }
+  <%= classedName %>.findById(req.params.id, function (err, <%= name %>) {
+    if (err) { return handleError(res, err); }
+    if(!<%= name %>) { return res.send(404); }
+    var updated = _.merge(<%= name %>, req.body);
+    updated.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.status(200).json(<%= name %>);
+    });
+  });
 };
 
 // Deletes a <%= name %> from the DB.
 exports.destroy = function(req, res) {
-  <%= classedName %>.findByIdAsync(req.params.id)
-    .then(handleEntityNotFound(res))
-    .then(removeEntity(res))
-    .catch(handleError(res));
-};<% } %>
+  <%= classedName %>.findById(req.params.id, function (err, <%= name %>) {
+    if(err) { return handleError(res, err); }
+    if(!<%= name %>) { return res.send(404); }
+    <%= name %>.remove(function(err) {
+      if(err) { return handleError(res, err); }
+      return res.send(204);
+    });
+  });
+};
+
+function handleError(res, err) {
+  return res.send(500, err);
+}<% } %>
