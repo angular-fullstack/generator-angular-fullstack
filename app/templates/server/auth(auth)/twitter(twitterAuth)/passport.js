@@ -24,7 +24,7 @@ exports.setup = function (User, config) {
         });
         user.save(function(err) {
           if (err) return done(err);
-          return done(err, user);
+          done(err, user);
         });
       } else {
         return done(err, user);
