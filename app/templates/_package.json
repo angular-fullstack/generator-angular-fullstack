@@ -60,7 +60,7 @@
     "grunt-protractor-runner": "^1.1.0",
     "grunt-injector": "~0.5.4",
     "grunt-karma": "~0.8.2",
-    "grunt-build-control": "DaftMonk/grunt-build-control",
+    "grunt-build-control": "~0.4.0",
     "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
     "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "latest",<% } %>
