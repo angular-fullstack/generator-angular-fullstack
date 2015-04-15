@@ -30,5 +30,5 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl')
           a(href='/settings')
             span.glyphicon.glyphicon-cog
 
-        li(ng-show='isLoggedIn()', ng-class='{active: isActive("/logout")}')
+        li(ng-show='isLoggedIn()')
           a(href='', ng-click='logout()') Logout<% } %>
