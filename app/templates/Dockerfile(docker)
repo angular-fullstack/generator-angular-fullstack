@@ -1,0 +1,4 @@
+# Production Dockerfile - Used in the dist directory after grunt build
+FROM node:0.12-onbuild
+ENV NODE_ENV production
+EXPOSE 8080

@@ -1,0 +1,13 @@
+# This file works in the dist directory after grunt build is finished.
+# Usage:
+#   pip install docker-compose
+#   docker-compose up
+<% if (filters.mongoose) { %>
+<%= _.slugify(appname) %>mongodb:
+  image: mongo:latest<% } %>
+<%= _.slugify(appname) %>:
+  build: .
+  links:
+   - "<%= _.slugify(appname) %>mongodb:mongodb"
+  ports:
+   - "8080:8080"
