@@ -45,7 +45,8 @@
     "grunt-contrib-watch": "~0.6.1",<% if(filters.coffee) { %>
     "grunt-contrib-coffee": "^0.10.1",<% } %><% if(filters.jade) { %>
     "grunt-contrib-jade": "^0.11.0",<% } %><% if(filters.less) { %>
-    "grunt-contrib-less": "^0.11.0",<% } %>
+    "grunt-contrib-less": "^0.11.0",<% } %><% if(filters.babel) { %>
+    "grunt-babel": "~5.0.0",<% } %>
     "grunt-google-cdn": "~0.4.0",
     "grunt-newer": "~0.7.0",
     "grunt-ng-annotate": "^0.2.3",
