@@ -11,7 +11,7 @@ describe('User API:', function() {
   // Clear users before testing
   before(function(done) {
     <% if (filters.mongooseModels) { %>User.remove(function() {<% }
-       if (filters.sequelizeModels) { %>User.destroy().then(function() {<% } %>
+       if (filters.sequelizeModels) { %>User.destroy({where: {}}).then(function() {<% } %>
       <% if (filters.mongooseModels) { %>user = new User({<% }
          if (filters.sequelizeModels) { %>user = User.build({<% } %>
         name: 'Fake User',
@@ -36,7 +36,7 @@ describe('User API:', function() {
   // Clear users after testing
   after(function() {
     <% if (filters.mongooseModels) { %>return User.remove().exec();<% }
-       if (filters.sequelizeModels) { %>return User.destroy();<% } %>
+       if (filters.sequelizeModels) { %>return User.destroy({where: {}});<% } %>
   });
 
   describe('GET /api/users/me', function() {
