@@ -18,6 +18,13 @@ angular.module('<%= scriptAppName %>')
     };<% } %>
 
     $scope.isActive = function(route) {
-      return route === $location.path();
+      $scope.isActive = function(route) {
+      if (route !== '/') {
+        return -1 !== $location.path().indexOf(route);
+      }
+      else {
+        return route === $location.path();
+      }
+    };
     };
   });
