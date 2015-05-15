@@ -21,8 +21,8 @@ exports.setup = function (User, config) {
             google: profile._json
           });
           user.save(function(err) {
-            if (err) done(err);
-            return done(err, user);
+            if (err) return done(err);
+            done(err, user);
           });
         } else {
           return done(err, user);
