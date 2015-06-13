@@ -98,7 +98,7 @@ We provide an extremely simplifed deployment process for heroku.
 
 3. `yo angular-fullstack:heroku`
 
-5. Optional (if using mongoDB) `heroku addons:add mongohq`
+5. Optional (if using mongoDB) `heroku addons:create mongohq`
 
 That's it! Your app should be live. Type `heroku open`  from the dist folder to view it.  
 
