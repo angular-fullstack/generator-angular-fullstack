@@ -43,6 +43,7 @@ var all = {
       }
     }
   },
+
 <% if(filters.facebookAuth) { %>
   facebook: {
     clientID:     process.env.FACEBOOK_ID || 'id',

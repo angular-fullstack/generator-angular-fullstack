@@ -129,14 +129,14 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     this.prompt([{
       type: "confirm",
-      name: "mongoose",
-      message: "Would you like to use mongoDB with Mongoose for data modeling?"
+      name: "postgres",
+      message: "Would you like to use postgres with Sequelize for data modeling?"
     }, {
       type: "confirm",
       name: "auth",
       message: "Would you scaffold out an authentication boilerplate?",
       when: function (answers) {
-        return answers.mongoose;
+        return answers.postgres;
       }
     }, {
       type: 'checkbox',
@@ -166,14 +166,14 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       type: "confirm",
       name: "socketio",
       message: "Would you like to use socket.io?",
-      // to-do: should not be dependent on mongoose
+      // to-do: should not be dependent on postgres
       when: function (answers) {
-        return answers.mongoose;
+        return answers.postgres;
       },
       default: true
     }], function (answers) {
       if(answers.socketio) this.filters.socketio = true;
-      if(answers.mongoose) this.filters.mongoose = true;
+      if(answers.postgres) this.filters.postgres = true;
       if(answers.auth) this.filters.auth = true;
       if(answers.oauth) {
         if(answers.oauth.length) this.filters.oauth = true;

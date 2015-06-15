@@ -1,11 +1,11 @@
 {
-  "name": "generator-angular-fullstack",
-  "version": "2.0.13",
-  "description": "Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node",
+  "name": "generator-pean",
+  "version": "1.0.0",
+  "description": "Yeoman generator for creating PEAN stack applications, using Postgres, Express, AngularJS, and Node",
   "keywords": [
     "yeoman-generator",
-    "mean",
-    "mongodb",
+    "pean",
+    "postgres",
     "angularjs",
     "express",
     "scaffold",
@@ -15,12 +15,12 @@
     "front-end",
     "app"
   ],
-  "homepage": "https://github.com/DaftMonk/generator-angular-fullstack",
-  "bugs": "https://github.com/DaftMonk/generator-angular-fullstack/issues",
-  "author": "Tyler Henkel",
+  "homepage": "https://github.com/tashrafy/generator-pean",
+  "bugs": "https://github.com/tashrafy/generator-pean/issues",
+  "author": "Taufiqur Ashrafy",
   "repository": {
     "type": "git",
-    "url": "git://github.com/DaftMonk/generator-angular-fullstack.git"
+    "url": "git://github.com/tashrafy/generator-pean.git"
   },
   "scripts": {
     "test": "grunt test"

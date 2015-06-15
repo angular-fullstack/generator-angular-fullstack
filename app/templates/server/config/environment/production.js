@@ -19,5 +19,11 @@ module.exports = {
             process.env.MONGOHQ_URL ||
             process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
             'mongodb://localhost/<%= _.slugify(appname) %>'
+  },
+
+  // Postgres connection options
+  postgres: {
+    uri:    process.env.POSTGRES_URL ||
+            'postgres://user:pass@localhost:5432/<%= _.slugify(appname) %>'
   }
 };

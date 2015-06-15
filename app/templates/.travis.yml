@@ -6,4 +6,3 @@ before_script:
   - npm install -g bower grunt-cli<% if (filters.sass) { %>
   - gem install sass<% } %>
   - bower install
-services: mongodb

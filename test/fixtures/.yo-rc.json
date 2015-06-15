@@ -1,5 +1,5 @@
 {
-  "generator-angular-fullstack": {
+  "generator-pean": {
     "insertRoutes": "true",
     "registerRoutesFile": "server/routes.js",
     "routesNeedle": "// Insert routes below",
@@ -12,7 +12,7 @@
       "less": true,
       "uirouter": true,
       "socketio": true,
-      "mongoose": true,
+      "postgres": true,
       "auth": true
     }
   }

@@ -7,7 +7,7 @@ var expect = chai.expect;
 var fs = require('fs-extra');
 var exec = require('child_process').exec;
 
-describe('angular-fullstack generator', function () {
+describe('pean generator', function () {
   var gen, defaultOptions = {
     script: 'js',
     markup: 'html',
@@ -15,7 +15,7 @@ describe('angular-fullstack generator', function () {
     router: 'uirouter',
     bootstrap: true,
     uibootstrap: true,
-    mongoose: true,
+    postgres: true,
     auth: true,
     oauth: [],
     socketio: true
@@ -25,7 +25,7 @@ describe('angular-fullstack generator', function () {
     gen.run({}, function () {
       var afGenerator;
       var deps = [path.join('../..', generatorType)];
-      afGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name]);
+      afGenerator = helpers.createGenerator('pean:' + generatorType, deps, [name]);
 
       helpers.mockPrompt(afGenerator, mockPrompt);
       afGenerator.run([], function () {
@@ -49,7 +49,7 @@ describe('angular-fullstack generator', function () {
         return done(err);
       }
 
-      gen = helpers.createGenerator('angular-fullstack:app', deps);
+      gen = helpers.createGenerator('pean:app', deps);
       gen.options['skip-install'] = true;
       done();
     }.bind(this));
@@ -93,7 +93,7 @@ describe('angular-fullstack generator', function () {
         this.timeout(60000);
         gen.run({}, function () {
           exec('grunt test:server', function (error, stdout, stderr) {
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            expect(stdout, 'Server tests failed (do you have postgresDB running?) \n' + stdout).to.contain('Done, without errors.');
             done();
           });
         });
@@ -103,7 +103,7 @@ describe('angular-fullstack generator', function () {
         this.timeout(60000);
         generatorTest('endpoint', 'foo', {}, function() {
           exec('grunt test:server', function (error, stdout, stderr) {
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            expect(stdout, 'Server tests failed (do you have postgresDB running?) \n' + stdout).to.contain('Done, without errors.');
             done();
           });
         });
@@ -112,7 +112,7 @@ describe('angular-fullstack generator', function () {
       it('should use existing config if available', function(done) {
         this.timeout(60000);
         fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
-        var gen = helpers.createGenerator('angular-fullstack:app', [
+        var gen = helpers.createGenerator('pean:app', [
           '../../app',
           [
             helpers.createDummyGenerator(),
@@ -152,7 +152,7 @@ describe('angular-fullstack generator', function () {
           markup: 'jade',
           stylesheet: 'less',
           router: 'uirouter',
-          mongoose: true,
+          postgres: true,
           auth: true,
           oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
           socketio: true
@@ -183,7 +183,7 @@ describe('angular-fullstack generator', function () {
         this.timeout(60000);
         gen.run({}, function () {
           exec('grunt test:server', function (error, stdout, stderr) {
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            expect(stdout, 'Server tests failed (do you have postgresDB running?) \n' + stdout).to.contain('Done, without errors.');
             done();
           });
         });
@@ -197,7 +197,7 @@ describe('angular-fullstack generator', function () {
           markup: 'jade',
           stylesheet: 'stylus',
           router: 'ngroute',
-          mongoose: false,
+          postgres: false,
           auth: false,
           oauth: [],
           socketio: false
@@ -229,7 +229,7 @@ describe('angular-fullstack generator', function () {
         this.timeout(60000);
         gen.run({}, function () {
           exec('grunt test:server', function (error, stdout, stderr) {
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            expect(stdout, 'Server tests failed (do you have postgresDB running?) \n' + stdout).to.contain('Done, without errors.');
             done();
           });
         });
@@ -243,7 +243,7 @@ describe('angular-fullstack generator', function () {
           markup: 'html',
           stylesheet: 'css',
           router: 'ngroute',
-          mongoose: false,
+          postgres: false,
           auth: false,
           oauth: [],
           socketio: false
@@ -275,7 +275,7 @@ describe('angular-fullstack generator', function () {
         this.timeout(60000);
         gen.run({}, function () {
           exec('grunt test:server', function (error, stdout, stderr) {
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            expect(stdout, 'Server tests failed (do you have postgresDB running?) \n' + stdout).to.contain('Done, without errors.');
             done();
           });
         });

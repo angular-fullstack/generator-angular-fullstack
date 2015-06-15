@@ -1,16 +1,16 @@
 'use strict';
 
-var _ = require('lodash');<% if (filters.mongoose) { %>
+var _ = require('lodash');<% if (filters.postgres) { %>
 var <%= classedName %> = require('./<%= name %>.model');<% } %>
 
 // Get list of <%= name %>s
-exports.index = function(req, res) {<% if (!filters.mongoose) { %>
-  res.json([]);<% } %><% if (filters.mongoose) { %>
+exports.index = function(req, res) {<% if (!filters.postgres) { %>
+  res.json([]);<% } %><% if (filters.postgres) { %>
   <%= classedName %>.find(function (err, <%= name %>s) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(<%= name %>s);
   });<% } %>
-};<% if (filters.mongoose) { %>
+};<% if (filters.postgres) { %>
 
 // Get a single <%= name %>
 exports.show = function(req, res) {

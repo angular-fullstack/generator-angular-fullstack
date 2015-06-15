@@ -7,8 +7,8 @@ div(ng-include='"components/navbar/navbar.html"')
       form.form(name='form', ng-submit='changePassword(form)', novalidate='')
         .form-group
           label Current Password
-          input.form-control(type='password', name='password', ng-model='user.oldPassword', mongoose-error='')
-          p.help-block(ng-show='form.password.$error.mongoose')
+          input.form-control(type='password', name='password', ng-model='user.oldPassword', postgres-error='')
+          p.help-block(ng-show='form.password.$error.postgres')
             | {{ errors.other }}
         .form-group
           label New Password

@@ -9,11 +9,11 @@
 
 'use strict';
 
-var _ = require('lodash');<% if (filters.mongoose) { %>
+var _ = require('lodash');<% if (filters.postgres) { %>
 var Thing = require('./thing.model');<% } %>
 
 // Get list of things
-exports.index = function(req, res) {<% if (!filters.mongoose) { %>
+exports.index = function(req, res) {<% if (!filters.postgres) { %>
   res.json([
   {
   name : 'Development Tools',
@@ -34,12 +34,12 @@ exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   name : 'Deployment Ready',
   info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   }
-  ]);<% } %><% if (filters.mongoose) { %>
+  ]);<% } %><% if (filters.postgres) { %>
   Thing.find(function (err, things) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(things);
   });<% } %>
-};<% if (filters.mongoose) { %>
+};<% if (filters.postgres) { %>
 
 // Get a single thing
 exports.show = function(req, res) {

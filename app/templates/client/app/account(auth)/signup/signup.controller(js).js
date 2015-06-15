@@ -22,9 +22,9 @@ angular.module('<%= scriptAppName %>')
           err = err.data;
           $scope.errors = {};
 
-          // Update validity of form fields that match the mongoose errors
+          // Update validity of form fields that match the postgres errors
           angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
+            form[field].$setValidity('postgres', false);
             $scope.errors[field] = error.message;
           });
         });

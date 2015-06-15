@@ -16,8 +16,7 @@ var path = require('path');
 var config = require('./environment');<% if (filters.auth) { %>
 var passport = require('passport');<% } %><% if (filters.twitterAuth) { %>
 var session = require('express-session');
-var mongoStore = require('connect-mongo')(session);
-var mongoose = require('mongoose');<% } %>
+var pgStore = require('connect-pg-simple')(session); <% } %>
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -33,13 +32,14 @@ module.exports = function(app) {
   app.use(cookieParser());
   <% if (filters.auth) { %>app.use(passport.initialize());<% } %><% if (filters.twitterAuth) { %>
 
-  // Persist sessions with mongoStore
+  // Persist sessions with pgStore
   // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
   app.use(session({
     secret: config.secrets.session,
     resave: true,
     saveUninitialized: true,
-    store: new mongoStore({ mongoose_connection: mongoose.connection })
+    store: new pgStore(),
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
   }));
   <% } %>
   if ('production' === env) {
