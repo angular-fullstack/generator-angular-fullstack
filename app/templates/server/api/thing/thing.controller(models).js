@@ -56,7 +56,7 @@ function removeEntity(res) {
   return function(entity) {
     if (entity) {
       <% if (filters.mongooseModels) { %>return entity.removeAsync()<% }
-         if (filters.sequelizeModels) { %>return entity.destroy()<% } %>
+         if (filters.sequelizeModels) { %>return entity.destroy({where: {}})<% } %>
         .then(function() {
           return res.send(204);
         });

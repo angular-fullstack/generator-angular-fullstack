@@ -16,12 +16,12 @@ describe('User Model', function() {
   before(function() {
     // Sync and clear users before testing
     User.sync().then(function() {
-      return User.destroy();
+      return User.destroy({where: {}});
     });
   });
 
   afterEach(function() {
-    return User.destroy();
+    return User.destroy({where: {}});
   });
 
   it('should begin with no users', function() {
