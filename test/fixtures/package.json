@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
-    "express": "~4.0.0",
+    "express": "~4.9.0",
     "morgan": "~1.0.0",
     "body-parser": "~1.5.0",
     "method-override": "~1.0.0",
@@ -46,6 +46,8 @@
     "grunt-contrib-coffee": "^0.10.1",
     "grunt-contrib-jade": "^0.11.0",
     "grunt-contrib-less": "^0.11.0",
+    "karma-babel-preprocessor": "^5.2.1",
+    "grunt-babel": "~5.0.0",
     "grunt-google-cdn": "~0.4.0",
     "grunt-newer": "~0.7.0",
     "grunt-ng-annotate": "^0.2.3",

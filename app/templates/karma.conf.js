@@ -36,7 +36,8 @@ module.exports = function(config) {
 
     preprocessors: {
       '**/*.jade': 'ng-jade2js',
-      '**/*.html': 'html2js',
+      '**/*.html': 'html2js',<% if(filters.babel) { %>
+      'client/app/**/*.js': 'babel',<% } %>
       '**/*.coffee': 'coffee',
     },
 
@@ -47,6 +48,20 @@ module.exports = function(config) {
     ngJade2JsPreprocessor: {
       stripPrefix: 'client/'
     },
+
+    <% if(filters.babel) { %>
+    babelPreprocessor: {
+      options: {
+        sourceMap: 'inline'
+      },
+      filename: function (file) {
+        return file.originalPath.replace(/\.js$/, '.es5.js');
+      },
+      sourceFileName: function (file) {
+        return file.originalPath;
+      }
+    },
+    <% } %>
 
     // list of files / patterns to exclude
     exclude: [],
