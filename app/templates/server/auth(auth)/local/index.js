@@ -18,7 +18,7 @@ router.post('/', function(req, res, next) {
       });
     }
 
-    var token = auth.signToken(user._id, user.role);
+    var token = auth.signToken(user._id);
     res.json({ token: token });
   })(req, res, next)
 });
