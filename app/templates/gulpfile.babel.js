@@ -1,7 +1,9 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
-var gulp = require('gulp');
+import gulp from 'gulp';
+import path from 'path';
+
 var plugins = require('gulp-load-plugins')();
 var http = require('http');
 var openURL = require('open');
@@ -9,7 +11,6 @@ var lazypipe = require('lazypipe');
 var wiredep = require('wiredep').stream;
 var nodemon = require('nodemon');
 var runSequence = require('run-sequence');
-var path = require('path');<% if(filters.stylus) { %>
 var nib = require('nib');<% } %>
 var config;
 
