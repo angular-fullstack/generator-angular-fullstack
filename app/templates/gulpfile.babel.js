@@ -2,7 +2,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+var plugins = require('gulp-load-plugins')();
 var http = require('http');
 var openURL = require('open');
 var lazypipe = require('lazypipe');
@@ -57,7 +57,7 @@ var paths = {
 //////////////////////
 
 function onServerLog(log) {
-  console.log($.util.colors.white('[') + $.util.colors.yellow('nodemon') + $.util.colors.white('] ') + log.message);
+  console.log(plugins.util.colors.white('[') + plugins.util.colors.yellow('nodemon') + plugins.util.colors.white('] ') + log.message);
 }
 
 function checkAppReady(cb) {
@@ -90,21 +90,21 @@ function whenServerReady (cb) {
 ////////////////////////
 
 var lintScripts = lazypipe()<% if(filters.coffee) { %>
-  .pipe($.coffeelint)
-  .pipe($.coffeelint.reporter);<% } else { %>
-  .pipe($.jshint, '.jshintrc')
-  .pipe($.jshint.reporter, 'jshint-stylish');<% } %>
+  .pipe(plugins.coffeelint)
+  .pipe(plugins.coffeelint.reporter);<% } else { %>
+  .pipe(plugins.jshint, '.jshintrc')
+  .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
 var styles = lazypipe()<% if(filters.stylus) { %>
-  .pipe($.stylus, {
+  .pipe(plugins.stylus, {
     use: [nib()],
     errors: true
   })<% } %><% if(filters.sass) { %>
-  .pipe($.rubySass, {
+  .pipe(plugins.rubySass, {
     style: 'expanded',
     precision: 10
   })<% } %>
-  .pipe($.autoprefixer, 'last 1 version')
+  .pipe(plugins.autoprefixer, 'last 1 version')
   .pipe(gulp.dest, '.tmp/styles');
 
 ///////////
@@ -119,7 +119,7 @@ gulp.task('styles', function () {
 gulp.task('coffee', function() {
   return gulp.src(paths.client.scripts)
     .pipe(lintScripts())
-    .pipe($.coffee({bare: true}).on('error', $.util.log))
+    .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
     .pipe(gulp.dest('.tmp/scripts'));
 });<% } %>
 
@@ -129,7 +129,7 @@ gulp.task('lint:scripts', function () {
 });
 
 gulp.task('clean:tmp', function () {
-  return gulp.src('.tmp', {read: false}).pipe($.clean());
+  return gulp.src('.tmp', {read: false}).pipe(plugins.clean());
 });
 
 gulp.task('start:client', [<% if(filters.coffee) { %>'coffee', <% } %>'styles'], function (callback) {
@@ -149,24 +149,24 @@ gulp.task('start:server', function () {
 gulp.task('watch', function () {
   var testFiles = paths.client.test.concat(paths.server.test);
 
-  $.watch({glob: paths.client.styles})
-    .pipe($.plumber())
+  plugins.watch({glob: paths.client.styles})
+    .pipe(plugins.plumber())
     .pipe(styles())
-    .pipe($.livereload());
+    .pipe(plugins.livereload());
 
-  $.watch({glob: paths.views.files})
-    .pipe($.plumber())
-    .pipe($.livereload());
+  plugins.watch({glob: paths.views.files})
+    .pipe(plugins.plumber())
+    .pipe(plugins.livereload());
 
-  $.watch({glob: paths.client.scripts})
-    .pipe($.plumber())
+  plugins.watch({glob: paths.client.scripts})
+    .pipe(plugins.plumber())
     .pipe(lintScripts())<% if(filters.coffee) { %>
-    .pipe($.coffee({bare: true}).on('error', $.util.log))
+    .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
     .pipe(gulp.dest('.tmp/scripts'))<% } %>
-    .pipe($.livereload());
+    .pipe(plugins.livereload());
 
-  $.watch({glob: paths.server.scripts.concat(testFiles)})
-    .pipe($.plumber())
+  plugins.watch({glob: paths.server.scripts.concat(testFiles)})
+    .pipe(plugins.plumber())
     .pipe(lintScripts());
 
   gulp.watch('bower.json', ['bower']);
@@ -182,13 +182,13 @@ gulp.task('serve', function (callback) {
 gulp.task('test:server', function () {
   process.env.NODE_ENV = 'test';
   return gulp.src(paths.server.test)
-    .pipe($.mocha({reporter: 'spec'}));
+    .pipe(plugins.mocha({reporter: 'spec'}));
 });
 
 gulp.task('test:client', function () {
   var testFiles = paths.client.testRequire.concat(paths.client.test)
   gulp.src(testFiles)
-    .pipe($.karma({
+    .pipe(plugins.karma({
       configFile: paths.karma,
       action: 'watch'
     }));
@@ -215,28 +215,28 @@ gulp.task('build', function (callback) {
 });
 
 gulp.task('clean:dist', function () {
-  return gulp.src('dist', {read: false}).pipe($.clean());
+  return gulp.src('dist', {read: false}).pipe(plugins.clean());
 });
 
 gulp.task('client:build', ['html'], function () {
-  var jsFilter = $.filter('**/*.js');
-  var cssFilter = $.filter('**/*.css');<% if(filters.jade) { %>
-  var assets = $.filter('**/*.{js,css}');<% } %>
+  var jsFilter = plugins.filter('**/*.js');
+  var cssFilter = plugins.filter('**/*.css');<% if(filters.jade) { %>
+  var assets = plugins.filter('**/*.{js,css}');<% } %>
 
   return gulp.src(paths.views.main)<% if(filters.jade) { %>
-    .pipe($.jade({pretty: true}))<% } %>
-    .pipe($.useref.assets({searchPath: [yeoman.app, '.tmp']}))
+    .pipe(plugins.jade({pretty: true}))<% } %>
+    .pipe(plugins.useref.assets({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
-    .pipe($.ngmin())
-    .pipe($.uglify())
+    .pipe(plugins.ngmin())
+    .pipe(plugins.uglify())
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
-    .pipe($.minifyCss({cache: true}))
+    .pipe(plugins.minifyCss({cache: true}))
     .pipe(cssFilter.restore())
-    .pipe($.rev())
-    .pipe($.useref.restore())
-    .pipe($.revReplace())
-    .pipe($.useref())<% if(filters.jade) { %>
+    .pipe(plugins.rev())
+    .pipe(plugins.useref.restore())
+    .pipe(plugins.revReplace())
+    .pipe(plugins.useref())<% if(filters.jade) { %>
     .pipe(assets)<% } %>
     .pipe(gulp.dest(yeoman.dist + '/public'));
 });
@@ -248,7 +248,7 @@ gulp.task('html', function () {
 
 gulp.task('images', function () {
   return gulp.src(yeoman.app + '/images/**/*')
-    .pipe($.cache($.imagemin({
+    .pipe(plugins.cache(plugins.imagemin({
         optimizationLevel: 5,
         progressive: true,
         interlaced: true
