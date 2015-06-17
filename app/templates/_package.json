@@ -29,7 +29,7 @@
     "socket.io-client": "^1.0.6",
     "socketio-jwt": "^3.0.0"<% } %>
   },
-  "devDependencies": {<% if (gulp) { %>
+  "devDependencies": {<% if(filters.gulp) { %>
     "gulp": "^3.6.2",
     "gulp-autoprefixer": "0.0.7",
     "gulp-cache": "^0.1.3",
@@ -52,12 +52,12 @@
     "utile": "~0.2.1",
     "nodemon": "^1.0.17",
     "run-sequence": "^0.3.6",
-    "wiredep": "^1.4.4",<% if (jade) { %>
+    "wiredep": "^1.4.4",<% if(filters.jade) { %>
     "gulp-jade": "^0.5.0",<% } %>
-    "lazypipe": "^0.2.1",<% if (stylus) { %>
+    "lazypipe": "^0.2.1",<% if(filters.stylus) { %>
     "gulp-stylus": "^1.0.0",
-    "nib": "^1.0.2",<% } %><% if (sass) { %>
-    "gulp-ruby-sass": "^0.4.3",<% } %><% if (coffee) { %>
+    "nib": "^1.0.2",<% } %><% if(filters.sass) { %>
+    "gulp-ruby-sass": "^0.4.3",<% } %><% if(filters.coffee) { %>
     "gulp-coffeelint": "^0.3.2",
     "gulp-coffee": "^1.4.2",<% } %><% } else { %>
     "grunt": "~0.4.4",

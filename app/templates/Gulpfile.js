@@ -9,7 +9,7 @@ var lazypipe = require('lazypipe');
 var wiredep = require('wiredep').stream;
 var nodemon = require('nodemon');
 var runSequence = require('run-sequence');
-var path = require('path');<% if (stylus) { %>
+var path = require('path');<% if(filters.stylus) { %>
 var nib = require('nib');<% } %>
 var config;
 
@@ -20,30 +20,30 @@ var yeoman = {
 
 var paths = {
   client: {
-    scripts: [yeoman.app + '/scripts/**/*.<% if (coffee) { %>coffee<% } else { %>js<% } %>'],
-    styles: [yeoman.app + '/styles/**/*.<% if (stylus) { %>styl<% } else if (sass) { %>scss<% } else { %>css<% } %>'],
-    test: ['test/client/**/*.<% if (coffee) { %>coffee<% } else { %>js<% } %>'],
+    scripts: [yeoman.app + '/scripts/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
+    styles: [yeoman.app + '/styles/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
+    test: ['test/client/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
     testRequire: [
       yeoman.app + '/bower_components/angular/angular.js',
       yeoman.app + '/bower_components/angular-mocks/angular-mocks.js',
       yeoman.app + '/bower_components/angular-resource/angular-resource.js',
       yeoman.app + '/bower_components/angular-cookies/angular-cookies.js',
       yeoman.app + '/bower_components/angular-sanitize/angular-sanitize.js',
-      yeoman.app + '/bower_components/angular-route/angular-route.js',<% if (coffee) { %>
+      yeoman.app + '/bower_components/angular-route/angular-route.js',<% if(filters.coffee) { %>
       'test/mock/**/*.coffee',
       'test/spec/**/*.coffee'<% } else { %>
       'test/mock/**/*.js',
       'test/spec/**/*.js'<% } %>
     ]
   },
-  server: {<% if (coffee) { %>
+  server: {<% if(filters.coffee) { %>
     scripts: ['lib/**/*.coffee'],
     test: ['test/server/**/*.coffee'],<% } else { %>
     scripts: ['lib/**/*.js'],
     test: ['test/server/**/*.js'],<% } %>
 
   },
-  views: {<% if (jade) { %>
+  views: {<% if(filters.jade) { %>
     main: yeoman.app + '/views/index.jade',
     files: [yeoman.app + '/views/**/*.jade']<% } else {%>
     main: yeoman.app + '/views/index.html',
@@ -89,17 +89,17 @@ function whenServerReady (cb) {
 // Reusable pipelines //
 ////////////////////////
 
-var lintScripts = lazypipe()<% if (coffee) { %>
+var lintScripts = lazypipe()<% if(filters.coffee) { %>
   .pipe($.coffeelint)
   .pipe($.coffeelint.reporter);<% } else { %>
   .pipe($.jshint, '.jshintrc')
   .pipe($.jshint.reporter, 'jshint-stylish');<% } %>
 
-var styles = lazypipe()<% if (stylus) { %>
+var styles = lazypipe()<% if(filters.stylus) { %>
   .pipe($.stylus, {
     use: [nib()],
     errors: true
-  })<% } %><% if (sass) { %>
+  })<% } %><% if(filters.sass) { %>
   .pipe($.rubySass, {
     style: 'expanded',
     precision: 10
@@ -114,7 +114,7 @@ var styles = lazypipe()<% if (stylus) { %>
 gulp.task('styles', function () {
   return gulp.src(paths.client.styles)
     .pipe(styles());
-});<% if (coffee) { %>
+});<% if(filters.coffee) { %>
 
 gulp.task('coffee', function() {
   return gulp.src(paths.client.scripts)
@@ -132,7 +132,7 @@ gulp.task('clean:tmp', function () {
   return gulp.src('.tmp', {read: false}).pipe($.clean());
 });
 
-gulp.task('start:client', [<% if (coffee) { %>'coffee', <% } %>'styles'], function (callback) {
+gulp.task('start:client', [<% if(filters.coffee) { %>'coffee', <% } %>'styles'], function (callback) {
   whenServerReady(function () {
     openURL('http://localhost:' + config.port);
     callback();
@@ -160,7 +160,7 @@ gulp.task('watch', function () {
 
   $.watch({glob: paths.client.scripts})
     .pipe($.plumber())
-    .pipe(lintScripts())<% if (coffee) { %>
+    .pipe(lintScripts())<% if(filters.coffee) { %>
     .pipe($.coffee({bare: true}).on('error', $.util.log))
     .pipe(gulp.dest('.tmp/scripts'))<% } %>
     .pipe($.livereload());
@@ -220,10 +220,10 @@ gulp.task('clean:dist', function () {
 
 gulp.task('client:build', ['html'], function () {
   var jsFilter = $.filter('**/*.js');
-  var cssFilter = $.filter('**/*.css');<% if (jade) { %>
+  var cssFilter = $.filter('**/*.css');<% if(filters.jade) { %>
   var assets = $.filter('**/*.{js,css}');<% } %>
 
-  return gulp.src(paths.views.main)<% if (jade) { %>
+  return gulp.src(paths.views.main)<% if(filters.jade) { %>
     .pipe($.jade({pretty: true}))<% } %>
     .pipe($.useref.assets({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
@@ -236,7 +236,7 @@ gulp.task('client:build', ['html'], function () {
     .pipe($.rev())
     .pipe($.useref.restore())
     .pipe($.revReplace())
-    .pipe($.useref())<% if (jade) { %>
+    .pipe($.useref())<% if(filters.jade) { %>
     .pipe(assets)<% } %>
     .pipe(gulp.dest(yeoman.dist + '/public'));
 });
