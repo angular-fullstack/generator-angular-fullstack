@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - '0.10'
   - '0.11'
+  - '0.12'
 before_install:
   - gem update --system
   - gem install sass --version "=3.3.7"
