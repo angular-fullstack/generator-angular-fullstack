@@ -10,7 +10,7 @@ var openURL = require('open');
 var lazypipe = require('lazypipe');
 var wiredep = require('wiredep').stream;
 var nodemon = require('nodemon');
-var runSequence = require('run-sequence');
+var runSequence = require('run-sequence');<% if(filters.stylus) { %>
 var nib = require('nib');<% } %>
 var config;
 
