@@ -3,15 +3,16 @@
 
 import gulp from 'gulp';
 import path from 'path';
+import gulpLoadPlugins from 'gulp-load-plugins';
+import http from 'http';
+import open from 'open';
+import lazypipe from 'lazypipe';
+import {stream as wiredep} from 'wiredep';
+import nodemon from 'nodemon';
+import runSequence from 'run-sequence';<% if(filters.stylus) { %>
+import nib from 'nib';<% } %>
 
-var plugins = require('gulp-load-plugins')();
-var http = require('http');
-var openURL = require('open');
-var lazypipe = require('lazypipe');
-var wiredep = require('wiredep').stream;
-var nodemon = require('nodemon');
-var runSequence = require('run-sequence');<% if(filters.stylus) { %>
-var nib = require('nib');<% } %>
+var plugins = gulpLoadPlugins();
 var config;
 
 var yeoman = {
@@ -132,7 +133,7 @@ gulp.task('clean:tmp', function () {
 
 gulp.task('start:client', [<% if(filters.coffee) { %>'coffee', <% } %>'styles'], function (callback) {
   whenServerReady(function () {
-    openURL('http://localhost:' + config.port);
+    open('http://localhost:' + config.port);
     callback();
   });
 });
