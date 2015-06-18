@@ -21,34 +21,35 @@ var yeoman = {
 
 var paths = {
   client: {
-    scripts: [yeoman.app + '/scripts/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
-    styles: [yeoman.app + '/styles/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
-    test: ['test/client/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
+    scripts: [
+      'client/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>',
+      '!client/bower_components/**/*.js'
+    ],
+    styles: ['client/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
+    test: ['client/**/*.spec.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
     testRequire: [
-      yeoman.app + '/bower_components/angular/angular.js',
-      yeoman.app + '/bower_components/angular-mocks/angular-mocks.js',
-      yeoman.app + '/bower_components/angular-resource/angular-resource.js',
-      yeoman.app + '/bower_components/angular-cookies/angular-cookies.js',
-      yeoman.app + '/bower_components/angular-sanitize/angular-sanitize.js',
-      yeoman.app + '/bower_components/angular-route/angular-route.js',<% if(filters.coffee) { %>
-      'test/mock/**/*.coffee',
-      'test/spec/**/*.coffee'<% } else { %>
-      'test/mock/**/*.js',
-      'test/spec/**/*.js'<% } %>
+      'client/bower_components/angular/angular.js',
+      'client/bower_components/angular-mocks/angular-mocks.js',
+      'client/bower_components/angular-resource/angular-resource.js',
+      'client/bower_components/angular-cookies/angular-cookies.js',
+      'client/bower_components/angular-sanitize/angular-sanitize.js',
+      'client/bower_components/angular-route/angular-route.js',<% if(filters.coffee) { %>
+      'client/**/*.spec.coffee'<% } else { %>
+      'client/**/*.spec.js'<% } %>
     ]
   },
   server: {<% if(filters.coffee) { %>
-    scripts: ['lib/**/*.coffee'],
-    test: ['test/server/**/*.coffee'],<% } else { %>
-    scripts: ['lib/**/*.js'],
-    test: ['test/server/**/*.js'],<% } %>
+    scripts: ['server/**/*.coffee'],
+    test: ['server/**/*.spec.coffee'],<% } else { %>
+    scripts: ['server/**/*.js'],
+    test: ['server/**/*.spec.js'],<% } %>
 
   },
   views: {<% if(filters.jade) { %>
-    main: yeoman.app + '/views/index.jade',
-    files: [yeoman.app + '/views/**/*.jade']<% } else {%>
-    main: yeoman.app + '/views/index.html',
-    files: [yeoman.app + '/views/**/*.html']<% } %>
+    main: 'client/app/index.jade',
+    files: ['client/app/**/*.jade']<% } else {%>
+    main: 'client/app/index.html',
+    files: ['client/app/**/*.html']<% } %>
   },
   karma: 'karma.conf.js'
 };
@@ -101,10 +102,7 @@ var styles = lazypipe()<% if(filters.stylus) { %>
     use: [nib()],
     errors: true
   })<% } %><% if(filters.sass) { %>
-  .pipe(plugins.rubySass, {
-    style: 'expanded',
-    precision: 10
-  })<% } %>
+  .pipe(plugins.rubySass, paths.client.styles)<% } %>
   .pipe(plugins.autoprefixer, 'last 1 version')
   .pipe(gulp.dest, '.tmp/styles');
 
@@ -113,8 +111,7 @@ var styles = lazypipe()<% if(filters.stylus) { %>
 ///////////
 
 gulp.task('styles', function () {
-  return gulp.src(paths.client.styles)
-    .pipe(styles());
+  return styles();
 });<% if(filters.coffee) { %>
 
 gulp.task('coffee', function() {
@@ -142,31 +139,31 @@ gulp.task('start:client', [<% if(filters.coffee) { %>'coffee', <% } %>'styles'],
 
 gulp.task('start:server', function () {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-  config = require('./lib/config/config');
-  nodemon('-w lib server.js')
+  config = require('./server/config/environment');
+  nodemon('-w lib server/app.js')
     .on('log', onServerLog);
 });
 
 gulp.task('watch', function () {
   var testFiles = paths.client.test.concat(paths.server.test);
 
-  plugins.watch({glob: paths.client.styles})
+  plugins.watch(paths.client.styles)
     .pipe(plugins.plumber())
     .pipe(styles())
     .pipe(plugins.livereload());
 
-  plugins.watch({glob: paths.views.files})
+  plugins.watch(paths.views.files)
     .pipe(plugins.plumber())
     .pipe(plugins.livereload());
 
-  plugins.watch({glob: paths.client.scripts})
+  plugins.watch(paths.client.scripts)
     .pipe(plugins.plumber())
     .pipe(lintScripts())<% if(filters.coffee) { %>
     .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
     .pipe(gulp.dest('.tmp/scripts'))<% } %>
     .pipe(plugins.livereload());
 
-  plugins.watch({glob: paths.server.scripts.concat(testFiles)})
+  plugins.watch(paths.server.scripts.concat(testFiles))
     .pipe(plugins.plumber())
     .pipe(lintScripts());
 
