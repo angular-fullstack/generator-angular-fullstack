@@ -1,6 +1,6 @@
 'use strict';
 
-var config = protractor.getInstance().params;<% if (filters.mongooseModels) { %>
+var config = browser.params;<% if (filters.mongooseModels) { %>
 var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
 var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
 
