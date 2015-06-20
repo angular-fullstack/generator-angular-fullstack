@@ -18,7 +18,7 @@ describe('Logout View', function() {
 
   beforeEach(function(done) {
     <% if (filters.mongooseModels) { %>UserModel.removeAsync()<% }
-       if (filters.sequelizeModels) { %>UserModel.destroy()<% } %>
+       if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} })<% } %>
       .then(function() {
         <% if (filters.mongooseModels) { %>return UserModel.createAsync(testUser);<% }
            if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
