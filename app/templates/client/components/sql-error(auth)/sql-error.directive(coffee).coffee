@@ -4,9 +4,9 @@
 Removes server error when user updates input
 ###
 angular.module '<%= scriptAppName %>'
-.directive 'postgresError', ->
+.directive 'sqlError', ->
   restrict: 'A'
   require: 'ngModel'
   link: (scope, element, attrs, ngModel) ->
     element.on 'keydown', ->
-      ngModel.$setValidity 'postgres', true
+      ngModel.$setValidity 'sql', true

@@ -12,8 +12,8 @@
           <label>Current Password</label>
 
           <input type="password" name="password" class="form-control" ng-model="user.oldPassword"
-                 postgres-error/>
-          <p class="help-block" ng-show="form.password.$error.postgres">
+                 sql-error/>
+          <p class="help-block" ng-show="form.password.$error.sql">
               {{ errors.other }}
           </p>
         </div>

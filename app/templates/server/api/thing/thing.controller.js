@@ -9,18 +9,18 @@
 
 'use strict';
 
-var _ = require('lodash');<% if (filters.postgres) { %>
+var _ = require('lodash');<% if (filters.sql) { %>
 var Thing = require('./thing.model');<% } %>
 
 // Get list of things
-exports.index = function(req, res) {<% if (!filters.postgres) { %>
+exports.index = function(req, res) {<% if (!filters.sql) { %>
   res.json([
   {
   name : 'Development Tools',
   info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
   }, {
   name : 'Server and Client integration',
-  info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
+  info : 'Built with a powerful and fun stack: SQL(e.g. Postgres), Express, AngularJS, and Node.'
   }, {
   name : 'Smart Build System',
   info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
@@ -34,12 +34,12 @@ exports.index = function(req, res) {<% if (!filters.postgres) { %>
   name : 'Deployment Ready',
   info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   }
-  ]);<% } %><% if (filters.postgres) { %>
+  ]);<% } %><% if (filters.sql) { %>
   Thing.find(function (err, things) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(things);
   });<% } %>
-};<% if (filters.postgres) { %>
+};<% if (filters.sql) { %>
 
 // Get a single thing
 exports.show = function(req, res) {

@@ -128,15 +128,34 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.log('\n# Server\n');
 
     this.prompt([{
+      type: 'checkbox',
+      name: 'database',
+      message: 'Which database will you be using?',
+      when: function (answers) {
+        return answers.database;
+      },
+      choices: [
+        {
+          value: 'pgsql',
+          name: 'Postgres',
+          checked: false
+        },
+        {
+          value: 'mysql',
+          name: 'MySQL',
+          checked: false
+        }
+      ]
+    }, {
       type: "confirm",
-      name: "postgres",
-      message: "Would you like to use postgres with Sequelize for data modeling?"
+      name: "sql",
+      message: "Would you like to use your SQL database with Sequelize for data modeling?"
     }, {
       type: "confirm",
       name: "auth",
       message: "Would you scaffold out an authentication boilerplate?",
       when: function (answers) {
-        return answers.postgres;
+        return answers.sql;
       }
     }, {
       type: 'checkbox',
@@ -166,15 +185,21 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       type: "confirm",
       name: "socketio",
       message: "Would you like to use socket.io?",
-      // to-do: should not be dependent on postgres
+      // to-do: should not be dependent on sql
       when: function (answers) {
-        return answers.postgres;
+        return answers.sql;
       },
       default: true
     }], function (answers) {
       if(answers.socketio) this.filters.socketio = true;
-      if(answers.postgres) this.filters.postgres = true;
+      if(answers.sql) this.filters.sql = true;
       if(answers.auth) this.filters.auth = true;
+      if(answers.database) {
+        if(answers.database.length) this.filters.database = true;
+        answers.database.forEach(function(db) {
+          this.filters[db] = true;
+        }.bind(this));
+      }
       if(answers.oauth) {
         if(answers.oauth.length) this.filters.oauth = true;
         answers.oauth.forEach(function(oauthStrategy) {

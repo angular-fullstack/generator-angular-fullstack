@@ -1,6 +1,8 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/tashrafy/generator-pean.svg?branch=master)](http://travis-ci.org/tashrafy/generator-pean) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/tashrafy/generator-pean)
 
-> Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
+Forked from [DaftMonk/generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack)
+
+> Yeoman generator for creating PEAN stack applications, using Postgres, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
 ## Example project
 
@@ -10,9 +12,9 @@ Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
-Install `generator-angular-fullstack`:
+Install `generator-pean`:
 ```
-npm install -g generator-angular-fullstack
+npm install -g generator-pean
 ```
 
 Make a new directory, and `cd` into it:
@@ -20,16 +22,16 @@ Make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo angular-fullstack`, optionally passing an app name:
+Run `yo pean`, optionally passing an app name:
 ```
-yo angular-fullstack [app-name]
+yo pean [app-name]
 ```
 
 Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for a preview of the built app.
 
 ## Prerequisites
 
-* MongoDB - Download and Install [MongoDB](http://www.mongodb.org/downloads) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
+* Postgres - Download and Install [Postgres](http://www.postgresql.org/download/) - If you plan on scaffolding your project with Sequelize, you'll need a SQL relational database to be installed and have the process running.
 
 ## Supported Configurations
 
@@ -42,7 +44,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Server**
 
-* Database: `None`, `MongoDB`
+* Database: `None`, `Postgres`
 * Authentication boilerplate: `Yes`, `No`
 * oAuth integrations: `Facebook` `Twitter` `Google`
 * Socket.io integration: `Yes`, `No`

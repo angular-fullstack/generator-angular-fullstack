@@ -10,6 +10,6 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.deprecated = function deprecated() {
-  this.log(chalk.yellow(chalk.bold('yo pean:deploy') + ' is deprecated, instead use: \n') +
-           chalk.green('yo pean:heroku') + ' or ' + chalk.green('yo pean:openshift'));
+  this.log(chalk.yellow(chalk.bold('yo sql-fullstack:deploy') + ' is deprecated, instead use: \n') +
+           chalk.green('yo sql:heroku') + ' or ' + chalk.green('yo sql:openshift'));
 };

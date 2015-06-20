@@ -157,8 +157,8 @@ Generator.prototype.gitForcePush = function gitForcePush() {
     } else {
       var hasWarning = false;
 
-      if(this.filters.postgres) {
-        this.log(chalk.yellow('\nBecause you\'re using postgres, you must add postgres to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
+      if(this.filters.sql) {
+        this.log(chalk.yellow('\nBecause you\'re using sql, you must add sql to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
         hasWarning = true;
       }
 

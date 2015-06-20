@@ -21,9 +21,9 @@ angular.module '<%= scriptAppName %>'
         err = err.data
         $scope.errors = {}
 
-        # Update validity of form fields that match the postgres errors
+        # Update validity of form fields that match the sql errors
         angular.forEach err.errors, (error, field) ->
-          form[field].$setValidity 'postgres', false
+          form[field].$setValidity 'sql', false
           $scope.errors[field] = error.message
 <% if(filters.oauth) {%>
   $scope.loginOauth = (provider) ->

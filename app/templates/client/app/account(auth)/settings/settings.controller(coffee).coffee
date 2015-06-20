@@ -12,6 +12,6 @@ angular.module '<%= scriptAppName %>'
         $scope.message = 'Password successfully changed.'
 
       .catch ->
-        form.password.$setValidity 'postgres', false
+        form.password.$setValidity 'sql', false
         $scope.errors.other = 'Incorrect password'
         $scope.message = ''

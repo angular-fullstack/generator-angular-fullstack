@@ -25,14 +25,14 @@
 
           <input type="email" name="email" class="form-control" ng-model="user.email"
                  required
-                 postgres-error/>
+                 sql-error/>
           <p class="help-block" ng-show="form.email.$error.email && submitted">
             Doesn't look like a valid email.
           </p>
           <p class="help-block" ng-show="form.email.$error.required && submitted">
             What's your email address?
           </p>
-          <p class="help-block" ng-show="form.email.$error.postgres">
+          <p class="help-block" ng-show="form.email.$error.sql">
             {{ errors.email }}
           </p>
         </div>
@@ -44,12 +44,12 @@
           <input type="password" name="password" class="form-control" ng-model="user.password"
                  ng-minlength="3"
                  required
-                 postgres-error/>
+                 sql-error/>
           <p class="help-block"
              ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
             Password must be at least 3 characters.
           </p>
-          <p class="help-block" ng-show="form.password.$error.postgres">
+          <p class="help-block" ng-show="form.password.$error.sql">
             {{ errors.password }}
           </p>
         </div>

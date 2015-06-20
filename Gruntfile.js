@@ -138,7 +138,7 @@ module.exports = function (grunt) {
         router: 'uirouter',
         bootstrap: true,
         uibootstrap: true,
-        postgres: true,
+        sql: true,
         auth: true,
         oauth: ['googleAuth', 'twitterAuth'],
         socketio: true
@@ -152,7 +152,7 @@ module.exports = function (grunt) {
         ]
       ];
 
-      var gen = helpers.createGenerator('pean:app', deps);
+      var gen = helpers.createGenerator('sql-fullstack:app', deps);
 
       helpers.mockPrompt(gen, options);
       gen.run({}, function () {

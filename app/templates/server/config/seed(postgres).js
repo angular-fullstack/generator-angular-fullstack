@@ -14,7 +14,7 @@ Thing.find({}).remove(function() {
     info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
   }, {
     name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: Postgres, Express, AngularJS, and Node.'
+    info : 'Built with a powerful and fun stack: SQL(Postgres), Express, AngularJS, and Node.'
   }, {
     name : 'Smart Build System',
     info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'

@@ -8,7 +8,7 @@ angular.module('<%= scriptAppName %>')
       $scope.awesomeThings = awesomeThings;<% if(filters.socketio) { %>
       socket.syncUpdates('thing', $scope.awesomeThings);<% } %>
     });
-<% if(filters.postgres) { %>
+<% if(filters.sql) { %>
     $scope.addThing = function() {
       if($scope.newThing === '') {
         return;
