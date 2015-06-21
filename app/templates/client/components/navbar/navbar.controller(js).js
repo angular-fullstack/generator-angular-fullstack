@@ -8,9 +8,9 @@ angular.module('<%= scriptAppName %>')
     }];
 
     $scope.isCollapsed = true;<% if(filters.auth) {%>
-    $scope.isLoggedIn = Auth.isLoggedIn;
-    $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.isLoggedIn = Auth.isLoggedIn();
+    $scope.isAdmin = Auth.isAdmin();
+    $scope.getCurrentUser = Auth.getCurrentUser();
 
     $scope.logout = function() {
       Auth.logout();
