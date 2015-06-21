@@ -34,7 +34,7 @@ function respondWith(res, statusCode) {
  * restriction: 'admin'
  */
 exports.index = function(req, res) {
-  <% if (filters.mongooseModels) { %>User.findAsync({}, '-salt -hashedPassword')<% }
+  <% if (filters.mongooseModels) { %>User.findAsync({}, '-salt -password')<% }
      if (filters.sequelizeModels) { %>User.findAll({
     attributes: [
       '_id',
@@ -139,7 +139,7 @@ exports.changePassword = function(req, res, next) {
 exports.me = function(req, res, next) {
   var userId = req.user._id;
 
-  <% if (filters.mongooseModels) { %>User.findOneAsync({ _id: userId }, '-salt -hashedPassword')<% }
+  <% if (filters.mongooseModels) { %>User.findOneAsync({ _id: userId }, '-salt -password')<% }
      if (filters.sequelizeModels) { %>User.find({
     where: {
       _id: userId
