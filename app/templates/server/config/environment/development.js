@@ -13,6 +13,8 @@ module.exports = {
     uri: process.env.POSTGRES_URL ||
          'postgres://user:pass@localhost:5432/<%= _.slugify(appname) %>'
   },
-
+  database: 'test',
+  username: 'postgres',
+  password: 'root',
   seedDB: true
 };

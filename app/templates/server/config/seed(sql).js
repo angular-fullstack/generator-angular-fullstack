@@ -7,7 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 <% if (filters.auth) { %>var User = require('../api/user/user.model');<% } %>
-
+console.log(<%= _.slugify(appname) %>);
 Thing.find({}).remove(function() {
   Thing.create({
     name : 'Development Tools',

@@ -131,9 +131,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       type: 'checkbox',
       name: 'database',
       message: 'Which database will you be using?',
-      when: function (answers) {
-        return answers.database;
-      },
       choices: [
         {
           value: 'pgsql',
@@ -143,6 +140,21 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         {
           value: 'mysql',
           name: 'MySQL',
+          checked: false
+        },
+        {
+          value: 'sqlite',
+          name: 'SQLite',
+          checked: false
+        },
+        {
+          value: 'mssql',
+          name: 'MSSQL',
+          checked: false
+        },
+        {
+          value: 'mariasql',
+          name: 'MariaDB',
           checked: false
         }
       ]
@@ -155,7 +167,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       name: "auth",
       message: "Would you scaffold out an authentication boilerplate?",
       when: function (answers) {
-        return answers.sql;
+        return answers.database;
       }
     }, {
       type: 'checkbox',

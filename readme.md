@@ -1,8 +1,8 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/tashrafy/generator-pean.svg?branch=master)](http://travis-ci.org/tashrafy/generator-pean) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/tashrafy/generator-pean)
+# SQL Full-Stack Generator [![Build Status](https://travis-ci.org/tashrafy/generator-sql-fullstack.svg?branch=master)](http://travis-ci.org/tashrafy/generator-sql-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/tashrafy/generator-sql-fullstack)
 
 Forked from [DaftMonk/generator-angular-fullstack](https://github.com/DaftMonk/generator-angular-fullstack)
 
-> Yeoman generator for creating PEAN stack applications, using Postgres, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
+> Yeoman generator for creating sql-fullstack applications, using SQL(MySQL, Postgres, MariaDB, MSSQL, SQLite), Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
 ## Example project
 
@@ -12,9 +12,9 @@ Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
-Install `generator-pean`:
+Install `generator-sql-fullstack`:
 ```
-npm install -g generator-pean
+npm install -g generator-sql-fullstack
 ```
 
 Make a new directory, and `cd` into it:
@@ -22,9 +22,9 @@ Make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo pean`, optionally passing an app name:
+Run `yo sql-fullstack`, optionally passing an app name:
 ```
-yo pean [app-name]
+yo sql-fullstack [app-name]
 ```
 
 Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for a preview of the built app.
@@ -44,7 +44,8 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Server**
 
-* Database: `None`, `Postgres`
+* Database: `MySQL`, `Postgres`, `MariaDB`, `MSSQL`, `SQLite`
+* Sequelize: `Yes`, `No`
 * Authentication boilerplate: `Yes`, `No`
 * oAuth integrations: `Facebook` `Twitter` `Google`
 * Socket.io integration: `Yes`, `No`
@@ -65,28 +66,28 @@ A grunt task looks for new files in your `client/app` and `client/components` fo
 Available generators:
 
 * App
-    - [angular-fullstack](#app) (aka [angular-fullstack:app](#app))
+    - [sql-fullstack](#app) (aka [sql-fullstack:app](#app))
 * Server Side
-    - [angular-fullstack:endpoint](#endpoint)
+    - [sql-fullstack:endpoint](#endpoint)
 * Client Side
-    - [angular-fullstack:route](#route)
-    - [angular-fullstack:controller](#controller)
-    - [angular-fullstack:filter](#filter)
-    - [angular-fullstack:directive](#directive)
-    - [angular-fullstack:service](#service)
-    - [angular-fullstack:provider](#service)
-    - [angular-fullstack:factory](#service)
-    - [angular-fullstack:decorator](#decorator)
+    - [sql-fullstack:route](#route)
+    - [sql-fullstack:controller](#controller)
+    - [sql-fullstack:filter](#filter)
+    - [sql-fullstack:directive](#directive)
+    - [sql-fullstack:service](#service)
+    - [sql-fullstack:provider](#service)
+    - [sql-fullstack:factory](#service)
+    - [sql-fullstack:decorator](#decorator)
 * Deployment
-    - [angular-fullstack:openshift](#openshift)
-    - [angular-fullstack:heroku](#heroku)
+    - [sql-fullstack:openshift](#openshift)
+    - [sql-fullstack:heroku](#heroku)
 
 ### App
 Sets up a new AngularJS + Express app, generating all the boilerplate you need to get started.
 
 Example:
 ```bash
-yo angular-fullstack
+yo sql-fullstack
 ```
 
 ### Endpoint
@@ -95,7 +96,7 @@ Generates a new API endpoint.
 
 Example:
 ```bash
-yo angular-fullstack:endpoint message
+yo sql-fullstack:endpoint message
 [?] What will the url of your endpoint be? /api/messages
 ```
 
@@ -112,7 +113,7 @@ Generates a new route.
 
 Example:
 ```bash
-yo angular-fullstack:route myroute
+yo sql-fullstack:route myroute
 [?] Where would you like to create this route? client/app/
 [?] What will the url of your route be? /myroute
 ```
@@ -131,7 +132,7 @@ Generates a controller.
 
 Example:
 ```bash
-yo angular-fullstack:controller user
+yo sql-fullstack:controller user
 [?] Where would you like to create this controller? client/app/
 ```
 
@@ -145,7 +146,7 @@ Generates a directive.
 
 Example:
 ```bash
-yo angular-fullstack:directive myDirective
+yo sql-fullstack:directive myDirective
 [?] Where would you like to create this directive? client/app/
 [?] Does this directive need an external html file? Yes
 ```
@@ -161,7 +162,7 @@ Produces:
 
 Example:
 ```bash
-yo angular-fullstack:directive simple
+yo sql-fullstack:directive simple
 [?] Where would you like to create this directive? client/app/
 [?] Does this directive need an external html file? No
 ```
@@ -176,7 +177,7 @@ Generates a filter.
 
 Example:
 ```bash
-yo angular-fullstack:filter myFilter
+yo sql-fullstack:filter myFilter
 [?] Where would you like to create this filter? client/app/
 ```
 
@@ -190,7 +191,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yo angular-fullstack:service myService
+yo sql-fullstack:service myService
 [?] Where would you like to create this service? client/app/
 ```
 
@@ -200,14 +201,14 @@ Produces:
     client/app/myService/myService.service.spec.js
 
 
-You can also do `yo angular-fullstack:factory` and `yo angular-fullstack:provider` for other types of services.
+You can also do `yo sql-fullstack:factory` and `yo sql-fullstack:provider` for other types of services.
 
 ### Decorator
 Generates an AngularJS service decorator.
 
 Example:
 ```bash
-yo angular-fullstack:decorator serviceName
+yo sql-fullstack:decorator serviceName
 [?] Where would you like to create this decorator? client/app/
 ```
 
@@ -219,7 +220,7 @@ Produces
 
 Deploying to OpenShift can be done in just a few steps:
 
-    yo angular-fullstack:openshift
+    yo sql-fullstack:openshift
 
 A live application URL will be available in the output.
 
@@ -256,7 +257,7 @@ Commit and push the resulting build, located in your dist folder:
 
 Deploying to heroku only takes a few steps.
 
-    yo angular-fullstack:heroku
+    yo sql-fullstack:heroku
 
 To work with your new heroku app using the command line, you will need to run any `heroku` commands from the `dist` folder.
 
@@ -384,7 +385,7 @@ An example server component in `server/api`
 
 ## Contribute
 
-See the [contributing docs](https://github.com/DaftMonk/generator-angular-fullstack/blob/master/contributing.md)
+See the [contributing docs](https://github.com/tashrafy/generator-sql-fullstack/blob/master/contributing.md)
 
 This project has 2 main branches: `master` and `canary`. The `master` branch is where the current stable code lives and should be used for production setups. The `canary` branch is the main development branch, this is where PRs should be submitted to (backport fixes may be applied to `master`).
 

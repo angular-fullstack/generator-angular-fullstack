@@ -16,8 +16,12 @@
     "jade": "~1.2.0",<% } %><% if(filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if(filters.sql) { %>
     "sequelize": "~3.2.0",<% } %><% if(filters.pgsql) { %>
-    "pg": "~4.3.0",
-    "pg-hstore": "~2.3.2",<% } %><% if(filters.auth) { %>
+    "pg-hstore": "~2.3.2",
+    "pg": "~4.3.0",<% } %><% if(filters.mysql && !filters.sql) { %>
+    "mysql": "~2.7.0",<% } %><% if(filters.sqlite && !filters.sql) { %>
+    "sqlite3": "~3.0.8",<% } %><% if(filters.mssql && !filters.sql) { %>
+    "mssql": "~2.1.6",<% } %><% if(filters.mariasql && !filters.sql) { %>
+    "mariasql": "~0.1.23",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^0.3.0",
     "express-jwt": "^0.1.3",
     "passport": "~0.2.0",
@@ -25,8 +29,8 @@
     "passport-facebook": "latest",<% } %><% if(filters.twitterAuth) { %>
     "passport-twitter": "latest",<% } %><% if(filters.googleAuth) { %>
     "passport-google-oauth": "latest",<% } %>
-    "composable-middleware": "^0.3.0",
-    "connect-pg-simple": "^3.0.1"<% if(filters.socketio) { %>,
+    "composable-middleware": "^0.3.0"<% if(filters.pgsql && !filters.sql) { %>,
+    "connect-pg-simple": "^3.0.1"<% } %><% if(filters.socketio) { %>,
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
     "socketio-jwt": "^2.0.2"<% } %>

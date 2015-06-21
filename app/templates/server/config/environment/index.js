@@ -44,6 +44,16 @@ var all = {
     }
   },
 
+  sql: {
+    host: 'localhost',
+    dialect: 'postgres',
+    protocol: 'postgres',
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
+  },
 <% if(filters.facebookAuth) { %>
   facebook: {
     clientID:     process.env.FACEBOOK_ID || 'id',

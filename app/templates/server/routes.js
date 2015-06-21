@@ -10,6 +10,7 @@ var path = require('path');
 module.exports = function(app) {
 
   // Insert routes below
+  require('./api');
   app.use('/api/things', require('./api/thing'));
   <% if (filters.auth) { %>app.use('/api/users', require('./api/user'));
 
