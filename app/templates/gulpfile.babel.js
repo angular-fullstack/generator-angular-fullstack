@@ -16,44 +16,43 @@ var plugins = gulpLoadPlugins();
 var config;
 
 var yeoman = {
-  app: require('./bower.json').appPath || 'client/app'
+    app: require('./bower.json').appPath || 'client/app'
 };
 
 var paths = {
-  client: {
-    scripts: [
-      'client/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>',
-      '!client/bower_components/**/*.js'
-    ],
-    styles: ['client/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
-    test: ['client/**/*.spec.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
-    testRequire: [
-      'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-mocks/angular-mocks.js',
-      'client/bower_components/angular-resource/angular-resource.js',
-      'client/bower_components/angular-cookies/angular-cookies.js',
-      'client/bower_components/angular-sanitize/angular-sanitize.js',
-      'client/bower_components/angular-route/angular-route.js',<% if(filters.coffee) { %>
-      'client/**/*.spec.coffee'<% } else { %>
-      'client/**/*.spec.js'<% } %>
-    ],
-    bower: 'client/bower_components/'
-  },
-  server: {<% if(filters.coffee) { %>
-    scripts: ['server/**/*.coffee'],
-    test: ['server/**/*.spec.coffee'],<% } else { %>
-    scripts: ['server/**/*.js'],
-    test: ['server/**/*.spec.js'],<% } %>
-
-  },
-  views: {<% if(filters.jade) { %>
-    main: 'client/index.jade',
-    files: ['client/app/**/*.jade']<% } else {%>
-    main: 'client/index.html',
-    files: ['client/app/**/*.html']<% } %>
-  },
-  karma: 'karma.conf.js',
-  dist: 'dist'
+    client: {
+        scripts: [
+            'client/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>',
+            '!client/bower_components/**/*.js'
+        ],
+        styles: ['client/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
+        test: ['client/**/*.spec.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
+        testRequire: [
+            'client/bower_components/angular/angular.js',
+            'client/bower_components/angular-mocks/angular-mocks.js',
+            'client/bower_components/angular-resource/angular-resource.js',
+            'client/bower_components/angular-cookies/angular-cookies.js',
+            'client/bower_components/angular-sanitize/angular-sanitize.js',
+            'client/bower_components/angular-route/angular-route.js',<% if(filters.coffee) { %>
+            'client/**/*.spec.coffee'<% } else { %>
+            'client/**/*.spec.js'<% } %>
+        ],
+        bower: 'client/bower_components/'
+    },
+    server: {<% if(filters.coffee) { %>
+        scripts: ['server/**/*.coffee'],
+        test: ['server/**/*.spec.coffee'],<% } else { %>
+        scripts: ['server/**/*.js'],
+        test: ['server/**/*.spec.js'],<% } %>
+    },
+    views: {<% if(filters.jade) { %>
+        main: 'client/index.jade',
+        files: ['client/app/**/*.jade']<% } else {%>
+        main: 'client/index.html',
+        files: ['client/app/**/*.html']<% } %>
+    },
+    karma: 'karma.conf.js',
+    dist: 'dist'
 };
 
 //////////////////////
@@ -61,32 +60,34 @@ var paths = {
 //////////////////////
 
 function onServerLog(log) {
-  console.log(plugins.util.colors.white('[') + plugins.util.colors.yellow('nodemon') + plugins.util.colors.white('] ') + log.message);
+    console.log(plugins.util.colors.white('[') + plugins.util.colors.yellow('nodemon') + plugins.util.colors.white('] ') + log.message);
 }
 
 function checkAppReady(cb) {
-  var options = {
-    host: 'localhost',
-    port: config.port,
-  };
-  http.get(options, function() {
-    cb(true);
-  }).on('error', function() {
-    cb(false);
-  });
+    var options = {
+        host: 'localhost',
+        port: config.port,
+    };
+    http.get(options, function() {
+        cb(true);
+    }).on('error', function() {
+        cb(false);
+    });
 }
 
 // Call page until first success
-function whenServerReady (cb) {
-  var serverReady = false;
-  var appReadyInterval = setInterval(function () {
-    checkAppReady(function(ready){
-      if (!ready || serverReady) { return; }
-      clearInterval(appReadyInterval);
-      serverReady = true;
-      cb();
-    });
-  }, 100);
+function whenServerReady(cb) {
+    var serverReady = false;
+    var appReadyInterval = setInterval(function() {
+        checkAppReady(function(ready) {
+            if(!ready || serverReady) {
+                return;
+            }
+            clearInterval(appReadyInterval);
+            serverReady = true;
+            cb();
+        });
+    }, 100);
 }
 
 ////////////////////////
@@ -94,114 +95,114 @@ function whenServerReady (cb) {
 ////////////////////////
 
 var lintScripts = lazypipe()<% if(filters.coffee) { %>
-  .pipe(plugins.coffeelint)
-  .pipe(plugins.coffeelint.reporter);<% } else { %>
-  .pipe(plugins.jshint, '.jshintrc')
-  .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
+    .pipe(plugins.coffeelint)
+    .pipe(plugins.coffeelint.reporter);<% } else { %>
+    .pipe(plugins.jshint, '.jshintrc')
+    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
 var styles = lazypipe()<% if(filters.stylus) { %>
-  .pipe(plugins.stylus, {
-    use: [nib()],
-    errors: true
-  })<% } %><% if(filters.sass) { %>
-  .pipe(plugins.rubySass, paths.client.styles)<% } %>
-  .pipe(plugins.autoprefixer, 'last 1 version')
-  .pipe(gulp.dest, '.tmp/styles');
+    .pipe(plugins.stylus, {
+        use: [nib()],
+        errors: true
+    })<% } %><% if(filters.sass) { %>
+    .pipe(plugins.rubySass, paths.client.styles)<% } %>
+    .pipe(plugins.autoprefixer, 'last 1 version')
+    .pipe(gulp.dest, '.tmp/styles');
 
 ///////////
 // Tasks //
 ///////////
 
 gulp.task('styles', function () {
-  return styles();
+    return styles();
 });<% if(filters.coffee) { %>
 
 gulp.task('coffee', function() {
-  return gulp.src(paths.client.scripts)
-    .pipe(lintScripts())
-    .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
-    .pipe(gulp.dest('.tmp/scripts'));
+    return gulp.src(paths.client.scripts)
+        .pipe(lintScripts())
+        .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
+        .pipe(gulp.dest('.tmp/scripts'));
 });<% } %>
 
 gulp.task('lint:scripts', function () {
-  var scripts = paths.client.scripts.concat(paths.server.scripts);
-  return gulp.src(scripts).pipe(lintScripts());
+    var scripts = paths.client.scripts.concat(paths.server.scripts);
+    return gulp.src(scripts).pipe(lintScripts());
 });
 
 gulp.task('clean:tmp', function () {
-  return gulp.src('.tmp', {read: false}).pipe(plugins.clean());
+    return gulp.src('.tmp', {read: false}).pipe(plugins.clean());
 });
 
 gulp.task('start:client', [<% if(filters.coffee) { %>'coffee', <% } %>'styles'], function (callback) {
-  whenServerReady(function () {
-    open('http://localhost:' + config.port);
-    callback();
-  });
+    whenServerReady(function () {
+        open('http://localhost:' + config.port);
+        callback();
+    });
 });
 
 gulp.task('start:server', function () {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-  config = require('./server/config/environment');
-  nodemon('-w lib server/app.js')
-    .on('log', onServerLog);
+    process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+    config = require('./server/config/environment');
+    nodemon('-w lib server/app.js')
+        .on('log', onServerLog);
 });
 
 gulp.task('watch', function () {
-  var testFiles = paths.client.test.concat(paths.server.test);
+    var testFiles = paths.client.test.concat(paths.server.test);
 
-  plugins.watch(paths.client.styles)
-    .pipe(plugins.plumber())
-    .pipe(styles())
-    .pipe(plugins.livereload());
+    plugins.watch(paths.client.styles)
+        .pipe(plugins.plumber())
+        .pipe(styles())
+        .pipe(plugins.livereload());
 
-  plugins.watch(paths.views.files)
-    .pipe(plugins.plumber())
-    .pipe(plugins.livereload());
+    plugins.watch(paths.views.files)
+        .pipe(plugins.plumber())
+        .pipe(plugins.livereload());
 
-  plugins.watch(paths.client.scripts)
-    .pipe(plugins.plumber())
-    .pipe(lintScripts())<% if(filters.coffee) { %>
-    .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
-    .pipe(gulp.dest('.tmp/scripts'))<% } %>
-    .pipe(plugins.livereload());
+    plugins.watch(paths.client.scripts)
+        .pipe(plugins.plumber())
+        .pipe(lintScripts())<% if(filters.coffee) { %>
+        .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
+        .pipe(gulp.dest('.tmp/scripts'))<% } %>
+        .pipe(plugins.livereload());
 
-  plugins.watch(paths.server.scripts.concat(testFiles))
-    .pipe(plugins.plumber())
-    .pipe(lintScripts());
+    plugins.watch(paths.server.scripts.concat(testFiles))
+        .pipe(plugins.plumber())
+        .pipe(lintScripts());
 
-  gulp.watch('bower.json', ['bower']);
+    gulp.watch('bower.json', ['bower']);
 });
 
 gulp.task('serve', function (callback) {
-  runSequence('clean:tmp',
-    ['lint:scripts'],
-    'bower',
-    ['start:server', 'start:client'],
-    'watch', callback);
+    runSequence('clean:tmp',
+        ['lint:scripts'],
+        'bower',
+        ['start:server', 'start:client'],
+        'watch', callback);
 });
 
 gulp.task('test:server', function () {
-  process.env.NODE_ENV = 'test';
-  return gulp.src(paths.server.test)
-    .pipe(plugins.mocha({reporter: 'spec'}));
+    process.env.NODE_ENV = 'test';
+    return gulp.src(paths.server.test)
+        .pipe(plugins.mocha({reporter: 'spec'}));
 });
 
 gulp.task('test:client', function () {
-  var testFiles = paths.client.testRequire.concat(paths.client.test)
-  gulp.src(testFiles)
-    .pipe(plugins.karma({
-      configFile: paths.karma,
-      action: 'watch'
-    }));
+    var testFiles = paths.client.testRequire.concat(paths.client.test)
+    gulp.src(testFiles)
+        .pipe(plugins.karma({
+            configFile: paths.karma,
+            action: 'watch'
+        }));
 });
 
 // inject bower components
 gulp.task('bower', function () {
-  return gulp.src(paths.views.main)
-    .pipe(wiredep({
-      exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
-    }))
-  .pipe(gulp.dest('client/'));
+    return gulp.src(paths.views.main)
+        .pipe(wiredep({
+            exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
+        }))
+    .pipe(gulp.dest('client/'));
 });
 
 ///////////
@@ -209,67 +210,67 @@ gulp.task('bower', function () {
 ///////////
 
 gulp.task('build', function (callback) {
-  runSequence('clean:dist',
-    ['images', 'copy:extras', 'copy:fonts', 'copy:server', 'client:build'],
-    callback);
+    runSequence('clean:dist',
+        ['images', 'copy:extras', 'copy:fonts', 'copy:server', 'client:build'],
+        callback);
 });
 
 gulp.task('clean:dist', function () {
-  return gulp.src('dist', {read: false}).pipe(plugins.clean());
+    return gulp.src('dist', {read: false}).pipe(plugins.clean());
 });
 
 gulp.task('client:build', ['html'], function () {
-  var jsFilter = plugins.filter('**/*.js');
-  var cssFilter = plugins.filter('**/*.css');<% if(filters.jade) { %>
-  var assets = plugins.filter('**/*.{js,css}');<% } %>
+    var jsFilter = plugins.filter('**/*.js');
+    var cssFilter = plugins.filter('**/*.css');<% if(filters.jade) { %>
+    var assets = plugins.filter('**/*.{js,css}');<% } %>
 
-  return gulp.src(paths.views.main)<% if(filters.jade) { %>
-    .pipe(plugins.jade({pretty: true}))<% } %>
-    .pipe(plugins.useref.assets({searchPath: [yeoman.app, '.tmp']}))
-    .pipe(jsFilter)
-    .pipe(plugins.ngmin())
-    .pipe(plugins.uglify())
-    .pipe(jsFilter.restore())
-    .pipe(cssFilter)
-    .pipe(plugins.minifyCss({cache: true}))
-    .pipe(cssFilter.restore())
-    .pipe(plugins.rev())
-    .pipe(plugins.useref.restore())
-    .pipe(plugins.revReplace())
-    .pipe(plugins.useref())<% if(filters.jade) { %>
-    .pipe(assets)<% } %>
-    .pipe(gulp.dest(paths.dist + '/public'));
+    return gulp.src(paths.views.main)<% if(filters.jade) { %>
+        .pipe(plugins.jade({pretty: true}))<% } %>
+        .pipe(plugins.useref.assets({searchPath: [yeoman.app, '.tmp']}))
+        .pipe(jsFilter)
+        .pipe(plugins.ngmin())
+        .pipe(plugins.uglify())
+        .pipe(jsFilter.restore())
+        .pipe(cssFilter)
+        .pipe(plugins.minifyCss({cache: true}))
+        .pipe(cssFilter.restore())
+        .pipe(plugins.rev())
+        .pipe(plugins.useref.restore())
+        .pipe(plugins.revReplace())
+        .pipe(plugins.useref())<% if(filters.jade) { %>
+        .pipe(assets)<% } %>
+        .pipe(gulp.dest(paths.dist + '/public'));
 });
 
 gulp.task('html', function () {
-  return gulp.src(yeoman.app + '/views/**/*')
-    .pipe(gulp.dest(paths.dist + '/public/views'));
+    return gulp.src(yeoman.app + '/views/**/*')
+        .pipe(gulp.dest(paths.dist + '/public/views'));
 });
 
 gulp.task('images', function () {
-  return gulp.src(yeoman.app + '/images/**/*')
-    .pipe(plugins.cache(plugins.imagemin({
-        optimizationLevel: 5,
-        progressive: true,
-        interlaced: true
-    })))
-    .pipe(gulp.dest(paths.dist + '/public/images'));
+    return gulp.src(yeoman.app + '/images/**/*')
+        .pipe(plugins.cache(plugins.imagemin({
+            optimizationLevel: 5,
+            progressive: true,
+            interlaced: true
+        })))
+        .pipe(gulp.dest(paths.dist + '/public/images'));
 });
 
 gulp.task('copy:extras', function () {
-  return gulp.src(yeoman.app + '/*.*', { dot: true })
-    .pipe(gulp.dest(paths.dist + '/public'));
+    return gulp.src(yeoman.app + '/*.*', { dot: true })
+        .pipe(gulp.dest(paths.dist + '/public'));
 });
 
 gulp.task('copy:fonts', function () {
-  return gulp.src(yeoman.app + '/fonts/**/*')
-    .pipe(gulp.dest(paths.dist + '/fonts'));
+    return gulp.src(yeoman.app + '/fonts/**/*')
+        .pipe(gulp.dest(paths.dist + '/fonts'));
 });
 
 gulp.task('copy:server', function(){
-  return gulp.src([
-    'package.json',
-    'server.js',
-    'lib/**/*'
-  ], {cwdbase: true}).pipe(gulp.dest(paths.dist));
+    return gulp.src([
+        'package.json',
+        'server.js',
+        'lib/**/*'
+    ], {cwdbase: true}).pipe(gulp.dest(paths.dist));
 });
