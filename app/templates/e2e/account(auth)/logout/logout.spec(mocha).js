@@ -19,7 +19,7 @@ describe('Logout View', function() {
   beforeEach(function() {
     return UserModel
       <% if (filters.mongooseModels) { %>.removeAsync()<% }
-         if (filters.sequelizeModels) { %>.destroy()<% } %>
+         if (filters.sequelizeModels) { %>.destroy({ where: {} })<% } %>
       .then(function() {
         <% if (filters.mongooseModels) { %>return UserModel.createAsync(testUser);<% }
            if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
@@ -31,7 +31,7 @@ describe('Logout View', function() {
 
   after(function() {
     <% if (filters.mongooseModels) { %>return UserModel.removeAsync();<% }
-       if (filters.sequelizeModels) { %>return UserModel.destroy();<% } %>
+       if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
   })
 
   describe('with local auth', function() {

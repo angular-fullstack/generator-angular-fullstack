@@ -37,7 +37,7 @@ describe('Signup View', function() {
 
     it('should signup a new user, log them in, and redirecting to "/"', function(done) {
       <% if (filters.mongooseModels) { %>UserModel.remove(function() {<% }
-         if (filters.sequelizeModels) { %>UserModel.destroy().then(function() {<% } %>
+         if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(function() {<% } %>
         page.signup(testUser);
 
         var navbar = require('../../components/navbar/navbar.po');

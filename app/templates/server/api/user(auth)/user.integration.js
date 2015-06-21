@@ -9,9 +9,9 @@ describe('User API:', function() {
   var user;
 
   // Clear users before testing
-  before(function(done) {
-    <% if (filters.mongooseModels) { %>User.remove(function() {<% }
-       if (filters.sequelizeModels) { %>User.destroy().then(function() {<% } %>
+  before(function() {
+    return <% if (filters.mongooseModels) { %>User.removeAsync().then(function() {<% }
+       if (filters.sequelizeModels) { %>User.destroy({ where: {} }).then(function() {<% } %>
       <% if (filters.mongooseModels) { %>user = new User({<% }
          if (filters.sequelizeModels) { %>user = User.build({<% } %>
         name: 'Fake User',
@@ -19,24 +19,15 @@ describe('User API:', function() {
         password: 'password'
       });
 
-      <% if (filters.mongooseModels) { %>user.save(function(err) {
-        if (err) {
-          return done(err);
-        }
-        done();
-      });<% }
-         if (filters.sequelizeModels) { %>user.save().then(function() {
-        done();
-      }, function(err) {
-        return done(err);
-      });<% } %>
+      return <% if (filters.mongooseModels) { %>user.saveAsync();<% }
+         if (filters.sequelizeModels) { %>user.save();<% } %>
     });
   });
 
   // Clear users after testing
   after(function() {
-    <% if (filters.mongooseModels) { %>return User.remove().exec();<% }
-       if (filters.sequelizeModels) { %>return User.destroy();<% } %>
+    <% if (filters.mongooseModels) { %>return User.removeAsync();<% }
+       if (filters.sequelizeModels) { %>return User.destroy({ where: {} });<% } %>
   });
 
   describe('GET /api/users/me', function() {
