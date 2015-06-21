@@ -76,11 +76,11 @@
     "connect-livereload": "~0.4.0",
     "grunt-mocha-test": "~0.10.2",
     "grunt-mocha-istanbul": "^2.0.0",
-    "chai-as-promised": "^4.1.1",
+    "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
-    "sinon-chai": "^2.5.0",<% if (filters.mocha) { %>
+    "sinon-chai": "^2.8.0",<% if (filters.mocha) { %>
     "karma-mocha": "^0.1.9",
-    "karma-chai-plugins": "^0.2.3",<% } if (filters.jasmine) { %>
+    "karma-chai-plugins": "^0.6.0",<% } if (filters.jasmine) { %>
     "karma-jasmine": "~0.1.5",<% } %>
     "karma-ng-scenario": "~0.1.0",
     "karma-firefox-launcher": "~0.1.3",
