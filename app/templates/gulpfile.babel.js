@@ -1,6 +1,7 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
+import _ from '_';
 import gulp from 'gulp';
 import path from 'path';
 import gulpLoadPlugins from 'gulp-load-plugins';
@@ -120,7 +121,7 @@ gulp.task('coffee', () =>
         .pipe(gulp.dest('.tmp/scripts'));
 );<% } %>
 
-gulp.task('lint:scripts', () => gulp.src(paths.client.scripts.concat(paths.server.scripts)).pipe(lintScripts()));
+gulp.task('lint:scripts', () => gulp.src(_.union(paths.client.scripts, paths.server.scripts)).pipe(lintScripts()));
 
 gulp.task('clean:tmp', () => gulp.src('.tmp', {read: false}).pipe(plugins.clean()));
 
