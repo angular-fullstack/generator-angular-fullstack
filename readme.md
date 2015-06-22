@@ -57,6 +57,7 @@ A grunt task looks for new files in your `client/app` and `client/components` fo
 * `css` files into `client/index.html`
 * `js` files into `client/index.html`
 * `coffeescript` temp `js` files into `client/index.html`
+* `babel` temp `js` files into `client/index.html`
 
 ## Generators
 
