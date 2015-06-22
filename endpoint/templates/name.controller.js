@@ -11,7 +11,7 @@ function responseWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
     if (entity) {
-      return res.json(statusCode, entity);
+      return res.status(statusCode).json(entity);
     }
   };
 }
@@ -41,7 +41,7 @@ function removeEntity(res) {
     if (entity) {
       return entity.removeAsync()
         .then(function() {
-          return res.send(204);
+          return res.status(204);
         });
     }
   };
@@ -50,8 +50,8 @@ function removeEntity(res) {
 // Get list of <%= name %>s
 exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   res.json([]);<% } %><% if (filters.mongoose) { %>
-  <%= classedName %>.find(function (err, <%= name %>s) {
-    if(err) { return handleError(res, err); }
+  <%= classedName %>.find(function(err, <%= name %>s) {
+    if (err) { return handleError(res, err); }
     return res.status(200).json(<%= name %>s);
   });<% } %>
 };<% if (filters.mongoose) { %>
