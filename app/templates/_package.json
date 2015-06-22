@@ -31,7 +31,8 @@
   },
   "devDependencies": {<% if(filters.gulp) { %>
     "gulp": "^3.9.0",
-    "gulp-autoprefixer": "2.3.1",
+    "gulp-autoprefixer": "2.3.1",<% if(filters.babel) { %>
+    "gulp-babel": "^5.1.0",<% } %>
     "gulp-cache": "^0.2.10",
     "gulp-clean": "^0.3.1",
     "gulp-filter": "^2.0.2",
