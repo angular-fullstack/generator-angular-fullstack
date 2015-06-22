@@ -12,7 +12,7 @@
     "express-session": "~1.0.2",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
-    "lodash": "~2.4.1",<% if(filters.jade) { %>
+    "lodash": "~3.9.3",<% if(filters.jade) { %>
     "jade": "~1.2.0",<% } %><% if(filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if(filters.mongoose) { %>
     "mongoose": "~3.8.8",<% } %><% if(filters.auth) { %>
@@ -53,7 +53,7 @@
     "utile": "~0.3.0",
     "nodemon": "^1.3.7",
     "run-sequence": "^1.1.0",
-    "lazypipe": "^0.2.3",
+    "lazypipe": "^0.2.4",
     "wiredep": "^2.2.2",<% if(filters.jade) { %>
     "gulp-jade": "^1.0.1",<% } %><% if(filters.stylus) { %>
     "gulp-stylus": "^2.0.4",
