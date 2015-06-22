@@ -1,7 +1,7 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
-import _ from '_';
+import _ from 'lodash';
 import gulp from 'gulp';
 import path from 'path';
 import gulpLoadPlugins from 'gulp-load-plugins';
@@ -140,7 +140,7 @@ gulp.task('start:server', () => {
 });
 
 gulp.task('watch', () => {
-    var testFiles = paths.client.test.concat(paths.server.test);
+    var testFiles = _.union(paths.client.test, paths.server.test);
 
     plugins.watch(paths.client.styles)
         .pipe(plugins.plumber())
@@ -158,21 +158,21 @@ gulp.task('watch', () => {
         .pipe(gulp.dest('.tmp/scripts'))<% } %>
         .pipe(plugins.livereload());
 
-    plugins.watch(paths.server.scripts.concat(testFiles))
+    plugins.watch(_.union(paths.server.scripts, testFiles))
         .pipe(plugins.plumber())
         .pipe(lintScripts());
 
     gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task('serve', (callback) =>
+gulp.task('serve', (callback) => {
     runSequence('clean:tmp',
         ['lint:scripts'],
         'bower',
         ['start:server', 'start:client'],
         'watch',
         callback);
-);
+});
 
 gulp.task('test:server', () => {
     process.env.NODE_ENV = 'test';
@@ -181,7 +181,7 @@ gulp.task('test:server', () => {
 });
 
 gulp.task('test:client', () => {
-    var testFiles = paths.client.testRequire.concat(paths.client.test)
+    var testFiles = _.union(paths.client.testRequire, paths.client.test)
     return gulp.src(testFiles)
         .pipe(plugins.karma({
             configFile: paths.karma,
@@ -190,23 +190,23 @@ gulp.task('test:client', () => {
 });
 
 // inject bower components
-gulp.task('bower', () =>
+gulp.task('bower', () => {
     gulp.src(paths.views.main)
         .pipe(wiredep({
             exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
         }))
         .pipe(gulp.dest('client/'));
-);
+});
 
 ///////////
 // Build //
 ///////////
 
-gulp.task('build', (callback) =>
+gulp.task('build', (callback) => {
     runSequence('clean:dist',
         ['images', 'copy:extras', 'copy:fonts', 'copy:server', 'client:build'],
         callback);
-);
+});
 
 gulp.task('clean:dist', () => gulp.src('dist', {read: false}).pipe(plugins.clean()));
 
@@ -233,12 +233,12 @@ gulp.task('client:build', ['html'], () => {
         .pipe(gulp.dest(paths.dist + '/public'));
 });
 
-gulp.task('html', () =>
+gulp.task('html', () => {
     gulp.src(yeoman.app + '/views/**/*')
         .pipe(gulp.dest(paths.dist + '/public/views'));
-);
+});
 
-gulp.task('images', () =>
+gulp.task('images', () => {
     gulp.src(yeoman.app + '/images/**/*')
         .pipe(plugins.cache(plugins.imagemin({
             optimizationLevel: 5,
@@ -246,23 +246,23 @@ gulp.task('images', () =>
             interlaced: true
         })))
         .pipe(gulp.dest(paths.dist + '/public/images'));
-);
+});
 
-gulp.task('copy:extras', () =>
+gulp.task('copy:extras', () => {
     gulp.src(yeoman.app + '/*.*', { dot: true })
         .pipe(gulp.dest(paths.dist + '/public'));
-);
+});
 
-gulp.task('copy:fonts', () =>
+gulp.task('copy:fonts', () => {
     gulp.src(yeoman.app + '/fonts/**/*')
         .pipe(gulp.dest(paths.dist + '/fonts'));
-);
+});
 
-gulp.task('copy:server', () =>
+gulp.task('copy:server', () => {
     gulp.src([
         'package.json',
         'server.js',
         'lib/**/*'
     ], {cwdbase: true})
         .pipe(gulp.dest(paths.dist));
-);
+});
