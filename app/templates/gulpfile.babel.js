@@ -115,6 +115,32 @@ let styles = lazypipe()
 // Tasks //
 ///////////
 
+gulp.task('inject', cb => {
+    runSequence(['inject:js', 'inject:css'], cb);
+});
+
+gulp.task('inject:js', () => {
+    return gulp.src(paths.views.main)
+        .pipe(plugins.inject(gulp.src(_.union(
+            paths.client.scripts
+        ), {read: false}), {
+            starttag: '<!-- injector:js -->',
+            endtag: '<!-- endinjector -->',
+            transform: (filepath) => '<script src="' + filepath.replace('/client/', '') + '"></script>'
+        }))
+        .pipe(gulp.dest('client'));
+});
+
+gulp.task('inject:css', () => {
+    return gulp.src(paths.views.main)
+        .pipe(plugins.inject(gulp.src('/client/**/*.css', {read: false}), {
+            starttag: '<!-- injector:css -->',
+            endtag: '<!-- endinjector -->',
+            transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace('/client/', '').replace('/.tmp/', '') + '">'
+        }))
+        .pipe(gulp.dest('client'));
+});
+
 gulp.task('styles', styles);<% if(filters.coffee) { %>
 
 gulp.task('coffee', () =>
@@ -171,6 +197,8 @@ gulp.task('watch', () => {
 gulp.task('serve', (callback) => {
     runSequence('clean:tmp',
         ['lint:scripts'],
+        'inject:js',
+        'inject:css',
         'bower',
         ['start:server', 'start:client'],
         'watch',
