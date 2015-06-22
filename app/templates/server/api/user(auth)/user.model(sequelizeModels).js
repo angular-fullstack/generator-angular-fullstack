@@ -89,8 +89,9 @@ module.exports = function(sequelize, DataTypes) {
       },
       beforeUpdate: function(user, fields, fn) {
         if (user.changed('password')) {
-          user.updatePassword(fn);
+          return user.updatePassword(fn);
         }
+        fn();
       }
     },
 
