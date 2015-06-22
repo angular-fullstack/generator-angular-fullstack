@@ -26,7 +26,7 @@ var paths = {
             'client/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>',
             '!client/bower_components/**/*.js'
         ],
-        styles: ['client/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
+        styles: ['client/{app, components}/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
         test: ['client/**/*.spec.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
         testRequire: [
             'client/bower_components/angular/angular.js',
@@ -99,20 +99,23 @@ var lintScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.jshint, '.jshintrc')
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
-var styles = lazypipe()<% if(filters.stylus) { %>
+let styles = lazypipe()
+    .pipe(gulp.src, paths.client.styles)
+    .pipe(plugins.sourcemaps.init)<% if(filters.stylus) { %>
     .pipe(plugins.stylus, {
         use: [nib()],
         errors: true
-    })<% } %><% if(filters.sass) { %>
-    .pipe(plugins.rubySass, paths.client.styles)<% } %>
-    .pipe(plugins.autoprefixer, 'last 1 version')
-    .pipe(gulp.dest, '.tmp/styles');
+    })<% } if(filters.sass) { %>
+    .pipe(plugins.sass)<% } %>
+    .pipe(plugins.sourcemaps.write, '.')
+    // .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})  //seems to break this
+    .pipe(gulp.dest, '.tmp');
 
 ///////////
 // Tasks //
 ///////////
 
-gulp.task('styles', () => styles());<% if(filters.coffee) { %>
+gulp.task('styles', styles);<% if(filters.coffee) { %>
 
 gulp.task('coffee', () =>
     gulp.src(paths.client.scripts)
