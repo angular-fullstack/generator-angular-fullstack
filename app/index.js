@@ -96,10 +96,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           return filterMap[val];
         }
       }, {
+        type: 'confirm',
+        name: 'babel',
+        message: 'Would you like to use Javascript ES6 in your client by preprocessing it with Babel?',
+        when: function (answers) {
+          return answers.script === 'js';
+        }
+      }, {
         type: 'list',
         name: 'markup',
         message: 'What would you like to write markup with?',
-        choices: [ 'HTML', 'Jade'],
+        choices: ['HTML', 'Jade'],
         filter: function( val ) { return val.toLowerCase(); }
       }, {
         type: 'list',
@@ -127,6 +134,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           return answers.bootstrap;
         }
       }], function (answers) {
+
+        this.filters.babel = !!answers.babel;
+        if(this.filters.babel){ this.filters.js = true; }
         this.filters[answers.script] = true;
         this.filters[answers.markup] = true;
         this.filters[answers.stylesheet] = true;
@@ -323,6 +333,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       'should'
     ].filter(function(v) {return this.filters[v];}, this);
 
+    if(this.filters.ngroute) filters.push('ngroute');
+    if(this.filters.uirouter) filters.push('uirouter');
+    if(this.filters.babel) extensions.push('babel');
     if(this.filters.coffee) extensions.push('coffee');
     if(this.filters.js) extensions.push('js');
     if(this.filters.html) extensions.push('html');

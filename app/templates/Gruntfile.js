@@ -128,6 +128,13 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
         ],
         tasks: ['karma']
+      },<% } %><% if(filters.babel) { %>
+      babel: {
+        files: [
+          '<%%= yeoman.client %>/{app,components}/**/*.js',
+          '!<%%= yeoman.client %>/{app,components}/**/*.spec.js'
+        ],
+        tasks: ['babel']
       },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
@@ -136,7 +143,11 @@ module.exports = function (grunt) {
         files: [
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.css',
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.html',
+          <% if(filters.babel) { %>
+          '.tmp/{app,components}/**/*.js',
+          <% } else { %>
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.js',
+          <% } %>
           '!{.tmp,<%%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js',
           '<%%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -457,18 +468,20 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [<% if (filters.coffee) { %>
-        'coffee',<% } %><% if (filters.jade) { %>
-        'jade',<% } %><% if (filters.stylus) { %>
-        'stylus',<% } %><% if (filters.sass) { %>
-        'sass',<% } %><% if (filters.less) { %>
+      server: [<% if(filters.coffee) { %>
+        'coffee',<% } %><% if(filters.babel) { %>
+        'babel',<% } %><% if(filters.jade) { %>
+        'jade',<% } %><% if(filters.stylus) { %>
+        'stylus',<% } %><% if(filters.sass) { %>
+        'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
       ],
-      test: [<% if (filters.coffee) { %>
-        'coffee',<% } %><% if (filters.jade) { %>
-        'jade',<% } %><% if (filters.stylus) { %>
-        'stylus',<% } %><% if (filters.sass) { %>
-        'sass',<% } %><% if (filters.less) { %>
+      test: [<% if(filters.coffee) { %>
+        'coffee',<% } %><% if(filters.babel) { %>
+        'babel',<% } %><% if(filters.jade) { %>
+        'jade',<% } %><% if(filters.stylus) { %>
+        'stylus',<% } %><% if(filters.sass) { %>
+        'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
       ],
       debug: {
@@ -480,11 +493,12 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       },
-      dist: [<% if (filters.coffee) { %>
-        'coffee',<% } %><% if (filters.jade) { %>
-        'jade',<% } %><% if (filters.stylus) { %>
-        'stylus',<% } %><% if (filters.sass) { %>
-        'sass',<% } %><% if (filters.less) { %>
+      dist: [<% if(filters.coffee) { %>
+        'coffee',<% } %><% if(filters.babel) { %>
+        'babel',<% } %><% if(filters.jade) { %>
+        'jade',<% } %><% if(filters.stylus) { %>
+        'stylus',<% } %><% if(filters.sass) { %>
+        'sass',<% } %><% if(filters.less) { %>
         'less',<% } %>
         'imagemin',
         'svgmin'
@@ -618,7 +632,25 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% } %><% if (filters.stylus) { %>
+    },<% } %><% if(filters.babel) { %>
+
+    // Compiles ES6 to JavaScript using Babel
+    babel: {
+      options: {
+        sourceMap: true
+      },
+      server: {
+        files: [{
+          expand: true,
+          cwd: 'client',
+          src: [
+            '{app,components}/**/*.js',
+            '!{app,components}/**/*.spec.js'
+          ],
+          dest: '.tmp'
+        }]
+      }
+    },<% } %><% if(filters.stylus) { %>
 
     // Compiles Stylus to CSS
     stylus: {
@@ -687,10 +719,16 @@ module.exports = function (grunt) {
         },
         files: {
           '<%%= yeoman.client %>/index.html': [
-              ['{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.js',
-               '!{.tmp,<%%= yeoman.client %>}/app/app.js',
-               '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.spec.js',
-               '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js']
+               [
+                 <% if(filters.babel) { %>
+                 '.tmp/{app,components}/**/*.js',
+                 <% } else { %>
+                 '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.js',
+                 <% } %>
+                 '!{.tmp,<%%= yeoman.client %>}/app/app.js',
+                 '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.spec.js',
+                 '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js'
+               ]
             ]
         }
       },<% if (filters.stylus) { %>

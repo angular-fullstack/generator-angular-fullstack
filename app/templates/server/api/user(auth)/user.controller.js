@@ -8,11 +8,8 @@ var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 
-var validationError = function(res, statusCode) {
-  statusCode = statusCode || 422;
-  return function(err) {
-    res.json(statusCode, err);
-  };
+var validationError = function(res, err) {
+  return res.status(422).json(err);
 };
 
 function handleError(res, statusCode) {
@@ -45,7 +42,7 @@ exports.index = function(req, res) {
     ]
   })<% } %>
     .then(function(users) {
-      res.json(200, users);
+      res.status(200).json(users);
     })
     .catch(handleError(res));
 };
@@ -86,7 +83,7 @@ exports.show = function(req, res, next) {
   })<% } %>
     .then(function(user) {
       if (!user) {
-        return res.send(404);
+        return res.status(404).end();
       }
       res.json(user.profile);
     })
@@ -102,7 +99,9 @@ exports.show = function(req, res, next) {
 exports.destroy = function(req, res) {
   <% if (filters.mongooseModels) { %>User.findByIdAndRemoveAsync(req.params.id)<% }
      if (filters.sequelizeModels) { %>User.destroy({ _id: req.params.id })<% } %>
-    .then(respondWith(res, 204))
+    .then(function() {
+      res.status(204).end();
+    })
     .catch(handleError(res));
 };
 
@@ -125,10 +124,12 @@ exports.changePassword = function(req, res, next) {
         user.password = newPass;
         <% if (filters.mongooseModels) { %>return user.saveAsync()<% }
            if (filters.sequelizeModels) { %>return user.save()<% } %>
-          .then(respondWith(res, 200))
+          .then(function() {
+            res.status(200).end();
+          })
           .catch(validationError(res));
       } else {
-        return res.send(403);
+        return res.status(403).end();
       }
     });
 };
@@ -153,7 +154,9 @@ exports.me = function(req, res, next) {
     ]
   })<% } %>
     .then(function(user) { // don't ever give out the password or salt
-      if (!user) { return res.json(401); }
+      if (!user) {
+        return res.status(401).end();
+      }
       res.json(user);
     })
     .catch(function(err) {

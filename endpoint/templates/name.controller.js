@@ -3,11 +3,8 @@
 var _ = require('lodash');
 var <%= classedName %> = require('./<%= name %>.model');
 
-function handleError(res, statusCode) {
-  statusCode = statusCode || 500;
-  return function(err) {
-    res.send(statusCode, err);
-  };
+function handleError(res, err) {
+  return res.status(500).send(err);
 }
 
 function responseWithResult(res, statusCode) {
@@ -50,13 +47,14 @@ function removeEntity(res) {
   };
 }<% } %>
 
-// Gets list of <%= name %>s from the DB.
-exports.index = function(req, res) {<% if(!filters.mongoose) { %>
-  res.json([]);<% } if (filters.mongoose) { %>
-  <%= classedName %>.findAsync()
-    .then(responseWithResult(res))
-    .catch(handleError(res));<% } %>
-};<% if(filters.mongoose) { %>
+// Get list of <%= name %>s
+exports.index = function(req, res) {<% if (!filters.mongoose) { %>
+  res.json([]);<% } %><% if (filters.mongoose) { %>
+  <%= classedName %>.find(function (err, <%= name %>s) {
+    if(err) { return handleError(res, err); }
+    return res.status(200).json(<%= name %>s);
+  });<% } %>
+};<% if (filters.mongoose) { %>
 
 // Gets a single <%= name %> from the DB.
 exports.show = function(req, res) {

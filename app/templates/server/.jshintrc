@@ -8,7 +8,6 @@
   "latedef": "nofunc",
   "newcap": true,
   "noarg": true,
-  "regexp": true,
   "undef": true,
   "smarttabs": true,
   "asi": true,

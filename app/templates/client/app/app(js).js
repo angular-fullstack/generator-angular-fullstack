@@ -49,6 +49,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
     $rootScope.$on(<% if (filters.ngroute) { %>'$routeChangeStart'<% } %><% if (filters.uirouter) { %>'$stateChangeStart'<% } %>, function(event, next) {
       Auth.isLoggedIn(function(loggedIn) {
         if (next.authenticate && !loggedIn) {
+          event.preventDefault();
           <% if (filters.ngroute) { %>$location.path('/login');<% } if (filters.uirouter) { %>$state.go('login');<% } %>
         }
       });

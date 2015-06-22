@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(_.humanize(appname)) %>",
+  "name": "tempApp",
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
@@ -12,25 +12,22 @@
     "express-session": "~1.0.2",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
-    "lodash": "~2.4.1",<% if (filters.jade) { %>
-    "jade": "~1.2.0",<% } %><% if (filters.html) { %>
-    "ejs": "~0.8.4",<% } %><% if (filters.mongoose) { %>
+    "lodash": "~2.4.1",
+    "jade": "~1.2.0",
+    "ejs": "~0.8.4",
     "mongoose": "~3.8.8",
-    "mongoose-bird": "~0.0.1",<% } %><% if (filters.sequelize) { %>
-    "sequelize": "^2.0.0-rc2",
-    "sqlite3": "~3.0.2",<% } %><% if (filters.auth) { %>
-    "jsonwebtoken": "^5.0.0",
-    "express-jwt": "^3.0.0",
+    "jsonwebtoken": "^0.3.0",
+    "express-jwt": "^0.1.3",
     "passport": "~0.2.0",
-    "passport-local": "~0.1.6",<% } %><% if (filters.facebookAuth) { %>
-    "passport-facebook": "latest",<% } %><% if (filters.twitterAuth) { %>
-    "passport-twitter": "latest",<% } %><% if (filters.googleAuth) { %>
-    "passport-google-oauth": "latest",<% } %>
-    "composable-middleware": "^0.3.0"<% if (filters.mongoose) { %>,
-    "connect-mongo": "^0.4.1"<% } %><% if (filters.socketio) { %>,
+    "passport-local": "~0.1.6",
+    "passport-facebook": "latest",
+    "passport-twitter": "latest",
+    "passport-google-oauth": "latest",
+    "composable-middleware": "^0.3.0",
+    "connect-mongo": "^0.4.1",
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^3.0.0"<% } %>
+    "socketio-jwt": "^2.0.2"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
@@ -45,15 +42,13 @@
     "grunt-contrib-imagemin": "~0.7.1",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "~0.4.0",
-<<<<<<< HEAD
-    "grunt-contrib-watch": "~0.6.1",<% if (filters.coffee) { %>
-    "grunt-contrib-coffee": "^0.10.1",<% } %><% if (filters.jade) { %>
-    "grunt-contrib-jade": "^0.11.0",<% } %><% if (filters.less) { %>
-    "grunt-contrib-less": "^0.11.4",<% } %><% if(filters.babel) { %>
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-jade": "^0.11.0",
+    "grunt-contrib-less": "^0.11.0",
     "karma-babel-preprocessor": "^5.2.1",
-    "grunt-babel": "~5.0.0",<% } %>
+    "grunt-babel": "~5.0.0",
     "grunt-google-cdn": "~0.4.0",
-    "grunt-jscs": "~0.7.1",
     "grunt-newer": "~0.7.0",
     "grunt-ng-annotate": "^0.2.3",
     "grunt-rev": "~0.1.0",
@@ -67,10 +62,10 @@
     "grunt-protractor-runner": "^1.1.0",
     "grunt-injector": "~0.5.4",
     "grunt-karma": "~0.8.2",
-    "grunt-build-control": "~0.4.0",
-    "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
-    "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
-    "grunt-contrib-stylus": "latest",<% } %>
+    "grunt-build-control": "DaftMonk/grunt-build-control",
+    "grunt-mocha-test": "~0.10.2",
+    "grunt-contrib-sass": "^0.7.3",
+    "grunt-contrib-stylus": "latest",
     "jit-grunt": "^0.5.0",
     "time-grunt": "~0.3.1",
     "grunt-express-server": "~0.4.17",
@@ -78,19 +73,12 @@
     "open": "~0.0.4",
     "jshint-stylish": "~0.1.5",
     "connect-livereload": "~0.4.0",
-    "grunt-mocha-test": "~0.10.2",
-    "grunt-mocha-istanbul": "^2.0.0",
-    "chai-as-promised": "^5.1.0",
-    "chai-things": "^0.2.0",
-    "sinon-chai": "^2.8.0",<% if (filters.mocha) { %>
-    "karma-mocha": "^0.1.9",
-    "karma-chai-plugins": "^0.6.0",<% } if (filters.jasmine) { %>
-    "karma-jasmine": "~0.1.5",<% } %>
     "karma-ng-scenario": "~0.1.0",
     "karma-firefox-launcher": "~0.1.3",
     "karma-script-launcher": "~0.1.0",
     "karma-html2js-preprocessor": "~0.1.0",
     "karma-ng-jade2js-preprocessor": "^0.1.2",
+    "karma-jasmine": "~0.1.5",
     "karma-chrome-launcher": "~0.1.3",
     "requirejs": "~2.1.11",
     "karma-requirejs": "~0.2.1",
@@ -99,9 +87,8 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "karma": "~0.12.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
-    "karma-spec-reporter": "0.0.13",
-    "proxyquire": "^1.0.1",
-    "supertest": "~0.11.0"
+    "supertest": "~0.11.0",
+    "should": "~3.3.1"
   },
   "engines": {
     "node": ">=0.10.0"

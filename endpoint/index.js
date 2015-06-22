@@ -29,7 +29,7 @@ Generator.prototype.askFor = function askFor() {
   var prompts = [
     {
       name: 'route',
-      message: 'What will the url of your endpoint to be?',
+      message: 'What will the url of your endpoint be?',
       default: base + name
     },
     {

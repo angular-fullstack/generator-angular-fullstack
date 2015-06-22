@@ -14,6 +14,10 @@ var config = require('./config/environment');
 <% if (filters.mongoose) { %>
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
+mongoose.connection.on('error', function(err) {
+  console.error('MongoDB connection error: ' + err);
+  process.exit(-1);
+});
 <% } %><% if (filters.models) { %>
 // Populate databases with sample data
 if (config.seedDB) { require('./config/seed'); }
@@ -22,7 +26,7 @@ if (config.seedDB) { require('./config/seed'); }
 var app = express();
 var server = require('http').createServer(app);<% if (filters.socketio) { %>
 var socketio = require('socket.io')(server, {
-  serveClient: (config.env === 'production') ? false : true,
+  serveClient: config.env !== 'production',
   path: '/socket.io-client'
 });
 require('./config/socketio')(socketio);<% } %>
