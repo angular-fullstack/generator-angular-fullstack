@@ -3,8 +3,11 @@
 var _ = require('lodash');
 var <%= classedName %> = require('./<%= name %>.model');
 
-function handleError(res, err) {
-  return res.status(500).send(err);
+function handleError(res, statusCode) {
+  statusCode = statusCode || 500;
+  return function(err) {
+    res.status(statusCode).send(err);
+  };
 }
 
 function responseWithResult(res, statusCode) {
@@ -19,7 +22,7 @@ function responseWithResult(res, statusCode) {
 function handleEntityNotFound(res) {
   return function(entity) {
     if (!entity) {
-      res.send(404);
+      res.status(404).end();
       return null;
     }
     return entity;
@@ -41,7 +44,7 @@ function removeEntity(res) {
     if (entity) {
       return entity.removeAsync()
         .then(function() {
-          return res.status(204);
+          res.status(204).end();
         });
     }
   };
@@ -50,10 +53,9 @@ function removeEntity(res) {
 // Get list of <%= name %>s
 exports.index = function(req, res) {<% if (!filters.mongoose) { %>
   res.json([]);<% } %><% if (filters.mongoose) { %>
-  <%= classedName %>.find(function(err, <%= name %>s) {
-    if (err) { return handleError(res, err); }
-    return res.status(200).json(<%= name %>s);
-  });<% } %>
+  <%= classedName %>.findAsync()
+    .then(responseWithResult(res))
+    .catch(handleError(res));<% } %>
 };<% if (filters.mongoose) { %>
 
 // Gets a single <%= name %> from the DB.
