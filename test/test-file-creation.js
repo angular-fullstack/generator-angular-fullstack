@@ -11,6 +11,7 @@ var recursiveReadDir = require('recursive-readdir');
 describe('angular-fullstack generator', function () {
   var gen, defaultOptions = {
     script: 'js',
+    babel: true,
     markup: 'html',
     stylesheet: 'sass',
     router: 'uirouter',
@@ -176,6 +177,7 @@ describe('angular-fullstack generator', function () {
       'server/.jshintrc',
       'server/.jshintrc-spec',
       'server/app.js',
+      'server/index.js',
       'server/routes.js',
       'server/api/thing/index.js',
       'server/api/thing/index.spec.js',
@@ -475,49 +477,6 @@ describe('angular-fullstack generator', function () {
         //});
       }
     });
-
-    describe('with Babel ES6 preprocessor', function() {
-      beforeEach(function() {
-        helpers.mockPrompt(gen, {
-          script: 'js',
-          babel: true,
-          markup: 'jade',
-          stylesheet: 'less',
-          router: 'uirouter'
-        });
-      });
-
-      it('should run client tests successfully', function(done) {
-        this.timeout(60000);
-        gen.run({}, function () {
-          exec('grunt test:client', function (error, stdout, stderr) {
-            expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1 SUCCESS');
-            done();
-          });
-        });
-      });
-
-      it('should pass jshint', function(done) {
-        this.timeout(60000);
-        gen.run({}, function () {
-          exec('grunt jshint', function (error, stdout, stderr) {
-            expect(stdout).to.contain('Done, without errors.');
-            done();
-          });
-        });
-      });
-
-      it('should run server tests successfully', function(done) {
-        this.timeout(60000);
-        gen.run({}, function () {
-          exec('grunt test:server', function (error, stdout, stderr) {
-            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
-            done();
-          });
-        });
-      });
-    });
-
 
     describe('with other preprocessors and oauth', function() {
       var testOptions = {

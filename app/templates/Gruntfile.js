@@ -39,13 +39,13 @@ module.exports = function (grunt) {
       },
       dev: {
         options: {
-          script: 'server/app.js',
+          script: 'server',
           debug: true
         }
       },
       prod: {
         options: {
-          script: 'dist/server/app.js'
+          script: 'dist/server'
         }
       }
     },
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
           '!<%%= yeoman.client %>/{app,components}/**/*.spec.js',
           '!<%%= yeoman.client %>/{app,components}/**/*.mock.js',
           '!<%%= yeoman.client %>/app/app.js'],
-        tasks: ['injector:scripts']
+        tasks: [<% if(filters.babel) { %>'newer:babel:client', <% } %>'injector:scripts']
       },
       injectCss: {
         files: [
@@ -128,13 +128,6 @@ module.exports = function (grunt) {
           '<%%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'
         ],
         tasks: ['karma']
-      },<% } %><% if(filters.babel) { %>
-      babel: {
-        files: [
-          '<%%= yeoman.client %>/{app,components}/**/*.js',
-          '!<%%= yeoman.client %>/{app,components}/**/*.spec.js'
-        ],
-        tasks: ['babel']
       },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
@@ -143,11 +136,7 @@ module.exports = function (grunt) {
         files: [
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.css',
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.html',
-          <% if(filters.babel) { %>
-          '.tmp/{app,components}/**/*.js',
-          <% } else { %>
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.js',
-          <% } %>
           '!{.tmp,<%%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js',
           '<%%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -261,7 +250,7 @@ module.exports = function (grunt) {
     // Use nodemon to run server in debug mode with an initial breakpoint
     nodemon: {
       debug: {
-        script: 'server/app.js',
+        script: 'server',
         options: {
           nodeArgs: ['--debug-brk'],
           env: {
@@ -470,7 +459,7 @@ module.exports = function (grunt) {
     concurrent: {
       server: [<% if(filters.coffee) { %>
         'coffee',<% } %><% if(filters.babel) { %>
-        'babel',<% } %><% if(filters.jade) { %>
+        'newer:babel:client',<% } %><% if(filters.jade) { %>
         'jade',<% } %><% if(filters.stylus) { %>
         'stylus',<% } %><% if(filters.sass) { %>
         'sass',<% } %><% if(filters.less) { %>
@@ -478,7 +467,7 @@ module.exports = function (grunt) {
       ],
       test: [<% if(filters.coffee) { %>
         'coffee',<% } %><% if(filters.babel) { %>
-        'babel',<% } %><% if(filters.jade) { %>
+        'newer:babel:client',<% } %><% if(filters.jade) { %>
         'jade',<% } %><% if(filters.stylus) { %>
         'stylus',<% } %><% if(filters.sass) { %>
         'sass',<% } %><% if(filters.less) { %>
@@ -495,7 +484,7 @@ module.exports = function (grunt) {
       },
       dist: [<% if(filters.coffee) { %>
         'coffee',<% } %><% if(filters.babel) { %>
-        'babel',<% } %><% if(filters.jade) { %>
+        'newer:babel:client',<% } %><% if(filters.jade) { %>
         'jade',<% } %><% if(filters.stylus) { %>
         'stylus',<% } %><% if(filters.sass) { %>
         'sass',<% } %><% if(filters.less) { %>
@@ -639,10 +628,10 @@ module.exports = function (grunt) {
       options: {
         sourceMap: true
       },
-      server: {
+      client: {
         files: [{
           expand: true,
-          cwd: 'client',
+          cwd: '<%%= yeoman.client %>',
           src: [
             '{app,components}/**/*.js',
             '!{app,components}/**/*.spec.js'
