@@ -15,7 +15,7 @@
     "lodash": "~2.4.1",<% if(filters.jade) { %>
     "jade": "~1.2.0",<% } %><% if(filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if(filters.mongoose) { %>
-    "mongoose": "~3.8.8",<% } %><% if(filters.auth) { %>
+    "mongoose": "~4.0.3",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^5.0.0",
     "express-jwt": "^3.0.0",
     "passport": "~0.2.0",
@@ -24,7 +24,7 @@
     "passport-twitter": "latest",<% } %><% if(filters.googleAuth) { %>
     "passport-google-oauth": "latest",<% } %>
     "composable-middleware": "^0.3.0",
-    "connect-mongo": "^0.4.1"<% if(filters.socketio) { %>,
+    "connect-mongo": "^0.8.1"<% if(filters.socketio) { %>,
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
     "socketio-jwt": "^3.0.0"<% } %>
