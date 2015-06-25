@@ -67,7 +67,7 @@
     "grunt-contrib-sass": "^0.9.2",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "latest",<% } %>
     "jit-grunt": "^0.9.1",
-    "time-grunt": "~1.2.1",
+    "time-grunt": "~0.3.1",
     "grunt-express-server": "~0.5.1",
     "grunt-open": "~0.2.3",
     "open": "~0.0.5",
