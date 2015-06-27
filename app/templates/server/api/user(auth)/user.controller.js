@@ -8,21 +8,24 @@ var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 
-var validationError = function(res, err) {
-  return res.status(422).json(err);
-};
+function validationError(res, statusCode) {
+  statusCode = statusCode || 422;
+  return function(err) {
+    res.status(statusCode).json(err);
+  }
+}
 
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
-    res.send(statusCode, err);
+    res.status(statusCode).send(err);
   };
 }
 
 function respondWith(res, statusCode) {
   statusCode = statusCode || 200;
   return function() {
-    res.send(statusCode);
+    res.status(statusCode).end();
   };
 }
 
