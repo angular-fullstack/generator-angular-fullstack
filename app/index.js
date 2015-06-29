@@ -5,7 +5,6 @@ var util = require('util');
 var genUtils = require('../util.js');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-var wiredep = require('wiredep');
 
 var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
