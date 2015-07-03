@@ -27,6 +27,7 @@ var paths = {
             '!client/bower_components/**/*.js'
         ],
         styles: ['client/{app, components}/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
+        mainStyle: 'client/app/app.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>',
         test: ['client/**/*.spec.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
         testRequire: [
             'client/bower_components/angular/angular.js',
@@ -145,6 +146,17 @@ gulp.task('inject:css', () => {
             transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace('/client/', '').replace('/.tmp/', '') + '">'
         }))
         .pipe(gulp.dest('client'));
+});
+
+// TODO: other styles
+gulp.task('inject:sass', () => {
+    return gulp.src('client/app/app.scss')
+        .pipe(plugins.inject(gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false}), {
+            starttag: '/*injector:sass*/',
+            endtag: '/*endinjector*/',
+            transform: (filepath) => '@import \'' + filepath.replace('/client/app/', '').replace('/client/components/', '../components/') + '\';'
+        }))
+        .pipe(gulp.dest('client/app'));
 });
 
 gulp.task('styles', styles);<% if(filters.coffee) { %>
