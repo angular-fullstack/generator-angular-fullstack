@@ -56,9 +56,9 @@ var paths = {
     dist: 'dist'
 };
 
-//////////////////////
-// Helper functions //
-//////////////////////
+/********************
+ * Helper functions
+ ********************/
 
 function onServerLog(log) {
     console.log(plugins.util.colors.white('[') + plugins.util.colors.yellow('nodemon') + plugins.util.colors.white('] ') + log.message);
@@ -89,9 +89,9 @@ function whenServerReady(cb) {
         100);
 }
 
-////////////////////////
-// Reusable pipelines //
-////////////////////////
+/********************
+ * Reusable pipelines
+ ********************/
 
 var lintClientScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.coffeelint)
@@ -117,9 +117,9 @@ let styles = lazypipe()
     // .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})  //seems to break this
     .pipe(gulp.dest, '.tmp');
 
-///////////
-// Tasks //
-///////////
+/********************
+ * Tasks
+ ********************/
 
 gulp.task('inject', cb => {
     runSequence(['inject:js', 'inject:css'], cb);
@@ -239,9 +239,9 @@ gulp.task('bower', () => {
         .pipe(gulp.dest('client/'));
 });
 
-///////////
-// Build //
-///////////
+/********************
+ * Build
+ ********************/
 
 gulp.task('build', (callback) => {
     runSequence('clean:dist',
