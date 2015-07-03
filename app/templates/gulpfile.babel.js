@@ -93,10 +93,16 @@ function whenServerReady(cb) {
 // Reusable pipelines //
 ////////////////////////
 
-var lintScripts = lazypipe()<% if(filters.coffee) { %>
+var lintClientScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.coffeelint)
     .pipe(plugins.coffeelint.reporter);<% } else { %>
-    .pipe(plugins.jshint, '.jshintrc')
+    .pipe(plugins.jshint, 'client/.jshintrc')
+    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
+
+var lintServerScripts = lazypipe()<% if(filters.coffee) { %>
+    .pipe(plugins.coffeelint)
+    .pipe(plugins.coffeelint.reporter);<% } else { %>
+    .pipe(plugins.jshint, 'server/.jshintrc')
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
 let styles = lazypipe()
@@ -150,7 +156,11 @@ gulp.task('coffee', () =>
         .pipe(gulp.dest('.tmp/scripts'));
 );<% } %>
 
-gulp.task('lint:scripts', () => gulp.src(_.union(paths.client.scripts, paths.server.scripts)).pipe(lintScripts()));
+gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:scripts:server'], cb));
+
+gulp.task('lint:scripts:client', () => gulp.src(paths.client.scripts).pipe(lintClientScripts()));
+
+gulp.task('lint:scripts:server', () => gulp.src(paths.server.scripts).pipe(lintServerScripts()));
 
 gulp.task('clean:tmp', () => gulp.src('.tmp', {read: false}).pipe(plugins.clean()));
 
