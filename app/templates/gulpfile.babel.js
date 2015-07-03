@@ -94,13 +94,13 @@ function whenServerReady(cb) {
  * Reusable pipelines
  ********************/
 
-var lintClientScripts = lazypipe()<% if(filters.coffee) { %>
+let lintClientScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.coffeelint)
     .pipe(plugins.coffeelint.reporter);<% } else { %>
     .pipe(plugins.jshint, 'client/.jshintrc')
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
-var lintServerScripts = lazypipe()<% if(filters.coffee) { %>
+let lintServerScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.coffeelint)
     .pipe(plugins.coffeelint.reporter);<% } else { %>
     .pipe(plugins.jshint, 'server/.jshintrc')
