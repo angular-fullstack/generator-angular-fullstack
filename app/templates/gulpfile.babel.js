@@ -57,7 +57,10 @@ var paths = {
  ********************/
 
 function onServerLog(log) {
-    console.log(plugins.util.colors.white('[') + plugins.util.colors.yellow('nodemon') + plugins.util.colors.white('] ') + log.message);
+    console.log(plugins.util.colors.white('[') +
+        plugins.util.colors.yellow('nodemon') +
+        plugins.util.colors.white('] ') +
+        log.message);
 }
 
 function checkAppReady(cb) {
