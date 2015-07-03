@@ -161,7 +161,8 @@ gulp.task('styles', styles);<% if(filters.coffee) { %>
 
 gulp.task('coffee', () =>
     gulp.src(paths.client.scripts)
-        .pipe(lintScripts())
+        .pipe(lintClientScripts())
+        .pipe(lintServerScripts())
         .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
         .pipe(gulp.dest('.tmp/scripts'));
 );<% } %>
@@ -202,14 +203,14 @@ gulp.task('watch', () => {
 
     plugins.watch(paths.client.scripts)
         .pipe(plugins.plumber())
-        .pipe(lintScripts())<% if(filters.coffee) { %>
+        .pipe(lintClientScripts())<% if(filters.coffee) { %>
         .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
         .pipe(gulp.dest('.tmp/scripts'))<% } %>
         .pipe(plugins.livereload());
 
     plugins.watch(_.union(paths.server.scripts, testFiles))
         .pipe(plugins.plumber())
-        .pipe(lintScripts());
+        .pipe(lintServerScripts());
 
     gulp.watch('bower.json', ['bower']);
 });
