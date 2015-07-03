@@ -176,10 +176,10 @@ gulp.task('lint:scripts:server', () => gulp.src(paths.server.scripts).pipe(lintS
 
 gulp.task('clean:tmp', () => gulp.src('.tmp', {read: false}).pipe(plugins.clean()));
 
-gulp.task('start:client', [<% if(filters.coffee) { %>'coffee', <% } %>'styles'], (callback) => {
+gulp.task('start:client', [<% if(filters.coffee) { %>'coffee', <% } %>'styles'], cb => {
     whenServerReady(() => {
         open('http://localhost:' + config.port);
-        callback();
+        cb();
     });
 });
 
@@ -216,7 +216,7 @@ gulp.task('watch', () => {
     gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task('serve', (callback) => {
+gulp.task('serve', cb => {
     runSequence('clean:tmp',
         ['lint:scripts'],
         'inject:js',
@@ -224,7 +224,7 @@ gulp.task('serve', (callback) => {
         'bower',
         ['start:server', 'start:client'],
         'watch',
-        callback);
+        cb);
 });
 
 gulp.task('test:server', () => {
@@ -255,10 +255,10 @@ gulp.task('bower', () => {
  * Build
  ********************/
 
-gulp.task('build', (callback) => {
+gulp.task('build', cb => {
     runSequence('clean:dist',
         ['images', 'copy:extras', 'copy:fonts', 'copy:server', 'client:build'],
-        callback);
+        cb);
 });
 
 gulp.task('clean:dist', () => gulp.src('dist', {read: false}).pipe(plugins.clean()));
