@@ -255,6 +255,13 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       uibootstrap: true
     });
 
+    this.scriptExt = this.filters.coffee ? 'coffee' : 'js';
+    this.styleExt = this.filters.less ? 'less' :
+      this.filters.sass ? 'scss' :
+      this.filters.stylus ? 'styl' :
+      'css';
+    this.templateExt = this.filters.jade ? 'jade' : 'html';
+
     var angModules = [
       "'ngCookies'",
       "'ngResource'",

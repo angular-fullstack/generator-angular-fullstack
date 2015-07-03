@@ -23,35 +23,30 @@ var yeoman = {
 var paths = {
     client: {
         scripts: [
-            'client/**/*.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>',
+            'client/**/*.<%= scriptExt %>',
             '!client/bower_components/**/*.js'
         ],
-        styles: ['client/{app, components}/**/*.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>'],
-        mainStyle: 'client/app/app.<% if(filters.stylus) { %>styl<% } else if (filters.sass) { %>scss<% } else { %>css<% } %>',
-        test: ['client/**/*.spec.<% if(filters.coffee) { %>coffee<% } else { %>js<% } %>'],
+        styles: ['client/{app, components}/**/*.<%= styleExt %>'],
+        mainStyle: 'client/app/app.<%= styleExt %>',
+        test: ['client/**/*.spec.<%= scriptExt %>'],
         testRequire: [
             'client/bower_components/angular/angular.js',
             'client/bower_components/angular-mocks/angular-mocks.js',
             'client/bower_components/angular-resource/angular-resource.js',
             'client/bower_components/angular-cookies/angular-cookies.js',
             'client/bower_components/angular-sanitize/angular-sanitize.js',
-            'client/bower_components/angular-route/angular-route.js',<% if(filters.coffee) { %>
-            'client/**/*.spec.coffee'<% } else { %>
-            'client/**/*.spec.js'<% } %>
+            'client/bower_components/angular-route/angular-route.js',
+            'client/**/*.spec.<%= scriptExt %>'
         ],
         bower: 'client/bower_components/'
     },
-    server: {<% if(filters.coffee) { %>
-        scripts: ['server/**/*.coffee'],
-        test: ['server/**/*.spec.coffee'],<% } else { %>
-        scripts: ['server/**/*.js'],
-        test: ['server/**/*.spec.js'],<% } %>
+    server: {
+        scripts: ['server/**/*.<%= scriptExt %>'],
+        test: ['server/**/*.spec.<%= scriptExt %>']
     },
-    views: {<% if(filters.jade) { %>
-        main: 'client/index.jade',
-        files: ['client/app/**/*.jade']<% } else {%>
-        main: 'client/index.html',
-        files: ['client/app/**/*.html']<% } %>
+    views: {
+        main: 'client/index.<%= templateExt %>',
+        files: ['client/app/**/*.<%= templateExt %>']
     },
     karma: 'karma.conf.js',
     dist: 'dist'
