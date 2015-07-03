@@ -150,8 +150,8 @@ gulp.task('inject:css', () => {
 gulp.task('inject:sass', () => {
     return gulp.src('client/app/app.scss')
         .pipe(plugins.inject(gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false}), {
-            starttag: '/*injector:sass*/',
-            endtag: '/*endinjector*/',
+            starttag: '// injector',
+            endtag: '// endinjector',
             transform: (filepath) => '@import \'' + filepath.replace('/client/app/', '').replace('/client/components/', '../components/') + '\';'
         }))
         .pipe(gulp.dest('client/app'));
