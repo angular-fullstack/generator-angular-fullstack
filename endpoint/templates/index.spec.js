@@ -3,7 +3,7 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 
 var <%= cameledName %>CtrlStub = {
-  index: '<%= name %>Ctrl.index'<% if(filters.mongoose) { %>,
+  index: '<%= name %>Ctrl.index'<% if(filters.models) { %>,
   show: '<%= name %>Ctrl.show',
   create: '<%= name %>Ctrl.create',
   update: '<%= name %>Ctrl.update',
@@ -11,7 +11,7 @@ var <%= cameledName %>CtrlStub = {
 };
 
 var routerStub = {
-  get: sinon.spy()<% if(filters.mongoose) { %>,
+  get: sinon.spy()<% if(filters.models) { %>,
   put: sinon.spy(),
   patch: sinon.spy(),
   post: sinon.spy(),
@@ -42,7 +42,7 @@ describe('<%= classedName %> API Router:', function() {
                 .should.have.been.calledOnce;
     });
 
-  });<% if(filters.mongoose) { %>
+  });<% if(filters.models) { %>
 
   describe('GET <%= route %>/:id', function() {
 
