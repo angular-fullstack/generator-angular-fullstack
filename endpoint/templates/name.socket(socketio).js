@@ -3,31 +3,32 @@
  */
 
 'use strict';
-<% if (filters.mongoose) { %>
-var <%= classedName %> = require('./<%= name %>.model');<% } %><% if (filters.sequelize) { %>
-var <%= classedName %> = require('../../sqldb').<%= classedName %>;<% } %>
 
-exports.register = function(socket) {<% if (filters.sequelize) { %>
-  <%= classedName %>.hook('afterCreate', function(doc, fields, fn) {
-    onSave(socket, doc);
-    fn(null);
-  });<% } %>
-  <% if (filters.mongoose) { %><%= classedName %>.schema.post('save', function(doc) {<% }
-     if (filters.sequelize) { %><%= classedName %>.hook('afterUpdate', function(doc, fields, fn) {<% } %>
-    onSave(socket, doc);<% if (filters.sequelize) { %>
-    fn(null);<% } %>
-  });
-  <% if (filters.mongoose) { %><%= classedName %>.schema.post('remove', function(doc) {<% }
-     if (filters.sequelize) { %><%= classedName %>.hook('afterDestroy', function(doc, fields, fn) {<% } %>
-    onRemove(socket, doc);<% if (filters.sequelize) { %>
-    fn(null);<% } %>
-  });
+var <%= classedName %>Events = require('./<%= name %>.events');
+
+// Model events to emit
+var events = ['save', 'remove'];
+
+exports.register = function(socket) {
+  // Bind model events to socket events
+  for (var i = 0, eventsLength = events.length; i < eventsLength; i++) {
+    var event = events[i];
+    var listener = createListener('<%= name %>:' + event, socket);
+
+    <%= classedName %>Events.on(event, listener);
+    socket.on('disconnect', removeListener(event, listener));
+  }
 };
 
-function onSave(socket, doc, cb) {
-  socket.emit('<%= name %>:save', doc);
+
+function createListener(event, socket) {
+  return function(doc) {
+    socket.emit(event, doc);
+  };
 }
 
-function onRemove(socket, doc, cb) {
-  socket.emit('<%= name %>:remove', doc);
+function removeListener(event, listener) {
+  return function() {
+    <%= classedName %>Events.removeListener(event, listener);
+  };
 }
