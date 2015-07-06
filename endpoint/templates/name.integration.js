@@ -1,7 +1,7 @@
 'use strict';
 
 var app = require('../../app');
-var request = require('supertest');<% if(filters.mongoose) { %>
+var request = require('supertest');<% if(filters.models) { %>
 
 var new<%= classedName %>;<% } %>
 
@@ -28,7 +28,7 @@ describe('<%= classedName %> API:', function() {
       <%= cameledName %>s.should.be.instanceOf(Array);
     });
 
-  });<% if(filters.mongoose) { %>
+  });<% if(filters.models) { %>
 
   describe('POST <%= route %>', function() {
     beforeEach(function(done) {
@@ -130,7 +130,7 @@ describe('<%= classedName %> API:', function() {
         });
     });
 
-    it('should respond with 404 when <%= name %> does not exsist', function(done) {
+    it('should respond with 404 when <%= name %> does not exist', function(done) {
       request(app)
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(404)
