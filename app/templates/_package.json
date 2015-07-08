@@ -7,17 +7,18 @@
     "morgan": "~1.0.0",
     "body-parser": "~1.5.0",
     "method-override": "~1.0.0",
-    "serve-favicon": "~2.0.1",
     "cookie-parser": "~1.0.1",
     "express-session": "~1.0.2",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
+    "composable-middleware": "^0.3.0",
     "lodash": "~2.4.1",<% if(filters.babel) { %>
     "babel-core": "^5.6.4",<% } %><% if (filters.jade) { %>
     "jade": "~1.2.0",<% } %><% if (filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if (filters.mongoose) { %>
     "mongoose": "~4.0.3",
-    "mongoose-bird": "~0.0.1",<% } %><% if (filters.sequelize) { %>
+    "mongoose-bird": "~0.0.1",
+    "connect-mongo": "^0.8.1",<% } %><% if (filters.sequelize) { %>
     "sequelize": "^2.0.0-rc2",
     "sqlite3": "~3.0.2",<% } %><% if (filters.auth) { %>
     "jsonwebtoken": "^5.0.0",
@@ -26,12 +27,11 @@
     "passport-local": "~0.1.6",<% } %><% if (filters.facebookAuth) { %>
     "passport-facebook": "latest",<% } %><% if (filters.twitterAuth) { %>
     "passport-twitter": "latest",<% } %><% if (filters.googleAuth) { %>
-    "passport-google-oauth": "latest",<% } %>
-    "composable-middleware": "^0.3.0"<% if (filters.mongoose) { %>,
-    "connect-mongo": "^0.8.1"<% } %><% if (filters.socketio) { %>,
+    "passport-google-oauth": "latest",<% } %><% if (filters.socketio) { %>
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^3.0.0"<% } %>
+    "socketio-jwt": "^3.0.0",<% } %>
+    "serve-favicon": "~2.0.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
