@@ -1,4 +1,5 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+# AngularJS Full-Stack generator
+[![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![Dependency Status](https://david-dm.org/daftmonk/generator-angular-fullstack.png)](https://david-dm.org/daftmonk/generator-angular-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
