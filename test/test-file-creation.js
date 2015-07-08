@@ -174,6 +174,7 @@ describe('angular-fullstack generator', function () {
       'client/assets/images/yeoman.png',
       'client/components/navbar/navbar.' + markup,
       'client/components/navbar/navbar.controller.' + script,
+      'client/components/navbar/navbar.directive.' + script,
       'server/.jshintrc',
       'server/.jshintrc-spec',
       'server/app.js',
