@@ -54,6 +54,14 @@ describe('User Model', function() {
       return user.save();
     });
 
+    it('should exclude salt and hashedPassword by default', function(done) {
+      User.find({name: user.name}, function(err, _user) {
+        _user.should.not.have.property('salt');
+        _user.should.not.have.property('hashedPassword');
+        done();
+      });
+    });
+
     it('should authenticate user if valid', function() {
       user.authenticate('password').should.be.true;
     });

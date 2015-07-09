@@ -15,9 +15,9 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
-  password: String,
+  password: {type: String, select: false},
   provider: String,
-  salt: String<% if (filters.oauth) { %>,<% if (filters.facebookAuth) { %>
+  salt: {type: String, select: false}<% if (filters.oauth) { %>,<% if (filters.facebookAuth) { %>
   facebook: {},<% } %><% if (filters.twitterAuth) { %>
   twitter: {},<% } %><% if (filters.googleAuth) { %>
   google: {},<% } %>
