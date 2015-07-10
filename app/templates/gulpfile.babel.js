@@ -260,54 +260,78 @@ gulp.task('bower', () => {
  * Build
  ********************/
 
+//FIXME: looks like font-awesome isn't getting loaded
 gulp.task('build', cb => {
-    runSequence('clean:dist',
-        ['images', 'copy:extras', 'copy:fonts', 'copy:server', 'client:build'],
+    runSequence(
+        'clean:dist',
+        'inject',
+        'bower',
+        [
+            'build:images',
+            'copy:extras',
+            'copy:fonts',
+            'copy:server',
+            'build:client'
+        ],
         cb);
 });
 
 gulp.task('clean:dist', () => gulp.src('dist', {read: false}).pipe(plugins.clean()));
 
-gulp.task('client:build', ['html'], () => {
+gulp.task('build:client', ['transpile', 'styles', 'html'], () => {
+    var appFilter = plugins.filter('**/app.js');
     var jsFilter = plugins.filter('**/*.js');
-    var cssFilter = plugins.filter('**/*.css');<% if(filters.jade) { %>
-    var assets = plugins.filter('**/*.{js,css}');<% } %>
+    var cssFilter = plugins.filter('**/*.css');
+    var htmlFilter = plugins.filter('**/*.html');<% if(filters.jade) { %>
+    var assetsFilter = plugins.filter('**/*.{js,css}');<% } %>
+
+    let assets = plugins.useref.assets({searchPath: ['client', '.tmp']});
 
     return gulp.src(paths.views.main)<% if(filters.jade) { %>
         .pipe(plugins.jade({pretty: true}))<% } %>
-        .pipe(plugins.useref.assets({searchPath: [yeoman.app, '.tmp']}))
+        .pipe(assets)
+        .pipe(appFilter)
+            .pipe(plugins.addSrc.append('.tmp/templates.js'))
+            .pipe(plugins.concat('app\\app.js'))
+        .pipe(appFilter.restore())
         .pipe(jsFilter)
-        .pipe(plugins.ngmin())
-        .pipe(plugins.uglify())
+            .pipe(plugins.ngmin())
+            .pipe(plugins.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
-        .pipe(plugins.minifyCss({cache: true}))
+            .pipe(plugins.minifyCss({cache: true}))
         .pipe(cssFilter.restore())
         .pipe(plugins.rev())
-        .pipe(plugins.useref.restore())
+        .pipe(assets.restore())
         .pipe(plugins.revReplace())
         .pipe(plugins.useref())<% if(filters.jade) { %>
-        .pipe(assets)<% } %>
+        .pipe(assetsFilter)<% } %>
         .pipe(gulp.dest(paths.dist + '/public'));
 });
 
-gulp.task('html', () => {
-    gulp.src(yeoman.app + '/views/**/*')
-        .pipe(gulp.dest(paths.dist + '/public/views'));
+gulp.task('html', function () {
+    return gulp.src('client/{app,components}/**/*.html')
+        .pipe(plugins.angularTemplatecache({
+            module: 'testApp'
+        }))
+        .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('images', () => {
-    gulp.src(yeoman.app + '/images/**/*')
+gulp.task('build:images', () => {
+    gulp.src('client/assets/images/**/*')
         .pipe(plugins.cache(plugins.imagemin({
             optimizationLevel: 5,
             progressive: true,
             interlaced: true
         })))
-        .pipe(gulp.dest(paths.dist + '/public/images'));
+        .pipe(gulp.dest(paths.dist + '/public/assets/images'));
 });
 
 gulp.task('copy:extras', () => {
-    gulp.src(yeoman.app + '/*.*', { dot: true })
+    gulp.src([
+        'client/favicon.ico',
+        'client/robots.txt'
+    ], { dot: true })
         .pipe(gulp.dest(paths.dist + '/public'));
 });
 
@@ -319,8 +343,9 @@ gulp.task('copy:fonts', () => {
 gulp.task('copy:server', () => {
     gulp.src([
         'package.json',
-        'server.js',
-        'lib/**/*'
+        'bower.json',
+        '.bowerrc',
+        'server/**/*'
     ], {cwdbase: true})
         .pipe(gulp.dest(paths.dist));
 });
