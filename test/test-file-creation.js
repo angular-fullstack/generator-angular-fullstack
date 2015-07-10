@@ -9,6 +9,7 @@ var exec = require('child_process').exec;
 
 describe('angular-fullstack generator', function () {
   var gen, defaultOptions = {
+    buildtool: 'grunt',
     script: 'js',
     markup: 'html',
     stylesheet: 'sass',
