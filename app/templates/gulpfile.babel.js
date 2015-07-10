@@ -133,7 +133,8 @@ gulp.task('inject', cb => {
 gulp.task('inject:js', () => {
     return gulp.src(paths.views.main)
         .pipe(plugins.inject(gulp.src(_.union(
-            paths.client.scripts
+            paths.client.scripts,
+            ['!client/**/*.spec.<%= scriptExt %>']
         ), {read: false}), {
             starttag: '<!-- injector:js -->',
             endtag: '<!-- endinjector -->',
