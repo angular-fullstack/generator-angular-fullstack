@@ -26,7 +26,7 @@ var paths = {
             'client/**/*.<%= scriptExt %>',
             '!client/bower_components/**/*.js'
         ],
-        styles: ['client/{app, components}/**/*.<%= styleExt %>'],
+        styles: ['client/{app,components}/**/*.<%= styleExt %>'],
         mainStyle: 'client/app/app.<%= styleExt %>',
         test: ['client/**/*.spec.<%= scriptExt %>'],
         testRequire: [
@@ -105,16 +105,16 @@ let lintServerScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
 let styles = lazypipe()
-    .pipe(gulp.src, paths.client.styles)
+    .pipe(gulp.src, paths.client.mainStyle)
     .pipe(plugins.sourcemaps.init)<% if(filters.stylus) { %>
     .pipe(plugins.stylus, {
         use: [nib()],
         errors: true
     })<% } if(filters.sass) { %>
     .pipe(plugins.sass)<% } %>
+    .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
     .pipe(plugins.sourcemaps.write, '.')
-    // .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})  //seems to break this
-    .pipe(gulp.dest, '.tmp');
+    .pipe(gulp.dest, '.tmp/app');
 
 /********************
  * Tasks
