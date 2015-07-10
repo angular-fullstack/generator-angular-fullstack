@@ -66,7 +66,7 @@
     "nib": "^1.1.0",<% } %><% if(filters.sass) { %>
     "gulp-sass": "^2.0.1",<% } %><% if(filters.coffee) { %>
     "gulp-coffeelint": "^0.5.0",
-    "gulp-coffee": "^2.3.1",<% } %><% } else { %>
+    "gulp-coffee": "^2.3.1",<% }} if(filters.grunt) { %>
     "grunt": "~0.4.4",
     "grunt-autoprefixer": "~0.7.2",
     "grunt-wiredep": "~1.8.0",

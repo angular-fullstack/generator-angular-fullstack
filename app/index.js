@@ -66,10 +66,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.log('# Client\n');
 
     this.prompt([{
-        type: 'confirm',
-        name: 'gulp',
+        type: 'list',
+        name: 'buildtool',
         message: 'Would you like to use Gulp (experimental) instead of Grunt?',
-        default: false
+        choices: [ 'Grunt', 'Gulp', 'Both'],
+        filter: function(val) {
+          return {
+            'Grunt': 'grunt',
+            'Gulp': 'gulp',
+            'Both': 'grunt_and_gulp'
+          }[val];
+        }
       }, {
         type: "list",
         name: "script",
@@ -122,16 +129,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           return answers.bootstrap;
         }
       }], function (answers) {
-        this.filters.gulp = !!answers.gulp;
+        this.filters.grunt = answers.buildtool === 'grunt' || answers.buildtool === 'grunt_and_gulp';
+        this.filters.gulp = answers.buildtool === 'gulp' || answers.buildtool === 'grunt_and_gulp';
         this.filters.babel = !!answers.babel;
-        if(this.filters.babel){ this.filters.js = true; }
+        if(this.filters.babel){ this.filters.js = false; }
         this.filters[answers.script] = true;
         this.filters[answers.markup] = true;
         this.filters[answers.stylesheet] = true;
         this.filters[answers.router] = true;
         this.filters.bootstrap = !!answers.bootstrap;
         this.filters.uibootstrap =  !!answers.uibootstrap;
-      cb();
+        cb();
       }.bind(this));
   },
 
