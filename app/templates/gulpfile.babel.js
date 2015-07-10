@@ -114,7 +114,13 @@ let styles = lazypipe()
     .pipe(plugins.sass)<% } %>
     .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
     .pipe(plugins.sourcemaps.write, '.')
-    .pipe(gulp.dest, '.tmp/app');
+    .pipe(gulp.dest, '.tmp/app');<% if(filters.babel || filters.coffee) { %>
+
+let transpile = lazypipe()
+    .pipe(plugins.sourcemaps.init)<% if(filters.babel) { %>
+    .pipe(plugins.babel)<% } else { %>
+    .pipe(plugins.coffee, {bare: true})<% } %>
+    .pipe(plugins.sourcemaps.write, '.');<% } %>
 
 /********************
  * Tasks
@@ -157,15 +163,13 @@ gulp.task('inject:sass', () => {
         .pipe(gulp.dest('client/app'));
 });
 
-gulp.task('styles', styles);<% if(filters.coffee) { %>
+gulp.task('styles', styles);<% if(filters.babel || filters.coffee) { %>
 
-gulp.task('coffee', () =>
-    gulp.src(paths.client.scripts)
-        .pipe(lintClientScripts())
-        .pipe(lintServerScripts())
-        .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
-        .pipe(gulp.dest('.tmp/scripts'));
-);<% } %>
+gulp.task('transpile', () => {
+    return gulp.src(paths.client.scripts)
+        .pipe(transpile())
+        .pipe(gulp.dest('.tmp'));
+});<% } %>
 
 gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:scripts:server'], cb));
 
@@ -202,9 +206,8 @@ gulp.task('watch', () => {
         .pipe(plugins.livereload());
 
     plugins.watch(paths.client.scripts)
-        .pipe(plugins.plumber())
-        .pipe(lintClientScripts())<% if(filters.coffee) { %>
-        .pipe(plugins.coffee({bare: true}).on('error', plugins.util.log))
+        .pipe(plugins.plumber())<% if(filters.babel || filters.coffee) { %>
+        .pipe(transpile())
         .pipe(gulp.dest('.tmp/scripts'))<% } %>
         .pipe(plugins.livereload());
 
