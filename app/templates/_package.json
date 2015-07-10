@@ -102,11 +102,11 @@
     "grunt-build-control": "~0.4.0",
     "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
     "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
-    "grunt-contrib-stylus": "latest",<% } %><% } %>
+    "grunt-contrib-stylus": "latest",<% } %>
     "jit-grunt": "^0.5.0",
     "time-grunt": "~0.3.1",
     "grunt-express-server": "~0.4.17",
-    "grunt-open": "~0.2.3",
+    "grunt-open": "~0.2.3",<% } %>
     "open": "~0.0.4",
     "jshint-stylish": "~0.1.5",
     "connect-livereload": "~0.4.0",
