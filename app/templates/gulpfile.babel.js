@@ -196,6 +196,8 @@ gulp.task('start:server', () => {
 gulp.task('watch', () => {
     var testFiles = _.union(paths.client.test, paths.server.test);
 
+    plugins.livereload.listen();
+
     plugins.watch(paths.client.styles)
         .pipe(plugins.plumber())
         .pipe(styles())
