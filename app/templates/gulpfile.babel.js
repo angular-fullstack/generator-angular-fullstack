@@ -127,7 +127,7 @@ let transpile = lazypipe()
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:js', 'inject:css'], cb);
+    runSequence(['inject:js', 'inject:css', 'inject:<%= styleExt %>'], cb);
 });
 
 gulp.task('inject:js', () => {
@@ -154,8 +154,8 @@ gulp.task('inject:css', () => {
 });
 
 // TODO: other styles
-gulp.task('inject:sass', () => {
-    return gulp.src('client/app/app.scss')
+gulp.task('inject:<%= styleExt %>', () => {
+    return gulp.src('client/app/app.<%= styleExt %>')
         .pipe(plugins.inject(gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false}), {
             starttag: '// injector',
             endtag: '// endinjector',
