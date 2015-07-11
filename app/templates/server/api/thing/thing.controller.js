@@ -10,7 +10,10 @@
 'use strict';
 
 var _ = require('lodash');<% if (filters.sql) { %>
-var Thing = require('./thing.model');<% } %>
+
+function Thing(req){
+  return req.app.get('models').Thing;
+}<% } %>
 
 // Get list of things
 exports.index = function(req, res) {<% if (!filters.sql) { %>
@@ -35,53 +38,73 @@ exports.index = function(req, res) {<% if (!filters.sql) { %>
   info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
   }
   ]);<% } %><% if (filters.sql) { %>
-  Thing.find(function (err, things) {
-    if(err) { return handleError(res, err); }
-    return res.status(200).json(things);
-  });<% } %>
+  Thing(req)
+    .findAll()
+    .then(function (things) {
+      return res.status(200).json(things);
+    })
+    .catch(function (err){
+      if(err) { return handleError(res, err); }
+    });<% } %>
 };<% if (filters.sql) { %>
 
 // Get a single thing
 exports.show = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.status(404).send('Not Found'); }
-    return res.json(thing);
-  });
+  Thing(req)
+    .findById(req.params.id)
+    .then(function (thing) {
+      if(!thing) { return res.status(404).send('Not Found'); }
+      return res.json(thing);
+    })
+    .catch(function (err){
+      if(err) { return handleError(res, err); }
+    });
 };
 
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
-  Thing.create(req.body, function(err, thing) {
-    if(err) { return handleError(res, err); }
-    return res.status(201).json(thing);
-  });
+  Thing(req)
+    .create(req.body)
+    .then(function(thing) {
+      return res.status(201).json(thing);
+    })
+    .catch(function (err){
+      if(err) { return handleError(res, err); }
+    });
 };
 
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  Thing.findById(req.params.id, function (err, thing) {
-    if (err) { return handleError(res, err); }
-    if(!thing) { return res.status(404).send('Not Found'); }
-    var updated = _.merge(thing, req.body);
-    updated.save(function (err) {
+  Thing(req)
+    .findById(req.params.id)
+    .then(function (thing) {
+      if(!thing) { return res.status(404).send('Not Found'); }
+      var updated = _.merge(thing, req.body);
+      updated.save(function (err) {
+        if (err) { return handleError(res, err); }
+        return res.status(200).json(thing);
+      });
+    })
+    .catch(function (err){
       if (err) { return handleError(res, err); }
-      return res.status(200).json(thing);
     });
-  });
 };
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.status(404).send('Not Found'); }
-    thing.remove(function(err) {
+  Thing(req)
+    .findById(req.params.id)
+    .then(function (thing) {
+      if(!thing) { return res.status(404).send('Not Found'); }
+      thing.remove(function(err) {
+        if(err) { return handleError(res, err); }
+        return res.status(204).send('No Content');
+      });
+    })
+    .catch(function (err){
       if(err) { return handleError(res, err); }
-      return res.status(204).send('No Content');
     });
-  });
 };
 
 function handleError(res, err) {

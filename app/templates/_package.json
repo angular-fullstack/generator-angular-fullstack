@@ -15,7 +15,7 @@
     "lodash": "~2.4.1",<% if(filters.jade) { %>
     "jade": "~1.2.0",<% } %><% if(filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if(filters.sql) { %>
-    "sequelize": "~3.2.0",<% } %><% if(filters.pgsql) { %>
+    "sequelize": "~3.3.2",<% } %><% if(filters.pgsql) { %>
     "pg-hstore": "~2.3.2",
     "pg": "~4.3.0",<% } %><% if(filters.mysql && !filters.sql) { %>
     "mysql": "~2.7.0",<% } %><% if(filters.sqlite && !filters.sql) { %>

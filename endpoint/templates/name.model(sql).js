@@ -5,12 +5,6 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING,
     info: DataTypes.STRING,
     active: DataTypes.BOOLEAN,
-  }, {
-    classMethods: {
-      associate: function(models) {
-        <%= classedName %>.belongsTo(models.<%= classedName %>);
-      }
-    }
   });
 
   <%= classedName %>

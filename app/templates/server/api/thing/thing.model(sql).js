@@ -5,13 +5,17 @@ module.exports = function(sequelize, DataTypes) {
     title: DataTypes.STRING,
     info: DataTypes.STRING,
     active: DataTypes.BOOLEAN,
-  }, {
-    classMethods: {
-      associate: function(models) {
-        Thing.belongsTo(models.Thing);
-      }
-    }
   });
+
+  Thing
+    .sync({force: true})
+    .then(function (){
+      return Thing.create({
+        title: 'title',
+        info: 'info',
+        active: true
+      });
+    });
 
   return Thing;
 };

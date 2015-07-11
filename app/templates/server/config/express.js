@@ -25,6 +25,7 @@ module.exports = function(app) {
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');<% } %><% if (filters.jade) { %>
   app.set('view engine', 'jade');<% } %>
+  app.set('models', require('../api'));
   app.use(compression());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
