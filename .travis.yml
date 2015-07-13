@@ -1,3 +1,4 @@
+sudo: false
 language: node_js
 node_js:
   - '0.10'
@@ -12,3 +13,8 @@ before_install:
   - gem install sass --version "=3.3.7"
   - npm install -g bower grunt-cli
 services: mongodb
+cache:
+  directories:
+    - node_modules
+    - test/fixtures/node_modules
+    - test/fixtures/bower_components
