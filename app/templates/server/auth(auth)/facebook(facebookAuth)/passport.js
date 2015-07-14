@@ -5,7 +5,11 @@ exports.setup = function (User, config) {
   passport.use(new FacebookStrategy({
       clientID: config.facebook.clientID,
       clientSecret: config.facebook.clientSecret,
-      callbackURL: config.facebook.callbackURL
+      callbackURL: config.facebook.callbackURL,
+      profileFields: [
+        'displayName',
+        'emails'
+      ]
     },
     function(accessToken, refreshToken, profile, done) {
       User.findOne({
@@ -20,7 +24,7 @@ exports.setup = function (User, config) {
             name: profile.displayName,
             email: profile.emails[0].value,
             role: 'user',
-            username: profile.username,
+            username: null,
             provider: 'facebook',
             facebook: profile._json
           });
