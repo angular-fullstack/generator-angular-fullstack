@@ -15,19 +15,19 @@
     "lodash": "~2.4.1",<% if(filters.jade) { %>
     "jade": "~1.2.0",<% } %><% if(filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if(filters.mongoose) { %>
-    "mongoose": "~3.8.8",<% } %><% if(filters.auth) { %>
-    "jsonwebtoken": "^0.3.0",
-    "express-jwt": "^0.1.3",
+    "mongoose": "~4.0.3",<% } %><% if(filters.auth) { %>
+    "jsonwebtoken": "^5.0.0",
+    "express-jwt": "^3.0.0",
     "passport": "~0.2.0",
     "passport-local": "~0.1.6",<% } %><% if(filters.facebookAuth) { %>
     "passport-facebook": "latest",<% } %><% if(filters.twitterAuth) { %>
     "passport-twitter": "latest",<% } %><% if(filters.googleAuth) { %>
     "passport-google-oauth": "latest",<% } %>
     "composable-middleware": "^0.3.0",
-    "connect-mongo": "^0.4.1"<% if(filters.socketio) { %>,
+    "connect-mongo": "^0.8.1"<% if(filters.socketio) { %>,
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^2.0.2"<% } %>
+    "socketio-jwt": "^3.0.0"<% } %>
   },
   "devDependencies": {
     "grunt": "~0.4.4",
@@ -45,7 +45,9 @@
     "grunt-contrib-watch": "~0.6.1",<% if(filters.coffee) { %>
     "grunt-contrib-coffee": "^0.10.1",<% } %><% if(filters.jade) { %>
     "grunt-contrib-jade": "^0.11.0",<% } %><% if(filters.less) { %>
-    "grunt-contrib-less": "^0.11.0",<% } %>
+    "grunt-contrib-less": "^0.11.0",<% } %><% if(filters.babel) { %>
+    "karma-babel-preprocessor": "^5.2.1",
+    "grunt-babel": "~5.0.0",<% } %>
     "grunt-google-cdn": "~0.4.0",
     "grunt-newer": "~0.7.0",
     "grunt-ng-annotate": "^0.2.3",
@@ -60,7 +62,7 @@
     "grunt-protractor-runner": "^1.1.0",
     "grunt-injector": "~0.5.4",
     "grunt-karma": "~0.8.2",
-    "grunt-build-control": "DaftMonk/grunt-build-control",
+    "grunt-build-control": "~0.4.0",
     "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
     "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "latest",<% } %>

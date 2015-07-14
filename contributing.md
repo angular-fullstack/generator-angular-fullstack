@@ -10,6 +10,12 @@ Additionally for this generator:
 * When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
 * When submitting a new feature, add tests that cover the feature.
 
+To run the generator:
+1. Clone it and `cd` to its root
+2. `npm install`
+3. `npm link` (tells NPM to look to your own version)
+4. `yo angular-fullstack` as normal. It should run from your cloned version rather than the one downloaded from NPM.
+
 ## Git Commit Guidelines
 
 These rules are adopted from the AngularJS project.

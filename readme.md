@@ -1,4 +1,5 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+# AngularJS Full-Stack generator
+[![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) ![](https://david-dm.org/daftmonk/generator-angular-fullstack.png) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
@@ -35,7 +36,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Client**
 
-* Scripts: `JavaScript`, `CoffeeScript`
+* Scripts: `JavaScript`, `CoffeeScript`, `Babel`
 * Markup:  `HTML`, `Jade`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`,
 * Angular Routers: `ngRoute`, `ui-router`
@@ -57,6 +58,7 @@ A grunt task looks for new files in your `client/app` and `client/components` fo
 * `css` files into `client/index.html`
 * `js` files into `client/index.html`
 * `coffeescript` temp `js` files into `client/index.html`
+* `babel` temp `js` files into `client/index.html`
 
 ## Generators
 
@@ -230,11 +232,11 @@ A live application URL will be available in the output.
 >
 > You will also need to set `DOMAIN` environment variable:
 >
->     rhc config:set DOMAIN=<your-openshift-app-name>.rhcloud.com
+>     rhc set-env DOMAIN=<your-openshift-app-name>.rhcloud.com
 >
 >     # or (if you're using it):
 >
->     rhc config:set DOMAIN=<your-custom-domain>
+>     rhc set-env DOMAIN=<your-custom-domain>
 >
 > After you've set the required environment variables, restart the server:
 >
@@ -261,7 +263,7 @@ To work with your new heroku app using the command line, you will need to run an
 
 If you're using mongoDB you will need to add a database to your app:
 
-    heroku addons:add mongohq
+    heroku addons:add mongolab
 
 Your app should now be live. To view it run `heroku open`.
 
