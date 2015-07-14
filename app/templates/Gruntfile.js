@@ -17,7 +17,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     buildcontrol: 'grunt-build-control',
-    istanbul_check_coverage: 'grunt-mocha-istanbul'
+    istanbul_check_coverage: 'grunt-mocha-istanbul',
+    replace: 'grunt-replace',
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -430,6 +431,20 @@ module.exports = function (grunt) {
         cwd: '<%%= yeoman.client %>',
         dest: '.tmp/',
         src: ['{app,components}/**/*.css']
+      }
+    },
+
+    // replace string at build according to replace_at_build.js
+    replace: {
+      dist: {
+        options: {
+          patterns: require("./replace_at_build"),
+          usePrefix: false,
+          noProcess : ['<%%= yeoman.dist %>/client/bower_components/**/*.*', '<%%= yeoman.dist %>/client/**/*.png', '<%%= yeoman.dist %>/client/**/*.ico', '<%%= yeoman.dist %>/client/**/*.txt'], 
+        },
+        files: [
+          {expand: true, flatten: false, src: ['<%%= yeoman.dist %>/client/**/*.*']}
+        ]
       }
     },
 
@@ -970,7 +985,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'replace'
   ]);
 
   grunt.registerTask('default', [
