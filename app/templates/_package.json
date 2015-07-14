@@ -61,10 +61,14 @@
     "run-sequence": "^1.1.0",
     "lazypipe": "^0.2.4",
     "wiredep": "^2.2.2",<% if(filters.jade) { %>
-    "gulp-jade": "^1.0.1",<% } %><% if(filters.stylus) { %>
+    "gulp-jade": "^1.0.1",<% } if(filters.stylus) { %>
     "gulp-stylus": "^2.0.4",
-    "nib": "^1.1.0",<% } %><% if(filters.sass) { %>
-    "gulp-sass": "^2.0.1",<% } %><% if(filters.coffee) { %>
+    "gulp-stylint": "^1.1.3",
+    "nib": "^1.1.0",<% } if(filters.sass) { %>
+    "gulp-sass": "^2.0.1",
+    "gulp-scss-lint": "^0.2.1",<% } if(filters.less) { %>
+    "gulp-less": "^3.0.3",
+    "gulp-recess": "^1.1.2",<% } if(filters.coffee) { %>
     "gulp-coffeelint": "^0.5.0",
     "gulp-coffee": "^2.3.1",<% }} if(filters.grunt) { %>
     "grunt": "~0.4.4",
