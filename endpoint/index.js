@@ -70,15 +70,7 @@ Generator.prototype.registerEndpoint = function registerEndpoint() {
 };
 
 Generator.prototype.createFiles = function createFiles() {
-  var destBase = this.config.get('endpointDirectory');
-  var dest = 'server/api/' + this.name;
-  if (destBase) {
-    if (destBase.charAt(destBase.length - 1) !== '/') {
-      destBase += '/';
-    }
-    dest = destBase + this.name;
-  }
-
+  var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
   this.sourceRoot(path.join(__dirname, './templates'));
   ngUtil.processDirectory(this, '.', dest);
 };
