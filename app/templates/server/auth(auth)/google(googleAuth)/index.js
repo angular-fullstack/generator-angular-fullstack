@@ -10,8 +10,8 @@ router
   .get('/', passport.authenticate('google', {
     failureRedirect: '/signup',
     scope: [
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email'
+      'profile',
+      'email'
     ],
     session: false
   }))
