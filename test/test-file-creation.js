@@ -212,7 +212,8 @@ describe('angular-fullstack generator', function () {
       'bower.json',
       'karma.conf.js',
       'mocha.conf.js',
-      'protractor.conf.js'
+      'protractor.conf.js',
+      'README.md'
     ]);
 
     /* Ui-Router */
