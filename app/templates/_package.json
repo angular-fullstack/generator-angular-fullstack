@@ -77,7 +77,7 @@
     "grunt-open": "~0.2.3",
     "open": "~0.0.4",
     "jshint-stylish": "~0.1.5",
-    "connect-livereload": "~0.4.0",
+    "connect-livereload": "^0.5.3",
     "grunt-mocha-test": "~0.10.2",
     "grunt-mocha-istanbul": "^2.0.0",
     "chai-as-promised": "^5.1.0",
