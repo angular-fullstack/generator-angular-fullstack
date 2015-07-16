@@ -1,3 +1,28 @@
+<a name="v2.1.0"></a>
+## v2.1.0 (2015-07-15)
+
+
+#### Bug Fixes
+
+* **app:** missing event.preventDefault ([c90d7621](http://github.com/DaftMonk/generator-angular-fullstack/commit/c90d7621b8f17f6e74f8a59f02fd78a8fcf628aa))
+* **demo:** include bootstrap in demo ([19e21331](http://github.com/DaftMonk/generator-angular-fullstack/commit/19e213319ecdf27041948133fe4c9642184133d8))
+* **express:** support new options of updated connect-mongo ([727d6616](http://github.com/DaftMonk/generator-angular-fullstack/commit/727d661642441d5ee76e4fba9ebcbba134e43058))
+* **jshint:** Removed 'regexp' from server and client jshintrc (I couldn't find it in the docs ([e02f0940](http://github.com/DaftMonk/generator-angular-fullstack/commit/e02f09405de2423d7be92e5ca0f9be740becb693))
+* **travis:**
+  * Remove unicode stuff from file creation test expectations, and add nodejs 0.12 t ([bf9a9737](http://github.com/DaftMonk/generator-angular-fullstack/commit/bf9a9737721d1ea72f3f7b9689d6781e78b4c606))
+  * Add nodejs 12 to travis.yml ([acecde9d](http://github.com/DaftMonk/generator-angular-fullstack/commit/acecde9d0e02b579d4b0a2a33d7c0f24067258ec))
+
+
+#### Features
+
+* **app:**
+  * additional app generator option for ES6 preprocessing using babel ([cbb06a48](http://github.com/DaftMonk/generator-angular-fullstack/commit/cbb06a48e28c594a53f61e49857cbb711bd74ce9))
+  * additional app generator option for ES6 preprocessing using babel ([bc03aba9](http://github.com/DaftMonk/generator-angular-fullstack/commit/bc03aba9ee82812f29f4ec9f86daf3b8d1c531b8))
+  * add mongodb error handling to quit app if unable to connect with mongodb server  ([31bee73c](http://github.com/DaftMonk/generator-angular-fullstack/commit/31bee73c1085c3a3f3c8e4e6f1f45db28fa9f94b))
+* **build:** add gitter webhook for travis ([6b88efdf](http://github.com/DaftMonk/generator-angular-fullstack/commit/6b88efdfb1d6b3b2dcbf47e0517bfc5117247d12))
+* **gen:** Remove global jQuery dependency ([a9230ca2](http://github.com/DaftMonk/generator-angular-fullstack/commit/a9230ca2ba1b2727abdc466a11096ec513fd7085))
+* **readme:** add david-dm badge & move badges to new line ([f8f32f4f](http://github.com/DaftMonk/generator-angular-fullstack/commit/f8f32f4f67938a5f7416e2a07d7b24d71a12585f))
+
 <a name="v2.0.13"></a>
 ### v2.0.13 (2014-08-29)
 
