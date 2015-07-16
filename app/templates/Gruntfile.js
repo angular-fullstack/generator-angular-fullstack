@@ -282,16 +282,14 @@ module.exports = function (grunt) {
     },
 
     // Renames files for browser caching purposes
-    rev: {
+    filerev: {
       dist: {
-        files: {
-          src: [
-            '<%%= yeoman.dist %>/client/!(bower_components)/{,*/}*.js',
-            '<%%= yeoman.dist %>/client/!(bower_components)/{,*/}*.css',
-            '<%%= yeoman.dist %>/client/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%%= yeoman.dist %>/client/assets/fonts/*'
-          ]
-        }
+        src: [
+          '<%%= yeoman.dist %>/client/!(bower_components)/{,*/}*.js',
+          '<%%= yeoman.dist %>/client/!(bower_components)/{,*/}*.css',
+          '<%%= yeoman.dist %>/client/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%%= yeoman.dist %>/client/assets/fonts/*'
+        ]
       }
     },
 
@@ -969,7 +967,7 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
-    'rev',
+    'filerev',
     'usemin'
   ]);
 
