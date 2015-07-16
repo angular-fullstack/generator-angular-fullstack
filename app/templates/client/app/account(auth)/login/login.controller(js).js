@@ -5,6 +5,8 @@ angular.module('<%= scriptAppName %>')
     $scope.user = {};
     $scope.errors = {};
 
+    Auth.logout();
+
     $scope.login = function(form) {
       $scope.submitted = true;
 
