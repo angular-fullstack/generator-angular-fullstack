@@ -11,9 +11,9 @@ Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
-Install `generator-angular-fullstack`:
+Install `yo`, `grunt-cli`, `bower`, and `generator-angular-fullstack`:
 ```
-npm install -g generator-angular-fullstack
+npm install -g yo grunt-cli bower generator-angular-fullstack
 ```
 
 Make a new directory, and `cd` into it:
