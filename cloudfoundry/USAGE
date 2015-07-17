@@ -1,0 +1,8 @@
+Description:
+    Initalizes a cloud foundr app and generates a `dist` folder which is ready to push to cloud foundry.
+
+Example:
+    yo angular-fullstack:cloudfoundry
+
+    This will create:
+        a dist folder and initialize a cloud foundry app

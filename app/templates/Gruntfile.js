@@ -216,7 +216,9 @@ module.exports = function (grunt) {
             '<%%= yeoman.dist %>/*',
             '!<%%= yeoman.dist %>/.git*',
             '!<%%= yeoman.dist %>/.openshift',
-            '!<%%= yeoman.dist %>/Procfile'
+            '!<%%= yeoman.dist %>/.cfignore',
+            '!<%%= yeoman.dist %>/Procfile',
+            '!<%%= yeoman.dist %>/manifest.yml'
           ]
         }]
       },

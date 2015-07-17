@@ -1,0 +1,5 @@
+---
+applications:
+- name: <%= appname %>
+  buildpack: https://github.com/cloudfoundry/heroku-buildpack-nodejs.git
+  command: node server/app.js
