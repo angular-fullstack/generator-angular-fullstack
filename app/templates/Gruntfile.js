@@ -89,7 +89,7 @@ module.exports = function (grunt) {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.styl'],
         tasks: ['stylus', 'autoprefixer']
-      },<% } %><% if (filters.sass) { %>
+      },<% } if (filters.sass) { %>
       injectSass: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
@@ -99,7 +99,7 @@ module.exports = function (grunt) {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
         tasks: ['sass', 'autoprefixer']
-      },<% } %><% if (filters.less) { %>
+      },<% } if (filters.less) { %>
       injectLess: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.less'],
@@ -109,13 +109,13 @@ module.exports = function (grunt) {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.less'],
         tasks: ['less', 'autoprefixer']
-      },<% } %><% if (filters.jade) { %>
+      },<% } if (filters.jade) { %>
       jade: {
         files: [
           '<%%= yeoman.client %>/{app,components}/*',
           '<%%= yeoman.client %>/{app,components}/**/*.jade'],
         tasks: ['jade']
-      },<% } %><% if (filters.coffee) { %>
+      },<% } if (filters.coffee) { %>
       coffee: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/*.{coffee,litcoffee,coffee.md}',
@@ -456,19 +456,19 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [<% if(filters.coffee) { %>
-        'coffee',<% } %><% if(filters.babel) { %>
-        'newer:babel:client',<% } %><% if(filters.jade) { %>
-        'jade',<% } %><% if(filters.stylus) { %>
-        'stylus',<% } %><% if(filters.sass) { %>
-        'sass',<% } %><% if(filters.less) { %>
+        'coffee',<% } if(filters.babel) { %>
+        'newer:babel:client',<% } if(filters.jade) { %>
+        'jade',<% } if(filters.stylus) { %>
+        'stylus',<% } if(filters.sass) { %>
+        'sass',<% } if(filters.less) { %>
         'less',<% } %>
       ],
       test: [<% if(filters.coffee) { %>
-        'coffee',<% } %><% if(filters.babel) { %>
-        'newer:babel:client',<% } %><% if(filters.jade) { %>
-        'jade',<% } %><% if(filters.stylus) { %>
-        'stylus',<% } %><% if(filters.sass) { %>
-        'sass',<% } %><% if(filters.less) { %>
+        'coffee',<% } if(filters.babel) { %>
+        'newer:babel:client',<% } if(filters.jade) { %>
+        'jade',<% } if(filters.stylus) { %>
+        'stylus',<% } if(filters.sass) { %>
+        'sass',<% } if(filters.less) { %>
         'less',<% } %>
       ],
       debug: {
@@ -481,11 +481,11 @@ module.exports = function (grunt) {
         }
       },
       dist: [<% if(filters.coffee) { %>
-        'coffee',<% } %><% if(filters.babel) { %>
-        'newer:babel:client',<% } %><% if(filters.jade) { %>
-        'jade',<% } %><% if(filters.stylus) { %>
-        'stylus',<% } %><% if(filters.sass) { %>
-        'sass',<% } %><% if(filters.less) { %>
+        'coffee',<% } if(filters.babel) { %>
+        'newer:babel:client',<% } if(filters.jade) { %>
+        'jade',<% } if(filters.stylus) { %>
+        'stylus',<% } if(filters.sass) { %>
+        'sass',<% } if(filters.less) { %>
         'less',<% } %>
         'imagemin',
         'svgmin'
@@ -599,7 +599,7 @@ module.exports = function (grunt) {
           ext: '.html'
         }]
       }
-    },<% } %><% if (filters.coffee) { %>
+    },<% } if (filters.coffee) { %>
 
     // Compiles CoffeeScript to JavaScript
     coffee: {
@@ -619,7 +619,7 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% } %><% if(filters.babel) { %>
+    },<% } if(filters.babel) { %>
 
     // Compiles ES6 to JavaScript using Babel
     babel: {
@@ -637,7 +637,7 @@ module.exports = function (grunt) {
           dest: '.tmp'
         }]
       }
-    },<% } %><% if(filters.stylus) { %>
+    },<% } if(filters.stylus) { %>
 
     // Compiles Stylus to CSS
     stylus: {
@@ -654,7 +654,7 @@ module.exports = function (grunt) {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.styl'
         }
       }
-    },<% } %><% if (filters.sass) { %>
+    },<% } if (filters.sass) { %>
 
     // Compiles Sass to CSS
     sass: {
@@ -671,7 +671,7 @@ module.exports = function (grunt) {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.scss'
         }
       }
-    },<% } %><% if (filters.less) { %>
+    },<% } if (filters.less) { %>
 
     // Compiles Less to CSS
     less: {
@@ -706,12 +706,9 @@ module.exports = function (grunt) {
         },
         files: {
           '<%%= yeoman.client %>/index.html': [
-               [
-                 <% if(filters.babel) { %>
-                 '.tmp/{app,components}/**/*.js',
-                 <% } else { %>
-                 '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.js',
-                 <% } %>
+               [<% if(filters.babel) { %>
+                 '.tmp/{app,components}/**/*.js',<% } else { %>
+                 '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.js',<% } %>
                  '!{.tmp,<%%= yeoman.client %>}/app/app.js',
                  '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.spec.js',
                  '!{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.mock.js'
@@ -737,7 +734,7 @@ module.exports = function (grunt) {
             '!<%%= yeoman.client %>/app/app.styl'
           ]
         }
-      },<% } %><% if (filters.sass) { %>
+      },<% } if (filters.sass) { %>
 
       // Inject component scss into app.scss
       sass: {
@@ -756,7 +753,7 @@ module.exports = function (grunt) {
             '!<%%= yeoman.client %>/app/app.{scss,sass}'
           ]
         }
-      },<% } %><% if (filters.less) { %>
+      },<% } if (filters.less) { %>
 
       // Inject component less into app.less
       less: {
@@ -822,9 +819,9 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',<% if (filters.stylus) { %>
-        'injector:stylus', <% } %><% if (filters.less) { %>
-        'injector:less', <% } %><% if (filters.sass) { %>
-        'injector:sass', <% } %>
+        'injector:stylus',<% } if (filters.less) { %>
+        'injector:less',<% } if (filters.sass) { %>
+        'injector:sass',<% } %>
         'concurrent:server',
         'injector',
         'wiredep',
@@ -836,9 +833,9 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',<% if (filters.stylus) { %>
-      'injector:stylus', <% } %><% if (filters.less) { %>
-      'injector:less', <% } %><% if (filters.sass) { %>
-      'injector:sass', <% } %>
+      'injector:stylus',<% } if (filters.less) { %>
+      'injector:less',<% } if (filters.sass) { %>
+      'injector:sass',<% } %>
       'concurrent:server',
       'injector',
       'wiredep',
@@ -869,9 +866,9 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',<% if (filters.stylus) { %>
-        'injector:stylus', <% } %><% if (filters.less) { %>
-        'injector:less', <% } %><% if (filters.sass) { %>
-        'injector:sass', <% } %>
+        'injector:stylus',<% } if (filters.less) { %>
+        'injector:less',<% } if (filters.sass) { %>
+        'injector:sass',<% } %>
         'concurrent:test',
         'injector',
         'autoprefixer',
@@ -896,9 +893,9 @@ module.exports = function (grunt) {
           'clean:server',
           'env:all',
           'env:test',<% if (filters.stylus) { %>
-          'injector:stylus', <% } %><% if (filters.less) { %>
-          'injector:less', <% } %><% if (filters.sass) { %>
-          'injector:sass', <% } %>
+          'injector:stylus',<% } if (filters.less) { %>
+          'injector:less',<% } if (filters.sass) { %>
+          'injector:sass',<% } %>
           'concurrent:test',
           'injector',
           'wiredep',
@@ -952,9 +949,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',<% if (filters.stylus) { %>
-    'injector:stylus', <% } %><% if (filters.less) { %>
-    'injector:less', <% } %><% if (filters.sass) { %>
-    'injector:sass', <% } %>
+    'injector:stylus',<% } if (filters.less) { %>
+    'injector:less',<% } if (filters.sass) { %>
+    'injector:sass',<% } %>
     'concurrent:dist',
     'injector',
     'wiredep',
