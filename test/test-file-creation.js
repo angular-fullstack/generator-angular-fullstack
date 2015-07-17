@@ -236,6 +236,7 @@ describe('angular-fullstack generator', function () {
     if (models) {
       files = files.concat([
         'server/api/thing/thing.model.js',
+        'server/api/thing/thing.events.js',
         'server/config/seed.js'
       ]);
     }
@@ -271,6 +272,7 @@ describe('angular-fullstack generator', function () {
         'server/api/user/user.integration.js',
         'server/api/user/user.model.js',
         'server/api/user/user.model.spec.js',
+        'server/api/user/user.events.js',
         'server/auth/index.js',
         'server/auth/auth.service.js',
         'server/auth/local/index.js',
