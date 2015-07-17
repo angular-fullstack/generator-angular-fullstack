@@ -689,7 +689,7 @@ module.exports = function (grunt) {
         options: {
           transform: function(filePath) {
             filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
+            filePath = filePath.replace('/client/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
           starttag: '// injector',
@@ -708,7 +708,7 @@ module.exports = function (grunt) {
         options: {
           transform: function(filePath) {
             filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
+            filePath = filePath.replace('/client/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
           starttag: '// injector',
@@ -727,7 +727,7 @@ module.exports = function (grunt) {
         options: {
           transform: function(filePath) {
             filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
+            filePath = filePath.replace('/client/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
           starttag: '// injector',
