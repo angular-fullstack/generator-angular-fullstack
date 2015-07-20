@@ -38,7 +38,7 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',<% if(filters.babel) { %>
-      'client/app/**/*.js': 'babel',<% } %>
+      'client/{app,components}/**/*.js': 'babel',<% } %>
       '**/*.coffee': 'coffee',
     },
 
