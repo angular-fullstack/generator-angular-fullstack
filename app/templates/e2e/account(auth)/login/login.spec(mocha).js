@@ -50,7 +50,7 @@ describe('Login View', function() {
 
       var navbar = require('../../components/navbar/navbar.po');
 
-      <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/');
+      <%= does("browser.getLocationAbsUrl()") %>.eventually.equal('/');
       <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
     });
 
@@ -65,7 +65,7 @@ describe('Login View', function() {
           password: 'badPassword'
         });
 
-        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/login');
+        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal('/login');
 
         var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));
         <%= does("helpBlock.getText()") %>.eventually.equal('This password is not correct.');

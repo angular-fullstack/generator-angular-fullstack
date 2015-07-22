@@ -8,6 +8,7 @@ describe('Signup View', function() {
   var page;
 
   var loadPage = function() {
+    browser.manage().deleteAllCookies();
     browser.get('/signup');
     page = require('./signup.po');
   };
@@ -42,7 +43,7 @@ describe('Signup View', function() {
 
         var navbar = require('../../components/navbar/navbar.po');
 
-        expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/');
+        expect(browser.getLocationAbsUrl()).toBe('/');
         expect(navbar.navbarAccountGreeting.getText()).toBe('Hello ' + testUser.name);
 
         done();
@@ -52,7 +53,7 @@ describe('Signup View', function() {
     it('should indicate signup failures', function() {
       page.signup(testUser);
 
-      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/signup');
+      expect(browser.getLocationAbsUrl()).toBe('/signup');
       expect(page.form.email.getAttribute('class')).toContain('ng-invalid-mongoose');
 
       var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));

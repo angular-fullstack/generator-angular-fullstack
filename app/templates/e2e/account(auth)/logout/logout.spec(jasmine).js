@@ -34,14 +34,14 @@ describe('Logout View', function() {
     it('should logout a user and redirecting to "/"', function() {
       var navbar = require('../../components/navbar/navbar.po');
 
-      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/');
+      expect(browser.getLocationAbsUrl()).toBe('/');
       expect(navbar.navbarAccountGreeting.getText()).toBe('Hello ' + testUser.name);
 
       browser.get('/logout');
 
       navbar = require('../../components/navbar/navbar.po');
 
-      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/');
+      expect(browser.getLocationAbsUrl()).toBe('/');
       expect(navbar.navbarAccountGreeting.isDisplayed()).toBe(false);
     });
 
