@@ -8,8 +8,11 @@ describe('Signup View', function() {
   var page;
 
   var loadPage = function() {
-    browser.get('/signup');
-    page = require('./signup.po');
+    return browser.manage().deleteAllCookies()
+      .then(function() {
+        browser.get('/signup');
+        page = require('./signup.po');
+      });
   };
 
   var testUser = {
@@ -47,7 +50,7 @@ describe('Signup View', function() {
 
         var navbar = require('../../components/navbar/navbar.po');
 
-        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/');
+        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal('/');
         <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
 
         done();
@@ -62,7 +65,7 @@ describe('Signup View', function() {
       it('should indicate signup failures', function() {
         page.signup(testUser);
 
-        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/signup');
+        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal('/signup');
         <%= does("page.form.email.getAttribute('class')") %>.eventually.contain('ng-invalid-mongoose');
 
         var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));

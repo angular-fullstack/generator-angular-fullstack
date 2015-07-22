@@ -45,7 +45,7 @@ describe('Login View', function() {
 
       var navbar = require('../../components/navbar/navbar.po');
 
-      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/');
+      expect(browser.getLocationAbsUrl()).toBe('/');
       expect(navbar.navbarAccountGreeting.getText()).toBe('Hello ' + testUser.name);
     });
 
@@ -55,7 +55,7 @@ describe('Login View', function() {
         password: 'badPassword'
       });
 
-      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/login');
+      expect(browser.getLocationAbsUrl()).toBe('/login');
 
       var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));
       expect(helpBlock.getText()).toBe('This password is not correct.');
