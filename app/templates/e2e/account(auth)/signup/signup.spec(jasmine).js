@@ -8,7 +8,8 @@ describe('Signup View', function() {
   var page;
 
   var loadPage = function() {
-    browser.get('/signup');
+    browser.manage().deleteAllCookies();
+    browser.get(config.baseUrl + '/signup');
     page = require('./signup.po');
   };
 
@@ -45,14 +46,14 @@ describe('Signup View', function() {
 
       var navbar = require('../../components/navbar/navbar.po');
 
-      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/');
+      expect(browser.getCurrentUrl()).toBe(config.baseUrl + '/');
       expect(navbar.navbarAccountGreeting.getText()).toBe('Hello ' + testUser.name);
     });
 
     it('should indicate signup failures', function() {
       page.signup(testUser);
 
-      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/signup');
+      expect(browser.getCurrentUrl()).toBe(config.baseUrl + '/signup');
       expect(page.form.email.getAttribute('class')).toContain('ng-invalid-mongoose');
 
       var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));
