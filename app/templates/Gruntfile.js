@@ -80,7 +80,7 @@ module.exports = function (grunt) {
       },
       stylus: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.styl'],
-        tasks: ['stylus', 'autoprefixer']
+        tasks: ['stylus', 'postcss']
       },<% } if (filters.sass) { %>
       injectSass: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
@@ -88,7 +88,7 @@ module.exports = function (grunt) {
       },
       sass: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.{scss,sass}'],
-        tasks: ['sass', 'autoprefixer']
+        tasks: ['sass', 'postcss']
       },<% } if (filters.less) { %>
       injectLess: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.less'],
@@ -96,7 +96,7 @@ module.exports = function (grunt) {
       },
       less: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.less'],
-        tasks: ['less', 'autoprefixer']
+        tasks: ['less', 'postcss']
       },<% } if (filters.jade) { %>
       jade: {
         files: [
@@ -189,17 +189,18 @@ module.exports = function (grunt) {
     },
 
     // Add vendor prefixed styles
-    autoprefixer: {
+    postcss: {
       options: {
-        browsers: ['last 1 version']
+        map: true,
+        processors: [
+          require('autoprefixer-core')({browsers: ['last 1 version']})
+        ]
       },
       dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/',
-          src: '{,*/}*.css',
-          dest: '.tmp/'
-        }]
+        expand: true,
+        cwd: '.tmp/',
+        src: '{,*/}*.css',
+        dest: '.tmp/'
       }
     },
 
@@ -771,7 +772,7 @@ module.exports = function (grunt) {
         'concurrent:server',
         'injector',
         'wiredep',
-        'autoprefixer',
+        'postcss',
         'concurrent:debug'
       ]);
     }
@@ -785,7 +786,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'injector',
       'wiredep',
-      'autoprefixer',
+      'postcss',
       'express:dev',
       'wait',
       'open',
@@ -817,7 +818,7 @@ module.exports = function (grunt) {
         'injector:sass',<% } %>
         'concurrent:test',
         'injector',
-        'autoprefixer',
+        'postcss',
         'karma'
       ]);
     }
@@ -845,7 +846,7 @@ module.exports = function (grunt) {
           'concurrent:test',
           'injector',
           'wiredep',
-          'autoprefixer',
+          'postcss',
           'express:dev',
           'protractor'
         ]);
@@ -902,7 +903,7 @@ module.exports = function (grunt) {
     'injector',
     'wiredep',
     'useminPrepare',
-    'autoprefixer',
+    'postcss',
     'ngtemplates',
     'concat',
     'ngAnnotate',
