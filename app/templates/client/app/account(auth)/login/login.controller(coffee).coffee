@@ -4,6 +4,7 @@ angular.module '<%= scriptAppName %>'
 .controller 'LoginCtrl', ($scope, Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %><% if (filters.oauth) {%>, $window<% } %>) ->
   $scope.user = {}
   $scope.errors = {}
+  Auth.logout
   $scope.login = (form) ->
     $scope.submitted = true
 
