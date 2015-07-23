@@ -85,7 +85,8 @@
     "sinon-chai": "^2.8.0",<% if (filters.mocha) { %>
     "karma-mocha": "^0.2.0",
     "karma-chai-plugins": "^0.6.0",<% } if (filters.jasmine) { %>
-    "karma-jasmine": "~0.1.5",<% } %>
+    "jasmine-core": "^2.3.4",
+    "karma-jasmine": "~0.3.0",<% } %>
     "karma-ng-scenario": "~0.1.0",
     "karma-firefox-launcher": "~0.1.3",
     "karma-script-launcher": "~0.1.0",
