@@ -49,7 +49,8 @@ var config = {
   //
   // See the full list at https://github.com/jasmine/jasmine-npm
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 30000,
+    print: function() {}  // for jasmine-spec-reporter
   },<% } if (filters.mocha) { %>
   // ----- Options to be passed to mocha -----
   mochaOpts: {
@@ -73,6 +74,10 @@ var config = {
       'should',
       Object.getOwnPropertyDescriptor(Object.prototype, 'should')
     );
+<% } if (filters.jasmine) { %>
+    var SpecReporter = require('jasmine-spec-reporter');
+    // add jasmine spec reporter
+    jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: true}));
 <% } %>
     var serverConfig = config.params.serverConfig;<% if (filters.mongoose) { %>
 
