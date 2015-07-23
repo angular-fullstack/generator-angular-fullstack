@@ -67,8 +67,7 @@
     "grunt-protractor-runner": "^1.1.0",
     "grunt-injector": "~0.5.4",
     "grunt-karma": "~0.8.2",
-    "grunt-build-control": "~0.4.0",
-    "grunt-mocha-test": "~0.10.2",<% if(filters.sass) { %>
+    "grunt-build-control": "~0.4.0",<% if(filters.sass) { %>
     "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "latest",<% } %>
     "jit-grunt": "^0.5.0",
@@ -78,12 +77,13 @@
     "open": "~0.0.4",
     "jshint-stylish": "~0.1.5",
     "connect-livereload": "^0.5.3",
-    "grunt-mocha-test": "~0.10.2",
-    "grunt-mocha-istanbul": "^2.0.0",
+    "mocha": "^2.2.5",
+    "grunt-mocha-test": "~0.12.7",
+    "grunt-mocha-istanbul": "^2.4.0",
     "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
     "sinon-chai": "^2.8.0",<% if (filters.mocha) { %>
-    "karma-mocha": "^0.1.9",
+    "karma-mocha": "^0.2.0",
     "karma-chai-plugins": "^0.6.0",<% } if (filters.jasmine) { %>
     "karma-jasmine": "~0.1.5",<% } %>
     "karma-ng-scenario": "~0.1.0",
