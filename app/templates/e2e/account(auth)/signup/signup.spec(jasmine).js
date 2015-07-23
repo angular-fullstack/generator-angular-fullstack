@@ -35,18 +35,18 @@ describe('Signup View', function() {
 
   describe('with local auth', function() {
 
-    it('should signup a new user, log them in, and redirecting to "/"', function(done) {
-      <% if (filters.mongooseModels) { %>UserModel.remove(function() {<% }
-         if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(function() {<% } %>
-        page.signup(testUser);
+    beforeAll(function(done) {
+      <% if (filters.mongooseModels) { %>UserModel.removeAsync().then(done);<% }
+         if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(done);<% } %>
+    });
 
-        var navbar = require('../../components/navbar/navbar.po');
+    it('should signup a new user, log them in, and redirecting to "/"', function() {
+      page.signup(testUser);
 
-        expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/');
-        expect(navbar.navbarAccountGreeting.getText()).toBe('Hello ' + testUser.name);
+      var navbar = require('../../components/navbar/navbar.po');
 
-        done();
-      });
+      expect(browser.getLocationAbsUrl()).toBe(config.baseUrl + '/');
+      expect(navbar.navbarAccountGreeting.getText()).toBe('Hello ' + testUser.name);
     });
 
     it('should indicate signup failures', function() {

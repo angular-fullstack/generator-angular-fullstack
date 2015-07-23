@@ -40,18 +40,18 @@ describe('Signup View', function() {
 
   describe('with local auth', function() {
 
-    it('should signup a new user, log them in, and redirecting to "/"', function(done) {
-      <% if (filters.mongooseModels) { %>UserModel.remove(function() {<% }
-         if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(function() {<% } %>
-        page.signup(testUser);
+    before(function() {
+      <% if (filters.mongooseModels) { %>return UserModel.removeAsync();<% }
+         if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
+    })
 
-        var navbar = require('../../components/navbar/navbar.po');
+    it('should signup a new user, log them in, and redirecting to "/"', function() {
+      page.signup(testUser);
 
-        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/');
-        <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
+      var navbar = require('../../components/navbar/navbar.po');
 
-        done();
-      });
+      <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/');
+      <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
     });
 
     describe('and invalid credentials', function() {
