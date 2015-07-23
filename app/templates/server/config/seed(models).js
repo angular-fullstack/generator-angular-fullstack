@@ -15,7 +15,7 @@ var Thing = sqldb.Thing;
 <% if (filters.mongooseModels) { %>Thing.find({}).removeAsync()<% }
    if (filters.sequelizeModels) { %>Thing.sync()
   .then(function() {
-    return Thing.destroy();
+    return Thing.destroy({ where: {} });
   })<% } %>
   .then(function() {
     <% if (filters.mongooseModels) { %>Thing.create({<% }
@@ -53,7 +53,7 @@ var Thing = sqldb.Thing;
 <% if (filters.mongooseModels) { %>User.find({}).removeAsync()<% }
    if (filters.sequelizeModels) { %>User.sync()
   .then(function() {
-    User.destroy();
+    return User.destroy({ where: {} });
   })<% } %>
   .then(function() {
     <% if (filters.mongooseModels) { %>User.createAsync({<% }
