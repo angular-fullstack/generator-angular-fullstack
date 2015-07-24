@@ -26,13 +26,13 @@ describe('angular-fullstack generator', function () {
   }, dependenciesInstalled = false;
 
   function generatorTest(generatorType, name, mockPrompt, callback) {
-    gen.run({}, function () {
+    gen.run(function () {
       var afGenerator;
       var deps = [path.join('../..', generatorType)];
       afGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name]);
 
       helpers.mockPrompt(afGenerator, mockPrompt);
-      afGenerator.run([], function () {
+      afGenerator.run(function () {
         callback();
       });
     });
@@ -107,7 +107,7 @@ describe('angular-fullstack generator', function () {
     if (endpoint) {
       generatorTest('endpoint', endpoint, {}, execFn);
     } else {
-      gen.run({}, execFn);
+      gen.run(execFn);
     }
   }
 
@@ -430,7 +430,7 @@ describe('angular-fullstack generator', function () {
         helpers.mockPrompt(gen, {
           skipConfig: true
         });
-        gen.run({}, function () {
+        gen.run(function () {
           helpers.assertFile([
             'client/app/main/main.less',
             'client/app/main/main.coffee',
@@ -454,7 +454,7 @@ describe('angular-fullstack generator', function () {
         helpers.mockPrompt(gen, {
           skipConfig: true
         });
-        gen.run({}, function () {
+        gen.run(function () {
           var yoConfig = require(__dirname + '/temp/.yo-rc.json');
           expect(yoConfig['generator-angular-fullstack'].filters.oauth).to.be.true;
           done();
@@ -462,14 +462,14 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should generate expected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           helpers.assertFile(genFiles(defaultOptions));
           done();
         });
       });
 
       it('should not generate unexpected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           assertOnlyFiles(genFiles(defaultOptions), done);
         });
       });
@@ -533,14 +533,14 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should generate expected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           helpers.assertFile(genFiles(testOptions));
           done();
         });
       });
 
       it('should not generate unexpected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           assertOnlyFiles(genFiles(testOptions), done);
         });
       });
@@ -605,14 +605,14 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should generate expected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           helpers.assertFile(genFiles(testOptions));
           done();
         });
       });
 
       it('should not generate unexpected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           assertOnlyFiles(genFiles(testOptions), done);
         });
       });
@@ -679,14 +679,14 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should generate expected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           helpers.assertFile(genFiles(testOptions));
           done();
         });
       });
 
       it('should not generate unexpected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           assertOnlyFiles(genFiles(testOptions), done);
         });
       });
@@ -740,14 +740,14 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should generate expected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           helpers.assertFile(genFiles(testOptions));
           done();
         });
       });
 
       it('should not generate unexpected files', function (done) {
-        gen.run({}, function () {
+        gen.run(function () {
           assertOnlyFiles(genFiles(testOptions), done);
         });
       });

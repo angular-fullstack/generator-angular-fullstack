@@ -11,7 +11,7 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, ScriptBase);
 
-Generator.prototype.askFor = function askFor() {
+Generator.prototype.prompting = function askFor() {
   var done = this.async();
   var name = this.name;
 
@@ -66,7 +66,13 @@ Generator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-Generator.prototype.registerEndpoint = function registerEndpoint() {
+Generator.prototype.writing = function createFiles() {
+  var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
+  this.sourceRoot(path.join(__dirname, './templates'));
+  ngUtil.processDirectory(this, '.', dest);
+};
+
+Generator.prototype.end = function registerEndpoint() {
   if(this.config.get('insertRoutes')) {
     var routeConfig = {
       file: this.config.get('registerRoutesFile'),
@@ -109,10 +115,4 @@ Generator.prototype.registerEndpoint = function registerEndpoint() {
       ngUtil.rewriteFile(modelConfig);
     }
   }
-};
-
-Generator.prototype.createFiles = function createFiles() {
-  var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
-  this.sourceRoot(path.join(__dirname, './templates'));
-  ngUtil.processDirectory(this, '.', dest);
 };

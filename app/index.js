@@ -37,7 +37,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     },
 
     info: function () {
-      this.log(this.yeoman);
+      this.log(this.welcome);
       this.log('Out of the box I create an AngularJS app with an Express server.\n');
     },
 
@@ -60,14 +60,15 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           });
 
           // NOTE: temp(?) fix for #403
-          if(typeof this.filters.oauth==='undefined') {
+          if(typeof this.filters.oauth === 'undefined') {
             var strategies = Object.keys(this.filters).filter(function(key) {
-              return key.match(/Auth$/) && key;
-            });
+              return key.match(/Auth$/) && this.filters[key];
+            }.bind(this));
 
             if(strategies.length) this.filters.oauth = true;
           }
 
+          this.config.set('filters', this.filters);
           this.config.forceSave();
 
           cb();
