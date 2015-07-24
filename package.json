@@ -54,9 +54,5 @@
     "node": ">=0.10.0",
     "npm": ">=1.2.10"
   },
-  "licenses": [
-    {
-      "type": "BSD"
-    }
-  ]
+  "license": "BSD-2-Clause"
 }
