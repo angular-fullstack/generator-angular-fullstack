@@ -8,7 +8,8 @@ describe('Signup View', function() {
   var page;
 
   var loadPage = function() {
-    browser.get('/signup');
+    browser.manage().deleteAllCookies()
+    browser.get(config.baseUrl + '/signup');
     page = require('./signup.po');
   };
 
@@ -40,18 +41,18 @@ describe('Signup View', function() {
 
   describe('with local auth', function() {
 
-    it('should signup a new user, log them in, and redirecting to "/"', function(done) {
-      <% if (filters.mongooseModels) { %>UserModel.remove(function() {<% }
-         if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(function() {<% } %>
-        page.signup(testUser);
+    before(function() {
+      <% if (filters.mongooseModels) { %>return UserModel.removeAsync();<% }
+         if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
+    })
 
-        var navbar = require('../../components/navbar/navbar.po');
+    it('should signup a new user, log them in, and redirecting to "/"', function() {
+      page.signup(testUser);
 
-        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/');
-        <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
+      var navbar = require('../../components/navbar/navbar.po');
 
-        done();
-      });
+      <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/');
+      <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
     });
 
     describe('and invalid credentials', function() {
@@ -62,7 +63,7 @@ describe('Signup View', function() {
       it('should indicate signup failures', function() {
         page.signup(testUser);
 
-        <%= does("browser.getLocationAbsUrl()") %>.eventually.equal(config.baseUrl + '/signup');
+        <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/signup');
         <%= does("page.form.email.getAttribute('class')") %>.eventually.contain('ng-invalid-mongoose');
 
         var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));

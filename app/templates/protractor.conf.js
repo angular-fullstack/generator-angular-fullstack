@@ -43,13 +43,14 @@ var config = {
   // Jasmine and Cucumber are fully supported as a test and assertion framework.
   // Mocha has limited beta support. You will need to include your own
   // assertion framework if working with mocha.
-  framework: '<% if (filters.jasmine) { %>jasmine<% } if (filters.mocha) { %>mocha<% } %>',
+  framework: '<% if (filters.jasmine) { %>jasmine2<% } if (filters.mocha) { %>mocha<% } %>',
 <% if (filters.jasmine) { %>
   // ----- Options to be passed to minijasminenode -----
   //
-  // See the full list at https://github.com/juliemr/minijasminenode
+  // See the full list at https://github.com/jasmine/jasmine-npm
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 30000,
+    print: function() {}  // for jasmine-spec-reporter
   },<% } if (filters.mocha) { %>
   // ----- Options to be passed to mocha -----
   mochaOpts: {
@@ -73,9 +74,13 @@ var config = {
       'should',
       Object.getOwnPropertyDescriptor(Object.prototype, 'should')
     );
+<% } if (filters.jasmine) { %>
+    var SpecReporter = require('jasmine-spec-reporter');
+    // add jasmine spec reporter
+    jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: true}));
 <% } %>
-    var serverConfig = config.params.serverConfig;
-<% if (filters.mongoose) { %>
+    var serverConfig = config.params.serverConfig;<% if (filters.mongoose) { %>
+
     // Setup mongo for tests
     var mongoose = require('mongoose-bird')();
     mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database<% } %>
