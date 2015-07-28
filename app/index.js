@@ -316,6 +316,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     saveSettings: function() {
       if(this.skipConfig) return;
+      this.config.set('endpointDirectory', 'server/api/');
       this.config.set('insertRoutes', true);
       this.config.set('registerRoutesFile', 'server/routes.js');
       this.config.set('routesNeedle', '// Insert routes below');

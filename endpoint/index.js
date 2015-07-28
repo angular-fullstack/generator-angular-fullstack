@@ -7,6 +7,11 @@ var ScriptBase = require('../script-base.js');
 
 var Generator = module.exports = function Generator() {
   ScriptBase.apply(this, arguments);
+
+  this.option('endpointDirectory', {
+    desc: 'Parent directory for enpoints',
+    type: String
+  });
 };
 
 util.inherits(Generator, ScriptBase);
@@ -66,10 +71,14 @@ Generator.prototype.prompting = function askFor() {
   }.bind(this));
 };
 
+Generator.prototype.configuring = function config() {
+  this.routeDest = path.join(this.options.endpointDirectory ||
+    this.config.get('endpointDirectory') || 'server/api/', this.name);
+};
+
 Generator.prototype.writing = function createFiles() {
-  var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
   this.sourceRoot(path.join(__dirname, './templates'));
-  ngUtil.processDirectory(this, '.', dest);
+  ngUtil.processDirectory(this, '.', this.routeDest);
 };
 
 Generator.prototype.end = function registerEndpoint() {
