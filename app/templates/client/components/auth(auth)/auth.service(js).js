@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookies, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
-    if($cookies.get('token')) {
+    if($cookieStore.get('token')) {
       currentUser = User.get();
     }
 
@@ -25,7 +25,7 @@ angular.module('<%= scriptAppName %>')
           password: user.password
         }).
         success(function(data) {
-          $cookies.put('token', data.token);
+          $cookieStore.put('token', data.token);
           currentUser = User.get();
           deferred.resolve(data);
           return cb();
@@ -45,7 +45,7 @@ angular.module('<%= scriptAppName %>')
        * @param  {Function}
        */
       logout: function() {
-        $cookies.remove('token');
+        $cookieStore.remove('token');
         currentUser = {};
       },
 
@@ -61,7 +61,7 @@ angular.module('<%= scriptAppName %>')
 
         return User.save(user,
           function(data) {
-            $cookies.put('token', data.token);
+            $cookieStore.put('token', data.token);
             currentUser = User.get();
             return cb(user);
           },
@@ -140,7 +140,7 @@ angular.module('<%= scriptAppName %>')
        * Get auth token
        */
       getToken: function() {
-        return $cookies.get('token');
+        return $cookieStore.get('token');
       }
     };
   });
