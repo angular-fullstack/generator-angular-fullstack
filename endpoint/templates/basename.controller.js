@@ -10,8 +10,8 @@
 'use strict';<% if (filters.models) { %>
 
 var _ = require('lodash');<% if (filters.mongooseModels) { %>
-var <%= classedName %> = require('./<%= name %>.model');<% } if (filters.sequelizeModels) { %>
-var sqldb = require('../../sqldb');
+var <%= classedName %> = require('./<%= basename %>.model');<% } if (filters.sequelizeModels) { %>
+var sqldb = require('<%= relativeRequire(config.get('registerModelsFile')) %>');
 var <%= classedName %> = sqldb.<%= classedName %>;<% } %>
 
 function handleError(res, statusCode) {
@@ -64,7 +64,7 @@ function removeEntity(res) {
   };
 }<% } %>
 
-// Gets a list of <%= name %>s
+// Gets a list of <%= classedName %>s
 exports.index = function(req, res) {<% if (!filters.models) { %>
   res.json([]);<% } else { %>
   <% if (filters.mongooseModels) { %><%= classedName %>.findAsync()<% }
@@ -73,7 +73,7 @@ exports.index = function(req, res) {<% if (!filters.models) { %>
     .catch(handleError(res));<% } %>
 };<% if (filters.models) { %>
 
-// Gets a single <%= name %> from the DB
+// Gets a single <%= classedName %> from the DB
 exports.show = function(req, res) {
   <% if (filters.mongooseModels) { %><%= classedName %>.findByIdAsync(req.params.id)<% }
      if (filters.sequelizeModels) { %><%= classedName %>.find({
@@ -86,7 +86,7 @@ exports.show = function(req, res) {
     .catch(handleError(res));
 };
 
-// Creates a new <%= name %> in the DB
+// Creates a new <%= classedName %> in the DB
 exports.create = function(req, res) {
   <% if (filters.mongooseModels) { %><%= classedName %>.createAsync(req.body)<% }
      if (filters.sequelizeModels) { %><%= classedName %>.create(req.body)<% } %>
@@ -94,7 +94,7 @@ exports.create = function(req, res) {
     .catch(handleError(res));
 };
 
-// Updates an existing <%= name %> in the DB
+// Updates an existing <%= classedName %> in the DB
 exports.update = function(req, res) {
   if (req.body._id) {
     delete req.body._id;
@@ -111,7 +111,7 @@ exports.update = function(req, res) {
     .catch(handleError(res));
 };
 
-// Deletes a <%= name %> from the DB
+// Deletes a <%= classedName %> from the DB
 exports.destroy = function(req, res) {
   <% if (filters.mongooseModels) { %><%= classedName %>.findByIdAsync(req.params.id)<% }
      if (filters.sequelizeModels) { %><%= classedName %>.find({

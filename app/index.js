@@ -400,11 +400,19 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     },
 
     generateEndpoint: function() {
-      var name = this.name = this.cameledName = 'thing';
-      this.classedName = name.charAt(0).toUpperCase() + name.slice(1);
-      this.route = '/api/' + name + 's';
-      this.sourceRoot(path.join(__dirname, '..', 'endpoint', 'templates'));
-      genUtils.processDirectory(this, '.', 'server/api/' + name);
+      var models;
+      if (this.filters.mongooseModels) {
+        models = 'mongoose';
+      } else if (this.filters.sequelizeModels) {
+        models = 'sequelize';
+      }
+      this.composeWith('angular-fullstack:endpoint', {
+        options: {
+          route: '/api/things',
+          models: models
+        },
+        args: ['thing']
+      });
     }
 
   },
