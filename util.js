@@ -6,7 +6,8 @@ module.exports = {
   rewrite: rewrite,
   rewriteFile: rewriteFile,
   appName: appName,
-  processDirectory: processDirectory
+  processDirectory: processDirectory,
+  relativeRequire: relativeRequire
 };
 
 function rewriteFile (args) {
@@ -74,6 +75,23 @@ function appName (self) {
   return suffix ? self._.classify(suffix) : '';
 }
 
+function destinationPath (self, filepath) {
+  filepath = path.normalize(filepath);
+  if (!path.isAbsolute(filepath)) {
+    filepath = path.join(self.destinationRoot(), filepath);
+  }
+
+  return filepath;
+}
+
+function relativeRequire (self, to, fr) {
+  fr = destinationPath(self, fr);
+  to = destinationPath(self, to);
+  return path.relative(path.dirname(fr), to)
+    .replace(/^(?!\.\.)(.*)/, './$1')
+    .replace(/[\/\\]index\.js$/, '');
+}
+
 function filterFile (template) {
   // Find matches for parans
   var filterMatches = template.match(/\(([^)]+)\)/g);
@@ -109,6 +127,9 @@ function processDirectory (self, source, destination) {
 
   files.forEach(function(f) {
     var filteredFile = filterFile(f);
+    if(self.basename) {
+      filteredFile.name = filteredFile.name.replace('basename', self.basename);
+    }
     if(self.name) {
       filteredFile.name = filteredFile.name.replace('name', self.name);
     }
@@ -133,7 +154,9 @@ function processDirectory (self, source, destination) {
       if(copy) {
         self.copy(src, dest);
       } else {
+        self.filePath = dest;
         self.template(src, dest);
+        delete self.filePath;
       }
     }
   });
