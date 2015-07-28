@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>')
-  .factory('Auth', function Auth($http, User, $cookieStore, $q) {
+  .factory('Auth', function Auth($http, User, $cookies, $q) {
     /**
      * Return a callback or noop function
      *
@@ -14,7 +14,7 @@ angular.module('<%= scriptAppName %>')
 
     currentUser = {};
 
-    if ($cookieStore.get('token')) {
+    if ($cookies.get('token')) {
       currentUser = User.get();
     }
 
@@ -33,7 +33,7 @@ angular.module('<%= scriptAppName %>')
           password: user.password
         })
         .then(function(res) {
-          $cookieStore.put('token', res.data.token);
+          $cookies.put('token', res.data.token);
           currentUser = User.get();
           safeCb(callback)();
           return res.data;
@@ -48,7 +48,7 @@ angular.module('<%= scriptAppName %>')
        * Delete access token and user info
        */
       logout: function() {
-        $cookieStore.remove('token');
+        $cookies.remove('token');
         currentUser = {};
       },
 
@@ -62,7 +62,7 @@ angular.module('<%= scriptAppName %>')
       createUser: function(user, callback) {
         return User.save(user,
           function(data) {
-            $cookieStore.put('token', data.token);
+            $cookies.put('token', data.token);
             currentUser = User.get();
             return safeCb(callback)(null, user);
           },
@@ -160,7 +160,7 @@ angular.module('<%= scriptAppName %>')
        * @return {String} - a token string used for authenticating
        */
       getToken: function() {
-        return $cookieStore.get('token');
+        return $cookies.get('token');
       }
     };
   });

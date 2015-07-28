@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.factory 'Auth', ($http, User, $cookieStore, $q) ->
-  currentUser = if $cookieStore.get 'token' then User.get() else {}
+.factory 'Auth', ($http, User, $cookies, $q) ->
+  currentUser = if $cookies.get 'token' then User.get() else {}
 
   ###
   Authenticate user and save token
@@ -17,7 +17,7 @@ angular.module '<%= scriptAppName %>'
       password: user.password
 
     .then (res) ->
-      $cookieStore.put 'token', res.data.token
+      $cookies.put 'token', res.data.token
       currentUser = User.get()
       callback?()
       res.data
@@ -32,7 +32,7 @@ angular.module '<%= scriptAppName %>'
   Delete access token and user info
   ###
   logout: ->
-    $cookieStore.remove 'token'
+    $cookies.remove 'token'
     currentUser = {}
     return
 
@@ -47,7 +47,7 @@ angular.module '<%= scriptAppName %>'
   createUser: (user, callback) ->
     User.save user,
       (data) ->
-        $cookieStore.put 'token', data.token
+        $cookies.put 'token', data.token
         currentUser = User.get()
         callback? null, user
 
@@ -144,4 +144,4 @@ angular.module '<%= scriptAppName %>'
   Get auth token
   ###
   getToken: ->
-    $cookieStore.get 'token'
+    $cookies.get 'token'

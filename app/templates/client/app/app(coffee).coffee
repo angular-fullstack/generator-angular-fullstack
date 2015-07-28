@@ -15,12 +15,12 @@ angular.module '<%= scriptAppName %>', [<%= angularModules %>]
   $locationProvider.html5Mode true<% if (filters.auth) { %>
   $httpProvider.interceptors.push 'authInterceptor'<% } %>
 <% } %><% if (filters.auth) { %>
-.factory 'authInterceptor', ($rootScope, $q, $cookieStore<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $injector<% } %>) ->
+.factory 'authInterceptor', ($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $injector<% } %>) ->
   <% if (filters.uirouter) { %>state = null
   <% } %># Add authorization token to headers
   request: (config) ->
     config.headers = config.headers or {}
-    config.headers.Authorization = 'Bearer ' + $cookieStore.get 'token' if $cookieStore.get 'token'
+    config.headers.Authorization = 'Bearer ' + $cookies.get 'token' if $cookies.get 'token'
     config
 
   # Intercept 401s and redirect you to login
@@ -28,7 +28,7 @@ angular.module '<%= scriptAppName %>', [<%= angularModules %>]
     if response.status is 401
       <% if (filters.ngroute) { %>$location.path '/login'<% } if (filters.uirouter) { %>(state || state = $injector.get '$state').go 'login'<% } %>
       # remove any stale tokens
-      $cookieStore.remove 'token'
+      $cookies.remove 'token'
 
     $q.reject response
 
