@@ -16,7 +16,8 @@ module.exports = function (grunt) {
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    up: 'grunt-up'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -30,6 +31,12 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       client: require('./bower.json').appPath || 'client',
+      deploy: {
+        hostname : 'root',
+        username : 'example.com',
+        password : '',
+        path : '/var/www'
+      },
       dist: 'dist'
     },
     express: {
@@ -739,8 +746,95 @@ module.exports = function (grunt) {
             '<%%= yeoman.client %>/{app,components}/**/*.css'
           ]
         }
-      }
+      },
+
+      shell: {
+        versionminor: {command: 'npm version minor'},
+        versionmajor: {command: 'npm version major'},
+        versionpatch: {command: 'npm version patch'}
+      },
+
+      up: {
+        live: {
+          options: {
+            servers: [{
+              host: '<%%= yeoman.deploy.hostname %>',
+              username: '<%%= yeoman.deploy.username %>',
+              password: '<%%= yeoman.deploy.password %>'
+            }],
+            execute : {
+              before: [
+                'rm -rf <%%= yeoman.deploy.path %>/current/node_modules',
+              ],
+              after: [
+                //create logs folder
+                'mkdir @current/logs && chmod 777 @current/logs',
+                //install node modules
+                'cd @current && npm install',
+                //stop old running instance
+                'forever stop @current/server/app.js',
+                //start application
+                'forever -m 100 -a -e @current/logs/err.log -l @current/logs/logs.log start @current/server/app.js',
+                //log this release
+                'echo "Verstion \"@version\" deployed at `date`" >> <%%= yeoman.deploy.path %>/deploy.log'
+              ],
+            },
+            source: process.cwd() + '/dist/*',
+            dest: '<%%= yeoman.deploy.path %>'
+          }
+        }
+      },
+
     },
+  });
+  
+  grunt.registerTask('deploy', function( mode ){
+
+    if(!mode) {
+      return grunt.fail.warn('Specify release type "minor", "major" or "patch".');
+    }
+
+    if( mode == 'noupdate') {
+      return grunt.task.run([
+          'newer:jshint',
+          'test',
+          'build',
+          'up:live'
+      ]);
+    }
+
+    if( mode == 'major') {
+      return grunt.task.run([
+          'newer:jshint',
+          'test',
+          'build',
+          'shell::versionmajor',
+          'up:live'
+      ]);
+    }
+
+    if( mode == 'minor' ) {
+      return grunt.task.run([
+          'newer:jshint',
+          'test',
+          'build',
+          'shell::versionminor',
+          'up:live'
+      ]);
+    }
+
+    if( mode == 'patch' ) {
+      return grunt.task.run([
+          'newer:jshint',
+          'test',
+          'build',
+          'shell::versionpatch',
+          'up:live'
+      ]);
+    }
+
+    grunt.fail.warn('Invalid release type "minor", "major" or "patch" required.');
+
   });
 
   // Used for delaying livereload until after server has restarted
