@@ -11,6 +11,12 @@ var user = new User({
   password: 'password'
 });
 
+var userWithoutEmail = new User({
+  provider: 'local',
+  name: 'Fake User',
+  password: 'password'
+});
+
 describe('User Model', function() {
   before(function(done) {
     // Clear users before testing
@@ -43,12 +49,19 @@ describe('User Model', function() {
   });
 
   it('should fail when saving without an email', function(done) {
-    user.email = '';
-    user.save(function(err) {
+    userWithoutEmail.save(function(err) {
       should.exist(err);
       done();
     });
-  });
+  });<% if (filters.oauth) { %>
+
+  it('should pass when saving without an email using a provider', function(done) {
+    userWithoutEmail.provider = 'facebook';
+    userWithoutEmail.save(function(err) {
+      should.not.exist(err);
+      done();
+    });
+  });<% } %>
 
   it("should authenticate user if password is valid", function() {
     return user.authenticate('password').should.be.true;

@@ -62,17 +62,19 @@ UserSchema
 // Validate empty email
 UserSchema
   .path('email')
+  .default(null) // hack to allow conditional requirement
   .validate(function(email) {<% if (filters.oauth) { %>
     if (authTypes.indexOf(this.provider) !== -1) return true;<% } %>
-    return email.length;
+    return (email instanceof String || typeof email === 'string') && email.length;
   }, 'Email cannot be blank');
 
 // Validate empty password
 UserSchema
   .path('hashedPassword')
+  .default(null) // hack to allow conditional requirement
   .validate(function(hashedPassword) {<% if (filters.oauth) { %>
     if (authTypes.indexOf(this.provider) !== -1) return true;<% } %>
-    return hashedPassword.length;
+    return (hashedPassword instanceof String || typeof hashedPassword === 'string') && hashedPassword.length;
   }, 'Password cannot be blank');
 
 // Validate email is not taken
