@@ -13,23 +13,8 @@ var db = {
   Sequelize: Sequelize,
   sequelize: new Sequelize(config.sequelize.uri, config.sequelize.options)
 };
-<% if (filters.sequelizeModels) { %>
-db.Thing = db.sequelize.import(path.join(
-  config.root,
-  'server',
-  'api',
-  'thing',
-  'thing.model'
-));
-<% if (filters.auth) { %>
-db.User = db.sequelize.import(path.join(
-  config.root,
-  'server',
-  'api',
-  'user',
-  'user.model'
-));
-<% } %><% } %>
-// Insert models below
+
+// Insert models below<% if (filters.sequelizeModels && filters.auth) { %>
+db.User = db.sequelize.import('../api/user/user.model');<% } %>
 
 module.exports = db;
