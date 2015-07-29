@@ -739,6 +739,21 @@ module.exports = function (grunt) {
             '<%%= yeoman.client %>/{app,components}/**/*.css'
           ]
         }
+      },
+      
+      //karma.conf.js inject bower components js
+      karma: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/client/', 'client/');
+            return '\'' + filePath + '\',';
+          },
+          starttag: '// injector',
+          endtag: '// endinjector'
+        },
+        files: {
+          'karma.conf.js': ['bower.json']
+        }
       }
     },
   });

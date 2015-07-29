@@ -11,12 +11,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // injector
       'client/bower_components/jquery/dist/jquery.js',
       'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-resource/angular-resource.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
+      // endinjector
+      'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-route/angular-route.js',<% if(filters.uibootstrap) { %>
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',<% } %>
       'client/bower_components/lodash/dist/lodash.compat.js',<% if(filters.socketio) { %>
