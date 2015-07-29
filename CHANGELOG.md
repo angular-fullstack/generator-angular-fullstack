@@ -1,3 +1,11 @@
+<a name="v2.1.1"></a>
+## v2.1.1 (2015-07-29)
+
+
+#### Bug Fixes
+
+* **app:** use 0.0.0.0 for default IP ([2cd1c24d](http://github.com/DaftMonk/generator-angular-fullstack/commit/2cd1c24d2224e46fa68f8da834e86ac3ed80de8e))
+
 <a name="v2.1.0"></a>
 ## v2.1.0 (2015-07-15)
 
