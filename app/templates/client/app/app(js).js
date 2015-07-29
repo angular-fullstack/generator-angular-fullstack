@@ -51,6 +51,11 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
           event.preventDefault();
           $location.path('/login');
         }
+        if (next.authorize) {
+          if(next.authorize === 'admin' && !Auth.isAdmin()) {
+            $location.path('/');
+          }
+        }
       });
     });
   })<% } %>;
