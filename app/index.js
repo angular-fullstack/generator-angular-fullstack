@@ -287,6 +287,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           return  answers.testing === 'mocha';
         }
       }], function (answers) {
+        /**
+         * Default to grunt until gulp support is implemented
+         */
+        this.filters.grunt = true;
+
         this.filters[answers.testing] = true;
         if (answers.testing === 'mocha') {
           this.filters.jasmine = false;
