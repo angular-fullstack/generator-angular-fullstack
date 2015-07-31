@@ -39,7 +39,10 @@ module.exports = function(app) {
     secret: config.secrets.session,
     resave: true,
     saveUninitialized: true<% if (filters.mongoose) { %>,
-    store: new mongoStore({ mongoose_connection: mongoose.connection })<% } %>
+    store: new mongoStore({
+      mongooseConnection: mongoose.connection,
+      db: '<%= _.slugify(_.humanize(appname)) %>'
+    })<% } %>
   }));
 <% } %>
   app.set('appPath', path.join(config.root, 'client'));
