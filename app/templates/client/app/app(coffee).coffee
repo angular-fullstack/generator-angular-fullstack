@@ -36,5 +36,6 @@ angular.module '<%= scriptAppName %>', [<%= angularModules %>]
   # Redirect to login if route requires auth and you're not logged in
   $rootScope.$on <% if (filters.ngroute) { %>'$routeChangeStart'<% } %><% if (filters.uirouter) { %>'$stateChangeStart'<% } %>, (event, next) ->
     Auth.isLoggedIn (loggedIn) ->
+      event.preventDefault()
       <% if (filters.ngroute) { %>$location.path '/login'<% } %><% if (filters.uirouter) { %>$state.go 'login'<% } %> if next.authenticate and not loggedIn
 <% } %>
