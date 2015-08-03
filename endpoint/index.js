@@ -16,7 +16,7 @@ Generator.prototype.askFor = function askFor() {
   var name = this.name;
 
   var base = this.config.get('routesBase') || '/api/';
-  if(base.charAt(base.length-1) !== '/') {
+  if (base.charAt(base.length - 1) !== '/') {
     base = base + '/';
   }
 
@@ -34,7 +34,7 @@ Generator.prototype.askFor = function askFor() {
   ];
 
   this.prompt(prompts, function (props) {
-    if(props.route.charAt(0) !== '/') {
+    if (props.route.charAt(0) !== '/') {
       props.route = '/' + props.route;
     }
 
@@ -44,28 +44,24 @@ Generator.prototype.askFor = function askFor() {
 };
 
 Generator.prototype.registerEndpoint = function registerEndpoint() {
-  if(this.config.get('insertRoutes')) {
+  if (this.config.get('insertRoutes')) {
     var routeConfig = {
       file: this.config.get('registerRoutesFile'),
       needle: this.config.get('routesNeedle'),
       splicable: [
-        "app.use(\'" + this.route +"\', require(\'./api/" + this.name + "\'));"
+        "app.use(\'" + this.route + "\', require(\'./api/" + this.name + "\'));"
       ]
     };
     ngUtil.rewriteFile(routeConfig);
-  }
 
-  if (this.filters.socketio) {
-    if(this.config.get('insertSockets')) {
-      var socketConfig = {
-        file: this.config.get('registerSocketsFile'),
-        needle: this.config.get('socketsNeedle'),
-        splicable: [
-          "require(\'../api/" + this.name + '/' + this.name + ".socket\').register(socket);"
-        ]
-      };
-      ngUtil.rewriteFile(socketConfig);
-    }
+    var rolesConfig = {
+      file: this.config.get('configRolesFile'),
+      needle: this.config.get('configRolesNeedle'),
+      splicable: [
+        ", " + this.name + "s-index, " + this.name + "s-show, " + this.name + "s-update, " + this.name + "s-create, " + this.name + "s-destroy"
+      ]
+    };
+    ngUtil.rewriteFile(rolesConfig);
   }
 };
 
@@ -73,4 +69,8 @@ Generator.prototype.createFiles = function createFiles() {
   var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
   this.sourceRoot(path.join(__dirname, './templates'));
   ngUtil.processDirectory(this, '.', dest);
+
+  var destSharedModels = 'shared/models';
+  this.sourceRoot(path.join(__dirname, './templatesJson/'));
+  ngUtil.processDirectory(this, '.', destSharedModels);
 };
