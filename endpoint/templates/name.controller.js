@@ -5,13 +5,11 @@ var <%= name %> = require('./<%= name %>.model');
 
 // Get list of <%= name %>s
 exports.index = function (req, res) {
-    <%= name %>.find(function (err, <%= name %>
-        s) {
+    <%= name %>.find(function (err, <%= name %>s) {
         if (err) {
             return handleError(res, err);
         }
-        return res.status(200).json(<%= name %>
-            s);
+        return res.status(200).json(<%= name %>s);
     });
 };
 
