@@ -42,7 +42,7 @@ describe('GET /api/<%= name %>s', function () {
             .expect('Content-Type', /json/)
             .end(function (err, res) {
                 if (err) return done(err);
-                res.body.should.have.property('_2id');
+                res.body.should.have.property('_id');
                 done();
             });
     });
