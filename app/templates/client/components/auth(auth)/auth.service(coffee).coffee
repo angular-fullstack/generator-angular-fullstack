@@ -8,7 +8,7 @@ angular.module '<%= scriptAppName %>'
   Authenticate user and save token
 
   @param  {Object}   user     - login info
-  @param  {Function} callback - optional, function(error)
+  @param  {Function} callback - optional, function(error, user)
   @return {Promise}
   ###
   login: (user, callback) ->
@@ -19,10 +19,13 @@ angular.module '<%= scriptAppName %>'
     .then (res) ->
       $cookies.put 'token', res.data.token
       currentUser = User.get()
-      callback?()
-      res.data
+      currentUser.$promise
 
-    , (err) =>
+    .then (user) ->
+      callback? null, user
+      user
+
+    .catch (err) =>
       @logout()
       callback? err.data
       $q.reject err.data
