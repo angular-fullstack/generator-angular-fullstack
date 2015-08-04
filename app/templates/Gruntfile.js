@@ -72,7 +72,7 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js'],
-        tasks: ['newer:jshint:all', 'karma']
+        tasks: ['newer:jshint:all', 'wiredep:test', 'karma']
       },<% if (filters.stylus) { %>
       injectStylus: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.styl'],
@@ -240,12 +240,26 @@ module.exports = function (grunt) {
       }
     },
 
-    // Automatically inject Bower components into the app
+    // Automatically inject Bower components into the app and karma.conf.js
     wiredep: {
-      target: {
+      options: {
+        exclude: [
+          /angular-scenario/,
+          /bootstrap-sass-official/,
+          /bootstrap.js/,
+          '/json3/',
+          '/es5-shim/'<% if(!filters.css) { %>,
+          /bootstrap.css/,
+          /font-awesome.css/<% } %>
+        ]
+      },
+      client: {
         src: '<%%= yeoman.client %>/index.html',
         ignorePath: '<%%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/'<% if(!filters.css) { %>, /bootstrap.css/, /font-awesome.css/ <% } %>]
+      },
+      test: {
+        src: './karma.conf.js',
+        devDependencies: true
       }
     },
 
@@ -773,7 +787,7 @@ module.exports = function (grunt) {
         'injector:sass',<% } %>
         'concurrent:server',
         'injector',
-        'wiredep',
+        'wiredep:client',
         'postcss',
         'concurrent:debug'
       ]);
@@ -787,7 +801,7 @@ module.exports = function (grunt) {
       'injector:sass',<% } %>
       'concurrent:server',
       'injector',
-      'wiredep',
+      'wiredep:client',
       'postcss',
       'express:dev',
       'wait',
@@ -821,6 +835,7 @@ module.exports = function (grunt) {
         'concurrent:test',
         'injector',
         'postcss',
+        'wiredep:test',
         'karma'
       ]);
     }
@@ -847,7 +862,7 @@ module.exports = function (grunt) {
           'injector:sass',<% } %>
           'concurrent:test',
           'injector',
-          'wiredep',
+          'wiredep:client',
           'postcss',
           'express:dev',
           'protractor'
@@ -903,7 +918,7 @@ module.exports = function (grunt) {
     'injector:sass',<% } %>
     'concurrent:dist',
     'injector',
-    'wiredep',
+    'wiredep:client',
     'useminPrepare',
     'postcss',
     'ngtemplates',
