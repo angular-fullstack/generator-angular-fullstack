@@ -133,7 +133,11 @@ module.exports = function (grunt) {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
         }
-      }
+      },
+      bower: {
+        files: ['bower.json'],
+        tasks: ['wiredep']
+      },
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
