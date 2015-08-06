@@ -90,12 +90,13 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       this.prompt([{
           type: 'list',
           name: 'script',
+          default: 1,
           message: 'What would you like to write scripts with?',
-          choices: [ 'JavaScript', 'CoffeeScript'],
+          choices: ['CoffeeScript', 'JavaScript'],
           filter: function( val ) {
             var filterMap = {
-              'JavaScript': 'js',
-              'CoffeeScript': 'coffee'
+              'CoffeeScript': 'coffee',
+              'JavaScript': 'js'
             };
 
             return filterMap[val];
@@ -116,16 +117,16 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         }, {
           type: 'list',
           name: 'stylesheet',
-          default: 1,
+          default: 2,
           message: 'What would you like to write stylesheets with?',
-          choices: [ 'CSS', 'Sass', 'Stylus', 'Less'],
+          choices: ['CSS', 'Less', 'Sass', 'Stylus'],
           filter: function( val ) { return val.toLowerCase(); }
         },  {
           type: 'list',
           name: 'router',
           default: 1,
           message: 'What Angular router would you like to use?',
-          choices: [ 'ngRoute', 'uiRouter'],
+          choices: ['ngRoute', 'uiRouter'],
           filter: function( val ) { return val.toLowerCase(); }
         }, {
           type: 'confirm',
@@ -163,23 +164,20 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         type: 'checkbox',
         name: 'odms',
         message: 'What would you like to use for data modeling?',
-        choices: [
-          {
-            value: 'mongoose',
-            name: 'Mongoose (MongoDB)',
-            checked: true
-          },
-          {
-            value: 'sequelize',
-            name: 'Sequelize (MySQL, SQLite, MariaDB, PostgreSQL)',
-            checked: false
-          }
-        ]
+        choices: [{
+          value: 'mongoose',
+          name: 'Mongoose (MongoDB)',
+          checked: true
+        }, {
+          value: 'sequelize',
+          name: 'Sequelize (MySQL, SQLite, MariaDB, PostgreSQL)',
+          checked: false
+        }]
       }, {
         type: 'list',
         name: 'models',
         message: 'What would you like to use for the default models?',
-        choices: [ 'Mongoose', 'Sequelize' ],
+        choices: ['Mongoose', 'Sequelize'],
         filter: function( val ) {
           return val.toLowerCase();
         },
@@ -200,23 +198,19 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         when: function (answers) {
           return answers.auth;
         },
-        choices: [
-          {
-            value: 'googleAuth',
-            name: 'Google',
-            checked: false
-          },
-          {
-            value: 'facebookAuth',
-            name: 'Facebook',
-            checked: false
-          },
-          {
-            value: 'twitterAuth',
-            name: 'Twitter',
-            checked: false
-          }
-        ]
+        choices: [{
+          value: 'facebookAuth',
+          name: 'Facebook',
+          checked: false
+        }, {
+          value: 'googleAuth',
+          name: 'Google',
+          checked: false
+        }, {
+          value: 'twitterAuth',
+          name: 'Twitter',
+          checked: false
+        }]
       }, {
         type: 'confirm',
         name: 'socketio',
