@@ -99,10 +99,7 @@ module.exports = function (grunt) {
         tasks: ['less', 'postcss']
       },<% } if (filters.jade) { %>
       jade: {
-        files: [
-          '<%%= yeoman.client %>/{app,components}/*',
-          '<%%= yeoman.client %>/{app,components}/**/*.jade'
-        ],
+        files: ['<%%= yeoman.client %>/{app,components}/**/*.jade'],
         tasks: ['jade']
       },<% } if (filters.coffee) { %>
       coffee: {
