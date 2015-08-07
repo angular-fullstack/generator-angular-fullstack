@@ -128,7 +128,7 @@ exports.changePassword = function(req, res, next) {
         <% if (filters.mongooseModels) { %>return user.saveAsync()<% }
            if (filters.sequelizeModels) { %>return user.save()<% } %>
           .then(function() {
-            res.status(200).end();
+            res.status(204).end();
           })
           .catch(validationError(res));
       } else {
