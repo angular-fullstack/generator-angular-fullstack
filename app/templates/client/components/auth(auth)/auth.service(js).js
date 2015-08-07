@@ -88,8 +88,8 @@ angular.module('<%= scriptAppName %>')
         return User.changePassword({ id: currentUser._id }, {
           oldPassword: oldPassword,
           newPassword: newPassword
-        }, function(user) {
-          return safeCb(callback)(null, user);
+        }, function() {
+          return safeCb(callback)(null);
         }, function(err) {
           return safeCb(callback)(err);
         }).$promise;

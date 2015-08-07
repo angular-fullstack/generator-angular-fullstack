@@ -76,8 +76,8 @@ angular.module '<%= scriptAppName %>'
       oldPassword: oldPassword
       newPassword: newPassword
 
-    , (user) ->
-      callback? null, user
+    , () ->
+      callback? null
 
     , (err) ->
       callback? err
