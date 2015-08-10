@@ -41,7 +41,16 @@ describe('Login View', function() {
     <%= expect() %>page.form.password.getAttribute('name')<%= to() %>.eventually.equal('password');
     <%= expect() %>page.form.submit.getAttribute('type')<%= to() %>.eventually.equal('submit');
     <%= expect() %>page.form.submit.getText()<%= to() %>.eventually.equal('Login');
-  });
+  });<% if (filters.oauth) { %>
+
+  it('should include oauth buttons with correct classes applied', function() {<% if (filters.facebookAuth) { %>
+    <%= expect() %>page.form.oauthButtons.facebook.getText()<%= to() %>.eventually.equal('Connect with Facebook');
+    <%= expect() %>page.form.oauthButtons.facebook.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } if (filters.googleAuth) { %>
+    <%= expect() %>page.form.oauthButtons.google.getText()<%= to() %>.eventually.equal('Connect with Google+');
+    <%= expect() %>page.form.oauthButtons.google.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } if (filters.twitterAuth) { %>
+    <%= expect() %>page.form.oauthButtons.twitter.getText()<%= to() %>.eventually.equal('Connect with Twitter');
+    <%= expect() %>page.form.oauthButtons.twitter.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } %>
+  });<% } %>
 
   describe('with local auth', function() {
 

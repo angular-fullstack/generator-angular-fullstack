@@ -6,20 +6,21 @@
 'use strict';
 
 var LoginPage = function() {
-  this.form = element(by.css('.form'));
-  this.form.email = this.form.element(by.model('user.email'));
-  this.form.password = this.form.element(by.model('user.password'));
-  this.form.submit = this.form.element(by.css('.btn-login'));
+  var form = this.form = element(by.css('.form'));
+  form.email = form.element(by.model('user.email'));
+  form.password = form.element(by.model('user.password'));
+  form.submit = form.element(by.css('.btn-login'));<% if (filters.oauth) { %>
+  form.oauthButtons = require('../../components/oauth-buttons/oauth-buttons.po').oauthButtons;<% } %>
 
   this.login = function(data) {
     for (var prop in data) {
-      var formElem = this.form[prop];
+      var formElem = form[prop];
       if (data.hasOwnProperty(prop) && formElem && typeof formElem.sendKeys === 'function') {
         formElem.sendKeys(data[prop]);
       }
     }
 
-    this.form.submit.click();
+    form.submit.click();
   };
 };
 

@@ -255,7 +255,8 @@ module.exports = function (grunt) {
           '/es5-shim/'<% if(!filters.css) { %>,
           /font-awesome\.css/<% if(filters.bootstrap) { %>,
           /bootstrap\.css/<% if(filters.sass) { %>,
-          /bootstrap-sass-official/<% }}} %>
+          /bootstrap-sass-official/<% } if(filters.oauth) { %>,
+          /bootstrap-social\.css/<% }}} %>
         ]
       },
       client: {

@@ -6,7 +6,8 @@
     "json3": "~3.3.1",
     "es5-shim": "~3.0.1",<% if(filters.bootstrap) { if (filters.sass) { %>
     "bootstrap-sass-official": "~3.1.1",<% } %>
-    "bootstrap": "~3.1.1",<% } %>
+    "bootstrap": "~3.1.1",<% if(filters.oauth) { %>
+    "bootstrap-social": "~4.9.1",<% }} %>
     "angular-resource": "~1.4.0",
     "angular-cookies": "~1.4.0",
     "angular-sanitize": "~1.4.0",<% if (filters.ngroute) { %>
