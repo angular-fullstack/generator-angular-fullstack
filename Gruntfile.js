@@ -87,6 +87,16 @@ module.exports = function (grunt) {
           ]
         }]
       }
+    },
+    david: {
+      gen: {
+        options: {}
+      },
+      app: {
+        options: {
+          package: 'test/fixtures/package.json'
+        }
+      }
     }
   });
 
@@ -269,6 +279,11 @@ module.exports = function (grunt) {
       'installFixtures',
       'mochaTest'
     ])
+  });
+
+  grunt.registerTask('deps', function(target) {
+    if (!target || target === 'app') grunt.task.run(['updateFixtures']);
+    grunt.task.run(['david:' + (target || '')]);
   });
 
   grunt.registerTask('demo', [
