@@ -21,9 +21,7 @@ describe('User Model', function() {
     });
   });
 
-  beforeEach(function() {
-    genUser();
-  });
+  beforeEach(genUser);
 
   afterEach(function() {
     return User.destroy({ where: {} });
@@ -50,9 +48,7 @@ describe('User Model', function() {
   });
 
   describe('#password', function() {
-    beforeEach(function() {
-      return user.save();
-    });
+    beforeEach(user.save);
 
     it('should authenticate user if valid', function() {
       user.authenticate('password').should.be.true;

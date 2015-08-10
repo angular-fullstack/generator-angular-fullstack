@@ -14,18 +14,12 @@ var genUser = function() {
 };
 
 describe('User Model', function() {
-  before(function() {
-    // Clear users before testing
-    return User.removeAsync();
-  });
+  // Clear users before testing
+  before(User.removeAsync);
 
-  beforeEach(function() {
-    genUser();
-  });
+  beforeEach(genUser);
 
-  afterEach(function() {
-    return User.removeAsync();
-  });
+  afterEach(User.removeAsync);
 
   it('should begin with no users', function() {
     return User.findAsync({})
@@ -48,9 +42,7 @@ describe('User Model', function() {
   });
 
   describe('#password', function() {
-    beforeEach(function() {
-      return user.saveAsync();
-    });
+    beforeEach(user.saveAsync);
 
     it('should authenticate user if valid', function() {
       user.authenticate('password').should.be.true;
