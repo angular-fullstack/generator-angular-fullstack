@@ -48,7 +48,7 @@ describe('User Model', function() {
   });
 
   describe('#password', function() {
-    beforeEach(user.save);
+    beforeEach(user.save.bind(user));
 
     it('should authenticate user if valid', function() {
       user.authenticate('password').should.be.true;

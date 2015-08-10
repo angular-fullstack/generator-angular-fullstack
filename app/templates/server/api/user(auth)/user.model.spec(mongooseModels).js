@@ -15,11 +15,11 @@ var genUser = function() {
 
 describe('User Model', function() {
   // Clear users before testing
-  before(User.removeAsync);
+  before(User.removeAsync.bind(User));
 
   beforeEach(genUser);
 
-  afterEach(User.removeAsync);
+  afterEach(User.removeAsync.bind(User));
 
   it('should begin with no users', function() {
     return User.findAsync({})
@@ -42,7 +42,7 @@ describe('User Model', function() {
   });
 
   describe('#password', function() {
-    beforeEach(user.saveAsync);
+    beforeEach(user.saveAsync.bind(user));
 
     it('should authenticate user if valid', function() {
       user.authenticate('password').should.be.true;
