@@ -6,6 +6,7 @@
     "json3": "~3.3.1",
     "es5-shim": "~3.0.1",
     "bootstrap-sass-official": "~3.1.1",
+    "bootstrap-social": "~4.8.0",
     "bootstrap": "~3.1.1",
     "angular-resource": ">=1.2.*",
     "angular-cookies": ">=1.2.*",
