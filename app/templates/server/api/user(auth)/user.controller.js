@@ -1,50 +1,98 @@
 'use strict';
-
-var User = require('./user.model');
+<% if (filters.mongooseModels) { %>
+var User = require('./user.model');<% } %><% if (filters.sequelizeModels) { %>
+var _ = require('lodash');
+var sqldb = require('../../sqldb');
+var User = sqldb.User;<% } %>
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 
-var validationError = function(res, err) {
-  return res.status(422).json(err);
-};
+function validationError(res, statusCode) {
+  statusCode = statusCode || 422;
+  return function(err) {
+    res.status(statusCode).json(err);
+  }
+}
+
+function handleError(res, statusCode) {
+  statusCode = statusCode || 500;
+  return function(err) {
+    res.status(statusCode).send(err);
+  };
+}
+
+function respondWith(res, statusCode) {
+  statusCode = statusCode || 200;
+  return function() {
+    res.status(statusCode).end();
+  };
+}
 
 /**
  * Get list of users
  * restriction: 'admin'
  */
 exports.index = function(req, res) {
-  User.find({}, '-salt -hashedPassword', function (err, users) {
-    if(err) return res.status(500).send(err);
-    res.status(200).json(users);
-  });
+  <% if (filters.mongooseModels) { %>User.findAsync({}, '-salt -hashedPassword')<% }
+     if (filters.sequelizeModels) { %>User.findAll({
+    attributes: [
+      '_id',
+      'name',
+      'email',
+      'role',
+      'provider'
+    ]
+  })<% } %>
+    .then(function(users) {
+      res.status(200).json(users);
+    })
+    .catch(handleError(res));
 };
 
 /**
  * Creates a new user
  */
-exports.create = function (req, res, next) {
-  var newUser = new User(req.body);
+exports.create = function(req, res, next) {
+  <% if (filters.mongooseModels) { %>var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
-  newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
-    var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
-    res.json({ token: token });
-  });
+  newUser.saveAsync()<% }
+     if (filters.sequelizeModels) { %>var newUser = User.build(req.body);
+  newUser.setDataValue('provider', 'local');
+  newUser.setDataValue('role', 'user');
+  newUser.save()<% } %>
+    <% if (filters.mongooseModels) { %>.spread(function(user) {<% }
+       if (filters.sequelizeModels) { %>.then(function(user) {<% } %>
+      var token = jwt.sign({ _id: user._id }, config.secrets.session, {
+        expiresInMinutes: 60 * 5
+      });
+      res.json({ token: token });
+    })
+    .catch(validationError(res));
 };
 
 /**
  * Get a single user
  */
-exports.show = function (req, res, next) {
+exports.show = function(req, res, next) {
   var userId = req.params.id;
 
-  User.findById(userId, function (err, user) {
-    if (err) return next(err);
-    if (!user) return res.status(401).send('Unauthorized');
-    res.json(user.profile);
-  });
+  <% if (filters.mongooseModels) { %>User.findByIdAsync(userId)<% }
+     if (filters.sequelizeModels) { %>User.find({
+    where: {
+      _id: userId
+    }
+  })<% } %>
+    .then(function(user) {
+      if (!user) {
+        return res.status(404).end();
+      }
+      res.json(user.profile);
+    })
+    .catch(function(err) {
+      return next(err);
+    });
 };
 
 /**
@@ -52,10 +100,12 @@ exports.show = function (req, res, next) {
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-  User.findByIdAndRemove(req.params.id, function(err, user) {
-    if(err) return res.status(500).send(err);
-    return res.status(204).send('No Content');
-  });
+  <% if (filters.mongooseModels) { %>User.findByIdAndRemoveAsync(req.params.id)<% }
+     if (filters.sequelizeModels) { %>User.destroy({ _id: req.params.id })<% } %>
+    .then(function() {
+      res.status(204).end();
+    })
+    .catch(handleError(res));
 };
 
 /**
@@ -66,17 +116,25 @@ exports.changePassword = function(req, res, next) {
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
 
-  User.findById(userId, function (err, user) {
-    if(user.authenticate(oldPass)) {
-      user.password = newPass;
-      user.save(function(err) {
-        if (err) return validationError(res, err);
-        res.status(200).send('OK');
-      });
-    } else {
-      res.status(403).send('Forbidden');
+  <% if (filters.mongooseModels) { %>User.findByIdAsync(userId)<% }
+     if (filters.sequelizeModels) { %>User.find({
+    where: {
+      _id: userId
     }
-  });
+  })<% } %>
+    .then(function(user) {
+      if (user.authenticate(oldPass)) {
+        user.password = newPass;
+        <% if (filters.mongooseModels) { %>return user.saveAsync()<% }
+           if (filters.sequelizeModels) { %>return user.save()<% } %>
+          .then(function() {
+            res.status(204).end();
+          })
+          .catch(validationError(res));
+      } else {
+        return res.status(403).end();
+      }
+    });
 };
 
 /**
@@ -84,13 +142,29 @@ exports.changePassword = function(req, res, next) {
  */
 exports.me = function(req, res, next) {
   var userId = req.user._id;
-  User.findOne({
-    _id: userId
-  }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
-    if (err) return next(err);
-    if (!user) return res.status(401).send('Unauthorized');
-    res.json(user);
-  });
+
+  <% if (filters.mongooseModels) { %>User.findOneAsync({ _id: userId }, '-salt -hashedPassword')<% }
+     if (filters.sequelizeModels) { %>User.find({
+    where: {
+      _id: userId
+    },
+    attributes: [
+      '_id',
+      'name',
+      'email',
+      'role',
+      'provider'
+    ]
+  })<% } %>
+    .then(function(user) { // don't ever give out the password or salt
+      if (!user) {
+        return res.status(401).end();
+      }
+      res.json(user);
+    })
+    .catch(function(err) {
+      return next(err);
+    });
 };
 
 /**

@@ -11,7 +11,7 @@ var Generator = module.exports = function Generator() {
 
 util.inherits(Generator, ScriptBase);
 
-Generator.prototype.askFor = function askFor() {
+Generator.prototype.prompting = function askFor() {
   var done = this.async();
   var name = this.name;
 
@@ -25,11 +25,24 @@ Generator.prototype.askFor = function askFor() {
     name = name + 's';
   }
 
+  var self = this;
   var prompts = [
     {
       name: 'route',
       message: 'What will the url of your endpoint be?',
       default: base + name
+    },
+    {
+      type: 'list',
+      name: 'models',
+      message: 'What would you like to use for the endpoint\'s models?',
+      choices: [ 'Mongoose', 'Sequelize' ],
+      filter: function( val ) {
+        return val.toLowerCase();
+      },
+      when: function() {
+        return self.filters.mongoose && self.filters.sequelize;
+      }
     }
   ];
 
@@ -39,11 +52,27 @@ Generator.prototype.askFor = function askFor() {
     }
 
     this.route = props.route;
+
+    if (props.models) {
+      delete this.filters.mongoose;
+      delete this.filters.mongooseModels;
+      delete this.filters.sequelize;
+      delete this.filters.sequelizeModels;
+
+      this.filters[props.models] = true;
+      this.filters[props.models + 'Models'] = true;
+    }
     done();
   }.bind(this));
 };
 
-Generator.prototype.registerEndpoint = function registerEndpoint() {
+Generator.prototype.writing = function createFiles() {
+  var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
+  this.sourceRoot(path.join(__dirname, './templates'));
+  ngUtil.processDirectory(this, '.', dest);
+};
+
+Generator.prototype.end = function registerEndpoint() {
   if(this.config.get('insertRoutes')) {
     var routeConfig = {
       file: this.config.get('registerRoutesFile'),
@@ -67,10 +96,23 @@ Generator.prototype.registerEndpoint = function registerEndpoint() {
       ngUtil.rewriteFile(socketConfig);
     }
   }
-};
 
-Generator.prototype.createFiles = function createFiles() {
-  var dest = this.config.get('endpointDirectory') || 'server/api/' + this.name;
-  this.sourceRoot(path.join(__dirname, './templates'));
-  ngUtil.processDirectory(this, '.', dest);
+  if (this.filters.sequelize) {
+    if (this.config.get('insertModels')) {
+      var modelConfig = {
+        file: this.config.get('registerModelsFile'),
+        needle: this.config.get('modelsNeedle'),
+        splicable: [
+          "db." + this.classedName + " = db.sequelize.import(path.join(\n" +
+          "  config.root,\n" +
+          "  'server',\n" +
+          "  'api',\n" +
+          "  '" + this.name + "',\n" +
+          "  '" + this.name + ".model'\n" +
+          "));"
+        ]
+      };
+      ngUtil.rewriteFile(modelConfig);
+    }
+  }
 };

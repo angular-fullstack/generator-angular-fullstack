@@ -18,6 +18,15 @@ var Generator = module.exports = function Generator() {
   this.cameledName = this._.camelize(this.name);
   this.classedName = this._.classify(this.name);
 
+  // dynamic assertion statement
+  this.does = this.is = function(foo) {
+    if (this.filters.should) {
+      return foo + '.should';
+    } else {
+      return 'expect(' + foo + ').to';
+    }
+  }.bind(this);
+
   this.filters = this.config.get('filters');
   this.sourceRoot(path.join(__dirname, '/templates'));
 };
