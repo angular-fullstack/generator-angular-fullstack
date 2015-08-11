@@ -152,7 +152,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
             return answers.bootstrap;
           }
         }], function (answers) {
-
+          this.filters.grunt = answers.buildtool === 'grunt' || answers.buildtool === 'grunt_and_gulp';
+          this.filters.gulp = answers.buildtool === 'gulp' || answers.buildtool === 'grunt_and_gulp';
           this.filters.babel = !!answers.babel;
           if(this.filters.babel){ this.filters.js = true; }
           this.filters[answers.script] = true;
@@ -240,18 +241,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         },
         default: true
       }], function (answers) {
-<<<<<<< HEAD
-        this.filters.grunt = answers.buildtool === 'grunt' || answers.buildtool === 'grunt_and_gulp';
-        this.filters.gulp = answers.buildtool === 'gulp' || answers.buildtool === 'grunt_and_gulp';
-        this.filters.babel = !!answers.babel;
-        if(this.filters.babel){ this.filters.js = false; }
-        this.filters[answers.script] = true;
-        this.filters[answers.markup] = true;
-        this.filters[answers.stylesheet] = true;
-        this.filters[answers.router] = true;
-        this.filters.bootstrap = !!answers.bootstrap;
-        this.filters.uibootstrap =  !!answers.uibootstrap;
-=======
         if(answers.socketio) this.filters.socketio = true;
         if(answers.auth) this.filters.auth = true;
         if(answers.odms && answers.odms.length > 0) {
@@ -276,7 +265,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           }.bind(this));
         }
 
->>>>>>> e6a3fe91009d434d0fe1946f0e4f66d2ea5612eb
         cb();
       }.bind(this));
     },
@@ -399,6 +387,18 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     },
 
     ngModules: function() {
+      this.filters = this._.defaults(this.config.get('filters'), {
+        bootstrap: true,
+        uibootstrap: true
+      });
+
+      this.scriptExt = this.filters.coffee ? 'coffee' : 'js';
+      this.styleExt = this.filters.less ? 'less' :
+        this.filters.sass ? 'scss' :
+        this.filters.stylus ? 'styl' :
+        'css';
+      this.templateExt = this.filters.jade ? 'jade' : 'html';
+
       var angModules = [
         "'ngCookies'",
         "'ngResource'",
@@ -414,32 +414,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   },
 
-<<<<<<< HEAD
-  ngModules: function() {
-    this.filters = this._.defaults(this.config.get('filters'), {
-      bootstrap: true,
-      uibootstrap: true
-    });
-
-    this.scriptExt = this.filters.coffee ? 'coffee' : 'js';
-    this.styleExt = this.filters.less ? 'less' :
-      this.filters.sass ? 'scss' :
-      this.filters.stylus ? 'styl' :
-      'css';
-    this.templateExt = this.filters.jade ? 'jade' : 'html';
-
-    var angModules = [
-      "'ngCookies'",
-      "'ngResource'",
-      "'ngSanitize'"
-    ];
-    if(this.filters.ngroute) angModules.push("'ngRoute'");
-    if(this.filters.socketio) angModules.push("'btford.socket-io'");
-    if(this.filters.uirouter) angModules.push("'ui.router'");
-    if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
-
-    this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
-=======
   default: {},
 
   writing: {
@@ -457,7 +431,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       genUtils.processDirectory(this, '.', 'server/api/' + name);
     }
 
->>>>>>> e6a3fe91009d434d0fe1946f0e4f66d2ea5612eb
   },
 
   install: {
