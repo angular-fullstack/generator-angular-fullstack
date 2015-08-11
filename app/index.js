@@ -92,21 +92,13 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           type: 'list',
           name: 'script',
           message: 'What would you like to write scripts with?',
-          choices: [ 'JavaScript', 'CoffeeScript'],
+          choices: [ 'JavaScript', 'JavaScript + Babel', 'CoffeeScript'],
           filter: function( val ) {
-            var filterMap = {
+            return {
               'JavaScript': 'js',
+              'JavaScript + Babel': 'babel',
               'CoffeeScript': 'coffee'
-            };
-
-            return filterMap[val];
-          }
-        }, {
-          type: 'confirm',
-          name: 'babel',
-          message: 'Would you like to use Javascript ES6 in your client by preprocessing it with Babel?',
-          when: function (answers) {
-            return answers.script === 'js';
+            }[val];
           }
         }, {
           type: 'list',
@@ -141,8 +133,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           }
         }], function (answers) {
 
-          this.filters.babel = !!answers.babel;
-          if(this.filters.babel){ this.filters.js = true; }
+          // also set 'js' to true if using babel
+          if(answers.script === 'babel') { this.filters.js = true; }
           this.filters[answers.script] = true;
           this.filters[answers.markup] = true;
           this.filters[answers.stylesheet] = true;
