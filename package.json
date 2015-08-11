@@ -26,9 +26,9 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "yeoman-generator": "~0.17.0",
     "chalk": "~0.4.0",
-    "generator-ng-component": "~0.0.4"
+    "generator-ng-component": "~0.1.0",
+    "yeoman-generator": "~0.18.10"
   },
   "devDependencies": {
     "chai": "^1.9.1",
