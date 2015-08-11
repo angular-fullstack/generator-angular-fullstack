@@ -14,7 +14,7 @@ header#banner.hero-unit
         li
           a(href='#', tooltip='{{thing.info}}')
             | {{thing.name}}<% if (filters.socketio) { %>
-            button.close(type='button', ng-click='deleteThing(thing)') ×<% } %><% if (filters.socketio) { %>
+            button.close(type='button', ng-click='deleteThing(thing)') &times;<% } %><% if (filters.socketio) { %>
 
   form.thing-form
     label Syncs in realtime across clients
