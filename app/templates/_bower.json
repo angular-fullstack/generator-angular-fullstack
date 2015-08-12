@@ -18,7 +18,6 @@
     "angular-ui-router": "~0.2.15"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "~1.4.0",
-    "angular-scenario": "~1.4.0"
+    "angular-mocks": "~1.4.0"
   }
 }

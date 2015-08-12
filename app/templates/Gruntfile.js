@@ -245,7 +245,6 @@ module.exports = function (grunt) {
     wiredep: {
       options: {
         exclude: [
-          /angular-scenario/,
           /bootstrap-sass-official/,
           /bootstrap.js/,
           '/json3/',
