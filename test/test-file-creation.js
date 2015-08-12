@@ -314,6 +314,7 @@ describe('angular-fullstack generator', function () {
     this.timeout(10000);
     var deps = [
       '../../app',
+      '../../endpoint',
       [
         helpers.createDummyGenerator(),
         'ng-component:app'
@@ -416,11 +417,35 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:server', this, done, 'Foo');
       });
 
+      it('should pass lint with generated path name endpoint', function(done) {
+        runTest('grunt jshint', this, done, 'foo/bar');
+      });
+
+      it('should run server tests successfully with generated path name endpoint', function(done) {
+        runTest('grunt test:server', this, done, 'foo/bar');
+      });
+
+      it('should generate expected files with path name endpoint', function(done) {
+        runTest('(exit 0)', this, function() {
+          helpers.assertFile([
+            'server/api/foo/bar/index.js',
+            'server/api/foo/bar/index.spec.js',
+            'server/api/foo/bar/bar.controller.js',
+            'server/api/foo/bar/bar.events.js',
+            'server/api/foo/bar/bar.integration.js',
+            'server/api/foo/bar/bar.model.js',
+            'server/api/foo/bar/bar.socket.js'
+          ]);
+          done();
+        }, 'foo/bar');
+      });
+
       it('should use existing config if available', function(done) {
         this.timeout(60000);
         fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
         var gen = helpers.createGenerator('angular-fullstack:app', [
           '../../app',
+          '../../endpoint',
           [
             helpers.createDummyGenerator(),
             'ng-component:app'
@@ -445,6 +470,7 @@ describe('angular-fullstack generator', function () {
         fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
         var gen = helpers.createGenerator('angular-fullstack:app', [
           '../../app',
+          '../../endpoint',
           [
             helpers.createDummyGenerator(),
             'ng-component:app'

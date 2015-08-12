@@ -5,8 +5,8 @@
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;<% if (filters.mongooseModels) { %>
-var <%= classedName %> = require('./<%= name %>.model');<% } if (filters.sequelizeModels) { %>
-var <%= classedName %> = require('../../sqldb').<%= classedName %>;<% } %>
+var <%= classedName %> = require('./<%= basename %>.model');<% } if (filters.sequelizeModels) { %>
+var <%= classedName %> = require('<%= relativeRequire(config.get('registerModelsFile')) %>').<%= classedName %>;<% } %>
 var <%= classedName %>Events = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
