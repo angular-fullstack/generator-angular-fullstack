@@ -47,7 +47,8 @@
     "gulp-imagemin": "^2.2.1",
     "gulp-inject": "^1.3.1",
     "gulp-jshint": "^1.11.0",
-    "gulp-karma": "0.0.4",
+    "gulp-karma": "0.0.4",<% if(filters.less) { %>
+    "gulp-less": "3.0.3",<% } %>
     "gulp-livereload": "^3.8.0",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-minify-css": "^1.1.6",

@@ -115,7 +115,8 @@ let styles = lazypipe()
         use: [nib()],
         errors: true
     })<% } if(filters.sass) { %>
-    .pipe(plugins.sass)<% } %>
+    .pipe(plugins.sass)<% } if(filters.less) { %>
+    .pipe(plugins.less)<% } %>
     .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
     .pipe(plugins.sourcemaps.write, '.')
     .pipe(gulp.dest, '.tmp/app');<% if(filters.babel || filters.coffee) { %>
