@@ -35,44 +35,42 @@
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
-    "grunt": "~0.4.4",
+    "grunt": "~0.4.5",
     "grunt-wiredep": "^2.0.0",
-    "grunt-concurrent": "~0.5.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-concat": "~0.4.0",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-cssmin": "~0.9.0",
-    "grunt-contrib-htmlmin": "~0.2.0",
-    "grunt-contrib-imagemin": "~0.7.1",
+    "grunt-concurrent": "^2.0.1",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.13.0",
+    "grunt-contrib-imagemin": "^0.9.4",
     "grunt-contrib-jshint": "~0.11.2",
-    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "~0.6.1",<% if (filters.coffee) { %>
-    "grunt-contrib-coffee": "^0.10.1",<% } %><% if (filters.jade) { %>
-    "grunt-contrib-jade": "^0.11.0",<% } %><% if (filters.less) { %>
-    "grunt-contrib-less": "^0.11.4",<% } %><% if(filters.babel) { %>
+    "grunt-contrib-coffee": "^0.13.0",<% } %><% if (filters.jade) { %>
+    "grunt-contrib-jade": "^0.15.0",<% } %><% if (filters.less) { %>
+    "grunt-contrib-less": "^1.0.0",<% } %><% if(filters.babel) { %>
     "karma-babel-preprocessor": "^5.2.1",
     "grunt-babel": "~5.0.0",<% } %>
     "grunt-google-cdn": "~0.4.0",
-    "grunt-jscs": "~0.7.1",
-    "grunt-newer": "~0.7.0",
-    "grunt-ng-annotate": "^0.2.3",
+    "grunt-jscs": "^2.0.0",
+    "grunt-newer": "^1.1.1",
+    "grunt-ng-annotate": "^1.0.1",
     "grunt-filerev": "^2.3.1",
-    "grunt-svgmin": "~0.4.0",
-    "grunt-usemin": "~2.1.1",
+    "grunt-usemin": "^3.0.0",
     "grunt-env": "~0.4.1",
-    "grunt-node-inspector": "~0.1.5",
-    "grunt-nodemon": "~0.2.0",
+    "grunt-node-inspector": "^0.2.0",
+    "grunt-nodemon": "^0.4.0",
     "grunt-angular-templates": "^0.5.4",
     "grunt-dom-munger": "^3.4.0",
     "grunt-protractor-runner": "^2.0.0",
-    "grunt-injector": "~0.5.4",
+    "grunt-injector": "^0.6.0",
     "grunt-karma": "~0.12.0",
-    "grunt-build-control": "~0.4.0",<% if(filters.sass) { %>
-    "grunt-contrib-sass": "^0.7.3",<% } %><% if(filters.stylus) { %>
+    "grunt-build-control": "^0.5.0",<% if(filters.sass) { %>
+    "grunt-contrib-sass": "^0.9.0",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "latest",<% } %>
-    "jit-grunt": "^0.5.0",
-    "time-grunt": "~0.3.1",
-    "grunt-express-server": "~0.4.17",
+    "jit-grunt": "^0.9.1",
+    "time-grunt": "^1.2.1",
+    "grunt-express-server": "^0.5.1",
     "grunt-postcss": "^0.5.5",
     "grunt-open": "~0.2.3",
     "open": "~0.0.4",
@@ -80,7 +78,8 @@
     "connect-livereload": "^0.5.3",
     "mocha": "^2.2.5",
     "grunt-mocha-test": "~0.12.7",
-    "grunt-mocha-istanbul": "^2.4.0",
+    "grunt-mocha-istanbul": "^3.0.1",
+    "istanbul": "^0.3.17",
     "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
     "sinon-chai": "^2.8.0",<% if (filters.mocha) { %>

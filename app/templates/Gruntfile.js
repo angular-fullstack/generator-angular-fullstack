@@ -128,7 +128,7 @@ module.exports = function (grunt) {
         tasks: ['express:dev', 'wait'],
         options: {
           livereload: true,
-          nospawn: true //Without this option specified express won't be reloaded
+          spawn: false //Without this option specified express won't be reloaded
         }
       },
       bower: {
@@ -309,18 +309,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.client %>/assets/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%%= yeoman.dist %>/client/assets/images'
-        }]
-      }
-    },
-
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%%= yeoman.client %>/assets/images',
-          src: '{,*/}*.svg',
+          src: '{,*/}*.{png,jpg,jpeg,gif,svg}',
           dest: '<%%= yeoman.dist %>/client/assets/images'
         }]
       }
@@ -468,8 +457,7 @@ module.exports = function (grunt) {
         'stylus',<% } if(filters.sass) { %>
         'sass',<% } if(filters.less) { %>
         'less',<% } %>
-        'imagemin',
-        'svgmin'
+        'imagemin'
       ]
     },
 
