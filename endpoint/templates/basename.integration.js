@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('../../app');
+var app = require('<%= relativeRequire('server/app') %>');
 var request = require('supertest');<% if(filters.models) { %>
 
 var new<%= classedName %>;<% } %>
@@ -36,7 +36,7 @@ describe('<%= classedName %> API:', function() {
         .post('<%= route %>')
         .send({
           name: 'New <%= classedName %>',
-          info: 'This is the brand new <%= name %>!!!'
+          info: 'This is the brand new <%= cameledName %>!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -49,9 +49,9 @@ describe('<%= classedName %> API:', function() {
         });
     });
 
-    it('should respond with the newly created <%= name %>', function() {
+    it('should respond with the newly created <%= cameledName %>', function() {
       new<%= classedName %>.name.should.equal('New <%= classedName %>');
-      new<%= classedName %>.info.should.equal('This is the brand new <%= name %>!!!');
+      new<%= classedName %>.info.should.equal('This is the brand new <%= cameledName %>!!!');
     });
 
   });
@@ -77,9 +77,9 @@ describe('<%= classedName %> API:', function() {
       <%= cameledName %> = {};
     });
 
-    it('should respond with the requested <%= name %>', function() {
+    it('should respond with the requested <%= cameledName %>', function() {
       <%= cameledName %>.name.should.equal('New <%= classedName %>');
-      <%= cameledName %>.info.should.equal('This is the brand new <%= name %>!!!');
+      <%= cameledName %>.info.should.equal('This is the brand new <%= cameledName %>!!!');
     });
 
   });
@@ -92,7 +92,7 @@ describe('<%= classedName %> API:', function() {
         .put('<%= route %>/' + new<%= classedName %>._id)
         .send({
           name: 'Updated <%= classedName %>',
-          info: 'This is the updated <%= name %>!!!'
+          info: 'This is the updated <%= cameledName %>!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -109,9 +109,9 @@ describe('<%= classedName %> API:', function() {
       updated<%= classedName %> = {};
     });
 
-    it('should respond with the updated <%= name %>', function() {
+    it('should respond with the updated <%= cameledName %>', function() {
       updated<%= classedName %>.name.should.equal('Updated <%= classedName %>');
-      updated<%= classedName %>.info.should.equal('This is the updated <%= name %>!!!');
+      updated<%= classedName %>.info.should.equal('This is the updated <%= cameledName %>!!!');
     });
 
   });
@@ -130,7 +130,7 @@ describe('<%= classedName %> API:', function() {
         });
     });
 
-    it('should respond with 404 when <%= name %> does not exist', function(done) {
+    it('should respond with 404 when <%= cameledName %> does not exist', function(done) {
       request(app)
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(404)

@@ -12,14 +12,14 @@
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
     "composable-middleware": "^0.3.0",
-    "lodash": "~3.9.3",<% if(filters.babel) { %>
-    "babel-core": "^5.6.4",<% } %><% if (filters.jade) { %>
+    "lodash": "~3.9.3",
+    "babel-core": "^5.6.4",<% if (filters.jade) { %>
     "jade": "~1.2.0",<% } %><% if (filters.html) { %>
     "ejs": "~0.8.4",<% } %><% if (filters.mongoose) { %>
     "mongoose": "~4.0.3",
     "mongoose-bird": "~0.0.1",
     "connect-mongo": "^0.8.1",<% } %><% if (filters.sequelize) { %>
-    "sequelize": "^2.0.0-rc2",
+    "sequelize": "^3.5.1",
     "sqlite3": "~3.0.2",<% } %><% if (filters.auth) { %>
     "jsonwebtoken": "^5.0.0",
     "express-jwt": "^3.0.0",

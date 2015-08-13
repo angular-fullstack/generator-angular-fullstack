@@ -245,13 +245,12 @@ module.exports = function (grunt) {
     wiredep: {
       options: {
         exclude: [
-          /angular-scenario/,
-          /bootstrap-sass-official/,
           /bootstrap.js/,
           '/json3/',
           '/es5-shim/'<% if(!filters.css) { %>,
-          /bootstrap.css/,
-          /font-awesome.css/<% } %>
+          /font-awesome\.css/<% if(filters.bootstrap) { %>,
+          /bootstrap\.css/<% if(filters.sass) { %>,
+          /bootstrap-sass-official/<% }}} %>
         ]
       },
       client: {
@@ -609,11 +608,6 @@ module.exports = function (grunt) {
     stylus: {
       server: {
         options: {
-          paths: [
-            '<%%= yeoman.client %>/bower_components',
-            '<%%= yeoman.client %>/app',
-            '<%%= yeoman.client %>/components'
-          ],
           "include css": true
         },
         files: {
@@ -626,11 +620,6 @@ module.exports = function (grunt) {
     sass: {
       server: {
         options: {
-          loadPath: [
-            '<%%= yeoman.client %>/bower_components',
-            '<%%= yeoman.client %>/app',
-            '<%%= yeoman.client %>/components'
-          ],
           compass: false
         },
         files: {
@@ -641,18 +630,11 @@ module.exports = function (grunt) {
 
     // Compiles Less to CSS
     less: {
-      options: {
-        paths: [
-          '<%%= yeoman.client %>/bower_components',
-          '<%%= yeoman.client %>/app',
-          '<%%= yeoman.client %>/components'
-        ]
-      },
       server: {
         files: {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.less'
         }
-      },
+      }
     },<% } %>
 
     injector: {
@@ -686,7 +668,7 @@ module.exports = function (grunt) {
         options: {
           transform: function(filePath) {
             filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
+            filePath = filePath.replace('/client/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
           starttag: '// injector',
@@ -705,7 +687,7 @@ module.exports = function (grunt) {
         options: {
           transform: function(filePath) {
             filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
+            filePath = filePath.replace('/client/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
           starttag: '// injector',
@@ -724,7 +706,7 @@ module.exports = function (grunt) {
         options: {
           transform: function(filePath) {
             filePath = filePath.replace('/client/app/', '');
-            filePath = filePath.replace('/client/components/', '');
+            filePath = filePath.replace('/client/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
           starttag: '// injector',

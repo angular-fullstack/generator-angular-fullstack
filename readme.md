@@ -302,7 +302,6 @@ The following packages are always installed by the [app](#app) generator:
 * angular-mocks
 * angular-resource
 * angular-sanitize
-* angular-scenario
 * es5-shim
 * font-awesome
 * json3

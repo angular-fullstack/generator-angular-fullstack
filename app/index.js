@@ -28,6 +28,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
       // dynamic assertion statement
       this.does = this.is = function(foo) {
+        foo = this.engine(foo.replace(/\(;>%%<;\)/g, '<%')
+          .replace(/\(;>%<;\)/g, '%>'), this);
         if (this.filters.should) {
           return foo + '.should';
         } else {
@@ -102,23 +104,15 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           }
         }, {
           type: "list",
-          name: "script",
-          message: "What would you like to write scripts with?",
-          choices: [ "JavaScript", "CoffeeScript"],
+          name: 'script',
+          message: 'What would you like to write scripts with?',
+          choices: [ 'JavaScript', 'JavaScript + Babel', 'CoffeeScript'],
           filter: function( val ) {
-            var filterMap = {
+            return {
               'JavaScript': 'js',
+              'JavaScript + Babel': 'babel',
               'CoffeeScript': 'coffee'
-            };
-
-            return filterMap[val];
-          }
-        }, {
-          type: 'confirm',
-          name: 'babel',
-          message: 'Would you like to use Javascript ES6 in your client by preprocessing it with Babel?',
-          when: function (answers) {
-            return answers.script === 'js';
+            }[val];
           }
         }, {
           type: 'list',
@@ -154,8 +148,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         }], function (answers) {
           this.filters.grunt = answers.buildtool === 'grunt' || answers.buildtool === 'grunt_and_gulp';
           this.filters.gulp = answers.buildtool === 'gulp' || answers.buildtool === 'grunt_and_gulp';
-          this.filters.babel = !!answers.babel;
-          if(this.filters.babel){ this.filters.js = true; }
+
+          // also set 'js' to true if using babel
+          if(answers.script === 'babel') { this.filters.js = true; }
           this.filters[answers.script] = true;
           this.filters[answers.markup] = true;
           this.filters[answers.stylesheet] = true;
@@ -329,6 +324,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     saveSettings: function() {
       if(this.skipConfig) return;
+      this.config.set('endpointDirectory', 'server/api/');
       this.config.set('insertRoutes', true);
       this.config.set('registerRoutesFile', 'server/routes.js');
       this.config.set('routesNeedle', '// Insert routes below');
@@ -424,11 +420,19 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     },
 
     generateEndpoint: function() {
-      var name = this.name = this.cameledName = 'thing';
-      this.classedName = name.charAt(0).toUpperCase() + name.slice(1);
-      this.route = '/api/' + name + 's';
-      this.sourceRoot(path.join(__dirname, '..', 'endpoint', 'templates'));
-      genUtils.processDirectory(this, '.', 'server/api/' + name);
+      var models;
+      if (this.filters.mongooseModels) {
+        models = 'mongoose';
+      } else if (this.filters.sequelizeModels) {
+        models = 'sequelize';
+      }
+      this.composeWith('angular-fullstack:endpoint', {
+        options: {
+          route: '/api/things',
+          models: models
+        },
+        args: ['thing']
+      });
     }
 
   },
