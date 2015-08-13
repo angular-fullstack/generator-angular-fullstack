@@ -39,15 +39,15 @@ describe('Logout View', function() {
     it('should logout a user and redirecting to "/"', function() {
       var navbar = require('../../components/navbar/navbar.po');
 
-      <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/');
-      <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
+      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+      <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
 
       browser.get(config.baseUrl + '/logout');
 
       navbar = require('../../components/navbar/navbar.po');
 
-      <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/');
-      <%= does("navbar.navbarAccountGreeting.isDisplayed()") %>.eventually.equal(false);
+      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+      <%= expect() %>navbar.navbarAccountGreeting.isDisplayed()<%= to() %>.eventually.equal(false);
     });
 
   });

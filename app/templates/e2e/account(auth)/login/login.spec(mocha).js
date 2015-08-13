@@ -35,12 +35,12 @@ describe('Login View', function() {
   });
 
   it('should include login form with correct inputs and submit button', function() {
-    <%= does("page.form.email.getAttribute('type')") %>.eventually.equal('email');
-    <%= does("page.form.email.getAttribute('name')") %>.eventually.equal('email');
-    <%= does("page.form.password.getAttribute('type')") %>.eventually.equal('password');
-    <%= does("page.form.password.getAttribute('name')") %>.eventually.equal('password');
-    <%= does("page.form.submit.getAttribute('type')") %>.eventually.equal('submit');
-    <%= does("page.form.submit.getText()") %>.eventually.equal('Login');
+    <%= expect() %>page.form.email.getAttribute('type')<%= to() %>.eventually.equal('email');
+    <%= expect() %>page.form.email.getAttribute('name')<%= to() %>.eventually.equal('email');
+    <%= expect() %>page.form.password.getAttribute('type')<%= to() %>.eventually.equal('password');
+    <%= expect() %>page.form.password.getAttribute('name')<%= to() %>.eventually.equal('password');
+    <%= expect() %>page.form.submit.getAttribute('type')<%= to() %>.eventually.equal('submit');
+    <%= expect() %>page.form.submit.getText()<%= to() %>.eventually.equal('Login');
   });
 
   describe('with local auth', function() {
@@ -50,8 +50,8 @@ describe('Login View', function() {
 
       var navbar = require('../../components/navbar/navbar.po');
 
-      <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/');
-      <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
+      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+      <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
     });
 
     describe('and invalid credentials', function() {
@@ -65,10 +65,10 @@ describe('Login View', function() {
           password: 'badPassword'
         });
 
-        <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/login');
+        <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/login');
 
         var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));
-        <%= does("helpBlock.getText()") %>.eventually.equal('This password is not correct.');
+        <%= expect() %>helpBlock.getText()<%= to() %>.eventually.equal('This password is not correct.');
       });
 
     });

@@ -29,4 +29,4 @@ describe 'Controller: MainCtrl', ->
   it 'should attach a list of things to the scope', ->
     $httpBackend.flush()<% if (filters.jasmine) { %>
     expect(scope.awesomeThings.length).toBe 4 <% } if (filters.mocha) { %>
-    <%= does("scope.awesomeThings.length") %>.equal 4<% } %>
+    <%= expect() %>scope.awesomeThings.length<%= to() %>.equal 4<% } %>

@@ -25,7 +25,7 @@ describe('<%= classedName %> API:', function() {
     });
 
     it('should respond with JSON array', function() {
-      <%= cameledName %>s.should.be.instanceOf(Array);
+      <%= expect() %><%= cameledName %>s<%= to() %>.be.instanceOf(Array);
     });
 
   });<% if(filters.models) { %>
@@ -50,8 +50,8 @@ describe('<%= classedName %> API:', function() {
     });
 
     it('should respond with the newly created <%= cameledName %>', function() {
-      new<%= classedName %>.name.should.equal('New <%= classedName %>');
-      new<%= classedName %>.info.should.equal('This is the brand new <%= cameledName %>!!!');
+      <%= expect() %>new<%= classedName %>.name<%= to() %>.equal('New <%= classedName %>');
+      <%= expect() %>new<%= classedName %>.info<%= to() %>.equal('This is the brand new <%= cameledName %>!!!');
     });
 
   });
@@ -78,8 +78,8 @@ describe('<%= classedName %> API:', function() {
     });
 
     it('should respond with the requested <%= cameledName %>', function() {
-      <%= cameledName %>.name.should.equal('New <%= classedName %>');
-      <%= cameledName %>.info.should.equal('This is the brand new <%= cameledName %>!!!');
+      <%= expect() %><%= cameledName %>.name<%= to() %>.equal('New <%= classedName %>');
+      <%= expect() %><%= cameledName %>.info<%= to() %>.equal('This is the brand new <%= cameledName %>!!!');
     });
 
   });
@@ -110,8 +110,8 @@ describe('<%= classedName %> API:', function() {
     });
 
     it('should respond with the updated <%= cameledName %>', function() {
-      updated<%= classedName %>.name.should.equal('Updated <%= classedName %>');
-      updated<%= classedName %>.info.should.equal('This is the updated <%= cameledName %>!!!');
+      <%= expect() %>updated<%= classedName %>.name<%= to() %>.equal('Updated <%= classedName %>');
+      <%= expect() %>updated<%= classedName %>.info<%= to() %>.equal('This is the updated <%= cameledName %>!!!');
     });
 
   });
