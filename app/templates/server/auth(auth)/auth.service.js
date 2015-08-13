@@ -1,6 +1,5 @@
 'use strict';
-<% if (filters.mongooseModels) { %>
-var mongoose = require('mongoose-bird')();<% } %>
+
 var passport = require('passport');
 var config = require('../config/environment');
 var jwt = require('jsonwebtoken');
