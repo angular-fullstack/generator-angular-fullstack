@@ -28,6 +28,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
       // dynamic assertion statement
       this.does = this.is = function(foo) {
+        foo = this.engine(foo.replace(/\(;>%%<;\)/g, '<%')
+          .replace(/\(;>%<;\)/g, '%>'), this);
         if (this.filters.should) {
           return foo + '.should';
         } else {
