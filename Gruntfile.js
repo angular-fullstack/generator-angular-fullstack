@@ -10,7 +10,11 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = function (grunt) {
-  require('load-grunt-tasks')(grunt);
+  // Load grunt tasks automatically, when needed
+  require('jit-grunt')(grunt, {
+    buildcontrol: 'grunt-build-control',
+    changelog: 'grunt-conventional-changelog'
+  });
 
   grunt.initConfig({
     config: {

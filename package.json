@@ -41,7 +41,7 @@
     "grunt-env": "^0.4.1",
     "grunt-mocha-test": "^0.11.0",
     "grunt-release": "~0.6.0",
-    "load-grunt-tasks": "~0.2.0",
+    "jit-grunt": "^0.9.1",
     "marked": "~0.2.8",
     "mocha": "~1.21.0",
     "q": "^1.0.1",
