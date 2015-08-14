@@ -28,9 +28,9 @@
     "passport-facebook": "latest",<% } %><% if (filters.twitterAuth) { %>
     "passport-twitter": "latest",<% } %><% if (filters.googleAuth) { %>
     "passport-google-oauth": "latest",<% } %><% if (filters.socketio) { %>
-    "socket.io": "^1.0.6",
-    "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^3.0.0",<% } %>
+    "socket.io": "^1.3.5",
+    "socket.io-client": "^1.3.5",
+    "socketio-jwt": "^4.2.0",<% } %>
     "serve-favicon": "~2.0.1"
   },
   "devDependencies": {
