@@ -8,7 +8,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');<% if (filters.mongoose) { %>
-var mongoose = require('mongoose-bird')();<% } %><% if (filters.sequelize) { %>
+var mongoose = require('mongoose');<% } %><% if (filters.sequelize) { %>
 var sqldb = require('./sqldb');<% } %>
 var config = require('./config/environment');
 <% if (filters.mongoose) { %>

@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose-bird')();
+var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 var Schema = mongoose.Schema;
 var crypto = require('crypto');<% if (filters.oauth) { %>
 var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
