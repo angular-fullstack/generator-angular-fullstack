@@ -8,7 +8,13 @@ module.exports = function(config) {
 
     // testing framework to use (jasmine/mocha/qunit/...)<% if (filters.jasmine) { %>
     frameworks: ['jasmine'],<% } if (filters.mocha) { %>
-    frameworks: ['mocha', 'chai', 'sinon-chai', 'chai-as-promised', 'chai-things'],<% } %>
+    frameworks: ['mocha', 'chai', 'sinon-chai', 'chai-as-promised', 'chai-things'],
+
+    client: {
+      mocha: {
+        timeout: 5000 // set default mocha spec timeout
+      }
+    },<% } %>
 
     // list of files / patterns to load in the browser
     files: [
