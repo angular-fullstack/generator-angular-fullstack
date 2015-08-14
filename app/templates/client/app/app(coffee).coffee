@@ -33,9 +33,10 @@ angular.module '<%= scriptAppName %>', [<%= angularModules %>]
     $q.reject response
 
 .run ($rootScope<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>, Auth) ->
-  # Redirect to login if route requires auth and you're not logged in
+  # Redirect to login if route requires auth and the user is not logged in
   $rootScope.$on <% if (filters.ngroute) { %>'$routeChangeStart'<% } %><% if (filters.uirouter) { %>'$stateChangeStart'<% } %>, (event, next) ->
-    Auth.isLoggedIn (loggedIn) ->
-      event.preventDefault()
-      <% if (filters.ngroute) { %>$location.path '/login'<% } %><% if (filters.uirouter) { %>$state.go 'login'<% } %> if next.authenticate and not loggedIn
-<% } %>
+    if next.authenticate
+      Auth.isLoggedIn (loggedIn) ->
+        if !loggedIn
+          event.preventDefault()
+          <% if (filters.ngroute) { %>$location.path '/login'<% } %><% if (filters.uirouter) { %>$state.go 'login'<% }} %>
