@@ -237,6 +237,7 @@ describe('angular-fullstack generator', function () {
       files = files.concat([
         'server/api/thing/thing.model.js',
         'server/api/thing/thing.events.js',
+        'server/api/thing/thing.model.spec.js',
         'server/config/seed.js'
       ]);
     }
