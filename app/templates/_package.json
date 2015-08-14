@@ -20,7 +20,8 @@
     "bluebird": "^2.9.34",
     "connect-mongo": "^0.8.1",<% } %><% if (filters.sequelize) { %>
     "sequelize": "^3.5.1",
-    "sqlite3": "~3.0.2",<% } %><% if (filters.auth) { %>
+    "sqlite3": "~3.0.2",
+    "express-sequelize-session": "0.4.0",<% } %><% if (filters.auth) { %>
     "jsonwebtoken": "^5.0.0",
     "express-jwt": "^3.0.0",
     "passport": "~0.2.0",

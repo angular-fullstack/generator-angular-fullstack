@@ -17,7 +17,9 @@ var config = require('./environment');<% if (filters.auth) { %>
 var passport = require('passport');<% } %><% if (filters.twitterAuth) { %>
 var session = require('express-session');<% if (filters.mongoose) { %>
 var mongoStore = require('connect-mongo')(session);
-var mongoose = require('mongoose');<% } %><% } %>
+var mongoose = require('mongoose');<% } else if(filters.sequelize) { %>
+var sqldb = require('../sqldb');
+var Store = require('express-sequelize-session')(session.Store);<% } %><% } %>
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -42,7 +44,8 @@ module.exports = function(app) {
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
       db: '<%= _.slugify(_.humanize(appname)) %>'
-    })<% } %>
+    })<% } else if(filters.sequelize) { %>,
+    store: new Store(sqldb.sequelize)<% } %>
   }));
 <% } %>
   app.set('appPath', path.join(config.root, 'client'));
