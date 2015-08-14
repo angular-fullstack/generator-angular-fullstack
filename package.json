@@ -26,29 +26,28 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "chalk": "~0.4.0",
+    "chalk": "^1.1.0",
     "generator-ng-component": "~0.1.0",
     "yeoman-generator": "~0.18.10"
   },
   "devDependencies": {
-    "chai": "^1.9.1",
+    "chai": "^3.2.0",
     "grunt": "~0.4.1",
-    "grunt-build-control": "DaftMonk/grunt-build-control",
+    "grunt-build-control": "^0.5.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-conventional-changelog": "~1.0.0",
     "grunt-david": "~0.5.0",
     "grunt-env": "^0.4.1",
-    "grunt-mocha-test": "^0.11.0",
-    "grunt-release": "~0.6.0",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-release": "^0.13.0",
     "jit-grunt": "^0.9.1",
-    "marked": "~0.2.8",
-    "mocha": "~1.21.0",
+    "mocha": "^2.2.5",
     "q": "^1.0.1",
     "recursive-readdir": "^1.2.0",
-    "semver": "~2.2.1",
-    "shelljs": "^0.3.0",
-    "underscore.string": "^2.3.3"
+    "semver": "^5.0.1",
+    "shelljs": "^0.5.3",
+    "underscore.string": "^3.1.1"
   },
   "engines": {
     "node": ">=0.10.0",
