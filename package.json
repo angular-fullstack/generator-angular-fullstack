@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "chai": "^1.9.1",
-    "fs-extra": "^0.9.1",
     "grunt": "~0.4.1",
     "grunt-build-control": "DaftMonk/grunt-build-control",
     "grunt-contrib-clean": "^0.6.0",

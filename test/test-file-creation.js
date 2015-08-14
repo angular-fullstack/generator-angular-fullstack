@@ -1,7 +1,7 @@
 /*global describe, beforeEach, it */
 'use strict';
 var path = require('path');
-var fs = require('fs-extra');
+var fs = require('fs');
 var exec = require('child_process').exec;
 var helpers = require('yeoman-generator').test;
 var chai = require('chai');
@@ -24,6 +24,8 @@ describe('angular-fullstack generator', function () {
     oauth: [],
     socketio: true
   }, dependenciesInstalled = false;
+
+  function copySync(s, d) { fs.writeFileSync(d, fs.readFileSync(s)); }
 
   function generatorTest(generatorType, name, mockPrompt, callback) {
     gen.run(function () {
@@ -442,7 +444,7 @@ describe('angular-fullstack generator', function () {
 
       it('should use existing config if available', function(done) {
         this.timeout(60000);
-        fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
+        copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
         var gen = helpers.createGenerator('angular-fullstack:app', [
           '../../app',
           '../../endpoint',
@@ -467,7 +469,7 @@ describe('angular-fullstack generator', function () {
 
       it('should add oauth option if existing config had oauth strategy selected', function(done) {
         this.timeout(60000);
-        fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
+        copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
         var gen = helpers.createGenerator('angular-fullstack:app', [
           '../../app',
           '../../endpoint',
