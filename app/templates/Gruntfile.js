@@ -54,13 +54,17 @@ module.exports = function (grunt) {
         url: 'http://localhost:<%%= express.options.port %>'
       }
     },
-    watch: {
+    watch: {<% if(filters.babel) { %>
+      babel: {
+        files: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js'],
+        tasks: ['newer:babel:client']
+      },<% } %>
       injectJS: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js',
           '!<%%= yeoman.client %>/app/app.js'
         ],
-        tasks: [<% if(filters.babel) { %>'newer:babel:client', <% } %>'injector:scripts']
+        tasks: ['injector:scripts']
       },
       injectCss: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.css'],
