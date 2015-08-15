@@ -50,7 +50,7 @@ var paths = {
     },
     views: {
         main: 'client/index.<%= templateExt %>',
-        files: ['client/app/**/*.<%= templateExt %>']
+        files: ['client/{app,components}/**/*.<%= templateExt %>']
     },
     karma: 'karma.conf.js',
     dist: 'dist'
