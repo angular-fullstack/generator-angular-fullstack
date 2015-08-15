@@ -157,7 +157,6 @@ gulp.task('inject:css', () => {
         .pipe(gulp.dest('client'));
 });
 
-// TODO: other styles
 gulp.task('inject:<%= styleExt %>', () => {
     return gulp.src('client/app/app.<%= styleExt %>')
         .pipe(plugins.inject(gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false}), {
