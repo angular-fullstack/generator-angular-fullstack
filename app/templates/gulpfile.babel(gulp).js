@@ -109,7 +109,6 @@ let lintServerScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
 let styles = lazypipe()
-    .pipe(gulp.src, paths.client.mainStyle)
     .pipe(plugins.sourcemaps.init)<% if(filters.stylus) { %>
     .pipe(plugins.stylus, {
         use: [nib()],
@@ -169,7 +168,10 @@ gulp.task('inject:<%= styleExt %>', () => {
         .pipe(gulp.dest('client/app'));
 });
 
-gulp.task('styles', styles);<% if(filters.babel || filters.coffee) { %>
+gulp.task('styles', () => {
+    return gulp.src(paths.client.mainStyle)
+        .pipe(styles());
+}));<% if(filters.babel || filters.coffee) { %>
 
 gulp.task('transpile', () => {
     return gulp.src(paths.client.scripts)
