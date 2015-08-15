@@ -27,7 +27,7 @@ module.exports = function(socketio) {
   //
   // ex: DEBUG: "http*,socket.io:socket"
 
-  // We can authenticate socket.io users and access their token through socket.handshake.decoded_token
+  // We can authenticate socket.io users and access their token through socket.decoded_token
   //
   // 1. You will need to send the token in `client/components/socket/socket.service.js`
   //
@@ -38,10 +38,8 @@ module.exports = function(socketio) {
   // }));
 
   socketio.on('connection', function(socket) {
-    socket.address =
-      socket.handshake.address !== null ?
-      socket.handshake.address.address + ':' + socket.handshake.address.port :
-      process.env.DOMAIN;
+    socket.address = socket.request.connection.remoteAddress +
+      ':' + socket.request.connection.remotePort;
 
     socket.connectedAt = new Date();
 
