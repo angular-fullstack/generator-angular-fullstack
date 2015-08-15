@@ -211,7 +211,7 @@ gulp.task('watch', () => {
 
     plugins.livereload.listen();
 
-    plugins.watch(paths.client.styles)
+    plugins.watch(paths.client.styles, ['inject:<%= styleExt %>'])
         .pipe(plugins.plumber())
         .pipe(styles())
         .pipe(plugins.livereload());
@@ -220,7 +220,7 @@ gulp.task('watch', () => {
         .pipe(plugins.plumber())
         .pipe(plugins.livereload());
 
-    plugins.watch(paths.client.scripts)
+    plugins.watch(paths.client.scripts, ['inject:js'])
         .pipe(plugins.plumber())<% if(filters.babel || filters.coffee) { %>
         .pipe(transpile())
         .pipe(gulp.dest('.tmp/scripts'))<% } %>
