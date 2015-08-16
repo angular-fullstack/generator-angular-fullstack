@@ -107,7 +107,7 @@
     "supertest": "~0.11.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
   "scripts": {
     "start": "node server",
