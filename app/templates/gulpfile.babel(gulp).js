@@ -262,7 +262,7 @@ gulp.task('test:client', () => {
 
 // inject bower components
 gulp.task('bower', () => {
-    gulp.src(paths.views.main)
+    return gulp.src(paths.views.main)
         .pipe(wiredep({
             exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
         }))
@@ -331,7 +331,7 @@ gulp.task('html', function () {
 });
 
 gulp.task('build:images', () => {
-    gulp.src('client/assets/images/**/*')
+    return gulp.src('client/assets/images/**/*')
         .pipe(plugins.cache(plugins.imagemin({
             optimizationLevel: 5,
             progressive: true,
@@ -341,7 +341,7 @@ gulp.task('build:images', () => {
 });
 
 gulp.task('copy:extras', () => {
-    gulp.src([
+    return gulp.src([
         'client/favicon.ico',
         'client/robots.txt'
     ], { dot: true })
@@ -349,12 +349,12 @@ gulp.task('copy:extras', () => {
 });
 
 gulp.task('copy:fonts', () => {
-    gulp.src(yeoman.app + '/fonts/**/*')
+    return gulp.src(yeoman.app + '/fonts/**/*')
         .pipe(gulp.dest(paths.dist + '/fonts'));
 });
 
 gulp.task('copy:server', () => {
-    gulp.src([
+    return gulp.src([
         'package.json',
         'bower.json',
         '.bowerrc',
