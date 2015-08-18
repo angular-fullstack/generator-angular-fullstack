@@ -117,8 +117,7 @@ let styles = lazypipe()
     .pipe(plugins.sass)<% } if(filters.less) { %>
     .pipe(plugins.less)<% } %>
     .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
-    .pipe(plugins.sourcemaps.write, '.')
-    .pipe(gulp.dest, '.tmp/app');<% if(filters.babel || filters.coffee) { %>
+    .pipe(plugins.sourcemaps.write, '.');<% if(filters.babel || filters.coffee) { %>
 
 let transpile = lazypipe()
     .pipe(plugins.sourcemaps.init)<% if(filters.babel) { %>
@@ -169,7 +168,8 @@ gulp.task('inject:<%= styleExt %>', () => {
 
 gulp.task('styles', () => {
     return gulp.src(paths.client.mainStyle)
-        .pipe(styles());
+        .pipe(styles())
+        .pipe(gulp.dest('.tmp/app'));
 }));<% if(filters.babel || filters.coffee) { %>
 
 gulp.task('transpile', () => {
@@ -214,6 +214,7 @@ gulp.task('watch', () => {
     plugins.watch(paths.client.styles, ['inject:<%= styleExt %>'])
         .pipe(plugins.plumber())
         .pipe(styles())
+        .pipe(gulp.dest('.tmp'))
         .pipe(plugins.livereload());
 
     plugins.watch(paths.views.files)
