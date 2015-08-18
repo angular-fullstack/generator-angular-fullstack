@@ -252,7 +252,7 @@ gulp.task('test:server', () => {
 });
 
 gulp.task('test:client', () => {
-    var testFiles = _.union(paths.client.testRequire, paths.client.test)
+    let testFiles = _.union(paths.client.testRequire, paths.client.test);
     return gulp.src(testFiles)
         .pipe(plugins.karma({
             configFile: paths.karma,
