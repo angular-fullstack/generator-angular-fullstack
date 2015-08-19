@@ -11,6 +11,7 @@ var recursiveReadDir = require('recursive-readdir');
 
 describe('angular-fullstack generator', function () {
   var gen, defaultOptions = {
+    buildtool: 'grunt',
     script: 'js',
     babel: true,
     markup: 'html',
