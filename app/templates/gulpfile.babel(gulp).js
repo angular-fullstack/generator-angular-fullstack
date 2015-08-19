@@ -211,20 +211,22 @@ gulp.task('watch', () => {
 
     plugins.livereload.listen();
 
-    plugins.watch(paths.client.styles, ['inject:<%= styleExt %>'])
-        .pipe(plugins.plumber())
-        .pipe(styles())
-        .pipe(gulp.dest('.tmp'))
-        .pipe(plugins.livereload());
+    plugins.watch(paths.client.styles, () => {  //['inject:<%= styleExt %>']
+        gulp.src(paths.client.mainStyle)
+            .pipe(plugins.plumber())
+            .pipe(styles())
+            .pipe(gulp.dest('.tmp/app'))
+            .pipe(plugins.livereload());
+    });
 
     plugins.watch(paths.views.files)
         .pipe(plugins.plumber())
         .pipe(plugins.livereload());
 
-    plugins.watch(paths.client.scripts, ['inject:js'])
+    plugins.watch(paths.client.scripts) //['inject:js']
         .pipe(plugins.plumber())<% if(filters.babel || filters.coffee) { %>
         .pipe(transpile())
-        .pipe(gulp.dest('.tmp/scripts'))<% } %>
+        .pipe(gulp.dest('.tmp'))<% } %>
         .pipe(plugins.livereload());
 
     plugins.watch(_.union(paths.server.scripts, testFiles))
