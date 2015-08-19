@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('../../app');<% if (filters.mongooseModels) { %>
+var app = require('../..');<% if (filters.mongooseModels) { %>
 var User = require('./user.model');<% } %><% if (filters.sequelizeModels) { %>
 var User = require('../../sqldb').User;<% } %>
 var request = require('supertest');

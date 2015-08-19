@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('../../app');
+var app = require('../..');
 var User = require('../../sqldb').User;
 var user;
 var genUser = function() {
