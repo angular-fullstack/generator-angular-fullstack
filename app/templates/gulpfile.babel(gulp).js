@@ -241,7 +241,9 @@ gulp.task('serve', cb => {
         ['lint:scripts'],
         'inject:js',
         'inject:css',
-        'bower',
+        'bower',<% if(filters.babel || filters.coffee) { %>
+        ['transpile', 'styles'],<% } else { %>
+        'styles',<% } %>
         ['start:server', 'start:client'],
         'watch',
         cb);
