@@ -1,15 +1,26 @@
+sudo: false
 language: node_js
 node_js:
   - '0.12'
+env:
+  global:
+    - SAUCE_USERNAME=fullstack_ci
+    - SAUCE_ACCESS_KEY=1a527ca6-4aa5-4618-86ce-0278bf158cbf
 before_install:
+  - ./scripts/sauce_connect_setup.sh
   - gem update --system
   - gem install sass --version "=3.3.7"
   - npm install -g bower grunt-cli
 services: mongodb
+cache:
+  directories:
+    - node_modules
+    - test/fixtures/node_modules
+    - test/fixtures/bower_components
 notifications:
   webhooks:
     urls:
-      - https://webhooks.gitter.im/e/911ed472ef19bcb27858
+      - secure: "DhPNqHXuUIeIGE9Ek3+63qhco+4MozXqMZL6dAKoq1MHQ2RAPO6SYIkUYZqDnuWYlwWao2EnTYcDREivIV/m/RnkP9bKlpX/n/RNJe+X4bwFaCU55fVKgkAFn3takSBC5SVoeTWHdWu3WhhqSdioWjT7mlE1wtt/RanSMb5Id8M="
     on_success: change  # options: [always|never|change] default: always
     on_failure: always  # options: [always|never|change] default: always
     on_start: false     # default: false

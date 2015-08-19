@@ -1,4 +1,5 @@
 {
+  "expr": true,
   "node": true,
   "esnext": true,
   "bitwise": true,

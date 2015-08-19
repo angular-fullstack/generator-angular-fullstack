@@ -3,7 +3,7 @@ var markdown = require('marked');
 var semver = require('semver');
 var _s = require('underscore.string');
 var shell = require('shelljs');
-var process = require('child_process');
+var child_process = require('child_process');
 var Q = require('q');
 var helpers = require('yeoman-generator').test;
 var fs = require('fs-extra');
@@ -58,6 +58,11 @@ module.exports = function (grunt) {
       },
       all: ['Gruntfile.js', '*/index.js']
     },
+    env: {
+      fast: {
+        SKIP_E2E: true
+      }
+    },
     mochaTest: {
       test: {
         src: [
@@ -81,6 +86,16 @@ module.exports = function (grunt) {
             '!<%= config.demo %>/dist'
           ]
         }]
+      }
+    },
+    david: {
+      gen: {
+        options: {}
+      },
+      app: {
+        options: {
+          package: 'test/fixtures/package.json'
+        }
       }
     }
   });
@@ -139,6 +154,7 @@ module.exports = function (grunt) {
         bootstrap: true,
         uibootstrap: true,
         mongoose: true,
+        testing: 'jasmine',
         auth: true,
         oauth: ['googleAuth', 'twitterAuth'],
         socketio: true
@@ -227,12 +243,21 @@ module.exports = function (grunt) {
 
     shell.cd('test/fixtures');
     grunt.log.ok('installing npm dependencies for generated app');
-    process.exec('npm install --quiet', {cwd: '../fixtures'}, function (error, stdout, stderr) {
+    child_process.exec('npm install --quiet', {cwd: '../fixtures'}, function (error, stdout, stderr) {
 
       grunt.log.ok('installing bower dependencies for generated app');
-      process.exec('bower install', {cwd: '../fixtures'}, function (error, stdout, stderr) {
-        shell.cd('../../');
-        done();
+      child_process.exec('bower install', {cwd: '../fixtures'}, function (error, stdout, stderr) {
+
+        if(!process.env.SAUCE_USERNAME) {
+          grunt.log.ok('running npm run update-webdriver');
+          child_process.exec('npm run update-webdriver', function() {
+            shell.cd('../../');
+            done();
+          });
+        } else {
+          shell.cd('../../');
+          done();
+        }
       })
     });
   });
@@ -242,6 +267,24 @@ module.exports = function (grunt) {
     'installFixtures',
     'mochaTest'
   ]);
+  grunt.registerTask('test', function(target, option) {
+    if (target === 'fast') {
+      grunt.task.run([
+        'env:fast'
+      ]);
+    }
+
+    return grunt.task.run([
+      'updateFixtures',
+      'installFixtures',
+      'mochaTest'
+    ])
+  });
+
+  grunt.registerTask('deps', function(target) {
+    if (!target || target === 'app') grunt.task.run(['updateFixtures']);
+    grunt.task.run(['david:' + (target || '')]);
+  });
 
   grunt.registerTask('demo', [
     'clean:demo',

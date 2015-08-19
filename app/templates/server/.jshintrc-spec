@@ -6,6 +6,9 @@
     "before": true,
     "beforeEach": true,
     "after": true,
-    "afterEach": true
+    "afterEach": true,
+    "expect": true,
+    "assert": true,
+    "sinon": true
   }
 }
