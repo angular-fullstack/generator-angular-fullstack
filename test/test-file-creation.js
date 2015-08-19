@@ -467,28 +467,6 @@ describe('angular-fullstack generator', function () {
         });
       });
 
-      it('should add oauth option if existing config had oauth strategy selected', function(done) {
-        this.timeout(60000);
-        copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
-        var gen = helpers.createGenerator('angular-fullstack:app', [
-          '../../app',
-          '../../endpoint',
-          [
-            helpers.createDummyGenerator(),
-            'ng-component:app'
-          ]
-        ]);
-        gen.options['skip-install'] = true;
-        helpers.mockPrompt(gen, {
-          skipConfig: true
-        });
-        gen.run(function () {
-          var yoConfig = require(__dirname + '/temp/.yo-rc.json');
-          expect(yoConfig['generator-angular-fullstack'].filters.oauth).to.be.true;
-          done();
-        });
-      });
-
       it('should generate expected files', function (done) {
         gen.run(function () {
           helpers.assertFile(genFiles(defaultOptions));
