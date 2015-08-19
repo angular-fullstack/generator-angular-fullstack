@@ -61,15 +61,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
             jasmine: true
           });
 
-          // NOTE: temp(?) fix for #403
-          if(typeof this.filters.oauth === 'undefined') {
-            var strategies = Object.keys(this.filters).filter(function(key) {
-              return key.match(/Auth$/) && this.filters[key];
-            }.bind(this));
-
-            if(strategies.length) this.filters.oauth = true;
-          }
-
           this.config.set('filters', this.filters);
           this.config.forceSave();
 
