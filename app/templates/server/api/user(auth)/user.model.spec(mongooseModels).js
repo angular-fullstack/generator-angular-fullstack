@@ -1,6 +1,6 @@
 'use strict';
 
-var app = require('../../app');
+var app = require('../..');
 var User = require('./user.model');
 var user;
 var genUser = function() {
