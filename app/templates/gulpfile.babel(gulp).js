@@ -172,7 +172,7 @@ gulp.task('styles', () => {
     return gulp.src(paths.client.mainStyle)
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
-}));<% if(filters.babel || filters.coffee) { %>
+});<% if(filters.babel || filters.coffee) { %>
 
 gulp.task('transpile', () => {
     return gulp.src(paths.client.scripts)
