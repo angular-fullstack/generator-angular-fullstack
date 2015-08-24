@@ -1,5 +1,5 @@
 # AngularJS Full-Stack generator
-[![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![npm version](https://badge.fury.io/js/generator-angular-fullstack.svg)](http://badge.fury.io/js/generator-angular-fullstack) ![](https://david-dm.org/daftmonk/generator-angular-fullstack.png) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+[![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![npm version](https://badge.fury.io/js/generator-angular-fullstack.svg)](http://badge.fury.io/js/generator-angular-fullstack) [![Dependency Status](https://david-dm.org/daftmonk/generator-angular-fullstack.png)](https://david-dm.org/daftmonk/generator-angular-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
@@ -11,9 +11,9 @@ Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
-Install `generator-angular-fullstack`:
+Install `yo`, `grunt-cli`, `bower`, and `generator-angular-fullstack`:
 ```
-npm install -g generator-angular-fullstack
+npm install -g yo grunt-cli bower generator-angular-fullstack
 ```
 
 Make a new directory, and `cd` into it:
@@ -263,7 +263,7 @@ To work with your new heroku app using the command line, you will need to run an
 
 If you're using mongoDB you will need to add a database to your app:
 
-    heroku addons:add mongolab
+    heroku addons:create mongolab
 
 Your app should now be live. To view it run `heroku open`.
 
@@ -302,7 +302,6 @@ The following packages are always installed by the [app](#app) generator:
 * angular-mocks
 * angular-resource
 * angular-sanitize
-* angular-scenario
 * es5-shim
 * font-awesome
 * json3
@@ -339,6 +338,19 @@ To setup protractor e2e tests, you must first run
 `npm run update-webdriver`
 
 Use `grunt test:e2e` to have protractor go through tests located in the `e2e` folder.
+
+**Code Coverage**
+
+Use `grunt test:coverage` to run mocha-istanbul and generate code coverage reports.
+
+`coverage/server` will be populated with `e2e` and `unit` folders containing the `lcov` reports.
+
+The coverage taget has 3 available options:
+- `test:coverage:unit` generate server unit test coverage
+- `test:coverage:e2e` generate server e2e test coverage
+- `test:coverage:check` combine the coverage reports and check against predefined thresholds
+
+* *when no option is given `test:coverage` runs all options in the above order*
 
 ## Environment Variables
 

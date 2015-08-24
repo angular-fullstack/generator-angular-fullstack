@@ -9,4 +9,4 @@ angular.module '<%= scriptAppName %>'
 
   $scope.delete = (user) ->
     User.remove id: user._id
-    _.remove $scope.users, user
+    $scope.users.splice @$index, 1

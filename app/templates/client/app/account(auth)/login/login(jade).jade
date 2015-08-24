@@ -1,4 +1,4 @@
-div(ng-include='"components/navbar/navbar.html"')
+navbar
 .container
   .row
     .col-sm-12
@@ -20,7 +20,7 @@ div(ng-include='"components/navbar/navbar.html"')
       form.form(name='form', ng-submit='login(form)', novalidate='')
         .form-group
           label Email
-          input.form-control(type='text', name='email', ng-model='user.email')
+          input.form-control(type='email', name='email', ng-model='user.email')
         .form-group
           label Password
           input.form-control(type='password', name='password', ng-model='user.password')
@@ -34,20 +34,20 @@ div(ng-include='"components/navbar/navbar.html"')
           button.btn.btn-inverse.btn-lg.btn-login(type='submit')
             | Login
           = ' '
-          a.btn.btn-default.btn-lg.btn-register(href='/signup')
+          a.btn.btn-default.btn-lg.btn-register(<% if (filters.uirouter) { %>ui-sref='signup'<% } else { %>href='/signup'<% } %>)
             | Register
-<% if(filters.oauth) {%>
+<% if (filters.oauth) {%>
         hr
 
-        div<% if(filters.facebookAuth) {%>
+        div<% if (filters.facebookAuth) {%>
           a.btn.btn-facebook(href='', ng-click='loginOauth("facebook")')
             i.fa.fa-facebook
             |  Connect with Facebook
-          = ' '<% } %><% if(filters.googleAuth) {%>
+          = ' '<% } %><% if (filters.googleAuth) {%>
           a.btn.btn-google-plus(href='', ng-click='loginOauth("google")')
             i.fa.fa-google-plus
             |  Connect with Google+
-          = ' '<% } %><% if(filters.twitterAuth) {%>
+          = ' '<% } %><% if (filters.twitterAuth) {%>
           a.btn.btn-twitter(href='', ng-click='loginOauth("twitter")')
             i.fa.fa-twitter
             |  Connect with Twitter<% } %><% } %>

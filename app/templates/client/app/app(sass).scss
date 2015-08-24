@@ -1,25 +1,25 @@
-<% if(filters.bootstrap) { %>$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";<% } %>
-$fa-font-path: "/bower_components/font-awesome/fonts";
-<% if(filters.bootstrap) { %>
-@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';<% } %>
-@import 'font-awesome/scss/font-awesome';
+<% if (filters.bootstrap) { %>$icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";<% } %>
+$fa-font-path: "../bower_components/font-awesome/fonts";
+<% if (filters.bootstrap) { %>
+@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';<% } %>
+@import '../bower_components/font-awesome/scss/font-awesome';
 
 /**
  * App-wide Styles
  */
 
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }
-<% if (!filters.bootstrap) { %>
+<% if(!filters.bootstrap) { %>
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
+  .container {
+    max-width: 730px;
+  }
 }
 <% } %>
 // Component styles are injected through grunt

@@ -2,8 +2,9 @@
 
 var express = require('express');
 var passport = require('passport');
-var config = require('../config/environment');
-var User = require('../api/user/user.model');
+var config = require('../config/environment');<% if (filters.mongooseModels) { %>
+var User = require('../api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
+var User = require('../sqldb').User;<% } %>
 
 // Passport Configuration
 require('./local/passport').setup(User, config);<% if (filters.facebookAuth) { %>
