@@ -31,15 +31,15 @@ var <%= cameledName %>Index = proxyquire('./index.js', {
 describe('<%= classedName %> API Router:', function() {
 
   it('should return an express router instance', function() {
-    <%= cameledName %>Index.should.equal(routerStub);
+    <%= expect() %><%= cameledName %>Index<%= to() %>.equal(routerStub);
   });
 
   describe('GET <%= route %>', function() {
 
     it('should route to <%= cameledName %>.controller.index', function() {
-      routerStub.get
-                .withArgs('/', '<%= cameledName %>Ctrl.index')
-                .should.have.been.calledOnce;
+      <%= expect() %>routerStub.get
+        .withArgs('/', '<%= cameledName %>Ctrl.index')
+        <%= to() %>.have.been.calledOnce;
     });
 
   });<% if(filters.models) { %>
@@ -47,9 +47,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('GET <%= route %>/:id', function() {
 
     it('should route to <%= cameledName %>.controller.show', function() {
-      routerStub.get
-                .withArgs('/:id', '<%= cameledName %>Ctrl.show')
-                .should.have.been.calledOnce;
+      <%= expect() %>routerStub.get
+        .withArgs('/:id', '<%= cameledName %>Ctrl.show')
+        <%= to() %>.have.been.calledOnce;
     });
 
   });
@@ -57,9 +57,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('POST <%= route %>', function() {
 
     it('should route to <%= cameledName %>.controller.create', function() {
-      routerStub.post
-                .withArgs('/', '<%= cameledName %>Ctrl.create')
-                .should.have.been.calledOnce;
+      <%= expect() %>routerStub.post
+        .withArgs('/', '<%= cameledName %>Ctrl.create')
+        <%= to() %>.have.been.calledOnce;
     });
 
   });
@@ -67,9 +67,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('PUT <%= route %>/:id', function() {
 
     it('should route to <%= cameledName %>.controller.update', function() {
-      routerStub.put
-                .withArgs('/:id', '<%= cameledName %>Ctrl.update')
-                .should.have.been.calledOnce;
+      <%= expect() %>routerStub.put
+        .withArgs('/:id', '<%= cameledName %>Ctrl.update')
+        <%= to() %>.have.been.calledOnce;
     });
 
   });
@@ -77,9 +77,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('PATCH <%= route %>/:id', function() {
 
     it('should route to <%= cameledName %>.controller.update', function() {
-      routerStub.patch
-                .withArgs('/:id', '<%= cameledName %>Ctrl.update')
-                .should.have.been.calledOnce;
+      <%= expect() %>routerStub.patch
+        .withArgs('/:id', '<%= cameledName %>Ctrl.update')
+        <%= to() %>.have.been.calledOnce;
     });
 
   });
@@ -87,9 +87,9 @@ describe('<%= classedName %> API Router:', function() {
   describe('DELETE <%= route %>/:id', function() {
 
     it('should route to <%= cameledName %>.controller.destroy', function() {
-      routerStub.delete
-                .withArgs('/:id', '<%= cameledName %>Ctrl.destroy')
-                .should.have.been.calledOnce;
+      <%= expect() %>routerStub.delete
+        .withArgs('/:id', '<%= cameledName %>Ctrl.destroy')
+        <%= to() %>.have.been.calledOnce;
     });
 
   });<% } %>
