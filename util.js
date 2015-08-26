@@ -88,8 +88,9 @@ function relativeRequire (self, to, fr) {
   fr = destinationPath(self, fr);
   to = destinationPath(self, to);
   return path.relative(path.dirname(fr), to)
-    .replace(/^(?!\.\.)(.*)/, './$1')
-    .replace(/[\/\\]index\.js$/, '');
+    .replace(/\\/g, '/') // convert win32 separator to posix
+    .replace(/^(?!\.\.)(.*)/, './$1') // prefix non parent path with ./
+    .replace(/[\/\\]index\.js$/, ''); // strip index.js suffix from path
 }
 
 function filterFile (template) {
