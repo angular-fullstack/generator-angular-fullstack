@@ -3,7 +3,7 @@
 angular.module '<%= scriptAppName %>'
 .controller 'AdminCtrl', ($scope, $http, Auth, User) ->
 
-  $scope.users = User.query
+  $scope.users = User.query()
 
   $scope.delete = (user) ->
     User.remove id: user._id
