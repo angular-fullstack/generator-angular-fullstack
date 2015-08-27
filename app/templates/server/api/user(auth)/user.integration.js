@@ -15,7 +15,7 @@ describe('User API:', function() {
       <% if (filters.mongooseModels) { %>user = new User({<% }
          if (filters.sequelizeModels) { %>user = User.build({<% } %>
         name: 'Fake User',
-        email: 'test@test.com',
+        email: 'test@example.com',
         password: 'password'
       });
 
@@ -37,7 +37,7 @@ describe('User API:', function() {
       request(app)
         .post('/auth/local')
         .send({
-          email: 'test@test.com',
+          email: 'test@example.com',
           password: 'password'
         })
         .expect(200)

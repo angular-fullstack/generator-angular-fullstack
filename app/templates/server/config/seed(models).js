@@ -60,13 +60,13 @@ var Thing = sqldb.Thing;
        if (filters.sequelizeModels) { %>User.bulkCreate([{<% } %>
       provider: 'local',
       name: 'Test User',
-      email: 'test@test.com',
+      email: 'test@example.com',
       password: 'test'
     }, {
       provider: 'local',
       role: 'admin',
       name: 'Admin',
-      email: 'admin@admin.com',
+      email: 'admin@example.com',
       password: 'admin'
     <% if (filters.mongooseModels) { %>})<% }
        if (filters.sequelizeModels) { %>}])<% } %>
