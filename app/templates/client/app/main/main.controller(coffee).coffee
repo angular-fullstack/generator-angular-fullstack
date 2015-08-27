@@ -4,8 +4,8 @@ angular.module '<%= scriptAppName %>'
 .controller 'MainCtrl', ($scope, $http<% if (filters.socketio) { %>, socket<% } %>) ->
   $scope.awesomeThings = []
 
-  $http.get('/api/things').success (awesomeThings) ->
-    $scope.awesomeThings = awesomeThings
+  $http.get('/api/things').then (response) ->
+    $scope.awesomeThings = response.data
     <% if (filters.socketio) { %>socket.syncUpdates 'thing', $scope.awesomeThings<% } %>
 <% if (filters.models) { %>
   $scope.addThing = ->

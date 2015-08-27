@@ -15,7 +15,7 @@ describe('User API:', function() {
       <% if (filters.mongooseModels) { %>user = new User({<% }
          if (filters.sequelizeModels) { %>user = User.build({<% } %>
         name: 'Fake User',
-        email: 'test@test.com',
+        email: 'test@example.com',
         password: 'password'
       });
 
@@ -37,7 +37,7 @@ describe('User API:', function() {
       request(app)
         .post('/auth/local')
         .send({
-          email: 'test@test.com',
+          email: 'test@example.com',
           password: 'password'
         })
         .expect(200)
@@ -55,7 +55,7 @@ describe('User API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          res.body._id.toString().should.equal(user._id.toString());
+          <%= expect() %>res.body._id.toString()<%= to() %>.equal(user._id.toString());
           done();
         });
     });

@@ -7,7 +7,7 @@ var genUser = function() {
   user = User.build({
     provider: 'local',
     name: 'Fake User',
-    email: 'test@test.com',
+    email: 'test@example.com',
     password: 'password'
   });
   return user;
@@ -30,22 +30,22 @@ describe('User Model', function() {
   });
 
   it('should begin with no users', function() {
-    return User.findAll()
-      .should.eventually.have.length(0);
+    return <%= expect() %>User.findAll()<%= to() %>
+      .eventually.have.length(0);
   });
 
   it('should fail when saving a duplicate user', function() {
-    return user.save()
+    return <%= expect() %>user.save()
       .then(function() {
         var userDup = genUser();
         return userDup.save();
-      }).should.be.rejected;
+      })<%= to() %>.be.rejected;
   });
 
   describe('#email', function() {
     it('should fail when saving without an email', function() {
       user.email = '';
-      return user.save().should.be.rejected;
+      return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
   });
 
@@ -55,19 +55,19 @@ describe('User Model', function() {
     });
 
     it('should authenticate user if valid', function() {
-      user.authenticate('password').should.be.true;
+      <%= expect() %>user.authenticate('password')<%= to() %>.be.true;
     });
 
     it('should not authenticate user if invalid', function() {
-      user.authenticate('blah').should.not.be.true;
+      <%= expect() %>user.authenticate('blah')<%= to() %>.not.be.true;
     });
 
     it('should remain the same hash unless the password is updated', function() {
       user.name = 'Test User';
-      return user.save()
+      return <%= expect() %>user.save()
         .then(function(u) {
           return u.authenticate('password');
-        }).should.eventually.be.true;
+        })<%= to() %>.eventually.be.true;
     });
   });
 

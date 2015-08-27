@@ -15,7 +15,7 @@ describe('Signup View', function() {
 
   var testUser = {
     name: 'Test',
-    email: 'test@test.com',
+    email: 'test@example.com',
     password: 'test'
   };
 
@@ -29,14 +29,14 @@ describe('Signup View', function() {
   });
 
   it('should include signup form with correct inputs and submit button', function() {
-    <%= does("page.form.name.getAttribute('type')") %>.eventually.equal('text');
-    <%= does("page.form.name.getAttribute('name')") %>.eventually.equal('name');
-    <%= does("page.form.email.getAttribute('type')") %>.eventually.equal('email');
-    <%= does("page.form.email.getAttribute('name')") %>.eventually.equal('email');
-    <%= does("page.form.password.getAttribute('type')") %>.eventually.equal('password');
-    <%= does("page.form.password.getAttribute('name')") %>.eventually.equal('password');
-    <%= does("page.form.submit.getAttribute('type')") %>.eventually.equal('submit');
-    <%= does("page.form.submit.getText()") %>.eventually.equal('Sign up');
+    <%= expect() %>page.form.name.getAttribute('type')<%= to() %>.eventually.equal('text');
+    <%= expect() %>page.form.name.getAttribute('name')<%= to() %>.eventually.equal('name');
+    <%= expect() %>page.form.email.getAttribute('type')<%= to() %>.eventually.equal('email');
+    <%= expect() %>page.form.email.getAttribute('name')<%= to() %>.eventually.equal('email');
+    <%= expect() %>page.form.password.getAttribute('type')<%= to() %>.eventually.equal('password');
+    <%= expect() %>page.form.password.getAttribute('name')<%= to() %>.eventually.equal('password');
+    <%= expect() %>page.form.submit.getAttribute('type')<%= to() %>.eventually.equal('submit');
+    <%= expect() %>page.form.submit.getText()<%= to() %>.eventually.equal('Sign up');
   });
 
   describe('with local auth', function() {
@@ -51,8 +51,8 @@ describe('Signup View', function() {
 
       var navbar = require('../../components/navbar/navbar.po');
 
-      <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/');
-      <%= does("navbar.navbarAccountGreeting.getText()") %>.eventually.equal('Hello ' + testUser.name);
+      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+      <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
     });
 
     describe('and invalid credentials', function() {
@@ -63,11 +63,11 @@ describe('Signup View', function() {
       it('should indicate signup failures', function() {
         page.signup(testUser);
 
-        <%= does("browser.getCurrentUrl()") %>.eventually.equal(config.baseUrl + '/signup');
-        <%= does("page.form.email.getAttribute('class')") %>.eventually.contain('ng-invalid-mongoose');
+        <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/signup');
+        <%= expect() %>page.form.email.getAttribute('class')<%= to() %>.eventually.contain('ng-invalid-mongoose');
 
         var helpBlock = page.form.element(by.css('.form-group.has-error .help-block.ng-binding'));
-        <%= does("helpBlock.getText()") %>.eventually.equal('The specified email address is already in use.');
+        <%= expect() %>helpBlock.getText()<%= to() %>.eventually.equal('The specified email address is already in use.');
       });
 
     });
