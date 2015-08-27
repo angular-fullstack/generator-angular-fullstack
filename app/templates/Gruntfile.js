@@ -249,7 +249,7 @@ module.exports = function (grunt) {
     wiredep: {
       options: {
         exclude: [
-          /bootstrap.js/,
+          <% if(filters.uibootstrap) { %>/bootstrap.js/,<% } %>
           '/json3/',
           '/es5-shim/'<% if(!filters.css) { %>,
           /font-awesome\.css/<% if(filters.bootstrap) { %>,
