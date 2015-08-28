@@ -23,7 +23,11 @@ function isAuthenticated() {
       if (req.query && req.query.hasOwnProperty('access_token')) {
         req.headers.authorization = 'Bearer ' + req.query.access_token;
       }
-      validateJwt(req, res, next);
+      if (!req.headers.authorization) {
+        res.status(401).send('Unauthorized');
+      } else {
+        validateJwt(req, res, next);
+      }
     })
     // Attach user to request
     .use(function(req, res, next) {
