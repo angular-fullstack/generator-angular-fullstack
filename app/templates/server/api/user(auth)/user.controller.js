@@ -1,7 +1,6 @@
 'use strict';
 <% if (filters.mongooseModels) { %>
 var User = require('./user.model');<% } %><% if (filters.sequelizeModels) { %>
-var _ = require('lodash');
 var sqldb = require('../../sqldb');
 var User = sqldb.User;<% } %>
 var passport = require('passport');
