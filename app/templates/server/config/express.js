@@ -13,13 +13,14 @@ var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
+var lusca = require('lusca');
 var config = require('./environment');<% if (filters.auth) { %>
-var passport = require('passport');<% } %><% if (filters.twitterAuth) { %>
+var passport = require('passport');<% } %>
 var session = require('express-session');<% if (filters.mongoose) { %>
 var mongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');<% } else if(filters.sequelize) { %>
 var sqldb = require('../sqldb');
-var Store = require('express-sequelize-session')(session.Store);<% } %><% } %>
+var Store = require('express-sequelize-session')(session.Store);<% } %>
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -33,10 +34,11 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());<% if (filters.auth) { %>
-  app.use(passport.initialize());<% } %><% if (filters.twitterAuth) { %>
+  app.use(passport.initialize());<% } %>
 
   // Persist sessions with mongoStore / sequelizeStore
-  // We need to enable sessions for passport twitter because its an oauth 1.0 strategy
+  // We need to enable sessions for passport-twitter because it's an
+  // oauth 1.0 strategy, and Lusca depends on sessions
   app.use(session({
     secret: config.secrets.session,
     resave: true,
@@ -47,7 +49,26 @@ module.exports = function(app) {
     })<% } else if(filters.sequelize) { %>,
     store: new Store(sqldb.sequelize)<% } %>
   }));
-<% } %>
+
+  /**
+   * Lusca - express server security
+   * https://github.com/krakenjs/lusca
+   */
+  if ('test' !== env) {
+    app.use(lusca({
+      csrf: {
+        angular: true
+      },
+      xframe: 'SAMEORIGIN',
+      hsts: {
+        maxAge: 31536000, //1 year, in seconds
+        includeSubDomains: true,
+        preload: true
+      },
+      xssProtection: true
+    }));
+  }
+
   app.set('appPath', path.join(config.root, 'client'));
 
   if ('production' === env) {
