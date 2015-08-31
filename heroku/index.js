@@ -158,7 +158,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       var hasWarning = false;
 
       if(this.filters.mongoose) {
-        this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
+        this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:create mongolab') + '\n'));
         hasWarning = true;
       }
 
