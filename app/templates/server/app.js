@@ -7,10 +7,11 @@
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var express = require('express');<% if (filters.mongoose) { %>
-var mongoose = require('mongoose');<% } %><% if (filters.sequelize) { %>
-var sqldb = require('./sqldb');<% } %>
-var config = require('./config/environment');
+import express from 'express';<% if (filters.mongoose) { %>
+import mongoose from 'mongoose';<% } %><% if (filters.sequelize) { %>
+import sqldb from './sqldb';<% } %>
+import config from './config/environment';
+import http from 'http';
 <% if (filters.mongoose) { %>
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -24,7 +25,7 @@ if (config.seedDB) { require('./config/seed'); }
 <% } %>
 // Setup server
 var app = express();
-var server = require('http').createServer(app);<% if (filters.socketio) { %>
+var server = http.createServer(app);<% if (filters.socketio) { %>
 var socketio = require('socket.io')(server, {
   serveClient: config.env !== 'production',
   path: '/socket.io-client'
