@@ -108,7 +108,7 @@ function filterFile (template) {
 }
 
 function templateIsUsable (self, filteredFile) {
-  var filters = self.config.get('filters');
+  var filters = self.filters || self.config.get('filters');
   var enabledFilters = [];
   for(var key in filters) {
     if(filters[key]) enabledFilters.push(key);
