@@ -4,9 +4,9 @@
 
 'use strict';
 
-var EventEmitter = require('events').EventEmitter;<% if (filters.mongooseModels) { %>
-var User = require('./user.model');<% } if (filters.sequelizeModels) { %>
-var User = require('../../sqldb').User;<% } %>
+import {EventEmitter} from 'events';<% if (filters.mongooseModels) { %>
+import User from './user.model';<% } if (filters.sequelizeModels) { %>
+import {User} from '../../sqldb';<% } %>
 var UserEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)

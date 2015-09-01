@@ -1,11 +1,10 @@
 'use strict';
 <% if (filters.mongooseModels) { %>
-var User = require('./user.model');<% } %><% if (filters.sequelizeModels) { %>
-var sqldb = require('../../sqldb');
-var User = sqldb.User;<% } %>
-var passport = require('passport');
-var config = require('../../config/environment');
-var jwt = require('jsonwebtoken');
+import User from './user.model';<% } %><% if (filters.sequelizeModels) { %>
+import {User} from '../../sqldb';<% } %>
+import passport from 'passport';
+import config from '../../config/environment';
+import jwt from 'jsonwebtoken';
 
 function validationError(res, statusCode) {
   statusCode = statusCode || 422;

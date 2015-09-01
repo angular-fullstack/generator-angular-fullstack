@@ -1,7 +1,7 @@
 'use strict';
 
-var app = require('../..');
-var User = require('../../sqldb').User;
+import app from '../..';
+import {User} from '../../sqldb';
 var user;
 var genUser = function() {
   user = User.build({
