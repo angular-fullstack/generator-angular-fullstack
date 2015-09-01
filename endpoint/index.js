@@ -84,6 +84,7 @@ Generator.prototype.prompting = function askFor() {
       name: 'models',
       message: 'What would you like to use for the endpoint\'s models?',
       choices: [ 'Mongoose', 'Sequelize' ],
+      default: self.filters.sequelizeModels ? 1 : 0,
       filter: function( val ) {
         return val.toLowerCase();
       },
