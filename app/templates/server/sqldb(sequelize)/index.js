@@ -4,10 +4,9 @@
 
 'use strict';
 
-var path = require('path');
-var config = require('../config/environment');
-
-var Sequelize = require('sequelize');
+import path from 'path';
+import config from '../config/environment';
+import Sequelize from 'sequelize';
 
 var db = {
   Sequelize: Sequelize,
