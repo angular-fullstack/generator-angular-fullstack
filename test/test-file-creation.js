@@ -22,7 +22,8 @@ describe('angular-fullstack generator', function () {
     odms: [ 'mongoose' ],
     auth: true,
     oauth: [],
-    socketio: true
+    socketio: true,
+    docker: false
   }, dependenciesInstalled = false;
 
   function copySync(s, d) { fs.writeFileSync(d, fs.readFileSync(s)); }
@@ -304,6 +305,15 @@ describe('angular-fullstack generator', function () {
       ]);
     }
 
+    /* Docker support files */
+    if (ops.docker) {
+      files = files.concat([
+        'Dockerfile',
+        '.dockerignore',
+        'docker-compose.yml'
+      ]);
+    }
+
     return files;
   }
 
@@ -502,6 +512,7 @@ describe('angular-fullstack generator', function () {
         auth: true,
         oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
         socketio: true,
+        docker: false,
         bootstrap: true,
         uibootstrap: true
       };
@@ -574,6 +585,7 @@ describe('angular-fullstack generator', function () {
         auth: true,
         oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
         socketio: true,
+        docker: false,
         bootstrap: true,
         uibootstrap: true
       };
@@ -647,6 +659,7 @@ describe('angular-fullstack generator', function () {
         auth: false,
         oauth: [],
         socketio: false,
+        docker: false,
         bootstrap: false,
         uibootstrap: false
       };
@@ -720,6 +733,7 @@ describe('angular-fullstack generator', function () {
         auth: false,
         oauth: [],
         socketio: false,
+        docker: false,
         bootstrap: true,
         uibootstrap: true
       };
@@ -767,7 +781,6 @@ describe('angular-fullstack generator', function () {
         //  runTest('grunt test:e2e:prod', this, done, 240000);
         //});
       }
-
     });
   });
 });

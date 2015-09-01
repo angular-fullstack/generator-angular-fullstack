@@ -391,7 +391,10 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           dest: '<%%= yeoman.dist %>',
-          src: [
+          src: [<% if (filters.docker) { %>
+            'Dockerfile',
+            '.dockerignore',
+            'docker-compose.yml',<% } %>
             'package.json',
             'server/**/*'
           ]

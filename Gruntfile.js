@@ -160,7 +160,8 @@ module.exports = function (grunt) {
         testing: 'jasmine',
         auth: true,
         oauth: ['googleAuth', 'twitterAuth'],
-        socketio: true
+        socketio: true,
+        docker: false
       };
 
       var deps = [

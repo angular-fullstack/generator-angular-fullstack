@@ -209,8 +209,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
           return answers.odms && answers.odms.length !== 0;
         },
         default: true
+      }, {
+        type: 'confirm',
+        name: 'docker',
+        message: 'Would you like to include Docker support?',
+        when: function (answers) {
+          return answers.odms && answers.odms.length !== 0;
+        },
+        default: false
       }], function (answers) {
         if(answers.socketio) this.filters.socketio = true;
+        if(answers.docker) this.filters.docker = true;
         if(answers.auth) this.filters.auth = true;
         if(answers.odms && answers.odms.length > 0) {
           var models;
