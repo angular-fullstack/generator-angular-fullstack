@@ -3,15 +3,13 @@
  * to disable, edit config/environment/index.js, and set `seedDB: false`
  */
 
-'use strict';
-<% if (filters.mongooseModels) { %>
-var Thing = require('../api/thing/thing.model');
-<% if (filters.auth) { %>var User = require('../api/user/user.model');<% } %>
-<% } %><% if (filters.sequelizeModels) { %>
-var sqldb = require('../sqldb');
-var Thing = sqldb.Thing;
-<% if (filters.auth) { %>var User = sqldb.User;<% } %>
-<% } %>
+'use strict';<% if (filters.mongooseModels) { %>
+import Thing from '../api/thing/thing.model';<% if (filters.auth) { %>
+import User from '../api/user/user.model';<% } %><% } %><% if (filters.sequelizeModels) { %>
+import sqldb from '../sqldb';
+var Thing = sqldb.Thing;<% if (filters.auth) { %>
+var User = sqldb.User;<% } %><% } %>
+
 <% if (filters.mongooseModels) { %>Thing.find({}).removeAsync()<% }
    if (filters.sequelizeModels) { %>Thing.sync()
   .then(function() {
