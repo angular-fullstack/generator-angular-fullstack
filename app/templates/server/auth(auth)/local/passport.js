@@ -1,5 +1,5 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+import passport from 'passport';
+import {Strategy as LocalStrategy} from 'passport-local';
 
 function localAuthenticate(User, email, password, done) {
   <% if (filters.mongooseModels) { %>User.findOneAsync({

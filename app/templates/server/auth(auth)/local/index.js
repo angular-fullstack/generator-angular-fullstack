@@ -1,8 +1,8 @@
 'use strict';
 
-var express = require('express');
-var passport = require('passport');
-var auth = require('../auth.service');
+import express from 'express';
+import passport from 'passport';
+import auth from '../auth.service';
 
 var router = express.Router();
 
