@@ -14,7 +14,7 @@ function onDisconnect(socket) {
 function onConnect(socket) {
   // When the client emits 'info', this listens and executes
   socket.on('info', function(data) {
-    console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
+    socket.log(JSON.stringify(data, null, 2));
   });
 
   // Insert sockets below
@@ -43,14 +43,18 @@ module.exports = function(socketio) {
 
     socket.connectedAt = new Date();
 
+    socket.log = function(...data) {
+      console.log(`SocketIO ${socket.nsp.name} [${socket.address}]`, ...data);
+    };
+
     // Call onDisconnect.
     socket.on('disconnect', function() {
       onDisconnect(socket);
-      console.info('[%s] DISCONNECTED', socket.address);
+      socket.log('DISCONNECTED');
     });
 
     // Call onConnect.
     onConnect(socket);
-    console.info('[%s] CONNECTED', socket.address);
+    socket.log('CONNECTED');
   });
 };
