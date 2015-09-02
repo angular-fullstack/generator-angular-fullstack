@@ -1,5 +1,24 @@
 Description:
-    Creates an full-stack AngularJS + Node app
+  Creates a Full-Stack AngularJS + Node app
 
 Example:
-    yo angular-fullstack
+  yo angular-fullstack
+
+Sub Generators:
+
+  Server Side:
+    angular-fullstack:endpoint
+
+  Client Side:
+    angular-fullstack:route
+    angular-fullstack:controller
+    angular-fullstack:filter
+    angular-fullstack:directive
+    angular-fullstack:service
+    angular-fullstack:provider
+    angular-fullstack:factory
+    angular-fullstack:decorator
+
+  Deployment:
+    angular-fullstack:openshift
+    angular-fullstack:heroku
