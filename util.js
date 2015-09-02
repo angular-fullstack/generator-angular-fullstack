@@ -68,8 +68,9 @@ function destinationPath(self, filepath) {
   return filepath;
 }
 
-export function relativeRequire(self, to, fr) {
-  fr = destinationPath(self, fr);
+export function relativeRequire(to, fr) {
+  var self = this;
+  fr = destinationPath(self, fr || self.filePath);
   to = destinationPath(self, to);
   return path.relative(path.dirname(fr), to)
     .replace(/\\/g, '/') // convert win32 separator to posix
@@ -105,7 +106,8 @@ function templateIsUsable(self, filteredFile) {
   return true;
 }
 
-export function processDirectory(self, source, destination) {
+export function processDirectory(source, destination) {
+  var self = this;
   var root = self.isPathAbsolute(source) ? source : path.join(self.sourceRoot(), source);
   var files = self.expandFiles('**', { dot: true, cwd: root });
   var dest, src;
