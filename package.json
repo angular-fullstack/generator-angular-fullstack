@@ -26,6 +26,7 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "babel-core": "^5.8.23",
     "chalk": "^1.1.0",
     "generator-ng-component": "~0.1.0",
     "yeoman-generator": "~0.18.10"
