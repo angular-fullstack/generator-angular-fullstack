@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Controller: MainCtrl', function() {
+describe('Controller: MainController', function() {
 
   // load the controller's module
   beforeEach(module('<%= scriptAppName %>'));<% if (filters.uirouter) {%>
   beforeEach(module('stateMock'));<% } %><% if (filters.socketio) {%>
   beforeEach(module('socketMock'));<% } %>
 
-  var MainCtrl;
-  var scope;<% if (filters.uirouter) {%>
+  var scope;
+  var MainController;<% if (filters.uirouter) {%>
   var state;<% } %>
   var $httpBackend;
 
@@ -20,14 +20,14 @@ describe('Controller: MainCtrl', function() {
 
     scope = $rootScope.$new();<% if (filters.uirouter) {%>
     state = $state;<% } %>
-    MainCtrl = $controller('MainCtrl', {
+    MainController = $controller('MainController', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of things to the scope', function() {
+  it('should attach a list of things to the controller', function() {
     $httpBackend.flush();<% if (filters.jasmine) { %>
-    expect(scope.awesomeThings.length).toBe(4);<% } if (filters.mocha) { %>
-    <%= expect() %>scope.awesomeThings.length<%= to() %>.equal(4);<% } %>
+    expect(MainController.awesomeThings.length).toBe(4);<% } if (filters.mocha) { %>
+    <%= expect() %>MainController.awesomeThings.length<%= to() %>.equal(4);<% } %>
   });
 });

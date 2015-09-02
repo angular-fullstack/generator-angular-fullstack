@@ -10,17 +10,17 @@ header#banner.hero-unit
   .row
     .col-lg-12
       h1.page-header Features:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in awesomeThings')
+      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in main.awesomeThings')
         li
           a(href='#', tooltip='{{thing.info}}')
             | {{thing.name}}<% if (filters.socketio) { %>
-            button.close(type='button', ng-click='deleteThing(thing)') &times;<% } %><% if (filters.socketio) { %>
+            button.close(type='button', ng-click='main.deleteThing(thing)') &times;<% } %><% if (filters.socketio) { %>
 
   form.thing-form
     label Syncs in realtime across clients
     p.input-group
-      input.form-control(type='text', placeholder='Add a new thing here.', ng-model='newThing')
+      input.form-control(type='text', placeholder='Add a new thing here.', ng-model='main.newThing')
       span.input-group-btn
-        button.btn.btn-primary(type='submit', ng-click='addThing()') Add New<% } %>
+        button.btn.btn-primary(type='submit', ng-click='main.addThing()') Add New<% } %>
 
 footer
