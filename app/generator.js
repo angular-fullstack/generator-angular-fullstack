@@ -2,9 +2,9 @@
 
 import fs from 'fs';
 import path from 'path';
-import genUtils from '../util.js';
-import {Base} from 'yeoman-generator';
 import chalk from 'chalk';
+import {Base} from 'yeoman-generator';
+import * as genUtils from '../util';
 
 export default class Generator extends Base {
 
@@ -12,10 +12,12 @@ export default class Generator extends Base {
     super(...args);
 
     this.argument('name', { type: String, required: false });
+
     this.option('app-suffix', {
       desc: 'Allow a custom suffix to be added to the module name',
       type: String,
-      required: 'false'
+      required: 'false',
+      defaults: 'App'
     });
   }
 
@@ -26,8 +28,7 @@ export default class Generator extends Base {
         this.appname = this.name || path.basename(process.cwd());
         this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
 
-        this.scriptAppName = this.appname + genUtils.appName(this);
-        console.log(this.scriptAppName);
+        this.scriptAppName = this.appname + genUtils.appSuffix(this);
         this.appPath = this.env.options.appPath;
         this.pkg = require('../package.json');
 

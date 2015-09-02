@@ -1,16 +1,9 @@
 'use strict';
-var path = require('path');
-var fs = require('fs');
 
-module.exports = {
-  rewrite: rewrite,
-  rewriteFile: rewriteFile,
-  appName: appName,
-  processDirectory: processDirectory,
-  relativeRequire: relativeRequire
-};
+import path from 'path';
+import fs from 'fs';
 
-function rewriteFile (args) {
+export function rewriteFile(args) {
   args.path = args.path || process.cwd();
   var fullPath = path.join(args.path, args.file);
 
@@ -20,13 +13,13 @@ function rewriteFile (args) {
   fs.writeFileSync(fullPath, body);
 }
 
-function escapeRegExp (str) {
+function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 
-function rewrite (args) {
+export function rewrite(args) {
   // check if splicable is already in the body text
-  var re = new RegExp(args.splicable.map(function (line) {
+  var re = new RegExp(args.splicable.map(function(line) {
     return '\s*' + escapeRegExp(line);
   }).join('\n'));
 
@@ -54,28 +47,19 @@ function rewrite (args) {
     spaceStr += ' ';
   }
 
-  lines.splice(otherwiseLineIndex + 1, 0, args.splicable.map(function (line) {
+  lines.splice(otherwiseLineIndex + 1, 0, args.splicable.map(function(line) {
     return spaceStr + line;
   }).join('\n'));
 
   return lines.join('\n');
 }
 
-function appName (self) {
-  var counter = 0, suffix = self.options['app-suffix'];
-  // Have to check this because of generator bug #386
-  process.argv.forEach(function(val) {
-    if (val.indexOf('--app-suffix') > -1) {
-      counter++;
-    }
-  });
-  if (counter === 0 || (typeof suffix === 'boolean' && suffix)) {
-    suffix = 'App';
-  }
-  return suffix ? self._.classify(suffix) : '';
+export function appSuffix(self) {
+  var suffix = self.options['app-suffix'];
+  return (typeof suffix === 'string') ? self._.classify(suffix) : '';
 }
 
-function destinationPath (self, filepath) {
+function destinationPath(self, filepath) {
   filepath = path.normalize(filepath);
   if (!path.isAbsolute(filepath)) {
     filepath = path.join(self.destinationRoot(), filepath);
@@ -84,7 +68,7 @@ function destinationPath (self, filepath) {
   return filepath;
 }
 
-function relativeRequire (self, to, fr) {
+export function relativeRequire(self, to, fr) {
   fr = destinationPath(self, fr);
   to = destinationPath(self, to);
   return path.relative(path.dirname(fr), to)
@@ -93,7 +77,7 @@ function relativeRequire (self, to, fr) {
     .replace(/[\/\\]index\.js$/, ''); // strip index.js suffix from path
 }
 
-function filterFile (template) {
+function filterFile(template) {
   // Find matches for parans
   var filterMatches = template.match(/\(([^)]+)\)/g);
   var filters = [];
@@ -107,7 +91,7 @@ function filterFile (template) {
   return { name: template, filters: filters };
 }
 
-function templateIsUsable (self, filteredFile) {
+function templateIsUsable(self, filteredFile) {
   var filters = self.filters || self.config.get('filters');
   var enabledFilters = [];
   for(var key in filters) {
@@ -121,7 +105,7 @@ function templateIsUsable (self, filteredFile) {
   return true;
 }
 
-function processDirectory (self, source, destination) {
+export function processDirectory(self, source, destination) {
   var root = self.isPathAbsolute(source) ? source : path.join(self.sourceRoot(), source);
   var files = self.expandFiles('**', { dot: true, cwd: root });
   var dest, src;

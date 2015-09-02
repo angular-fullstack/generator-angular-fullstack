@@ -1,8 +1,8 @@
 'use strict';
 
 import path from 'path';
-import ngUtil from '../util';
-import ScriptBase from '../script-base.js';
+import ScriptBase from '../script-base';
+import * as genUtils from '../util';
 
 export default class Generator extends ScriptBase {
 
@@ -103,7 +103,7 @@ export default class Generator extends ScriptBase {
 
   writing() {
     this.sourceRoot(path.join(__dirname, './templates'));
-    ngUtil.processDirectory(this, '.', this.routeDest);
+    genUtils.processDirectory(this, '.', this.routeDest);
   }
 
   end() {
@@ -117,7 +117,7 @@ export default class Generator extends ScriptBase {
           "app.use(\'" + this.route +"\', require(\'" + reqPath + "\'));"
         ]
       };
-      ngUtil.rewriteFile(routeConfig);
+      genUtils.rewriteFile(routeConfig);
     }
 
     if (this.filters.socketio && this.config.get('insertSockets')) {
@@ -131,7 +131,7 @@ export default class Generator extends ScriptBase {
           "require(\'" + reqPath + "\').register(socket);"
         ]
       };
-      ngUtil.rewriteFile(socketConfig);
+      genUtils.rewriteFile(socketConfig);
     }
 
     if (this.filters.sequelize && this.config.get('insertModels')) {
@@ -145,7 +145,7 @@ export default class Generator extends ScriptBase {
           "db." + this.classedName + " = db.sequelize.import(\'" + reqPath +"\');"
         ]
       };
-      ngUtil.rewriteFile(modelConfig);
+      genUtils.rewriteFile(modelConfig);
     }
   }
 }
