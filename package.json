@@ -17,7 +17,15 @@
   ],
   "homepage": "https://github.com/DaftMonk/generator-angular-fullstack",
   "bugs": "https://github.com/DaftMonk/generator-angular-fullstack/issues",
-  "author": "Tyler Henkel",
+  "author": "Tyler Henkel (http://tylerhenkel.com/)",
+  "contributors": [
+    "Andrew Koroluk <koroluka@gmail.com> (http://andrewk.me/)",
+    "Cody Mize <me@codymize.com> (http://codymize.com/)",
+    "Brian Ford <btford@umich.edu> (http://briantford.com/)",
+    "Pascal Hartig <passy@twitter.com> (http://passy.me/)",
+    "Eddie Monge (http://eddiemonge.com)",
+    "Sindre Sorhus <sindresorhus@gmail.com> (https://twitter.com/sindresorhus)"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/DaftMonk/generator-angular-fullstack.git"
