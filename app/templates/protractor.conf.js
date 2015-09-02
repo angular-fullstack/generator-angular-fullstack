@@ -64,7 +64,8 @@ var config = {
     serverConfig: require('./server/config/environment')
   },
 
-  onPrepare: function() {<% if (filters.mocha) { %>
+  onPrepare: function() {
+    require('babel-core/register');<% if (filters.mocha) { %>
     // Load Mocha and Chai + plugins
     require('./mocha.conf');
 

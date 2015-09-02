@@ -1,6 +1,6 @@
 'use strict';
 
-var crypto = require('crypto');<% if (filters.oauth) { %>
+import crypto from 'crypto';<% if (filters.oauth) { %>
 var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
 var validatePresenceOf = function(value) {

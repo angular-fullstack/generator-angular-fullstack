@@ -4,23 +4,25 @@
 
 'use strict';
 
-var express = require('express');
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var compression = require('compression');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var cookieParser = require('cookie-parser');
-var errorHandler = require('errorhandler');
-var path = require('path');
-var lusca = require('lusca');
-var config = require('./environment');<% if (filters.auth) { %>
-var passport = require('passport');<% } %>
-var session = require('express-session');<% if (filters.mongoose) { %>
-var mongoStore = require('connect-mongo')(session);
-var mongoose = require('mongoose');<% } else if(filters.sequelize) { %>
-var sqldb = require('../sqldb');
-var Store = require('express-sequelize-session')(session.Store);<% } %>
+import express from 'express';
+import favicon from 'serve-favicon';
+import morgan from 'morgan';
+import compression from 'compression';
+import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
+import errorHandler from 'errorhandler';
+import path from 'path';
+import lusca from 'lusca';
+import config from './environment';<% if (filters.auth) { %>
+import passport from 'passport';<% } %>
+import session from 'express-session';<% if (filters.mongoose) { %>
+import connectMongo from 'connect-mongo';
+import mongoose from 'mongoose';
+var mongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
+import sqldb from '../sqldb';
+import expressSequelizeSession from 'express-sequelize-session';
+var Store = expressSequelizeSession(session.Store);<% } %>
 
 module.exports = function(app) {
   var env = app.get('env');

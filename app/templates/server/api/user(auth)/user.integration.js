@@ -1,9 +1,9 @@
 'use strict';
 
-var app = require('../..');<% if (filters.mongooseModels) { %>
-var User = require('./user.model');<% } %><% if (filters.sequelizeModels) { %>
-var User = require('../../sqldb').User;<% } %>
-var request = require('supertest');
+import app from '../..';<% if (filters.mongooseModels) { %>
+import User from './user.model';<% } %><% if (filters.sequelizeModels) { %>
+import {User} from '../../sqldb';<% } %>
+import request from 'supertest';
 
 describe('User API:', function() {
   var user;

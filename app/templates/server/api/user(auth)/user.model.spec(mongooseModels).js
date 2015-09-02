@@ -1,7 +1,7 @@
 'use strict';
 
-var app = require('../..');
-var User = require('./user.model');
+import app from '../..';
+import User from './user.model';
 var user;
 var genUser = function() {
   user = new User({

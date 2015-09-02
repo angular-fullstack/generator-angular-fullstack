@@ -1,12 +1,12 @@
 'use strict';
 
-var passport = require('passport');
-var config = require('../config/environment');
-var jwt = require('jsonwebtoken');
-var expressJwt = require('express-jwt');
-var compose = require('composable-middleware');<% if (filters.mongooseModels) { %>
-var User = require('../api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
-var User = require('../sqldb').User;<% } %>
+import passport from 'passport';
+import config from '../config/environment';
+import jwt from 'jsonwebtoken';
+import expressJwt from 'express-jwt';
+import compose from 'composable-middleware';<% if (filters.mongooseModels) { %>
+import User from '../api/user/user.model';<% } %><% if (filters.sequelizeModels) { %>
+import {User} from'../sqldb';<% } %>
 var validateJwt = expressJwt({
   secret: config.secrets.session
 });
