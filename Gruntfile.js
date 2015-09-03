@@ -220,21 +220,23 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('updateFixtures', 'updates package and bower fixtures', function() {
-    var packageJson = fs.readFileSync(path.resolve('app/templates/_package.json'), 'utf8');
-    var bowerJson = fs.readFileSync(path.resolve('app/templates/_bower.json'), 'utf8');
+  grunt.registerTask('updateFixtures', 'updates package and bower fixtures', function(target) {
+    var genVer = require('./package.json').version;
+    var dest = __dirname + ((target === 'deps') ? '/angular-fullstack-deps/' : '/test/fixtures/');
+    var appName = (target === 'deps') ? 'angular-fullstack-deps' : 'tempApp';
 
-    // replace package name
-    packageJson = packageJson.replace(/"name": "<%(.*)%>"/g, '"name": "tempApp"');
-    packageJson = packageJson.replace(/<%(.*)%>/g, '');
+    var processJson = function(s, d) {
+      // read file, strip all ejs conditionals, and parse as json
+      var json = JSON.parse(fs.readFileSync(path.resolve(s), 'utf8').replace(/<%(.*)%>/g, ''));
+      // set properties
+      json.name = appName, json.version = genVer;
+      if (target === 'deps') { json.private = false; }
+      // stringify json and write it to the destination
+      fs.writeFileSync(path.resolve(d), JSON.stringify(json, null, 2));
+    };
 
-    // remove all ejs conditionals
-    bowerJson = bowerJson.replace(/"name": "<%(.*)%>"/g, '"name": "tempApp"');
-    bowerJson = bowerJson.replace(/<%(.*)%>/g, '');
-
-    // save files
-    fs.writeFileSync(path.resolve(__dirname + '/test/fixtures/package.json'), packageJson);
-    fs.writeFileSync(path.resolve(__dirname + '/test/fixtures/bower.json'), bowerJson);
+    processJson('app/templates/_package.json', dest + 'package.json');
+    processJson('app/templates/_bower.json', dest + 'bower.json');
   });
 
   grunt.registerTask('installFixtures', 'install package and bower fixtures', function() {
