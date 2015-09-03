@@ -1,4 +1,4 @@
-# <%= _.slugify(_.humanize(appname)) %>
+# <%= lodash.slugify(lodash.humanize(appname)) %>
 
 This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version <%= pkg.version %>.
 

@@ -29,7 +29,7 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: '<%= _.slugify(_.humanize(appname)) + '-secret' %>'
+    session: '<%= lodash.slugify(lodash.humanize(appname)) + '-secret' %>'
   },
 
   // List of user roles

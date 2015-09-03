@@ -4,6 +4,7 @@ var yeoman = require('yeoman-generator');
 var childProcess = require('child_process');
 var chalk = require('chalk');
 var path = require('path');
+var s = require('underscore.string');
 var exec = childProcess.exec;
 var spawn = childProcess.spawn;
 
@@ -16,7 +17,7 @@ var Generator = module.exports = function Generator() {
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
-  this.appname = this._.slugify(this.appname).split('-').join('');
+  this.appname = s.slugify(this.appname).split('-').join('');
   this.filters = this.config.get('filters') || {};
 };
 
@@ -32,7 +33,7 @@ Generator.prototype.askForName = function askForName() {
   }];
 
   this.prompt(prompts, function (props) {
-    this.deployedName = this._.slugify(props.deployedName).split('-').join('');
+    this.deployedName = s.slugify(props.deployedName).split('-').join('');
     done();
   }.bind(this));
 };

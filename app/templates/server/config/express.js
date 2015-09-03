@@ -46,7 +46,7 @@ module.exports = function(app) {
     saveUninitialized: true<% if (filters.mongoose) { %>,
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
-      db: '<%= _.slugify(_.humanize(appname)) %>'
+      db: '<%= lodash.slugify(lodash.humanize(appname)) %>'
     })<% } else if(filters.sequelize) { %>,
     store: new Store(sqldb.sequelize)<% } %>
   }));
