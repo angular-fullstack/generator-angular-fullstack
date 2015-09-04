@@ -1,6 +1,5 @@
 'use strict';
 
-var semver = require('semver');
 var shell = require('shelljs');
 var child_process = require('child_process');
 var Q = require('q');
@@ -28,15 +27,26 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
+        bump: false, // remove after 3.0.0 release
         commitMessage: '<%= version %>',
-        tagName: 'v<%= version %>',
-        bump: false, // we have our own bump
-        file: 'package.json'
+        tagName: '<%= version %>',
+        file: 'package.json',
+        afterBump: ['updateFixtures:deps', 'commitNgFullstackDeps'],
+        beforeRelease: ['stage'],
+        push: false,
+        pushTags: false,
+        npm: false
+      }
+    },
+    commitNgFullstackDeps: {
+      options: {
+        cwd: 'angular-fullstack-deps',
+        files: ['package.json', 'bower.json']
       }
     },
     stage: {
       options: {
-        files: ['CHANGELOG.md']
+        files: ['CHANGELOG.md', 'angular-fullstack-deps']
       }
     },
     buildcontrol: {
@@ -103,32 +113,34 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('bump', 'bump manifest version', function (type) {
-    var options = this.options({
-      file: grunt.config('pkgFile') || 'package.json'
-    });
-
-    function setup(file, type) {
-      var pkg = grunt.file.readJSON(file);
-      var newVersion = pkg.version = semver.inc(pkg.version, type || 'patch');
-      return {
-        file: file,
-        pkg: pkg,
-        newVersion: newVersion
-      };
-    }
-
-    var config = setup(options.file, type);
-    grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
-    grunt.log.ok('Version bumped to ' + config.newVersion);
-  });
-
   grunt.registerTask('stage', 'git add files before running the release task', function () {
-    var files = this.options().files;
+    var files = grunt.config('stage.options').files, done = this.async();
     grunt.util.spawn({
       cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
       args: ['add'].concat(files)
-    }, grunt.task.current.async());
+    }, done);
+  });
+
+  grunt.registerTask('commitNgFullstackDeps', function() {
+    grunt.config.requires(
+      'commitNgFullstackDeps.options.files',
+      'commitNgFullstackDeps.options.cwd'
+    );
+    var ops = grunt.config.get('commitNgFullstackDeps').options;
+    var version = require('./package.json').version || 'NO VERSION SET';
+    if (Array.isArray(ops.files) && ops.files.length > 0) {
+      var done = this.async();
+      var cwd = path.resolve(__dirname, ops.cwd);
+      grunt.util.spawn({
+        cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
+        args: ['commit', '-m', version].concat(ops.files),
+        opts: {
+          cwd: cwd
+        }
+      }, done);
+    } else {
+      grunt.log.writeln('No files were commited');
+    }
   });
 
   grunt.registerTask('generateDemo', 'generate demo', function () {
