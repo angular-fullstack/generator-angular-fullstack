@@ -581,13 +581,13 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% } if(filters.babel) { %>
+    },<% } %>
 
     // Compiles ES6 to JavaScript using Babel
     babel: {
       options: {
         sourceMap: true
-      },
+      },<% if(filters.babel) { %>
       client: {
         files: [{
           expand: true,
@@ -595,8 +595,19 @@ module.exports = function (grunt) {
           src: ['{app,components}/**/!(*.spec).js'],
           dest: '.tmp'
         }]
+      },<% } %>
+      server: {
+        options: {
+          optional: ['runtime']
+        },
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.server %>',
+          src: ['**/*.{js,json}'],
+          dest: '<%%= yeoman.dist %>/<%%= yeoman.server %>'
+        }]
       }
-    },<% } if(filters.stylus) { %>
+    },<% if(filters.stylus) { %>
 
     // Compiles Stylus to CSS
     stylus: {
@@ -902,6 +913,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy:dist',
+    'babel:server',
     'cdnify',
     'cssmin',
     'uglify',

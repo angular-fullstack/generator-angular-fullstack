@@ -4,9 +4,6 @@
 
 'use strict';
 
-// Set default node environment to development
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
 import express from 'express';<% if (filters.mongoose) { %>
 import mongoose from 'mongoose';<% } %><% if (filters.sequelize) { %>
 import sqldb from './sqldb';<% } %>
