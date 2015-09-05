@@ -1,10 +1,10 @@
 'use strict';
 
 import path from 'path';
-import ScriptBase from '../script-base';
-import * as genUtils from '../util';
+import {NamedBase} from 'yeoman-generator';
+import {genNamedBase} from '../generator-base';
 
-export default class Generator extends ScriptBase {
+export default class Generator extends NamedBase {
 
   constructor(...args) {
     super(...args);
@@ -23,6 +23,11 @@ export default class Generator extends ScriptBase {
       desc: 'Parent directory for enpoints',
       type: String
     });
+  }
+
+  initializing() {
+    // init shared generator properies and methods
+    genNamedBase(this);
   }
 
   prompting() {
@@ -103,7 +108,7 @@ export default class Generator extends ScriptBase {
 
   writing() {
     this.sourceRoot(path.join(__dirname, './templates'));
-    genUtils.processDirectory(this, '.', this.routeDest);
+    this.processDirectory('.', this.routeDest);
   }
 
   end() {
@@ -117,7 +122,7 @@ export default class Generator extends ScriptBase {
           "app.use(\'" + this.route +"\', require(\'" + reqPath + "\'));"
         ]
       };
-      genUtils.rewriteFile(routeConfig);
+      this.rewriteFile(routeConfig);
     }
 
     if (this.filters.socketio && this.config.get('insertSockets')) {
@@ -131,7 +136,7 @@ export default class Generator extends ScriptBase {
           "require(\'" + reqPath + "\').register(socket);"
         ]
       };
-      genUtils.rewriteFile(socketConfig);
+      this.rewriteFile(socketConfig);
     }
 
     if (this.filters.sequelize && this.config.get('insertModels')) {
@@ -145,7 +150,7 @@ export default class Generator extends ScriptBase {
           "db." + this.classedName + " = db.sequelize.import(\'" + reqPath +"\');"
         ]
       };
-      genUtils.rewriteFile(modelConfig);
+      this.rewriteFile(modelConfig);
     }
   }
 }

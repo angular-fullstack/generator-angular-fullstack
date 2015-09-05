@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 import {Base} from 'yeoman-generator';
-import * as genUtils from '../util';
+import {genBase} from '../generator-base';
 
 export default class Generator extends Base {
 
@@ -25,22 +25,11 @@ export default class Generator extends Base {
     return {
 
       init: function () {
-        this.appname = this.name || path.basename(process.cwd());
-        this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
-
-        this.scriptAppName = this.appname + genUtils.appSuffix(this);
-        this.appPath = this.env.options.appPath;
         this.pkg = require('../package.json');
-
         this.filters = {};
 
-        // dynamic assertion statements
-        this.expect = function() {
-          return this.filters.expect ? 'expect(' : '';
-        }.bind(this);
-        this.to = function() {
-          return this.filters.expect ? ').to' : '.should';
-        }.bind(this);
+        // init shared generator properies and methods
+        genBase(this);
       },
 
       info: function () {
@@ -394,7 +383,7 @@ export default class Generator extends Base {
 
       generateProject: function() {
         this.sourceRoot(path.join(__dirname, './templates'));
-        genUtils.processDirectory(this, '.', '.');
+        this.processDirectory('.', '.');
       },
 
       generateEndpoint: function() {
