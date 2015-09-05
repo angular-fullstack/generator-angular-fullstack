@@ -54,7 +54,6 @@
     "mocha": "^2.2.5",
     "q": "^1.0.1",
     "recursive-readdir": "^1.2.0",
-    "semver": "^5.0.1",
     "shelljs": "^0.5.3",
     "underscore.string": "^3.1.1"
   },

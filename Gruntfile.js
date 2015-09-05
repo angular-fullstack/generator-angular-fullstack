@@ -1,6 +1,5 @@
 'use strict';
 
-var semver = require('semver');
 var shell = require('shelljs');
 var child_process = require('child_process');
 var Q = require('q');
@@ -28,15 +27,26 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
+        bump: false, // remove after 3.0.0 release
         commitMessage: '<%= version %>',
-        tagName: 'v<%= version %>',
-        bump: false, // we have our own bump
-        file: 'package.json'
+        tagName: '<%= version %>',
+        file: 'package.json',
+        afterBump: ['updateFixtures:deps', 'commitNgFullstackDeps'],
+        beforeRelease: ['stage'],
+        push: false,
+        pushTags: false,
+        npm: false
+      }
+    },
+    commitNgFullstackDeps: {
+      options: {
+        cwd: 'angular-fullstack-deps',
+        files: ['package.json', 'bower.json']
       }
     },
     stage: {
       options: {
-        files: ['CHANGELOG.md']
+        files: ['CHANGELOG.md', 'angular-fullstack-deps']
       }
     },
     buildcontrol: {
@@ -103,32 +113,34 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('bump', 'bump manifest version', function (type) {
-    var options = this.options({
-      file: grunt.config('pkgFile') || 'package.json'
-    });
-
-    function setup(file, type) {
-      var pkg = grunt.file.readJSON(file);
-      var newVersion = pkg.version = semver.inc(pkg.version, type || 'patch');
-      return {
-        file: file,
-        pkg: pkg,
-        newVersion: newVersion
-      };
-    }
-
-    var config = setup(options.file, type);
-    grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
-    grunt.log.ok('Version bumped to ' + config.newVersion);
-  });
-
   grunt.registerTask('stage', 'git add files before running the release task', function () {
-    var files = this.options().files;
+    var files = grunt.config('stage.options').files, done = this.async();
     grunt.util.spawn({
       cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
       args: ['add'].concat(files)
-    }, grunt.task.current.async());
+    }, done);
+  });
+
+  grunt.registerTask('commitNgFullstackDeps', function() {
+    grunt.config.requires(
+      'commitNgFullstackDeps.options.files',
+      'commitNgFullstackDeps.options.cwd'
+    );
+    var ops = grunt.config.get('commitNgFullstackDeps').options;
+    var version = require('./package.json').version || 'NO VERSION SET';
+    if (Array.isArray(ops.files) && ops.files.length > 0) {
+      var done = this.async();
+      var cwd = path.resolve(__dirname, ops.cwd);
+      grunt.util.spawn({
+        cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
+        args: ['commit', '-m', version].concat(ops.files),
+        opts: {
+          cwd: cwd
+        }
+      }, done);
+    } else {
+      grunt.log.writeln('No files were commited');
+    }
   });
 
   grunt.registerTask('generateDemo', 'generate demo', function () {
@@ -220,21 +232,23 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('updateFixtures', 'updates package and bower fixtures', function() {
-    var packageJson = fs.readFileSync(path.resolve('app/templates/_package.json'), 'utf8');
-    var bowerJson = fs.readFileSync(path.resolve('app/templates/_bower.json'), 'utf8');
+  grunt.registerTask('updateFixtures', 'updates package and bower fixtures', function(target) {
+    var genVer = require('./package.json').version;
+    var dest = __dirname + ((target === 'deps') ? '/angular-fullstack-deps/' : '/test/fixtures/');
+    var appName = (target === 'deps') ? 'angular-fullstack-deps' : 'tempApp';
 
-    // replace package name
-    packageJson = packageJson.replace(/"name": "<%(.*)%>"/g, '"name": "tempApp"');
-    packageJson = packageJson.replace(/<%(.*)%>/g, '');
+    var processJson = function(s, d) {
+      // read file, strip all ejs conditionals, and parse as json
+      var json = JSON.parse(fs.readFileSync(path.resolve(s), 'utf8').replace(/<%(.*)%>/g, ''));
+      // set properties
+      json.name = appName, json.version = genVer;
+      if (target === 'deps') { json.private = false; }
+      // stringify json and write it to the destination
+      fs.writeFileSync(path.resolve(d), JSON.stringify(json, null, 2));
+    };
 
-    // remove all ejs conditionals
-    bowerJson = bowerJson.replace(/"name": "<%(.*)%>"/g, '"name": "tempApp"');
-    bowerJson = bowerJson.replace(/<%(.*)%>/g, '');
-
-    // save files
-    fs.writeFileSync(path.resolve(__dirname + '/test/fixtures/package.json'), packageJson);
-    fs.writeFileSync(path.resolve(__dirname + '/test/fixtures/bower.json'), bowerJson);
+    processJson('app/templates/_package.json', dest + 'package.json');
+    processJson('app/templates/_bower.json', dest + 'bower.json');
   });
 
   grunt.registerTask('installFixtures', 'install package and bower fixtures', function() {
