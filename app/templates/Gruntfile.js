@@ -31,6 +31,7 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       client: require('./bower.json').appPath || 'client',
+      server: 'server',
       dist: 'dist'
     },
     express: {
@@ -39,13 +40,13 @@ module.exports = function (grunt) {
       },
       dev: {
         options: {
-          script: 'server',
+          script: '<%%= yeoman.server %>',
           debug: true
         }
       },
       prod: {
         options: {
-          script: 'dist/server'
+          script: '<%%= yeoman.dist %>/<%%= yeoman.server %>'
         }
       }
     },
@@ -71,7 +72,7 @@ module.exports = function (grunt) {
         tasks: ['injector:css']
       },
       mochaTest: {
-        files: ['server/**/*.{spec,integration}.js'],
+        files: ['<%%= yeoman.server %>/**/*.{spec,integration}.js'],
         tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
@@ -128,7 +129,7 @@ module.exports = function (grunt) {
         }
       },
       express: {
-        files: ['server/**/*.{js,json}'],
+        files: ['<%%= yeoman.server %>/**/*.{js,json}'],
         tasks: ['express:dev', 'wait'],
         options: {
           livereload: true,
@@ -149,15 +150,15 @@ module.exports = function (grunt) {
       },
       server: {
         options: {
-          jshintrc: 'server/.jshintrc'
+          jshintrc: '<%%= yeoman.server %>/.jshintrc'
         },
-        src: ['server/**/!(*.spec|*.integration).js']
+        src: ['<%%= yeoman.server %>/**/!(*.spec|*.integration).js']
       },
       serverTest: {
         options: {
-          jshintrc: 'server/.jshintrc-spec'
+          jshintrc: '<%%= yeoman.server %>/.jshintrc-spec'
         },
-        src: ['server/**/*.{spec,integration}.js']
+        src: ['<%%= yeoman.server %>/**/*.{spec,integration}.js']
       },
       all: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js'],
       test: {
@@ -173,7 +174,7 @@ module.exports = function (grunt) {
         files: {
           src: [
             '<%%= yeoman.client %>/app/**/*.js',
-            'server/**/*.js'
+            '<%%= yeoman.server %>/**/*.js'
           ]
         }
       }
@@ -223,7 +224,7 @@ module.exports = function (grunt) {
     // Use nodemon to run server in debug mode with an initial breakpoint
     nodemon: {
       debug: {
-        script: 'server',
+        script: '<%%= yeoman.server %>',
         options: {
           nodeArgs: ['--debug-brk'],
           env: {
@@ -393,7 +394,7 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>',
           src: [
             'package.json',
-            'server/**/*'
+            '<%%= yeoman.server %>/**/*'
           ]
         }]
       },
@@ -407,7 +408,7 @@ module.exports = function (grunt) {
 
     buildcontrol: {
       options: {
-        dir: 'dist',
+        dir: '<%%= yeoman.dist %>',
         commit: true,
         push: true,
         connectCommits: false,
@@ -480,10 +481,10 @@ module.exports = function (grunt) {
         timeout: 5000 // set default mocha spec timeout
       },
       unit: {
-        src: ['server/**/*.spec.js']
+        src: ['<%%= yeoman.server %>/**/*.spec.js']
       },
       integration: {
-        src: ['server/**/*.integration.js']
+        src: ['<%%= yeoman.server %>/**/*.integration.js']
       }
     },
 
@@ -496,7 +497,7 @@ module.exports = function (grunt) {
           mask: '**/*.spec.js',
           coverageFolder: 'coverage/server/unit'
         },
-        src: 'server'
+        src: '<%%= yeoman.server %>'
       },
       integration: {
         options: {
@@ -506,7 +507,7 @@ module.exports = function (grunt) {
           mask: '**/*.integration.js',
           coverageFolder: 'coverage/server/integration'
         },
-        src: 'server'
+        src: '<%%= yeoman.server %>'
       }
     },
 
