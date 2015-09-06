@@ -43,7 +43,8 @@ module.exports = function(app) {
   // oauth 1.0 strategy, and Lusca depends on sessions
   app.use(session({
     secret: config.secrets.session,
-    saveUninitialized: true<% if (filters.mongoose) { %>,
+    saveUninitialized: true,
+    resave: false<% if (filters.mongoose) { %>,
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
       db: '<%= lodash.slugify(lodash.humanize(appname)) %>'
