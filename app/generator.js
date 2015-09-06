@@ -13,10 +13,15 @@ export default class Generator extends Base {
 
     this.argument('name', { type: String, required: false });
 
+    this.option('skip-install', {
+      desc: 'Do not install dependencies',
+      type: Boolean,
+      defaults: false
+    });
+
     this.option('app-suffix', {
       desc: 'Allow a custom suffix to be added to the module name',
       type: String,
-      required: 'false',
       defaults: 'App'
     });
   }
