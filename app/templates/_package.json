@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(_.humanize(appname)) %>",
+  "name": "<%= lodash.slugify(lodash.humanize(appname)) %>",
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {

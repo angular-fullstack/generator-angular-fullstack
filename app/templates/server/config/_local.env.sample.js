@@ -7,7 +7,7 @@
 
 module.exports = {
   DOMAIN:           'http://localhost:9000',
-  SESSION_SECRET:   '<%= _.slugify(appname) + "-secret" %>',<% if (filters.facebookAuth) { %>
+  SESSION_SECRET:   '<%= lodash.slugify(appname) + "-secret" %>',<% if (filters.facebookAuth) { %>
 
   FACEBOOK_ID:      'app-id',
   FACEBOOK_SECRET:  'secret',<% } if (filters.twitterAuth) { %>

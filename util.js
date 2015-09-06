@@ -2,6 +2,15 @@
 
 import path from 'path';
 import fs from 'fs';
+import glob from 'glob';
+
+function expandFiles(pattern, options) {
+  options = options || {};
+  var cwd = options.cwd || process.cwd();
+  return glob.sync(pattern, options).filter(function (filepath) {
+    return fs.statSync(path.join(cwd, filepath)).isFile();
+  });
+}
 
 export function rewriteFile(args) {
   args.path = args.path || process.cwd();
@@ -56,7 +65,7 @@ export function rewrite(args) {
 
 export function appSuffix(self) {
   var suffix = self.options['app-suffix'];
-  return (typeof suffix === 'string') ? self._.classify(suffix) : '';
+  return (typeof suffix === 'string') ? self.lodash.classify(suffix) : '';
 }
 
 function destinationPath(self, filepath) {
@@ -98,7 +107,7 @@ function templateIsUsable(self, filteredFile) {
   for(var key in filters) {
     if(filters[key]) enabledFilters.push(key);
   }
-  var matchedFilters = self._.intersection(filteredFile.filters, enabledFilters);
+  var matchedFilters = self.lodash.intersection(filteredFile.filters, enabledFilters);
   // check that all filters on file are matched
   if(filteredFile.filters.length && matchedFilters.length !== filteredFile.filters.length) {
     return false;
@@ -108,8 +117,8 @@ function templateIsUsable(self, filteredFile) {
 
 export function processDirectory(source, destination) {
   var self = this;
-  var root = self.isPathAbsolute(source) ? source : path.join(self.sourceRoot(), source);
-  var files = self.expandFiles('**', { dot: true, cwd: root });
+  var root = path.isAbsolute(source) ? source : path.join(self.sourceRoot(), source);
+  var files = expandFiles('**', { dot: true, cwd: root });
   var dest, src;
 
   files.forEach(function(f) {

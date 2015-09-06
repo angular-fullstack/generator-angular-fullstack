@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var exec = require('child_process').exec;
 var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
 var chai = require('chai');
 var expect = chai.expect;
 var recursiveReadDir = require('recursive-readdir');
@@ -31,7 +32,9 @@ describe('angular-fullstack generator', function () {
     gen.run(function () {
       var afGenerator;
       var deps = [path.join('../..', generatorType)];
-      afGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name]);
+      afGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name], {
+        skipInstall: true
+      });
 
       helpers.mockPrompt(afGenerator, mockPrompt);
       afGenerator.run(function () {
@@ -328,8 +331,9 @@ describe('angular-fullstack generator', function () {
         return done(err);
       }
 
-      gen = helpers.createGenerator('angular-fullstack:app', deps);
-      gen.options['skip-install'] = true;
+      gen = helpers.createGenerator('angular-fullstack:app', deps, [], {
+        skipInstall: true
+      });
       done();
     }.bind(this));
   });
@@ -337,13 +341,13 @@ describe('angular-fullstack generator', function () {
   describe('making sure test fixtures are present', function() {
 
     it('should have package.json in fixtures', function() {
-      helpers.assertFile([
+      assert.file([
         path.join(__dirname, 'fixtures', 'package.json')
       ]);
     });
 
     it('should have bower.json in fixtures', function() {
-      helpers.assertFile([
+      assert.file([
         path.join(__dirname, 'fixtures', 'bower.json')
       ]);
     });
@@ -355,7 +359,7 @@ describe('angular-fullstack generator', function () {
       deps = deps.map(function(dep) {
         return path.join(__dirname, 'fixtures', 'node_modules', dep);
       });
-      helpers.assertFile(deps);
+      assert.file(deps);
     });
 
     it('should have all bower packages in fixtures/bower_components', function() {
@@ -365,7 +369,7 @@ describe('angular-fullstack generator', function () {
       deps = deps.map(function(dep) {
         return path.join(__dirname, 'fixtures', 'bower_components', dep);
       });
-      helpers.assertFile(deps);
+      assert.file(deps);
     });
   });
 
@@ -429,7 +433,7 @@ describe('angular-fullstack generator', function () {
 
       it('should generate expected files with path name endpoint', function(done) {
         runTest('(exit 0)', this, function() {
-          helpers.assertFile([
+          assert.file([
             'server/api/foo/bar/index.js',
             'server/api/foo/bar/index.spec.js',
             'server/api/foo/bar/bar.controller.js',
@@ -452,13 +456,14 @@ describe('angular-fullstack generator', function () {
             helpers.createDummyGenerator(),
             'ng-component:app'
           ]
-        ]);
-        gen.options['skip-install'] = true;
+        ], [], {
+          skipInstall: true
+        });
         helpers.mockPrompt(gen, {
           skipConfig: true
         });
         gen.run(function () {
-          helpers.assertFile([
+          assert.file([
             'client/app/main/main.less',
             'client/app/main/main.coffee',
             'server/auth/google/passport.js'
@@ -469,7 +474,7 @@ describe('angular-fullstack generator', function () {
 
       it('should generate expected files', function (done) {
         gen.run(function () {
-          helpers.assertFile(genFiles(defaultOptions));
+          assert.file(genFiles(defaultOptions));
           done();
         });
       });
@@ -540,7 +545,7 @@ describe('angular-fullstack generator', function () {
 
       it('should generate expected files', function (done) {
         gen.run(function () {
-          helpers.assertFile(genFiles(testOptions));
+          assert.file(genFiles(testOptions));
           done();
         });
       });
@@ -612,7 +617,7 @@ describe('angular-fullstack generator', function () {
 
       it('should generate expected files', function (done) {
         gen.run(function () {
-          helpers.assertFile(genFiles(testOptions));
+          assert.file(genFiles(testOptions));
           done();
         });
       });
@@ -686,7 +691,7 @@ describe('angular-fullstack generator', function () {
 
       it('should generate expected files', function (done) {
         gen.run(function () {
-          helpers.assertFile(genFiles(testOptions));
+          assert.file(genFiles(testOptions));
           done();
         });
       });
@@ -747,7 +752,7 @@ describe('angular-fullstack generator', function () {
 
       it('should generate expected files', function (done) {
         gen.run(function () {
-          helpers.assertFile(genFiles(testOptions));
+          assert.file(genFiles(testOptions));
           done();
         });
       });

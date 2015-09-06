@@ -33,7 +33,7 @@ export default class Generator extends Base {
       },
 
       info: function () {
-        this.log(this.welcome);
+        this.log(this.yoWelcome);
         this.log('Out of the box I create an AngularJS app with an Express server.\n');
       },
 
@@ -49,7 +49,7 @@ export default class Generator extends Base {
           }], function (answers) {
             this.skipConfig = answers.skipConfig;
 
-            this.filters = this._.defaults(this.config.get('filters'), {
+            this.filters = this.lodash.defaults(this.config.get('filters'), {
               bootstrap: true,
               uibootstrap: true,
               jasmine: true
