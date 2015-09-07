@@ -44,8 +44,9 @@ export default class Generator extends Base {
 
       checkForConfig: function() {
         var cb = this.async();
+        var existingFilters = this.config.get('filters');
 
-        if(this.config.get('filters')) {
+        if(existingFilters) {
           this.prompt([{
             type: 'confirm',
             name: 'skipConfig',
@@ -54,14 +55,14 @@ export default class Generator extends Base {
           }], function (answers) {
             this.skipConfig = answers.skipConfig;
 
-            this.filters = this.lodash.defaults(this.config.get('filters'), {
-              bootstrap: true,
-              uibootstrap: true,
-              jasmine: true
-            });
-
-            this.config.set('filters', this.filters);
-            this.config.forceSave();
+            if (this.skipConfig) {
+              this.filters = existingFilters;
+            } else {
+              this.filters = {};
+              this.forceConfig = true;
+              this.config.set('filters', this.filters);
+              this.config.forceSave();
+            }
 
             cb();
           }.bind(this));
@@ -357,7 +358,8 @@ export default class Generator extends Base {
             'serviceDirectory': appPath,
             'filters': filters,
             'extensions': extensions,
-            'basePath': 'client'
+            'basePath': 'client',
+            'forceConfig': this.forceConfig
           }
         }, { local: require.resolve('generator-ng-component/app/index.js') });
       },
