@@ -22,7 +22,8 @@
     "console": true,
     "$": true,
     "_": true,
-    "moment": true,
+    "moment": true,<% if (filters.jasmine) { %>
+    "jasmine": true,<% } %>
     "describe": true,
     "beforeEach": true,
     "module": true,
