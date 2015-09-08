@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module '<%= scriptAppName %>'
-.controller 'SignupCtrl', ($scope, Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %><% if (filters.oauth) {%>, $window<% } %>) ->
+.controller 'SignupCtrl', ($scope, Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) ->
   $scope.user = {}
   $scope.errors = {}
   $scope.register = (form) ->
@@ -31,6 +31,3 @@ angular.module '<%= scriptAppName %>'
           angular.forEach err.fields, (field) ->
             form[field].$setValidity 'mongoose', false
             $scope.errors[field] = err.message<% } %>
-<% if (filters.oauth) {%>
-  $scope.loginOauth = (provider) ->
-    $window.location.href = '/auth/' + provider<% } %>

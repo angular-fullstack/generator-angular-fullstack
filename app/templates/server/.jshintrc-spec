@@ -1,6 +1,7 @@
 {
   "extends": ".jshintrc",
-  "globals": {
+  "globals": {<% if (filters.jasmine) { %>
+    "jasmine": true,<% } %>
     "describe": true,
     "it": true,
     "before": true,

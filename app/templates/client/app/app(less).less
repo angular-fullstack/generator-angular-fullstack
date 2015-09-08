@@ -1,5 +1,6 @@
-<% if (filters.bootstrap) { %>@import '../bower_components/bootstrap/less/bootstrap.less';<% } %>
-@import '../bower_components/font-awesome/less/font-awesome.less';
+<% if (filters.bootstrap) { %>@import '../bower_components/bootstrap/less/bootstrap.less';
+<% if(filters.oauth) { %>@import '../bower_components/bootstrap-social/bootstrap-social.less';
+<% }} %>@import '../bower_components/font-awesome/less/font-awesome.less';
 
 <% if (filters.bootstrap) { %>@icon-font-path: '../bower_components/bootstrap/fonts/';<% } %>
 @fa-font-path: '../bower_components/font-awesome/fonts';

@@ -258,7 +258,6 @@ describe('angular-fullstack generator', function () {
       files = files.concat([
         'client/app/account/account.' + script,
         'client/app/account/login/login.' + markup,
-        'client/app/account/login/login.' + stylesheet,
         'client/app/account/login/login.controller.' + script,
         'client/app/account/settings/settings.' + markup,
         'client/app/account/settings/settings.controller.' + script,
@@ -290,11 +289,22 @@ describe('angular-fullstack generator', function () {
       ]);
     }
 
-    /* OAuth (see oauthFiles function above) */
-    if (ops.oauth) {
+    if (ops.oauth && ops.oauth.length) {
+      /* OAuth (see oauthFiles function above) */
       ops.oauth.forEach(function(type, i) {
         files = files.concat(oauthFiles(type.replace('Auth', '')));
       });
+
+
+      files = files.concat([
+        'client/components/oauth-buttons/oauth-buttons.' + stylesheet,
+        'client/components/oauth-buttons/oauth-buttons.' + markup,
+        'client/components/oauth-buttons/oauth-buttons.controller.' + script,
+        'client/components/oauth-buttons/oauth-buttons.controller.spec.' + script,
+        'client/components/oauth-buttons/oauth-buttons.directive.' + script,
+        'client/components/oauth-buttons/oauth-buttons.directive.spec.' + script,
+        'e2e/components/oauth-buttons/oauth-buttons.po.js'
+      ]);
     }
 
     /* Socket.IO */
