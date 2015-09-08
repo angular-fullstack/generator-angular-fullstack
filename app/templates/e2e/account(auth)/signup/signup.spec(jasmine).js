@@ -16,7 +16,8 @@ describe('Signup View', function() {
   var testUser = {
     name: 'Test',
     email: 'test@example.com',
-    password: 'test'
+    password: 'test',
+    confirmPassword: 'test'
   };
 
   beforeEach(function() {
@@ -30,6 +31,8 @@ describe('Signup View', function() {
     expect(page.form.email.getAttribute('name')).toBe('email');
     expect(page.form.password.getAttribute('type')).toBe('password');
     expect(page.form.password.getAttribute('name')).toBe('password');
+    expect(page.form.confirmPassword.getAttribute('type')).toBe('password');
+    expect(page.form.confirmPassword.getAttribute('name')).toBe('confirmPassword');
     expect(page.form.submit.getAttribute('type')).toBe('submit');
     expect(page.form.submit.getText()).toBe('Sign up');
   });
