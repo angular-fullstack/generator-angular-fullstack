@@ -16,7 +16,8 @@ describe('Signup View', function() {
   var testUser = {
     name: 'Test',
     email: 'test@example.com',
-    password: 'test'
+    password: 'test',
+    confirmPassword: 'test'
   };
 
   before(function() {
@@ -35,6 +36,8 @@ describe('Signup View', function() {
     <%= expect() %>page.form.email.getAttribute('name')<%= to() %>.eventually.equal('email');
     <%= expect() %>page.form.password.getAttribute('type')<%= to() %>.eventually.equal('password');
     <%= expect() %>page.form.password.getAttribute('name')<%= to() %>.eventually.equal('password');
+    <%= expect() %>page.form.confirmPassword.getAttribute('type')<%= to() %>.eventually.equal('password');
+    <%= expect() %>page.form.confirmPassword.getAttribute('name')<%= to() %>.eventually.equal('confirmPassword');
     <%= expect() %>page.form.submit.getAttribute('type')<%= to() %>.eventually.equal('submit');
     <%= expect() %>page.form.submit.getText()<%= to() %>.eventually.equal('Sign up');
   });

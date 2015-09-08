@@ -10,6 +10,7 @@ var SignupPage = function() {
   this.form.name = this.form.element(by.model('user.name'));
   this.form.email = this.form.element(by.model('user.email'));
   this.form.password = this.form.element(by.model('user.password'));
+  this.form.confirmPassword = this.form.element(by.model('user.confirmPassword'))
   this.form.submit = this.form.element(by.css('.btn-register'));
 
   this.signup = function(data) {

@@ -54,6 +54,18 @@
           </p>
         </div>
 
+        <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && submitted,
+                                            'has-error': form.confirmPassword.$invalid && submitted }">
+          <label>Confirm Password</label>
+          <input type="password" name="confirmPassword" class="form-control" ng-model="user.confirmPassword"
+                 match="user.password"
+                 ng-minlength="3" required/>
+          <p class="help-block"
+             ng-show="form.confirmPassword.$error.match && submitted">
+            Passwords must match.
+          </p>
+        </div>
+
         <div>
           <button class="btn btn-inverse btn-lg btn-register" type="submit">
             Sign up

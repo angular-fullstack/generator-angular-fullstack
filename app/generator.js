@@ -374,6 +374,7 @@ export default class Generator extends Base {
         if(this.filters.socketio) angModules.push("'btford.socket-io'");
         if(this.filters.uirouter) angModules.push("'ui.router'");
         if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
+        if(this.filters.auth) angModules.push("'validation.match'");
 
         this.angularModules = '\n  ' + angModules.join(',\n  ') +'\n';
       }
