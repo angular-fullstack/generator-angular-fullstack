@@ -31,11 +31,17 @@ module.exports = function (grunt) {
         commitMessage: '<%= version %>',
         tagName: '<%= version %>',
         file: 'package.json',
+        beforeBump: ['updateSubmodules'],
         afterBump: ['updateFixtures:deps', 'commitNgFullstackDeps'],
         beforeRelease: ['stage'],
         push: false,
         pushTags: false,
         npm: false
+      }
+    },
+    updateSubmodules: {
+      options: {
+        modules: ['angular-fullstack-deps']
       }
     },
     commitNgFullstackDeps: {
@@ -113,12 +119,47 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('stage', 'git add files before running the release task', function () {
-    var files = grunt.config('stage.options').files, done = this.async();
+  function gitCmd(args, opts, done) {
     grunt.util.spawn({
       cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
-      args: ['add'].concat(files)
+      args: args,
+      opts: opts || {}
     }, done);
+  }
+  function gitCmdAsync(args, opts) {
+    return function() {
+      var deferred = Q.defer();
+      gitCmd(args, opts, function(err) {
+        if (err) { return deferred.reject(err); }
+        deferred.resolve();
+      });
+      return deferred.promise;
+    };
+  }
+
+  grunt.registerTask('stage', 'git add files before running the release task', function () {
+    var files = grunt.config('stage.options').files;
+    gitCmd(['add'].concat(files), {}, this.async());
+  });
+
+  grunt.registerTask('updateSubmodules', function() {
+    grunt.config.requires('updateSubmodules.options.modules');
+    var modules = grunt.config.get('updateSubmodules').options.modules;
+
+    Q()
+      .then(gitCmdAsync(['submodule', 'update', '--init', '--recursive']))
+      .then(function() {
+        var thens = [];
+        for (var i = 0, modulesLength = modules.length; i < modulesLength; i++) {
+          var opts = {cwd: modules[i]};
+          thens.push(gitCmdAsync(['checkout', 'master'], opts));
+          thens.push(gitCmdAsync(['fetch'], opts));
+          thens.push(gitCmdAsync(['pull'], opts));
+        }
+        return thens.reduce(Q.when, Q());
+      })
+      .catch(grunt.fail.fatal.bind(grunt.fail))
+      .finally(this.async());
   });
 
   grunt.registerTask('commitNgFullstackDeps', function() {
@@ -129,15 +170,9 @@ module.exports = function (grunt) {
     var ops = grunt.config.get('commitNgFullstackDeps').options;
     var version = require('./package.json').version || 'NO VERSION SET';
     if (Array.isArray(ops.files) && ops.files.length > 0) {
-      var done = this.async();
-      var cwd = path.resolve(__dirname, ops.cwd);
-      grunt.util.spawn({
-        cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
-        args: ['commit', '-m', version].concat(ops.files),
-        opts: {
-          cwd: cwd
-        }
-      }, done);
+      gitCmd(['commit', '-m', version].concat(ops.files), {
+        cwd: path.resolve(__dirname, ops.cwd)
+      }, this.async());
     } else {
       grunt.log.writeln('No files were commited');
     }
