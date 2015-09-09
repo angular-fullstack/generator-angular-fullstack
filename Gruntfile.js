@@ -275,11 +275,6 @@ module.exports = function (grunt) {
     });
   });
 
-  grunt.registerTask('test', [
-    'updateFixtures',
-    'installFixtures',
-    'mochaTest'
-  ]);
   grunt.registerTask('test', function(target, option) {
     if (target === 'fast') {
       grunt.task.run([
