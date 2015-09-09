@@ -4,14 +4,17 @@ var shell = require('shelljs');
 var child_process = require('child_process');
 var Q = require('q');
 var helpers = require('yeoman-generator').test;
+var gruntUtils = require('./task-utils/grunt');
 var fs = require('fs');
 var path = require('path');
+
+var gitCmd = gruntUtils.gitCmd;
+var gitCmdAsync = gruntUtils.gitCmdAsync;
 
 module.exports = function (grunt) {
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
-    buildcontrol: 'grunt-build-control',
-    changelog: 'grunt-conventional-changelog'
+    buildcontrol: 'grunt-build-control'
   });
 
   grunt.initConfig({
@@ -19,10 +22,20 @@ module.exports = function (grunt) {
       demo: 'demo'
     },
     pkg: grunt.file.readJSON('package.json'),
-    changelog: {
+    conventionalChangelog: {
       options: {
-        dest: 'CHANGELOG.md',
-        versionFile: 'package.json'
+        changelogOpts: {
+          // conventional-changelog options go here
+          preset: 'angular'
+        },
+        writerOpts: {
+          // conventional-changelog-writer options go here
+          finalizeContext: gruntUtils.conventionalChangelog.finalizeContext,
+          commitPartial: gruntUtils.conventionalChangelog.commitPartial
+        }
+      },
+      release: {
+        src: 'CHANGELOG.md'
       }
     },
     release: {
@@ -118,24 +131,6 @@ module.exports = function (grunt) {
       }
     }
   });
-
-  function gitCmd(args, opts, done) {
-    grunt.util.spawn({
-      cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
-      args: args,
-      opts: opts || {}
-    }, done);
-  }
-  function gitCmdAsync(args, opts) {
-    return function() {
-      var deferred = Q.defer();
-      gitCmd(args, opts, function(err) {
-        if (err) { return deferred.reject(err); }
-        deferred.resolve();
-      });
-      return deferred.promise;
-    };
-  }
 
   grunt.registerTask('stage', 'git add files before running the release task', function () {
     var files = grunt.config('stage.options').files;
