@@ -4,10 +4,11 @@
 [![Dependency Status](https://david-dm.org/daftmonk/generator-angular-fullstack.svg)](https://david-dm.org/daftmonk/generator-angular-fullstack)
 [![Dev-Dependency Status](https://david-dm.org/daftmonk/generator-angular-fullstack/dev-status.svg)](https://david-dm.org/daftmonk/generator-angular-fullstack#info=devDependencies)
 [![Gitter chat](https://badges.gitter.im/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+> Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
+
 #### Generated project: 
 [![Dependency Status](https://david-dm.org/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
 [![Dev-Dependency Status](https://david-dm.org/angular-fullstack/angular-fullstack-deps/dev-status.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
-> Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
 ## Example project
 
