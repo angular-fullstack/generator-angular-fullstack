@@ -74,15 +74,9 @@ A detailed explanation can be found in this [document][commit-message-format].
 # Releasing
 *(for contributors with push access)*
 
-The `grunt release` task will do most of the work for you, see [`grunt-release`](https://github.com/geddski/grunt-release) for semver usage.
+The `grunt release` task will do most of the work for you, see [`grunt-release`](https://github.com/geddski/grunt-release#using-grunt-release) for valid release targets.
 
-* Manually bump `package.json` version.
-
-*note: this step will be removed once `3.0.0` is released*
-
-* Run the release task `grunt release`.
-
-*note: once `3.0.0` is released you will need to use a valid `grunt-release` target, see [here](https://github.com/geddski/grunt-release#using-grunt-release)*
+* Run the release task `grunt release:RELEASE_TARGET`.
 
 * Push and publish the `angular-fullstack-deps` submodule.
 ```bash
