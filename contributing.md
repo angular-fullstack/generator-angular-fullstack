@@ -70,3 +70,29 @@ reference GitHub issues that this commit **Closes**.
 A detailed explanation can be found in this [document][commit-message-format].
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y
+
+# Releasing
+*(for contributors with push access)*
+
+The `grunt release` task will do most of the work for you, see [`grunt-release`](https://github.com/geddski/grunt-release) for semver usage.
+
+* Manually bump `package.json` version.
+
+*note: this step will be removed once `3.0.0` is released*
+
+* Run the release task `grunt release`.
+
+*note: once `3.0.0` is released you will need to use a valid `grunt-release` target, see [here](https://github.com/geddski/grunt-release#using-grunt-release)*
+
+* Push and publish the `angular-fullstack-deps` submodule.
+```bash
+$ cd angular-fullstack-deps
+$ git push && npm publish
+$ cd ..
+```
+
+* Push and publish `generator-angular-fullstack`.
+```bash
+$ git push && git push --tags
+$ npm publish
+```
