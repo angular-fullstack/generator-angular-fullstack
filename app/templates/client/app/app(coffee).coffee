@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module '<%= scriptAppName %>', [<%= angularModules %>]
+angular.module '<%= scriptAppName %>', [<%- angularModules %>]
 <% if (filters.ngroute) { %>.config ($routeProvider, $locationProvider<% if (filters.auth) { %>, $httpProvider<% } %>) ->
   $routeProvider
   .otherwise

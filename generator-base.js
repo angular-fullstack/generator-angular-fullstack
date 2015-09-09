@@ -16,12 +16,9 @@ export function genBase(self) {
   self.lodash = lodash;
   self.yoWelcome = yoWelcome;
 
-  try {
-    self.appname = require(path.join(process.cwd(), 'bower.json')).name;
-  } catch (e) {
-    self.appname = self.name || path.basename(process.cwd());
-  }
-  self.appname = lodash.camelize(lodash.slugify(lodash.humanize(self.appname)));
+  self.appname = lodash.camelize(lodash.slugify(
+    lodash.humanize(self.determineAppname())
+  ));
   self.scriptAppName = self.appname + genUtils.appSuffix(self);
 
   self.filters = self.filters || self.config.get('filters');

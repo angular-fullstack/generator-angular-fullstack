@@ -68,19 +68,9 @@ export function appSuffix(self) {
   return (typeof suffix === 'string') ? self.lodash.classify(suffix) : '';
 }
 
-function destinationPath(self, filepath) {
-  filepath = path.normalize(filepath);
-  if (!path.isAbsolute(filepath)) {
-    filepath = path.join(self.destinationRoot(), filepath);
-  }
-
-  return filepath;
-}
-
 export function relativeRequire(to, fr) {
-  var self = this;
-  fr = destinationPath(self, fr || self.filePath);
-  to = destinationPath(self, to);
+  fr = this.destinationPath(fr || this.filePath);
+  to = this.destinationPath(to);
   return path.relative(path.dirname(fr), to)
     .replace(/\\/g, '/') // convert win32 separator to posix
     .replace(/^(?!\.\.)(.*)/, './$1') // prefix non parent path with ./
@@ -148,10 +138,10 @@ export function processDirectory(source, destination) {
 
     if(templateIsUsable(self, filteredFile)) {
       if(copy) {
-        self.copy(src, dest);
+        self.fs.copy(src, dest);
       } else {
         self.filePath = dest;
-        self.template(src, dest);
+        self.fs.copyTpl(src, dest, self);
         delete self.filePath;
       }
     }

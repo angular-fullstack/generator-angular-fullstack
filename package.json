@@ -40,7 +40,7 @@
     "glob": "^5.0.14",
     "lodash": "^3.10.1",
     "underscore.string": "^3.1.1",
-    "yeoman-generator": "~0.19.2",
+    "yeoman-generator": "~0.20.3",
     "yeoman-welcome": "^1.0.1"
   },
   "devDependencies": {
