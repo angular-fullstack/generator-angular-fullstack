@@ -68,7 +68,7 @@
     "grunt-protractor-runner": "^2.0.0",
     "grunt-injector": "^0.6.0",
     "grunt-karma": "~0.12.0",
-    "grunt-build-control": "^0.5.0",<% if(filters.sass) { %>
+    "grunt-build-control": "^0.6.0",<% if(filters.sass) { %>
     "grunt-contrib-sass": "^0.9.0",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "latest",<% } %>
     "jit-grunt": "^0.9.1",
