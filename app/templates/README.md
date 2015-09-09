@@ -1,6 +1,6 @@
 # <%= lodash.slugify(lodash.humanize(appname)) %>
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version <%= pkg.version %>.
+This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version <%= rootGeneratorVersion() %>.
 
 ## Getting Started
 

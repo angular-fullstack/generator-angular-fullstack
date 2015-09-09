@@ -30,7 +30,6 @@ export default class Generator extends Base {
     return {
 
       init: function () {
-        this.pkg = require('../package.json');
         this.filters = {};
 
         // init shared generator properies and methods
