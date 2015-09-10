@@ -43,7 +43,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Client**
 
-* Scripts: `JavaScript`, `CoffeeScript`, `Babel`
+* Scripts: `JavaScript`, `Babel`
 * Markup:  `HTML`, `Jade`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`,
 * Angular Routers: `ngRoute`, `ui-router`
@@ -64,7 +64,6 @@ A grunt task looks for new files in your `client/app` and `client/components` fo
 * `stylus` files into `client/app.styl`
 * `css` files into `client/index.html`
 * `js` files into `client/index.html`
-* `coffeescript` temp `js` files into `client/index.html`
 * `babel` temp `js` files into `client/index.html`
 
 ## Generators

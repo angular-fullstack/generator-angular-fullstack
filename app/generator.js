@@ -86,12 +86,11 @@ export default class Generator extends Base {
             type: 'list',
             name: 'script',
             message: 'What would you like to write scripts with?',
-            choices: [ 'JavaScript', 'JavaScript + Babel', 'CoffeeScript'],
+            choices: [ 'JavaScript', 'JavaScript + Babel'],
             filter: function( val ) {
               return {
                 'JavaScript': 'js',
-                'JavaScript + Babel': 'babel',
-                'CoffeeScript': 'coffee'
+                'JavaScript + Babel': 'babel'
               }[val];
             }
           }, {
@@ -340,7 +339,6 @@ export default class Generator extends Base {
         if(this.filters.ngroute) filters.push('ngroute');
         if(this.filters.uirouter) filters.push('uirouter');
         if(this.filters.babel) extensions.push('babel');
-        if(this.filters.coffee) extensions.push('coffee');
         if(this.filters.js) extensions.push('js');
         if(this.filters.html) extensions.push('html');
         if(this.filters.jade) extensions.push('jade');
