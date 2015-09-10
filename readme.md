@@ -139,9 +139,11 @@ yo angular-fullstack:endpoint message
 Produces:
 
     server/api/message/index.js
-    server/api/message/message.spec.js
+    server/api/message/index.spec.js
     server/api/message/message.controller.js
+    server/api/message/message.integration.js
     server/api/message/message.model.js  (optional)
+    server/api/message/message.events.js (optional)
     server/api/message/message.socket.js (optional)
 
 ### Route
