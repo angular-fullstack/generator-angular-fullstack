@@ -4,14 +4,14 @@ var shell = require('shelljs');
 var child_process = require('child_process');
 var Q = require('q');
 var helpers = require('yeoman-generator').test;
-var gruntUtils = require('./task-utils/grunt');
 var fs = require('fs');
 var path = require('path');
 
-var gitCmd = gruntUtils.gitCmd;
-var gitCmdAsync = gruntUtils.gitCmdAsync;
-
 module.exports = function (grunt) {
+  var gruntUtils = require('./task-utils/grunt')(grunt);
+  var gitCmd = gruntUtils.gitCmd;
+  var gitCmdAsync = gruntUtils.gitCmdAsync;
+
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
     buildcontrol: 'grunt-build-control'
