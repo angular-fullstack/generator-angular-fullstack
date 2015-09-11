@@ -30,6 +30,7 @@ export default class Generator extends Base {
     return {
 
       init: function () {
+        this.config.set('generatorVersion', this.rootGeneratorVersion());
         this.filters = {};
 
         // init shared generator properies and methods
@@ -43,6 +44,7 @@ export default class Generator extends Base {
 # generator-angular-fullstack. For a more stable version, run
 # \`npm install -g generator-angular-fullstack@^2.0.0\`
 ################################################################`));
+        this.log('You\'re using the Angular Full-Stack Generator, version ' + this.rootGeneratorVersion());
         this.log(this.yoWelcome);
         this.log('Out of the box I create an AngularJS app with an Express server.\n');
       },
