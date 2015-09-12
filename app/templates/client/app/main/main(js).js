@@ -6,7 +6,7 @@ angular.module('<%= scriptAppName %>')
       .when('/', {
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        conterollerAs: 'main'
+        controllerAs: 'main'
       });
   });<% } %><% if (filters.uirouter) { %>.config(function($stateProvider) {
     $stateProvider
@@ -14,6 +14,6 @@ angular.module('<%= scriptAppName %>')
         url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        conterollerAs: 'main'
+        controllerAs: 'main'
       });
   });<% } %>
