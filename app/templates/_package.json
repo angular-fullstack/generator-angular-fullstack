@@ -48,8 +48,7 @@
     "grunt-contrib-imagemin": "^0.9.4",
     "grunt-contrib-jshint": "~0.11.2",
     "grunt-contrib-uglify": "^0.9.1",
-    "grunt-contrib-watch": "~0.6.1",<% if (filters.coffee) { %>
-    "grunt-contrib-coffee": "^0.13.0",<% } %><% if (filters.jade) { %>
+    "grunt-contrib-watch": "~0.6.1",<% if (filters.jade) { %>
     "grunt-contrib-jade": "^0.15.0",<% } %><% if (filters.less) { %>
     "grunt-contrib-less": "^1.0.0",<% } %><% if(filters.babel) { %>
     "karma-babel-preprocessor": "^5.2.1",<% } %>
@@ -99,7 +98,6 @@
     "karma-chrome-launcher": "~0.2.0",
     "requirejs": "~2.1.11",
     "karma-requirejs": "~0.2.2",
-    "karma-coffee-preprocessor": "~0.3.0",
     "karma-jade-preprocessor": "0.0.11",
     "karma-phantomjs-launcher": "~0.2.0",
     "karma": "~0.13.3",

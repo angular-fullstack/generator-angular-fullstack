@@ -106,14 +106,6 @@ module.exports = function (grunt) {
       jade: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.jade'],
         tasks: ['jade']
-      },<% } if (filters.coffee) { %>
-      coffee: {
-        files: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec).{coffee,litcoffee,coffee.md}'],
-        tasks: ['newer:coffee', 'injector:scripts']
-      },
-      coffeeTest: {
-        files: ['<%%= yeoman.client %>/{app,components}/**/*.spec.{coffee,litcoffee,coffee.md}'],
-        tasks: ['karma']
       },<% } %>
       gruntfile: {
         files: ['Gruntfile.js']
@@ -431,16 +423,14 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [<% if(filters.coffee) { %>
-        'coffee',<% } if(filters.babel) { %>
+      server: [<% if(filters.babel) { %>
         'newer:babel:client',<% } if(filters.jade) { %>
         'jade',<% } if(filters.stylus) { %>
         'stylus',<% } if(filters.sass) { %>
         'sass',<% } if(filters.less) { %>
         'less',<% } %>
       ],
-      test: [<% if(filters.coffee) { %>
-        'coffee',<% } if(filters.babel) { %>
+      test: [<% if(filters.babel) { %>
         'newer:babel:client',<% } if(filters.jade) { %>
         'jade',<% } if(filters.stylus) { %>
         'stylus',<% } if(filters.sass) { %>
@@ -456,8 +446,7 @@ module.exports = function (grunt) {
           logConcurrentOutput: true
         }
       },
-      dist: [<% if(filters.coffee) { %>
-        'coffee',<% } if(filters.babel) { %>
+      dist: [<% if(filters.babel) { %>
         'newer:babel:client',<% } if(filters.jade) { %>
         'jade',<% } if(filters.stylus) { %>
         'stylus',<% } if(filters.sass) { %>
@@ -563,23 +552,6 @@ module.exports = function (grunt) {
           src: ['{app,components}/**/*.jade'],
           dest: '.tmp',
           ext: '.html'
-        }]
-      }
-    },<% } if (filters.coffee) { %>
-
-    // Compiles CoffeeScript to JavaScript
-    coffee: {
-      options: {
-        sourceMap: true,
-        sourceRoot: ''
-      },
-      server: {
-        files: [{
-          expand: true,
-          cwd: 'client',
-          src: ['{app,components}/**/!(*.spec).coffee'],
-          dest: '.tmp',
-          ext: '.js'
         }]
       }
     },<% } %>

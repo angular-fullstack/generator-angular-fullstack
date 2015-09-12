@@ -13,7 +13,7 @@
     "registerModelsFile": "server/sqldb/index.js",
     "modelsNeedle": "// Insert models below",
     "filters": {
-      "coffee": true,
+      "babel": true,
       "html": true,
       "less": true,
       "uirouter": true,

@@ -22,11 +22,8 @@ module.exports = function(config) {
       // endbower<% if (filters.socketio) { %>
       'node_modules/socket.io-client/socket.io.js',<% } %>
       'client/app/app.js',
-      'client/app/app.coffee',
       'client/app/**/*.js',
-      'client/app/**/*.coffee',
       'client/components/**/*.js',
-      'client/components/**/*.coffee',
       'client/app/**/*.jade',
       'client/components/**/*.jade',
       'client/app/**/*.html',
@@ -36,8 +33,7 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',<% if(filters.babel) { %>
-      'client/{app,components}/**/*.js': 'babel',<% } %>
-      '**/*.coffee': 'coffee',
+      'client/{app,components}/**/*.js': 'babel'<% } %>
     },
 
     ngHtml2JsPreprocessor: {

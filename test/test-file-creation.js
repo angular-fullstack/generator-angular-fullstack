@@ -136,8 +136,7 @@ describe('angular-fullstack generator', function () {
         html: 'html'
       },
       script: {
-        js: 'js',
-        coffee: 'coffee'
+        js: 'js'
       }
     },
     files = [];
@@ -475,7 +474,6 @@ describe('angular-fullstack generator', function () {
         gen.run(function () {
           assert.file([
             'client/app/main/main.less',
-            'client/app/main/main.coffee',
             'server/auth/google/passport.js'
           ]);
           done();
@@ -508,7 +506,8 @@ describe('angular-fullstack generator', function () {
 
     describe('with other preprocessors and oauth', function() {
       var testOptions = {
-        script: 'coffee',
+        script: 'js',
+        babel: true,
         markup: 'jade',
         stylesheet: 'less',
         router: 'uirouter',
@@ -652,7 +651,8 @@ describe('angular-fullstack generator', function () {
 
     describe('with other preprocessors and no server options', function() {
       var testOptions = {
-        script: 'coffee',
+        script: 'js',
+        babel: true,
         markup: 'jade',
         stylesheet: 'stylus',
         router: 'ngroute',
