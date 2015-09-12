@@ -5,13 +5,15 @@ angular.module('<%= scriptAppName %>')
     $routeProvider
       .when('/', {
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainController',
+        conterollerAs: 'main'
       });
   });<% } %><% if (filters.uirouter) { %>.config(function($stateProvider) {
     $stateProvider
       .state('main', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainController',
+        conterollerAs: 'main'
       });
   });<% } %>
