@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-fullstack",
-  "version": "3.0.0-rc7-patch.0",
+  "version": "3.0.0-rc8",
   "description": "Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node",
   "keywords": [
     "yeoman-generator",
