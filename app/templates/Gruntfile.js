@@ -658,6 +658,13 @@ module.exports = function (grunt) {
             filePath = filePath.replace('/.tmp/', '');
             return '<script src="' + filePath + '"></script>';
           },
+          sort: function(a, b) {
+            var module = /\.module\.js$/;
+            var aMod = module.test(a);
+            var bMod = module.test(b);
+            // inject *.module.js first
+            return (aMod === bMod) ? 0 : (aMod ? -1 : 1);
+          },
           starttag: '<!-- injector:js -->',
           endtag: '<!-- endinjector -->'
         },
