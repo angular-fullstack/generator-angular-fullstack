@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>')
-  .factory('Auth', function Auth($http, User, $cookies, $q) {
+(function() {
+
+  function AuthService($http, User, $cookies, $q) {
     /**
      * Return a callback or noop function
      *
@@ -18,7 +19,7 @@ angular.module('<%= scriptAppName %>')
       currentUser = User.get();
     }
 
-    return {
+    var Auth = {
 
       /**
        * Authenticate user and save token
@@ -42,10 +43,10 @@ angular.module('<%= scriptAppName %>')
           return user;
         })
         .catch(function(err) {
-          this.logout();
+          Auth.logout();
           safeCb(callback)(err.data);
           return $q.reject(err.data);
-        }.bind(this));
+        });
       },
 
       /**
@@ -71,9 +72,9 @@ angular.module('<%= scriptAppName %>')
             return safeCb(callback)(null, user);
           },
           function(err) {
-            this.logout();
+            Auth.logout();
             return safeCb(callback)(err);
-          }.bind(this)).$promise;
+          }).$promise;
       },
 
       /**
@@ -130,7 +131,7 @@ angular.module('<%= scriptAppName %>')
           return currentUser.hasOwnProperty('role');
         }
 
-        return this.getCurrentUser(null)
+        return Auth.getCurrentUser(null)
           .then(function(user) {
             var is = user.hasOwnProperty('role');
             safeCb(callback)(is);
@@ -150,7 +151,7 @@ angular.module('<%= scriptAppName %>')
           return currentUser.role === 'admin';
         }
 
-        return this.getCurrentUser(null)
+        return Auth.getCurrentUser(null)
           .then(function(user) {
             var is = user.role === 'admin';
             safeCb(callback)(is);
@@ -167,4 +168,11 @@ angular.module('<%= scriptAppName %>')
         return $cookies.get('token');
       }
     };
-  });
+
+    return Auth;
+  }
+
+  angular.module('<%= scriptAppName %>')
+    .factory('Auth', AuthService);
+
+})();
