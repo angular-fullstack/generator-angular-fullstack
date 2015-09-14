@@ -17,7 +17,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     buildcontrol: 'grunt-build-control',
-    istanbul_check_coverage: 'grunt-mocha-istanbul'
+    istanbul_check_coverage: 'grunt-mocha-istanbul',
+    ngconstant: 'grunt-ng-constant'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -60,6 +61,10 @@ module.exports = function (grunt) {
         files: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js'],
         tasks: ['newer:babel:client']
       },<% } %>
+      ngconstant: {
+        files: ['<%%= yeoman.server %>/config/environment/shared.js'],
+        tasks: ['ngconstant']
+      },
       injectJS: {
         files: [
           '<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js',
@@ -241,7 +246,7 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app and karma.conf.js
     wiredep: {
       options: {
-        exclude: [ <% if(filters.uibootstrap) { %>
+        exclude: [<% if(filters.uibootstrap) { %>
           /bootstrap.js/,<% } %>
           '/json3/',
           '/es5-shim/'<% if(!filters.css) { %>,
@@ -323,6 +328,25 @@ module.exports = function (grunt) {
           src: '**/*.js',
           dest: '.tmp/concat'
         }]
+      }
+    },
+
+    // Dynamically generate angular constant `appConfig` from
+    // `server/config/environment/shared.js`
+    ngconstant: {
+      options: {
+        name: '<%= scriptAppName %>.constants',
+        dest: '<%%= yeoman.client %>/app/app.constant.js',
+        deps: [],
+        wrap: true,
+        configPath: '<%%= yeoman.server %>/config/environment/shared'
+      },
+      app: {
+        constants: function() {
+          return {
+            appConfig: require('./' + grunt.config.get('ngconstant.options.configPath'))
+          };
+        }
       }
     },
 
@@ -423,6 +447,12 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
+      pre: [<% if (filters.stylus) { %>
+        'injector:stylus',<% } if (filters.less) { %>
+        'injector:less',<% } if (filters.sass) { %>
+        'injector:sass',<% } %>
+        'ngconstant'
+      ],
       server: [<% if(filters.babel) { %>
         'newer:babel:client',<% } if(filters.jade) { %>
         'jade',<% } if(filters.stylus) { %>
@@ -747,10 +777,8 @@ module.exports = function (grunt) {
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
-        'env:all',<% if (filters.stylus) { %>
-        'injector:stylus',<% } if (filters.less) { %>
-        'injector:less',<% } if (filters.sass) { %>
-        'injector:sass',<% } %>
+        'env:all',
+        'concurrent:pre',
         'concurrent:server',
         'injector',
         'wiredep:client',
@@ -761,10 +789,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'env:all',<% if (filters.stylus) { %>
-      'injector:stylus',<% } if (filters.less) { %>
-      'injector:less',<% } if (filters.sass) { %>
-      'injector:sass',<% } %>
+      'env:all',
+      'concurrent:pre',
       'concurrent:server',
       'injector',
       'wiredep:client',
@@ -794,10 +820,8 @@ module.exports = function (grunt) {
     else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
-        'env:all',<% if (filters.stylus) { %>
-        'injector:stylus',<% } if (filters.less) { %>
-        'injector:less',<% } if (filters.sass) { %>
-        'injector:sass',<% } %>
+        'env:all',
+        'concurrent:pre',
         'concurrent:test',
         'injector',
         'postcss',
@@ -822,10 +846,8 @@ module.exports = function (grunt) {
         return grunt.task.run([
           'clean:server',
           'env:all',
-          'env:test',<% if (filters.stylus) { %>
-          'injector:stylus',<% } if (filters.less) { %>
-          'injector:less',<% } if (filters.sass) { %>
-          'injector:sass',<% } %>
+          'env:test',
+          'concurrent:pre',
           'concurrent:test',
           'injector',
           'wiredep:client',
@@ -878,10 +900,8 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', [
-    'clean:dist',<% if (filters.stylus) { %>
-    'injector:stylus',<% } if (filters.less) { %>
-    'injector:less',<% } if (filters.sass) { %>
-    'injector:sass',<% } %>
+    'clean:dist',
+    'concurrent:pre',
     'concurrent:dist',
     'injector',
     'wiredep:client',

@@ -57,6 +57,7 @@
     "grunt-jscs": "^2.0.0",
     "grunt-newer": "^1.1.1",
     "grunt-ng-annotate": "^1.0.1",
+    "grunt-ng-constant": "^1.1.0",
     "grunt-filerev": "^2.3.1",
     "grunt-usemin": "^3.0.0",
     "grunt-env": "~0.4.1",
