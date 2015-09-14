@@ -172,7 +172,7 @@
     return Auth;
   }
 
-  angular.module('<%= scriptAppName %>')
+  angular.module('<%= scriptAppName %>.auth')
     .factory('Auth', AuthService);
 
 })();
