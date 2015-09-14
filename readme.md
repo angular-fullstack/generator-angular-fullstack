@@ -390,6 +390,10 @@ The coverage taget has 3 available options:
 
 * *when no option is given `test:coverage` runs all options in the above order*
 
+**Debugging**
+
+Use `grunt serve:debug` for a more debugging-friendly environment.
+
 ## Environment Variables
 
 Keeping your app secrets and other sensitive information in source control isn't a good idea. To have grunt launch your app with specific environment variables, add them to the git ignored environment config file: `server/config/local.env.js`.
