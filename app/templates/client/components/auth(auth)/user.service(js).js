@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>.auth')
-  .factory('User', function ($resource) {
+(function() {
+
+  function UserResource($resource) {
     return $resource('/api/users/:id/:controller', {
       id: '@_id'
     },
@@ -19,4 +20,9 @@ angular.module('<%= scriptAppName %>.auth')
         }
       }
     });
-  });
+  }
+
+  angular.module('<%= scriptAppName %>.auth')
+    .factory('User', UserResource);
+
+})();
