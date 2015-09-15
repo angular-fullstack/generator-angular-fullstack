@@ -2,7 +2,7 @@
 
 (function() {
 
-  function AuthService($http, $cookies, $q, appConfig, User) {
+  function AuthService($location, $http, $cookies, $q, appConfig, User) {
     /**
      * Return a callback or noop function
      *
@@ -16,7 +16,7 @@
     currentUser = {},
     userRoles = appConfig.userRoles || [];
 
-    if ($cookies.get('token')) {
+    if ($cookies.get('token') && $location.path() !== '/logout') {
       currentUser = User.get();
     }
 
