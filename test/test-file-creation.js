@@ -199,6 +199,7 @@ describe('angular-fullstack generator', function () {
       'server/config/environment/development.js',
       'server/config/environment/production.js',
       'server/config/environment/test.js',
+      'server/config/environment/shared.js',
       'server/views/404.' + markup,
       'e2e/main/main.po.js',
       'e2e/main/main.spec.js',

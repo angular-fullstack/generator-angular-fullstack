@@ -371,6 +371,7 @@ export default class Generator extends Base {
 
       ngModules: function() {
         var angModules = [
+          `'${this.scriptAppName}.constants'`,
           "'ngCookies'",
           "'ngResource'",
           "'ngSanitize'"
