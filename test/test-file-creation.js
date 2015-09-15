@@ -270,6 +270,7 @@ describe('angular-fullstack generator', function () {
         'client/components/auth/auth.module.' + script,
         'client/components/auth/auth.service.' + script,
         'client/components/auth/interceptor.service.' + script,
+        'client/components/auth/router.decorator.' + script,
         'client/components/auth/user.service.' + script,
         'client/components/mongoose-error/mongoose-error.directive.' + script,
         'server/api/user/index.js',
