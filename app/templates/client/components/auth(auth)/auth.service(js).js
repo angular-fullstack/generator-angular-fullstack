@@ -2,19 +2,10 @@
 
 (function() {
 
-function AuthService($location, $http, $cookies, $q, appConfig, User) {
-  /**
-   * Return a callback or noop function
-   *
-   * @param  {Function|*} cb - a 'potential' function
-   * @return {Function}
-   */
-  var safeCb = function(cb) {
-    return (angular.isFunction(cb)) ? cb : angular.noop;
-  },
-
-  currentUser = {},
-  userRoles = appConfig.userRoles || [];
+function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+  var safeCb = Util.safeCb;
+  var currentUser = {};
+  var userRoles = appConfig.userRoles || [];
 
   if ($cookies.get('token') && $location.path() !== '/logout') {
     currentUser = User.get();

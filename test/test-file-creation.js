@@ -182,6 +182,8 @@ describe('angular-fullstack generator', function () {
       'client/components/navbar/navbar.' + markup,
       'client/components/navbar/navbar.controller.' + script,
       'client/components/navbar/navbar.directive.' + script,
+      'client/components/util/util.module.' + script,
+      'client/components/util/util.service.' + script,
       'server/.jshintrc',
       'server/.jshintrc-spec',
       'server/app.js',
