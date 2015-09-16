@@ -2,13 +2,13 @@
 
 (function() {
 
-function authInterceptor($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $injector<% } %>) {
+function authInterceptor($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $injector<% } %>, Util) {
   <% if (filters.uirouter) { %>var state;
   <% } %>return {
     // Add authorization token to headers
     request: function(config) {
       config.headers = config.headers || {};
-      if ($cookies.get('token')) {
+      if ($cookies.get('token') && Util.isSameOrigin(config.url)) {
         config.headers.Authorization = 'Bearer ' + $cookies.get('token');
       }
       return config;
