@@ -5,13 +5,15 @@ angular.module('<%= scriptAppName %>')
     $routeProvider
       .when('/admin', {
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        authenticate: 'admin'
       });
   });<% } %><% if (filters.uirouter) { %>.config(function($stateProvider) {
     $stateProvider
       .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        authenticate: 'admin'
       });
   });<% } %>

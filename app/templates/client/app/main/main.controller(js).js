@@ -1,4 +1,5 @@
 'use strict';
+
 (function() {
 
 function MainController($scope, $http<% if (filters.socketio) { %>, socket<% } %>) {
@@ -8,8 +9,8 @@ function MainController($scope, $http<% if (filters.socketio) { %>, socket<% } %
   $http.get('/api/things').then(function(response) {
     self.awesomeThings = response.data;<% if (filters.socketio) { %>
     socket.syncUpdates('thing', self.awesomeThings);<% } %>
-  });
-<% if (filters.models) { %>
+  });<% if (filters.models) { %>
+
   this.addThing = function() {
     if (self.newThing === '') {
       return;
@@ -20,7 +21,7 @@ function MainController($scope, $http<% if (filters.socketio) { %>, socket<% } %
 
   this.deleteThing = function(thing) {
     $http.delete('/api/things/' + thing._id);
-  };<% } %><% if (filters.socketio) { %>
+  };<% } if (filters.socketio) { %>
 
   $scope.$on('$destroy', function() {
     socket.unsyncUpdates('thing');
