@@ -20,11 +20,8 @@ function authInterceptor($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $
         <% if (filters.ngroute) { %>$location.path('/login');<% } if (filters.uirouter) { %>(state || (state = $injector.get('$state'))).go('login');<% } %>
         // remove any stale tokens
         $cookies.remove('token');
-        return $q.reject(response);
       }
-      else {
-        return $q.reject(response);
-      }
+      return $q.reject(response);
     }
   };
 }
