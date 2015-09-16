@@ -1,13 +1,18 @@
 'use strict';
 
+(function() {
+
+function AdminController(User) {
+  // Use the User $resource to fetch all users
+  var users = this.users = User.query();
+
+  this.delete = function(user) {
+    user.$remove();
+    users.splice(users.indexOf(user), 1);
+  };
+}
+
 angular.module('<%= scriptAppName %>.admin')
-  .controller('AdminCtrl', function($scope, $http, Auth, User) {
+  .controller('AdminController', AdminController);
 
-    // Use the User $resource to fetch all users
-    $scope.users = User.query();
-
-    $scope.delete = function(user) {
-      User.remove({ id: user._id });
-      $scope.users.splice(this.$index, 1);
-    };
-  });
+})();
