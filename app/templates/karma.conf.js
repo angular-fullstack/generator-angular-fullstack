@@ -22,29 +22,25 @@ module.exports = function(config) {
       // endbower<% if (filters.socketio) { %>
       'node_modules/socket.io-client/socket.io.js',<% } %>
       'client/app/app.js',
-      'client/app/**/*.js',
-      'client/components/**/*.js',
-      'client/app/**/*.jade',
-      'client/components/**/*.jade',
-      'client/app/**/*.html',
-      'client/components/**/*.html'
+      'client/{app,components}/**/*.module.js',
+      'client/{app,components}/**/*.js',
+      'client/{app,components}/**/*.<%= filters.jade ? '{jade,html}' : 'html' %>'
     ],
 
     preprocessors: {
-      '**/*.jade': 'ng-jade2js',
-      '**/*.html': 'html2js',<% if(filters.babel) { %>
+      '**/*.html': 'html2js'<% if (filters.jade) { %>,
+      '**/*.jade': 'ng-jade2js'<% } if (filters.babel) { %>,
       'client/{app,components}/**/*.js': 'babel'<% } %>
     },
 
     ngHtml2JsPreprocessor: {
       stripPrefix: 'client/'
-    },
+    },<% if (filters.jade) { %>
 
     ngJade2JsPreprocessor: {
       stripPrefix: 'client/'
-    },
+    },<% } if (filters.babel) { %>
 
-    <% if(filters.babel) { %>
     babelPreprocessor: {
       options: {
         sourceMap: 'inline'
@@ -55,8 +51,7 @@ module.exports = function(config) {
       sourceFileName: function (file) {
         return file.originalPath;
       }
-    },
-    <% } %>
+    },<% } %>
 
     // list of files / patterns to exclude
     exclude: [],
@@ -80,7 +75,6 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
 
-
     // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
@@ -90,7 +84,6 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: ['PhantomJS'],
-
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
