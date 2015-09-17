@@ -2,14 +2,17 @@
 
 (function() {
 
-function AdminController(User) {
-  // Use the User $resource to fetch all users
-  var users = this.users = User.query();
+class AdminController {
 
-  this.delete = function(user) {
+  constructor(User) {
+    // Use the User $resource to fetch all users
+    this.users = User.query();
+  }
+
+  delete(user) {
     user.$remove();
-    users.splice(users.indexOf(user), 1);
-  };
+    this.users.splice(this.users.indexOf(user), 1);
+  }
 }
 
 angular.module('<%= scriptAppName %>.admin')
