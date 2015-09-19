@@ -259,12 +259,12 @@ export default class Generator extends Base {
           type: 'list',
           name: 'buildtool',
           message: 'Would you like to use Gulp (experimental) instead of Grunt?',
-          choices: ['Grunt', 'Gulp', 'Both'],
+          choices: ['Grunt', 'Gulp (experimental)', 'Both'],
           default: 0,
           filter: function(val) {
             return {
               'Grunt': 'grunt',
-              'Gulp': 'gulp',
+              'Gulp (experimental)': 'gulp',
               'Both': 'grunt_and_gulp'
             }[val];
           }
@@ -295,6 +295,16 @@ export default class Generator extends Base {
         }], function (answers) {
           this.filters.grunt = answers.buildtool === 'grunt' || answers.buildtool === 'grunt_and_gulp';
           this.filters.gulp = answers.buildtool === 'gulp' || answers.buildtool === 'grunt_and_gulp';
+
+          if(this.filters.gulp) {
+                    this.log(chalk.red(`
+################################################################
+# NOTE: You have chosen to use the experimental gulp file.
+# This build tool is still in the experimental stage, and most
+# likely still has many bugs and/or missing features.
+# Use at your own risk.
+################################################################`));
+          }
 
           this.filters[answers.testing] = true;
           if (answers.testing === 'mocha') {
