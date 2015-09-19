@@ -83,6 +83,8 @@
     "grunt-mocha-test": "~0.12.7",
     "grunt-mocha-istanbul": "^3.0.1",
     "istanbul": "^0.3.17",
+    "chai": "^3.2.0",
+    "sinon": "^1.16.1",
     "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
     "sinon-chai": "^2.8.0",<% if (filters.mocha) { %>
@@ -100,6 +102,7 @@
     "requirejs": "~2.1.11",
     "karma-requirejs": "~0.2.2",
     "karma-jade-preprocessor": "0.0.11",
+    "phantomjs": "^1.9.18",
     "karma-phantomjs-launcher": "~0.2.0",
     "karma": "~0.13.3",
     "karma-ng-html2js-preprocessor": "~0.1.2",
