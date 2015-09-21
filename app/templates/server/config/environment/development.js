@@ -2,11 +2,14 @@
 
 // Development specific configuration
 // ==================================
-module.exports = {
+module.exports = {<% if (filters.mongoose) { %>
+
   // MongoDB connection options
   mongo: {
     uri: 'mongodb://localhost/<%= lodash.slugify(appname) %>-dev'
-  },
+  },<% } if (filters.sequelize) { %>
+
+  // Sequelize connecton opions
   sequelize: {
     uri: 'sqlite://',
     options: {
@@ -16,7 +19,9 @@ module.exports = {
         timestamps: false
       }
     }
-  },
+  },<% } %>
 
+  // Seed database on startup
   seedDB: true
+
 };
