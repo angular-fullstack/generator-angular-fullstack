@@ -133,40 +133,46 @@ gulp.task('inject', cb => {
 
 gulp.task('inject:js', () => {
     return gulp.src(paths.mainView)
-        .pipe(plugins.inject(gulp.src(_.union(
-            paths.client.scripts,
-            ['!client/**/*.spec.<%= scriptExt %>']
-        ), {read: false}), {
-            starttag: '<!-- injector:js -->',
-            endtag: '<!-- endinjector -->',
-            transform: (filepath) => '<script src="' + filepath.replace('/client/', '') + '"></script>'
-        }))
+        .pipe(plugins.inject(
+            gulp.src(_.union(paths.client.scripts, ['!client/**/*.spec.<%= scriptExt %>']), {read: false})
+                .pipe(plugins.sort())
+            , {
+                starttag: '<!-- injector:js -->',
+                endtag: '<!-- endinjector -->',
+                transform: (filepath) => '<script src="' + filepath.replace('/client/', '') + '"></script>'
+            }))
         .pipe(gulp.dest('client'));
 });
 
 gulp.task('inject:css', () => {
     return gulp.src(paths.mainView)
-        .pipe(plugins.inject(gulp.src('/client/**/*.css', {read: false}), {
-            starttag: '<!-- injector:css -->',
-            endtag: '<!-- endinjector -->',
-            transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace('/client/', '').replace('/.tmp/', '') + '">'
-        }))
+        .pipe(plugins.inject(
+            gulp.src('/client/**/*.css', {read: false})
+                .pipe(plugins.sort())
+            , { 
+                starttag: '<!-- injector:css -->',
+                endtag: '<!-- endinjector -->',
+                transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace('/client/', '').replace('/.tmp/', '') + '">'
+            }))
         .pipe(gulp.dest('client'));
 });
 
 gulp.task('inject:<%= styleExt %>', () => {
     return gulp.src('client/app/app.<%= styleExt %>')
-        .pipe(plugins.inject(gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false}), {
-            starttag: '// injector',
-            endtag: '// endinjector',
-            transform: (filepath) => {
-                let newPath = filepath
-                    .replace('/client/app/', '')
-                    .replace('/client/components/', '../components/')
-                    .replace(/_(.*).<%= styleExt %>/, (match, p1, offset, string) => p1);
-                return '@import \'' + newPath + '\';';
-            }
-        }))
+        .pipe(plugins.inject(
+            gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
+                .pipe(plugins.sort())
+            , {
+                starttag: '// injector',
+                endtag: '// endinjector',
+                transform: (filepath) => {
+                    let newPath = filepath
+                        .replace('/client/app/', '')
+                        .replace('/client/components/', '../components/')
+                        .replace(/_(.*).<%= styleExt %>/, (match, p1, offset, string) => p1);
+                    return '@import \'' + newPath + '\';';
+                }
+            }))
         .pipe(gulp.dest('client/app'));
 });
 
