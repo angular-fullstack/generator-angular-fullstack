@@ -117,7 +117,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      *   (synchronous|asynchronous)
      *
      * @param  {Function|*} callback - optional, function(is)
-     * @return {Bool|Promise}
+     * @return {Boolean|Promise}
      */
     isLoggedIn: function(callback) {
       if (arguments.length === 0) {
@@ -138,7 +138,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
       *
       * @param  {String}     role     - the role to check against
       * @param  {Function|*} callback - optional, function(has)
-      * @return {Bool|Promise}
+      * @return {Boolean|Promise}
       */
     hasRole: function(role, callback) {
       var hasRole = function(r, h) {
@@ -163,7 +163,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
       *   (synchronous|asynchronous)
       *
       * @param  {Function|*} callback - optional, function(is)
-      * @return {Bool|Promise}
+      * @return {Boolean|Promise}
       */
     isAdmin: function() {
       return Auth.hasRole
