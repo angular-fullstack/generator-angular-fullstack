@@ -2,8 +2,7 @@
 
 (function() {
 
-function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
-  var safeCb = Util.safeCb;
+function AuthService($location, $http, $cookies, $q, appConfig, User) {
   var currentUser = {};
   var userRoles = appConfig.userRoles || [];
 
@@ -20,7 +19,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      * @param  {Function} callback - optional, function(error, user)
      * @return {Promise}
      */
-    login: function(user, callback) {
+    login: function(user, callback = angular.noop) {
       return $http.post('/auth/local', {
         email: user.email,
         password: user.password
@@ -31,12 +30,12 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
         return currentUser.$promise;
       })
       .then(function(user) {
-        safeCb(callback)(null, user);
+        callback(null, user);
         return user;
       })
       .catch(function(err) {
         Auth.logout();
-        safeCb(callback)(err.data);
+        callback(err.data);
         return $q.reject(err.data);
       });
     },
@@ -56,16 +55,16 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      * @param  {Function} callback - optional, function(error, user)
      * @return {Promise}
      */
-    createUser: function(user, callback) {
+    createUser: function(user, callback = angular.noop) {
       return User.save(user,
         function(data) {
           $cookies.put('token', data.token);
           currentUser = User.get();
-          return safeCb(callback)(null, user);
+          return callback(null, user);
         },
         function(err) {
           Auth.logout();
-          return safeCb(callback)(err);
+          return callback(err);
         }).$promise;
     },
 
@@ -77,14 +76,14 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      * @param  {Function} callback    - optional, function(error, user)
      * @return {Promise}
      */
-    changePassword: function(oldPassword, newPassword, callback) {
+    changePassword: function(oldPassword, newPassword, callback = angular.noop) {
       return User.changePassword({ id: currentUser._id }, {
         oldPassword: oldPassword,
         newPassword: newPassword
       }, function() {
-        return safeCb(callback)(null);
+        return callback(null);
       }, function(err) {
-        return safeCb(callback)(err);
+        return callback(err);
       }).$promise;
     },
 
@@ -95,7 +94,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      * @param  {Function|*} callback - optional, funciton(user)
      * @return {Object|Promise}
      */
-    getCurrentUser: function(callback) {
+    getCurrentUser: function(callback = angular.noop) {
       if (arguments.length === 0) {
         return currentUser;
       }
@@ -104,10 +103,10 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
         currentUser.$promise : currentUser;
       return $q.when(value)
         .then(function(user) {
-          safeCb(callback)(user);
+          callback(user);
           return user;
         }, function() {
-          safeCb(callback)({});
+          callback({});
           return {};
         });
     },
@@ -119,7 +118,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      * @param  {Function|*} callback - optional, function(is)
      * @return {Boolean|Promise}
      */
-    isLoggedIn: function(callback) {
+    isLoggedIn: function(callback = angular.noop) {
       if (arguments.length === 0) {
         return currentUser.hasOwnProperty('role');
       }
@@ -127,7 +126,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
       return Auth.getCurrentUser(null)
         .then(function(user) {
           var is = user.hasOwnProperty('role');
-          safeCb(callback)(is);
+          callback(is);
           return is;
         });
     },
@@ -140,7 +139,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
       * @param  {Function|*} callback - optional, function(has)
       * @return {Boolean|Promise}
       */
-    hasRole: function(role, callback) {
+    hasRole: function(role, callback = angular.noop) {
       var hasRole = function(r, h) {
         return userRoles.indexOf(r) >= userRoles.indexOf(h);
       };
@@ -153,7 +152,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
         .then(function(user) {
           var has = (user.hasOwnProperty('role')) ?
             hasRole(user.role, role) : false;
-          safeCb(callback)(has);
+          callback(has);
           return has;
         });
     },
