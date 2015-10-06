@@ -1,19 +1,21 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>')
+angular.module('<%= scriptAppName %>.admin')
   <% if (filters.ngroute) { %>.config(function($routeProvider) {
     $routeProvider
       .when('/admin', {
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl',
+        controller: 'AdminController',
+        controllerAs: 'admin',
         authenticate: 'admin'
       });
-  });<% } %><% if (filters.uirouter) { %>.config(function($stateProvider) {
+  });<% } if (filters.uirouter) { %>.config(function($stateProvider) {
     $stateProvider
       .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl',
+        controller: 'AdminController',
+        controllerAs: 'admin',
         authenticate: 'admin'
       });
   });<% } %>

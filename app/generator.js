@@ -375,6 +375,7 @@ export default class Generator extends Base {
         if(this.filters.uirouter) angModules.push("'ui.router'");
         if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
         if(this.filters.auth) {
+          angModules.unshift(`'${this.scriptAppName}.admin'`);
           angModules.unshift(`'${this.scriptAppName}.auth'`);
           angModules.push("'validation.match'");
         }
