@@ -2,10 +2,15 @@ sudo: false
 language: node_js
 node_js:
   - '0.12'
+  - '4.0.0'
 env:
   global:
     - SAUCE_USERNAME=fullstack_ci
     - SAUCE_ACCESS_KEY=1a527ca6-4aa5-4618-86ce-0278bf158cbf
+matrix:
+  fast_finish: true
+  allow_failures:
+    - node_js: 4.0.0
 before_install:
   - ./scripts/sauce_connect_setup.sh
   - gem update --system
