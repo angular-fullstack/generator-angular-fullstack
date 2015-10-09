@@ -132,7 +132,7 @@ gulp.task('inject', cb => {
 });
 
 gulp.task('inject:js', () => {
-    return gulp.src(paths.mainView)
+    return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
             gulp.src(_.union(paths.client.scripts, ['!client/**/*.spec.<%= scriptExt %>']), {read: false})
                 .pipe(plugins.sort())
@@ -145,7 +145,7 @@ gulp.task('inject:js', () => {
 });
 
 gulp.task('inject:css', () => {
-    return gulp.src(paths.mainView)
+    return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
             gulp.src('/client/**/*.css', {read: false})
                 .pipe(plugins.sort())
@@ -314,7 +314,7 @@ gulp.task('test:client', () => {
 
 // inject bower components
 gulp.task('wiredep:client', () => {
-    return gulp.src(paths.mainView)
+    return gulp.src(paths.client.mainView)
         .pipe(wiredep({
             exclude: [
                 /bootstrap-sass-official/,
@@ -389,7 +389,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
                 .pipe(plugins.uglify())
             .pipe(jsFilter.restore())
             .pipe(cssFilter)
-                .pipe(plugins.minifyCss({cache: true, , processImportFrom: ['!fonts.googleapis.com']}}))
+                .pipe(plugins.minifyCss({cache: true, processImportFrom: ['!fonts.googleapis.com']}))
             .pipe(cssFilter.restore())
             .pipe(plugins.rev())
         .pipe(assets.restore())
