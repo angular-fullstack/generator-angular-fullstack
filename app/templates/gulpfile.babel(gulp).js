@@ -389,7 +389,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
                 .pipe(plugins.uglify())
             .pipe(jsFilter.restore())
             .pipe(cssFilter)
-                .pipe(plugins.minifyCss({cache: true, , processImportFrom: ['!fonts.googleapis.com']}}))
+                .pipe(plugins.minifyCss({cache: true, processImportFrom: ['!fonts.googleapis.com']}))
             .pipe(cssFilter.restore())
             .pipe(plugins.rev())
         .pipe(assets.restore())
