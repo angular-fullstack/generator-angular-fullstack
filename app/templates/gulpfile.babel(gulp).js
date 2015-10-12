@@ -377,9 +377,8 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
 
     let assets = plugins.useref.assets({searchPath: ['client', '.tmp']});
 
-    return gulp.src(paths.mainView)<% if(filters.jade) { %>
-        .pipe(plugins.jade({pretty: true}))<% } %>
-        .pipe(assets)
+    return gulp.src(paths.mainView)
+            .pipe(assets)
             .pipe(appFilter)
                 .pipe(plugins.addSrc.append('.tmp/templates.js'))
                 .pipe(plugins.concat('app/app.js'))
@@ -394,8 +393,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
             .pipe(plugins.rev())
         .pipe(assets.restore())
         .pipe(plugins.revReplace())
-        .pipe(plugins.useref())<% if(filters.jade) { %>
-        .pipe(assetsFilter)<% } %>
+        .pipe(plugins.useref())
         .pipe(gulp.dest(paths.dist + '/client'));
 });
 
