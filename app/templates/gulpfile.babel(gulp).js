@@ -258,7 +258,8 @@ gulp.task('watch', () => {
 });
 
 gulp.task('serve', cb => {
-    runSequence(['clean:tmp', 'lint:scripts', 'inject'],
+    runSequence(['clean:tmp', 'constant'],
+        ['lint:scripts', 'inject'],
         ['wiredep:client'],<% if(filters.babel || filters.coffee) { %>
         ['transpile:client', 'styles'],<% } else { %>
         'styles',<% } %>
@@ -405,6 +406,20 @@ gulp.task('html', function () {
         }))
         .pipe(gulp.dest('.tmp'));
 });
+
+gulp.task('constant', function() {
+  var config = require('./server/config/environment/shared');
+  plugins.ngConstant({
+    name: 'tempApp.constants',
+    deps: [],
+    wrap: true,
+    stream: true,
+    constants: config,
+  }).pipe(plugins.rename({
+      basename: 'app.constant',
+    }))
+    .pipe(gulp.dest('client/app/'))
+})
 
 gulp.task('build:images', () => {
     return gulp.src('client/assets/images/**/*')
