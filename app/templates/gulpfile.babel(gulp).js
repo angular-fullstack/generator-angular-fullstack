@@ -258,7 +258,8 @@ gulp.task('watch', () => {
 });
 
 gulp.task('serve', cb => {
-    runSequence(['clean:tmp', 'lint:scripts', 'inject', 'wiredep:client'],<% if(filters.babel || filters.coffee) { %>
+    runSequence(['clean:tmp', 'lint:scripts', 'inject'],
+        ['wiredep:client'],<% if(filters.babel || filters.coffee) { %>
         ['transpile:client', 'styles'],<% } else { %>
         'styles',<% } %>
         ['start:server', 'start:client'],
