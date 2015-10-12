@@ -28,7 +28,7 @@ const paths = {
         styles: ['client/{app,components}/**/*.<%= styleExt %>'],
         mainStyle: 'client/app/app.<%= styleExt %>',
         views: 'client/{app,components}/**/*.<%= templateExt %>',
-        mainView: 'client/index.<%= templateExt %>',
+        mainView: 'client/index.html',
         test: ['client/**/*.spec.<%= scriptExt %>'],
         testRequire: [
             'client/bower_components/angular/angular.js',
