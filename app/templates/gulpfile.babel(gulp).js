@@ -259,7 +259,7 @@ gulp.task('watch', () => {
 
 gulp.task('serve', cb => {
     runSequence(['clean:tmp', 'constant'],
-        ['lint:scripts', 'inject'],
+        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],<% if(filters.babel || filters.coffee) { %>
         ['transpile:client', 'styles'],<% } else { %>
         'styles',<% } %>
@@ -405,16 +405,21 @@ gulp.task('html', function () {
             module: '<%= scriptAppName %>'
         }))
         .pipe(gulp.dest('.tmp'));
-});
+});<% if (filters.jade) { %>
+gulp.task('jade', function() {
+  gulp.src(paths.client.views)
+    .pipe(plugins.jade())
+    .pipe(gulp.dest('.tmp'));
+});<% } %>
 
 gulp.task('constant', function() {
   var config = require('./server/config/environment/shared');
   plugins.ngConstant({
-    name: 'tempApp.constants',
+    name: '<%= scriptAppName %>.constants',
     deps: [],
     wrap: true,
     stream: true,
-    constants: config,
+    constants: { appConfig: config },
   }).pipe(plugins.rename({
       basename: 'app.constant',
     }))
