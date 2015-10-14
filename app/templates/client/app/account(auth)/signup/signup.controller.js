@@ -1,42 +1,50 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>')
-  .controller('SignupCtrl', function($scope, Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
-    $scope.user = {};
-    $scope.errors = {};
+class SignupController {
+  user = {};
+  errors = {};
+  submitted = false;
 
-    $scope.register = function(form) {
-      $scope.submitted = true;
+  constructor(Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
+    this.Auth = Auth;<% if (filters.ngroute) { %>
+    this.$location = $location;<% } if (filters.uirouter) { %>
+    this.$state = $state;<% } %>
+  }
 
-      if (form.$valid) {
-        Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then(function() {
-          // Account created, redirect to home
-          <% if (filters.ngroute) { %>$location.path('/');<% } %><% if (filters.uirouter) { %>$state.go('main');<% } %>
-        })
-        .catch(function(err) {
-          err = err.data;
-          $scope.errors = {};
+  register(form) {
+    this.submitted = true;
+
+    if (form.$valid) {
+      this.Auth.createUser({
+        name: this.user.name,
+        email: this.user.email,
+        password: this.user.password
+      })
+      .then(() => {
+        // Account created, redirect to home
+        <% if (filters.ngroute) { %>this.$location.path('/');<% } %><% if (filters.uirouter) { %>this.$state.go('main');<% } %>
+      })
+      .catch(err => {
+        err = err.data;
+        this.errors = {};
 <% if (filters.mongooseModels) { %>
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
+        // Update validity of form fields that match the mongoose errors
+        angular.forEach(err.errors, (error, field) => {
+          form[field].$setValidity('mongoose', false);
+          this.errors[field] = error.message;
+        });<% }
+if (filters.sequelizeModels) { %>
+        // Update validity of form fields that match the sequelize errors
+        if (err.name) {
+          angular.forEach(err.fields, field => {
             form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
-          });<% }
-  if (filters.sequelizeModels) { %>
-          // Update validity of form fields that match the sequelize errors
-          if (err.name) {
-            angular.forEach(err.fields, function(field) {
-              form[field].$setValidity('mongoose', false);
-              $scope.errors[field] = err.message;
-            });
-          }<% } %>
-        });
-      }
-    };
+            this.errors[field] = err.message;
+          });
+        }<% } %>
+      });
+    }
+  }
+}
 
-  });
+angular.module('<%= scriptAppName %>')
+  .controller('SignupController', SignupController);
