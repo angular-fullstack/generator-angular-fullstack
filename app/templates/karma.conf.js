@@ -43,7 +43,10 @@ module.exports = function(config) {
 
     babelPreprocessor: {
       options: {
-        sourceMap: 'inline'
+        sourceMap: 'inline',
+        optional: [
+          'es7.classProperties'
+        ]
       },
       filename: function (file) {
         return file.originalPath.replace(/\.js$/, '.es5.js');
