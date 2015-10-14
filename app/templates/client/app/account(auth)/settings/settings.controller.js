@@ -1,8 +1,10 @@
 'use strict';
 
 class SettingsController {
+  //start-non-standard
   errors = {};
   submitted = false;
+  //end-non-standard
 
   constructor(Auth) {
     this.Auth = Auth;

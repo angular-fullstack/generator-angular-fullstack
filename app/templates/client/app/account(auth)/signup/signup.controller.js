@@ -1,9 +1,11 @@
 'use strict';
 
 class SignupController {
+  //start-non-standard
   user = {};
   errors = {};
   submitted = false;
+  //end-non-standard
 
   constructor(Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
     this.Auth = Auth;<% if (filters.ngroute) { %>
