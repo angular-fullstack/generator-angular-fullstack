@@ -128,7 +128,7 @@ let transpile = lazypipe()
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:js', 'inject:css', 'inject:<%= styleExt %>'], cb);
+    runSequence('inject:js', 'inject:css'<% if(!filters.css) { %>, 'inject:<%= styleExt %>' <% } %>, cb);
 });
 
 gulp.task('inject:js', () => {
@@ -147,15 +147,15 @@ gulp.task('inject:js', () => {
 gulp.task('inject:css', () => {
     return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
-            gulp.src('/client/**/*.css', {read: false})
+            gulp.src('client/**/*.css', {read: false})
                 .pipe(plugins.sort())
-            , { 
+            , {
                 starttag: '<!-- injector:css -->',
                 endtag: '<!-- endinjector -->',
                 transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace('/client/', '').replace('/.tmp/', '') + '">'
             }))
         .pipe(gulp.dest('client'));
-});
+});<% if (!filters.css) { %>
 
 gulp.task('inject:<%= styleExt %>', () => {
     return gulp.src('client/app/app.<%= styleExt %>')
@@ -175,7 +175,7 @@ gulp.task('inject:<%= styleExt %>', () => {
                 }
             }))
         .pipe(gulp.dest('client/app'));
-});
+});<% } %>
 
 gulp.task('styles', () => {
     return gulp.src(paths.client.mainStyle)
@@ -316,19 +316,20 @@ gulp.task('test:client', () => {
 
 // inject bower components
 gulp.task('wiredep:client', () => {
-    return gulp.src(paths.client.mainView)
-        .pipe(wiredep({
-            exclude: [
-                /bootstrap-sass-official/,
-                /bootstrap.js/,
-                '/json3/',
-                '/es5-shim/',
-                /bootstrap.css/,
-                /font-awesome.css/
-            ],
+  return gulp.src(paths.client.mainView)
+  .pipe(wiredep({
+    exclude: [<% if(filters.uibootstrap) { %>
+      /bootstrap.js/,<% } %>
+      '/json3/',
+      '/es5-shim/'<% if(!filters.css) { %>,
+      /font-awesome\.css/<% if(filters.bootstrap) { %>,
+      /bootstrap\.css/<% if(filters.sass) { %>,
+      /bootstrap-sass-official/<% } if(filters.oauth) { %>,
+      /bootstrap-social\.css/<% }}} %>
+    ],
             ignorePath: paths.appPath
-        }))
-        .pipe(gulp.dest('client/'));
+  }))
+  .pipe(gulp.dest('client/'));
 });
 
 gulp.task('wiredep:test', () => {
