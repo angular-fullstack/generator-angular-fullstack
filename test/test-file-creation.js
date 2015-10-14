@@ -212,7 +212,7 @@ describe('angular-fullstack generator', function () {
       '.gitattributes',
       '.gitignore',
       '.travis.yml',
-      '.jscs.json',
+      '.jscsrc',
       '.yo-rc.json',
       'Gruntfile.js',
       'package.json',
