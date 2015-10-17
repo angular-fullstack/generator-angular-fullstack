@@ -12,8 +12,6 @@
 
 ## Example project
 
-Generated with defaults: http://fullstack-demo.herokuapp.com/.
-
 Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
