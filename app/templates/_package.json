@@ -55,7 +55,7 @@
     "karma-babel-preprocessor": "^5.2.1",<% } %>
     "grunt-babel": "~5.0.0",
     "grunt-google-cdn": "~0.4.0",
-    "grunt-jscs": "^2.0.0",
+    "grunt-jscs": "^2.1.0",
     "grunt-newer": "^1.1.1",
     "grunt-ng-annotate": "^1.0.1",
     "grunt-ng-constant": "^1.1.0",
