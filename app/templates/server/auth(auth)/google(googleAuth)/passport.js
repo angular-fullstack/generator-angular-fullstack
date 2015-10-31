@@ -23,9 +23,8 @@ exports.setup = function(User, config) {
             provider: 'google',
             google: profile._json
           });
-          <% if (filters.mongooseModels) { %>user.saveAsync()<% }
-             if (filters.sequelizeModels) { %>user.save()<% } %>
-            .then(function(user) {
+          <% if (filters.mongooseModels) { %>user.saveAsync().spread(function(user) {<% }
+             if (filters.sequelizeModels) { %>user.save().then(function(user) {<% } %>
               return done(null, user);
             })
             .catch(function(err) {
