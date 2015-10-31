@@ -39,19 +39,34 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 ## Supported Configurations
 
+**General**
+
+* Build Systems: `Grunt`, `Gulp` (Coming Soon)
+* Testing: 
+  * `Jasmine`
+  * `Mocha + Chai + Sinon`
+    * Chai assertions:
+      * `Expect`
+      * `Should`
+
 **Client**
 
-* Scripts: `JavaScript`, `Babel`
+* Scripts: `Babel`, `TypeScript` (Coming Soon)
 * Markup:  `HTML`, `Jade`
-* Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`,
+* Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
+* CSS Frameworks: `Bootstrap`
+  * Option to include `UI Bootstrap`
 
 **Server**
 
-* Database: `None`, `MongoDB`
-* Authentication boilerplate: `Yes`, `No`
-* oAuth integrations: `Facebook` `Twitter` `Google`
-* Socket.io integration: `Yes`, `No`
+* Scripts: `Babel`
+* Database:
+  * `None`,
+  * `MongoDB`, `SQL`
+    * Authentication boilerplate: `Yes`, `No`
+    * oAuth integrations: `Facebook` `Twitter` `Google`
+    * Socket.io integration: `Yes`, `No`
 
 ## Injection
 
