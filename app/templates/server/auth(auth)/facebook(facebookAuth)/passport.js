@@ -21,7 +21,7 @@ exports.setup = function(User, config) {
           <% if (filters.mongooseModels) { %>user = new User({<% }
              if (filters.sequelizeModels) { %>user = User.build({<% } %>
             name: profile.displayName,
-            email: profile.emails[0].value,
+            email: (profile.emails) ? profile.emails[0].value : '',
             role: 'user',
             provider: 'facebook',
             facebook: profile._json
