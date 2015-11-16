@@ -589,7 +589,8 @@ module.exports = function (grunt) {
     // Compiles ES6 to JavaScript using Babel
     babel: {
       options: {
-        sourceMap: true
+        sourceMap: true,
+        presets: ['es2015', 'stage-0']
       },<% if(filters.babel) { %>
       client: {
         files: [{
@@ -601,7 +602,7 @@ module.exports = function (grunt) {
       },<% } %>
       server: {
         options: {
-          optional: ['runtime']
+          plugins: ['transform-runtime']
         },
         files: [{
           expand: true,
