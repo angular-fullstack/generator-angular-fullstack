@@ -27,9 +27,9 @@
     "express-jwt": "^3.0.0",
     "passport": "~0.3.0",
     "passport-local": "^1.0.0",<% } %><% if (filters.facebookAuth) { %>
-    "passport-facebook": "latest",<% } %><% if (filters.twitterAuth) { %>
-    "passport-twitter": "latest",<% } %><% if (filters.googleAuth) { %>
-    "passport-google-oauth": "latest",<% } %><% if (filters.socketio) { %>
+    "passport-facebook": "^2.0.0",<% } %><% if (filters.twitterAuth) { %>
+    "passport-twitter": "^1.0.3",<% } %><% if (filters.googleAuth) { %>
+    "passport-google-oauth": "~0.2.0",<% } %><% if (filters.socketio) { %>
     "socket.io": "^1.3.5",
     "socket.io-client": "^1.3.5",
     "socketio-jwt": "^4.2.0",<% } %>
@@ -71,7 +71,7 @@
     "grunt-karma": "~0.12.0",
     "grunt-build-control": "^0.6.0",<% if(filters.sass) { %>
     "grunt-contrib-sass": "^0.9.0",<% } %><% if(filters.stylus) { %>
-    "grunt-contrib-stylus": "latest",<% } %>
+    "grunt-contrib-stylus": "~0.22.0",<% } %>
     "jit-grunt": "^0.9.1",
     "time-grunt": "^1.2.1",
     "grunt-express-server": "^0.5.1",
