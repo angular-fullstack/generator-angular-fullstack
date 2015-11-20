@@ -9,8 +9,9 @@ describe('Signup View', function() {
 
   var loadPage = function() {
     browser.manage().deleteAllCookies()
-    browser.get(config.baseUrl + '/signup');
+    let promise = browser.get(config.baseUrl + '/signup');
     page = require('./signup.po');
+    return promise;
   };
 
   var testUser = {

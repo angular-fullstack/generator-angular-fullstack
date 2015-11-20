@@ -22,7 +22,7 @@ var SignupPage = function() {
       }
     }
 
-    form.submit.click();
+    return form.submit.click();
   };
 };
 
