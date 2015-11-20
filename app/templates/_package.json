@@ -66,7 +66,7 @@
     "grunt-nodemon": "^0.4.0",
     "grunt-angular-templates": "^0.5.4",
     "grunt-dom-munger": "^3.4.0",
-    "grunt-protractor-runner": "^2.0.0",
+    "grunt-protractor-runner": "https://github.com/StoutLLC/grunt-protractor-runner",
     "grunt-injector": "^0.6.0",
     "grunt-karma": "~0.12.0",
     "grunt-build-control": "^0.6.0",<% if(filters.sass) { %>
