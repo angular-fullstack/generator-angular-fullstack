@@ -1,3 +1,25 @@
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/2.1.1...3.0.0) (2015-12-06)
+
+# 3.0.0
+
+### New Features
+
+ * **Sequelize** - You can now choose between MongoDB + Mongoose or SQLite3 + Sequelize
+ * **Babel** - We now include Babel transpiler support, with plans to add TypeScript in the future
+ * **Lusca** - Lusca Security Middleware is included by default
+ * **Angular Modules** - A few components of the front-end have been broken out into their own Angular modules, such as `auth`, `admin`, and a new `util` module
+ * **Modern Angular Best-Practices** - We have moved a lot of the code to take advantage of the `controllerAs` syntax, as well as ES6/ES7 Classes
+ * Mongoose Bluebird Promises
+
+### Breaking Changes
+
+ * **Node >= 4.2.2** - We now support versions of Node 4.2.2 and up. Since this is a generator for scaffolding out a new project, it makes sense to move support to the 4.2.2 Long Term Support (LTS) version of Node, since it is the most supported release by Node. It is likely that the generator will work with earlier versions of Node, but it is not recommended.
+ * **~~CoffeeScript~~, ~~Vanilla JS~~** - Removed CoffeeScript and vanilla JS support. CoffeeScript has served its purpose and been replaced by much better transpilers. Vanilla JS doesn't provide a lot of the features that enable good, modern code. We now only support Babel 5.8.x, and plan to add TypeScript support in the future.
+ * Removed some backwards-compatibility support code
+
+To see the full list of changes, click the '3.0.0' title to view the GitHub compare between 3.0.0 and 2.1.1
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/2.1.0...2.1.1) (2015-07-29)
 
