@@ -28,7 +28,7 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      '**/*.html': 'html2js'<% if (filters.jade) { %>,
+      '**/*.html': 'ng-html2js'<% if (filters.jade) { %>,
       '**/*.jade': 'ng-jade2js'<% } if (filters.babel) { %>,
       'client/{app,components}/**/*.js': 'babel'<% } %>
     },
