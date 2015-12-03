@@ -8,8 +8,9 @@ describe('Login View', function() {
   var page;
 
   var loadPage = function() {
-    browser.get(config.baseUrl + '/login');
+    let promise = browser.get(config.baseUrl + '/login');
     page = require('./login.po');
+    return promise;
   };
 
   var testUser = {
