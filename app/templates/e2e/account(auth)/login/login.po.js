@@ -7,8 +7,8 @@
 
 var LoginPage = function() {
   var form = this.form = element(by.css('.form'));
-  form.email = form.element(by.model('user.email'));
-  form.password = form.element(by.model('user.password'));
+  form.email = form.element(by.model('vm.user.email'));
+  form.password = form.element(by.model('vm.user.password'));
   form.submit = form.element(by.css('.btn-login'));<% if (filters.oauth) { %>
   form.oauthButtons = require('../../components/oauth-buttons/oauth-buttons.po').oauthButtons;<% } %>
 

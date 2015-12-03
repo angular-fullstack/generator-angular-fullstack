@@ -16,6 +16,9 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "ignoreDelimiters": [
+    { "start": "start-non-standard", "end": "end-non-standard" }
+  ],
   "globals": {
     "jQuery": true,
     "angular": true,

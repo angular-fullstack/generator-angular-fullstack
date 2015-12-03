@@ -1,21 +1,31 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>')
-  .controller('SettingsCtrl', function($scope, User, Auth) {
-    $scope.errors = {};
+class SettingsController {
+  //start-non-standard
+  errors = {};
+  submitted = false;
+  //end-non-standard
 
-    $scope.changePassword = function(form) {
-      $scope.submitted = true;
-      if (form.$valid) {
-        Auth.changePassword($scope.user.oldPassword, $scope.user.newPassword)
-          .then(function() {
-            $scope.message = 'Password successfully changed.';
-          })
-          .catch(function() {
-            form.password.$setValidity('mongoose', false);
-            $scope.errors.other = 'Incorrect password';
-            $scope.message = '';
-          });
-      }
-    };
-  });
+  constructor(Auth) {
+    this.Auth = Auth;
+  }
+
+  changePassword(form) {
+    this.submitted = true;
+
+    if (form.$valid) {
+      this.Auth.changePassword(this.user.oldPassword, this.user.newPassword)
+        .then(() => {
+          this.message = 'Password successfully changed.';
+        })
+        .catch(() => {
+          form.password.$setValidity('mongoose', false);
+          this.errors.other = 'Incorrect password';
+          this.message = '';
+        });
+    }
+  }
+}
+
+angular.module('<%= scriptAppName %>')
+  .controller('SettingsController', SettingsController);

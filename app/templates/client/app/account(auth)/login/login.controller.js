@@ -1,26 +1,36 @@
 'use strict';
 
+class LoginController {
+  //start-non-standard
+  user = {};
+  errors = {};
+  submitted = false;
+  //end-non-standard
+
+  constructor(Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
+    this.Auth = Auth;<% if (filters.ngroute) { %>
+    this.$location = $location;<% } if (filters.uirouter) { %>
+    this.$state = $state;<% } %>
+  }
+
+  login(form) {
+    this.submitted = true;
+
+    if (form.$valid) {
+      this.Auth.login({
+        email: this.user.email,
+        password: this.user.password
+      })
+      .then(() => {
+        // Logged in, redirect to home
+        <% if (filters.ngroute) { %>this.$location.path('/');<% } %><% if (filters.uirouter) { %>this.$state.go('main');<% } %>
+      })
+      .catch(err => {
+        this.errors.other = err.message;
+      });
+    }
+  }
+}
+
 angular.module('<%= scriptAppName %>')
-  .controller('LoginCtrl', function($scope, Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
-    $scope.user = {};
-    $scope.errors = {};
-
-    $scope.login = function(form) {
-      $scope.submitted = true;
-
-      if (form.$valid) {
-        Auth.login({
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then(function() {
-          // Logged in, redirect to home
-          <% if (filters.ngroute) { %>$location.path('/');<% } %><% if (filters.uirouter) { %>$state.go('main');<% } %>
-        })
-        .catch(function(err) {
-          $scope.errors.other = err.message;
-        });
-      }
-    };
-
-  });
+  .controller('LoginController', LoginController);

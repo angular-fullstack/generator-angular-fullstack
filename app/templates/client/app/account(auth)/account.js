@@ -5,7 +5,8 @@ angular.module('<%= scriptAppName %>')
     $routeProvider
       .when('/login', {
         templateUrl: 'app/account/login/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginController',
+        controllerAs: 'vm'
       })
       .when('/logout', {
         name: 'logout',
@@ -21,11 +22,13 @@ angular.module('<%= scriptAppName %>')
       })
       .when('/signup', {
         templateUrl: 'app/account/signup/signup.html',
-        controller: 'SignupCtrl'
+        controller: 'SignupController',
+        controllerAs: 'vm'
       })
       .when('/settings', {
         templateUrl: 'app/account/settings/settings.html',
-        controller: 'SettingsCtrl',
+        controller: 'SettingsController',
+        controllerAs: 'vm',
         authenticate: true
       });
   })
@@ -40,7 +43,8 @@ angular.module('<%= scriptAppName %>')
       .state('login', {
         url: '/login',
         templateUrl: 'app/account/login/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginController',
+        controllerAs: 'vm'
       })
       .state('logout', {
         url: '/logout?referrer',
@@ -57,12 +61,14 @@ angular.module('<%= scriptAppName %>')
       .state('signup', {
         url: '/signup',
         templateUrl: 'app/account/signup/signup.html',
-        controller: 'SignupCtrl'
+        controller: 'SignupController',
+        controllerAs: 'vm'
       })
       .state('settings', {
         url: '/settings',
         templateUrl: 'app/account/settings/settings.html',
-        controller: 'SettingsCtrl',
+        controller: 'SettingsController',
+        controllerAs: 'vm',
         authenticate: true
       });
   })
