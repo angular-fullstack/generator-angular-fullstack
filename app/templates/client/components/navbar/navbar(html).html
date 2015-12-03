@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-static-top" ng-controller="NavbarController">
   <div class="container">
     <div class="navbar-header">
-      <button class="navbar-toggle" type="button" ng-click="vm.isCollapsed = !vm.isCollapsed">
+      <button class="navbar-toggle" type="button" ng-click="nav.isCollapsed = !nav.isCollapsed">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -9,20 +9,20 @@
       </button>
       <a href="/" class="navbar-brand"><%= lodash.slugify(lodash.humanize(appname)) %></a>
     </div>
-    <div collapse="vm.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+    <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in vm.menu" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: vm.isActive(item.link)}"<% } %>>
+        <li ng-repeat="item in nav.menu" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: nav.isActive(item.link)}"<% } %>>
             <a <% if (filters.uirouter) { %>ui-sref="{{item.state}}"<% } else { %>ng-href="{{item.link}}"<% } %>>{{item.title}}</a>
         </li><% if (filters.auth) { %>
-        <li ng-show="vm.isAdmin()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: vm.isActive('/admin')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="admin"<% } else { %>href="/admin"<% } %>>Admin</a></li><% } %>
+        <li ng-show="nav.isAdmin()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: nav.isActive('/admin')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="admin"<% } else { %>href="/admin"<% } %>>Admin</a></li><% } %>
       </ul><% if (filters.auth) { %>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="vm.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: vm.isActive('/signup')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>Sign up</a></li>
-        <li ng-hide="vm.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: vm.isActive('/login')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="login"<% } else { %>href="/login"<% } %>>Login</a></li>
-        <li ng-show="vm.isLoggedIn()"><p class="navbar-text">Hello {{ vm.getCurrentUser().name }}</p> </li>
-        <li ng-show="vm.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: vm.isActive('/settings')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="settings"<% } else { %>href="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="vm.isLoggedIn()"><a <% if (filters.uirouter) { %>ui-sref="logout"<% } else { %>href="/logout"<% } %>>Logout</a></li>
+        <li ng-hide="nav.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: nav.isActive('/signup')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>Sign up</a></li>
+        <li ng-hide="nav.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: nav.isActive('/login')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="login"<% } else { %>href="/login"<% } %>>Login</a></li>
+        <li ng-show="nav.isLoggedIn()"><p class="navbar-text">Hello {{ nav.getCurrentUser().name }}</p> </li>
+        <li ng-show="nav.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: nav.isActive('/settings')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="settings"<% } else { %>href="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li ng-show="nav.isLoggedIn()"><a <% if (filters.uirouter) { %>ui-sref="logout"<% } else { %>href="/logout"<% } %>>Logout</a></li>
       </ul><% } %>
     </div>
   </div>
