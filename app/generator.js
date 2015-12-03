@@ -38,13 +38,6 @@ export default class Generator extends Base {
       },
 
       info: function () {
-        this.log(chalk.red(`
-################################################################
-# NOTE: You are using a pre-release version of
-# generator-angular-fullstack. For a more stable version, run
-# \`npm install -g generator-angular-fullstack@^2.0.0\`
-################################################################`));
-        this.log('You\'re using the Angular Full-Stack Generator, version ' + this.rootGeneratorVersion());
         this.log(this.yoWelcome);
         this.log('Out of the box I create an AngularJS app with an Express server.\n');
       },

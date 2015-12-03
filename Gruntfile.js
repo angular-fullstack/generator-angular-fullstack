@@ -40,7 +40,6 @@ module.exports = function (grunt) {
     },
     release: {
       options: {
-        bump: false, // remove after 3.0.0 release
         commitMessage: '<%= version %>',
         tagName: '<%= version %>',
         file: 'package.json',
