@@ -62,7 +62,7 @@
     "yeoman-assert": "^2.0.0"
   },
   "engines": {
-    "node": "^4.2.2",
+    "node": "^4.2.3",
     "npm": "^2.14.7"
   },
   "license": "BSD-2-Clause"

@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-  - 4.2.2
+  - 4.2.3
 env:
   global:
     - SAUCE_USERNAME=fullstack_ci
@@ -9,7 +9,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-    - node_js: 5.0.0
+    - node_js: 5.1.1
 before_install:
   - ./scripts/sauce_connect_setup.sh
   - gem update --system
