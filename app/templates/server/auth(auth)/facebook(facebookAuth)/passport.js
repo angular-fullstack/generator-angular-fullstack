@@ -17,11 +17,17 @@ exports.setup = function(User, config) {
       'facebook.id': profile.id
     })
       .then(function(user) {
+        var email;
         if (!user) {
+          if(typeof profile.emails == undefined) {
+            email = "";
+          } else {
+            email = profile.emails[0].value
+          }
           <% if (filters.mongooseModels) { %>user = new User({<% }
              if (filters.sequelizeModels) { %>user = User.build({<% } %>
             name: profile.displayName,
-            email: profile.emails[0].value,
+            email: email,
             role: 'user',
             provider: 'facebook',
             facebook: profile._json
