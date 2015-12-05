@@ -1,3 +1,19 @@
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.1...3.0.2) (2015-12-05)
+
+
+### Bug Fixes
+
+* **api:user:** remove `password` before sending user objects instead of `hashedPassword` ([c08bd95](https://github.com/DaftMonk/generator-angular-fullstack/commit/c08bd95)), closes [#1459](https://github.com/DaftMonk/generator-angular-fullstack/issues/1459)
+* **client:auth:** remove decorator logic ([3229acd](https://github.com/DaftMonk/generator-angular-fullstack/commit/3229acd)), closes [#1455](https://github.com/DaftMonk/generator-angular-fullstack/issues/1455)
+
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.0...3.0.1) (2015-12-04)
+
+
+This version just changes the recommended Node version to ^4.2.3, since it fixes some vulnerabilities. Also, the Travis-CI config has been changed to loosely test Node 5.1.1 instead of 5.0.0.
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/2.1.1...3.0.0) (2015-12-06)
 
