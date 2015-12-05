@@ -17,8 +17,6 @@ This version just changes the recommended Node version to ^4.2.3, since it fixes
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/2.1.1...3.0.0) (2015-12-06)
 
-# 3.0.0
-
 ### New Features
 
  * **Sequelize** - You can now choose between MongoDB + Mongoose or SQLite3 + Sequelize
