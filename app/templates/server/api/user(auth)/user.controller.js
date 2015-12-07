@@ -63,7 +63,7 @@ exports.create = function(req, res, next) {
     <% if (filters.mongooseModels) { %>.spread(function(user) {<% }
        if (filters.sequelizeModels) { %>.then(function(user) {<% } %>
       var token = jwt.sign({ _id: user._id }, config.secrets.session, {
-        expiresInMinutes: 60 * 5
+        expiresIn: 60 * 60 * 5
       });
       res.json({ token: token });
     })
