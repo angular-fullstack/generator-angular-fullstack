@@ -12,10 +12,10 @@ var User = sqldb.User;<% } %><% } %>
 
 <% if (filters.mongooseModels) { %>Thing.find({}).removeAsync()<% }
    if (filters.sequelizeModels) { %>Thing.sync()
-  .then(function() {
+  .then(() => {
     return Thing.destroy({ where: {} });
   })<% } %>
-  .then(function() {
+  .then(() => {
     <% if (filters.mongooseModels) { %>Thing.create({<% }
        if (filters.sequelizeModels) { %>Thing.bulkCreate([{<% } %>
       name: 'Development Tools',
@@ -50,10 +50,8 @@ var User = sqldb.User;<% } %><% } %>
 <% if (filters.auth) { %>
 <% if (filters.mongooseModels) { %>User.find({}).removeAsync()<% }
    if (filters.sequelizeModels) { %>User.sync()
-  .then(function() {
-    return User.destroy({ where: {} });
-  })<% } %>
-  .then(function() {
+  .then(() => User.destroy({ where: {} }))<% } %>
+  .then(() => {
     <% if (filters.mongooseModels) { %>User.createAsync({<% }
        if (filters.sequelizeModels) { %>User.bulkCreate([{<% } %>
       provider: 'local',
@@ -68,7 +66,7 @@ var User = sqldb.User;<% } %><% } %>
       password: 'admin'
     <% if (filters.mongooseModels) { %>})<% }
        if (filters.sequelizeModels) { %>}])<% } %>
-    .then(function() {
+    .then(() => {
       console.log('finished populating users');
     });
   });<% } %>

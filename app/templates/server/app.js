@@ -5,7 +5,8 @@
 'use strict';
 
 import express from 'express';<% if (filters.mongoose) { %>
-import mongoose from 'mongoose';<% } %><% if (filters.sequelize) { %>
+import mongoose from 'mongoose';
+mongoose.Promise = require('bluebird');<% } %><% if (filters.sequelize) { %>
 import sqldb from './sqldb';<% } %>
 import config from './config/environment';
 import http from 'http';

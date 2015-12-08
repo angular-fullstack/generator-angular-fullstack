@@ -9,7 +9,7 @@ var <%= classedName %>Events = require('./<%= basename %>.events');
 // Model events to emit
 var events = ['save', 'remove'];
 
-exports.register = function(socket) {
+export function register(socket) {
   // Bind model events to socket events
   for (var i = 0, eventsLength = events.length; i < eventsLength; i++) {
     var event = events[i];
@@ -18,7 +18,7 @@ exports.register = function(socket) {
     <%= classedName %>Events.on(event, listener);
     socket.on('disconnect', removeListener(event, listener));
   }
-};
+}
 
 
 function createListener(event, socket) {

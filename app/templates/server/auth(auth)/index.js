@@ -19,4 +19,4 @@ router.use('/facebook', require('./facebook'));<% } %><% if (filters.twitterAuth
 router.use('/twitter', require('./twitter'));<% } %><% if (filters.googleAuth) { %>
 router.use('/google', require('./google'));<% } %>
 
-module.exports = router;
+export default router;

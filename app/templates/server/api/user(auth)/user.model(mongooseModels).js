@@ -2,8 +2,9 @@
 
 import crypto from 'crypto';
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
-var Schema = mongoose.Schema;<% if (filters.oauth) { %>
-var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
+import {Schema} from 'mongoose';<% if (filters.oauth) { %>
+
+const authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
 var UserSchema = new Schema({
   name: String,
@@ -102,29 +103,28 @@ var validatePresenceOf = function(value) {
 UserSchema
   .pre('save', function(next) {
     // Handle new/update passwords
-    if (this.isModified('password')) {
-      if (!validatePresenceOf(this.password)<% if (filters.oauth) { %> && authTypes.indexOf(this.provider) === -1<% } %>) {
-        next(new Error('Invalid password'));
-      }
-
-      // Make salt with a callback
-      var _this = this;
-      this.makeSalt(function(saltErr, salt) {
-        if (saltErr) {
-          next(saltErr);
-        }
-        _this.salt = salt;
-        _this.encryptPassword(_this.password, function(encryptErr, hashedPassword) {
-          if (encryptErr) {
-            next(encryptErr);
-          }
-          _this.password = hashedPassword;
-          next();
-        });
-      });
-    } else {
-      next();
+    if(!this.isModified('password')) {
+      return next();
     }
+
+    if (!validatePresenceOf(this.password)<% if (filters.oauth) { %> && authTypes.indexOf(this.provider) === -1<% } %>) {
+      next(new Error('Invalid password'));
+    }
+
+    // Make salt with a callback
+    this.makeSalt((saltErr, salt) => {
+      if (saltErr) {
+        next(saltErr);
+      }
+      this.salt = salt;
+      this.encryptPassword(this.password, (encryptErr, hashedPassword) => {
+        if (encryptErr) {
+          next(encryptErr);
+        }
+        this.password = hashedPassword;
+        next();
+      });
+    });
   });
 
 /**
@@ -139,21 +139,19 @@ UserSchema.methods = {
    * @return {Boolean}
    * @api public
    */
-  authenticate: function(password, callback) {
+  authenticate(password, callback) {
     if (!callback) {
       return this.password === this.encryptPassword(password);
     }
 
-    var _this = this;
-    this.encryptPassword(password, function(err, pwdGen) {
+    this.encryptPassword(password, (err, pwdGen) => {
       if (err) {
-        callback(err);
+        return callback(err);
       }
 
-      if (_this.password === pwdGen) {
+      if (this.password === pwdGen) {
         callback(null, true);
-      }
-      else {
+      } else {
         callback(null, false);
       }
     });
@@ -167,14 +165,13 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  makeSalt: function(byteSize, callback) {
+  makeSalt(byteSize, callback) {
     var defaultByteSize = 16;
 
     if (typeof arguments[0] === 'function') {
       callback = arguments[0];
       byteSize = defaultByteSize;
-    }
-    else if (typeof arguments[1] === 'function') {
+    } else if(typeof arguments[1] === 'function') {
       callback = arguments[1];
     }
 
@@ -186,11 +183,12 @@ UserSchema.methods = {
       return crypto.randomBytes(byteSize).toString('base64');
     }
 
-    return crypto.randomBytes(byteSize, function(err, salt) {
+    return crypto.randomBytes(byteSize, (err, salt) => {
       if (err) {
         callback(err);
+      } else {
+        callback(null, salt.toString('base64'));
       }
-      return callback(null, salt.toString('base64'));
     });
   },
 
@@ -202,7 +200,7 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  encryptPassword: function(password, callback) {
+  encryptPassword(password, callback) {
     if (!password || !this.salt) {
       return null;
     }
@@ -216,13 +214,14 @@ UserSchema.methods = {
                    .toString('base64');
     }
 
-    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, function(err, key) {
+    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, (err, key) => {
       if (err) {
         callback(err);
+      } else {
+        callback(null, key.toString('base64'));
       }
-      return callback(null, key.toString('base64'));
     });
   }
 };
 
-module.exports = mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema);
