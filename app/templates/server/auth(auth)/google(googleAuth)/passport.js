@@ -13,7 +13,7 @@ export function setup(User, config) {
       'google.id': profile.id
     })
       .then(user => {
-        if(user) {
+        if (user) {
           return done(null, user);
         }
 

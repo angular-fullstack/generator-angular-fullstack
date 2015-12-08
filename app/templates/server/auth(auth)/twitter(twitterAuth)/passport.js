@@ -13,7 +13,7 @@ export function setup(User, config) {
       'twitter.id_str': profile.id
     })
       .then(user => {
-        if(user) {
+        if (user) {
           return done(null, user);
         }
 

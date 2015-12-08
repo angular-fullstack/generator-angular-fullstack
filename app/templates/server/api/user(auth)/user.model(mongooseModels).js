@@ -103,7 +103,7 @@ var validatePresenceOf = function(value) {
 UserSchema
   .pre('save', function(next) {
     // Handle new/update passwords
-    if(!this.isModified('password')) {
+    if (!this.isModified('password')) {
       return next();
     }
 
@@ -171,7 +171,7 @@ UserSchema.methods = {
     if (typeof arguments[0] === 'function') {
       callback = arguments[0];
       byteSize = defaultByteSize;
-    } else if(typeof arguments[1] === 'function') {
+    } else if (typeof arguments[1] === 'function') {
       callback = arguments[1];
     }
 

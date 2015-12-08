@@ -17,7 +17,7 @@ export function setup(User, config) {
       'facebook.id': profile.id
     })
       .then(user => {
-        if(user) {
+        if (user) {
           return done(null, user);
         }
 
