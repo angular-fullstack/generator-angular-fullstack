@@ -394,7 +394,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
 
     let assets = plugins.useref.assets({searchPath: ['client', '.tmp']});
 
-    return gulp.src(paths.mainView)<% if(filters.jade) { %>
+    return gulp.src(paths.client.mainView)<% if(filters.jade) { %>
         .pipe(plugins.jade({pretty: true}))<% } %>
         .pipe(assets)
             .pipe(appFilter)
