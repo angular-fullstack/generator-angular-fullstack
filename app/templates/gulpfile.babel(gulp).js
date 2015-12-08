@@ -120,7 +120,9 @@ let styles = lazypipe()
 
 let transpile = lazypipe()
     .pipe(plugins.sourcemaps.init)<% if(filters.babel) { %>
-    .pipe(plugins.babel)<% } else { %>
+    .pipe(plugins.babel, {
+        optional: ['es7.classProperties']
+    })<% } else { %>
     .pipe(plugins.coffee, {bare: true})<% } %>
     .pipe(plugins.sourcemaps.write, '.');<% } %>
 
