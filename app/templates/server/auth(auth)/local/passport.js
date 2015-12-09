@@ -4,7 +4,7 @@ import {Strategy as LocalStrategy} from 'passport-local';
 function localAuthenticate(User, email, password, done) {
   <% if (filters.mongooseModels) { %>User.findOneAsync({
     email: email.toLowerCase()
-  })<% }
+  }, '+salt +hashedPassword')<% }
      if (filters.sequelizeModels) { %>User.find({
     where: {
       email: email.toLowerCase()

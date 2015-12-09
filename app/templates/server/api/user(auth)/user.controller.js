@@ -139,7 +139,7 @@ export function changePassword(req, res, next) {
 export function me(req, res, next) {
   var userId = req.user._id;
 
-  <% if (filters.mongooseModels) { %>User.findOneAsync({ _id: userId }, '-salt -hashedPassword')<% }
+  <% if (filters.mongooseModels) { %>User.findOneAsync({ _id: userId })<% }
      if (filters.sequelizeModels) { %>User.find({
     where: {
       _id: userId
