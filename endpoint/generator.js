@@ -32,7 +32,7 @@ export default class Generator extends NamedBase {
 
   prompting() {
     var done = this.async();
-    var promptCb = function (props) {
+    var promptCb = (props) => {
       if(props.route.charAt(0) !== '/') {
         props.route = '/' + props.route;
       }
@@ -49,7 +49,7 @@ export default class Generator extends NamedBase {
         this.filters[props.models + 'Models'] = true;
       }
       done();
-    }.bind(this);
+    };
 
     if (this.options.route) {
       if (this.filters.mongoose && this.filters.sequelize) {
@@ -76,27 +76,19 @@ export default class Generator extends NamedBase {
       name = name + 's';
     }
 
-    var self = this;
-    var prompts = [
-      {
-        name: 'route',
-        message: 'What will the url of your endpoint be?',
-        default: base + name
-      },
-      {
-        type: 'list',
-        name: 'models',
-        message: 'What would you like to use for the endpoint\'s models?',
-        choices: [ 'Mongoose', 'Sequelize' ],
-        default: self.filters.sequelizeModels ? 1 : 0,
-        filter: function( val ) {
-          return val.toLowerCase();
-        },
-        when: function() {
-          return self.filters.mongoose && self.filters.sequelize;
-        }
-      }
-    ];
+    var prompts = [{
+      name: 'route',
+      message: 'What will the url of your endpoint be?',
+      default: base + name
+    }, {
+      type: 'list',
+      name: 'models',
+      message: 'What would you like to use for the endpoint\'s models?',
+      choices: [ 'Mongoose', 'Sequelize' ],
+      default: this.filters.sequelizeModels ? 1 : 0,
+      filter: (val) => val.toLowerCase(),
+      when: () => this.filters.mongoose && this.filters.sequelize
+    }];
 
     this.prompt(prompts, promptCb);
   }
@@ -141,8 +133,7 @@ export default class Generator extends NamedBase {
 
     if (this.filters.sequelize && this.config.get('insertModels')) {
       var modelsFile = this.config.get('registerModelsFile');
-      var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename +
-        '.model', modelsFile);
+      var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename + '.model', modelsFile);
       var modelConfig = {
         file: modelsFile,
         needle: this.config.get('modelsNeedle'),

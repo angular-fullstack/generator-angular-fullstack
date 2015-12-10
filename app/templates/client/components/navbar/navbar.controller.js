@@ -10,7 +10,7 @@ class NavbarController {
   isCollapsed = true;
   //end-non-standard
 
-  constructor(<% if(!filters.uirouter) { %>$location<% } %><% if (filters.auth) { %>Auth<% } %>) {<% if(!filters.uirouter) { %>
+  constructor(<% if(!filters.uirouter) { %>$location<% } if(!filters.uirouter && filters.auth) { %>, <% } if (filters.auth) { %>Auth<% } %>) {<% if(!filters.uirouter) { %>
     this.$location = $location;<% } %>
     <% if (filters.auth) { %>this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
