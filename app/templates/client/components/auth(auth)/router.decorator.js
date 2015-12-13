@@ -10,17 +10,29 @@ angular.module('<%= scriptAppName %>.auth')
         return;
       }
 
-      let query = typeof next.authenticate === 'string' ? Auth.hasRole : Auth.isLoggedIn;
+      if(typeof next.authenticate === 'string') {
+        Auth.hasRole(next.authenticate, _.noop).then(has => {
+          if(has) {
+            return;
+          }
 
-      query(1,2).then(good => {
-        if(!good) {
           event.preventDefault();
-          Auth.isLoggedIn().then(is => {<% if (filters.ngroute) { %>
+          return Auth.isLoggedIn().then(is => {<% if (filters.ngroute) { %>
             $location.path(is ? '/' : '/login');<% } if (filters.uirouter) { %>
             $state.go(is ? 'main' : 'login');<% } %>
           });
-        }
-      });
+        })
+      } else {
+        Auth.isLoggedIn(_.noop).then(is => {
+          if(is) {
+            return;
+          }
+
+          event.preventDefault();<% if (filters.ngroute) { %>
+          $location.path('/');<% } if (filters.uirouter) { %>
+          $state.go('main');<% } %>
+        });
+      }
     });    
   });
 
