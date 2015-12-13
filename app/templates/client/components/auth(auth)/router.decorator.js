@@ -21,7 +21,7 @@ angular.module('<%= scriptAppName %>.auth')
             $location.path(is ? '/' : '/login');<% } if (filters.uirouter) { %>
             $state.go(is ? 'main' : 'login');<% } %>
           });
-        })
+        });
       } else {
         Auth.isLoggedIn(_.noop).then(is => {
           if(is) {
