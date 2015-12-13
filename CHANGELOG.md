@@ -1,3 +1,21 @@
+<a name="3.1.0"></a>
+## [3.1.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.2...v3.1.0) (2015-12-13)
+
+
+### Bug Fixes
+
+* **client:auth:** fix auth 'decorator' ([56d12fc](https://github.com/DaftMonk/generator-angular-fullstack/commit/56d12fc)), closes [#1492](https://github.com/DaftMonk/generator-angular-fullstack/issues/1492)
+* **gulp:** 
+  * add babel runtime options ([0a9afa1](https://github.com/DaftMonk/generator-angular-fullstack/commit/0a9afa1))
+  * update gulp.src in build:client ([6f4d3b0](https://github.com/DaftMonk/generator-angular-fullstack/commit/6f4d3b0))
+* **navbar:** fix controller constructor with ng-route + auth ([4b59e1f](https://github.com/DaftMonk/generator-angular-fullstack/commit/4b59e1f)), closes [#1462](https://github.com/DaftMonk/generator-angular-fullstack/issues/1462)
+
+### Features
+
+* **admin:** spruce up the look of the user list ([38bb6b8](https://github.com/DaftMonk/generator-angular-fullstack/commit/38bb6b8))
+* **gulp:** add experimental Gulp support ([c70fd47](https://github.com/DaftMonk/generator-angular-fullstack/commit/c70fd47)) `yo angular-fullstack --gulp`
+
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.1...3.0.2) (2015-12-05)
 
