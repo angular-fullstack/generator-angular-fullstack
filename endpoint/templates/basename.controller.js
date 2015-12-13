@@ -9,7 +9,7 @@
 
 'use strict';<% if (filters.models) { %>
 
-var _ = require('lodash');<% if (filters.mongooseModels) { %>
+import _ from 'lodash';<% if (filters.mongooseModels) { %>
 var <%= classedName %> = require('./<%= basename %>.model');<% } if (filters.sequelizeModels) { %>
 var sqldb = require('<%= relativeRequire(config.get('registerModelsFile')) %>');
 var <%= classedName %> = sqldb.<%= classedName %>;<% } %>
@@ -44,9 +44,9 @@ function saveUpdates(updates) {
   return function(entity) {
     <% if (filters.mongooseModels) { %>var updated = _.merge(entity, updates);
     return updated.saveAsync()
-      .spread(function(updated) {<% }
+      .spread(updated => {<% }
        if (filters.sequelizeModels) { %>return entity.updateAttributes(updates)
-      .then(function(updated) {<% } %>
+      .then(updated => {<% } %>
         return updated;
       });
   };
@@ -57,7 +57,7 @@ function removeEntity(res) {
     if (entity) {
       <% if (filters.mongooseModels) { %>return entity.removeAsync()<% }
          if (filters.sequelizeModels) { %>return entity.destroy()<% } %>
-        .then(function() {
+        .then(() => {
           res.status(204).end();
         });
     }
@@ -65,16 +65,16 @@ function removeEntity(res) {
 }<% } %>
 
 // Gets a list of <%= classedName %>s
-exports.index = function(req, res) {<% if (!filters.models) { %>
+export function index(req, res) {<% if (!filters.models) { %>
   res.json([]);<% } else { %>
   <% if (filters.mongooseModels) { %><%= classedName %>.findAsync()<% }
      if (filters.sequelizeModels) { %><%= classedName %>.findAll()<% } %>
     .then(responseWithResult(res))
     .catch(handleError(res));<% } %>
-};<% if (filters.models) { %>
+}<% if (filters.models) { %>
 
 // Gets a single <%= classedName %> from the DB
-exports.show = function(req, res) {
+export function show(req, res) {
   <% if (filters.mongooseModels) { %><%= classedName %>.findByIdAsync(req.params.id)<% }
      if (filters.sequelizeModels) { %><%= classedName %>.find({
     where: {
@@ -84,18 +84,18 @@ exports.show = function(req, res) {
     .then(handleEntityNotFound(res))
     .then(responseWithResult(res))
     .catch(handleError(res));
-};
+}
 
 // Creates a new <%= classedName %> in the DB
-exports.create = function(req, res) {
+export function create(req, res) {
   <% if (filters.mongooseModels) { %><%= classedName %>.createAsync(req.body)<% }
      if (filters.sequelizeModels) { %><%= classedName %>.create(req.body)<% } %>
     .then(responseWithResult(res, 201))
     .catch(handleError(res));
-};
+}
 
 // Updates an existing <%= classedName %> in the DB
-exports.update = function(req, res) {
+export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
@@ -109,10 +109,10 @@ exports.update = function(req, res) {
     .then(saveUpdates(req.body))
     .then(responseWithResult(res))
     .catch(handleError(res));
-};
+}
 
 // Deletes a <%= classedName %> from the DB
-exports.destroy = function(req, res) {
+export function destroy(req, res) {
   <% if (filters.mongooseModels) { %><%= classedName %>.findByIdAsync(req.params.id)<% }
      if (filters.sequelizeModels) { %><%= classedName %>.find({
     where: {
@@ -122,4 +122,4 @@ exports.destroy = function(req, res) {
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
-};<% } %>
+}<% } %>

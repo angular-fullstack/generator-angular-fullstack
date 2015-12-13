@@ -1,7 +1,7 @@
 'use strict';
 
 var app = require('<%= relativeRequire('server') %>');
-var request = require('supertest');<% if(filters.models) { %>
+import request from 'supertest';<% if(filters.models) { %>
 
 var new<%= classedName %>;<% } %>
 
@@ -15,7 +15,7 @@ describe('<%= classedName %> API:', function() {
         .get('<%= route %>')
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -40,7 +40,7 @@ describe('<%= classedName %> API:', function() {
         })
         .expect(201)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -64,7 +64,7 @@ describe('<%= classedName %> API:', function() {
         .get('<%= route %>/' + new<%= classedName %>._id)
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -85,7 +85,7 @@ describe('<%= classedName %> API:', function() {
   });
 
   describe('PUT <%= route %>/:id', function() {
-    var updated<%= classedName %>
+    var updated<%= classedName %>;
 
     beforeEach(function(done) {
       request(app)
@@ -122,7 +122,7 @@ describe('<%= classedName %> API:', function() {
       request(app)
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(204)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }
@@ -134,7 +134,7 @@ describe('<%= classedName %> API:', function() {
       request(app)
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(404)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) {
             return done(err);
           }

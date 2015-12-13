@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(sequelize, DataTypes) {
+export default function(sequelize, DataTypes) {
   return sequelize.define('<%= classedName %>', {
     _id: {
       type: DataTypes.INTEGER,
@@ -12,4 +12,4 @@ module.exports = function(sequelize, DataTypes) {
     info: DataTypes.STRING,
     active: DataTypes.BOOLEAN
   });
-};
+}

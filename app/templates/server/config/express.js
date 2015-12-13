@@ -24,7 +24,7 @@ import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);<% } %>
 
-module.exports = function(app) {
+export default function(app) {
   var env = app.get('env');
 
   app.set('views', config.root + '/server/views');<% if (filters.html) { %>
@@ -89,4 +89,4 @@ module.exports = function(app) {
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
-};
+}

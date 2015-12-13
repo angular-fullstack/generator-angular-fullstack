@@ -1,12 +1,11 @@
 'use strict';
 
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
-var Schema = mongoose.Schema;
 
-var <%= classedName %>Schema = new Schema({
+var <%= classedName %>Schema = new mongoose.Schema({
   name: String,
   info: String,
   active: Boolean
 });
 
-module.exports = mongoose.model('<%= classedName %>', <%= classedName %>Schema);
+export default mongoose.model('<%= classedName %>', <%= classedName %>Schema);
