@@ -9,7 +9,7 @@ module.exports = {<% if (filters.mongoose) { %>
     uri: 'mongodb://localhost/<%= lodash.slugify(appname) %>-dev'
   },<% } if (filters.sequelize) { %>
 
-  // Sequelize connecton opions
+  // Sequelize connection opions
   sequelize: {
     uri: 'sqlite://',
     options: {
