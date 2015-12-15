@@ -17,7 +17,7 @@ angular.module('<%= scriptAppName %>.auth')
           }
 
           event.preventDefault();
-          return Auth.isLoggedIn().then(is => {<% if (filters.ngroute) { %>
+          return Auth.isLoggedIn(_.noop).then(is => {<% if (filters.ngroute) { %>
             $location.path(is ? '/' : '/login');<% } if (filters.uirouter) { %>
             $state.go(is ? 'main' : 'login');<% } %>
           });
