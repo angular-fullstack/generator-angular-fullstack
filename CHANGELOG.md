@@ -1,3 +1,12 @@
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.1.0...v3.1.1) (2015-12-15)
+
+
+### Bug Fixes
+
+* client:auth.decorator: fix Auth.isLoggedIn not having a noop arg ([0e9f302](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0e9f3025fbe69c8613435e59d028cf6ce9b0e9e4))
+
+
 <a name="3.1.0"></a>
 ## [3.1.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.2...v3.1.0) (2015-12-13)
 
