@@ -38,13 +38,12 @@ const paths = {
         bower: `${clientPath}/bower_components/`
     },
     server: {
-        scripts: [`${serverPath}/**/*.<%= scriptExt %>`],
+        scripts: [`${serverPath}/**/!(*.spec|*.integration).<%= scriptExt %>`],
         json: [`${serverPath}/**/*.json`],
-        test: [
-            `${serverPath}/**/*.spec.js`,
-            `${serverPath}/**/*.mock.js`,
-            `${serverPath}/**/*.integration.js`
-        ]
+        test: {
+          integration: `${serverPath}/**/*.integration.js`,
+          unit: `${serverPath}/**/*.spec.js`
+        }
     },
     karma: 'karma.conf.js',
     dist: 'dist'
@@ -318,7 +317,7 @@ gulp.task('start:server', () => {
 });
 
 gulp.task('watch', () => {
-    var testFiles = _.union(paths.client.test, paths.server.test);
+    var testFiles = _.union(paths.client.test, paths.server.test.unit, paths.server.test.integration);
 
     plugins.livereload.listen();
 
@@ -383,7 +382,7 @@ gulp.task('test:server', cb => {
 });
 
 gulp.task('mocha:unit', () => {
-    return gulp.src(paths.server.test)
+    return gulp.src(paths.server.test.unit)
         .pipe(mocha());
 });
 
