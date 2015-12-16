@@ -47,6 +47,7 @@
     "gulp-babel-istanbul": "^0.11.0",
     "gulp-cache": "^0.2.10",
     "gulp-concat": "^2.6.0",
+    "gulp-env": "^0.2.0",
     "gulp-filter": "^2.0.2",
     "gulp-imagemin": "^2.2.1",
     "gulp-inject": "^1.3.1",
