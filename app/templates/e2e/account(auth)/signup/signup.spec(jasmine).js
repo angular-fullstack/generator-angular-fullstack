@@ -20,8 +20,11 @@ describe('Signup View', function() {
     confirmPassword: 'test'
   };
 
-  beforeEach(function() {
+  beforeEach(function(done) {
     loadPage();
+    browser.wait(function() {
+        return browser.executeScript('return !!window.angular');
+    }, 5000).then(done);
   });
 
   it('should include signup form with correct inputs and submit button', function() {

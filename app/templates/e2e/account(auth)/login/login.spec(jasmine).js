@@ -26,7 +26,14 @@ describe('Login View', function() {
            if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
       })
       .then(loadPage)
-      .finally(done);
+      .finally(function() {
+        browser.wait(function() {
+          //console.log('waiting for angular...');
+          return browser.executeScript('return !!window.angular');
+
+        }, 5000).then(done);
+
+      });
   });
 
   it('should include login form with correct inputs and submit button', function() {
