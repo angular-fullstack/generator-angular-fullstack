@@ -536,7 +536,8 @@ gulp.task('build:images', () => {
 gulp.task('copy:extras', () => {
     return gulp.src([
         `${clientPath}/favicon.ico`,
-        `${clientPath}/robots.txt`
+        `${clientPath}/robots.txt`,
+        `${clientPath}/.htaccess`
     ], { dot: true })
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
