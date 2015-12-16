@@ -460,14 +460,12 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
     var appFilter = plugins.filter('**/app.js');
     var jsFilter = plugins.filter('**/*.js');
     var cssFilter = plugins.filter('**/*.css');
-    var htmlFilter = plugins.filter('**/*.html');<% if(filters.jade) { %>
+    var htmlBlock = plugins.filter(['**/*.!(html)']);<% if(filters.jade) { %>
     var assetsFilter = plugins.filter('**/*.{js,css}');<% } %>
-
-    let assets = plugins.useref.assets({searchPath: [clientPath, '.tmp']});
 
     return gulp.src(paths.client.mainView)<% if(filters.jade) { %>
         .pipe(plugins.jade({pretty: true}))<% } %>
-        .pipe(assets)
+        .pipe(plugins.useref())
             .pipe(appFilter)
                 .pipe(plugins.addSrc.append('.tmp/templates.js'))
                 .pipe(plugins.concat('app/app.js'))
@@ -482,10 +480,10 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
                     processImportFrom: ['!fonts.googleapis.com']
                 }))
             .pipe(cssFilter.restore())
-            .pipe(plugins.rev())
-        .pipe(assets.restore())
-        .pipe(plugins.revReplace())
-        .pipe(plugins.useref())<% if(filters.jade) { %>
+            .pipe(htmlBlock)
+                .pipe(plugins.rev())
+            .pipe(htmlBlock.restore())
+        .pipe(plugins.revReplace())<% if(filters.jade) { %>
         .pipe(assetsFilter)<% } %>
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
