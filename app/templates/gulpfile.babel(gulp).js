@@ -294,7 +294,7 @@ gulp.task('jscs', () => {
       .pipe(plugins.jscs.reporter());
 });
 
-gulp.task('clean:tmp', () => del(['.tmp/**/*']));
+gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
     whenServerReady(() => {
@@ -440,6 +440,7 @@ gulp.task('wiredep:test', () => {
 gulp.task('build', cb => {
     runSequence(
         'clean:dist',
+        'clean:tmp',
         'inject',
         'wiredep:client',
         [
@@ -453,7 +454,7 @@ gulp.task('build', cb => {
         cb);
 });
 
-gulp.task('clean:dist', () => del([`${paths.dist}/**/*`]));
+gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
 
 gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
     var appFilter = plugins.filter('**/app.js');
