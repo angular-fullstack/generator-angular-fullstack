@@ -375,7 +375,7 @@ gulp.task('serve:dist', cb => {
         cb);
 });
 
-gulp.task('test', cb => {
+gulp.task('test', ['wiredep:test'], cb => {
     return runSequence('test:server', 'test:client', cb);
 });
 
