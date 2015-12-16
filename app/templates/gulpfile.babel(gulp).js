@@ -17,38 +17,39 @@ import nib from 'nib';<% } %>
 var plugins = gulpLoadPlugins();
 var config;
 
+const clientPath = require('./bower.json').appPath || 'client';
+const serverPath = 'server';
 const paths = {
-    appPath: require('./bower.json').appPath || 'client',
     client: {
-        assets: 'client/assets/**/*',
-        images: 'client/assets/images/*',
+        assets: `${clientPath}/assets/**/*`,
+        images: `${clientPath}/assets/images/**/*`,
         scripts: [
-            'client/**/*.<%= scriptExt %>',
-            '!client/bower_components/**/*.js'
+            `${clientPath}/**/*.<%= scriptExt %>`,
+            `!${clientPath}/bower_components/**/*.js`
         ],
-        styles: ['client/{app,components}/**/*.<%= styleExt %>'],
-        mainStyle: 'client/app/app.<%= styleExt %>',
-        views: 'client/{app,components}/**/*.<%= templateExt %>',
-        mainView: 'client/index.html',
-        test: ['client/**/*.spec.<%= scriptExt %>'],
+        styles: [`${clientPath}/{app,components}/**/*.<%= styleExt %>`],
+        mainStyle: `${clientPath}/app/app.<%= styleExt %>`,
+        views: `${clientPath}/{app,components}/**/*.<%= templateExt %>`,
+        mainView: `${clientPath}/index.html`,
+        test: [`${clientPath}/{app,components}/**/*.spec.<%= scriptExt %>`],
         testRequire: [
-            'client/bower_components/angular/angular.js',
-            'client/bower_components/angular-mocks/angular-mocks.js',
-            'client/bower_components/angular-resource/angular-resource.js',
-            'client/bower_components/angular-cookies/angular-cookies.js',
-            'client/bower_components/angular-sanitize/angular-sanitize.js',
-            'client/bower_components/angular-route/angular-route.js',
-            'client/**/*.spec.<%= scriptExt %>'
+            `${clientPath}/bower_components/angular/angular.js`,
+            `${clientPath}/bower_components/angular-mocks/angular-mocks.js`,
+            `${clientPath}/bower_components/angular-resource/angular-resource.js`,
+            `${clientPath}/bower_components/angular-cookies/angular-cookies.js`,
+            `${clientPath}/bower_components/angular-sanitize/angular-sanitize.js`,
+            `${clientPath}/bower_components/angular-route/angular-route.js`,
+            `${clientPath}/**/*.spec.<%= scriptExt %>`
         ],
-        bower: 'client/bower_components/'
+        bower: `${clientPath}/bower_components/`
     },
     server: {
-        scripts: ['server/**/*.<%= scriptExt %>'],
-        json: ['server/**/*.json'],
+        scripts: [`${serverPath}/**/*.<%= scriptExt %>`],
+        json: [`${serverPath}/**/*.json`],
         test: [
-            'server/**/*.spec.js',
-            'server/**/*.mock.js',
-            'server/**/*.integration.js'
+            `${serverPath}/**/*.spec.js`,
+            `${serverPath}/**/*.mock.js`,
+            `${serverPath}/**/*.integration.js`
         ]
     },
     karma: 'karma.conf.js',
@@ -117,13 +118,13 @@ function sortModulesFirst(a, b) {
 let lintClientScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.coffeelint)
     .pipe(plugins.coffeelint.reporter);<% } else { %>
-    .pipe(plugins.jshint, 'client/.jshintrc')
+    .pipe(plugins.jshint, `${clientPath}/.jshintrc`)
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
 let lintServerScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.coffeelint)
     .pipe(plugins.coffeelint.reporter);<% } else { %>
-    .pipe(plugins.jshint, 'server/.jshintrc')
+    .pipe(plugins.jshint, `${serverPath}/.jshintrc`)
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
 let styles = lazypipe()
@@ -152,7 +153,7 @@ let transpile = lazypipe()
 gulp.task('env:all', () => {
     let localConfig;
     try {
-        localConfig = require('./server/config/local.env');
+        localConfig = require(`./${serverPath}/config/local.env`);
     } catch (e) {
         localConfig = {};
     }
@@ -182,31 +183,31 @@ gulp.task('inject', cb => {
 gulp.task('inject:js', () => {
     return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
-            gulp.src(_.union(paths.client.scripts, ['!client/**/*.spec.<%= scriptExt %>']), {read: false})
+            gulp.src(_.union(paths.client.scripts, [`!${clientPath}/**/*.spec.<%= scriptExt %>`]), {read: false})
                 .pipe(plugins.sort(sortModulesFirst)),
             {
                 starttag: '<!-- injector:js -->',
                 endtag: '<!-- endinjector -->',
-                transform: (filepath) => '<script src="' + filepath.replace('/client/', '') + '"></script>'
+                transform: (filepath) => '<script src="' + filepath.replace(`/${clientPath}/`, '') + '"></script>'
             }))
-        .pipe(gulp.dest('client'));
+        .pipe(gulp.dest(clientPath));
 });
 
 gulp.task('inject:css', () => {
     return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
-            gulp.src('/client/**/*.css', {read: false})
+            gulp.src('/${clientPath}/{app,components}/**/*.css', {read: false})
                 .pipe(plugins.sort()),
             {
                 starttag: '<!-- injector:css -->',
                 endtag: '<!-- endinjector -->',
-                transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace('/client/', '').replace('/.tmp/', '') + '">'
+                transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace(`/${clientPath}/`, '').replace('/.tmp/', '') + '">'
             }))
-        .pipe(gulp.dest('client'));
+        .pipe(gulp.dest(clientPath));
 });
 
 gulp.task('inject:<%= styleExt %>', () => {
-    return gulp.src('client/app/app.<%= styleExt %>')
+    return gulp.src(paths.client.mainStyle)
         .pipe(plugins.inject(
             gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
                 .pipe(plugins.sort()),
@@ -215,14 +216,14 @@ gulp.task('inject:<%= styleExt %>', () => {
                 endtag: '// endinjector',
                 transform: (filepath) => {
                     let newPath = filepath
-                        .replace('/client/app/', '')
-                        .replace('/client/components/', '../components/')
+                        .replace(`/${clientPath}/app/`, '')
+                        .replace(`/${clientPath}/components/`, '../components/')
                         .replace(/_(.*).<%= styleExt %>/, (match, p1, offset, string) => p1)
                         .replace('.<%= styleExt %>', '');
-                    return '@import \'' + newPath + '\';';
+                    return `@import '${newPath}';`;
                 }
             }))
-        .pipe(gulp.dest('client/app'));
+        .pipe(gulp.dest(`${clientPath}/app`));
 });
 
 gulp.task('styles', () => {
@@ -240,7 +241,7 @@ gulp.task('transpile:client', () => {
 gulp.task('transpile:server', () => {
     return gulp.src(_.union(paths.server.scripts, paths.server.json))
         .pipe(transpile())
-        .pipe(gulp.dest(paths.dist + '/server'));
+        .pipe(gulp.dest(`${paths.dist}/${serverPath}`));
 });
 
 gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:scripts:server'], cb));
@@ -266,8 +267,8 @@ gulp.task('start:client', cb => {
 
 gulp.task('start:server', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-    config = require('./server/config/environment');
-    nodemon('-w server server')
+    config = require(`./${serverPath}/config/environment`);
+    nodemon(`-w ${serverPath} ${serverPath}`)
         .on('log', onServerLog);
 });
 
@@ -360,9 +361,9 @@ gulp.task('wiredep:client', () => {
                 /bootstrap.css/,
                 /font-awesome.css/
             ],
-            ignorePath: paths.appPath
+            ignorePath: clientPath
         }))
-        .pipe(gulp.dest('client/'));
+        .pipe(gulp.dest(`${clientPath}/`));
 });
 
 gulp.task('wiredep:test', () => {
@@ -402,7 +403,7 @@ gulp.task('build', cb => {
         cb);
 });
 
-gulp.task('clean:dist', () => del(['dist/**/*']));
+gulp.task('clean:dist', () => del([`${paths.dist}/**/*`]));
 
 gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
     var appFilter = plugins.filter('**/app.js');
@@ -411,7 +412,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
     var htmlFilter = plugins.filter('**/*.html');<% if(filters.jade) { %>
     var assetsFilter = plugins.filter('**/*.{js,css}');<% } %>
 
-    let assets = plugins.useref.assets({searchPath: ['client', '.tmp']});
+    let assets = plugins.useref.assets({searchPath: [clientPath, '.tmp']});
 
     return gulp.src(paths.client.mainView)<% if(filters.jade) { %>
         .pipe(plugins.jade({pretty: true}))<% } %>
@@ -435,11 +436,11 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
         .pipe(plugins.revReplace())
         .pipe(plugins.useref())<% if(filters.jade) { %>
         .pipe(assetsFilter)<% } %>
-        .pipe(gulp.dest(paths.dist + '/client'));
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
 
 gulp.task('html', function() {
-    return gulp.src('client/{app,components}/**/*.html')
+    return gulp.src(`${clientPath}/{app,components}/**/*.html`)
         .pipe(plugins.angularTemplatecache({
             module: '<%= scriptAppName %>'
         }))
@@ -452,7 +453,7 @@ gulp.task('jade', function() {
 });<% } %>
 
 gulp.task('constant', function() {
-  let sharedConfig = require('./server/config/environment/shared');
+  let sharedConfig = require(`./${serverPath}/config/environment/shared`);
   plugins.ngConstant({
     name: '<%= scriptAppName %>.constants',
     deps: [],
@@ -463,30 +464,30 @@ gulp.task('constant', function() {
     .pipe(plugins.rename({
       basename: 'app.constant'
     }))
-    .pipe(gulp.dest('client/app/'))
+    .pipe(gulp.dest(`${clientPath}/app/`))
 })
 
 gulp.task('build:images', () => {
-    return gulp.src('client/assets/images/**/*')
+    return gulp.src(paths.client.images)
         .pipe(plugins.imagemin({
             optimizationLevel: 5,
             progressive: true,
             interlaced: true
         }))
-        .pipe(gulp.dest(paths.dist + '/client/assets/images'));
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/images`));
 });
 
 gulp.task('copy:extras', () => {
     return gulp.src([
-        'client/favicon.ico',
-        'client/robots.txt'
+        `${clientPath}/favicon.ico`,
+        `${clientPath}/robots.txt`
     ], { dot: true })
-        .pipe(gulp.dest(paths.dist + '/client'));
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
 
 gulp.task('copy:assets', () => {
     return gulp.src([paths.client.assets, '!' + paths.client.images])
-        .pipe(gulp.dest(paths.dist + '/client/assets'));
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`));
 });
 
 gulp.task('copy:server', () => {
