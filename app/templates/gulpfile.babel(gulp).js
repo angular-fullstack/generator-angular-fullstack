@@ -11,7 +11,9 @@ import open from 'open';
 import lazypipe from 'lazypipe';
 import {stream as wiredep} from 'wiredep';
 import nodemon from 'nodemon';
-import runSequence from 'run-sequence';<% if(filters.stylus) { %>
+import {Server as KarmaServer} from 'karma';
+import runSequence from 'run-sequence';
+import {protractor, webdriver_update} from 'gulp-protractor';<% if(filters.stylus) { %>
 import nib from 'nib';<% } %>
 
 var plugins = gulpLoadPlugins();
@@ -31,16 +33,8 @@ const paths = {
         mainStyle: `${clientPath}/app/app.<%= styleExt %>`,
         views: `${clientPath}/{app,components}/**/*.<%= templateExt %>`,
         mainView: `${clientPath}/index.html`,
-        test: [`${clientPath}/{app,components}/**/*.spec.<%= scriptExt %>`],
-        testRequire: [
-            `${clientPath}/bower_components/angular/angular.js`,
-            `${clientPath}/bower_components/angular-mocks/angular-mocks.js`,
-            `${clientPath}/bower_components/angular-resource/angular-resource.js`,
-            `${clientPath}/bower_components/angular-cookies/angular-cookies.js`,
-            `${clientPath}/bower_components/angular-sanitize/angular-sanitize.js`,
-            `${clientPath}/bower_components/angular-route/angular-route.js`,
-            `${clientPath}/**/*.spec.<%= scriptExt %>`
-        ],
+        test: [`${clientPath}/{app,components}/**/*.{spec,mock}.<%= scriptExt %>`],
+        e2e: ['e2e/**/*.spec.js'],
         bower: `${clientPath}/bower_components/`
     },
     server: {
@@ -127,6 +121,12 @@ let lintServerScripts = lazypipe()<% if(filters.coffee) { %>
     .pipe(plugins.jshint, `${serverPath}/.jshintrc`)
     .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
 
+let lintServerTestScripts = lazypipe()<% if(filters.coffee) { %>
+    .pipe(plugins.coffeelint)
+    .pipe(plugins.coffeelint.reporter);<% } else { %>
+    .pipe(plugins.jshint, `${serverPath}/.jshintrc-spec`)
+    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
+
 let styles = lazypipe()
     .pipe(plugins.sourcemaps.init)<% if(filters.stylus) { %>
     .pipe(plugins.stylus, {
@@ -145,6 +145,28 @@ let transpile = lazypipe()
     })<% } else { %>
     .pipe(plugins.coffee, {bare: true})<% } %>
     .pipe(plugins.sourcemaps.write, '.');<% } %>
+
+let mocha = lazypipe()
+    .pipe(plugins.mocha, {
+        reporter: 'spec',
+        timeout: 5000,
+        require: [
+            './mocha.conf'
+        ]
+    });
+
+let istanbul = lazypipe()
+    .pipe(plugins.babelIstanbul.writeReports)
+    .pipe(plugins.babelIstanbul.enforceThresholds, {
+        thresholds: {
+            global: {
+                lines: 80,
+                statements: 80,
+                branches: 80,
+                functions: 80
+            }
+        }
+    });
 
 /********************
  * Env
@@ -256,6 +278,22 @@ gulp.task('lint:scripts:server', () => {
         .pipe(lintServerScripts());
 });
 
+gulp.task('lint:scripts:clientTest', () => {
+    return gulp.src(paths.client.test)
+        .pipe(lintClientScripts());
+});
+
+gulp.task('lint:scripts:serverTest', () => {
+    return gulp.src(paths.server.test)
+        .pipe(lintServerTestScripts());
+});
+
+gulp.task('jscs', () => {
+  return gulp.src(_.union(paths.client.scripts, paths.server.scripts))
+      .pipe(plugins.jscs())
+      .pipe(plugins.jscs.reporter());
+});
+
 gulp.task('clean:tmp', () => del(['.tmp/**/*']));
 
 gulp.task('start:client', cb => {
@@ -263,6 +301,13 @@ gulp.task('start:client', cb => {
         open('http://localhost:' + config.port);
         cb();
     });
+});
+
+gulp.task('start:server:prod', () => {
+    process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+    config = require(`./${paths.dist}/${serverPath}/config/environment`);
+    nodemon(`-w ${paths.dist}/${serverPath} ${paths.dist}/${serverPath}`)
+        .on('log', onServerLog);
 });
 
 gulp.task('start:server', () => {
@@ -314,6 +359,15 @@ gulp.task('serve', cb => {
         cb);
 });
 
+gulp.task('serve:dist', cb => {
+    runSequence(
+        'build',
+        'env:all',
+        'env:prod',
+        ['start:server:prod', 'start:client'],
+        cb);
+});
+
 gulp.task('test', cb => {
     return runSequence('test:server', 'test:client', cb);
 });
@@ -323,30 +377,26 @@ gulp.task('test:server', cb => {
         'env:all',
         'env:test',
         'mocha:unit',
+        'mocha:integration',
         //'mocha:coverage',
         cb);
 });
 
 gulp.task('mocha:unit', () => {
     return gulp.src(paths.server.test)
-        .pipe(plugins.mocha({
-            reporter: 'spec',
-            require: [
-                './mocha.conf'
-            ]
-        }))
-        .once('end', function() {
-            process.exit();
-        });
+        .pipe(mocha());
 });
 
-gulp.task('test:client', () => {
-    let testFiles = _.union(paths.client.testRequire, paths.client.test);
-    return gulp.src(testFiles)
-        .pipe(plugins.karma({
-            configFile: paths.karma,
-            action: 'watch'
-        }));
+gulp.task('mocha:integration', () => {
+    return gulp.src(paths.server.test.integration)
+        .pipe(mocha());
+});
+
+gulp.task('test:client', (done) => {
+    new KarmaServer({
+      configFile: `${__dirname}/${paths.karma}`,
+      singleRun: true
+    }, done).start();
 });
 
 // inject bower components
@@ -497,4 +547,49 @@ gulp.task('copy:server', () => {
         '.bowerrc'
     ], {cwdbase: true})
         .pipe(gulp.dest(paths.dist));
+});
+
+gulp.task('coverage:pre', () => {
+  return gulp.src(paths.server.scripts)
+    // Covering files
+    .pipe(plugins.babelIstanbul())
+    // Force `require` to return covered files
+    .pipe(plugins.babelIstanbul.hookRequire());
+});
+
+gulp.task('coverage:unit', () => {
+    return gulp.src(paths.server.test.unit)
+        .pipe(mocha())
+        .pipe(istanbul())
+        // Creating the reports after tests ran
+});
+
+gulp.task('coverage:integration', () => {
+    return gulp.src(paths.server.test.integration)
+        .pipe(mocha())
+        .pipe(istanbul())
+        // Creating the reports after tests ran
+});
+
+gulp.task('mocha:coverage', cb => {
+  runSequence('coverage:pre',
+              'env:all',
+              'env:test',
+              'coverage:unit',
+              'coverage:integration',
+              cb);
+});
+
+// Downloads the selenium webdriver
+gulp.task('webdriver_update', webdriver_update);
+
+gulp.task('test:e2e', ['env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
+    gulp.src(paths.client.e2e)
+        .pipe(protractor({
+            configFile: 'protractor.conf.js',
+        })).on('error', err => {
+            console.log(err)
+        }).on('end', () => {
+            process.exit();
+        });
 });
