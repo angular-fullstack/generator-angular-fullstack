@@ -138,7 +138,7 @@ export default class Generator extends Base {
 
             this.scriptExt = answers.script === 'coffee' ? 'coffee' : 'js';
             this.templateExt = answers.markup;
-            this.styleExt = answers.stylesheet;
+            this.styleExt = answers.stylesheet === 'sass' ? 'scss' : answers.stylesheet;
 
             cb();
           }.bind(this));
