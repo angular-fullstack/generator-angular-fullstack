@@ -20,16 +20,20 @@ module.exports = function(config) {
     files: [
       // bower:js
       // endbower<% if (filters.socketio) { %>
-      'node_modules/socket.io-client/socket.io.js',<% } %>
+      'node_modules/socket.io-client/socket.io.js',<% } %><% if(filters.ts) { %>
+      '.tmp/app/app.js',
+      '.tmp/{app,components}/**/*.module.js',
+      '.tmp/{app,components}/**/*.js',
+      '.tmp/test/**/*.js',<% } %><% if(filters.babel) { %>
       'client/app/app.js',
       'client/{app,components}/**/*.module.js',
-      'client/{app,components}/**/*.js',
+      'client/{app,components}/**/*.js',<% } %>
       'client/{app,components}/**/*.<%= filters.jade ? '{jade,html}' : 'html' %>'
     ],
 
     preprocessors: {
-      '**/*.html': 'ng-html2js'<% if (filters.jade) { %>,
-      '**/*.jade': 'ng-jade2js'<% } if (filters.babel) { %>,
+      '**/*.html': 'ng-html2js',<% if (filters.jade) { %>
+      '**/*.jade': 'ng-jade2js',<% } if (filters.babel) { %>
       'client/{app,components}/**/*.js': 'babel'<% } %>
     },
 
