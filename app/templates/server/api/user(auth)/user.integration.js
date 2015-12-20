@@ -1,7 +1,8 @@
 'use strict';
 
 import app from '../..';<% if (filters.mongooseModels) { %>
-import User from './user.model';<% } %><% if (filters.sequelizeModels) { %>
+import User from './user.model';
+import mongoose from 'mongoose';<% } %><% if (filters.sequelizeModels) { %>
 import {User} from '../../sqldb';<% } %>
 import request from 'supertest';
 
@@ -26,7 +27,9 @@ describe('User API:', function() {
 
   // Clear users after testing
   after(function() {
-    <% if (filters.mongooseModels) { %>return User.removeAsync();<% }
+    app.angularFullstack.close();
+    <% if (filters.mongooseModels) { %>User.remove();
+      mongoose.connection.close();<% }
        if (filters.sequelizeModels) { %>return User.destroy({ where: {} });<% } %>
   });
 
