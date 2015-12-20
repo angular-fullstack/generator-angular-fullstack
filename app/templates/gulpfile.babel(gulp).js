@@ -108,23 +108,17 @@ function sortModulesFirst(a, b) {
  * Reusable pipelines
  ********************/
 
-let lintClientScripts = lazypipe()<% if(filters.coffee) { %>
-    .pipe(plugins.coffeelint)
-    .pipe(plugins.coffeelint.reporter);<% } else { %>
+let lintClientScripts = lazypipe()
     .pipe(plugins.jshint, `${clientPath}/.jshintrc`)
-    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
+    .pipe(plugins.jshint.reporter, 'jshint-stylish');
 
-let lintServerScripts = lazypipe()<% if(filters.coffee) { %>
-    .pipe(plugins.coffeelint)
-    .pipe(plugins.coffeelint.reporter);<% } else { %>
+let lintServerScripts = lazypipe()
     .pipe(plugins.jshint, `${serverPath}/.jshintrc`)
-    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
+    .pipe(plugins.jshint.reporter, 'jshint-stylish');
 
-let lintServerTestScripts = lazypipe()<% if(filters.coffee) { %>
-    .pipe(plugins.coffeelint)
-    .pipe(plugins.coffeelint.reporter);<% } else { %>
+let lintServerTestScripts = lazypipe()
     .pipe(plugins.jshint, `${serverPath}/.jshintrc-spec`)
-    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %>
+    .pipe(plugins.jshint.reporter, 'jshint-stylish');
 
 let styles = lazypipe()
     .pipe(plugins.sourcemaps.init)<% if(filters.stylus) { %>
@@ -135,23 +129,21 @@ let styles = lazypipe()
     .pipe(plugins.sass)<% } if(filters.less) { %>
     .pipe(plugins.less)<% } %>
     .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
-    .pipe(plugins.sourcemaps.write, '.');<% if(filters.babel || filters.coffee) { %>
+    .pipe(plugins.sourcemaps.write, '.');
 
 let transpileServer = lazypipe()
     .pipe(plugins.sourcemaps.init)<% if(filters.babel) { %>
     .pipe(plugins.babel, {
         optional: ['runtime']
-    })<% } else { %>
-    .pipe(plugins.coffee, {bare: true})<% } %>
+    })<% } %>
     .pipe(plugins.sourcemaps.write, '.');
 
 let transpileClient = lazypipe()
     .pipe(plugins.sourcemaps.init)<% if(filters.babel) { %>
     .pipe(plugins.babel, {
         optional: ['es7.classProperties']
-    })<% } else { %>
-    .pipe(plugins.coffee, {bare: true})<% } %>
-    .pipe(plugins.sourcemaps.write, '.');<% } %>
+    })<% } %>
+    .pipe(plugins.sourcemaps.write, '.');
 
 let mocha = lazypipe()
     .pipe(plugins.mocha, {
@@ -259,13 +251,13 @@ gulp.task('styles', () => {
     return gulp.src(paths.client.mainStyle)
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
-});<% if(filters.babel || filters.coffee) { %>
+});
 
 gulp.task('transpile:client', () => {
     return gulp.src(paths.client.scripts)
         .pipe(transpileClient())
         .pipe(gulp.dest('.tmp'));
-});<% } %>
+});
 
 gulp.task('transpile:server', () => {
     return gulp.src(_.union(paths.server.scripts, paths.server.json))
@@ -342,9 +334,9 @@ gulp.task('watch', () => {
         .pipe(plugins.livereload());
 
     plugins.watch(paths.client.scripts) //['inject:js']
-        .pipe(plugins.plumber())<% if(filters.babel || filters.coffee) { %>
+        .pipe(plugins.plumber())
         .pipe(transpileClient())
-        .pipe(gulp.dest('.tmp'))<% } %>
+        .pipe(gulp.dest('.tmp'))
         .pipe(plugins.livereload());
 
     plugins.watch(_.union(paths.server.scripts, testFiles))
@@ -358,9 +350,8 @@ gulp.task('watch', () => {
 gulp.task('serve', cb => {
     runSequence(['clean:tmp', 'constant'],
         ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
-        ['wiredep:client'],<% if(filters.babel || filters.coffee) { %>
-        ['transpile:client', 'styles'],<% } else { %>
-        'styles',<% } %>
+        ['wiredep:client'],
+        ['transpile:client', 'styles'],
         ['start:server', 'start:client'],
         'watch',
         cb);
