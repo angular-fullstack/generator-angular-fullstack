@@ -160,8 +160,9 @@
     "npm": "^2.14.7"
   },
   "scripts": {
-    "start": "node server",
-    "test": "<%= filters.grunt ? 'grunt' : 'gulp' %> test",
+    "start": "node server",<% if(filters.gulp) { %>
+    "test": "gulp test",<% } else { %>
+    "test": "grunt test",<% } %>
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
   "private": true
