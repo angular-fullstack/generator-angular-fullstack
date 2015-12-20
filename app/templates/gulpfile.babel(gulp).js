@@ -225,7 +225,7 @@ gulp.task('inject:css', () => {
                 transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace(`/${clientPath}/`, '').replace('/.tmp/', '') + '">'
             }))
         .pipe(gulp.dest(clientPath));
-});
+});<% if(!filters.css) { %>
 
 gulp.task('inject:<%= styleExt %>', () => {
     return gulp.src(paths.client.mainStyle)
@@ -245,7 +245,7 @@ gulp.task('inject:<%= styleExt %>', () => {
                 }
             }))
         .pipe(gulp.dest(`${clientPath}/app`));
-});
+});<% } %>
 
 gulp.task('styles', () => {
     return gulp.src(paths.client.mainStyle)
