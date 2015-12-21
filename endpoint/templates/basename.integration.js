@@ -7,10 +7,6 @@ var new<%= classedName %>;<% } %>
 
 describe('<%= classedName %> API:', function() {
 
-  after(function() {
-    app.angularFullstack.close();
-  });
-
   describe('GET <%= route %>', function() {
     var <%= cameledName %>s;
 

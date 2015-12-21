@@ -1,7 +1,6 @@
 'use strict';
 
 import app from '../..';
-import mongoose from 'mongoose';
 import User from './user.model';
 var user;
 var genUser = function() {
@@ -26,11 +25,6 @@ describe('User Model', function() {
 
   afterEach(function() {
     return User.removeAsync();
-  });
-
-  after(function() {
-    app.angularFullstack.close();
-    mongoose.connection.close();
   });
 
   it('should begin with no users', function() {
