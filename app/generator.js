@@ -63,6 +63,13 @@ export default class Generator extends Base {
 
             if (this.skipConfig) {
               this.filters = existingFilters;
+
+              this.scriptExt = this.filters.ts ? 'ts' : 'js';
+              this.templateExt = this.filters.jade ? 'jade' : 'html';
+              this.styleExt = this.filters.sass ? 'scss' : 
+                this.filters.less ? 'less' : 
+                this.filters.stylus ? 'styl' : 
+                'css';
             } else {
               this.filters = {};
               this.forceConfig = true;
