@@ -20,10 +20,10 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      * @param  {Function} callback - optional, function(error, user)
      * @return {Promise}
      */
-    login(user, callback) {
+    login({email, password}, callback) {
       return $http.post('/auth/local', {
-        email: user.email,
-        password: user.password
+        email: email,
+        password: password
       })
         .then(res => {
           $cookies.put('token', res.data.token);

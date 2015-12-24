@@ -3,16 +3,16 @@
 (function() {
 
 angular.module('<%= scriptAppName %>.auth')
-  .run(function($rootScope<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $state<% } %>, Auth) {    
+  .run(function($rootScope<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $state<% } %>, Auth) {
     // Redirect to login if route requires auth and the user is not logged in, or doesn't have required role
-    $rootScope.$on(<% if (filters.ngroute) { %>'$routeChangeStart'<% } %><% if (filters.uirouter) { %>'$stateChangeStart'<% } %>, function(event, next) {    
-      if(!next.authenticate) {
+    $rootScope.$on(<% if (filters.ngroute) { %>'$routeChangeStart'<% } %><% if (filters.uirouter) { %>'$stateChangeStart'<% } %>, function(event, next) {
+      if (!next.authenticate) {
         return;
       }
 
-      if(typeof next.authenticate === 'string') {
+      if (typeof next.authenticate === 'string') {
         Auth.hasRole(next.authenticate, _.noop).then(has => {
-          if(has) {
+          if (has) {
             return;
           }
 
@@ -24,7 +24,7 @@ angular.module('<%= scriptAppName %>.auth')
         });
       } else {
         Auth.isLoggedIn(_.noop).then(is => {
-          if(is) {
+          if (is) {
             return;
           }
 
@@ -33,7 +33,7 @@ angular.module('<%= scriptAppName %>.auth')
           $state.go('main');<% } %>
         });
       }
-    });    
+    });
   });
 
 })();
