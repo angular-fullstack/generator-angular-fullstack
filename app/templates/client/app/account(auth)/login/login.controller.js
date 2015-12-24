@@ -1,13 +1,11 @@
 'use strict';
 
 class LoginController {
-  //start-non-standard
-  user = {};
-  errors = {};
-  submitted = false;
-  //end-non-standard
-
   constructor(Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
+    this.user = {};
+    this.errors = {};
+    this.submitted = false;
+
     this.Auth = Auth;<% if (filters.ngroute) { %>
     this.$location = $location;<% } if (filters.uirouter) { %>
     this.$state = $state;<% } %>

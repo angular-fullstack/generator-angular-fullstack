@@ -27,7 +27,8 @@ const paths = {
         images: `${clientPath}/assets/images/**/*`,
         scripts: [
             `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`,
-            `!${clientPath}/bower_components/**/*.js`
+            `!${clientPath}/bower_components/**/*`<% if(filters.ts) { %>,
+            `!${clientPath}/typings/**/*`<% } %>
         ],
         styles: [`${clientPath}/{app,components}/**/*.<%= styleExt %>`],
         mainStyle: `${clientPath}/app/app.<%= styleExt %>`,
@@ -38,7 +39,7 @@ const paths = {
         bower: `${clientPath}/bower_components/`
     },
     server: {
-        scripts: [`${serverPath}/**/!(*.spec|*.integration).<%= scriptExt %>`],
+        scripts: [`${serverPath}/**/!(*.spec|*.integration).js`],
         json: [`${serverPath}/**/*.json`],
         test: {
           integration: `${serverPath}/**/*.integration.js`,
@@ -86,7 +87,7 @@ function whenServerReady(cb) {
 }
 
 function sortModulesFirst(a, b) {
-    var module = /\.module\.js$/;
+    var module = /\.module\.<%= scriptExt %>$/;
     var aMod = module.test(a.path);
     var bMod = module.test(b.path);
     // inject *.module.js first
@@ -108,9 +109,11 @@ function sortModulesFirst(a, b) {
  * Reusable pipelines
  ********************/
 
-let lintClientScripts = lazypipe()
+let lintClientScripts = lazypipe()<% if(filters.babel) { %>
     .pipe(plugins.jshint, `${clientPath}/.jshintrc`)
-    .pipe(plugins.jshint.reporter, 'jshint-stylish');
+    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %><% if(filters.ts) { %>
+    .pipe(plugins.tslint, require(`./${clientPath}/tslint.json`))
+    .pipe(plugins.tslint.report, 'verbose');<% } %>
 
 let lintServerScripts = lazypipe()
     .pipe(plugins.jshint, `${serverPath}/.jshintrc`)
@@ -129,20 +132,20 @@ let styles = lazypipe()
     .pipe(plugins.sass)<% } if(filters.less) { %>
     .pipe(plugins.less)<% } %>
     .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
-    .pipe(plugins.sourcemaps.write, '.');
-
-let transpileServer = lazypipe()
-    .pipe(plugins.sourcemaps.init)<% if(filters.babel) { %>
-    .pipe(plugins.babel, {
-        optional: ['runtime']
-    })<% } %>
-    .pipe(plugins.sourcemaps.write, '.');
+    .pipe(plugins.sourcemaps.write, '.');<% if(filters.babel) { %>
 
 let transpileClient = lazypipe()
-    .pipe(plugins.sourcemaps.init)<% if(filters.babel) { %>
+    .pipe(plugins.sourcemaps.init)
     .pipe(plugins.babel, {
         optional: ['es7.classProperties']
-    })<% } %>
+    })
+    .pipe(plugins.sourcemaps.write, '.');<% } %>
+
+let transpileServer = lazypipe()
+    .pipe(plugins.sourcemaps.init)
+    .pipe(plugins.babel, {
+        optional: ['runtime']
+    })
     .pipe(plugins.sourcemaps.write, '.');
 
 let mocha = lazypipe()
@@ -204,12 +207,12 @@ gulp.task('inject', cb => {
 gulp.task('inject:js', () => {
     return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
-            gulp.src(_.union(paths.client.scripts, [`!${clientPath}/**/*.{spec,mock}.js`, `!${clientPath}/app/app.js`]), {read: false})
+            gulp.src(_.union(paths.client.scripts, [<% if(filters.ts) { %>'client/app/app.constant.js', <% } %>`!${clientPath}/**/*.{spec,mock}.<%= scriptExt %>`, `!${clientPath}/app/app.<%= scriptExt %>`]), {read: false})
                 .pipe(plugins.sort(sortModulesFirst)),
             {
                 starttag: '<!-- injector:js -->',
                 endtag: '<!-- endinjector -->',
-                transform: (filepath) => '<script src="' + filepath.replace(`/${clientPath}/`, '') + '"></script>'
+                transform: (filepath) => '<script src="' + filepath.replace(`/${clientPath}/`, '')<% if(filters.ts) { %>.replace('.ts', '.js')<% } %> + '"></script>'
             }))
         .pipe(gulp.dest(clientPath));
 });
@@ -245,19 +248,57 @@ gulp.task('inject:<%= styleExt %>', () => {
                 }
             }))
         .pipe(gulp.dest(`${clientPath}/app`));
+});<% } %><% if(filters.ts) { %>
+
+// Install DefinitelyTyped TypeScript definition files
+gulp.task('tsd', cb => {
+    plugins.tsd({
+        command: 'reinstall',
+        config: './tsd.json'
+    }, cb);
+});
+
+gulp.task('tsd:test', cb => {
+    plugins.tsd({
+        command: 'reinstall',
+        config: './tsd_test.json'
+    }, cb);
 });<% } %>
 
 gulp.task('styles', () => {
     return gulp.src(paths.client.mainStyle)
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
+});<% if(filters.ts) { %>
+
+gulp.task('copy:constant', () => {
+    return gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
+        .pipe(gulp.dest('.tmp'));
+})
+
+let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
+gulp.task('transpile:client', ['constant', 'copy:constant'], () => {
+    return tsProject.src()
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.typescript(tsProject)).js
+        .pipe(plugins.sourcemaps.write('.'))
+        .pipe(gulp.dest('.tmp'));
 });
+
+let tsTestProject = plugins.typescript.createProject('./tsconfig.client.json');
+gulp.task('transpile:client:test', ['tsd:test'], () => {
+    return tsTestProject.src()
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.typescript(tsTestProject)).js
+        .pipe(plugins.sourcemaps.write('.'))
+        .pipe(gulp.dest('.tmp/test'));
+});<% } %><% if(filters.babel) { %>
 
 gulp.task('transpile:client', () => {
     return gulp.src(paths.client.scripts)
         .pipe(transpileClient())
         .pipe(gulp.dest('.tmp'));
-});
+});<% } %>
 
 gulp.task('transpile:server', () => {
     return gulp.src(_.union(paths.server.scripts, paths.server.json))
@@ -348,7 +389,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('serve', cb => {
-    runSequence(['clean:tmp', 'constant'],
+    runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'tsd'<% } %>],
         ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
@@ -390,7 +431,7 @@ gulp.task('mocha:integration', () => {
         .pipe(mocha());
 });
 
-gulp.task('test:client', (done) => {
+gulp.task('test:client', ['wiredep:test'<% if(filters.ts) { %>, 'tsd:test', 'transpile:client', 'transpile:client:test'<% } %>], (done) => {
     new KarmaServer({
       configFile: `${__dirname}/${paths.karma}`,
       singleRun: true
@@ -440,7 +481,8 @@ gulp.task('build', cb => {
         'clean:dist',
         'clean:tmp',
         'inject',
-        'wiredep:client',
+        'wiredep:client',<% if(filters.ts) { %>
+        'tsd',<% } %>
         [
             'build:images',
             'copy:extras',
@@ -454,7 +496,7 @@ gulp.task('build', cb => {
 
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
 
-gulp.task('build:client', ['transpile:client', 'styles', 'html'], () => {
+gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], () => {
     var manifest = gulp.src(`${paths.dist}/${clientPath}/assets/rev-manifest.json`);
 
     var appFilter = plugins.filter('**/app.js');
