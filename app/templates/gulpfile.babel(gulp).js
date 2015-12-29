@@ -514,7 +514,7 @@ gulp.task('constant', function() {
       basename: 'app.constant'
     }))
     .pipe(gulp.dest(`${clientPath}/app/`))
-})
+});
 
 gulp.task('build:images', () => {
     return gulp.src(paths.client.images)
