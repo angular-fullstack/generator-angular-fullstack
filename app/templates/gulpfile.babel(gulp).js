@@ -217,7 +217,7 @@ gulp.task('inject:js', () => {
 gulp.task('inject:css', () => {
     return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
-            gulp.src('/${clientPath}/{app,components}/**/*.css', {read: false})
+            gulp.src(`/${clientPath}/{app,components}/**/*.css`, {read: false})
                 .pipe(plugins.sort()),
             {
                 starttag: '<!-- injector:css -->',
