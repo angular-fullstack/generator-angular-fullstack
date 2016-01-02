@@ -10,33 +10,15 @@
 'use strict';<% if (filters.models) { %>
 
 import _ from 'lodash';<% if (filters.mongooseModels) { %>
-var <%= classedName %> = require('./<%= basename %>.model');<% } if (filters.sequelizeModels) { %>
-var sqldb = require('<%= relativeRequire(config.get('registerModelsFile')) %>');
-var <%= classedName %> = sqldb.<%= classedName %>;<% } %>
+import <%= classedName %> from './<%= basename %>.model';<% } if (filters.sequelizeModels) { %>
+import {<%= classedName %>} from '<%= relativeRequire(config.get('registerModelsFile')) %>';<% } %>
 
-function handleError(res, statusCode) {
-  statusCode = statusCode || 500;
-  return function(err) {
-    res.status(statusCode).send(err);
-  };
-}
-
-function responseWithResult(res, statusCode) {
+function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
     if (entity) {
       res.status(statusCode).json(entity);
     }
-  };
-}
-
-function handleEntityNotFound(res) {
-  return function(entity) {
-    if (!entity) {
-      res.status(404).end();
-      return null;
-    }
-    return entity;
   };
 }
 
@@ -62,6 +44,23 @@ function removeEntity(res) {
         });
     }
   };
+}
+
+function handleEntityNotFound(res) {
+  return function(entity) {
+    if (!entity) {
+      res.status(404).end();
+      return null;
+    }
+    return entity;
+  };
+}
+
+function handleError(res, statusCode) {
+  statusCode = statusCode || 500;
+  return function(err) {
+    res.status(statusCode).send(err);
+  };
 }<% } %>
 
 // Gets a list of <%= classedName %>s
@@ -69,7 +68,7 @@ export function index(req, res) {<% if (!filters.models) { %>
   res.json([]);<% } else { %>
   <% if (filters.mongooseModels) { %><%= classedName %>.findAsync()<% }
      if (filters.sequelizeModels) { %><%= classedName %>.findAll()<% } %>
-    .then(responseWithResult(res))
+    .then(respondWithResult(res))
     .catch(handleError(res));<% } %>
 }<% if (filters.models) { %>
 
@@ -82,7 +81,7 @@ export function show(req, res) {
     }
   })<% } %>
     .then(handleEntityNotFound(res))
-    .then(responseWithResult(res))
+    .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
@@ -90,7 +89,7 @@ export function show(req, res) {
 export function create(req, res) {
   <% if (filters.mongooseModels) { %><%= classedName %>.createAsync(req.body)<% }
      if (filters.sequelizeModels) { %><%= classedName %>.create(req.body)<% } %>
-    .then(responseWithResult(res, 201))
+    .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
@@ -107,7 +106,7 @@ export function update(req, res) {
   })<% } %>
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
-    .then(responseWithResult(res))
+    .then(respondWithResult(res))
     .catch(handleError(res));
 }
 

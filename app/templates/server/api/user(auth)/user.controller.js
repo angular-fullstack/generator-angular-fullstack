@@ -20,13 +20,6 @@ function handleError(res, statusCode) {
   };
 }
 
-function respondWith(res, statusCode) {
-  statusCode = statusCode || 200;
-  return function() {
-    res.status(statusCode).end();
-  };
-}
-
 /**
  * Get list of users
  * restriction: 'admin'
