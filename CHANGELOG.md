@@ -4,7 +4,7 @@
 
 ### Features
 
-* **app**: fix .gitattributes (6b17ef7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6b17ef719424cbe4025a7abb3bdc7466853f700c))
+* **app**: fix .gitattributes ([6b17ef7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6b17ef719424cbe4025a7abb3bdc7466853f700c))
 * **gulp**
   * add missing tasks ([4d0e2ba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4d0e2ba32ddaa8c0f4a9a78cbce362843b522894))
   * update useref to latest version ([f21a388](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f21a388f9e724b34cdd92f5a704782c2035e677d))
