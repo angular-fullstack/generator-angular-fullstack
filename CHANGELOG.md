@@ -1,3 +1,19 @@
+<a name="3.3.0-beta.0"></a>
+# [3.3.0-beta.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.2.0...v3.3.0-beta.0) (2016-01-06)
+
+
+### Bug Fixes
+
+* **client:util.urlParse:** special treatment for IE ([869b45b](https://github.com/DaftMonk/generator-angular-fullstack/commit/869b45b))
+* **gulp:** 
+  * **mocha:** have tests clean up once complete ([93dec12](https://github.com/DaftMonk/generator-angular-fullstack/commit/93dec12))
+  * **test:** fix gulp test dependencies ([7bc99fb](https://github.com/DaftMonk/generator-angular-fullstack/commit/7bc99fb))
+
+### Features
+
+* **client:** Add initial TypeScript support ([22d46d5](https://github.com/DaftMonk/generator-angular-fullstack/commit/22d46d5))
+
+
 <a name="3.2.0"></a>
 # [3.2.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.1.1...v3.2.0) (2016-01-03)
 
