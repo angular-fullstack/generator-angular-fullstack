@@ -42,8 +42,8 @@ const paths = {
         scripts: [`${serverPath}/**/!(*.spec|*.integration).js`],
         json: [`${serverPath}/**/*.json`],
         test: {
-          integration: `${serverPath}/**/*.integration.js`,
-          unit: `${serverPath}/**/*.spec.js`
+          integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
+          unit: [`${serverPath}/**/*.spec.js`, 'mocha.global.js']
         }
     },
     karma: 'karma.conf.js',
