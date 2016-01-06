@@ -407,7 +407,7 @@ gulp.task('serve:dist', cb => {
         cb);
 });
 
-gulp.task('test', ['wiredep:test'], cb => {
+gulp.task('test', cb => {
     return runSequence('test:server', 'test:client', cb);
 });
 
@@ -431,7 +431,7 @@ gulp.task('mocha:integration', () => {
         .pipe(mocha());
 });
 
-gulp.task('test:client', ['wiredep:test'<% if(filters.ts) { %>, 'tsd:test', 'transpile:client', 'transpile:client:test'<% } %>], (done) => {
+gulp.task('test:client', ['wiredep:test', 'constant'<% if(filters.ts) { %>, 'tsd:test', 'transpile:client', 'transpile:client:test'<% } %>], (done) => {
     new KarmaServer({
       configFile: `${__dirname}/${paths.karma}`,
       singleRun: true
@@ -456,7 +456,7 @@ gulp.task('wiredep:client', () => {
 });
 
 gulp.task('wiredep:test', () => {
-    gulp.src(paths.karma)
+    return gulp.src(paths.karma)
         .pipe(wiredep({
             exclude: [
                 /bootstrap-sass-official/,
@@ -545,7 +545,7 @@ gulp.task('jade', function() {
 
 gulp.task('constant', function() {
   let sharedConfig = require(`./${serverPath}/config/environment/shared`);
-  plugins.ngConstant({
+  return plugins.ngConstant({
     name: '<%= scriptAppName %>.constants',
     deps: [],
     wrap: true,
