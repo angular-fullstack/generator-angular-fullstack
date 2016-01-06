@@ -105,7 +105,14 @@ function templateIsUsable(self, filteredFile) {
   return true;
 }
 
-export function processDirectory(source, destination) {
+function defaultIteratee(dest) {
+  return dest;
+}
+
+/**
+ * 
+ */
+export function processDirectory(source, destination, iteratee = defaultIteratee) {
   var self = this;
   var root = path.isAbsolute(source) ? source : path.join(self.sourceRoot(), source);
   var files = expandFiles('**', { dot: true, cwd: root });
@@ -124,6 +131,8 @@ export function processDirectory(source, destination) {
 
     src = path.join(root, f);
     dest = path.join(destination, name);
+
+    dest = iteratee(dest);
 
     if(path.basename(dest).indexOf('_') === 0) {
       stripped = path.basename(dest).replace(/^_/, '');

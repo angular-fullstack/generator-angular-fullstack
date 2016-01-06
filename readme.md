@@ -51,7 +51,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Client**
 
-* Scripts: `Babel`, `TypeScript` (Coming Soon)
+* Scripts: `Babel`, `TypeScript`
 * Markup:  `HTML`, `Jade`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`

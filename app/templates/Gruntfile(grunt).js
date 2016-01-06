@@ -60,6 +60,10 @@ module.exports = function (grunt) {
       babel: {
         files: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js'],
         tasks: ['newer:babel:client']
+      },<% } %><% if(filters.ts) { %>
+      ts: {
+        files: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).ts'],
+        tasks: ['ts:client']
       },<% } %>
       ngconstant: {
         files: ['<%%= yeoman.server %>/config/environment/shared.js'],
@@ -67,7 +71,7 @@ module.exports = function (grunt) {
       },
       injectJS: {
         files: [
-          '<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js',
+          '<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).<%= scriptExt %>',
           '!<%%= yeoman.client %>/app/app.js'
         ],
         tasks: ['injector:scripts']
@@ -77,12 +81,12 @@ module.exports = function (grunt) {
         tasks: ['injector:css']
       },
       mochaTest: {
-        files: ['<%%= yeoman.server %>/**/*.{spec,integration}.js'],
+        files: ['<%%= yeoman.server %>/**/*.{spec,integration}.<%= scriptExt %>'],
         tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
-        files: ['<%%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js'],
-        tasks: ['newer:jshint:all', 'wiredep:test', 'karma']
+        files: ['<%%= yeoman.client %>/{app,components}/**/*.{spec,mock}.<%= scriptExt %>'],
+        tasks: [<% if(filters.babel) { %>'newer:jshint:all'<% } if(filters.ts) { %>'newer:tslint:all', 'newer:ts:client_test',<% } %>, 'wiredep:test', 'karma']
       },<% if (filters.stylus) { %>
       injectStylus: {
         files: ['<%%= yeoman.client %>/{app,components}/**/*.styl'],
@@ -118,7 +122,7 @@ module.exports = function (grunt) {
       livereload: {
         files: [
           '{.tmp,<%%= yeoman.client %>}/{app,components}/**/*.{css,html}',
-          '{.tmp,<%%= yeoman.client %>}/{app,components}/**/!(*.spec|*.mock).js',
+          '{.tmp,<%%= yeoman.client %>}/{app,components}/**/!(*.spec|*.mock).<%= scriptExt %>',
           '<%%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
@@ -161,7 +165,16 @@ module.exports = function (grunt) {
       test: {
         src: ['<%%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js']
       }
-    },
+    },<% if(filters.ts) { %>
+
+    tslint: {
+      options: {
+        configuration: '<%%= yeoman.client %>/tslint.json'
+      },
+      all: {
+        src: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).ts']
+      }
+    },<% } %>
 
     jscs: {
       options: {
@@ -420,7 +433,13 @@ module.exports = function (grunt) {
         cwd: '<%%= yeoman.client %>',
         dest: '.tmp/',
         src: ['{app,components}/**/*.css']
-      }
+      }<% if(filters.ts) { %>,
+      constant: {
+        expand: true,
+        cwd: '<%%= yeoman.client %>',
+        dest: '.tmp/',
+        src: ['app/app.constant.js']
+      }<% } %>
     },
 
     buildcontrol: {
@@ -451,17 +470,23 @@ module.exports = function (grunt) {
         'injector:stylus',<% } if (filters.less) { %>
         'injector:less',<% } if (filters.sass) { %>
         'injector:sass',<% } %>
-        'ngconstant'
+        'ngconstant'<% if(filters.ts) { %>,
+        'copy:constant'<% } %>
       ],
       server: [<% if(filters.babel) { %>
-        'newer:babel:client',<% } if(filters.jade) { %>
+        'newer:babel:client',<% } if(filters.ts) { %>
+        'ts:client',
+        'copy:constant',<% } if(filters.jade) { %>
         'jade',<% } if(filters.stylus) { %>
         'stylus',<% } if(filters.sass) { %>
         'sass',<% } if(filters.less) { %>
         'less',<% } %>
       ],
       test: [<% if(filters.babel) { %>
-        'newer:babel:client',<% } if(filters.jade) { %>
+        'newer:babel:client',<% } if(filters.ts) { %>
+        'ts:client',
+        'copy:constant',<% } if(filters.ts) { %>
+        'ts:client_test',<% } if(filters.jade) { %>
         'jade',<% } if(filters.stylus) { %>
         'stylus',<% } if(filters.sass) { %>
         'sass',<% } if(filters.less) { %>
@@ -477,7 +502,9 @@ module.exports = function (grunt) {
         }
       },
       dist: [<% if(filters.babel) { %>
-        'newer:babel:client',<% } if(filters.jade) { %>
+        'newer:babel:client',<% } if(filters.ts) { %>
+        'ts:client',
+        'copy:constant',<% } if(filters.jade) { %>
         'jade',<% } if(filters.stylus) { %>
         'stylus',<% } if(filters.sass) { %>
         'sass',<% } if(filters.less) { %>
@@ -613,7 +640,37 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>/<%%= yeoman.server %>'
         }]
       }
-    },<% if(filters.stylus) { %>
+    },<% if(filters.ts) { %>
+
+    ts: {
+      options: {
+        sourceMap: true,
+        failOnTypeErrors: false
+      },
+      client: {
+        tsconfig: './tsconfig.client.json',
+        outDir: '.tmp'
+      },
+      client_test: {
+        tsconfig: './tsconfig.client.test.json',
+        outDir: '.tmp/test'
+      }
+    },
+
+    tsd: {
+      install: {
+        options: {
+          command: 'reinstall',
+          config: './tsd.json'
+        }
+      },
+      install_test: {
+        options: {
+          command: 'reinstall',
+          config: './tsd_test.json'
+        }
+      }
+    },<% } %><% if(filters.stylus) { %>
 
     // Compiles Stylus to CSS
     stylus: {
@@ -649,16 +706,15 @@ module.exports = function (grunt) {
     },<% } %>
 
     injector: {
-      options: {
-
-      },
+      options: {},
       // Inject application script files into index.html (doesn't include bower)
       scripts: {
         options: {
           transform: function(filePath) {
             var yoClient = grunt.config.get('yeoman.client');
             filePath = filePath.replace('/' + yoClient + '/', '');
-            filePath = filePath.replace('/.tmp/', '');
+            filePath = filePath.replace('/.tmp/', '');<% if(filters.ts) { %>
+            filePath = filePath.replace('.ts', '.js');<% } %>
             return '<script src="' + filePath + '"></script>';
           },
           sort: function(a, b) {
@@ -673,10 +729,10 @@ module.exports = function (grunt) {
         },
         files: {
           '<%%= yeoman.client %>/index.html': [
-               [<% if(filters.babel) { %>
-                 '.tmp/{app,components}/**/!(*.spec|*.mock).js',<% } else { %>
-                 '{.tmp,<%%= yeoman.client %>}/{app,components}/**/!(*.spec|*.mock).js',<% } %>
-                 '!{.tmp,<%%= yeoman.client %>}/app/app.js'
+               [
+                 '<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).<%= scriptExt %>',<% if(filters.ts) { %>
+                 '<%%= yeoman.client %>/app/app.constant.js',<% } %>
+                 '!{.tmp,<%%= yeoman.client %>}/app/app.{js,ts}'
                ]
             ]
         }
@@ -788,7 +844,8 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'concurrent:pre',
+        'concurrent:pre',<% if(filters.ts) { %>
+        'tsd',<% } %>
         'concurrent:server',
         'injector',
         'wiredep:client',
@@ -800,7 +857,8 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',
-      'concurrent:pre',
+      'concurrent:pre',<% if(filters.ts) { %>
+      'tsd',<% } %>
       'concurrent:server',
       'injector',
       'wiredep:client',
@@ -831,7 +889,10 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'concurrent:pre',
+        'concurrent:pre',<% if(filters.ts) { %>
+        'ts:client',
+        'ts:client_test',
+        'tsd',<% } %>
         'concurrent:test',
         'injector',
         'postcss',
@@ -857,7 +918,11 @@ module.exports = function (grunt) {
           'clean:server',
           'env:all',
           'env:test',
-          'concurrent:pre',
+          'concurrent:pre',<% if(filters.ts) { %>
+          'tsd:install',
+          'tsd:install_test',
+          'ts:client',
+          'ts:client_test',<% } %>
           'concurrent:test',
           'injector',
           'wiredep:client',
@@ -911,7 +976,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'concurrent:pre',
+    'concurrent:pre',<% if(filters.ts) { %>
+    'tsd',<% } %>
     'concurrent:dist',
     'injector',
     'wiredep:client',
@@ -929,8 +995,9 @@ module.exports = function (grunt) {
     'usemin'
   ]);
 
-  grunt.registerTask('default', [
-    'newer:jshint',
+  grunt.registerTask('default', [<% if(filters.babel) { %>
+    'newer:tslint',<% } %><% if(filters.ts) { %>
+    'newer:jshint',<% } %>
     'test',
     'build'
   ]);

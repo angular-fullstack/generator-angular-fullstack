@@ -26,6 +26,12 @@ function UtilService($window) {
     urlParse(url) {
       var a = document.createElement('a');
       a.href = url;
+
+      // Special treatment for IE, see http://stackoverflow.com/a/13405933 for details
+      if (a.host === '') {
+        a.href = a.href;
+      }
+
       return a;
     },
 

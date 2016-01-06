@@ -13,7 +13,7 @@ describe('angular-fullstack generator', function () {
   var gen, defaultOptions = {
     buildtool: 'grunt',
     script: 'js',
-    babel: true,
+    transpiler: 'babel',
     markup: 'html',
     stylesheet: 'sass',
     router: 'uirouter',
@@ -137,7 +137,8 @@ describe('angular-fullstack generator', function () {
         html: 'html'
       },
       script: {
-        js: 'js'
+        js: 'js',
+        ts: 'ts'
       }
     },
     files = [];
@@ -157,7 +158,7 @@ describe('angular-fullstack generator', function () {
     };
 
 
-    var script = mapping.script[ops.script],
+    var script = mapping.script[ops.transpiler === 'ts' ? 'ts' : 'js'],
         markup = mapping.markup[ops.markup],
         stylesheet = mapping.stylesheet[ops.stylesheet],
         models = ops.models ? ops.models : ops.odms[0];
@@ -165,7 +166,6 @@ describe('angular-fullstack generator', function () {
     /* Core Files */
     files = files.concat([
       'client/.htaccess',
-      'client/.jshintrc',
       'client/favicon.ico',
       'client/robots.txt',
       'client/index.html',
@@ -223,6 +223,21 @@ describe('angular-fullstack generator', function () {
       'protractor.conf.js',
       'README.md'
     ]);
+
+    /* TypeScript */
+    if (ops.transpiler === 'ts') {
+      files = files.concat([
+        'tsconfig.client.test.json',
+        'tsconfig.client.json',
+        'tsd.json',
+        'tsd_test.json',
+        'client/tslint.json'
+      ]);
+    } else {
+      files = files.concat([
+        'client/.jshintrc'
+      ]);
+    }
 
     /* Ui-Router */
     if (ops.router === 'uirouter') {
@@ -515,7 +530,7 @@ describe('angular-fullstack generator', function () {
     describe('with other preprocessors and oauth', function() {
       var testOptions = {
         script: 'js',
-        babel: true,
+        transpiler: 'ts',
         markup: 'jade',
         stylesheet: 'less',
         router: 'uirouter',
@@ -541,7 +556,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should pass lint', function(done) {
-        runTest('grunt jshint', this, done);
+        runTest('grunt tslint', this, done);
       });
 
       it('should run server tests successfully', function(done) {
@@ -552,9 +567,10 @@ describe('angular-fullstack generator', function () {
         runTest('grunt jscs', this, done, 'foo');
       });
 
-      it('should pass lint with generated snake-case endpoint', function(done) {
-        runTest('grunt jshint', this, done, 'foo-bar');
-      });
+      // TODO: generator-ng-component needs TS support
+      // it('should pass lint with generated snake-case endpoint', function(done) {
+      //   runTest('grunt jshint', this, done, 'foo-bar');
+      // });
 
       it('should run server tests successfully with generated snake-case endpoint', function(done) {
         runTest('grunt test:server', this, done, 'foo-bar');
@@ -588,6 +604,7 @@ describe('angular-fullstack generator', function () {
     describe('with sequelize models, auth', function() {
       var testOptions = {
         script: 'js',
+        transpiler: 'babel',
         markup: 'jade',
         stylesheet: 'stylus',
         router: 'uirouter',
@@ -660,7 +677,7 @@ describe('angular-fullstack generator', function () {
     describe('with other preprocessors and no server options', function() {
       var testOptions = {
         script: 'js',
-        babel: true,
+        transpiler: 'ts',
         markup: 'jade',
         stylesheet: 'stylus',
         router: 'ngroute',
@@ -688,7 +705,7 @@ describe('angular-fullstack generator', function () {
       });
 
       it('should pass lint', function(done) {
-        runTest('grunt jshint', this, done);
+        runTest('grunt tslint', this, done);
       });
 
       it('should run server tests successfully', function(done) {
@@ -699,9 +716,10 @@ describe('angular-fullstack generator', function () {
         runTest('grunt jscs', this, done, 'foo');
       });
 
-      it('should pass lint with generated endpoint', function(done) {
-        runTest('grunt jshint', this, done, 'foo');
-      });
+      // TODO: generator-ng-component needs TS support
+      // it('should pass lint with generated endpoint', function(done) {
+      //   runTest('grunt jshint', this, done, 'foo');
+      // });
 
       it('should run server tests successfully with generated endpoint', function(done) {
         runTest('grunt test:server', this, done, 'foo');

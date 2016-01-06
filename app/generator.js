@@ -96,13 +96,18 @@ export default class Generator extends Base {
 
         this.log('# Client\n');
 
-        this.prompt([/*{
+        this.prompt([{
             type: 'list',
-            name: 'script',
+            name: 'transpiler',
             message: 'What would you like to write scripts with?',
             choices: ['Babel', 'TypeScript'],
-            filter: function(val) { return val.toLowerCase(); }
-          }, */{
+            filter: val => {
+              return {
+                'Babel': 'babel',
+                'TypeScript': 'ts'
+              }[val];
+            }
+          }, {
             type: 'list',
             name: 'markup',
             message: 'What would you like to write markup with?',
@@ -136,14 +141,14 @@ export default class Generator extends Base {
           }], function (answers) {
 
             this.filters.js = true;
-            this.filters.babel = true;
+            this.filters[answers.transpiler] = true;
             this.filters[answers.markup] = true;
             this.filters[answers.stylesheet] = true;
             this.filters[answers.router] = true;
             this.filters.bootstrap = !!answers.bootstrap;
             this.filters.uibootstrap =  !!answers.uibootstrap;
 
-            this.scriptExt = answers.script === 'coffee' ? 'coffee' : 'js';
+            this.scriptExt = answers.transpiler === 'ts' ? 'ts' : 'js';
             this.templateExt = answers.markup;
             this.styleExt = answers.stylesheet === 'sass' ? 'scss' : answers.stylesheet;
 
@@ -359,6 +364,7 @@ export default class Generator extends Base {
         if(this.filters.ngroute) filters.push('ngroute');
         if(this.filters.uirouter) filters.push('uirouter');
         if(this.filters.babel) extensions.push('babel');
+        if(this.filters.ts) extensions.push('ts');
         if(this.filters.js) extensions.push('js');
         if(this.filters.html) extensions.push('html');
         if(this.filters.jade) extensions.push('jade');
@@ -412,8 +418,15 @@ export default class Generator extends Base {
     return {
 
       generateProject: function() {
+        let self = this;
         this.sourceRoot(path.join(__dirname, './templates'));
-        this.processDirectory('.', '.');
+        this.processDirectory('.', '.', function(dest) {
+          if(self.filters.ts && dest.indexOf('client') > -1 && dest.indexOf('.json') === -1) {
+            dest = dest.replace('.js', '.ts');
+          }
+
+          return dest;
+        });
       },
 
       generateEndpoint: function() {
