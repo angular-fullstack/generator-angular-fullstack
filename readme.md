@@ -1,14 +1,14 @@
 # AngularJS Full-Stack generator
-![Build Status](https://codeship.com/projects/26128390-800a-0133-c5f7-6a23b0487a18/status?branch=master)
-[![npm version](https://badge.fury.io/js/generator-angular-fullstack.svg)](http://badge.fury.io/js/generator-angular-fullstack)
-[![Dependency Status](https://david-dm.org/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
-[![Dev-Dependency Status](https://david-dm.org/angular-fullstack/generator-angular-fullstack/dev-status.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack#info=devDependencies)
-[![Gitter chat](https://badges.gitter.im/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+![Build Status](https://img.shields.io/codeship/26128390-800a-0133-c5f7-6a23b0487a18/master.svg)
+[![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
+[![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
+[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack#info=devDependencies)
+[![Gitter chat](https://img.shields.io/gitter/room/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
 #### Generated project: 
-[![Dependency Status](https://david-dm.org/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
-[![Dev-Dependency Status](https://david-dm.org/angular-fullstack/angular-fullstack-deps/dev-status.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
+[![Dependency Status](https://img.shields.io/david/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
+[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
 
 ## Example project
 
