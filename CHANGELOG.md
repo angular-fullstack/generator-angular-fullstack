@@ -1,10 +1,54 @@
+<a name="3.3.0-beta.0"></a>
+# [3.3.0-beta.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.2.0...v3.3.0-beta.0) (2016-01-06)
+
+
+### Bug Fixes
+
+* **client:util.urlParse:** special treatment for IE ([869b45b](https://github.com/DaftMonk/generator-angular-fullstack/commit/869b45b))
+* **gulp:** 
+  * **mocha:** have tests clean up once complete ([93dec12](https://github.com/DaftMonk/generator-angular-fullstack/commit/93dec12))
+  * **test:** fix gulp test dependencies ([7bc99fb](https://github.com/DaftMonk/generator-angular-fullstack/commit/7bc99fb))
+
+### Features
+
+* **client:** Add initial TypeScript support ([22d46d5](https://github.com/DaftMonk/generator-angular-fullstack/commit/22d46d5))
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.1.1...v3.2.0) (2016-01-03)
+
+
+### Features
+
+* **app**: fix .gitattributes ([6b17ef7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6b17ef719424cbe4025a7abb3bdc7466853f700c))
+* **gulp**
+  * add missing tasks ([4d0e2ba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4d0e2ba32ddaa8c0f4a9a78cbce362843b522894))
+  * update useref to latest version ([f21a388](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f21a388f9e724b34cdd92f5a704782c2035e677d))
+  * add file revisioning for images  ([3bf29b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3bf29b27e4a3c61bc932af11dd3ea9a27c8fd48c))
+
+### Bug Fixes
+
+* **e2e**: force e2e tests to wait for angular ([842ab55](https://github.com/angular-fullstack/generator-angular-fullstack/commit/842ab558c721f114b27d9dae8d3b6e436db71af8))
+* **gen**: fix styleExt being `sass` instead of `scss` ([8f99a8f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8f99a8ffb89e2c98b06b025bcdeb2374c839e81f))
+* **gen**: set scriptExt, templateExt, & styleExt when re-using a .yo-rc.json ([6e59229](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6e59229afde8c3590da9d8f83bdd96c556fadfd6))
+* **gulp:** 
+  * inject angular modules before other scripts ([c0d5a14](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c0d5a146fd18e9953ece8e180cfd4c33f8fac63f))
+  * clean .tmp folder in build task ([9596ba4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9596ba47a1e817605eb9ccdb600f4aa62d718e3f))
+  * add missing gulp-env package ([cf017de](https://github.com/angular-fullstack/generator-angular-fullstack/commit/cf017debb7f2715896bf93003b576a0242a270b5))
+  * get client tests working ([0cb4a4b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0cb4a4b9494a564508d6f2ec256374224465808b))
+  * use different transpile options for server and client ([bb67961](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bb679618d6bca2d84b7bc8adf1886f0171a5d005))
+  * make sure tests and main app file are not injected ([0171112](https://github.com/angular-fullstack/generator-angular-fullstack/commit/017111297968f3fcfb604273fa37d162ad01a714))
+  * make sure `.htaccess` is copied on build ([3602406](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3602406631d4f5e73d51bab6d11c1d975b25bd00))
+  * call `wiredep:test` before running tests ([103adb2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/103adb2e19feda6bdb3487b3cde69afd12feb48d))
+  * **inject:css**: fix string that should be template string ([bb92502](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bb92502593a27045a05d6d8789f54f05fa9125f5))
+
 <a name="3.1.1"></a>
 ## [3.1.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.1.0...v3.1.1) (2015-12-15)
 
 
 ### Bug Fixes
 
-* client:auth.decorator: fix Auth.isLoggedIn not having a noop arg ([0e9f302](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0e9f3025fbe69c8613435e59d028cf6ce9b0e9e4))
+* **client:auth.decorator**: fix Auth.isLoggedIn not having a noop arg ([0e9f302](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0e9f3025fbe69c8613435e59d028cf6ce9b0e9e4))
 
 
 <a name="3.1.0"></a>

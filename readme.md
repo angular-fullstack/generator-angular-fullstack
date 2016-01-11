@@ -41,7 +41,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **General**
 
-* Build Systems: `Grunt`, `Gulp` (experimental)
+* Build Systems: `Grunt`, `Gulp`
 * Testing: 
   * `Jasmine`
   * `Mocha + Chai + Sinon`
@@ -113,7 +113,6 @@ Options:
         --skip-cache    # Do not remember prompt answers                        Default: false
         --skip-install  # Do not install dependencies                           Default: false
         --app-suffix    # Allow a custom suffix to be added to the module name  Default: App
-        --gulp          # Use the experimental Gulp config instead of Grunt     Default: false
 
 Arguments:
   name    Type: String  Required: false

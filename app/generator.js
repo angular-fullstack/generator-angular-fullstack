@@ -19,12 +19,6 @@ export default class Generator extends Base {
       defaults: false
     });
 
-    this.option('gulp', {
-      desc: 'Use experimental Gulp configuration',
-      type: Boolean,
-      defaults: false
-    });
-
     this.option('app-suffix', {
       desc: 'Allow a custom suffix to be added to the module name',
       type: String,
@@ -266,14 +260,14 @@ export default class Generator extends Base {
 
         this.log('\n# Project\n');
 
-        this.prompt([/*{
+        this.prompt([{
           type: 'list',
           name: 'buildtool',
-          message: 'Would you like to use Gulp (experimental) instead of Grunt?',
+          message: 'Would you like to use Gulp or Grunt?',
           choices: ['Grunt', 'Gulp'],
           default: 0,
           filter: val => val.toLowerCase()
-        }, */{
+        }, {
           type: 'list',
           name: 'testing',
           message: 'What would you like to write tests with?',
@@ -298,10 +292,7 @@ export default class Generator extends Base {
             return  answers.testing === 'mocha';
           }
         }], function (answers) {
-          this.filters.grunt = !this.options['gulp'];
-          this.filters.gulp = !!this.options['gulp'];
-          // this.filters.grunt = answers.buildtool === 'grunt';
-          // this.filters.gulp = answers.buildtool === 'gulp';
+          this.filters[answers.buildtool] = true;
 
           this.filters[answers.testing] = true;
           if (answers.testing === 'mocha') {
