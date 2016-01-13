@@ -366,6 +366,7 @@ describe('angular-fullstack generator', function () {
       gen = helpers.createGenerator('angular-fullstack:app', deps, [], {
         skipInstall: true
       });
+      gen.conflicter.force = true;
       done();
     }.bind(this));
   });
@@ -529,6 +530,7 @@ describe('angular-fullstack generator', function () {
 
     describe('with other preprocessors and oauth', function() {
       var testOptions = {
+        buildtool: 'grunt',
         script: 'js',
         transpiler: 'ts',
         markup: 'jade',
@@ -603,6 +605,7 @@ describe('angular-fullstack generator', function () {
 
     describe('with sequelize models, auth', function() {
       var testOptions = {
+        buildtool: 'grunt',
         script: 'js',
         transpiler: 'babel',
         markup: 'jade',
@@ -676,6 +679,7 @@ describe('angular-fullstack generator', function () {
 
     describe('with other preprocessors and no server options', function() {
       var testOptions = {
+        buildtool: 'grunt',
         script: 'js',
         transpiler: 'ts',
         markup: 'jade',
