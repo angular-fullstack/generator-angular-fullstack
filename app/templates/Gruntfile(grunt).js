@@ -995,8 +995,8 @@ module.exports = function (grunt) {
     'usemin'
   ]);
 
-  grunt.registerTask('default', [<% if(filters.babel) { %>
-    'newer:tslint',<% } %><% if(filters.ts) { %>
+  grunt.registerTask('default', [<% if(filters.ts) { %>
+    'newer:tslint',<% } %><% if(filters.babel) { %>
     'newer:jshint',<% } %>
     'test',
     'build'
