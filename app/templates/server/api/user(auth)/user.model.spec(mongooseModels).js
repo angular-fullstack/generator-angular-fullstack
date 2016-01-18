@@ -36,14 +36,14 @@ describe('User Model', function() {
     return <%= expect() %>user.saveAsync()
       .then(function() {
         var userDup = genUser();
-        return userDup.saveAsync();
+        return User.create(userDup);
       })<%= to() %>.be.rejected;
   });
 
   describe('#email', function() {
     it('should fail when saving without an email', function() {
       user.email = '';
-      return <%= expect() %>user.saveAsync()<%= to() %>.be.rejected;
+      return <%= expect() %>User.create(user)<%= to() %>.be.rejected;
     });
   });
 
