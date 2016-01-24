@@ -9,9 +9,11 @@ module.exports = {<% if (filters.mongoose) { %>
     uri: 'mongodb://localhost/<%= lodash.slugify(appname) %>-dev'
   },<% } if (filters.sequelize) { %>
 
-  // Sequelize connection opions
+  // Sequelize connection options
   sequelize: {
     uri: 'sqlite://',
+// Postgres: (also uncomment storage: 'dev.sqlite' line below)
+//  uri: 'postgres://' + process.env.USER + ':@SERVER:PORT/DBNAME',
     options: {
       logging: false,
       storage: 'dev.sqlite',
