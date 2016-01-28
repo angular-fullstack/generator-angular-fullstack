@@ -161,7 +161,7 @@ module.exports = function (grunt) {
         },
         src: ['<%%= yeoman.server %>/**/*.{spec,integration}.js']
       },
-      all: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js'],
+      all: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock|app.constant).js'],
       test: {
         src: ['<%%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js']
       }
