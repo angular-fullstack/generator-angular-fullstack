@@ -312,7 +312,11 @@ gulp.task('transpile:server', () => {
 gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:scripts:server'], cb));
 
 gulp.task('lint:scripts:client', () => {
-    return gulp.src(_.union(paths.client.scripts, _.map(paths.client.test, blob => '!' + blob)))
+    return gulp.src(_.union(
+        paths.client.scripts,
+        _.map(paths.client.test, blob => '!' + blob),
+        [`!${clientPath}/app/app.constant.<%= scriptExt %>`]
+    ))
         .pipe(lintClientScripts());
 });
 
