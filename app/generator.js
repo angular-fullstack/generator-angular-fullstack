@@ -144,7 +144,9 @@ export default class Generator extends Base {
 
             this.scriptExt = answers.transpiler === 'ts' ? 'ts' : 'js';
             this.templateExt = answers.markup;
-            this.styleExt = answers.stylesheet === 'sass' ? 'scss' : answers.stylesheet;
+
+            var styleExt = {sass: 'scss', stylus: 'styl'}[answers.stylesheet];
+            this.styleExt = styleExt ? styleExt : answers.stylesheet;
 
             cb();
           }.bind(this));
