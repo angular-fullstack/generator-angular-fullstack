@@ -377,7 +377,9 @@ gulp.task('watch', () => {
             .pipe(plugins.livereload());
     });
 
-    plugins.watch(paths.client.views)
+    plugins.watch(paths.client.views)<% if(filters.jade) { %>
+        .pipe(plugins.jade())
+        .pipe(gulp.dest('.tmp'))<% } %>
         .pipe(plugins.plumber())
         .pipe(plugins.livereload());
 
