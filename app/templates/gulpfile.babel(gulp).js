@@ -218,7 +218,26 @@ gulp.task('inject:js', () => {
                 transform: (filepath) => '<script src="' + filepath.replace(`/${clientPath}/`, '')<% if(filters.ts) { %>.replace('.ts', '.js')<% } %> + '"></script>'
             }))
         .pipe(gulp.dest(clientPath));
-});
+});<% if(filters.ts) { %>
+
+gulp.task('inject:tsconfig', () => {
+    let src = gulp.src([
+        `${clientPath}/**/!(*.spec|*.mock).ts`,
+        `!${clientPath}/bower_components/**/*`,
+        `${clientPath}/typings/**/*.d.ts`
+    ], {read: false})
+        .pipe(plugins.sort());
+
+    return gulp.src('./tsconfig.client.json')
+        .pipe(plugins.inject(src, {
+            starttag: '"files": [',
+            endtag: ']',
+            transform: (filepath, file, i, length) => {
+                return `"${filepath.substr(1)}"${i + 1 < length ? ',' : ''}`;
+            }
+        }))
+        .pipe(gulp.dest('./'));
+});<% } %>
 
 gulp.task('inject:css', () => {
     return gulp.src(paths.client.mainView)
@@ -280,7 +299,7 @@ gulp.task('copy:constant', () => {
 })
 
 let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
-gulp.task('transpile:client', ['constant', 'copy:constant'], () => {
+gulp.task('transpile:client', ['inject:tsconfig', 'constant', 'copy:constant'], () => {
     return tsProject.src()
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript(tsProject)).js
@@ -379,13 +398,15 @@ gulp.task('watch', () => {
 
     plugins.watch(paths.client.views)
         .pipe(plugins.plumber())
-        .pipe(plugins.livereload());
+        .pipe(plugins.livereload());<% if(filters.babel) { %>
 
     plugins.watch(paths.client.scripts) //['inject:js']
         .pipe(plugins.plumber())
         .pipe(transpileClient())
         .pipe(gulp.dest('.tmp'))
-        .pipe(plugins.livereload());
+        .pipe(plugins.livereload());<% } %><% if(filters.ts) { %>
+
+    gulp.watch(paths.client.scripts, ['inject:tsconfig', 'lint:scripts:client', 'transpile:client']);<% } %>
 
     plugins.watch(_.union(paths.server.scripts, testFiles))
         .pipe(plugins.plumber())
@@ -397,7 +418,7 @@ gulp.task('watch', () => {
 
 gulp.task('serve', cb => {
     runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'tsd'<% } %>],
-        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
+        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %><% if(filters.ts) { %>, 'inject:tsconfig'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
         ['start:server', 'start:client'],
