@@ -52,6 +52,13 @@ describe('User Model', function() {
       return user.saveAsync();
     });
 
+    it('should exclude salt and hashedPassword by default', function() {
+      User.find({name: user.name}, function(err, _user) {
+        _user.should.not.have.property('salt');
+        _user.should.not.have.property('hashedPassword');
+      });
+    });
+
     it('should authenticate user if valid', function() {
       <%= expect() %>user.authenticate('password')<%= to() %>.be.true;
     });
