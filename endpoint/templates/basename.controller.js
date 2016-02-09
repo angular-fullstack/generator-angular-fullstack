@@ -24,7 +24,7 @@ function respondWithResult(res, statusCode) {
 
 function saveUpdates(updates) {
   return function(entity) {
-    <% if (filters.mongooseModels) { %>v_.extend(entity, updates);
+    <% if (filters.mongooseModels) { %>_.extend(entity, updates);
     return entity.saveAsync()
       .spread(entity => {<% }
        if (filters.sequelizeModels) { %>return entity.updateAttributes(updates)
