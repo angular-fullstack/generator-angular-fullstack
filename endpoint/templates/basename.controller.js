@@ -24,12 +24,12 @@ function respondWithResult(res, statusCode) {
 
 function saveUpdates(updates) {
   return function(entity) {
-    <% if (filters.mongooseModels) { %>var updated = _.merge(entity, updates);
-    return updated.saveAsync()
-      .spread(updated => {<% }
+    <% if (filters.mongooseModels) { %>v_.extend(entity, updates);
+    return entity.saveAsync()
+      .spread(entity => {<% }
        if (filters.sequelizeModels) { %>return entity.updateAttributes(updates)
-      .then(updated => {<% } %>
-        return updated;
+      .then(entity => {<% } %>
+        return entity;
       });
   };
 }
