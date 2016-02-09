@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import crypto from 'crypto';<% if (filters.oauth) { %>
 var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
@@ -228,6 +229,12 @@ module.exports = function(sequelize, DataTypes) {
         } else {
           fn(null);
         }
+      },
+
+      toJSON: function() {
+        var excludedAttributes = ['salt', 'password'];
+
+        return _.omit(this.dataValues, excludedAttributes);
       }
     }
   });
