@@ -25,16 +25,8 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 export function index(req, res) {
-  <% if (filters.mongooseModels) { %>User.findAsync({}, '-salt -password')<% }
-     if (filters.sequelizeModels) { %>User.findAll({
-    attributes: [
-      '_id',
-      'name',
-      'email',
-      'role',
-      'provider'
-    ]
-  })<% } %>
+  <% if (filters.mongooseModels) { %>User.findAsync()<% }
+     if (filters.sequelizeModels) { %>User.findAll()<% } %>
     .then(users => {
       res.status(200).json(users);
     })
@@ -132,19 +124,8 @@ export function changePassword(req, res, next) {
 export function me(req, res, next) {
   var userId = req.user._id;
 
-  <% if (filters.mongooseModels) { %>User.findOneAsync({ _id: userId }, '-salt -password')<% }
-     if (filters.sequelizeModels) { %>User.find({
-    where: {
-      _id: userId
-    },
-    attributes: [
-      '_id',
-      'name',
-      'email',
-      'role',
-      'provider'
-    ]
-  })<% } %>
+  <% if (filters.mongooseModels) { %>User.findOneAsync({ _id: userId })<% }
+     if (filters.sequelizeModels) { %>User.find({ where: { _id: userId } })<% } %>
     .then(user => { // don't ever give out the password or salt
       if (!user) {
         return res.status(401).end();
