@@ -10,7 +10,7 @@ header#banner.hero-unit
       h1.page-header Features:
       ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in main.awesomeThings')
         li
-          a(href='#', tooltip='{{thing.info}}')
+          a(href='#', uib-tooltip='{{thing.info}}')
             | {{thing.name}}<% if (filters.socketio) { %>
             button.close(type='button', ng-click='main.deleteThing(thing)') &times;<% } %><% if (filters.socketio) { %>
 
