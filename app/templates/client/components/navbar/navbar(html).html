@@ -9,7 +9,7 @@
       </button>
       <a href="/" class="navbar-brand"><%= lodash.slugify(lodash.humanize(appname)) %></a>
     </div>
-    <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+    <div uib-collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li ng-repeat="item in nav.menu" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: nav.isActive(item.link)}"<% } %>>
             <a <% if (filters.uirouter) { %>ui-sref="{{item.state}}"<% } else { %>ng-href="{{item.link}}"<% } %>>{{item.title}}</a>
