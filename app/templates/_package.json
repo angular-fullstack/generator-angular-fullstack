@@ -146,7 +146,7 @@
     "karma-chrome-launcher": "~0.2.0",
     "karma-requirejs": "~0.2.2",
     "karma-jade-preprocessor": "0.0.11",
-    "karma-phantomjs-launcher": "~0.2.0",<% if (filters.jade) { %>
+    "karma-phantomjs-launcher": "~1.0.0",<% if (filters.jade) { %>
     "karma-ng-jade2js-preprocessor": "^0.2.0",<% } else { %>
     "karma-ng-html2js-preprocessor": "~0.2.0",<% } %>
     "karma-spec-reporter": "~0.0.20",
@@ -159,7 +159,7 @@
     "jasmine-spec-reporter": "^2.4.0",<% } if(filters.babel) { %>
     "karma-babel-preprocessor": "^5.2.1",<% } %>
     "requirejs": "~2.1.11",
-    "phantomjs": "^1.9.18",
+    "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
     "supertest": "^1.1.0"
   },
