@@ -15,5 +15,6 @@ var db = {
 
 // Insert models below<% if (filters.sequelizeModels && filters.auth) { %>
 db.User = db.sequelize.import('../api/user/user.model');<% } %>
+<% if (filters.sequelizeModels) { %>db.Thing = db.sequelize.import('../api/thing/thing.model');<% } %>
 
 export default db;

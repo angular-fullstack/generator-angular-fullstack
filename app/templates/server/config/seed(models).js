@@ -17,7 +17,7 @@ var User = sqldb.User;<% } %><% } %>
   })<% } %>
   .then(() => {
     <% if (filters.mongooseModels) { %>Thing.create({<% }
-       if (filters.sequelizeModels) { %>Thing.bulkCreate([{<% } %>
+       if (filters.sequelizeModels) { %>return Thing.bulkCreate([{<% } %>
       name: 'Development Tools',
       info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
              'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
@@ -53,7 +53,7 @@ var User = sqldb.User;<% } %><% } %>
   .then(() => User.destroy({ where: {} }))<% } %>
   .then(() => {
     <% if (filters.mongooseModels) { %>User.createAsync({<% }
-       if (filters.sequelizeModels) { %>User.bulkCreate([{<% } %>
+       if (filters.sequelizeModels) { %>return User.bulkCreate([{<% } %>
       provider: 'local',
       name: 'Test User',
       email: 'test@example.com',
