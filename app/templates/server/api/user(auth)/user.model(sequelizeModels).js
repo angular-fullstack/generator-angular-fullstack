@@ -38,10 +38,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     provider: DataTypes.STRING,
     salt: DataTypes.STRING<% if (filters.oauth) { %>,<% if (filters.facebookAuth) { %>
-    facebook: DataTypes.TEXT,<% } %><% if (filters.twitterAuth) { %>
-    twitter: DataTypes.TEXT,<% } %><% if (filters.googleAuth) { %>
-    google: DataTypes.TEXT,<% } %>
-    github: DataTypes.TEXT<% } %>
+    facebook: DataTypes.JSON,<% } %><% if (filters.twitterAuth) { %>
+    twitter: DataTypes.JSON,<% } %><% if (filters.googleAuth) { %>
+    google: DataTypes.JSON,<% } %>
+    github: DataTypes.JSON<% } %>
 
   }, {
 
