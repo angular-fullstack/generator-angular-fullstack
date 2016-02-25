@@ -12,6 +12,7 @@ export function setup(User, config) {
        if (filters.sequelizeModels) { %>User.find({where:{<% } %>
       'google.id': profile.id 
     <% if (filters.sequelizeModels) { %> } <% } %>
+    
     })
       .then(user => {
         if (user) {
