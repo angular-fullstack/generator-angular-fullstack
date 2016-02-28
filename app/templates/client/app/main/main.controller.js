@@ -5,17 +5,20 @@
 class MainController {
 
   constructor($http<% if (filters.socketio) { %>, $scope, socket<% } %>) {
-    this.$http = $http;
-    this.awesomeThings = [];
-
-    $http.get('/api/things').then(response => {
-      this.awesomeThings = response.data;<% if (filters.socketio) { %>
-      socket.syncUpdates('thing', this.awesomeThings);<% } %>
-    });<% if (filters.socketio) { %>
+    this.$http = $http;<% if (filters.socketio) { %>
+    this.socket = socket;<% } %>
+    this.awesomeThings = [];<% if (filters.socketio) { %>
 
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('thing');
     });<% } %>
+  }
+
+  $onInit() {
+    this.$http.get('/api/things').then(response => {
+      this.awesomeThings = response.data;<% if (filters.socketio) { %>
+      this.socket.syncUpdates('thing', this.awesomeThings);<% } %>
+    });
   }<% if (filters.models) { %>
 
   addThing() {
@@ -31,6 +34,9 @@ class MainController {
 }
 
 angular.module('<%= scriptAppName %>')
-  .controller('MainController', MainController);
+  .component('main', {
+    templateUrl: 'app/main/main.html',
+    controller: MainController
+  });
 
 })();
