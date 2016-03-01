@@ -297,7 +297,7 @@ To make your deployment process easier consider using [grunt-build-control](http
 
 **Pushing Updates**
 
-    grunt
+    grunt build
 
 Commit and push the resulting build, located in your dist folder:
 
