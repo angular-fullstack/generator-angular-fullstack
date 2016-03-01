@@ -150,8 +150,8 @@
     "karma-ng-jade2js-preprocessor": "^0.2.0",<% } else { %>
     "karma-ng-html2js-preprocessor": "~0.2.0",<% } %>
     "karma-spec-reporter": "~0.0.20",
-    "sinon-chai": "^2.8.0",<% if (filters.mocha) { %>
-    "mocha": "^2.2.5",
+    "sinon-chai": "^2.8.0",
+    "mocha": "^2.2.5",<% if (filters.mocha) { %>
     "karma-mocha": "^0.2.0",
     "karma-chai-plugins": "^0.6.0",<% } if (filters.jasmine) { %>
     "jasmine-core": "^2.3.4",

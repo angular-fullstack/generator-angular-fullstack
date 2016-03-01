@@ -13,9 +13,9 @@ export function setup(User, config) {
   },
   function(accessToken, refreshToken, profile, done) {
     <% if (filters.mongooseModels) { %>User.findOneAsync({<% }
-       if (filters.sequelizeModels) { %>User.find({<% } %>
+       if (filters.sequelizeModels) { %>User.find({where:{<% } %>
       'facebook.id': profile.id
-    })
+    <% if (filters.sequelizeModels) { %>}<% } %>})
       .then(user => {
         if (user) {
           return done(null, user);

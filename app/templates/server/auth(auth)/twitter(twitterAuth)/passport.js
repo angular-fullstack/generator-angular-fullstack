@@ -9,9 +9,9 @@ export function setup(User, config) {
   },
   function(token, tokenSecret, profile, done) {
     <% if (filters.mongooseModels) { %>User.findOneAsync({<% }
-       if (filters.sequelizeModels) { %>User.find({<% } %>
-      'twitter.id_str': profile.id
-    })
+       if (filters.sequelizeModels) { %>User.find({where:{<% } %>
+      'twitter.id': profile.id
+    <% if (filters.sequelizeModels) { %>}<% } %>})
       .then(user => {
         if (user) {
           return done(null, user);

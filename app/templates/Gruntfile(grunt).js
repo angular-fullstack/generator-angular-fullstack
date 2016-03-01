@@ -161,7 +161,7 @@ module.exports = function (grunt) {
         },
         src: ['<%%= yeoman.server %>/**/*.{spec,integration}.js']
       },
-      all: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock).js'],
+      all: ['<%%= yeoman.client %>/{app,components}/**/!(*.spec|*.mock|app.constant).js'],
       test: {
         src: ['<%%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js']
       }
@@ -424,7 +424,8 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>',
           src: [
             'package.json',
-            '<%%= yeoman.server %>/**/*'
+            '<%%= yeoman.server %>/**/*',
+            '!<%%= yeoman.server %>/config/local.env.sample.js'
           ]
         }]
       },
@@ -636,7 +637,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.server %>',
-          src: ['**/*.{js,json}'],
+          src: ['**/*.js'],
           dest: '<%%= yeoman.dist %>/<%%= yeoman.server %>'
         }]
       }
