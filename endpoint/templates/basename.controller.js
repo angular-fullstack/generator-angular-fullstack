@@ -66,16 +66,16 @@ function handleError(res, statusCode) {
 // Gets a list of <%= classedName %>s
 export function index(req, res) {<% if (!filters.models) { %>
   res.json([]);<% } else { %>
-  <% if (filters.mongooseModels) { %><%= classedName %>.find().exec()<% }
-     if (filters.sequelizeModels) { %><%= classedName %>.findAll()<% } %>
+  <% if (filters.mongooseModels) { %>return <%= classedName %>.find().exec()<% }
+     if (filters.sequelizeModels) { %>return <%= classedName %>.findAll()<% } %>
     .then(respondWithResult(res))
     .catch(handleError(res));<% } %>
 }<% if (filters.models) { %>
 
 // Gets a single <%= classedName %> from the DB
 export function show(req, res) {
-  <% if (filters.mongooseModels) { %><%= classedName %>.findById(req.params.id).exec()<% }
-     if (filters.sequelizeModels) { %><%= classedName %>.find({
+  <% if (filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
+     if (filters.sequelizeModels) { %>return <%= classedName %>.find({
     where: {
       _id: req.params.id
     }
@@ -87,8 +87,8 @@ export function show(req, res) {
 
 // Creates a new <%= classedName %> in the DB
 export function create(req, res) {
-  <% if (filters.mongooseModels) { %><%= classedName %>.create(req.body)<% }
-     if (filters.sequelizeModels) { %><%= classedName %>.create(req.body)<% } %>
+  <% if (filters.mongooseModels) { %>return <%= classedName %>.create(req.body)<% }
+     if (filters.sequelizeModels) { %>return <%= classedName %>.create(req.body)<% } %>
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
@@ -98,8 +98,8 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  <% if (filters.mongooseModels) { %><%= classedName %>.findById(req.params.id).exec()<% }
-     if (filters.sequelizeModels) { %><%= classedName %>.find({
+  <% if (filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
+     if (filters.sequelizeModels) { %>return <%= classedName %>.find({
     where: {
       _id: req.params.id
     }
@@ -112,8 +112,8 @@ export function update(req, res) {
 
 // Deletes a <%= classedName %> from the DB
 export function destroy(req, res) {
-  <% if (filters.mongooseModels) { %><%= classedName %>.findById(req.params.id).exec()<% }
-     if (filters.sequelizeModels) { %><%= classedName %>.find({
+  <% if (filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
+     if (filters.sequelizeModels) { %>return <%= classedName %>.find({
     where: {
       _id: req.params.id
     }
