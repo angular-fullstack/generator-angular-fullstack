@@ -18,7 +18,7 @@
     "jade": "^1.11.0",<% } %><% if (filters.html) { %>
     "ejs": "^2.3.3",<% } %><% if (filters.mongoose) { %>
     "mongoose": "^4.1.2",
-    "bluebird": "^2.9.34",
+    "bluebird": "^3.3.3",
     "connect-mongo": "^0.8.1",<% } %><% if (filters.sequelize) { %>
     "sequelize": "^3.5.1",
     "sqlite3": "~3.1.1",
