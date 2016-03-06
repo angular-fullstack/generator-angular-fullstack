@@ -28,7 +28,7 @@ export function isAuthenticated() {
     })
     // Attach user to request
     .use(function(req, res, next) {
-      <% if (filters.mongooseModels) { %>User.findByIdAsync(req.user._id)<% }
+      <% if (filters.mongooseModels) { %>User.findById(req.user._id).exec()<% }
          if (filters.sequelizeModels) { %>User.find({
         where: {
           _id: req.user._id

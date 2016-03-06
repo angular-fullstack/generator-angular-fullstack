@@ -26,7 +26,7 @@ describe('Signup View', function() {
   });
 
   after(function() {
-    <% if (filters.mongooseModels) { %>return UserModel.removeAsync();<% }
+    <% if (filters.mongooseModels) { %>return UserModel.remove();<% }
        if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
   });
 
@@ -55,7 +55,7 @@ describe('Signup View', function() {
   describe('with local auth', function() {
 
     before(function() {
-      <% if (filters.mongooseModels) { %>return UserModel.removeAsync();<% }
+      <% if (filters.mongooseModels) { %>return UserModel.remove();<% }
          if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
     })
 

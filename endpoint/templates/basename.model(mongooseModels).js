@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+import mongoose from 'mongoose';
 
 var <%= classedName %>Schema = new mongoose.Schema({
   name: String,
