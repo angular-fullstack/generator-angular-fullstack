@@ -12,10 +12,8 @@ export function setup(User, config) {
     ]
   },
   function(accessToken, refreshToken, profile, done) {
-    <% if (filters.mongooseModels) { %>User.findOneAsync({<% }
-       if (filters.sequelizeModels) { %>User.find({where:{<% } %>
-      'facebook.id': profile.id
-    <% if (filters.sequelizeModels) { %>}<% } %>})
+    <% if (filters.mongooseModels) { %>User.findOne({'facebook.id': profile.id}).exec()<% }
+       if (filters.sequelizeModels) { %>User.find({where:{'facebook.id': profile.id}})<% } %>
       .then(user => {
         if (user) {
           return done(null, user);
@@ -29,8 +27,7 @@ export function setup(User, config) {
           provider: 'facebook',
           facebook: profile._json
         });
-        <% if (filters.mongooseModels) { %>user.saveAsync()<% }
-           if (filters.sequelizeModels) { %>user.save()<% } %>
+        user.save()
           .then(user => done(null, user))
           .catch(err => done(err));
       })

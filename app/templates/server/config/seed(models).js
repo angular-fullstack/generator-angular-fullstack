@@ -10,7 +10,7 @@ import sqldb from '../sqldb';
 var Thing = sqldb.Thing;<% if (filters.auth) { %>
 var User = sqldb.User;<% } %><% } %>
 
-<% if (filters.mongooseModels) { %>Thing.find({}).removeAsync()<% }
+<% if (filters.mongooseModels) { %>Thing.find({}).remove()<% }
    if (filters.sequelizeModels) { %>Thing.sync()
   .then(() => {
     return Thing.destroy({ where: {} });
@@ -48,11 +48,11 @@ var User = sqldb.User;<% } %><% } %>
        if (filters.sequelizeModels) { %>}]);<% } %>
   });
 <% if (filters.auth) { %>
-<% if (filters.mongooseModels) { %>User.find({}).removeAsync()<% }
+<% if (filters.mongooseModels) { %>User.find({}).remove()<% }
    if (filters.sequelizeModels) { %>User.sync()
   .then(() => User.destroy({ where: {} }))<% } %>
   .then(() => {
-    <% if (filters.mongooseModels) { %>User.createAsync({<% }
+    <% if (filters.mongooseModels) { %>User.create({<% }
        if (filters.sequelizeModels) { %>User.bulkCreate([{<% } %>
       provider: 'local',
       name: 'Test User',

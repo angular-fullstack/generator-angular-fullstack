@@ -19,20 +19,19 @@ describe('Login View', function() {
   };
 
   beforeEach(function(done) {
-    <% if (filters.mongooseModels) { %>UserModel.removeAsync()<% }
+    <% if (filters.mongooseModels) { %>UserModel.remove()<% }
        if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} })<% } %>
       .then(function() {
-        <% if (filters.mongooseModels) { %>return UserModel.createAsync(testUser);<% }
-           if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
+        return UserModel.create(testUser)
+          .then(loadPage);
       })
-      .then(loadPage)
+      // .then(loadPage)
       .finally(function() {
         browser.wait(function() {
           //console.log('waiting for angular...');
           return browser.executeScript('return !!window.angular');
 
         }, 5000).then(done);
-
       });
   });
 

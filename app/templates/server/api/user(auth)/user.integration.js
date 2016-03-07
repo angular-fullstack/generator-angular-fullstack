@@ -10,7 +10,7 @@ describe('User API:', function() {
 
   // Clear users before testing
   before(function() {
-    return <% if (filters.mongooseModels) { %>User.removeAsync().then(function() {<% }
+    return <% if (filters.mongooseModels) { %>User.remove().then(function() {<% }
        if (filters.sequelizeModels) { %>User.destroy({ where: {} }).then(function() {<% } %>
       <% if (filters.mongooseModels) { %>user = new User({<% }
          if (filters.sequelizeModels) { %>user = User.build({<% } %>
@@ -19,14 +19,14 @@ describe('User API:', function() {
         password: 'password'
       });
 
-      return <% if (filters.mongooseModels) { %>user.saveAsync();<% }
+      return <% if (filters.mongooseModels) { %>user.save();<% }
          if (filters.sequelizeModels) { %>user.save();<% } %>
     });
   });
 
   // Clear users after testing
   after(function() {
-    <% if (filters.mongooseModels) { %>return User.removeAsync();<% }
+    <% if (filters.mongooseModels) { %>return User.remove();<% }
        if (filters.sequelizeModels) { %>return User.destroy({ where: {} });<% } %>
   });
 

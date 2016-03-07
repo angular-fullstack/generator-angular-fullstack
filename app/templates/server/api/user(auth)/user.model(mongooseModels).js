@@ -1,7 +1,8 @@
 'use strict';
 
 import crypto from 'crypto';
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+import mongoose from 'mongoose';
+mongoose.Promise = require('bluebird');
 import {Schema} from 'mongoose';<% if (filters.oauth) { %>
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
@@ -78,7 +79,7 @@ UserSchema
   .path('email')
   .validate(function(value, respond) {
     var self = this;
-    return this.constructor.findOneAsync({ email: value })
+    return this.constructor.findOne({ email: value }).exec()
       .then(function(user) {
         if (user) {
           if (self.id === user.id) {

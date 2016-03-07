@@ -8,10 +8,8 @@ export function setup(User, config) {
     callbackURL: config.twitter.callbackURL
   },
   function(token, tokenSecret, profile, done) {
-    <% if (filters.mongooseModels) { %>User.findOneAsync({<% }
-       if (filters.sequelizeModels) { %>User.find({where:{<% } %>
-      'twitter.id': profile.id
-    <% if (filters.sequelizeModels) { %>}<% } %>})
+    <% if (filters.mongooseModels) { %>User.findOne({'twitter.id': profile.id}).exec()<% }
+       if (filters.sequelizeModels) { %>User.find({where:{'twitter.id': profile.id}})<% } %>
       .then(user => {
         if (user) {
           return done(null, user);
@@ -25,7 +23,7 @@ export function setup(User, config) {
           provider: 'twitter',
           twitter: profile._json
         });
-        <% if (filters.mongooseModels) { %>user.saveAsync()<% }
+        <% if (filters.mongooseModels) { %>user.save()<% }
            if (filters.sequelizeModels) { %>user.save()<% } %>
           .then(user => done(null, user))
           .catch(err => done(err));

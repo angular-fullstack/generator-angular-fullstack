@@ -52,7 +52,7 @@ describe('Signup View', function() {
   describe('with local auth', function() {
 
     beforeAll(function(done) {
-      <% if (filters.mongooseModels) { %>UserModel.removeAsync().then(done);<% }
+      <% if (filters.mongooseModels) { %>UserModel.remove().then(done);<% }
          if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(done);<% } %>
     });
 
