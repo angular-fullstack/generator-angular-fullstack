@@ -8,7 +8,7 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
         span.icon-bar
       a.navbar-brand(href='/') <%= lodash.slugify(lodash.humanize(appname)) %>
 
-    div#navbar-main.navbar-collapse.collapse(collapse='nav.isCollapsed')
+    div#navbar-main.navbar-collapse.collapse(uib-collapse='nav.isCollapsed')
       ul.nav.navbar-nav
         li(ng-repeat='item in nav.menu', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: nav.isActive(item.link)}'<% } %>)
           a(<% if (filters.uirouter) { %>ui-sref='{{item.state}}'<% } else { %>ng-href='{{item.link}}'<% } %>) {{item.title}}<% if (filters.auth) { %>

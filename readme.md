@@ -16,9 +16,9 @@ Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
-Install `yo`, `grunt-cli`, `bower`, and `generator-angular-fullstack`:
+Install `yo`, `grunt-cli`/`gulp-cli`, `bower`, and `generator-angular-fullstack`:
 ```
-npm install -g yo grunt-cli bower generator-angular-fullstack
+npm install -g yo grunt-cli gulp-cli bower generator-angular-fullstack
 ```
 
 Make a new directory, and `cd` into it:
@@ -135,7 +135,7 @@ Options:
   -h,   --help               # Print the generator's options and usage
         --skip-cache         # Do not remember prompt answers           Default: false
         --route              # URL for the endpoint
-        --models             # Specify which model(s) to use
+        --models             # Specify which model(s) to use            Options: mongoose, sequelize
         --endpointDirectory  # Parent directory for enpoints
 
 Arguments:
