@@ -637,7 +637,10 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%%= yeoman.server %>',
-          src: ['**/*.js'],
+          src: [
+            '**/*.js',
+            '!config/local.env.sample.js'
+          ],
           dest: '<%%= yeoman.dist %>/<%%= yeoman.server %>'
         }]
       }
