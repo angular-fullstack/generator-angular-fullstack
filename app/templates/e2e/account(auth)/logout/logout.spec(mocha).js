@@ -19,10 +19,10 @@ describe('Logout View', function() {
 
   beforeEach(function() {
     return UserModel
-      <% if (filters.mongooseModels) { %>.removeAsync()<% }
+      <% if (filters.mongooseModels) { %>.remove()<% }
          if (filters.sequelizeModels) { %>.destroy({ where: {} })<% } %>
       .then(function() {
-        <% if (filters.mongooseModels) { %>return UserModel.createAsync(testUser);<% }
+        <% if (filters.mongooseModels) { %>return UserModel.create(testUser);<% }
            if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
       })
       .then(function() {
@@ -31,7 +31,7 @@ describe('Logout View', function() {
   });
 
   after(function() {
-    <% if (filters.mongooseModels) { %>return UserModel.removeAsync();<% }
+    <% if (filters.mongooseModels) { %>return UserModel.remove();<% }
        if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
   })
 

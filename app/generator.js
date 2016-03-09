@@ -366,6 +366,8 @@ export default class Generator extends Base {
         if(this.filters.sass) extensions.push('scss');
         if(this.filters.less) extensions.push('less');
 
+        filters.push('es6'); // Generate ES6 syntax code
+
         this.composeWith('ng-component', {
           options: {
             'routeDirectory': appPath,

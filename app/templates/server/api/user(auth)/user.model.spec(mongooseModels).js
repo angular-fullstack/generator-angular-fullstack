@@ -16,7 +16,7 @@ var genUser = function() {
 describe('User Model', function() {
   before(function() {
     // Clear users before testing
-    return User.removeAsync();
+    return User.remove();
   });
 
   beforeEach(function() {
@@ -24,32 +24,32 @@ describe('User Model', function() {
   });
 
   afterEach(function() {
-    return User.removeAsync();
+    return User.remove();
   });
 
   it('should begin with no users', function() {
-    return <%= expect() %>User.findAsync({})<%= to() %>
+    return <%= expect() %>User.find({}).exec()<%= to() %>
       .eventually.have.length(0);
   });
 
   it('should fail when saving a duplicate user', function() {
-    return <%= expect() %>user.saveAsync()
+    return <%= expect() %>user.save()
       .then(function() {
         var userDup = genUser();
-        return userDup.saveAsync();
+        return userDup.save();
       })<%= to() %>.be.rejected;
   });
 
   describe('#email', function() {
     it('should fail when saving without an email', function() {
       user.email = '';
-      return <%= expect() %>user.saveAsync()<%= to() %>.be.rejected;
+      return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
   });
 
   describe('#password', function() {
     beforeEach(function() {
-      return user.saveAsync();
+      return user.save();
     });
 
     it('should authenticate user if valid', function() {
@@ -62,8 +62,8 @@ describe('User Model', function() {
 
     it('should remain the same hash unless the password is updated', function() {
       user.name = 'Test User';
-      return <%= expect() %>user.saveAsync()
-        .spread(function(u) {
+      return <%= expect() %>user.save()
+        .then(function(u) {
           return u.authenticate('password');
         })<%= to() %>.eventually.be.true;
     });
