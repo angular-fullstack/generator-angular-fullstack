@@ -101,8 +101,8 @@
     "grunt-contrib-uglify": "~0.11.0",
     "grunt-contrib-watch": "~0.6.1",<% if (filters.jade) { %>
     "grunt-contrib-jade": "^0.15.0",<% } %><% if (filters.less) { %>
-    "grunt-contrib-less": "^1.0.0",<% } %><% if(filters.babel) { %>
-    "grunt-babel": "~5.0.0",<% } %><% if(filters.ts) { %>
+    "grunt-contrib-less": "^1.0.0",<% } %>
+    "grunt-babel": "~5.0.0",<% if(filters.ts) { %>
     "grunt-ts": "~5.2.0",
     "grunt-tsd": "~0.1.0",
     "grunt-tslint": "~3.0.1",<% } %>
