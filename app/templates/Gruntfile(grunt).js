@@ -719,7 +719,7 @@ module.exports = function (grunt) {
             return '<script src="' + filePath + '"></script>';
           },
           sort: function(a, b) {
-            var module = /\.module\.js$/;
+            var module = /\.module\.(js|ts)$/;
             var aMod = module.test(a);
             var bMod = module.test(b);
             // inject *.module.js first
