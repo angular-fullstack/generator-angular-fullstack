@@ -1,3 +1,30 @@
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.2.0...v3.3.0) (2016-02-02)
+
+
+### Notable Changes
+
+* TypeScript support
+* Gulp support
+
+### Features
+
+* **client:** move navbar and footer directive usage to around the router view directive in index.html ([c429adb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c429adb))
+
+### Bug Fixes
+
+* **gulp:** 
+  * make coverage tests work ([d3fd0c0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d3fd0c0))
+  * exclude constant file from lint:scripts:client ([103db11](https://github.com/angular-fullstack/generator-angular-fullstack/commit/103db11)), closes [#1587](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1587)
+* **grunt:** 
+  * fix wrong tslint vs jshint ([15f60db](https://github.com/angular-fullstack/generator-angular-fullstack/commit/15f60db))
+  * exclude constant file from jshint:all ([f4e590f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f4e590f))
+  * **babel:** don't try to transpile JSON files ([885438f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/885438f)), closes [#1561](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1561)
+  * **build:** don't copy local.env.sample ([be5a1f4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/be5a1f4)), closes [#1570](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1570)
+* **gen:test:** make sure we overwrite conflicts, add missing options from mock prompt options ([d6aeacf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d6aeacf))
+* **npm:** make sure to include mocha for server tests ([6c4e926](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6c4e926))
+
+
 <a name="3.3.0-beta.0"></a>
 # [3.3.0-beta.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.2.0...v3.3.0-beta.0) (2016-01-06)
 
