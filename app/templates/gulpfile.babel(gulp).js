@@ -298,8 +298,8 @@ gulp.task('copy:constant', () => {
         .pipe(gulp.dest('.tmp'));
 })
 
-let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
-gulp.task('transpile:client', ['inject:tsconfig', 'constant', 'copy:constant'], () => {
+gulp.task('transpile:client', ['constant', 'copy:constant'], () => {
+    let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
     return tsProject.src()
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript(tsProject)).js
@@ -307,8 +307,8 @@ gulp.task('transpile:client', ['inject:tsconfig', 'constant', 'copy:constant'], 
         .pipe(gulp.dest('.tmp'));
 });
 
-let tsTestProject = plugins.typescript.createProject('./tsconfig.client.json');
 gulp.task('transpile:client:test', ['tsd:test'], () => {
+    let tsTestProject = plugins.typescript.createProject('./tsconfig.client.json');
     return tsTestProject.src()
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript(tsTestProject)).js
