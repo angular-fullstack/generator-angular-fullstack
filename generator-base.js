@@ -16,6 +16,15 @@ export function genBase(self) {
   self.lodash = lodash;
   self.yoWelcome = yoWelcome;
 
+  let baseDetermineAppname = self.determineAppname.bind(self);
+  self.determineAppname = () => {
+    if(self['name']) {
+      return self['name'];
+    } else {
+      return baseDetermineAppname();
+    }
+  }
+
   self.appname = lodash.camelize(lodash.slugify(
     lodash.humanize(self.determineAppname())
   ));
