@@ -20,7 +20,7 @@ export default class Generator extends NamedBase {
     });
 
     this.option('endpointDirectory', {
-      desc: 'Parent directory for enpoints',
+      desc: 'Parent directory for endpoints',
       type: String
     });
   }
@@ -98,50 +98,57 @@ export default class Generator extends NamedBase {
       this.config.get('endpointDirectory') || 'server/api/', this.name);
   }
 
-  writing() {
-    this.sourceRoot(path.join(__dirname, './templates'));
-    this.processDirectory('.', this.routeDest);
+  get writing() {
+    return {
+      writeFiles() {
+        this.sourceRoot(path.join(__dirname, './templates'));
+        this.processDirectory('.', this.routeDest);
+      },
+      modifyFiles() {
+        if(this.config.get('insertRoutes')) {
+          var routesFile = this.config.get('registerRoutesFile');
+          var reqPath = this.relativeRequire(this.routeDest, routesFile);
+          var routeConfig = {
+            file: routesFile,
+            needle: this.config.get('routesNeedle'),
+            splicable: [
+              "app.use(\'" + this.route +"\', require(\'" + reqPath + "\'));"
+            ]
+          };
+          this.rewriteFile(routeConfig);
+        }
+
+        if (this.filters.socketio && this.config.get('insertSockets')) {
+          var socketsFile = this.config.get('registerSocketsFile');
+          var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename +
+            '.socket', socketsFile);
+          var socketConfig = {
+            file: socketsFile,
+            needle: this.config.get('socketsNeedle'),
+            splicable: [
+              "require(\'" + reqPath + "\').register(socket);"
+            ]
+          };
+          this.rewriteFile(socketConfig);
+        }
+
+        if (this.filters.sequelize && this.config.get('insertModels')) {
+          var modelsFile = this.config.get('registerModelsFile');
+          var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename + '.model', modelsFile);
+          var modelConfig = {
+            file: modelsFile,
+            needle: this.config.get('modelsNeedle'),
+            splicable: [
+              "db." + this.classedName + " = db.sequelize.import(\'" + reqPath +"\');"
+            ]
+          };
+          this.rewriteFile(modelConfig);
+        }
+      }
+    }
   }
 
   end() {
-    if(this.config.get('insertRoutes')) {
-      var routesFile = this.config.get('registerRoutesFile');
-      var reqPath = this.relativeRequire(this.routeDest, routesFile);
-      var routeConfig = {
-        file: routesFile,
-        needle: this.config.get('routesNeedle'),
-        splicable: [
-          "app.use(\'" + this.route +"\', require(\'" + reqPath + "\'));"
-        ]
-      };
-      this.rewriteFile(routeConfig);
-    }
-
-    if (this.filters.socketio && this.config.get('insertSockets')) {
-      var socketsFile = this.config.get('registerSocketsFile');
-      var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename +
-        '.socket', socketsFile);
-      var socketConfig = {
-        file: socketsFile,
-        needle: this.config.get('socketsNeedle'),
-        splicable: [
-          "require(\'" + reqPath + "\').register(socket);"
-        ]
-      };
-      this.rewriteFile(socketConfig);
-    }
-
-    if (this.filters.sequelize && this.config.get('insertModels')) {
-      var modelsFile = this.config.get('registerModelsFile');
-      var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename + '.model', modelsFile);
-      var modelConfig = {
-        file: modelsFile,
-        needle: this.config.get('modelsNeedle'),
-        splicable: [
-          "db." + this.classedName + " = db.sequelize.import(\'" + reqPath +"\');"
-        ]
-      };
-      this.rewriteFile(modelConfig);
-    }
+    this.log('All done. Bye-bye!\n');
   }
 }
