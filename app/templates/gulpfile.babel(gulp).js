@@ -508,8 +508,11 @@ gulp.task('wiredep:test', () => {
 //FIXME: looks like font-awesome isn't getting loaded
 gulp.task('build', cb => {
     runSequence(
-        'clean:dist',
-        'clean:tmp',
+        [
+            'clean:dist',
+            'clean:tmp'
+        ],<% if(filters.jade) { %>
+        'jade',<% } %>
         'inject',
         'wiredep:client',<% if(filters.ts) { %>
         'tsd',<% } %>
@@ -532,11 +535,9 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], ()
     var appFilter = plugins.filter('**/app.js');
     var jsFilter = plugins.filter('**/*.js');
     var cssFilter = plugins.filter('**/*.css');
-    var htmlBlock = plugins.filter(['**/*.!(html)']);<% if(filters.jade) { %>
-    var assetsFilter = plugins.filter('**/*.{js,css}');<% } %>
+    var htmlBlock = plugins.filter(['**/*.!(html)']);
 
-    return gulp.src(paths.client.mainView)<% if(filters.jade) { %>
-        .pipe(plugins.jade({pretty: true}))<% } %>
+    return gulp.src(paths.client.mainView)
         .pipe(plugins.useref())
             .pipe(appFilter)
                 .pipe(plugins.addSrc.append('.tmp/templates.js'))
@@ -555,13 +556,13 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], ()
             .pipe(htmlBlock)
                 .pipe(plugins.rev())
             .pipe(htmlBlock.restore())
-        .pipe(plugins.revReplace({manifest}))<% if(filters.jade) { %>
-        .pipe(assetsFilter)<% } %>
+        .pipe(plugins.revReplace({manifest}))
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
 
-gulp.task('html', function() {
-    return gulp.src(`${clientPath}/{app,components}/**/*.html`)
+gulp.task('html', function() {<% if(filters.jade) { %>
+    return gulp.src(`.tmp/{app,components}/**/*.html`)<% } else { %>
+    return gulp.src(`${clientPath}/{app,components}/**/*.html`)<% } %>
         .pipe(plugins.angularTemplatecache({
             module: '<%= scriptAppName %>'
         }))
