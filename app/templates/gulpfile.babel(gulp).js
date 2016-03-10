@@ -29,7 +29,7 @@ const paths = {
         scripts: [
             `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`,
             `!${clientPath}/bower_components/**/*`<% if(filters.ts) { %>,
-            `!${clientPath}/typings/**/*`<% } %>
+            `!${clientPath}/{typings,test_typings}/**/*`<% } %>
         ],
         styles: [`${clientPath}/{app,components}/**/*.<%= styleExt %>`],
         mainStyle: `${clientPath}/app/app.<%= styleExt %>`,
