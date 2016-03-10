@@ -1,3 +1,38 @@
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.3.0...v3.4.0) (2016-03-09)
+
+
+### Notable Changes
+
+* Updated Angular to 1.5 (the main page now uses an Angular 1.5 component)
+* Updated generator-ng-component to ~0.2.1. Angular subgenerators will now generate ES6 code and TypeScript code.
+* Updated angular-bootstrap to ~1.1.2
+* Updated bluebird to ^3.3.3, and set mongoose to use bluebird instead of mpromise. This allows us to remove promisification of mongoose APIs.
+* Updated PhantomJS to ^2.1.4
+
+### Bug Fixes
+
+* **deps:** 
+  * always include grunt-babel if grunt chosen ([7ba7d1f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7ba7d1f))
+  * include tslint ([543d784](https://github.com/angular-fullstack/generator-angular-fullstack/commit/543d784))
+* **gen:** fix Stylus & Sass extensions ([37d6c46](https://github.com/angular-fullstack/generator-angular-fullstack/commit/37d6c46)), closes [#1609](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1609)
+* **grunt:babel:** exclude local.env.sample.js ([3e0518b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3e0518b))
+* **grunt:injector:** sort js/ts modules ([fe6aba2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/fe6aba2))
+* **gulp:** add inject:tsconfig, change script watcher ([978e07e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/978e07e))
+* **gulp:build:** 
+  * add copy:fonts task ([27f1cc8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/27f1cc8))
+  * fix building when using Jade ([687cd09](https://github.com/angular-fullstack/generator-angular-fullstack/commit/687cd09))
+* **gulp:ts:** fix gulp not using latest typescript config after changed ([6a6afd9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6a6afd9))
+* **gulp:tslint:** exclude both typings and test_typings ([2e83bd1](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2e83bd1))
+* **gulp:watch:** re-compile jade to .tmp ([18412a7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/18412a7))
+* **server:oauth:** fix sequelize syntax ([221f7a4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/221f7a4)), closes [#1654](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1654)
+* **tslint:** fix no-trailing-comma ([d7cd347](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d7cd347))
+
+### Features
+
+* **gen:** add 'es6' to generator-ng-component filters ([65530b3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/65530b3))
+
+
 <a name="3.3.0"></a>
 # [3.3.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.2.0...v3.3.0) (2016-02-02)
 
