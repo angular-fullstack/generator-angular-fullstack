@@ -519,6 +519,7 @@ gulp.task('build', cb => {
         [
             'build:images',
             'copy:extras',
+            'copy:fonts',
             'copy:assets',
             'copy:server',
             'transpile:server',
@@ -612,6 +613,12 @@ gulp.task('copy:extras', () => {
         `${clientPath}/.htaccess`
     ], { dot: true })
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
+});
+
+gulp.task('copy:fonts', () => {<% if(filters.bootstrap) { %>
+    return gulp.src(`${clientPath}/bower_components/{bootstrap,font-awesome}/fonts/**/*`, { dot: true })<% } else { %>
+    return gulp.src(`${clientPath}/bower_components/font-awesome/fonts/**/*`, { dot: true })<% } %>
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}/bower_components`));
 });
 
 gulp.task('copy:assets', () => {
