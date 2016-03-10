@@ -40,7 +40,7 @@
     "glob": "^6.0.1",
     "lodash": "^3.10.1",
     "underscore.string": "^3.1.1",
-    "yeoman-generator": "~0.20.3",
+    "yeoman-generator": "^0.22.5",
     "yeoman-welcome": "^1.0.1"
   },
   "devDependencies": {
@@ -59,7 +59,8 @@
     "q": "^1.0.1",
     "recursive-readdir": "^1.2.0",
     "shelljs": "^0.5.3",
-    "yeoman-assert": "^2.0.0"
+    "yeoman-assert": "^2.0.0",
+    "yeoman-test": "^1.1.0"
   },
   "engines": {
     "node": "^4.2.3",

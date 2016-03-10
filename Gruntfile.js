@@ -3,7 +3,7 @@
 var shell = require('shelljs');
 var child_process = require('child_process');
 var Q = require('q');
-var helpers = require('yeoman-generator').test;
+var helpers = require('yeoman-test');
 var fs = require('fs');
 var path = require('path');
 
