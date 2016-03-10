@@ -204,7 +204,7 @@ gulp.task('env:prod', () => {
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:js', 'inject:css', 'inject:<%= styleExt %>'], cb);
+    runSequence(['inject:js', 'inject:css', 'inject:<%= styleExt %>'<% if(filters.ts) { %>, 'inject:tsconfig'<% } %>], cb);
 });
 
 gulp.task('inject:js', () => {
@@ -420,7 +420,7 @@ gulp.task('watch', () => {
 
 gulp.task('serve', cb => {
     runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'tsd'<% } %>],
-        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %><% if(filters.ts) { %>, 'inject:tsconfig'<% } %>],
+        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
         ['start:server', 'start:client'],
