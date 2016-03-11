@@ -108,7 +108,7 @@
     "grunt-contrib-jade": "^0.15.0",<% } %><% if (filters.less) { %>
     "grunt-contrib-less": "^1.0.0",<% } %>
     "grunt-babel": "~6.0.0",<% if(filters.ts) { %>
-    "grunt-ts": "~5.2.0",
+    "grunt-ts": "^5.3.2",
     "grunt-tsd": "~0.1.0",
     "grunt-tslint": "~3.0.1",<% } %>
     "grunt-google-cdn": "~0.4.0",
