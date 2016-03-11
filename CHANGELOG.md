@@ -1,3 +1,16 @@
+<a name="3.4.1"></a>
+## [3.4.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.4.0...v3.4.1) (2016-03-11)
+
+
+### Bug Fixes
+
+* **gen:** shim determineAppname, use name argument if provided ([bdaeb5a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bdaeb5a)), closes [#1682](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1682)
+* **grunt:** update rev-ed images in css as well as js ([5a24b83](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5a24b83)), closes [#977](https://github.com/angular-fullstack/generator-angular-fullstack/issues/977)
+* **grunt:filerev:** don't rev assets/fonts/ ([5228536](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5228536))
+* **gulp:** add inject:tsconfig to inject task ([bb045c5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bb045c5))
+* **gulp:build:** exclude local.env.sample.js ([429d5f3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/429d5f3)), closes [#1570](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1570)
+
+
 <a name="3.4.0"></a>
 # [3.4.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.3.0...v3.4.0) (2016-03-09)
 
