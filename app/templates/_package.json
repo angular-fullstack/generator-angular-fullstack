@@ -30,7 +30,7 @@
     "passport-local": "^1.0.0",<% } %><% if (filters.facebookAuth) { %>
     "passport-facebook": "^2.0.0",<% } %><% if (filters.twitterAuth) { %>
     "passport-twitter": "^1.0.3",<% } %><% if (filters.googleAuth) { %>
-    "passport-google-oauth": "~0.2.0",<% } %><% if (filters.socketio) { %>
+    "passport-google-oauth20": "^1.0.0",<% } %><% if (filters.socketio) { %>
     "socket.io": "^1.3.5",
     "socket.io-client": "^1.3.5",
     "socketio-jwt": "^4.2.0",<% } %>
