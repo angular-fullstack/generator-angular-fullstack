@@ -753,8 +753,8 @@ module.exports = function (grunt) {
             filePath = filePath.replace('/' + yoClient + '/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
-          starttag: '// injector',
-          endtag: '// endinjector'
+          starttag: '/* inject:styl */',
+          endtag: '/* endinject */'
         },
         files: {
           '<%%= yeoman.client %>/app/app.styl': [
@@ -773,8 +773,8 @@ module.exports = function (grunt) {
             filePath = filePath.replace('/' + yoClient + '/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
-          starttag: '// injector',
-          endtag: '// endinjector'
+          starttag: '/* inject:scss */',
+          endtag: '/* endinject */'
         },
         files: {
           '<%%= yeoman.client %>/app/app.scss': [
@@ -793,8 +793,8 @@ module.exports = function (grunt) {
             filePath = filePath.replace('/' + yoClient + '/components/', '../components/');
             return '@import \'' + filePath + '\';';
           },
-          starttag: '// injector',
-          endtag: '// endinjector'
+          starttag: '/* inject:less */',
+          endtag: '/* endinject */'
         },
         files: {
           '<%%= yeoman.client %>/app/app.less': [

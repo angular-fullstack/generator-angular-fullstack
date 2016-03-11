@@ -262,8 +262,10 @@ gulp.task('inject:<%= styleExt %>', () => {
             gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
                 .pipe(plugins.sort()),
             {
-                starttag: '// injector',
-                endtag: '// endinjector',
+                <%_ if(filters.stylus) { _%>
+                starttag: '/* inject:styl */',
+                endtag: '/* endinject */',
+                <%_ } _%>
                 transform: (filepath) => {
                     let newPath = filepath
                         .replace(`/${clientPath}/app/`, '')

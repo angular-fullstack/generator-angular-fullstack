@@ -57,7 +57,7 @@
     "gulp-env": "^0.2.0",
     "gulp-filter": "^4.0.0",
     "gulp-imagemin": "^2.2.1",
-    "gulp-inject": "^1.3.1",
+    "gulp-inject": "^3.0.0",
     "gulp-istanbul": "~0.10.3",
     "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-jscs": "^3.0.2",

@@ -23,7 +23,7 @@
 }
 <% } %>
 // Component styles are injected through grunt
-// injector
+/* inject:scss */
 @import 'admin/admin.scss';
 @import 'main/main.scss';
-// endinjector
+/* endinject */
