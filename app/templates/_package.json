@@ -49,9 +49,9 @@
     "gulp-angular-templatecache": "^1.7.0",
     "gulp-autoprefixer": "2.3.1",
     "gulp-babel": "^6.1.2",<% if(filters.ts) { %>
-    "gulp-typescript": "~2.10.0",
-    "gulp-tsd": "~0.0.4",
-    "gulp-tslint": "~4.2.1",<% } %>
+    "gulp-typescript": "~2.12.1",
+    "gulp-tsd": "~0.1.0",
+    "gulp-tslint": "^4.3.0",<% } %>
     "gulp-cache": "^0.2.10",
     "gulp-concat": "^2.6.0",
     "gulp-env": "^0.2.0",
