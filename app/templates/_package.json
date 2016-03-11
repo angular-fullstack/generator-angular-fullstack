@@ -158,7 +158,7 @@
     "sinon-chai": "^2.8.0",
     "mocha": "^2.2.5",<% if (filters.mocha) { %>
     "karma-mocha": "^0.2.0",
-    "karma-chai-plugins": "^0.6.0",<% } if (filters.jasmine) { %>
+    "karma-chai-plugins": "~0.7.0",<% } if (filters.jasmine) { %>
     "jasmine-core": "^2.3.4",
     "karma-jasmine": "~0.3.0",
     "jasmine-spec-reporter": "^2.4.0",<% } if(filters.babel) { %>
