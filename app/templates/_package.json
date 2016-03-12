@@ -101,8 +101,8 @@
     "grunt-contrib-uglify": "~0.11.0",
     "grunt-contrib-watch": "~0.6.1",<% if (filters.jade) { %>
     "grunt-contrib-jade": "^0.15.0",<% } %><% if (filters.less) { %>
-    "grunt-contrib-less": "^1.0.0",<% } %><% if(filters.babel) { %>
-    "grunt-babel": "~5.0.0",<% } %><% if(filters.ts) { %>
+    "grunt-contrib-less": "^1.0.0",<% } %>
+    "grunt-babel": "~5.0.0",<% if(filters.ts) { %>
     "grunt-ts": "~5.2.0",
     "grunt-tsd": "~0.1.0",
     "grunt-tslint": "~3.0.1",<% } %>
@@ -161,11 +161,12 @@
     "requirejs": "~2.1.11",
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
-    "supertest": "^1.1.0"
+    "supertest": "^1.1.0"<% if(filters.ts) { %>,
+    "tslint": "^3.5.0"<% } %>
   },
   "engines": {
-    "node": "^4.2.3",
-    "npm": "^2.14.7"
+    "node": "^4.4.0",
+    "npm": "^2.14.20"
   },
   "scripts": {
     "start": "node server",<% if(filters.gulp) { %>

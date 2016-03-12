@@ -284,8 +284,7 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%%= yeoman.dist %>/<%%= yeoman.client %>/!(bower_components){,*/}*.{js,css}',
-          '<%%= yeoman.dist %>/<%%= yeoman.client %>/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%%= yeoman.dist %>/<%%= yeoman.client %>/assets/fonts/*'
+          '<%%= yeoman.dist %>/<%%= yeoman.client %>/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -312,6 +311,9 @@ module.exports = function (grunt) {
         ],
         // This is so we update image references in our ng-templates
         patterns: {
+          css: [
+            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images']
+          ],
           js: [
             [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
           ]
@@ -722,7 +724,7 @@ module.exports = function (grunt) {
             return '<script src="' + filePath + '"></script>';
           },
           sort: function(a, b) {
-            var module = /\.module\.js$/;
+            var module = /\.module\.(js|ts)$/;
             var aMod = module.test(a);
             var bMod = module.test(b);
             // inject *.module.js first

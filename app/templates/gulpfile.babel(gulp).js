@@ -29,7 +29,7 @@ const paths = {
         scripts: [
             `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`,
             `!${clientPath}/bower_components/**/*`<% if(filters.ts) { %>,
-            `!${clientPath}/typings/**/*`<% } %>
+            `!${clientPath}/{typings,test_typings}/**/*`<% } %>
         ],
         styles: [`${clientPath}/{app,components}/**/*.<%= styleExt %>`],
         mainStyle: `${clientPath}/app/app.<%= styleExt %>`,
@@ -40,7 +40,10 @@ const paths = {
         bower: `${clientPath}/bower_components/`
     },
     server: {
-        scripts: [`${serverPath}/**/!(*.spec|*.integration).js`],
+        scripts: [
+          `${serverPath}/**/!(*.spec|*.integration).js`,
+          `!${serverPath}/config/local.env.sample.js`
+        ],
         json: [`${serverPath}/**/*.json`],
         test: {
           integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
@@ -204,7 +207,7 @@ gulp.task('env:prod', () => {
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:js', 'inject:css', 'inject:<%= styleExt %>'], cb);
+    runSequence(['inject:js', 'inject:css', 'inject:<%= styleExt %>'<% if(filters.ts) { %>, 'inject:tsconfig'<% } %>], cb);
 });
 
 gulp.task('inject:js', () => {
@@ -298,8 +301,8 @@ gulp.task('copy:constant', () => {
         .pipe(gulp.dest('.tmp'));
 })
 
-let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
-gulp.task('transpile:client', ['inject:tsconfig', 'constant', 'copy:constant'], () => {
+gulp.task('transpile:client', ['constant', 'copy:constant'], () => {
+    let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
     return tsProject.src()
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript(tsProject)).js
@@ -307,8 +310,8 @@ gulp.task('transpile:client', ['inject:tsconfig', 'constant', 'copy:constant'], 
         .pipe(gulp.dest('.tmp'));
 });
 
-let tsTestProject = plugins.typescript.createProject('./tsconfig.client.json');
 gulp.task('transpile:client:test', ['tsd:test'], () => {
+    let tsTestProject = plugins.typescript.createProject('./tsconfig.client.json');
     return tsTestProject.src()
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript(tsTestProject)).js
@@ -420,7 +423,7 @@ gulp.task('watch', () => {
 
 gulp.task('serve', cb => {
     runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'tsd'<% } %>],
-        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %><% if(filters.ts) { %>, 'inject:tsconfig'<% } %>],
+        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
         ['start:server', 'start:client'],
@@ -508,14 +511,18 @@ gulp.task('wiredep:test', () => {
 //FIXME: looks like font-awesome isn't getting loaded
 gulp.task('build', cb => {
     runSequence(
-        'clean:dist',
-        'clean:tmp',
+        [
+            'clean:dist',
+            'clean:tmp'
+        ],<% if(filters.jade) { %>
+        'jade',<% } %>
         'inject',
         'wiredep:client',<% if(filters.ts) { %>
         'tsd',<% } %>
         [
             'build:images',
             'copy:extras',
+            'copy:fonts',
             'copy:assets',
             'copy:server',
             'transpile:server',
@@ -532,11 +539,9 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], ()
     var appFilter = plugins.filter('**/app.js');
     var jsFilter = plugins.filter('**/*.js');
     var cssFilter = plugins.filter('**/*.css');
-    var htmlBlock = plugins.filter(['**/*.!(html)']);<% if(filters.jade) { %>
-    var assetsFilter = plugins.filter('**/*.{js,css}');<% } %>
+    var htmlBlock = plugins.filter(['**/*.!(html)']);
 
-    return gulp.src(paths.client.mainView)<% if(filters.jade) { %>
-        .pipe(plugins.jade({pretty: true}))<% } %>
+    return gulp.src(paths.client.mainView)
         .pipe(plugins.useref())
             .pipe(appFilter)
                 .pipe(plugins.addSrc.append('.tmp/templates.js'))
@@ -555,13 +560,13 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], ()
             .pipe(htmlBlock)
                 .pipe(plugins.rev())
             .pipe(htmlBlock.restore())
-        .pipe(plugins.revReplace({manifest}))<% if(filters.jade) { %>
-        .pipe(assetsFilter)<% } %>
+        .pipe(plugins.revReplace({manifest}))
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
 
-gulp.task('html', function() {
-    return gulp.src(`${clientPath}/{app,components}/**/*.html`)
+gulp.task('html', function() {<% if(filters.jade) { %>
+    return gulp.src(`.tmp/{app,components}/**/*.html`)<% } else { %>
+    return gulp.src(`${clientPath}/{app,components}/**/*.html`)<% } %>
         .pipe(plugins.angularTemplatecache({
             module: '<%= scriptAppName %>'
         }))
@@ -611,6 +616,12 @@ gulp.task('copy:extras', () => {
         `${clientPath}/.htaccess`
     ], { dot: true })
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
+});
+
+gulp.task('copy:fonts', () => {<% if(filters.bootstrap) { %>
+    return gulp.src(`${clientPath}/bower_components/{bootstrap,font-awesome}/fonts/**/*`, { dot: true })<% } else { %>
+    return gulp.src(`${clientPath}/bower_components/font-awesome/fonts/**/*`, { dot: true })<% } %>
+        .pipe(gulp.dest(`${paths.dist}/${clientPath}/bower_components`));
 });
 
 gulp.task('copy:assets', () => {
