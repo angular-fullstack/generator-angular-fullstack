@@ -63,8 +63,8 @@
     "yeoman-test": "^1.1.0"
   },
   "engines": {
-    "node": "^4.2.3",
-    "npm": "^2.14.7"
+    "node": "^4.4.0",
+    "npm": "^2.14.20"
   },
   "license": "BSD-2-Clause"
 }
