@@ -619,10 +619,7 @@ module.exports = function (grunt) {
     // Compiles ES6 to JavaScript using Babel
     babel: {
       options: {
-        sourceMap: true,
-        optional: [
-          'es7.classProperties'
-        ]
+        sourceMap: true
       },<% if(filters.babel) { %>
       client: {
         files: [{
@@ -634,7 +631,10 @@ module.exports = function (grunt) {
       },<% } %>
       server: {
         options: {
-          optional: ['runtime']
+          plugins: [
+            'transform-class-properties',
+            'transform-runtime'
+          ]
         },
         files: [{
           expand: true,

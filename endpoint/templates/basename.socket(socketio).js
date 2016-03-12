@@ -4,7 +4,7 @@
 
 'use strict';
 
-var <%= classedName %>Events = require('./<%= basename %>.events');
+import <%= classedName %>Events from './<%= basename %>.events';
 
 // Model events to emit
 var events = ['save', 'remove'];
