@@ -5,6 +5,7 @@ import path from 'path';
 import chalk from 'chalk';
 import {Base} from 'yeoman-generator';
 import {genBase} from '../generator-base';
+import insight from '../insight-init';
 
 export default class Generator extends Base {
 
@@ -28,13 +29,30 @@ export default class Generator extends Base {
 
   get initializing() {
     return {
-
       init: function () {
+        var cb = this.async();
+
         this.config.set('generatorVersion', this.rootGeneratorVersion());
         this.filters = {};
 
         // init shared generator properies and methods
         genBase(this);
+
+        if(insight.optOut === undefined) {
+          insight.askPermission(null, (err, optIn) => {
+            if(err || !optIn) return cb();
+            insight.track('generatorVersion', this.rootGeneratorVersion());
+            insight.track('node', process.version);
+            exec('npm --version', (err, stdin, stderr) => {
+              if(err || stderr.length > 0) return insight.track('npm', 'error');
+              else return insight.track('npm', stdin.toString().trim());
+            });
+            insight.track('platform', process.platform);
+            return cb();
+          });
+        } else {
+          return cb();
+        }
       },
 
       info: function () {
@@ -55,7 +73,8 @@ export default class Generator extends Base {
           }], function (answers) {
             this.skipConfig = answers.skipConfig;
 
-            if (this.skipConfig) {
+            if(this.skipConfig) {
+              insight.track('skipConfig', 'true');
               this.filters = existingFilters;
 
               this.scriptExt = this.filters.ts ? 'ts' : 'js';
@@ -65,6 +84,7 @@ export default class Generator extends Base {
                 this.filters.stylus ? 'styl' : 
                 'css';
             } else {
+              insight.track('skipConfig', 'false');
               this.filters = {};
               this.forceConfig = true;
               this.config.set('filters', this.filters);
@@ -77,7 +97,6 @@ export default class Generator extends Base {
           cb();
         }
       }
-
     };
   }
 
@@ -133,14 +152,24 @@ export default class Generator extends Base {
               return answers.bootstrap;
             }
           }], function (answers) {
-
             this.filters.js = true;
             this.filters[answers.transpiler] = true;
+            insight.track('transpiler', answers.transpiler);
+
             this.filters[answers.markup] = true;
+            insight.track('markup', answers.markup);
+
             this.filters[answers.stylesheet] = true;
+            insight.track('stylesheet', answers.stylesheet);
+
             this.filters[answers.router] = true;
+            insight.track('router', answers.router);
+
             this.filters.bootstrap = !!answers.bootstrap;
+            insight.track('bootstrap', !!answers.bootstrap);
+
             this.filters.uibootstrap =  !!answers.uibootstrap;
+            insight.track('uibootstrap', !!answers.uibootstrap);
 
             this.scriptExt = answers.transpiler === 'ts' ? 'ts' : 'js';
             this.templateExt = answers.markup;
@@ -228,7 +257,11 @@ export default class Generator extends Base {
           default: true
         }], function (answers) {
           if(answers.socketio) this.filters.socketio = true;
+          insight.track('socketio', !!answers.socketio);
+
           if(answers.auth) this.filters.auth = true;
+          insight.track('auth', !!answers.auth);
+
           if(answers.odms && answers.odms.length > 0) {
             var models;
             if(!answers.models) {
@@ -241,15 +274,26 @@ export default class Generator extends Base {
             answers.odms.forEach(function(odm) {
               this.filters[odm] = true;
             }.bind(this));
+            insight.track('oauth', !!answers.oauth);
           } else {
             this.filters.noModels = true;
           }
+          insight.track('odms', answers.odms && answers.odms.length > 0);
+          insight.track('mongoose', !!this.filters.mongoose);
+          insight.track('mongooseModels', !!this.filters.mongooseModels);
+          insight.track('sequelize', !!this.filters.sequelize);
+          insight.track('sequelizeModels', !!this.filters.sequelizeModels);
+
           if(answers.oauth) {
             if(answers.oauth.length) this.filters.oauth = true;
             answers.oauth.forEach(function(oauthStrategy) {
               this.filters[oauthStrategy] = true;
             }.bind(this));
           }
+          insight.track('oauth', !!this.filters.oauth);
+          insight.track('google-oauth', !!this.filters['googleAuth']);
+          insight.track('facebook-oauth', !!this.filters['facebookAuth']);
+          insight.track('twitter-oauth', !!this.filters['twitterAuth']);
 
           cb();
         }.bind(this));
@@ -295,13 +339,16 @@ export default class Generator extends Base {
           }
         }], function (answers) {
           this.filters[answers.buildtool] = true;
+          insight.track('buildtool', answers.buildtool);
 
           this.filters[answers.testing] = true;
+          insight.track('testing', answers.testing);
           if (answers.testing === 'mocha') {
             this.filters.jasmine = false;
             this.filters.should = false;
             this.filters.expect = false;
             this.filters[answers.chai] = true;
+            insight.track('chai-assertions', answers.chai);
           }
           if (answers.testing === 'jasmine') {
             this.filters.mocha = false;
