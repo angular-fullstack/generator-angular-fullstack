@@ -39,23 +39,21 @@ export default class Generator extends Base {
         genBase(this);
 
         if(insight.optOut === undefined) {
-          insight.askPermission(null, (err, optIn) => {
-            if(err || !optIn) return cb();
-            insight.track('generatorVersion', this.rootGeneratorVersion());
-            insight.track('node', process.version);
-            exec('npm --version', (err, stdin, stderr) => {
-              if(err || stderr.length > 0) return insight.track('npm', 'error');
-              else return insight.track('npm', stdin.toString().trim());
-            });
-            insight.track('platform', process.platform);
-            return cb();
-          });
+          insight.askPermission(null, cb);
         } else {
           return cb();
         }
       },
 
       info: function () {
+        insight.track('generator', this.rootGeneratorVersion());
+        insight.track('node', process.version);
+        exec('npm --version', (err, stdin, stderr) => {
+          if(err || stderr.length > 0) return insight.track('npm', 'error');
+          else return insight.track('npm', stdin.toString().trim());
+        });
+        insight.track('platform', process.platform);
+
         this.log(this.yoWelcome);
         this.log('Out of the box I create an AngularJS app with an Express server.\n');
       },
