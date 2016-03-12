@@ -50,7 +50,7 @@
     "grunt-build-control": "^0.6.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
-    "grunt-conventional-changelog": "^4.1.0",
+    "grunt-conventional-changelog": "^6.1.0",
     "grunt-david": "~0.7.0",
     "grunt-env": "^0.4.1",
     "grunt-mocha-test": "^0.12.7",
