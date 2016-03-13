@@ -38,7 +38,10 @@ export default class Generator extends Base {
         // init shared generator properies and methods
         genBase(this);
 
-        if(insight.optOut === undefined) {
+        if(process.env.CI) {
+          insight.optOut = true;
+          return cb();
+        } else if(insight.optOut === undefined) {
           insight.askPermission(null, cb);
         } else {
           return cb();
