@@ -6,6 +6,7 @@ import chalk from 'chalk';
 import {Base} from 'yeoman-generator';
 import {genBase} from '../generator-base';
 import insight from '../insight-init';
+import {exec} from 'child_process';
 
 export default class Generator extends Base {
 
