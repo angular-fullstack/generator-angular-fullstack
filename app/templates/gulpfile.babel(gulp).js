@@ -262,8 +262,10 @@ gulp.task('inject:<%= styleExt %>', () => {
             gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
                 .pipe(plugins.sort()),
             {
-                starttag: '// injector',
-                endtag: '// endinjector',
+                <%_ if(filters.stylus) { _%>
+                starttag: '/* inject:styl */',
+                endtag: '/* endinject */',
+                <%_ } _%>
                 transform: (filepath) => {
                     let newPath = filepath
                         .replace(`/${clientPath}/app/`, '')
@@ -537,30 +539,30 @@ gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**
 gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], () => {
     var manifest = gulp.src(`${paths.dist}/${clientPath}/assets/rev-manifest.json`);
 
-    var appFilter = plugins.filter('**/app.js');
-    var jsFilter = plugins.filter('**/*.js');
-    var cssFilter = plugins.filter('**/*.css');
-    var htmlBlock = plugins.filter(['**/*.!(html)']);
+    var appFilter = plugins.filter('**/app.js', {restore: true});
+    var jsFilter = plugins.filter('**/*.js', {restore: true});
+    var cssFilter = plugins.filter('**/*.css', {restore: true});
+    var htmlBlock = plugins.filter(['**/*.!(html)'], {restore: true});
 
     return gulp.src(paths.client.mainView)
         .pipe(plugins.useref())
             .pipe(appFilter)
                 .pipe(plugins.addSrc.append('.tmp/templates.js'))
                 .pipe(plugins.concat('app/app.js'))
-            .pipe(appFilter.restore())
+            .pipe(appFilter.restore)
             .pipe(jsFilter)
                 .pipe(plugins.ngAnnotate())
                 .pipe(plugins.uglify())
-            .pipe(jsFilter.restore())
+            .pipe(jsFilter.restore)
             .pipe(cssFilter)
                 .pipe(plugins.minifyCss({
                     cache: true,
                     processImportFrom: ['!fonts.googleapis.com']
                 }))
-            .pipe(cssFilter.restore())
+            .pipe(cssFilter.restore)
             .pipe(htmlBlock)
                 .pipe(plugins.rev())
-            .pipe(htmlBlock.restore())
+            .pipe(htmlBlock.restore)
         .pipe(plugins.revReplace({manifest}))
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });

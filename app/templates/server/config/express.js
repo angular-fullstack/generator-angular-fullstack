@@ -19,7 +19,7 @@ import passport from 'passport';<% } %>
 import session from 'express-session';<% if (filters.mongoose) { %>
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
-var mongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
+var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);<% } %>
@@ -38,14 +38,14 @@ export default function(app) {
   app.use(cookieParser());<% if (filters.auth) { %>
   app.use(passport.initialize());<% } %>
 
-  // Persist sessions with mongoStore / sequelizeStore
+  // Persist sessions with MongoStore / sequelizeStore
   // We need to enable sessions for passport-twitter because it's an
   // oauth 1.0 strategy, and Lusca depends on sessions
   app.use(session({
     secret: config.secrets.session,
     saveUninitialized: true,
     resave: false<% if (filters.mongoose) { %>,
-    store: new mongoStore({
+    store: new MongoStore({
       mongooseConnection: mongoose.connection,
       db: '<%= lodash.slugify(lodash.humanize(appname)) %>'
     })<% } else if(filters.sequelize) { %>,
