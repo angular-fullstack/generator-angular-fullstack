@@ -14,9 +14,9 @@ require('./twitter/passport').setup(User, config);<% } %>
 
 var router = express.Router();
 
-router.use('/local', require('./local'));<% if (filters.facebookAuth) { %>
-router.use('/facebook', require('./facebook'));<% } %><% if (filters.twitterAuth) { %>
-router.use('/twitter', require('./twitter'));<% } %><% if (filters.googleAuth) { %>
-router.use('/google', require('./google'));<% } %>
+router.use('/local', require('./local').default);<% if (filters.facebookAuth) { %>
+router.use('/facebook', require('./facebook').default);<% } %><% if (filters.twitterAuth) { %>
+router.use('/twitter', require('./twitter').default);<% } %><% if (filters.googleAuth) { %>
+router.use('/google', require('./google').default);<% } %>
 
 export default router;

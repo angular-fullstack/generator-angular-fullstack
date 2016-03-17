@@ -207,6 +207,7 @@ describe('angular-fullstack generator', function () {
       'e2e/main/main.po.js',
       'e2e/main/main.spec.js',
       'e2e/components/navbar/navbar.po.js',
+      '.babelrc',
       '.bowerrc',
       '.buildignore',
       '.editorconfig',

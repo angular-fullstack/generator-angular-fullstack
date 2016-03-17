@@ -1,7 +1,7 @@
 'use strict';
 
 var config = browser.params;<% if (filters.mongooseModels) { %>
-var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');<% } %><% if (filters.sequelizeModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model').default;<% } %><% if (filters.sequelizeModels) { %>
 var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
 
 describe('Logout View', function() {

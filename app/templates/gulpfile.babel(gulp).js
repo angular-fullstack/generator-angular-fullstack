@@ -140,15 +140,16 @@ let styles = lazypipe()
 
 let transpileClient = lazypipe()
     .pipe(plugins.sourcemaps.init)
-    .pipe(plugins.babel, {
-        optional: ['es7.classProperties']
-    })
+    .pipe(plugins.babel)
     .pipe(plugins.sourcemaps.write, '.');<% } %>
 
 let transpileServer = lazypipe()
     .pipe(plugins.sourcemaps.init)
     .pipe(plugins.babel, {
-        optional: ['runtime']
+        plugins: [
+            'transform-class-properties',
+            'transform-runtime'
+        ]
     })
     .pipe(plugins.sourcemaps.write, '.');
 

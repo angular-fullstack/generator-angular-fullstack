@@ -11,7 +11,7 @@ export default function(app) {
   // Insert routes below<% if (filters.auth) { %>
   app.use('/api/users', require('./api/user'));
 
-  app.use('/auth', require('./auth'));
+  app.use('/auth', require('./auth').default);
 <% } %>
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
