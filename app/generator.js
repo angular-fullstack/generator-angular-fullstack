@@ -9,7 +9,6 @@ import insight from '../insight-init';
 import {exec} from 'child_process';
 
 export default class Generator extends Base {
-
   constructor(...args) {
     super(...args);
 
@@ -48,7 +47,6 @@ export default class Generator extends Base {
           return cb();
         }
       },
-
       info: function () {
         insight.track('generator', this.rootGeneratorVersion());
         insight.track('node', process.version);
@@ -61,7 +59,6 @@ export default class Generator extends Base {
         this.log(this.yoWelcome);
         this.log('Out of the box I create an AngularJS app with an Express server.\n');
       },
-
       checkForConfig: function() {
         var cb = this.async();
         var existingFilters = this.config.get('filters');
@@ -72,7 +69,7 @@ export default class Generator extends Base {
             name: 'skipConfig',
             message: 'Existing .yo-rc configuration found, would you like to use it?',
             default: true,
-          }], function (answers) {
+          }], answers => {
             this.skipConfig = answers.skipConfig;
 
             if(this.skipConfig) {
@@ -94,7 +91,7 @@ export default class Generator extends Base {
             }
 
             cb();
-          }.bind(this));
+          });
         } else {
           cb();
         }
@@ -104,7 +101,6 @@ export default class Generator extends Base {
 
   get prompting() {
     return {
-
       clientPrompts: function() {
         if(this.skipConfig) return;
         var cb = this.async();
@@ -127,21 +123,21 @@ export default class Generator extends Base {
             name: 'markup',
             message: 'What would you like to write markup with?',
             choices: ['HTML', 'Jade'],
-            filter: function( val ) { return val.toLowerCase(); }
+            filter: val => val.toLowerCase()
           }, {
             type: 'list',
             name: 'stylesheet',
             default: 1,
             message: 'What would you like to write stylesheets with?',
-            choices: [ 'CSS', 'Sass', 'Stylus', 'Less'],
-            filter: function( val ) { return val.toLowerCase(); }
+            choices: ['CSS', 'Sass', 'Stylus', 'Less'],
+            filter: val => val.toLowerCase()
           },  {
             type: 'list',
             name: 'router',
             default: 1,
             message: 'What Angular router would you like to use?',
-            choices: [ 'ngRoute', 'uiRouter'],
-            filter: function( val ) { return val.toLowerCase(); }
+            choices: ['ngRoute', 'uiRouter'],
+            filter: val => val.toLowerCase()
           }, {
             type: 'confirm',
             name: 'bootstrap',
@@ -150,10 +146,8 @@ export default class Generator extends Base {
             type: 'confirm',
             name: 'uibootstrap',
             message: 'Would you like to include UI Bootstrap?',
-            when: function (answers) {
-              return answers.bootstrap;
-            }
-          }], function (answers) {
+            when: answers => answers.bootstrap
+          }], answers => {
             this.filters.js = true;
             this.filters[answers.transpiler] = true;
             insight.track('transpiler', answers.transpiler);
@@ -180,9 +174,8 @@ export default class Generator extends Base {
             this.styleExt = styleExt ? styleExt : answers.stylesheet;
 
             cb();
-          }.bind(this));
+          });
       },
-
       serverPrompts: function() {
         if(this.skipConfig) return;
         var cb = this.async();
@@ -194,70 +187,53 @@ export default class Generator extends Base {
           type: 'checkbox',
           name: 'odms',
           message: 'What would you like to use for data modeling?',
-          choices: [
-            {
-              value: 'mongoose',
-              name: 'Mongoose (MongoDB)',
-              checked: true
-            },
-            {
-              value: 'sequelize',
-              name: 'Sequelize (MySQL, SQLite, MariaDB, PostgreSQL)',
-              checked: false
-            }
-          ]
+          choices: [{
+            value: 'mongoose',
+            name: 'Mongoose (MongoDB)',
+            checked: true
+          }, {
+            value: 'sequelize',
+            name: 'Sequelize (MySQL, SQLite, MariaDB, PostgreSQL)',
+            checked: false
+          }]
         }, {
           type: 'list',
           name: 'models',
           message: 'What would you like to use for the default models?',
           choices: [ 'Mongoose', 'Sequelize' ],
-          filter: function( val ) {
-            return val.toLowerCase();
-          },
-          when: function(answers) {
-            return answers.odms && answers.odms.length > 1;
-          }
+          filter: val => val.toLowerCase(),
+          when: answers => answers.odms && answers.odms.length > 1
         }, {
           type: 'confirm',
           name: 'auth',
           message: 'Would you scaffold out an authentication boilerplate?',
-          when: function (answers) {
-            return answers.odms && answers.odms.length !== 0;
-          }
+          when: answers => answers.odms && answers.odms.length !== 0
         }, {
           type: 'checkbox',
           name: 'oauth',
           message: 'Would you like to include additional oAuth strategies?',
-          when: function (answers) {
-            return answers.auth;
-          },
-          choices: [
-            {
-              value: 'googleAuth',
-              name: 'Google',
-              checked: false
-            },
-            {
-              value: 'facebookAuth',
-              name: 'Facebook',
-              checked: false
-            },
-            {
-              value: 'twitterAuth',
-              name: 'Twitter',
-              checked: false
-            }
-          ]
+          when: answers => answers.auth,
+          choices: [{
+            value: 'googleAuth',
+            name: 'Google',
+            checked: false
+          }, {
+            value: 'facebookAuth',
+            name: 'Facebook',
+            checked: false
+          }, {
+            value: 'twitterAuth',
+            name: 'Twitter',
+            checked: false
+          }]
         }, {
           type: 'confirm',
           name: 'socketio',
           message: 'Would you like to use socket.io?',
           // to-do: should not be dependent on ODMs
-          when: function (answers) {
-            return answers.odms && answers.odms.length !== 0;
-          },
+          when: answers => answers.odms && answers.odms.length !== 0,
           default: true
-        }], function (answers) {
+        }], answers => {
           if(answers.socketio) this.filters.socketio = true;
           insight.track('socketio', !!answers.socketio);
 
@@ -273,9 +249,9 @@ export default class Generator extends Base {
             }
             this.filters.models = true;
             this.filters[models + 'Models'] = true;
-            answers.odms.forEach(function(odm) {
+            answers.odms.forEach(odm => {
               this.filters[odm] = true;
-            }.bind(this));
+            });
             insight.track('oauth', !!answers.oauth);
           } else {
             this.filters.noModels = true;
@@ -288,9 +264,9 @@ export default class Generator extends Base {
 
           if(answers.oauth) {
             if(answers.oauth.length) this.filters.oauth = true;
-            answers.oauth.forEach(function(oauthStrategy) {
+            answers.oauth.forEach(oauthStrategy => {
               this.filters[oauthStrategy] = true;
-            }.bind(this));
+            });
           }
           insight.track('oauth', !!this.filters.oauth);
           insight.track('google-oauth', !!this.filters['googleAuth']);
@@ -298,9 +274,8 @@ export default class Generator extends Base {
           insight.track('twitter-oauth', !!this.filters['twitterAuth']);
 
           cb();
-        }.bind(this));
+        });
       },
-
       projectPrompts: function() {
         if(this.skipConfig) return;
         var cb = this.async();
@@ -320,54 +295,46 @@ export default class Generator extends Base {
           name: 'testing',
           message: 'What would you like to write tests with?',
           choices: [ 'Jasmine', 'Mocha + Chai + Sinon'],
-          filter: function( val ) {
-            var filterMap = {
+          filter: function(val) {
+            return {
               'Jasmine': 'jasmine',
               'Mocha + Chai + Sinon': 'mocha'
-            };
-
-            return filterMap[val];
+            }[val];
           }
         }, {
           type: 'list',
           name: 'chai',
           message: 'What would you like to write Chai assertions with?',
           choices: ['Expect', 'Should'],
-          filter: function( val ) {
-            return val.toLowerCase();
-          },
-          when: function( answers ) {
-            return  answers.testing === 'mocha';
-          }
-        }], function (answers) {
+          filter: val => val.toLowerCase(),
+          when: answers => answers.testing === 'mocha'
+        }], answers => {
           this.filters[answers.buildtool] = true;
           insight.track('buildtool', answers.buildtool);
 
           this.filters[answers.testing] = true;
           insight.track('testing', answers.testing);
-          if (answers.testing === 'mocha') {
+          if(answers.testing === 'mocha') {
             this.filters.jasmine = false;
             this.filters.should = false;
             this.filters.expect = false;
             this.filters[answers.chai] = true;
             insight.track('chai-assertions', answers.chai);
           }
-          if (answers.testing === 'jasmine') {
+          if(answers.testing === 'jasmine') {
             this.filters.mocha = false;
             this.filters.should = false;
             this.filters.expect = false;
           }
 
           cb();
-        }.bind(this));
+        });
       }
-
     };
   }
 
   get configuring() {
     return {
-
       saveSettings: function() {
         if(this.skipConfig) return;
         this.config.set('endpointDirectory', 'server/api/');
@@ -389,7 +356,6 @@ export default class Generator extends Base {
         this.config.set('filters', this.filters);
         this.config.forceSave();
       },
-
       ngComponent: function() {
         if(this.skipConfig) return;
         var appPath = 'client/app/';
@@ -401,7 +367,7 @@ export default class Generator extends Base {
           'mocha',
           'expect',
           'should'
-        ].filter(function(v) {return this.filters[v];}, this);
+        ].filter(v => this.filters[v]);
 
         if(this.filters.ngroute) filters.push('ngroute');
         if(this.filters.uirouter) filters.push('uirouter');
@@ -430,7 +396,6 @@ export default class Generator extends Base {
           }
         }, { local: require.resolve('generator-ng-component/app/index.js') });
       },
-
       ngModules: function() {
         var angModules = [
           `'${this.scriptAppName}.constants'`,
@@ -450,7 +415,6 @@ export default class Generator extends Base {
 
         this.angularModules = '\n  ' + angModules.join(',\n  ') +'\n';
       }
-
     };
   }
 
@@ -460,7 +424,6 @@ export default class Generator extends Base {
 
   get writing() {
     return {
-
       generateProject: function() {
         let self = this;
         this.sourceRoot(path.join(__dirname, './templates'));
@@ -472,12 +435,11 @@ export default class Generator extends Base {
           return dest;
         });
       },
-
       generateEndpoint: function() {
         var models;
-        if (this.filters.mongooseModels) {
+        if(this.filters.mongooseModels) {
           models = 'mongoose';
-        } else if (this.filters.sequelizeModels) {
+        } else if(this.filters.sequelizeModels) {
           models = 'sequelize';
         }
         this.composeWith('angular-fullstack:endpoint', {
@@ -488,24 +450,20 @@ export default class Generator extends Base {
           args: ['thing']
         });
       }
-
     };
   }
 
   get install() {
     return {
-
       installDeps: function() {
         this.installDependencies({
           skipInstall: this.options['skip-install']
         });
       }
-
     };
   }
 
   get end() {
     return {};
   }
-
 }
