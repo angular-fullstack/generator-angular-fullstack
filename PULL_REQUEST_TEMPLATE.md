@@ -1,0 +1,2 @@
+- [ ] I have read the [Contributing Documents](https://github.com/DaftMonk/generator-angular-fullstack/blob/master/contributing.md)
+- [ ] My commit(s) follow the [AngularJS commit message guidelines](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/)
