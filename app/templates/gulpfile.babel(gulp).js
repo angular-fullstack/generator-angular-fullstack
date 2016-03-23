@@ -478,14 +478,15 @@ gulp.task('test:client', ['wiredep:test', 'constant'<% if(filters.ts) { %>, 'tsd
 gulp.task('wiredep:client', () => {
     return gulp.src(paths.client.mainView)
         .pipe(wiredep({
-            exclude: [
-                /bootstrap-sass-official/,
-                /bootstrap.js/,
-                /json3/,
-                /es5-shim/,
-                /bootstrap.css/,
-                /font-awesome.css/
-            ],
+            exclude: [<% if(filters.uibootstrap) { %>
+                /bootstrap.js/,<% } %>
+                '/json3/',
+                '/es5-shim/'<% if(!filters.css) { %>,
+                /font-awesome\.css/<% if(filters.bootstrap) { %>,
+                /bootstrap\.css/<% if(filters.sass) { %>,
+                /bootstrap-sass-official/<% } if(filters.oauth) { %>,
+                /bootstrap-social\.css/<% }}} %>
+            ]
             ignorePath: clientPath
         }))
         .pipe(gulp.dest(`${clientPath}/`));
@@ -494,14 +495,15 @@ gulp.task('wiredep:client', () => {
 gulp.task('wiredep:test', () => {
     return gulp.src(paths.karma)
         .pipe(wiredep({
-            exclude: [
-                /bootstrap-sass-official/,
-                /bootstrap.js/,
+            exclude: [<% if(filters.uibootstrap) { %>
+                /bootstrap.js/,<% } %>
                 '/json3/',
-                '/es5-shim/',
-                /bootstrap.css/,
-                /font-awesome.css/
-            ],
+                '/es5-shim/'<% if(!filters.css) { %>,
+                /font-awesome\.css/<% if(filters.bootstrap) { %>,
+                /bootstrap\.css/<% if(filters.sass) { %>,
+                /bootstrap-sass-official/<% } if(filters.oauth) { %>,
+                /bootstrap-social\.css/<% }}} %>
+            ]
             devDependencies: true
         }))
         .pipe(gulp.dest('./'));
