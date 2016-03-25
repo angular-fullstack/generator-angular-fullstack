@@ -486,7 +486,7 @@ gulp.task('wiredep:client', () => {
                 /bootstrap\.css/<% if(filters.sass) { %>,
                 /bootstrap-sass-official/<% } if(filters.oauth) { %>,
                 /bootstrap-social\.css/<% }}} %>
-            ]
+            ],
             ignorePath: clientPath
         }))
         .pipe(gulp.dest(`${clientPath}/`));
@@ -503,7 +503,7 @@ gulp.task('wiredep:test', () => {
                 /bootstrap\.css/<% if(filters.sass) { %>,
                 /bootstrap-sass-official/<% } if(filters.oauth) { %>,
                 /bootstrap-social\.css/<% }}} %>
-            ]
+            ],
             devDependencies: true
         }))
         .pipe(gulp.dest('./'));

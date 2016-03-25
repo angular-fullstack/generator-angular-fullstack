@@ -41,32 +41,137 @@ describe('User Model', function() {
   });
 
   describe('#email', function() {
-    it('should fail when saving without an email', function() {
+    it('should fail when saving with a blank email', function() {
       user.email = '';
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
+
+    it('should fail when saving without an email', function() {
+      user.email = null;
+      return <%= expect() %>user.save()<%= to() %>.be.rejected;
+    });<% if (filters.oauth && filters.googleAuth) { %>
+
+    context('given user provider is google', function() {
+      beforeEach(function() {
+        user.provider = 'google';
+      });
+
+      it('should succeed when saving without an email', function() {
+        user.email = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %><% if (filters.oauth && filters.facebookAuth) { %>
+
+    context('given user provider is facebook', function() {
+      beforeEach(function() {
+        user.provider = 'facebook';
+      });
+
+      it('should succeed when saving without an email', function() {
+        user.email = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %><% if (filters.oauth && filters.twitterAuth) { %>
+
+    context('given user provider is twitter', function() {
+      beforeEach(function() {
+        user.provider = 'twitter';
+      });
+
+      it('should succeed when saving without an email', function() {
+        user.email = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %><% if (filters.oauth) { %>
+
+    context('given user provider is github', function() {
+      beforeEach(function() {
+        user.provider = 'github';
+      });
+
+      it('should succeed when saving without an email', function() {
+        user.email = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %>
   });
 
   describe('#password', function() {
-    beforeEach(function() {
-      return user.save();
+    it('should fail when saving with a blank password', function() {
+      user.password = '';
+      return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
 
-    it('should authenticate user if valid', function() {
-      <%= expect() %>user.authenticate('password')<%= to() %>.be.true;
+    it('should fail when saving without a password', function() {
+      user.password = null;
+      return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
 
-    it('should not authenticate user if invalid', function() {
-      <%= expect() %>user.authenticate('blah')<%= to() %>.not.be.true;
-    });
+    context('given the user has been previously saved', function() {
+      beforeEach(function() {
+        return user.save();
+      });
 
-    it('should remain the same hash unless the password is updated', function() {
-      user.name = 'Test User';
-      return <%= expect() %>user.save()
-        .then(function(u) {
-          return u.authenticate('password');
-        })<%= to() %>.eventually.be.true;
-    });
+      it('should authenticate user if valid', function() {
+        <%= expect() %>user.authenticate('password')<%= to() %>.be.true;
+      });
+
+      it('should not authenticate user if invalid', function() {
+        <%= expect() %>user.authenticate('blah')<%= to() %>.not.be.true;
+      });
+
+      it('should remain the same hash unless the password is updated', function() {
+        user.name = 'Test User';
+        return <%= expect() %>user.save()
+          .then(function(u) {
+            return u.authenticate('password');
+          })<%= to() %>.eventually.be.true;
+      });
+    });<% if (filters.oauth && filters.googleAuth) { %>
+
+    context('given user provider is google', function() {
+      beforeEach(function() {
+        user.provider = 'google';
+      });
+
+      it('should succeed when saving without a password', function() {
+        user.password = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %><% if (filters.oauth && filters.facebookAuth) { %>
+
+    context('given user provider is facebook', function() {
+      beforeEach(function() {
+        user.provider = 'facebook';
+      });
+
+      it('should succeed when saving without a password', function() {
+        user.password = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %><% if (filters.oauth && filters.twitterAuth) { %>
+
+    context('given user provider is twitter', function() {
+      beforeEach(function() {
+        user.provider = 'twitter';
+      });
+
+      it('should succeed when saving without a password', function() {
+        user.password = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %><% if (filters.oauth) { %>
+
+    context('given user provider is github', function() {
+      beforeEach(function() {
+        user.provider = 'github';
+      });
+
+      it('should succeed when saving without a password', function() {
+        user.password = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %>
   });
 
 });
