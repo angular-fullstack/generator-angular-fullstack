@@ -46,8 +46,13 @@ describe('User Model', function() {
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
 
-    it('should fail when saving without an email', function() {
+    it('should fail when saving with a null email', function() {
       user.email = null;
+      return <%= expect() %>user.save()<%= to() %>.be.rejected;
+    });
+
+    it('should fail when saving without an email', function() {
+      user.email = undefined;
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });<% if (filters.oauth && filters.googleAuth) { %>
 
@@ -102,8 +107,13 @@ describe('User Model', function() {
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
 
-    it('should fail when saving without a password', function() {
+    it('should fail when saving with a null password', function() {
       user.password = null;
+      return <%= expect() %>user.save()<%= to() %>.be.rejected;
+    });
+
+    it('should fail when saving without a password', function() {
+      user.password = undefined;
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
 
