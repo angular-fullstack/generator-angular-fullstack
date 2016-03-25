@@ -155,8 +155,8 @@
     "karma-requirejs": "~0.2.2",
     "karma-jade-preprocessor": "0.0.11",
     "karma-phantomjs-launcher": "~1.0.0",<% if (filters.jade) { %>
-    "karma-ng-jade2js-preprocessor": "^0.2.0",<% } else { %>
-    "karma-ng-html2js-preprocessor": "~0.2.0",<% } %>
+    "karma-ng-jade2js-preprocessor": "^0.2.0",<% } %>
+    "karma-ng-html2js-preprocessor": "~0.2.0",
     "karma-spec-reporter": "~0.0.20",
     "sinon-chai": "^2.8.0",
     "mocha": "^2.2.5",<% if (filters.mocha) { %>
