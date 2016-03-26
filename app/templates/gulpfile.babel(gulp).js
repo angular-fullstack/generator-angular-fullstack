@@ -246,7 +246,7 @@ gulp.task('inject:tsconfig', () => {
 gulp.task('inject:css', () => {
     return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
-            gulp.src(`/${clientPath}/{app,components}/**/*.css`, {read: false})
+            gulp.src(paths.client.styles, {read: false})
                 .pipe(plugins.sort()),
             {
                 starttag: '<!-- injector:css -->',
@@ -294,7 +294,7 @@ gulp.task('tsd:test', cb => {
 });<% } %>
 
 gulp.task('styles', () => {
-    return gulp.src(paths.client.mainStyle)
+    return gulp.src(paths.client.styles)
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
 });<% if(filters.ts) { %>
