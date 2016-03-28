@@ -56,7 +56,7 @@ describe('User Model', function() {
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });<% if (filters.oauth && filters.googleAuth) { %>
 
-    context('given user provider is google', function() {
+    describe('given user provider is google', function() {
       beforeEach(function() {
         user.provider = 'google';
       });
@@ -67,7 +67,7 @@ describe('User Model', function() {
       });
     });<% } %><% if (filters.oauth && filters.facebookAuth) { %>
 
-    context('given user provider is facebook', function() {
+    describe('given user provider is facebook', function() {
       beforeEach(function() {
         user.provider = 'facebook';
       });
@@ -78,7 +78,7 @@ describe('User Model', function() {
       });
     });<% } %><% if (filters.oauth && filters.twitterAuth) { %>
 
-    context('given user provider is twitter', function() {
+    describe('given user provider is twitter', function() {
       beforeEach(function() {
         user.provider = 'twitter';
       });
@@ -89,7 +89,7 @@ describe('User Model', function() {
       });
     });<% } %><% if (filters.oauth) { %>
 
-    context('given user provider is github', function() {
+    describe('given user provider is github', function() {
       beforeEach(function() {
         user.provider = 'github';
       });
@@ -117,7 +117,7 @@ describe('User Model', function() {
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
     });
 
-    context('given the user has been previously saved', function() {
+    describe('given the user has been previously saved', function() {
       beforeEach(function() {
         return user.save();
       });
@@ -139,7 +139,7 @@ describe('User Model', function() {
       });
     });<% if (filters.oauth && filters.googleAuth) { %>
 
-    context('given user provider is google', function() {
+    describe('given user provider is google', function() {
       beforeEach(function() {
         user.provider = 'google';
       });
@@ -150,7 +150,7 @@ describe('User Model', function() {
       });
     });<% } %><% if (filters.oauth && filters.facebookAuth) { %>
 
-    context('given user provider is facebook', function() {
+    describe('given user provider is facebook', function() {
       beforeEach(function() {
         user.provider = 'facebook';
       });
@@ -161,7 +161,7 @@ describe('User Model', function() {
       });
     });<% } %><% if (filters.oauth && filters.twitterAuth) { %>
 
-    context('given user provider is twitter', function() {
+    describe('given user provider is twitter', function() {
       beforeEach(function() {
         user.provider = 'twitter';
       });
@@ -172,7 +172,7 @@ describe('User Model', function() {
       });
     });<% } %><% if (filters.oauth) { %>
 
-    context('given user provider is github', function() {
+    describe('given user provider is github', function() {
       beforeEach(function() {
         user.provider = 'github';
       });
