@@ -11,13 +11,29 @@ var UserSchema = new Schema({
   name: String,
   email: {
     type: String,
-    lowercase: true
+    lowercase: true,
+    required: <% if(filters.oauth) { %>function() {
+      if (authTypes.indexOf(this.provider) === -1) {
+        return true;
+      } else {
+        return false;
+      }
+    }<% } else { %>true<% } %>
   },
   role: {
     type: String,
     default: 'user'
   },
-  password: String,
+  password: {
+    type: String,
+    required: <% if(filters.oauth) { %>function() {
+      if (authTypes.indexOf(this.provider) === -1) {
+        return true;
+      } else {
+        return false;
+      }
+    }<% } else { %>true<% } %>
+  },
   provider: String,
   salt: String<% if (filters.oauth) { %>,<% if (filters.facebookAuth) { %>
   facebook: {},<% } %><% if (filters.twitterAuth) { %>
@@ -108,8 +124,12 @@ UserSchema
       return next();
     }
 
-    if (!validatePresenceOf(this.password)<% if (filters.oauth) { %> && authTypes.indexOf(this.provider) === -1<% } %>) {
-      return next(new Error('Invalid password'));
+    if (!validatePresenceOf(this.password)) {
+      <% if (filters.oauth) { %>if (authTypes.indexOf(this.provider) === -1) {
+        <% } %>return next(new Error('Invalid password'));<% if (filters.oauth) { %>
+      } else {
+        return next();
+      }<% } %>
     }
 
     // Make salt with a callback
@@ -203,7 +223,11 @@ UserSchema.methods = {
    */
   encryptPassword(password, callback) {
     if (!password || !this.salt) {
-      return null;
+      if (!callback) {
+        return null;
+      } else {
+        return callback('Missing password or salt');
+      }
     }
 
     var defaultIterations = 10000;
