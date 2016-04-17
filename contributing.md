@@ -9,6 +9,7 @@ Additionally for this generator:
 * When submitting a PR, make sure that the commit messages match the [AngularJS conventions][commit-message-format] (see below).
 * When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
 * When submitting a new feature, add tests that cover the feature.
+* Open Issues marked with the [EASY](https://github.com/angular-fullstack/generator-angular-fullstack/issues?q=is%3Aopen+is%3Aissue+label%3AEasy) label are believed to be easy changes, and would be good Issues to tackle for new contributors.
 
 To run the generator:
 1. Clone it and `cd` to its root
