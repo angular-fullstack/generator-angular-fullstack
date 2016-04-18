@@ -375,6 +375,13 @@ gulp.task('start:client', cb => {
     });
 });
 
+gulp.task('start:server', () => {
+    process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+    config = require(`./${serverPath}/config/environment`);
+    nodemon(`-w ${serverPath} ${serverPath}`)
+        .on('log', onServerLog);
+});
+
 gulp.task('start:server:prod', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'production';
     config = require(`./${paths.dist}/${serverPath}/config/environment`);
@@ -382,10 +389,15 @@ gulp.task('start:server:prod', () => {
         .on('log', onServerLog);
 });
 
-gulp.task('start:server', () => {
+gulp.task('start:inspector', () => {
+    gulp.src([])
+        .pipe(plugins.nodeInspector());
+});
+
+gulp.task('start:server:debug', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-    config = require(`./${serverPath}/config/environment`);
-    nodemon(`-w ${serverPath} ${serverPath}`)
+        config = require(`./${serverPath}/config/environment`);
+    nodemon(`-w ${serverPath} --debug-brk ${serverPath}`)
         .on('log', onServerLog);
 });
 
@@ -425,7 +437,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('serve', cb => {
-    runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'tsd'<% } %>],
+    runSequence(['clean:tmp', 'constant', 'env:all',<% if(filters.ts) { %>, 'tsd'<% } %>],
         ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
@@ -440,6 +452,17 @@ gulp.task('serve:dist', cb => {
         'env:all',
         'env:prod',
         ['start:server:prod', 'start:client'],
+        cb);
+});
+
+gulp.task('serve:debug', cb => {
+    runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'tsd'<% } %>],
+        ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
+        ['wiredep:client'],
+        ['transpile:client', 'styles'],
+        'start:inspector',
+        ['start:server:debug', 'start:client'],
+        'watch',
         cb);
 });
 
