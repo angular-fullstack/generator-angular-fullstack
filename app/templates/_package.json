@@ -20,7 +20,7 @@
     "ejs": "^2.3.3",<% } %><% if (filters.mongoose) { %>
     "mongoose": "^4.1.2",
     "bluebird": "^3.3.3",
-    "connect-mongo": "^0.8.1",<% } %><% if (filters.sequelize) { %>
+    "connect-mongo": "^1.1.0",<% } %><% if (filters.sequelize) { %>
     "sequelize": "^3.5.1",
     "sqlite3": "~3.1.1",
     "express-sequelize-session": "0.4.0",<% } %><% if (filters.auth) { %>
