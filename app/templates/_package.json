@@ -105,7 +105,7 @@
     "grunt-contrib-imagemin": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.0",
-    "grunt-contrib-watch": "~0.6.1",<% if (filters.jade) { %>
+    "grunt-contrib-watch": "^1.0.0",<% if (filters.jade) { %>
     "grunt-contrib-jade": "^1.0.0",<% } %><% if (filters.less) { %>
     "grunt-contrib-less": "^1.2.0",<% } %>
     "grunt-babel": "~6.0.0",<% if(filters.ts) { %>
