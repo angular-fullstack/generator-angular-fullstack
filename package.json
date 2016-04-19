@@ -61,7 +61,7 @@
     "jit-grunt": "~0.10.0",
     "mocha": "^2.2.5",
     "q": "^1.0.1",
-    "recursive-readdir": "^1.2.0",
+    "recursive-readdir": "^2.0.0",
     "shelljs": "^0.6.0",
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "^1.1.0"
