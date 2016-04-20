@@ -13,7 +13,8 @@
         "client/components/oauth-buttons/oauth-buttons.controller.spec.ts",
         "client/components/oauth-buttons/oauth-buttons.directive.spec.ts",
         "client/components/socket/socket.mock.ts",
-        "client/components/ui-router/ui-router.mock.ts",
+        <%_ if(filters.uirouter) { _%>
+        "client/components/ui-router/ui-router.mock.ts",<% } %>
         "client/test_typings/angular-protractor/angular-protractor.d.ts",
         "client/test_typings/selenium-webdriver/selenium-webdriver.d.ts",<% if(filters.mocha) { %>
         "client/test_typings/mocha/mocha.d.ts",
