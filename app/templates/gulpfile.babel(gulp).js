@@ -438,7 +438,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('serve', cb => {
-    runSequence(['clean:tmp', 'constant', 'env:all',<% if(filters.ts) { %>, 'tsd'<% } %>],
+    runSequence(['clean:tmp', 'constant', 'env:all'<% if(filters.ts) { %>, 'tsd'<% } %>],
         ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
