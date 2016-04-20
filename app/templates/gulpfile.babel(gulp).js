@@ -4,6 +4,7 @@
 import _ from 'lodash';
 import del from 'del';
 import gulp from 'gulp';
+import grunt from 'grunt';
 import path from 'path';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import http from 'http';
@@ -712,4 +713,49 @@ gulp.task('test:e2e', ['env:all', 'env:test', 'start:server', 'webdriver_update'
         }).on('end', () => {
             process.exit();
         });
+});
+
+/********************
+ * Grunt ported tasks
+ ********************/
+
+grunt.initConfig({
+    buildcontrol: {
+        options: {
+            dir: paths.dist,
+            commit: true,
+            push: true,
+            connectCommits: false,
+            message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+        },
+        heroku: {
+            options: {
+                remote: 'heroku',
+                branch: 'master'
+            }
+        },
+        openshift: {
+            options: {
+                remote: 'openshift',
+                branch: 'master'
+            }
+        }
+    }
+});
+
+grunt.loadNpmTasks('grunt-build-control');
+
+gulp.task('buildcontrol:heroku', function(done) {
+    grunt.tasks(
+        ['buildcontrol:heroku'],    //you can add more grunt tasks in this array
+        {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
+        function() {done();}
+    );
+});
+gulp.task('buildcontrol:openshift', function(done) {
+    grunt.tasks(
+        ['buildcontrol:openshift'],    //you can add more grunt tasks in this array
+        {gruntfile: false}, //don't look for a Gruntfile - there is none. :-)
+        function() {done();}
+    );
 });
