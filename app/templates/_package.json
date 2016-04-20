@@ -148,7 +148,6 @@
     "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
     "karma": "~0.13.3",
-    "karma-ng-scenario": "~0.1.0",
     "karma-firefox-launcher": "~0.1.6",
     "karma-script-launcher": "~0.2.0",
     "karma-chrome-launcher": "~0.2.0",
