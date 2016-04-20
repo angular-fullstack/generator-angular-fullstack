@@ -193,12 +193,13 @@ Generator.prototype.enableOpenShiftHotDeploy = function enableOpenshiftHotDeploy
   });
 };
 
-Generator.prototype.gruntBuild = function gruntBuild() {
+Generator.prototype.build = function build() {
   if(this.abort || !this.openshift_remote_exists ) return;
   var done = this.async();
+  var buildCommand = this.filters.grunt ? 'grunt build' : 'gulp build';
 
   this.log(chalk.bold('\nBuilding dist folder, please wait...'));
-  var child = exec('grunt build', function (err, stdout) {
+  var child = exec(buildCommand, function (err, stdout) {
     if (err) {
       this.log.error(err);
     }
@@ -294,7 +295,12 @@ Generator.prototype.restartApp = function restartApp() {
       this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly \n\t' +
       'rhc app-restart -a ' + this.deployedName));
     }
-    this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
-    '\nThen deploy with\n\t' + chalk.bold('grunt buildcontrol:openshift')));
+
+    this.log(chalk.yellow(
+      'After app modification run\n\t' + 
+      chalk.bold(this.filters.grunt ? 'grunt build' : 'gulp build') +
+      '\nThen deploy with\n\t' +
+      chalk.bold(this.filters.grunt ? 'grunt buildcontrol:openshift' : 'gulp buildcontrol:openshift')
+    ));
   }.bind(this));
 };
