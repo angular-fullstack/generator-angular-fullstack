@@ -164,7 +164,7 @@
     "karma-jasmine": "~0.3.0",
     "jasmine-spec-reporter": "^2.4.0",<% } if(filters.babel) { %>
     "karma-babel-preprocessor": "^6.0.1",<% } %>
-    "requirejs": "~2.1.11",
+    "requirejs": "~2.2.0",
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
     "supertest": "^1.1.0"<% if(filters.ts) { %>,
