@@ -9,7 +9,7 @@ var exec = childProcess.exec;
 var spawn = childProcess.spawn;
 
 var Generator = module.exports = function Generator() {
-  yeoman.generators.Base.apply(this, arguments);
+  yeoman.Base.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, './templates'));
 
   try {
@@ -21,7 +21,7 @@ var Generator = module.exports = function Generator() {
   this.filters = this.config.get('filters') || {};
 };
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, yeoman.NamedBase);
 
 Generator.prototype.askForName = function askForName() {
   var done = this.async();
