@@ -211,7 +211,7 @@ gulp.task('env:prod', () => {
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:js', 'inject:css', 'inject:<%= styleExt %>'<% if(filters.ts) { %>, 'inject:tsconfig'<% } %>], cb);
+    runSequence(['inject:js', 'inject:css'<% if(!filters.css) { %>, 'inject:<%= styleExt %>'<% } %><% if(filters.ts) { %>, 'inject:tsconfig'<% } %>], cb);
 });
 
 gulp.task('inject:js', () => {
