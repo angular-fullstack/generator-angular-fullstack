@@ -21,7 +21,8 @@ module.exports = function(config) {
       // bower:js
       // endbower<% if (filters.socketio) { %>
       'node_modules/socket.io-client/socket.io.js',<% } %><% if(filters.ts) { %>
-      '.tmp/app/app.js',
+      '.tmp/app/app.js', <% if(filters.gulp) { %>
+      '.tmp/app.constant.js',<% } %>
       '.tmp/{app,components}/**/*.module.js',
       '.tmp/{app,components}/**/*.js',
       '.tmp/test/**/*.js',<% } %><% if(filters.babel) { %>
