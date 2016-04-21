@@ -136,6 +136,8 @@ let styles = lazypipe()
     })<% } if(filters.sass) { %>
     .pipe(plugins.sass)<% } if(filters.less) { %>
     .pipe(plugins.less)<% } %>
+    <%_ if(filters.css) { _%>
+    .pipe(plugins.cleanCss, {processImportFrom: ['!fonts.googleapis.com']})<% } %>
     .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
     .pipe(plugins.sourcemaps.write, '.');<% if(filters.babel) { %>
 
@@ -295,7 +297,10 @@ gulp.task('tsd:test', cb => {
 });<% } %>
 
 gulp.task('styles', () => {
+    <%_ if(!filters.css) { _%>
     return gulp.src(paths.client.mainStyle)
+    <%_ } else { _%>
+    return gulp.src(paths.client.styles)<% } %>
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
 });<% if(filters.ts) { %>
@@ -581,8 +586,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], ()
                 .pipe(plugins.uglify())
             .pipe(jsFilter.restore)
             .pipe(cssFilter)
-                .pipe(plugins.minifyCss({
-                    cache: true,
+                .pipe(plugins.cleanCss({
                     processImportFrom: ['!fonts.googleapis.com']
                 }))
             .pipe(cssFilter.restore)
