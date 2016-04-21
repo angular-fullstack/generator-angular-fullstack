@@ -315,7 +315,7 @@ gulp.task('transpile:client', ['constant', 'copy:constant'], () => {
 });
 
 gulp.task('transpile:client:test', ['tsd:test'], () => {
-    let tsTestProject = plugins.typescript.createProject('./tsconfig.client.json');
+    let tsTestProject = plugins.typescript.createProject('./tsconfig.client.test.json');
     return tsTestProject.src()
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript(tsTestProject)).js
