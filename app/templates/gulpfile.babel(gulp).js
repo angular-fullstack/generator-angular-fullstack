@@ -310,7 +310,7 @@ gulp.task('copy:constant', () => {
         .pipe(gulp.dest('.tmp/app'));
 })
 
-gulp.task('transpile:client', ['constant', 'copy:constant'], () => {
+gulp.task('transpile:client', ['tsd', 'constant', 'copy:constant'], () => {
     let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
     return tsProject.src()
         .pipe(plugins.sourcemaps.init())
@@ -496,7 +496,7 @@ gulp.task('mocha:integration', () => {
         .pipe(mocha());
 });
 
-gulp.task('test:client', ['wiredep:test', 'constant'<% if(filters.ts) { %>, 'tsd:test', 'transpile:client', 'transpile:client:test'<% } %>], (done) => {
+gulp.task('test:client', ['wiredep:test', 'constant'<% if(filters.ts) { %>, 'transpile:client', 'transpile:client:test'<% } %>], (done) => {
     new KarmaServer({
       configFile: `${__dirname}/${paths.karma}`,
       singleRun: true
