@@ -1,3 +1,38 @@
+<a name="3.6.0"></a>
+# [3.6.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.5.0...v3.6.0) (2016-04-21)
+
+
+### Bug Fixes
+
+* **gen:heroku:** allow for grunt or gulp ([954baa4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/954baa4))
+* **gen:openshift:** allow for grunt or gulp ([2f1a229](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2f1a229))
+* **gulp:** build images before rev-replace ([4139694](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4139694))
+* **gulp:copy:constant:** fix output dir ([a5e31cf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a5e31cf)), closes [#1748](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1748)
+* **gulp:inject:** prevent `'inject:css'` from showing up twice ([09b4f01](https://github.com/angular-fullstack/generator-angular-fullstack/commit/09b4f01))
+* **gulp:inject:css:** remove leading `/` ([6de6272](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6de6272))
+* **gulp:jshint:** include jshint alongside gulp-jshint ([978f6ba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/978f6ba))
+* **gulp:serve:** 
+  * add `env:all` ([27531fb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/27531fb)), closes [#1779](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1779)
+  * remove extra comma ([d9d9f62](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d9d9f62))
+* **gulp:styles:** fix styles task for plain CSS ([dc72c33](https://github.com/angular-fullstack/generator-angular-fullstack/commit/dc72c33)), closes [#1747](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1747)
+* **gulp:test:client:** move around some `'tsd'` tasks ([86c7510](https://github.com/angular-fullstack/generator-angular-fullstack/commit/86c7510))
+* **gulp:wiredep:** copy `exclude` array code from Grunt ([2997e34](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2997e34)), closes [#1739](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1739)
+* **livereload:** ignore api routes and specific non-html files ([c6a396b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c6a396b)), closes [#1636](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1636) [#1764](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1764)
+* **server:user:spec:** replace `context` with `describe` ([5716660](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5716660))
+* **ts:** 
+  * exclude ui-router.mock.ts from tsconfig.client.test.json if using ngroute ([3e40776](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3e40776))
+  * fix typo of gulp's typescript test configuration file ([023b261](https://github.com/angular-fullstack/generator-angular-fullstack/commit/023b261))
+* **user:** fix email and password validation ([474a3a1](https://github.com/angular-fullstack/generator-angular-fullstack/commit/474a3a1))
+
+### Features
+
+* **GitHub:** add issue and PR templates ([79b1db7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/79b1db7))
+* **gulp:** 
+  * add serve:debug, add gulp-node-inspector ([f6eb26d](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f6eb26d))
+  * port `grunt buildcontrol` tasks over to gulp ([3221678](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3221678))
+
+
+
 <a name="3.5.0"></a>
 ## [3.5.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.4.2...v3.5.0) (2016-03-20)
 
