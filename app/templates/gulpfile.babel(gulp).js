@@ -307,7 +307,7 @@ gulp.task('styles', () => {
 
 gulp.task('copy:constant', () => {
     return gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
-        .pipe(gulp.dest('.tmp'));
+        .pipe(gulp.dest('.tmp/app'));
 })
 
 gulp.task('transpile:client', ['constant', 'copy:constant'], () => {
