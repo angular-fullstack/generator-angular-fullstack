@@ -1,39 +1,70 @@
 'use strict';
-var markdown = require('marked');
-var semver = require('semver');
-var _s = require('underscore.string');
+
 var shell = require('shelljs');
-var process = require('child_process');
+var child_process = require('child_process');
 var Q = require('q');
-var helpers = require('yeoman-generator').test;
-var fs = require('fs-extra');
+var helpers = require('yeoman-test');
+var fs = require('fs');
 var path = require('path');
 
 module.exports = function (grunt) {
-  require('load-grunt-tasks')(grunt);
+  var gruntUtils = require('./task-utils/grunt')(grunt);
+  var gitCmd = gruntUtils.gitCmd;
+  var gitCmdAsync = gruntUtils.gitCmdAsync;
+
+  // Load grunt tasks automatically, when needed
+  require('jit-grunt')(grunt, {
+    buildcontrol: 'grunt-build-control'
+  });
 
   grunt.initConfig({
     config: {
       demo: 'demo'
     },
     pkg: grunt.file.readJSON('package.json'),
-    changelog: {
+    conventionalChangelog: {
       options: {
-        dest: 'CHANGELOG.md',
-        versionFile: 'package.json'
+        changelogOpts: {
+          // conventional-changelog options go here
+          preset: 'angular'
+        },
+        writerOpts: {
+          // conventional-changelog-writer options go here
+          finalizeContext: gruntUtils.conventionalChangelog.finalizeContext,
+          commitPartial: gruntUtils.conventionalChangelog.commitPartial
+        }
+      },
+      release: {
+        src: 'CHANGELOG.md'
       }
     },
     release: {
       options: {
         commitMessage: '<%= version %>',
-        tagName: 'v<%= version %>',
-        bump: false, // we have our own bump
-        file: 'package.json'
+        tagName: '<%= version %>',
+        file: 'package.json',
+        beforeBump: ['updateSubmodules'],
+        afterBump: ['updateFixtures:deps', 'commitNgFullstackDeps'],
+        beforeRelease: ['stage'],
+        push: false,
+        pushTags: false,
+        npm: false
+      }
+    },
+    updateSubmodules: {
+      options: {
+        modules: ['angular-fullstack-deps']
+      }
+    },
+    commitNgFullstackDeps: {
+      options: {
+        cwd: 'angular-fullstack-deps',
+        files: ['package.json', 'bower.json']
       }
     },
     stage: {
       options: {
-        files: ['CHANGELOG.md']
+        files: ['CHANGELOG.md', 'angular-fullstack-deps']
       }
     },
     buildcontrol: {
@@ -57,6 +88,11 @@ module.exports = function (grunt) {
         node: true
       },
       all: ['Gruntfile.js', '*/index.js']
+    },
+    env: {
+      fast: {
+        SKIP_E2E: true
+      }
     },
     mochaTest: {
       test: {
@@ -82,35 +118,58 @@ module.exports = function (grunt) {
           ]
         }]
       }
+    },
+    david: {
+      gen: {
+        options: {}
+      },
+      app: {
+        options: {
+          package: 'test/fixtures/package.json'
+        }
+      }
     }
-  });
-
-  grunt.registerTask('bump', 'bump manifest version', function (type) {
-    var options = this.options({
-      file: grunt.config('pkgFile') || 'package.json'
-    });
-
-    function setup(file, type) {
-      var pkg = grunt.file.readJSON(file);
-      var newVersion = pkg.version = semver.inc(pkg.version, type || 'patch');
-      return {
-        file: file,
-        pkg: pkg,
-        newVersion: newVersion
-      };
-    }
-
-    var config = setup(options.file, type);
-    grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
-    grunt.log.ok('Version bumped to ' + config.newVersion);
   });
 
   grunt.registerTask('stage', 'git add files before running the release task', function () {
-    var files = this.options().files;
-    grunt.util.spawn({
-      cmd: process.platform === 'win32' ? 'git.cmd' : 'git',
-      args: ['add'].concat(files)
-    }, grunt.task.current.async());
+    var files = grunt.config('stage.options').files;
+    gitCmd(['add'].concat(files), {}, this.async());
+  });
+
+  grunt.registerTask('updateSubmodules', function() {
+    grunt.config.requires('updateSubmodules.options.modules');
+    var modules = grunt.config.get('updateSubmodules').options.modules;
+
+    Q()
+      .then(gitCmdAsync(['submodule', 'update', '--init', '--recursive']))
+      .then(function() {
+        var thens = [];
+        for (var i = 0, modulesLength = modules.length; i < modulesLength; i++) {
+          var opts = {cwd: modules[i]};
+          thens.push(gitCmdAsync(['checkout', 'master'], opts));
+          thens.push(gitCmdAsync(['fetch'], opts));
+          thens.push(gitCmdAsync(['pull'], opts));
+        }
+        return thens.reduce(Q.when, Q());
+      })
+      .catch(grunt.fail.fatal.bind(grunt.fail))
+      .finally(this.async());
+  });
+
+  grunt.registerTask('commitNgFullstackDeps', function() {
+    grunt.config.requires(
+      'commitNgFullstackDeps.options.files',
+      'commitNgFullstackDeps.options.cwd'
+    );
+    var ops = grunt.config.get('commitNgFullstackDeps').options;
+    var version = require('./package.json').version || 'NO VERSION SET';
+    if (Array.isArray(ops.files) && ops.files.length > 0) {
+      gitCmd(['commit', '-m', version].concat(ops.files), {
+        cwd: path.resolve(__dirname, ops.cwd)
+      }, this.async());
+    } else {
+      grunt.log.writeln('No files were commited');
+    }
   });
 
   grunt.registerTask('generateDemo', 'generate demo', function () {
@@ -139,6 +198,7 @@ module.exports = function (grunt) {
         bootstrap: true,
         uibootstrap: true,
         mongoose: true,
+        testing: 'jasmine',
         auth: true,
         oauth: ['googleAuth', 'twitterAuth'],
         socketio: true
@@ -201,25 +261,23 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('updateFixtures', 'updates package and bower fixtures', function() {
-    var done = this.async();
-    var packageJson = fs.readFileSync(path.resolve('app/templates/_package.json'), 'utf8');
-    var bowerJson = fs.readFileSync(path.resolve('app/templates/_bower.json'), 'utf8');
+  grunt.registerTask('updateFixtures', 'updates package and bower fixtures', function(target) {
+    var genVer = require('./package.json').version;
+    var dest = __dirname + ((target === 'deps') ? '/angular-fullstack-deps/' : '/test/fixtures/');
+    var appName = (target === 'deps') ? 'angular-fullstack-deps' : 'tempApp';
 
-    // replace package name
-    packageJson = packageJson.replace(/"name": "<%(.*)%>"/g, '"name": "tempApp"');
-    packageJson = packageJson.replace(/<%(.*)%>/g, '');
+    var processJson = function(s, d) {
+      // read file, strip all ejs conditionals, and parse as json
+      var json = JSON.parse(fs.readFileSync(path.resolve(s), 'utf8').replace(/<%(.*)%>/g, ''));
+      // set properties
+      json.name = appName, json.version = genVer;
+      if (target === 'deps') { json.private = false; }
+      // stringify json and write it to the destination
+      fs.writeFileSync(path.resolve(d), JSON.stringify(json, null, 2));
+    };
 
-    // remove all ejs conditionals
-    bowerJson = bowerJson.replace(/"name": "<%(.*)%>"/g, '"name": "tempApp"');
-    bowerJson = bowerJson.replace(/<%(.*)%>/g, '');
-
-    // save files
-    fs.writeFile(path.resolve(__dirname + '/test/fixtures/package.json'), packageJson, function() {
-      fs.writeFile(path.resolve(__dirname + '/test/fixtures/bower.json'), bowerJson, function() {
-        done();
-      });
-    });
+    processJson('app/templates/_package.json', dest + 'package.json');
+    processJson('app/templates/_bower.json', dest + 'bower.json');
   });
 
   grunt.registerTask('installFixtures', 'install package and bower fixtures', function() {
@@ -227,21 +285,43 @@ module.exports = function (grunt) {
 
     shell.cd('test/fixtures');
     grunt.log.ok('installing npm dependencies for generated app');
-    process.exec('npm install --quiet', {cwd: '../fixtures'}, function (error, stdout, stderr) {
+    child_process.exec('npm install --quiet', {cwd: '../fixtures'}, function (error, stdout, stderr) {
 
       grunt.log.ok('installing bower dependencies for generated app');
-      process.exec('bower install', {cwd: '../fixtures'}, function (error, stdout, stderr) {
-        shell.cd('../../');
-        done();
+      child_process.exec('bower install', {cwd: '../fixtures'}, function (error, stdout, stderr) {
+
+        if(!process.env.SAUCE_USERNAME) {
+          grunt.log.ok('running npm run-script update-webdriver');
+          child_process.exec('npm run-script update-webdriver', function() {
+            shell.cd('../../');
+            done();
+          });
+        } else {
+          shell.cd('../../');
+          done();
+        }
       })
     });
   });
 
-  grunt.registerTask('test', [
-    'updateFixtures',
-    'installFixtures',
-    'mochaTest'
-  ]);
+  grunt.registerTask('test', function(target, option) {
+    if (target === 'fast') {
+      grunt.task.run([
+        'env:fast'
+      ]);
+    }
+
+    return grunt.task.run([
+      'updateFixtures',
+      'installFixtures',
+      'mochaTest'
+    ])
+  });
+
+  grunt.registerTask('deps', function(target) {
+    if (!target || target === 'app') grunt.task.run(['updateFixtures']);
+    grunt.task.run(['david:' + (target || '')]);
+  });
 
   grunt.registerTask('demo', [
     'clean:demo',

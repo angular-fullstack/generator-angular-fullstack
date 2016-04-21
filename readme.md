@@ -1,18 +1,26 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack) [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/DaftMonk/generator-angular-fullstack)
-
+# AngularJS Full-Stack generator
+![Build Status](https://img.shields.io/codeship/26128390-800a-0133-c5f7-6a23b0487a18/master.svg)
+[![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
+[![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
+[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack#info=devDependencies)
+[![Gitter chat](https://img.shields.io/gitter/room/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+[![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
+[![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
-## Example project
+#### Generated project: 
+[![Dependency Status](https://img.shields.io/david/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
+[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
 
-Generated with defaults: http://fullstack-demo.herokuapp.com/.
+## Example project
 
 Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
-Install `generator-angular-fullstack`:
+Install `yo`, `grunt-cli`/`gulp-cli`, `bower`, and `generator-angular-fullstack`:
 ```
-npm install -g generator-angular-fullstack
+npm install -g yo grunt-cli gulp-cli bower generator-angular-fullstack
 ```
 
 Make a new directory, and `cd` into it:
@@ -33,30 +41,45 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 ## Supported Configurations
 
+**General**
+
+* Build Systems: `Grunt`, `Gulp`
+* Testing: 
+  * `Jasmine`
+  * `Mocha + Chai + Sinon`
+    * Chai assertions:
+      * `Expect`
+      * `Should`
+
 **Client**
 
-* Scripts: `JavaScript`, `CoffeeScript`
+* Scripts: `Babel`, `TypeScript`
 * Markup:  `HTML`, `Jade`
-* Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`,
+* Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
+* CSS Frameworks: `Bootstrap`
+  * Option to include `UI Bootstrap`
 
 **Server**
 
-* Database: `None`, `MongoDB`
-* Authentication boilerplate: `Yes`, `No`
-* oAuth integrations: `Facebook` `Twitter` `Google`
-* Socket.io integration: `Yes`, `No`
+* Scripts: `Babel`
+* Database:
+  * `None`,
+  * `MongoDB`, `SQL`
+    * Authentication boilerplate: `Yes`, `No`
+    * oAuth integrations: `Facebook` `Twitter` `Google`
+    * Socket.io integration: `Yes`, `No`
 
 ## Injection
 
 A grunt task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
 
-* `less` files into `client/app.less`
-* `scss` files into `client/app.scss`
-* `stylus` files into `client/app.styl`
+* `less` files into `client/app/app.less`
+* `scss` files into `client/app/app.scss`
+* `stylus` files into `client/app/app.styl`
 * `css` files into `client/index.html`
 * `js` files into `client/index.html`
-* `coffeescript` temp `js` files into `client/index.html`
+* `babel` temp `js` files into `client/index.html`
 
 ## Generators
 
@@ -82,6 +105,21 @@ Available generators:
 ### App
 Sets up a new AngularJS + Express app, generating all the boilerplate you need to get started.
 
+Usage:
+```bash
+Usage:
+  yo angular-fullstack:app [options] [<name>]
+
+Options:
+  -h,   --help          # Print the generator's options and usage
+        --skip-cache    # Do not remember prompt answers                        Default: false
+        --skip-install  # Do not install dependencies                           Default: false
+        --app-suffix    # Allow a custom suffix to be added to the module name  Default: App
+
+Arguments:
+  name    Type: String  Required: false
+```
+
 Example:
 ```bash
 yo angular-fullstack
@@ -90,6 +128,21 @@ yo angular-fullstack
 ### Endpoint
 Generates a new API endpoint.
 
+Usage:
+```bash
+Usage:
+  yo angular-fullstack:endpoint [options] <name>
+
+Options:
+  -h,   --help               # Print the generator's options and usage
+        --skip-cache         # Do not remember prompt answers           Default: false
+        --route              # URL for the endpoint
+        --models             # Specify which model(s) to use            Options: mongoose, sequelize
+        --endpointDirectory  # Parent directory for enpoints
+
+Arguments:
+  name    Type: String  Required: true
+```
 
 Example:
 ```bash
@@ -100,9 +153,11 @@ yo angular-fullstack:endpoint message
 Produces:
 
     server/api/message/index.js
-    server/api/message/message.spec.js
+    server/api/message/index.spec.js
     server/api/message/message.controller.js
+    server/api/message/message.integration.js
     server/api/message/message.model.js  (optional)
+    server/api/message/message.events.js (optional)
     server/api/message/message.socket.js (optional)
 
 ### Route
@@ -111,6 +166,7 @@ Generates a new route.
 Example:
 ```bash
 yo angular-fullstack:route myroute
+[?] What module name would you like to use? myApp
 [?] Where would you like to create this route? client/app/
 [?] What will the url of your route be? /myroute
 ```
@@ -230,11 +286,11 @@ A live application URL will be available in the output.
 >
 > You will also need to set `DOMAIN` environment variable:
 >
->     rhc config:set DOMAIN=<your-openshift-app-name>.rhcloud.com
+>     rhc set-env DOMAIN=<your-openshift-app-name>.rhcloud.com
 >
 >     # or (if you're using it):
 >
->     rhc config:set DOMAIN=<your-custom-domain>
+>     rhc set-env DOMAIN=<your-custom-domain>
 >
 > After you've set the required environment variables, restart the server:
 >
@@ -261,7 +317,7 @@ To work with your new heroku app using the command line, you will need to run an
 
 If you're using mongoDB you will need to add a database to your app:
 
-    heroku addons:add mongohq
+    heroku addons:create mongolab
 
 Your app should now be live. To view it run `heroku open`.
 
@@ -300,7 +356,6 @@ The following packages are always installed by the [app](#app) generator:
 * angular-mocks
 * angular-resource
 * angular-sanitize
-* angular-scenario
 * es5-shim
 * font-awesome
 * json3
@@ -337,6 +392,23 @@ To setup protractor e2e tests, you must first run
 `npm run update-webdriver`
 
 Use `grunt test:e2e` to have protractor go through tests located in the `e2e` folder.
+
+**Code Coverage**
+
+Use `grunt test:coverage` to run mocha-istanbul and generate code coverage reports.
+
+`coverage/server` will be populated with `e2e` and `unit` folders containing the `lcov` reports.
+
+The coverage taget has 3 available options:
+- `test:coverage:unit` generate server unit test coverage
+- `test:coverage:e2e` generate server e2e test coverage
+- `test:coverage:check` combine the coverage reports and check against predefined thresholds
+
+* *when no option is given `test:coverage` runs all options in the above order*
+
+**Debugging**
+
+Use `grunt serve:debug` for a more debugging-friendly environment.
 
 ## Environment Variables
 
@@ -386,7 +458,7 @@ See the [contributing docs](https://github.com/DaftMonk/generator-angular-fullst
 
 This project has 2 main branches: `master` and `canary`. The `master` branch is where the current stable code lives and should be used for production setups. The `canary` branch is the main development branch, this is where PRs should be submitted to (backport fixes may be applied to `master`).
 
-By seperating the current stable code from the cutting-edge development we hope to provide a stable and efficient workflow for users and developers alike.
+By separating the current stable code from the cutting-edge development we hope to provide a stable and efficient workflow for users and developers alike.
 
 When submitting an issue, please follow the [guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.
 
@@ -401,3 +473,57 @@ See the `travis.yml` for configuration required to run tests.
 ## License
 
 [BSD license](http://opensource.org/licenses/bsd-license.php)
+
+
+
+## Backers
+
+Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/angular-fullstack#backer)]
+
+<a href="https://opencollective.com/angular-fullstack/backer/0/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/0/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/1/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/1/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/2/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/2/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/3/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/3/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/4/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/4/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/5/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/5/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/6/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/6/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/7/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/7/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/8/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/8/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/9/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/10/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/11/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/11/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/12/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/12/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/13/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/13/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/14/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/14/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/15/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/15/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/16/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/16/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/17/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/17/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/18/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/18/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/19/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/19/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/20/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/20/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/21/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/21/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/22/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/22/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/23/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/23/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/24/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/24/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/25/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/25/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/26/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/26/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/27/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/27/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/28/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/28/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/backer/29/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/29/avatar"></a>
+
+
+## Sponsors
+
+Is your company using Angular-FullStack? Ask your boss to support the project. You will get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/angular-fullstack#sponsor)]
+
+<a href="https://opencollective.com/angular-fullstack/sponsor/0/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/0/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/1/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/1/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/2/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/2/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/3/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/3/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/4/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/4/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/5/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/5/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/6/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/6/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/7/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/7/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/8/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/8/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/9/avatar"></a>
+<a href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar"></a>

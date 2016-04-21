@@ -1,9 +1,10 @@
 'use strict';
 
-var express = require('express');
-var passport = require('passport');
-var config = require('../config/environment');
-var User = require('../api/user/user.model');
+import express from 'express';
+import passport from 'passport';
+import config from '../config/environment';<% if (filters.mongooseModels) { %>
+import User from '../api/user/user.model';<% } %><% if (filters.sequelizeModels) { %>
+import {User} from '../sqldb';<% } %>
 
 // Passport Configuration
 require('./local/passport').setup(User, config);<% if (filters.facebookAuth) { %>
@@ -13,9 +14,9 @@ require('./twitter/passport').setup(User, config);<% } %>
 
 var router = express.Router();
 
-router.use('/local', require('./local'));<% if (filters.facebookAuth) { %>
-router.use('/facebook', require('./facebook'));<% } %><% if (filters.twitterAuth) { %>
-router.use('/twitter', require('./twitter'));<% } %><% if (filters.googleAuth) { %>
-router.use('/google', require('./google'));<% } %>
+router.use('/local', require('./local').default);<% if (filters.facebookAuth) { %>
+router.use('/facebook', require('./facebook').default);<% } %><% if (filters.twitterAuth) { %>
+router.use('/twitter', require('./twitter').default);<% } %><% if (filters.googleAuth) { %>
+router.use('/google', require('./google').default);<% } %>
 
-module.exports = router;
+export default router;

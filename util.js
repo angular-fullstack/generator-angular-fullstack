@@ -1,15 +1,18 @@
 'use strict';
-var path = require('path');
-var fs = require('fs');
 
-module.exports = {
-  rewrite: rewrite,
-  rewriteFile: rewriteFile,
-  appName: appName,
-  processDirectory: processDirectory
-};
+import path from 'path';
+import fs from 'fs';
+import glob from 'glob';
 
-function rewriteFile (args) {
+function expandFiles(pattern, options) {
+  options = options || {};
+  var cwd = options.cwd || process.cwd();
+  return glob.sync(pattern, options).filter(function (filepath) {
+    return fs.statSync(path.join(cwd, filepath)).isFile();
+  });
+}
+
+export function rewriteFile(args) {
   args.path = args.path || process.cwd();
   var fullPath = path.join(args.path, args.file);
 
@@ -19,13 +22,13 @@ function rewriteFile (args) {
   fs.writeFileSync(fullPath, body);
 }
 
-function escapeRegExp (str) {
+function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 
-function rewrite (args) {
+export function rewrite(args) {
   // check if splicable is already in the body text
-  var re = new RegExp(args.splicable.map(function (line) {
+  var re = new RegExp(args.splicable.map(function(line) {
     return '\s*' + escapeRegExp(line);
   }).join('\n'));
 
@@ -53,28 +56,28 @@ function rewrite (args) {
     spaceStr += ' ';
   }
 
-  lines.splice(otherwiseLineIndex + 1, 0, args.splicable.map(function (line) {
+  lines.splice(otherwiseLineIndex + 1, 0, args.splicable.map(function(line) {
     return spaceStr + line;
   }).join('\n'));
 
   return lines.join('\n');
 }
 
-function appName (self) {
-  var counter = 0, suffix = self.options['app-suffix'];
-  // Have to check this because of generator bug #386
-  process.argv.forEach(function(val) {
-    if (val.indexOf('--app-suffix') > -1) {
-      counter++;
-    }
-  });
-  if (counter === 0 || (typeof suffix === 'boolean' && suffix)) {
-    suffix = 'App';
-  }
-  return suffix ? self._.classify(suffix) : '';
+export function appSuffix(self) {
+  var suffix = self.options['app-suffix'];
+  return (typeof suffix === 'string') ? self.lodash.classify(suffix) : '';
 }
 
-function filterFile (template) {
+export function relativeRequire(to, fr) {
+  fr = this.destinationPath(fr || this.filePath);
+  to = this.destinationPath(to);
+  return path.relative(path.dirname(fr), to)
+    .replace(/\\/g, '/') // convert win32 separator to posix
+    .replace(/^(?!\.\.)(.*)/, './$1') // prefix non parent path with ./
+    .replace(/[\/\\]index\.js$/, ''); // strip index.js suffix from path
+}
+
+function filterFile(template) {
   // Find matches for parans
   var filterMatches = template.match(/\(([^)]+)\)/g);
   var filters = [];
@@ -88,13 +91,13 @@ function filterFile (template) {
   return { name: template, filters: filters };
 }
 
-function templateIsUsable (self, filteredFile) {
-  var filters = self.config.get('filters');
+function templateIsUsable(self, filteredFile) {
+  var filters = self.filters || self.config.get('filters');
   var enabledFilters = [];
   for(var key in filters) {
     if(filters[key]) enabledFilters.push(key);
   }
-  var matchedFilters = self._.intersection(filteredFile.filters, enabledFilters);
+  var matchedFilters = self.lodash.intersection(filteredFile.filters, enabledFilters);
   // check that all filters on file are matched
   if(filteredFile.filters.length && matchedFilters.length !== filteredFile.filters.length) {
     return false;
@@ -102,13 +105,24 @@ function templateIsUsable (self, filteredFile) {
   return true;
 }
 
-function processDirectory (self, source, destination) {
-  var root = self.isPathAbsolute(source) ? source : path.join(self.sourceRoot(), source);
-  var files = self.expandFiles('**', { dot: true, cwd: root });
+function defaultIteratee(dest) {
+  return dest;
+}
+
+/**
+ * 
+ */
+export function processDirectory(source, destination, iteratee = defaultIteratee) {
+  var self = this;
+  var root = path.isAbsolute(source) ? source : path.join(self.sourceRoot(), source);
+  var files = expandFiles('**', { dot: true, cwd: root });
   var dest, src;
 
   files.forEach(function(f) {
     var filteredFile = filterFile(f);
+    if(self.basename) {
+      filteredFile.name = filteredFile.name.replace('basename', self.basename);
+    }
     if(self.name) {
       filteredFile.name = filteredFile.name.replace('name', self.name);
     }
@@ -117,6 +131,8 @@ function processDirectory (self, source, destination) {
 
     src = path.join(root, f);
     dest = path.join(destination, name);
+
+    dest = iteratee(dest);
 
     if(path.basename(dest).indexOf('_') === 0) {
       stripped = path.basename(dest).replace(/^_/, '');
@@ -131,9 +147,11 @@ function processDirectory (self, source, destination) {
 
     if(templateIsUsable(self, filteredFile)) {
       if(copy) {
-        self.copy(src, dest);
+        self.fs.copy(src, dest);
       } else {
-        self.template(src, dest);
+        self.filePath = dest;
+        self.fs.copyTpl(src, dest, self);
+        delete self.filePath;
       }
     }
   });

@@ -4,9 +4,10 @@ var yeoman = require('yeoman-generator');
 var exec = require('child_process').exec;
 var chalk = require('chalk');
 var path = require('path');
+var s = require('underscore.string');
 
 var Generator = module.exports = function Generator() {
-  yeoman.generators.Base.apply(this, arguments);
+  yeoman.Base.apply(this, arguments);
   this.sourceRoot(path.join(__dirname, './templates'));
 
   try {
@@ -14,11 +15,11 @@ var Generator = module.exports = function Generator() {
   } catch (e) {
     this.appname = path.basename(process.cwd());
   }
-  this.appname = this._.slugify(this.appname);
+  this.appname = s.slugify(this.appname);
   this.filters = this.config.get('filters') || {};
 };
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+util.inherits(Generator, yeoman.NamedBase);
 
 Generator.prototype.askForName = function askForName() {
   var done = this.async();
@@ -29,7 +30,7 @@ Generator.prototype.askForName = function askForName() {
   }];
 
   this.prompt(prompts, function (props) {
-    this.deployedName = this._.slugify(props.deployedName);
+    this.deployedName = s.slugify(props.deployedName);
     done();
   }.bind(this));
 };
@@ -111,12 +112,13 @@ Generator.prototype.copyProcfile = function copyProcfile() {
   });
 };
 
-Generator.prototype.gruntBuild = function gruntBuild() {
+Generator.prototype.build = function build() {
   if(this.abort) return;
   var done = this.async();
+  var buildCommand = this.filters.grunt ? 'grunt build' : 'gulp build';
 
   this.log(chalk.bold('\nBuilding dist folder, please wait...'));
-  var child = exec('grunt build', function (err, stdout) {
+  var child = exec(buildCommand, function (err, stdout) {
     done();
   }.bind(this));
   child.stdout.on('data', function(data) {
@@ -158,7 +160,7 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       var hasWarning = false;
 
       if(this.filters.mongoose) {
-        this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:add mongohq') + '\n'));
+        this.log(chalk.yellow('\nBecause you\'re using mongoose, you must add mongoDB to your heroku app.\n\t' + 'from `/dist`: ' + chalk.bold('heroku addons:create mongolab') + '\n'));
         hasWarning = true;
       }
 
@@ -186,8 +188,12 @@ Generator.prototype.gitForcePush = function gitForcePush() {
         this.log(chalk.green('\nYou may need to address the issues mentioned above and restart the server for the app to work correctly.'));
       }
 
-      this.log(chalk.yellow('After app modification run\n\t' + chalk.bold('grunt build') +
-      '\nThen deploy with\n\t' + chalk.bold('grunt buildcontrol:heroku')));
+      this.log(chalk.yellow(
+        'After app modification run\n\t' + 
+        chalk.bold(this.filters.grunt ? 'grunt build' : 'gulp build') +
+        '\nThen deploy with\n\t' +
+        chalk.bold(this.filters.grunt ? 'grunt buildcontrol:heroku' : 'gulp buildcontrol:heroku')
+      ));
     }
     done();
   }.bind(this));

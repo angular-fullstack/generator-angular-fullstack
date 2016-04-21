@@ -1,163 +1,503 @@
-<a name="v2.0.13"></a>
-### v2.0.13 (2014-08-29)
+<a name="3.5.0"></a>
+## [3.5.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.4.2...v3.5.0) (2016-03-20)
 
 
-#### Bug Fixes
+### Notable Changes
 
-* **gen:**
-  * use bool for bootstrap filters ([a5decbc3](http://github.com/DaftMonk/generator-angular-fullstack/commit/a5decbc36e933f94c69d9e9bb58bd8e07148c34d), closes [#496](http://github.com/DaftMonk/generator-angular-fullstack/issues/496))
-  * fix build when not selecting socket.io ([fdf063c6](http://github.com/DaftMonk/generator-angular-fullstack/commit/fdf063c6cc2ec4eeef252f13b2e0d301931fa83c))
-
-<a name="v2.0.12"></a>
-### v2.0.12 (2014-08-25)
-
-#### Bug Fixes
-
-* revert multiple strategies per account, which shouldn't go in a patch release
-
-<a name="v2.0.11"></a>
-### v2.0.11 (2014-08-25)
+A lot of various dependencies were updated
 
 
-#### Bug Fixes
+### Bug Fixes
 
-* **app:** Use parentheses to fix string concat in config ([c6a50ce7](http://github.com/DaftMonk/generator-angular-fullstack/commit/c6a50ce791ab633a17654ce9b0090007d7152463), closes [#466](http://github.com/DaftMonk/generator-angular-fullstack/issues/466))
-  * improve jshint usage ([35fcf490](http://github.com/DaftMonk/generator-angular-fullstack/commit/35fcf4902dbbdab2ca6b394ab87ef8e3cc3d052b), closes [#463](http://github.com/DaftMonk/generator-angular-fullstack/issues/463), [#486](http://github.com/DaftMonk/generator-angular-fullstack/issues/486))
-* **gen:** use more restrictive version range for ng-component ([19698973](http://github.com/DaftMonk/generator-angular-fullstack/commit/196989730c8922fa5e1dc9caa45eb85052535e30))
+* **gen:** 
+  * import exec ([4f3f9dc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4f3f9dc))
+  * move some insight code ([7be23bd](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7be23bd))
+  * shim determineAppname, use name argument if provided ([bdaeb5a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bdaeb5a)), closes [#1682](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1682)
+* **grunt:** update rev-ed images in css as well as js ([5a24b83](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5a24b83)), closes [#977](https://github.com/angular-fullstack/generator-angular-fullstack/issues/977)
+* **grunt:filerev:** don't rev assets/fonts/ ([5228536](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5228536))
+* **gulp:** add inject:tsconfig to inject task ([bb045c5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bb045c5))
+* **gulp:build:** exclude local.env.sample.js ([429d5f3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/429d5f3)), closes [#1570](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1570)
+* **jshint:** capitalize MongoStore ([310cb22](https://github.com/angular-fullstack/generator-angular-fullstack/commit/310cb22))
+* **model:user:** add missing `return` statements ([f6ca289](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f6ca289))
 
-
-#### Features
-
-* **socket.io:** build socket.io into vendor.js ([06f2e46e](http://github.com/DaftMonk/generator-angular-fullstack/commit/06f2e46ef382b5af1691f34b6cf504f1e5640b86))
-* **docs:** Inform users/developers of the `canary` branch ([74693623](http://github.com/DaftMonk/generator-angular-fullstack/commit/74693623eb23c9399495a3baff7e3479a1d9f3ba))
-* **gen:** make generator tests faster, and easier to run ([84acb744](http://github.com/DaftMonk/generator-angular-fullstack/commit/84acb7448ccc7c55b72bdd19bfae50c33d527296))
-* **app:** add additional node version to travis.yml ([e4f00b08](http://github.com/DaftMonk/generator-angular-fullstack/commit/e4f00b083a880713ca563e3447b9fb3f56a54ebc))
-* **uibootstrap:** add basic modal service and template when using uibootstrap ([7c14bed4](http://github.com/DaftMonk/generator-angular-fullstack/commit/7c14bed4873b92124bcbe422fed918836b8f5df5))
-
-<a name="v2.0.10"></a>
-### v2.0.10 (2014-08-16)
+<a name="3.4.2"></a>
+## [3.4.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.4.1...v3.4.2) (2016-03-12)
 
 
-#### Bug Fixes
+### Features
 
-* **server:** undefined domain env variable causing issues ([cb683dde](http://github.com/DaftMonk/generator-angular-fullstack/commit/cb683dde6814959328a58267215ce477aa723e35))
-
-<a name="v2.0.9"></a>
-### v2.0.9 (2014-08-15)
+* **gen:** add Insight stat tracker ([fdf35b3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/fdf35b3))
 
 
-#### Bug Fixes
-
-* **app:**
-  * add .idea folder to gitignore ([2e1f1182](http://github.com/DaftMonk/generator-angular-fullstack/commit/2e1f1182684594300ac5ca85ffab175bfcafd3ec))
-  * Missing user response code ([c1766604](http://github.com/DaftMonk/generator-angular-fullstack/commit/c1766604d7ae7ab1eb8713f37285d13341dc8ae1))
-  * use `''` instead `null` as URL to open ioSocket ([0f0d0fdc](http://github.com/DaftMonk/generator-angular-fullstack/commit/0f0d0fdce38d42f04f71d9e1174400adfb699061))
-  * save the version of the generator that was used ([2b76b17b](http://github.com/DaftMonk/generator-angular-fullstack/commit/2b76b17bb5fa1980b449498beec87ab58ceee012))
-* **gruntfile:** incorrect path to index.html for cdnify ([0ad646cb](http://github.com/DaftMonk/generator-angular-fullstack/commit/0ad646cbd48dbb2f65fc00b930a9f243174611be))
-* **openshift:** fix issues with openshift deployment ([ace07238](http://github.com/DaftMonk/generator-angular-fullstack/commit/ace07238e3299d6002337ba12f7862ce84beafd8))
+<a name="3.4.1"></a>
+## [3.4.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.4.0...v3.4.1) (2016-03-11)
 
 
-#### Features
+### Bug Fixes
 
-* **gen:** add automatic demo releases with grunt task ([44852233](http://github.com/DaftMonk/generator-angular-fullstack/commit/44852233fcf28d5ff8681fcabc3bfb4130778a22))
-* **gruntfile:** add grunt buildcontrol tasks to app, for easier deployment ([036478df](http://github.com/DaftMonk/generator-angular-fullstack/commit/036478dfd7067d38ab19ca86c0c5196678412799))
-* **heroku:** provide prompt to set the deployment region ([13cd5e7d](http://github.com/DaftMonk/generator-angular-fullstack/commit/13cd5e7d42f2845268f38ba19e0d253ae675c594))
-* **server:** add sample env config file that can be tracked by git ([c9f80bcd](http://github.com/DaftMonk/generator-angular-fullstack/commit/c9f80bcd67d6e3eef2c78ccbceff78f763ae88d1))
-
-<a name="v2.0.8"></a>
-### v2.0.8 (2014-07-31)
+* **gen:** shim determineAppname, use name argument if provided ([bdaeb5a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bdaeb5a)), closes [#1682](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1682)
+* **grunt:** update rev-ed images in css as well as js ([5a24b83](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5a24b83)), closes [#977](https://github.com/angular-fullstack/generator-angular-fullstack/issues/977)
+* **grunt:filerev:** don't rev assets/fonts/ ([5228536](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5228536))
+* **gulp:** add inject:tsconfig to inject task ([bb045c5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bb045c5))
+* **gulp:build:** exclude local.env.sample.js ([429d5f3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/429d5f3)), closes [#1570](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1570)
 
 
-#### Bug Fixes
-
-* **coffee:** update socket service to match javascript version ([c27cefe2](http://github.com/DaftMonk/generator-angular-fullstack/commit/c27cefe24d8ec64d905f908c66a56bf602303dce))
-* **gen:** Fixed missing `oauth` property in `.yo-rc.json` after 2.0.5 update ([11d324b9](http://github.com/DaftMonk/generator-angular-fullstack/commit/11d324b95992b68bd19f402401e98f5936cdb343))
-* **travis:** install sass gem if sass is enabled ([ceeac27b](http://github.com/DaftMonk/generator-angular-fullstack/commit/ceeac27b8f912aa6dec2caf3bf20dd7551f2d754))
-* **twitter:** revert mongoose connection change ([8675a002](http://github.com/DaftMonk/generator-angular-fullstack/commit/8675a002e301957569374fdcad87aab0bff6b3b4))
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.3.0...v3.4.0) (2016-03-09)
 
 
-#### Features
+### Notable Changes
 
-* **user-management:** use the User $resource to populate users for the admin page ([708f0729](http://github.com/DaftMonk/generator-angular-fullstack/commit/708f07290d98d6bd73723f9db49cce7758c3d12b))
+* Updated Angular to 1.5 (the main page now uses an Angular 1.5 component)
+* Updated generator-ng-component to ~0.2.1. Angular subgenerators will now generate ES6 code and TypeScript code.
+* Updated angular-bootstrap to ~1.1.2
+* Updated bluebird to ^3.3.3, and set mongoose to use bluebird instead of mpromise. This allows us to remove promisification of mongoose APIs.
+* Updated PhantomJS to ^2.1.4
 
-<a name="v2.0.7"></a>
-### v2.0.7 (2014-07-27)
+### Bug Fixes
+
+* **deps:** 
+  * always include grunt-babel if grunt chosen ([7ba7d1f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7ba7d1f))
+  * include tslint ([543d784](https://github.com/angular-fullstack/generator-angular-fullstack/commit/543d784))
+* **gen:** fix Stylus & Sass extensions ([37d6c46](https://github.com/angular-fullstack/generator-angular-fullstack/commit/37d6c46)), closes [#1609](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1609)
+* **grunt:babel:** exclude local.env.sample.js ([3e0518b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3e0518b))
+* **grunt:injector:** sort js/ts modules ([fe6aba2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/fe6aba2))
+* **gulp:** add inject:tsconfig, change script watcher ([978e07e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/978e07e))
+* **gulp:build:** 
+  * add copy:fonts task ([27f1cc8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/27f1cc8))
+  * fix building when using Jade ([687cd09](https://github.com/angular-fullstack/generator-angular-fullstack/commit/687cd09))
+* **gulp:ts:** fix gulp not using latest typescript config after changed ([6a6afd9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6a6afd9))
+* **gulp:tslint:** exclude both typings and test_typings ([2e83bd1](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2e83bd1))
+* **gulp:watch:** re-compile jade to .tmp ([18412a7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/18412a7))
+* **server:oauth:** fix sequelize syntax ([221f7a4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/221f7a4)), closes [#1654](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1654)
+* **tslint:** fix no-trailing-comma ([d7cd347](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d7cd347))
+
+### Features
+
+* **gen:** add 'es6' to generator-ng-component filters ([65530b3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/65530b3))
 
 
-#### Bug Fixes
-
-* **gruntfile:** grunt tasks should run if no local config exists ([422d6bca](http://github.com/DaftMonk/generator-angular-fullstack/commit/422d6bca07283057b0fa275dba0de447c9f4f167))
-* **server:** fix setting TTL index on collection : sessions error ([0581ed09](http://github.com/DaftMonk/generator-angular-fullstack/commit/0581ed094b2c6141ab9e0c016eda22aa49e1d075))
-
-<a name="v2.0.6"></a>
-### v2.0.6 (2014-07-27)
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.2.0...v3.3.0) (2016-02-02)
 
 
-#### Bug Fixes
+### Notable Changes
+
+* TypeScript support
+* Gulp support
+
+### Features
+
+* **client:** move navbar and footer directive usage to around the router view directive in index.html ([c429adb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c429adb))
+
+### Bug Fixes
+
+* **gulp:** 
+  * make coverage tests work ([d3fd0c0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d3fd0c0))
+  * exclude constant file from lint:scripts:client ([103db11](https://github.com/angular-fullstack/generator-angular-fullstack/commit/103db11)), closes [#1587](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1587)
+* **grunt:** 
+  * fix wrong tslint vs jshint ([15f60db](https://github.com/angular-fullstack/generator-angular-fullstack/commit/15f60db))
+  * exclude constant file from jshint:all ([f4e590f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f4e590f))
+  * **babel:** don't try to transpile JSON files ([885438f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/885438f)), closes [#1561](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1561)
+  * **build:** don't copy local.env.sample ([be5a1f4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/be5a1f4)), closes [#1570](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1570)
+* **gen:test:** make sure we overwrite conflicts, add missing options from mock prompt options ([d6aeacf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d6aeacf))
+* **npm:** make sure to include mocha for server tests ([6c4e926](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6c4e926))
+
+
+<a name="3.3.0-beta.0"></a>
+# [3.3.0-beta.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.2.0...v3.3.0-beta.0) (2016-01-06)
+
+
+### Bug Fixes
+
+* **client:util.urlParse:** special treatment for IE ([869b45b](https://github.com/DaftMonk/generator-angular-fullstack/commit/869b45b))
+* **gulp:** 
+  * **mocha:** have tests clean up once complete ([93dec12](https://github.com/DaftMonk/generator-angular-fullstack/commit/93dec12))
+  * **test:** fix gulp test dependencies ([7bc99fb](https://github.com/DaftMonk/generator-angular-fullstack/commit/7bc99fb))
+
+### Features
+
+* **client:** Add initial TypeScript support ([22d46d5](https://github.com/DaftMonk/generator-angular-fullstack/commit/22d46d5))
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.1.1...v3.2.0) (2016-01-03)
+
+
+### Features
+
+* **app**: fix .gitattributes ([6b17ef7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6b17ef719424cbe4025a7abb3bdc7466853f700c))
+* **gulp**
+  * add missing tasks ([4d0e2ba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4d0e2ba32ddaa8c0f4a9a78cbce362843b522894))
+  * update useref to latest version ([f21a388](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f21a388f9e724b34cdd92f5a704782c2035e677d))
+  * add file revisioning for images  ([3bf29b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3bf29b27e4a3c61bc932af11dd3ea9a27c8fd48c))
+
+### Bug Fixes
+
+* **e2e**: force e2e tests to wait for angular ([842ab55](https://github.com/angular-fullstack/generator-angular-fullstack/commit/842ab558c721f114b27d9dae8d3b6e436db71af8))
+* **gen**: fix styleExt being `sass` instead of `scss` ([8f99a8f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8f99a8ffb89e2c98b06b025bcdeb2374c839e81f))
+* **gen**: set scriptExt, templateExt, & styleExt when re-using a .yo-rc.json ([6e59229](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6e59229afde8c3590da9d8f83bdd96c556fadfd6))
+* **gulp:** 
+  * inject angular modules before other scripts ([c0d5a14](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c0d5a146fd18e9953ece8e180cfd4c33f8fac63f))
+  * clean .tmp folder in build task ([9596ba4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9596ba47a1e817605eb9ccdb600f4aa62d718e3f))
+  * add missing gulp-env package ([cf017de](https://github.com/angular-fullstack/generator-angular-fullstack/commit/cf017debb7f2715896bf93003b576a0242a270b5))
+  * get client tests working ([0cb4a4b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0cb4a4b9494a564508d6f2ec256374224465808b))
+  * use different transpile options for server and client ([bb67961](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bb679618d6bca2d84b7bc8adf1886f0171a5d005))
+  * make sure tests and main app file are not injected ([0171112](https://github.com/angular-fullstack/generator-angular-fullstack/commit/017111297968f3fcfb604273fa37d162ad01a714))
+  * make sure `.htaccess` is copied on build ([3602406](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3602406631d4f5e73d51bab6d11c1d975b25bd00))
+  * call `wiredep:test` before running tests ([103adb2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/103adb2e19feda6bdb3487b3cde69afd12feb48d))
+  * **inject:css**: fix string that should be template string ([bb92502](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bb92502593a27045a05d6d8789f54f05fa9125f5))
+
+<a name="3.1.1"></a>
+## [3.1.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.1.0...v3.1.1) (2015-12-15)
+
+
+### Bug Fixes
+
+* **client:auth.decorator**: fix Auth.isLoggedIn not having a noop arg ([0e9f302](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0e9f3025fbe69c8613435e59d028cf6ce9b0e9e4))
+
+
+<a name="3.1.0"></a>
+## [3.1.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.2...v3.1.0) (2015-12-13)
+
+
+### Bug Fixes
+
+* **client:auth:** fix auth 'decorator' ([56d12fc](https://github.com/DaftMonk/generator-angular-fullstack/commit/56d12fc)), closes [#1492](https://github.com/DaftMonk/generator-angular-fullstack/issues/1492)
+* **gulp:** 
+  * add babel runtime options ([0a9afa1](https://github.com/DaftMonk/generator-angular-fullstack/commit/0a9afa1))
+  * update gulp.src in build:client ([6f4d3b0](https://github.com/DaftMonk/generator-angular-fullstack/commit/6f4d3b0))
+* **navbar:** fix controller constructor with ng-route + auth ([4b59e1f](https://github.com/DaftMonk/generator-angular-fullstack/commit/4b59e1f)), closes [#1462](https://github.com/DaftMonk/generator-angular-fullstack/issues/1462)
+
+### Features
+
+* **admin:** spruce up the look of the user list ([38bb6b8](https://github.com/DaftMonk/generator-angular-fullstack/commit/38bb6b8))
+* **gulp:** add experimental Gulp support ([c70fd47](https://github.com/DaftMonk/generator-angular-fullstack/commit/c70fd47)) `yo angular-fullstack --gulp`
+
+
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.1...3.0.2) (2015-12-05)
+
+
+### Bug Fixes
+
+* **api:user:** remove `password` before sending user objects instead of `hashedPassword` ([c08bd95](https://github.com/DaftMonk/generator-angular-fullstack/commit/c08bd95)), closes [#1459](https://github.com/DaftMonk/generator-angular-fullstack/issues/1459)
+* **client:auth:** remove decorator logic ([3229acd](https://github.com/DaftMonk/generator-angular-fullstack/commit/3229acd)), closes [#1455](https://github.com/DaftMonk/generator-angular-fullstack/issues/1455)
+
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/3.0.0...3.0.1) (2015-12-04)
+
+
+This version just changes the recommended Node version to ^4.2.3, since it fixes some vulnerabilities. Also, the Travis-CI config has been changed to loosely test Node 5.1.1 instead of 5.0.0.
+
+
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/2.1.1...3.0.0) (2015-12-06)
+
+### New Features
+
+ * **Sequelize** - You can now choose between MongoDB + Mongoose or SQLite3 + Sequelize
+ * **Babel** - We now include Babel transpiler support, with plans to add TypeScript in the future
+ * **Lusca** - Lusca Security Middleware is included by default
+ * **Angular Modules** - A few components of the front-end have been broken out into their own Angular modules, such as `auth`, `admin`, and a new `util` module
+ * **Modern Angular Best-Practices** - We have moved a lot of the code to take advantage of the `controllerAs` syntax, as well as ES6/ES7 Classes
+ * Mongoose Bluebird Promises
+
+### Breaking Changes
+
+ * **Node >= 4.2.2** - We now support versions of Node 4.2.2 and up. Since this is a generator for scaffolding out a new project, it makes sense to move support to the 4.2.2 Long Term Support (LTS) version of Node, since it is the most supported release by Node. It is likely that the generator will work with earlier versions of Node, but it is not recommended.
+ * **~~CoffeeScript~~, ~~Vanilla JS~~** - Removed CoffeeScript and vanilla JS support. CoffeeScript has served its purpose and been replaced by much better transpilers. Vanilla JS doesn't provide a lot of the features that enable good, modern code. We now only support Babel 5.8.x, and plan to add TypeScript support in the future.
+ * Removed some backwards-compatibility support code
+
+To see the full list of changes, click the '3.0.0' title to view the GitHub compare between 3.0.0 and 2.1.1
+
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/2.1.0...2.1.1) (2015-07-29)
+
+
+### Bug Fixes
 
 * **app:** 
-  * `things` made a little bit more responsive ([58aa7a48](http://github.com/DaftMonk/generator-angular-fullstack/commit/58aa7a489ae28c22be59b3a61db027ccf2f1ae46))
-* **dependencies:** change ngmin to ng-annotate ([dd023fa5](http://github.com/DaftMonk/generator-angular-fullstack/commit/dd023fa5fd90b8b541b8cc60c87186ee619e4844))
-* **bootstrap:** removed styles breaking responsiveness for high-res screens ([053fedb8](http://github.com/DaftMonk/generator-angular-fullstack/commit/053fedb89f64294a55538ad9b806b2d7de4d1c7f))
-* **socketio:** fallback for servers where `socket.handshake.address` is not provided ([f6a19348](http://github.com/DaftMonk/generator-angular-fullstack/commit/f6a19348ad404aa72c31eef8dc84aac8db0e904a))
-* **stylus:** remove bootstrap css import in stylus when bootstrap is not selected ([f7c3d0ad](http://github.com/DaftMonk/generator-angular-fullstack/commit/f7c3d0ad41da5f0072c2cf64ff5c9a894052d194), closes [#368](http://github.com/DaftMonk/generator-angular-fullstack/issues/368))
+  * correct grunt clean glob ([8e8ae96](https://github.com/DaftMonk/generator-angular-fullstack/commit/8e8ae96))
+  * ensure all files end with a newline ([8511260](https://github.com/DaftMonk/generator-angular-fullstack/commit/8511260))
+  * fix folder depth in rev and usemin globs ([18f8d31](https://github.com/DaftMonk/generator-angular-fullstack/commit/18f8d31))
+  * update sequelize syntax in seed.js ([a9372a1](https://github.com/DaftMonk/generator-angular-fullstack/commit/a9372a1))
+  * use 0.0.0.0 for default IP ([2cd1c24](https://github.com/DaftMonk/generator-angular-fullstack/commit/2cd1c24)), closes [DaftMonk/generator-angular-fullstack#1071](https://github.com/DaftMonk/generator-angular-fullstack/issues/1071)
+* **app:test:** include `client/components` in babel preprocessing ([6b575d1](https://github.com/DaftMonk/generator-angular-fullstack/commit/6b575d1)), closes [DaftMonk/generator-angular-fullstack#1081](https://github.com/DaftMonk/generator-angular-fullstack/issues/1081)
+* **build:** exclued `bower_components` from the grunt rev and usemin blocks ([7ae43ae](https://github.com/DaftMonk/generator-angular-fullstack/commit/7ae43ae)), closes [#522](https://github.com/DaftMonk/generator-angular-fullstack/issues/522)
+* **test:** 
+  * update protractor test for angular 1.4 ([f5acad0](https://github.com/DaftMonk/generator-angular-fullstack/commit/f5acad0))
+  * use proper controlFlow in protractor tests ([8dce663](https://github.com/DaftMonk/generator-angular-fullstack/commit/8dce663))
 
-
-#### Features
-
-* **oauth:** remove code according to user prompts ([316bd9dd](http://github.com/DaftMonk/generator-angular-fullstack/commit/316bd9dd3632622b0fb434cacfc4150f01d18e4c))
-
-<a name="v2.0.5"></a>
-### v2.0.5 (2014-07-17)
-
-#### Bug Fixes
-
-* **account:** add authentication requirement for settings view ([9105c0fd](http://github.com/DaftMonk/generator-angular-fullstack/commit/9105c0fdbabdbde68fb6cf0fe0d6993ead6e7095), closes [#327](http://github.com/DaftMonk/generator-angular-fullstack/issues/327))
-* **app:**
-  * use correct path for font awesome and glyphicons ([1917ba31](http://github.com/DaftMonk/generator-angular-fullstack/commit/1917ba31264fc90bea0fce36b8d144f897e8bf08))
-  * wait for currentUser to resolve before checking if logged in on route changes ([6d6090d9](http://github.com/DaftMonk/generator-angular-fullstack/commit/6d6090d9c4dcd5d8a1f6ecb2cf5dc0bb4c8598fe))
-  * bootstrap glyphicons not correctly linked on grunt build ([53d193d0](http://github.com/DaftMonk/generator-angular-fullstack/commit/53d193d011c7c1ea8c9477e8f17ad56cc4214362))
-* **dependencies:** include certain dependencies only when answering yes to their respective prompts ([040c57de](http://github.com/DaftMonk/generator-angular-fullstack/commit/040c57de8689f2e0fc35410d0b6935363aaa8458))
-* **server:**
-  * fix seeding of db in test mode causing tests to randomly fail ([05f7f433](http://github.com/DaftMonk/generator-angular-fullstack/commit/05f7f43372bc3bd54bead811952b775adeec1f05))
-  * make user tests run more consistently ([addb5061](http://github.com/DaftMonk/generator-angular-fullstack/commit/addb5061f62696c7a0078a8d2c7443d428e69376))
-  * warnings that express was using deprecated features ([8dc2f1e4](http://github.com/DaftMonk/generator-angular-fullstack/commit/8dc2f1e48503c27cbd2aac3c455adac7781a6539))
-  * missing `res` param for handleError ([eb7d50c8](http://github.com/DaftMonk/generator-angular-fullstack/commit/eb7d50c8d27820a6b26caf2a1aaa0e4fa8eee367))
-
-#### Features
+### Features
 
 * **app:** 
-  * added oath buttons to signup page ([a408f58e](http://github.com/DaftMonk/generator-angular-fullstack/commit/a408f58edb923cd14bf7c7b3411b874dce5f0724))
-  * upgrade socket.io to use v1.0.6
-* **gen:**
-  * add option for Stylus as a preprocessor ([1b90c448](http://github.com/DaftMonk/generator-angular-fullstack/commit/1b90c448fbf374287fe07f782f9788dfb9a23613))
-  * make bootstrap and bootstrap ui optional ([f50d0942](http://github.com/DaftMonk/generator-angular-fullstack/commit/f50d094226fdbf6a7e65ba3783a26efc8544ba08))
-
-<a name="v2.0.4"></a>
-### v2.0.4 (2014-07-08)
+  * improve `Gruntfile.js` file globbing ([5874dfd](https://github.com/DaftMonk/generator-angular-fullstack/commit/5874dfd))
+  * merge H5BP updates to index.html ([4a88551](https://github.com/DaftMonk/generator-angular-fullstack/commit/4a88551))
+  * watch integration tests for changes ([a81aeb1](https://github.com/DaftMonk/generator-angular-fullstack/commit/a81aeb1))
+* **build:** switch to grunt-filerev ([cd28298](https://github.com/DaftMonk/generator-angular-fullstack/commit/cd28298))
+* **test:** add jasmine-spec-reporter ([f34e8f3](https://github.com/DaftMonk/generator-angular-fullstack/commit/f34e8f3))
 
 
-#### Bug Fixes
 
-* **app:** fix dependency injection minsafe problem in auth service coffeescript. ([03742a80](http://github.com/DaftMonk/generator-angular-fullstack/commit/03742a8000f19efdf14791ff1aae52a90e86c149))
-* **gen:** heroku and openshift generators requiring .yo-rc file to work ([88ebfc8c](http://github.com/DaftMonk/generator-angular-fullstack/commit/88ebfc8c835ac6ec04b6d42fcf9357cfb0bcc47d))
-
-<a name="v2.0.3"></a>
-### v2.0.3 (2014-07-04)
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.13...2.1.0) (2015-07-15)
 
 
-#### Bug Fixes
+### Bug Fixes
 
-* **server:** only enable sessions if twitter oauth was selected ([bcd00dc0](http://github.com/DaftMonk/generator-angular-fullstack/commit/bcd00dc02d270486adafe6dbf973a4ec25499a5e))
+* **app:** missing event.preventDefault ([c90d762](https://github.com/DaftMonk/generator-angular-fullstack/commit/c90d762))
+* **app-logout:** add blank templates to logout route/state ([650d244](https://github.com/DaftMonk/generator-angular-fullstack/commit/650d244)), closes [#570](https://github.com/DaftMonk/generator-angular-fullstack/issues/570)
+* **app-signup:** switch button classes ([5898e0c](https://github.com/DaftMonk/generator-angular-fullstack/commit/5898e0c))
+* **demo:** include bootstrap in demo ([19e2133](https://github.com/DaftMonk/generator-angular-fullstack/commit/19e2133))
+* **deps:** use angular ~1.2 before migrated to 1.3 ([6a196e2](https://github.com/DaftMonk/generator-angular-fullstack/commit/6a196e2)), closes [#654](https://github.com/DaftMonk/generator-angular-fullstack/issues/654)
+* **endpoint:** 
+  * fully support sequelize models ([df82d17](https://github.com/DaftMonk/generator-angular-fullstack/commit/df82d17))
+  * refactor handleError for promise use ([0af7c3e](https://github.com/DaftMonk/generator-angular-fullstack/commit/0af7c3e))
+* **endpoint:thing:** use Express 4 syntax ([c7b48a5](https://github.com/DaftMonk/generator-angular-fullstack/commit/c7b48a5))
+* **endpoint:user:** refactor validationError for promise use ([c98cb5d](https://github.com/DaftMonk/generator-angular-fullstack/commit/c98cb5d))
+* **express:** support new options of updated connect-mongo ([727d661](https://github.com/DaftMonk/generator-angular-fullstack/commit/727d661))
+* **gen:** 
+  * camelCase endpoint name when used in variable name ([7362080](https://github.com/DaftMonk/generator-angular-fullstack/commit/7362080)), closes [#540](https://github.com/DaftMonk/generator-angular-fullstack/issues/540)
+  * Check that answers.odms exists ([342606c](https://github.com/DaftMonk/generator-angular-fullstack/commit/342606c))
+  * filter `client/components/socket` js files ([49d5bbd](https://github.com/DaftMonk/generator-angular-fullstack/commit/49d5bbd)), closes [#530](https://github.com/DaftMonk/generator-angular-fullstack/issues/530)
+* **gen:build:** Adds missing slash ([bb4d92e](https://github.com/DaftMonk/generator-angular-fullstack/commit/bb4d92e))
+* **gen:endpoint:** Fix JSCS stuff and use Express 4 syntax ([1bcffd6](https://github.com/DaftMonk/generator-angular-fullstack/commit/1bcffd6))
+* **git:** Remove old text=auto ([e0350cc](https://github.com/DaftMonk/generator-angular-fullstack/commit/e0350cc))
+* **jshint:** Removed 'regexp' from server and client jshintrc (I couldn't find it in the docs ([e02f094](https://github.com/DaftMonk/generator-angular-fullstack/commit/e02f094))
+* **model:** fix update bugs with mongoose and sequelize ([1805975](https://github.com/DaftMonk/generator-angular-fullstack/commit/1805975))
+* **npm:** Remove git diff comment ([349b6d3](https://github.com/DaftMonk/generator-angular-fullstack/commit/349b6d3))
+* **oauth:** 
+  * Facebook API updated ([f6e7a12](https://github.com/DaftMonk/generator-angular-fullstack/commit/f6e7a12))
+  * Google scopes deprecated ([136f15e](https://github.com/DaftMonk/generator-angular-fullstack/commit/136f15e))
+* return a 404 when no user is found fixes #711 ([38c0d7c](https://github.com/DaftMonk/generator-angular-fullstack/commit/38c0d7c)), closes [#711](https://github.com/DaftMonk/generator-angular-fullstack/issues/711)
+* **openshift:** fix processing of rhc app show output ([dedf46c](https://github.com/DaftMonk/generator-angular-fullstack/commit/dedf46c))
+* **server:** server should launch in dev mode if production env var is not specified ([9cdcc90](https://github.com/DaftMonk/generator-angular-fullstack/commit/9cdcc90)), closes [#590](https://github.com/DaftMonk/generator-angular-fullstack/issues/590)
+* **server-tests:** `test:coverage` task ([5198685](https://github.com/DaftMonk/generator-angular-fullstack/commit/5198685))
+* **test:** 
+  * change `protractor.getInstance` to `browser` ([c7f6c36](https://github.com/DaftMonk/generator-angular-fullstack/commit/c7f6c36))
+  * remove package.json and bower.json ([0ec2e18](https://github.com/DaftMonk/generator-angular-fullstack/commit/0ec2e18))
+  * update sequelize destroy usage ([8df9992](https://github.com/DaftMonk/generator-angular-fullstack/commit/8df9992))
+* **travis:** 
+  * Add nodejs 12 to travis.yml ([acecde9](https://github.com/DaftMonk/generator-angular-fullstack/commit/acecde9))
+  * remove node v0.11 from testing ([dae69cf](https://github.com/DaftMonk/generator-angular-fullstack/commit/dae69cf))
+  * Remove unicode stuff from file creation test expectations, and add nodejs 0.12 t ([bf9a973](https://github.com/DaftMonk/generator-angular-fullstack/commit/bf9a973))
 
-<a name="v2.0.2"></a>
-### v2.0.2 (2014-07-02)
+### Features
 
-#### Bug Fixes
+* **app:** 
+  * add grunt jscs task for maintaining consistent code style ([8a1a245](https://github.com/DaftMonk/generator-angular-fullstack/commit/8a1a245))
+  * add mongodb error handling to quit app if unable to connect with mongodb server  ([31bee73](https://github.com/DaftMonk/generator-angular-fullstack/commit/31bee73))
+  * additional app generator option for ES6 preprocessing using babel ([bc03aba](https://github.com/DaftMonk/generator-angular-fullstack/commit/bc03aba))
+  * additional app generator option for ES6 preprocessing using babel ([cbb06a4](https://github.com/DaftMonk/generator-angular-fullstack/commit/cbb06a4))
+  * implement footer as directive ([cf298a7](https://github.com/DaftMonk/generator-angular-fullstack/commit/cf298a7))
+  * implement navbar as directive ([24171aa](https://github.com/DaftMonk/generator-angular-fullstack/commit/24171aa))
+* **app-auth:** Improve client-side Auth service ([65d03fc](https://github.com/DaftMonk/generator-angular-fullstack/commit/65d03fc)), closes [#456](https://github.com/DaftMonk/generator-angular-fullstack/issues/456)
+* **app-routing:** improve app routing ([6aadee6](https://github.com/DaftMonk/generator-angular-fullstack/commit/6aadee6)), closes [#331](https://github.com/DaftMonk/generator-angular-fullstack/issues/331)
+* **build:** add gitter webhook for travis ([6b88efd](https://github.com/DaftMonk/generator-angular-fullstack/commit/6b88efd))
+* **gen:** 
+  * add README.md ([f07b09c](https://github.com/DaftMonk/generator-angular-fullstack/commit/f07b09c))
+  * Remove global jQuery dependency ([a9230ca](https://github.com/DaftMonk/generator-angular-fullstack/commit/a9230ca)), closes [#547](https://github.com/DaftMonk/generator-angular-fullstack/issues/547)
+  * unify testing framework ([654de87](https://github.com/DaftMonk/generator-angular-fullstack/commit/654de87))
+  * use common endpoint templates for thing route ([6dc8130](https://github.com/DaftMonk/generator-angular-fullstack/commit/6dc8130))
+* **generator:** use sauce labs for running e2e tests with travis CI ([50ca41d](https://github.com/DaftMonk/generator-angular-fullstack/commit/50ca41d)), closes [#572](https://github.com/DaftMonk/generator-angular-fullstack/issues/572)
+* **model:** abstract model events to a standard EventEmitter ([91657d7](https://github.com/DaftMonk/generator-angular-fullstack/commit/91657d7)), closes [#857](https://github.com/DaftMonk/generator-angular-fullstack/issues/857) [#490](https://github.com/DaftMonk/generator-angular-fullstack/issues/490)
+* **readme:** add david-dm badge & move badges to new line ([f8f32f4](https://github.com/DaftMonk/generator-angular-fullstack/commit/f8f32f4))
+* **server:** 
+  * add support for sequelize ([943120e](https://github.com/DaftMonk/generator-angular-fullstack/commit/943120e)), closes [#414](https://github.com/DaftMonk/generator-angular-fullstack/issues/414)
+  * implement server-side ES6 via babel ([60334a8](https://github.com/DaftMonk/generator-angular-fullstack/commit/60334a8))
+* **server-tests:** code coverage and e2e ([dbbaa20](https://github.com/DaftMonk/generator-angular-fullstack/commit/dbbaa20))
+* **travis-ci:** enable container builds and caching ([00317a8](https://github.com/DaftMonk/generator-angular-fullstack/commit/00317a8))
 
-* **gen:endpoint**
-    * fix endpoint spec not properly adjusting to users route url
-    * fix some valid route urls causing failing tests
+
+
+<a name="2.0.13"></a>
+## [2.0.13](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.12...v2.0.13) (2014-08-29)
+
+
+### Bug Fixes
+
+* **gen:** 
+  * fix build when not selecting socket.io ([fdf063c](https://github.com/DaftMonk/generator-angular-fullstack/commit/fdf063c))
+  * use bool for bootstrap filters ([a5decbc](https://github.com/DaftMonk/generator-angular-fullstack/commit/a5decbc)), closes [#496](https://github.com/DaftMonk/generator-angular-fullstack/issues/496)
+
+### Features
+
+* **auth:** make crypto async ([6aecdf7](https://github.com/DaftMonk/generator-angular-fullstack/commit/6aecdf7))
+
+
+
+<a name="2.0.11"></a>
+## [2.0.11](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.10...v2.0.11) (2014-08-26)
+
+
+### Bug Fixes
+
+* **app-config:** Use parentheses to fix string concat in config ([c6a50ce](https://github.com/DaftMonk/generator-angular-fullstack/commit/c6a50ce)), closes [#466](https://github.com/DaftMonk/generator-angular-fullstack/issues/466)
+* **app-jshint:** improve jshint usage ([35fcf49](https://github.com/DaftMonk/generator-angular-fullstack/commit/35fcf49)), closes [#463](https://github.com/DaftMonk/generator-angular-fullstack/issues/463) [#486](https://github.com/DaftMonk/generator-angular-fullstack/issues/486)
+* **gen:** use more restrictive version range for ng-component ([1969897](https://github.com/DaftMonk/generator-angular-fullstack/commit/1969897))
+
+### Features
+
+* **app-socket.io:** build socket.io into vendor.js ([06f2e46](https://github.com/DaftMonk/generator-angular-fullstack/commit/06f2e46))
+* **docs:** Inform users/developers of the `canary` branch ([7469362](https://github.com/DaftMonk/generator-angular-fullstack/commit/7469362))
+* **gen:** make generator tests faster, and easier to run ([84acb74](https://github.com/DaftMonk/generator-angular-fullstack/commit/84acb74))
+* **gen-travis:** add additional node version to travis.yml ([e4f00b0](https://github.com/DaftMonk/generator-angular-fullstack/commit/e4f00b0))
+
+
+
+<a name="2.0.10"></a>
+## [2.0.10](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.9...v2.0.10) (2014-08-16)
+
+
+### Bug Fixes
+
+* **server:** undefined domain env variable causing issues ([cb683dd](https://github.com/DaftMonk/generator-angular-fullstack/commit/cb683dd))
+
+
+
+<a name="2.0.9"></a>
+## [2.0.9](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.8...v2.0.9) (2014-08-16)
+
+
+### Bug Fixes
+
+* **app:** 
+  * add .idea folder to gitignore ([2e1f118](https://github.com/DaftMonk/generator-angular-fullstack/commit/2e1f118))
+  * save the version of the generator that was used ([2b76b17](https://github.com/DaftMonk/generator-angular-fullstack/commit/2b76b17))
+* **app:api:user:** Missing user response code ([c176660](https://github.com/DaftMonk/generator-angular-fullstack/commit/c176660)), closes [#438](https://github.com/DaftMonk/generator-angular-fullstack/issues/438)
+* **gen:app:socket:** use `''` instead `null` as URL to open ioSocket ([0f0d0fd](https://github.com/DaftMonk/generator-angular-fullstack/commit/0f0d0fd))
+* **gruntfile:** incorrect path to index.html for cdnify ([0ad646c](https://github.com/DaftMonk/generator-angular-fullstack/commit/0ad646c))
+* **openshift:** fix issues with openshift deployment ([ace0723](https://github.com/DaftMonk/generator-angular-fullstack/commit/ace0723))
+
+### Features
+
+* **gen:** add automatic demo releases with grunt task ([4485223](https://github.com/DaftMonk/generator-angular-fullstack/commit/4485223))
+* **server:** add sample env config file that can be tracked by git ([c9f80bc](https://github.com/DaftMonk/generator-angular-fullstack/commit/c9f80bc))
+* **uibootstrap-modal:** add basic modal service and template when using uibootstrap ([7c14bed](https://github.com/DaftMonk/generator-angular-fullstack/commit/7c14bed))
+
+
+
+<a name="2.0.8"></a>
+## [2.0.8](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.7...v2.0.8) (2014-07-31)
+
+
+### Bug Fixes
+
+* **coffee:** update socket service to match javascript version ([c27cefe](https://github.com/DaftMonk/generator-angular-fullstack/commit/c27cefe))
+* **gen:** Fixed missing `oauth` property in `.yo-rc.json` after 2.0.5 update ([11d324b](https://github.com/DaftMonk/generator-angular-fullstack/commit/11d324b))
+* **travis:** install sass gem if sass is enabled ([ceeac27](https://github.com/DaftMonk/generator-angular-fullstack/commit/ceeac27))
+* **twitter:** revert mongoose connection change ([8675a00](https://github.com/DaftMonk/generator-angular-fullstack/commit/8675a00))
+
+### Features
+
+* **user-management:** use the User $resource to populate users for the admin page ([708f072](https://github.com/DaftMonk/generator-angular-fullstack/commit/708f072))
+
+
+
+<a name="2.0.7"></a>
+## [2.0.7](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.6...v2.0.7) (2014-07-28)
+
+
+### Bug Fixes
+
+* **gruntfile:** grunt tasks should run if no local config exists ([422d6bc](https://github.com/DaftMonk/generator-angular-fullstack/commit/422d6bc))
+* **server:** fix setting TTL index on collection : sessions error ([0581ed0](https://github.com/DaftMonk/generator-angular-fullstack/commit/0581ed0))
+
+
+
+<a name="2.0.6"></a>
+## [2.0.6](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.5...v2.0.6) (2014-07-27)
+
+
+### Bug Fixes
+
+* **app-dependency:** change ngmin to ng-annotate ([dd023fa](https://github.com/DaftMonk/generator-angular-fullstack/commit/dd023fa))
+* **bootstrap:** removed styles breaking responsiveness for high-res screens ([053fedb](https://github.com/DaftMonk/generator-angular-fullstack/commit/053fedb))
+* **responsive:** `things` made a little bit more responsive ([58aa7a4](https://github.com/DaftMonk/generator-angular-fullstack/commit/58aa7a4))
+* **socketio:** fallback for servers where `socket.handshake.address` is not provided ([f6a1934](https://github.com/DaftMonk/generator-angular-fullstack/commit/f6a1934))
+* **stylus:** remove bootstrap css import in stylus when bootstrap is not selected ([f7c3d0a](https://github.com/DaftMonk/generator-angular-fullstack/commit/f7c3d0a)), closes [#368](https://github.com/DaftMonk/generator-angular-fullstack/issues/368)
+
+### Features
+
+* **heroku:** provide prompt to set the deployment region ([13cd5e7](https://github.com/DaftMonk/generator-angular-fullstack/commit/13cd5e7))
+* **oauth:** multiple strategies per account; changeable email ([ef06272](https://github.com/DaftMonk/generator-angular-fullstack/commit/ef06272))
+
+
+
+<a name="2.0.5"></a>
+## [2.0.5](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.4...v2.0.5) (2014-07-18)
+
+
+### Bug Fixes
+
+* **account:** add authentication requirement for settings view ([9105c0f](https://github.com/DaftMonk/generator-angular-fullstack/commit/9105c0f)), closes [#327](https://github.com/DaftMonk/generator-angular-fullstack/issues/327)
+* **app:** 
+  * bootstrap glyphicons not correctly linked on grunt build ([53d193d](https://github.com/DaftMonk/generator-angular-fullstack/commit/53d193d)), closes [#333](https://github.com/DaftMonk/generator-angular-fullstack/issues/333)
+  * wait for currentUser to resolve before checking if logged in on route changes ([6d6090d](https://github.com/DaftMonk/generator-angular-fullstack/commit/6d6090d)), closes [#306](https://github.com/DaftMonk/generator-angular-fullstack/issues/306) [#294](https://github.com/DaftMonk/generator-angular-fullstack/issues/294)
+* **app:server:thing.controller:** missing `res` param for handleError added ([eb7d50c](https://github.com/DaftMonk/generator-angular-fullstack/commit/eb7d50c))
+* **app:styles:** use correct path for font awesome and glyphicons ([1917ba3](https://github.com/DaftMonk/generator-angular-fullstack/commit/1917ba3))
+* **dependencies:** include certain dependencies only when answering yes to their respective prompts ([040c57d](https://github.com/DaftMonk/generator-angular-fullstack/commit/040c57d))
+* **server:** 
+  * fix seeding of db in test mode causing tests to randomly fail ([05f7f43](https://github.com/DaftMonk/generator-angular-fullstack/commit/05f7f43)), closes [#352](https://github.com/DaftMonk/generator-angular-fullstack/issues/352)
+  * make user tests run more consistently ([addb506](https://github.com/DaftMonk/generator-angular-fullstack/commit/addb506)), closes [#346](https://github.com/DaftMonk/generator-angular-fullstack/issues/346)
+
+### Features
+
+* **app:** added oath buttons to signup page ([a408f58](https://github.com/DaftMonk/generator-angular-fullstack/commit/a408f58))
+* **gen:** 
+  * Generate CSS from Stylus ([1b90c44](https://github.com/DaftMonk/generator-angular-fullstack/commit/1b90c44))
+  * Generate CSS from Stylus ([9d87a2c](https://github.com/DaftMonk/generator-angular-fullstack/commit/9d87a2c))
+* **oauth:** remove code according to user prompts ([316bd9d](https://github.com/DaftMonk/generator-angular-fullstack/commit/316bd9d))
+
+
+
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.3...v2.0.4) (2014-07-09)
+
+
+### Bug Fixes
+
+* **app:** fix dependency injection minsafe problem in auth service ([03742a8](https://github.com/DaftMonk/generator-angular-fullstack/commit/03742a8))
+* **gen:** heroku and openshift generators requiring .yo-rc file to work ([88ebfc8](https://github.com/DaftMonk/generator-angular-fullstack/commit/88ebfc8)), closes [#318](https://github.com/DaftMonk/generator-angular-fullstack/issues/318)
+
+
+
+<a name="2.0.3"></a>
+## [2.0.3](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.2...v2.0.3) (2014-07-04)
+
+
+### Bug Fixes
+
+* **server:** only enable sessions if twitter oauth was selected ([bcd00dc](https://github.com/DaftMonk/generator-angular-fullstack/commit/bcd00dc))
+
+### Features
+
+* **gen:** make bootstrap and bootstrap ui optional ([f50d094](https://github.com/DaftMonk/generator-angular-fullstack/commit/f50d094))
+
+
+
+<a name="2.0.2"></a>
+## [2.0.2](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.1...v2.0.2) (2014-07-03)
+
+
+### Bug Fixes
+
+* **gen:endpoint:** 
+  * fix endpoint spec not adjusting from route url ([163cacf](https://github.com/DaftMonk/generator-angular-fullstack/commit/163cacf)), closes [#298](https://github.com/DaftMonk/generator-angular-fullstack/issues/298)
+  * fix some urls failing for api creation ([3fe80bd](https://github.com/DaftMonk/generator-angular-fullstack/commit/3fe80bd))
+
+
+
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/DaftMonk/generator-angular-fullstack/compare/v2.0.0...v2.0.1) (2014-07-02)
+
+
+### Bug Fixes
+
+* **server:** local env not being copied ([f65b393](https://github.com/DaftMonk/generator-angular-fullstack/commit/f65b393))
+
+
     
 <a name="v2.0.0"></a>
 ## v2.0.0 (2014-07-02)
