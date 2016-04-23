@@ -105,14 +105,10 @@ function templateIsUsable(self, filteredFile) {
   return true;
 }
 
-function defaultIteratee(dest) {
-  return dest;
-}
-
 /**
  * 
  */
-export function processDirectory(source, destination, iteratee = defaultIteratee) {
+export function processDirectory(source, destination) {
   var self = this;
   var root = path.isAbsolute(source) ? source : path.join(self.sourceRoot(), source);
   var files = expandFiles('**', { dot: true, cwd: root });
@@ -132,7 +128,9 @@ export function processDirectory(source, destination, iteratee = defaultIteratee
     src = path.join(root, f);
     dest = path.join(destination, name);
 
-    dest = iteratee(dest);
+    if(self.filters.ts && dest.indexOf('client') > -1 && dest.indexOf('.json') === -1) {
+      dest = dest.replace('.js', '.ts');
+    }
 
     if(path.basename(dest).indexOf('_') === 0) {
       stripped = path.basename(dest).replace(/^_/, '');
