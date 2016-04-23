@@ -5,3 +5,7 @@ src
 scripts
 ISSUE_TEMPLATE.md
 PULL_REQUEST_TEMPLATE.md
+.travis.yml
+gulpfile.babel.js
+Gruntfile.js
+.jshintrc
