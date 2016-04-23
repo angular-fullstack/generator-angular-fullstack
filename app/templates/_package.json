@@ -98,7 +98,7 @@
     "run-sequence": "^1.1.0",
     "lazypipe": "^1.0.1",
     "wiredep": "^2.2.2",<% } /*end gulp*/ if(filters.grunt) { %>
-    "grunt": "^1.0.1",
+    "grunt": "^0.4.5",
     "grunt-wiredep": "^2.0.0",
     "grunt-concurrent": "^2.0.1",
     "grunt-contrib-clean": "^1.0.0",
