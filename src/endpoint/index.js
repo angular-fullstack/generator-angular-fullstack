@@ -1,13 +1,15 @@
 'use strict';
 
 import path from 'path';
-import {NamedBase} from 'yeoman-generator';
+import {Base} from 'yeoman-generator';
 import {genNamedBase} from '../generator-base';
 
-export class Generator extends NamedBase {
+export class Generator extends Base {
 
   constructor(...args) {
     super(...args);
+
+    this.argument('name', { type: String, required: true });
 
     this.option('route', {
       desc: 'URL for the endpoint',
