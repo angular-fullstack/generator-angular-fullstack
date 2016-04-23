@@ -497,13 +497,7 @@ export default class Generator extends Base {
 
         let self = this;
         this.sourceRoot(path.join(__dirname, './templates'));
-        this.processDirectory('.', '.', function(dest) {
-          if(self.filters.ts && dest.indexOf('client') > -1 && dest.indexOf('.json') === -1) {
-            dest = dest.replace('.js', '.ts');
-          }
-
-          return dest;
-        });
+        this.processDirectory('.', '.');
       },
       generateEndpoint: function() {
         var models;
