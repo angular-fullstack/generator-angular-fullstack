@@ -7,6 +7,9 @@ import {Base} from 'yeoman-generator';
 import {genBase} from '../generator-base';
 import insight from '../insight-init';
 import {exec} from 'child_process';
+import babelStream from 'gulp-babel';
+import beaufityStream from 'gulp-beautify';
+import filter from 'gulp-filter';
 
 export default class Generator extends Base {
   constructor(...args) {
@@ -119,6 +122,12 @@ export default class Generator extends Base {
               }[val];
             }
           }, {
+          // TODO: enable once Babel setup supports Flow
+          //   type: 'confirm',
+          //   name: 'flow',
+          //   message: 'Would you like to use Flow types with Babel?',
+          //   when: answers => answers.transpiler === 'babel'
+          // }, {
             type: 'list',
             name: 'markup',
             message: 'What would you like to write markup with?',
@@ -151,6 +160,9 @@ export default class Generator extends Base {
             this.filters.js = true;
             this.filters[answers.transpiler] = true;
             insight.track('transpiler', answers.transpiler);
+
+            this.filters.flow = !!answers.flow;
+            insight.track('flow', !!answers.flow);
 
             this.filters[answers.markup] = true;
             insight.track('markup', answers.markup);
@@ -425,6 +437,64 @@ export default class Generator extends Base {
   get writing() {
     return {
       generateProject: function() {
+        /**
+         * var tap = require('gulp-tap');
+           this.registerTransformStream([
+              extensionFilter,
+              tap(function(file, t) {
+                  var contents = file.contents.toString();
+                  contents = beautify_js(contents, config);
+                  file.contents = new Buffer(contents);
+              }),
+              //prettifyJs(config),
+              extensionFilter.restore
+           ]);
+         */
+
+        let babelPlugins = [
+          'babel-plugin-syntax-flow',
+          'babel-plugin-syntax-class-properties'
+        ];
+
+        // TODO: enable once Babel setup supports Flow
+        // if(this.filters.babel && !this.filters.flow) {
+          babelPlugins.push('babel-plugin-transform-flow-strip-types');
+        // }
+
+        const jsFilter = filter(['client/**/*.js'], {restore: true});
+        this.registerTransformStream([
+          jsFilter,
+          babelStream({
+            plugins: babelPlugins.map(require.resolve),
+            /* Babel get's confused about these if you're using an `npm link`ed
+                generator-angular-fullstack, thus the `require.resolve` */
+            // retainLines: true,
+            babelrc: false  // don't grab the generator's `.babelrc`
+          }),
+          beaufityStream({
+            "indent_size": 2,
+            "indent_char": " ",
+            "indent_level": 0,
+            "indent_with_tabs": false,
+            "preserve_newlines": true,
+            "max_preserve_newlines": 10,
+            "jslint_happy": false,
+            "space_after_anon_function": false,
+            "brace_style": "collapse",
+            "keep_array_indentation": false,
+            "keep_function_indentation": false,
+            "space_before_conditional": true,
+            "break_chained_methods": true,
+            "eval_code": false,
+            "unescape_strings": false,
+            "wrap_line_length": 100,
+            "wrap_attributes": "auto",
+            "wrap_attributes_indent_size": 4,
+            "end_with_newline": true
+          }),
+          jsFilter.restore
+        ]);
+
         let self = this;
         this.sourceRoot(path.join(__dirname, './templates'));
         this.processDirectory('.', '.', function(dest) {
