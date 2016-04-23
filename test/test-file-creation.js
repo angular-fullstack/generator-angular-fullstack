@@ -351,8 +351,8 @@ describe('angular-fullstack generator', function () {
   beforeEach(function (done) {
     this.timeout(10000);
     var deps = [
-      '../../app',
-      '../../endpoint',
+      '../../generators/app',
+      '../../generators/endpoint',
       [
         helpers.createDummyGenerator(),
         'ng-component:app'
