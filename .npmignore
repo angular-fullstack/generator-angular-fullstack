@@ -1,3 +1,7 @@
 angular-fullstack-deps
 test
 .idea
+src
+scripts
+ISSUE_TEMPLATE.md
+PULL_REQUEST_TEMPLATE.md

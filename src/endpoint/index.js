@@ -4,7 +4,7 @@ import path from 'path';
 import {NamedBase} from 'yeoman-generator';
 import {genNamedBase} from '../generator-base';
 
-export default class Generator extends NamedBase {
+export class Generator extends NamedBase {
 
   constructor(...args) {
     super(...args);
@@ -99,7 +99,7 @@ export default class Generator extends NamedBase {
   }
 
   writing() {
-    this.sourceRoot(path.join(__dirname, './templates'));
+    this.sourceRoot(path.join(__dirname, '../../templates/endpoint'));
     this.processDirectory('.', this.routeDest);
   }
 
@@ -145,3 +145,5 @@ export default class Generator extends NamedBase {
     }
   }
 }
+
+module.exports = Generator;
