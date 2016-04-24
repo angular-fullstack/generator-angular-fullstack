@@ -1,10 +1,8 @@
 'use strict';
-// import _ from 'lodash';
-// import fs from 'fs';
-import gulp from 'gulp';
-import babel from 'gulp-babel';
-import del from 'del';
-import runSequence from 'run-sequence';
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+var del = require('del');
+var runSequence = require('run-sequence');
 
 gulp.task('clean', () => {
     return del(['generators/**/*']);
