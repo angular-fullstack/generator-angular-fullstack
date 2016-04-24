@@ -6,15 +6,22 @@ var gulp = require('gulp');
 var babel = require('gulp-babel');
 var del = require('del');
 var runSequence = require('run-sequence');
+var merge = require('merge-stream');
 
 gulp.task('clean', () => {
     return del(['generators/**/*']);
 });
 
 gulp.task('babel', () => {
-    return gulp.src(['src/**/*.js'])
+    let generators = gulp.src(['src/generators/**/*.js'])
         .pipe(babel())
         .pipe(gulp.dest('generators'));
+
+    let test = gulp.src(['src/test/**/*.js'])
+        .pipe(babel())
+        .pipe(gulp.dest('test'));
+
+    return merge(generators);
 });
 
 gulp.task('watch', () => {
@@ -22,8 +29,13 @@ gulp.task('watch', () => {
 });
 
 gulp.task('copy', () => {
-    return gulp.src(['src/**/*', '!src/**/*.js'])
+    let nonJsGen = gulp.src(['src/generators/**/*', '!src/generators/**/*.js'], {dot: true})
         .pipe(gulp.dest('generators'));
+
+    let nonJsTest = gulp.src(['src/test/**/*', '!src/test/**/*.js'], {dot: true})
+        .pipe(gulp.dest('test'));
+
+    return merge(nonJsGen, nonJsTest);
 });
 
 gulp.task('build', cb => {

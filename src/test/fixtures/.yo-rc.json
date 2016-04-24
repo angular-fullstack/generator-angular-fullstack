@@ -1,0 +1,36 @@
+{
+  "generator-angular-fullstack": {
+    "endpointDirectory": "server/api/",
+    "insertRoutes": true,
+    "registerRoutesFile": "server/routes.js",
+    "routesNeedle": "// Insert routes below",
+    "routesBase": "/api/",
+    "pluralizeRoutes": true,
+    "insertSockets": true,
+    "registerSocketsFile": "server/config/socketio.js",
+    "socketsNeedle": "// Insert sockets below",
+    "insertModels": true,
+    "registerModelsFile": "server/sqldb/index.js",
+    "modelsNeedle": "// Insert models below",
+    "filters": {
+      "babel": true,
+      "html": true,
+      "less": true,
+      "uirouter": true,
+      "bootstrap": false,
+      "uibootstrap": false,
+      "socketio": true,
+      "auth": true,
+      "models": true,
+      "mongooseModels": true,
+      "mongoose": true,
+      "oauth": true,
+      "googleAuth": true,
+      "grunt": true,
+      "mocha": true,
+      "jasmine": false,
+      "should": true,
+      "expect": false
+    }
+  }
+}
