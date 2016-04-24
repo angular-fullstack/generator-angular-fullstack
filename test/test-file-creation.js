@@ -32,7 +32,7 @@ describe('angular-fullstack generator', function () {
   function generatorTest(generatorType, name, mockPrompt, callback) {
     gen.run(function () {
       var afGenerator;
-      var deps = [path.join('../..', generatorType)];
+      var deps = [path.join('../../generators', generatorType)];
       afGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name], {
         skipInstall: true
       });
