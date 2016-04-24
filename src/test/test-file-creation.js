@@ -1,7 +1,9 @@
 /*global describe, beforeEach, it */
 'use strict';
 var path = require('path');
+var Promise = require('bluebird');
 var fs = require('fs');
+Promise.promisifyAll(fs);
 var exec = require('child_process').exec;
 var helpers = require('yeoman-test');
 var assert = require('yeoman-assert');
@@ -9,8 +11,18 @@ var chai = require('chai');
 var expect = chai.expect;
 var recursiveReadDir = require('recursive-readdir');
 
+/****************
+ * FileSystem Utils
+ ****************/
+
+function copyAsync(src, dest) {
+  return fs.readFileAsync(src)
+    .then(data => fs.writeFileAsync(data, dest));
+}
+
 describe('angular-fullstack generator', function () {
-  var gen, defaultOptions = {
+  var gen;
+  var defaultOptions = {
     buildtool: 'grunt',
     script: 'js',
     transpiler: 'babel',
@@ -21,13 +33,12 @@ describe('angular-fullstack generator', function () {
     chai: 'expect',
     bootstrap: true,
     uibootstrap: true,
-    odms: [ 'mongoose' ],
+    odms: ['mongoose'],
     auth: true,
     oauth: [],
     socketio: true
-  }, dependenciesInstalled = false;
-
-  function copySync(s, d) { fs.writeFileSync(d, fs.readFileSync(s)); }
+  };
+  var dependenciesInstalled = false;
 
   function generatorTest(generatorType, name, mockPrompt, callback) {
     gen.run(function () {
@@ -411,9 +422,11 @@ describe('angular-fullstack generator', function () {
 
     beforeEach(function() {
       this.timeout(20000);
-      fs.mkdirSync(__dirname + '/temp/client');
-      fs.symlinkSync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
-      fs.symlinkSync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
+      return Promise.all([
+        fs.mkdirAsync(__dirname + '/temp/client'),
+        fs.symlinkAsync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules'),
+        fs.symlinkAsync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components')
+      ]);
     });
 
     describe('with default options', function() {
@@ -482,26 +495,27 @@ describe('angular-fullstack generator', function () {
 
       it('should use existing config if available', function(done) {
         this.timeout(60000);
-        copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
-        var gen = helpers.createGenerator('angular-fullstack:app', [
-          '../../generators/app',
-          '../../generators/endpoint',
-          [
-            helpers.createDummyGenerator(),
-            'ng-component:app'
-          ]
-        ], [], {
-          skipInstall: true
-        });
-        helpers.mockPrompt(gen, {
-          skipConfig: true
-        });
-        gen.run(function () {
-          assert.file([
-            'client/app/main/main.less',
-            'server/auth/google/passport.js'
-          ]);
-          done();
+        return copyAsync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json').then(() => {
+          var gen = helpers.createGenerator('angular-fullstack:app', [
+            '../../generators/app',
+            '../../generators/endpoint',
+            [
+              helpers.createDummyGenerator(),
+              'ng-component:app'
+            ]
+          ], [], {
+            skipInstall: true
+          });
+          helpers.mockPrompt(gen, {
+            skipConfig: true
+          });
+          gen.run(function () {
+            assert.file([
+              'client/app/main/main.less',
+              'server/auth/google/passport.js'
+            ]);
+            done();
+          });
         });
       });
 
