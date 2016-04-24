@@ -1,3 +1,13 @@
+<a name="3.6.1"></a>
+# [3.6.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.6.0...v3.6.1) (2016-04-23)
+
+
+### Bug Fixes
+
+* **package:** revert to Grunt 0.4.5 if user chooses Grunt ([1cc91a3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1cc91a3)), closes [#1815](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1815)
+
+
+
 <a name="3.6.0"></a>
 # [3.6.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.5.0...v3.6.0) (2016-04-21)
 
