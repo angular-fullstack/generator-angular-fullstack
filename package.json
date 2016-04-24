@@ -68,6 +68,7 @@
     "grunt-release": "^0.13.0",
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "jit-grunt": "~0.10.0",
     "lazypipe": "^1.0.1",
@@ -77,6 +78,7 @@
     "recursive-readdir": "^2.0.0",
     "run-sequence": "^1.1.5",
     "shelljs": "^0.6.0",
+    "should": "^8.3.1",
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "^1.1.0"
   },

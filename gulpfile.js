@@ -4,6 +4,7 @@ var path = require('path');
 var Promise = require('bluebird');
 var gulp = require('gulp');
 var babel = require('gulp-babel');
+var gulpMocha = require('gulp-mocha');
 var plumber = require('gulp-plumber');
 var gulpIf = require('gulp-if');
 var del = require('del');
@@ -12,6 +13,15 @@ var runSequence = require('run-sequence');
 var merge = require('merge-stream');
 
 var watching = false;
+
+const mocha = lazypipe()
+    .pipe(gulpMocha, {
+        reporter: 'spec',
+        timeout: 120000,
+        globals: {
+            should: require('should')
+        }
+    });
 
 const transpile = lazypipe()
     .pipe(() => gulpIf(watching, plumber()))
@@ -102,4 +112,9 @@ gulp.task('updateFixtures:test', () => {
 });
 gulp.task('updateFixtures:deps', () => {
     return updateFixtures('deps');
+});
+
+gulp.task('test', () => {
+    return gulp.src('test/*.test.js')
+        .pipe(mocha())
 });
