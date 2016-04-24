@@ -7,24 +7,27 @@ var babel = require('gulp-babel');
 var plumber = require('gulp-plumber');
 var gulpIf = require('gulp-if');
 var del = require('del');
+var lazypipe = require('lazypipe');
 var runSequence = require('run-sequence');
 var merge = require('merge-stream');
+
+var watching = false;
+
+const transpile = lazypipe()
+    .pipe(() => gulpIf(watching, plumber()))
+    .pipe(babel);
 
 gulp.task('clean', () => {
     return del(['generators/**/*']);
 });
 
-var watching = false;
-
 gulp.task('babel', () => {
     let generators = gulp.src(['src/generators/**/*.js'])
-        .pipe(gulpIf(watching, plumber()))
-        .pipe(babel())
+        .pipe(transpile())
         .pipe(gulp.dest('generators'));
 
     let test = gulp.src(['src/test/**/*.js'])
-        .pipe(gulpIf(watching, plumber()))
-        .pipe(babel())
+        .pipe(transpile())
         .pipe(gulp.dest('test'));
 
     return merge(generators);
