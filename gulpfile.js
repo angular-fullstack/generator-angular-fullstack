@@ -30,7 +30,7 @@ gulp.task('babel', () => {
         .pipe(transpile())
         .pipe(gulp.dest('test'));
 
-    return merge(generators);
+    return merge(generators, test);
 });
 
 gulp.task('watch', () => {
