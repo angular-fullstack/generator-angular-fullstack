@@ -64,8 +64,8 @@ function updateFixtures(target) {
     const appName = deps ? 'angular-fullstack-deps' : 'tempApp';
 
     return Promise.all([
-        processJson('templates/app/_package.json', dest + 'package.json', {appName, genVer, private: !!deps}),
-        processJson('templates/app/_bower.json', dest + 'bower.json', {appName, genVer, private: !!deps})
+        processJson('templates/app/_package.json', dest + 'package.json', {appName, genVer, private: !deps}),
+        processJson('templates/app/_bower.json', dest + 'bower.json', {appName, genVer, private: !deps})
     ]);
 }
 
