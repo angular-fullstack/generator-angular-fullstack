@@ -1,6 +1,6 @@
 'use strict';
 var Insight = require('insight');
-var pkg = require('./package.json');
+var pkg = require('../package.json');
 
 var insight = new Insight({
     // Google Analytics tracking code

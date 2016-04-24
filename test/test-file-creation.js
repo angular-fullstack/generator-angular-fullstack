@@ -32,7 +32,7 @@ describe('angular-fullstack generator', function () {
   function generatorTest(generatorType, name, mockPrompt, callback) {
     gen.run(function () {
       var afGenerator;
-      var deps = [path.join('../..', generatorType)];
+      var deps = [path.join('../../generators', generatorType)];
       afGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name], {
         skipInstall: true
       });
@@ -351,8 +351,8 @@ describe('angular-fullstack generator', function () {
   beforeEach(function (done) {
     this.timeout(10000);
     var deps = [
-      '../../app',
-      '../../endpoint',
+      '../../generators/app',
+      '../../generators/endpoint',
       [
         helpers.createDummyGenerator(),
         'ng-component:app'
@@ -484,8 +484,8 @@ describe('angular-fullstack generator', function () {
         this.timeout(60000);
         copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
         var gen = helpers.createGenerator('angular-fullstack:app', [
-          '../../app',
-          '../../endpoint',
+          '../../generators/app',
+          '../../generators/endpoint',
           [
             helpers.createDummyGenerator(),
             'ng-component:app'

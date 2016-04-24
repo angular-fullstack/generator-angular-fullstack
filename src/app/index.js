@@ -11,7 +11,7 @@ import babelStream from 'gulp-babel';
 import beaufityStream from 'gulp-beautify';
 import filter from 'gulp-filter';
 
-export default class Generator extends Base {
+export class Generator extends Base {
   constructor(...args) {
     super(...args);
 
@@ -496,7 +496,7 @@ export default class Generator extends Base {
         ]);
 
         let self = this;
-        this.sourceRoot(path.join(__dirname, './templates'));
+        this.sourceRoot(path.join(__dirname, '../../templates/app'));
         this.processDirectory('.', '.');
       },
       generateEndpoint: function() {
@@ -531,3 +531,5 @@ export default class Generator extends Base {
     return {};
   }
 }
+
+module.exports = Generator;

@@ -7,3 +7,4 @@ demo
 release.txt
 test/fixtures/bower.json
 test/fixtures/package.json
+generators
