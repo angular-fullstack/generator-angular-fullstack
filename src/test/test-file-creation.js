@@ -17,7 +17,7 @@ var recursiveReadDir = require('recursive-readdir');
 
 function copyAsync(src, dest) {
   return fs.readFileAsync(src)
-    .then(data => fs.writeFileAsync(data, dest));
+    .then(data => fs.writeFileAsync(dest, data));
 }
 
 describe('angular-fullstack generator', function () {
