@@ -484,8 +484,8 @@ describe('angular-fullstack generator', function () {
         this.timeout(60000);
         copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
         var gen = helpers.createGenerator('angular-fullstack:app', [
-          '../../app',
-          '../../endpoint',
+          '../../generators/app',
+          '../../generators/endpoint',
           [
             helpers.createDummyGenerator(),
             'ng-component:app'
