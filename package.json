@@ -67,6 +67,8 @@
     "grunt-mocha-test": "^0.12.7",
     "grunt-release": "^0.13.0",
     "gulp": "^3.9.1",
+    "gulp-if": "^2.0.0",
+    "gulp-plumber": "^1.1.0",
     "jit-grunt": "~0.10.0",
     "merge-stream": "^1.0.0",
     "mocha": "^2.2.5",

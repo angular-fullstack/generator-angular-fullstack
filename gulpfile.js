@@ -4,6 +4,8 @@ var path = require('path');
 var Promise = require('bluebird');
 var gulp = require('gulp');
 var babel = require('gulp-babel');
+var plumber = require('gulp-plumber');
+var gulpIf = require('gulp-if');
 var del = require('del');
 var runSequence = require('run-sequence');
 var merge = require('merge-stream');
@@ -12,12 +14,16 @@ gulp.task('clean', () => {
     return del(['generators/**/*']);
 });
 
+var watching = false;
+
 gulp.task('babel', () => {
     let generators = gulp.src(['src/generators/**/*.js'])
+        .pipe(gulpIf(watching, plumber()))
         .pipe(babel())
         .pipe(gulp.dest('generators'));
 
     let test = gulp.src(['src/test/**/*.js'])
+        .pipe(gulpIf(watching, plumber()))
         .pipe(babel())
         .pipe(gulp.dest('test'));
 
@@ -25,6 +31,7 @@ gulp.task('babel', () => {
 });
 
 gulp.task('watch', () => {
+    watching = true;
     return gulp.watch('src/**/*.js', ['babel']);
 });
 
