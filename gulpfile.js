@@ -45,6 +45,9 @@ var processJson = function(src, dest, opt) {
 
             // set properties
             json.name = opt.appName;
+            json.description = opt.private
+                ? null
+                : 'The purpose of this repository is to track all the possible dependencies of an application created by generator-angular-fullstack.';
             json.version = opt.genVer;
             json.private = opt.private;
 
