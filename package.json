@@ -31,7 +31,7 @@
     "url": "git://github.com/angular-fullstack/generator-angular-fullstack.git"
   },
   "scripts": {
-    "test": "gulp build && grunt test",
+    "test": "gulp build && gulp test",
     "prepublish": "gulp build"
   },
   "dependencies": {
