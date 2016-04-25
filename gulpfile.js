@@ -1,19 +1,19 @@
 'use strict';
-var fs = require('fs');
-var path = require('path');
-var Promise = require('bluebird');
-var gulp = require('gulp');
-var babel = require('gulp-babel');
-var gulpMocha = require('gulp-mocha');
-var plumber = require('gulp-plumber');
-var gulpIf = require('gulp-if');
-var del = require('del');
-var lazypipe = require('lazypipe');
-var runSequence = require('run-sequence');
-var merge = require('merge-stream');
+const fs = require('fs');
+const path = require('path');
 const exec = require('child_process').exec;
 const _ = require('lodash');
+const Promise = require('bluebird');
+const gulp = require('gulp');
 const gutil = require('gulp-util');
+const babel = require('gulp-babel');
+const gulpMocha = require('gulp-mocha');
+const plumber = require('gulp-plumber');
+const gulpIf = require('gulp-if');
+const del = require('del');
+const lazypipe = require('lazypipe');
+const runSequence = require('run-sequence');
+const merge = require('merge-stream');
 const shell = require('shelljs');
 
 var watching = false;
@@ -161,5 +161,5 @@ gulp.task('installFixtures', function() {
 
 gulp.task('test', () => {
     return gulp.src('test/*.test.js')
-        .pipe(mocha())
+        .pipe(mocha());
 });
