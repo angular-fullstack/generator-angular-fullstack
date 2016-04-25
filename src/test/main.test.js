@@ -27,6 +27,16 @@ const defaultOptions = {
 // var DEBUG = true;
 var DEBUG = false;
 
+/**
+ * @callback doneCallback
+ * @param {null|Error} err
+ */
+
+/**
+ * Run the given command in a child process
+ * @param {string} cmd - command to run
+ * @param {doneCallback} done
+ */
 function runCmd(cmd, done) {
   exec(cmd, {}, function(err, stdout, stderr) {
     if(err) {
