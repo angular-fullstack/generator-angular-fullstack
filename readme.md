@@ -288,10 +288,6 @@ A live application URL will be available in the output.
 >
 >     rhc set-env DOMAIN=<your-openshift-app-name>.rhcloud.com
 >
->     # or (if you're using it):
->
->     rhc set-env DOMAIN=<your-custom-domain>
->
 > After you've set the required environment variables, restart the server:
 >
 >     rhc app-restart -a my-openshift-app
