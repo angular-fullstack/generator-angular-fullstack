@@ -28,7 +28,6 @@ const mocha = lazypipe()
     });
 
 const transpile = lazypipe()
-    .pipe(() => gulpIf(watching, plumber()))
     .pipe(babel);
 
 gulp.task('clean', () => {
@@ -37,10 +36,12 @@ gulp.task('clean', () => {
 
 gulp.task('babel', () => {
     let generators = gulp.src(['src/generators/**/*.js'])
+    .pipe(gulpIf(watching, plumber()))
         .pipe(transpile())
         .pipe(gulp.dest('generators'));
 
     let test = gulp.src(['src/test/**/*.js'])
+    .pipe(gulpIf(watching, plumber()))
         .pipe(transpile())
         .pipe(gulp.dest('test'));
 
