@@ -31,7 +31,8 @@
     "url": "git://github.com/angular-fullstack/generator-angular-fullstack.git"
   },
   "scripts": {
-    "test": "gulp build && grunt test"
+    "test": "gulp build && grunt test",
+    "prepublish": "gulp build"
   },
   "dependencies": {
     "babel-plugin-syntax-class-properties": "^6.5.0",
