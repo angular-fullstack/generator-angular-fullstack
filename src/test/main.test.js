@@ -190,7 +190,7 @@ describe('angular-fullstack:app', function() {
       });
     });
 
-    describe.only('with a generated capitalized endpont', function() {
+    describe('with a generated capitalized endpont', function() {
       beforeEach(function() {
         getConfig(dir).then(config => {
           return runEndpointGen('Foo', {config: config['generator-angular-fullstack']});
