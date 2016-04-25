@@ -64,12 +64,13 @@ describe('angular-fullstack generator', function () {
    * @param  {Array}    skip          - array of paths to skip/ignore (optional)
    *
    */
-  function assertOnlyFiles(expectedFiles, done, topLevelPath, skip) {
-    topLevelPath = topLevelPath || './';
-    skip = skip || ['node_modules', 'client/bower_components'];
-
+  function assertOnlyFiles(
+    expectedFiles,
+    done,
+    topLevelPath='./',
+    skip=['node_modules', 'client/bower_components']) {
     recursiveReadDir(topLevelPath, skip, function(err, actualFiles) {
-      if (err) { return done(err); }
+      if (err) return done(err);
       var files = actualFiles.concat();
 
       expectedFiles.forEach(function(file, i) {
@@ -101,9 +102,9 @@ describe('angular-fullstack generator', function () {
    *
    */
   function runTest(cmd, self, cb) {
-    var args = Array.prototype.slice.call(arguments),
-        endpoint = (args[3] && typeof args[3] === 'string') ? args.splice(3, 1)[0] : null,
-        timeout = (args[3] && typeof args[3] === 'number') ? args.splice(3, 1)[0] : null;
+    var args = Array.prototype.slice.call(arguments);
+    var endpoint = (args[3] && typeof args[3] === 'string') ? args.splice(3, 1)[0] : null;
+    var timeout = (args[3] && typeof args[3] === 'number') ? args.splice(3, 1)[0] : null;
 
     self.timeout(timeout || 60000);
 
@@ -370,31 +371,24 @@ describe('angular-fullstack generator', function () {
       ]
     ];
 
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {
-        return done(err);
-      }
+    helpers.testDirectory(path.join(__dirname, 'temp'), err => {
+      if(err) return done(err);
 
       gen = helpers.createGenerator('angular-fullstack:app', deps, [], {
         skipInstall: true
       });
       gen.conflicter.force = true;
       done();
-    }.bind(this));
+    });
   });
 
   describe('making sure test fixtures are present', function() {
-
     it('should have package.json in fixtures', function() {
-      assert.file([
-        path.join(__dirname, 'fixtures', 'package.json')
-      ]);
+      assert.file([path.join(__dirname, 'fixtures', 'package.json')]);
     });
 
     it('should have bower.json in fixtures', function() {
-      assert.file([
-        path.join(__dirname, 'fixtures', 'bower.json')
-      ]);
+      assert.file([path.join(__dirname, 'fixtures', 'bower.json')]);
     });
 
     it('should have all npm packages in fixtures/node_modules', function() {
@@ -419,7 +413,6 @@ describe('angular-fullstack generator', function () {
   });
 
   describe('running app', function() {
-
     beforeEach(function() {
       this.timeout(20000);
       return Promise.all([
@@ -438,7 +431,7 @@ describe('angular-fullstack generator', function () {
         runTest('grunt test:client', this, done);
       });
 
-      it('should pass jscs', function(done) {
+      it.only('should pass jscs', function(done) {
         runTest('grunt jscs', this, done);
       });
 
