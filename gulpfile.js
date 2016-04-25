@@ -11,6 +11,10 @@ var del = require('del');
 var lazypipe = require('lazypipe');
 var runSequence = require('run-sequence');
 var merge = require('merge-stream');
+const exec = require('child_process').exec;
+const _ = require('lodash');
+const gutil = require('gulp-util');
+const shell = require('shelljs');
 
 var watching = false;
 
@@ -112,6 +116,47 @@ gulp.task('updateFixtures:test', () => {
 });
 gulp.task('updateFixtures:deps', () => {
     return updateFixtures('deps');
+});
+
+function execAsync(cmd, opt) {
+    return new Promise((resolve, reject) => {
+        exec(cmd, opt, (err, stdout, stderr) => {
+            if(err) {
+                console.log(`stderr: ${stderr}`);
+                return reject(err);
+            }
+
+            return resolve(stdout);
+        })
+    });
+}
+
+gulp.task('installFixtures', function() {
+    gutil.log('installing npm & bower dependencies for generated app');
+    let progress = setInterval(() => {
+        process.stdout.write('.');
+    }, 1 * 1000);
+    shell.cd('test/fixtures');
+
+    return Promise.all([
+        execAsync('npm install --quiet', {cwd: '../fixtures'}),
+        execAsync('bower install', {cwd: '../fixtures'})
+    ]).then(() => {
+        process.stdout.write('\n');
+        if(!process.env.SAUCE_USERNAME) {
+            gutil.log('running npm run-script update-webdriver');
+            return execAsync('npm run-script update-webdriver').then(() => {
+                clearInterval(progress);
+                process.stdout.write('\n');
+                shell.cd('../../');
+            });
+        } else {
+            clearInterval(progress);
+            process.stdout.write('\n');
+            shell.cd('../../');
+            return Promise.resolve();
+        }
+    });
 });
 
 gulp.task('test', () => {
