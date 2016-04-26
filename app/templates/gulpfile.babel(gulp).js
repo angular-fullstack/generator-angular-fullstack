@@ -305,12 +305,12 @@ gulp.task('styles', () => {
         .pipe(gulp.dest('.tmp/app'));
 });<% if(filters.ts) { %>
 
-gulp.task('copy:constant', () => {
+gulp.task('copy:constant', ['constant'], () => {
     return gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
         .pipe(gulp.dest('.tmp/app'));
 })
 
-gulp.task('transpile:client', ['tsd', 'constant', 'copy:constant'], () => {
+gulp.task('transpile:client', ['tsd', 'copy:constant'], () => {
     let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
     return tsProject.src()
         .pipe(plugins.sourcemaps.init())
