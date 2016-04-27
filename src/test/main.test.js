@@ -156,9 +156,21 @@ describe('angular-fullstack:app', function() {
       });
     });
 
-    it('should pass lint with generated path name endpoint'); //'foo/bar'
+    describe('with a generated path name endpont', function() {
+      beforeEach(function() {
+        getConfig(dir).then(config => {
+          return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']});
+        });
+      });
 
-    it('should run server tests successfully with generated path name endpoint');
+      it('should pass jscs');
+
+      it('should pass lint');
+
+      it('should run server tests successfully', function(done) {
+        runCmd('grunt test:server', done);
+      });
+    });
 
     it('should generate expected files with path name endpoint');
     // [
