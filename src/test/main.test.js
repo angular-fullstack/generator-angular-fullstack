@@ -26,8 +26,6 @@ const defaultOptions = {
   oauth: [],
   socketio: true
 };
-// var DEBUG = true;
-var DEBUG = false;
 const TEST_DIR = __dirname;
 
 function copyAsync(src, dest) {

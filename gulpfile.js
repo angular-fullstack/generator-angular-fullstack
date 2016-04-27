@@ -24,7 +24,10 @@ const mocha = lazypipe()
         timeout: 120000,
         globals: {
             should: require('should')
-        }
+        },
+        require: [
+            './mocha.conf'
+        ]
     });
 
 const transpile = lazypipe()
