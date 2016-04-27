@@ -126,7 +126,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated endpont', function() {
       beforeEach(function() {
-        getConfig(dir).then(config => {
+        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -142,7 +142,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated capitalized endpont', function() {
       beforeEach(function() {
-        getConfig(dir).then(config => {
+        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('Foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -158,7 +158,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated path name endpont', function() {
       beforeEach(function() {
-        getConfig(dir).then(config => {
+        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']});
         });
       });

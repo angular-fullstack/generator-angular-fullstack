@@ -56,8 +56,8 @@ export function assertOnlyFiles(expectedFiles, topLevelPath='./', skip=['node_mo
   });
 }
 
-export function getConfig(dir) {
-  return fs.readFileAsync(path.join(dir, '.yo-rc.json'), 'utf8').then(data => {
+export function getConfig(path) {
+  return fs.readFileAsync(path, 'utf8').then(data => {
     return JSON.parse(data);
   });
 }
