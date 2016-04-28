@@ -23,18 +23,19 @@ export function copyAsync(src, dest) {
 /**
  * Run the given command in a child process
  * @param {string} cmd - command to run
- * @param {doneCallback} done
+ * @returns {Promise}
  */
-export function runCmd(cmd, done) {
-  exec(cmd, {}, function(err, stdout, stderr) {
-    if(err) {
-      console.error(stdout);
-      throw new Error(`Error running command: ${cmd}`);
-      done(err);
-    } else {
-      if(DEBUG) console.log(stdout);
-      done();
-    }
+export function runCmd(cmd) {
+  return new Promise((resolve, reject) => {
+    exec(cmd, {}, function(err, stdout, stderr) {
+      if(err) {
+        console.error(stdout);
+        return reject(err);
+      } else {
+        if(DEBUG) console.log(`${cmd} stdout: ${stdout}`);
+        return resolve();
+      }
+    });
   });
 }
 

@@ -108,20 +108,20 @@ describe('angular-fullstack:app', function() {
       return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.eventually.be.fulfilled;
     });
 
-    it('passes JSCS', function(done) {
-      runCmd('grunt jscs', done);
+    it('passes JSCS', function() {
+      return runCmd('grunt jscs').should.be.fulfilled();
     });
 
-    it('passes JSHint', function(done) {
-      runCmd('grunt jshint', done);
+    it('passes JSHint', function() {
+      return runCmd('grunt jshint').should.be.fulfilled();
     });
 
-    it('passes client tests', function(done) {
-      runCmd('grunt test:client', done);
+    it('passes client tests', function() {
+      return runCmd('grunt test:client').should.be.fulfilled();
     });
 
-    it('passes server tests', function(done) {
-      runCmd('grunt test:server', done);
+    it('passes server tests', function() {
+      return runCmd('grunt test:server').should.be.fulfilled();
     });
 
     describe('with a generated endpont', function() {
@@ -135,8 +135,8 @@ describe('angular-fullstack:app', function() {
 
       it('should pass lint');
 
-      it('should run server tests successfully', function(done) {
-        runCmd('grunt test:server', done);
+      it('should run server tests successfully', function() {
+        return runCmd('grunt test:server').should.be.fulfilled();
       });
     });
 
@@ -151,8 +151,8 @@ describe('angular-fullstack:app', function() {
 
       it('should pass lint');
 
-      it('should run server tests successfully', function(done) {
-        runCmd('grunt test:server', done);
+      it('should run server tests successfully', function() {
+        return runCmd('grunt test:server').should.be.fulfilled();
       });
     });
 
@@ -167,8 +167,8 @@ describe('angular-fullstack:app', function() {
 
       it('should pass lint');
 
-      it('should run server tests successfully', function(done) {
-        runCmd('grunt test:server', done);
+      it('should run server tests successfully', function() {
+        return runCmd('grunt test:server').should.be.fulfilled();
       });
     });
 
