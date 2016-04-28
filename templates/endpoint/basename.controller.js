@@ -17,7 +17,7 @@ function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
     if (entity) {
-      res.status(statusCode).json(entity);
+      return res.status(statusCode).json(entity);
     }
   };
 }
@@ -40,7 +40,7 @@ function removeEntity(res) {
       <% if (filters.mongooseModels) { %>return entity.remove()<% }
          if (filters.sequelizeModels) { %>return entity.destroy()<% } %>
         .then(() => {
-          res.status(204).end();
+          return res.status(204).end();
         });
     }
   };
@@ -59,7 +59,7 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
-    res.status(statusCode).send(err);
+    return res.status(statusCode).send(err);
   };
 }<% } %>
 
