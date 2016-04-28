@@ -224,14 +224,15 @@ export function app(options) {
   return files;
 }
 
-export function endpoint(name, options) {
+export function endpoint(name, path) {
+  if(!path) path = name;
   return [
-    `server/api/${name}/index.js`,
-    `server/api/${name}/index.spec.js`,
-    `server/api/${name}/bar.controller.js`,
-    `server/api/${name}/bar.events.js`,
-    `server/api/${name}/bar.integration.js`,
-    `server/api/${name}/bar.model.js`,
-    `server/api/${name}/bar.socket.js`
+    `server/api/${path}/index.js`,
+    `server/api/${path}/index.spec.js`,
+    `server/api/${path}/${name}.controller.js`,
+    `server/api/${path}/${name}.events.js`,
+    `server/api/${path}/${name}.integration.js`,
+    `server/api/${path}/${name}.model.js`,
+    `server/api/${path}/${name}.socket.js`
   ];
 }
