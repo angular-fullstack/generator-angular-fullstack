@@ -227,15 +227,11 @@ gulp.task('inject:js', () => {
         .pipe(gulp.dest(clientPath));
 });<% if(filters.ts) { %>
 
-gulp.task('inject:tsconfig', () => {
-    let src = gulp.src([
-        `${clientPath}/**/!(*.spec|*.mock).ts`,
-        `!${clientPath}/bower_components/**/*`,
-        `${clientPath}/typings/**/*.d.ts`
-    ], {read: false})
+function injectTsConfig(filesGlob, tsconfigPath){
+    let src = gulp.src(filesGlob, {read: false})
         .pipe(plugins.sort());
 
-    return gulp.src('./tsconfig.client.json')
+    return gulp.src(tsconfigPath)
         .pipe(plugins.inject(src, {
             starttag: '"files": [',
             endtag: ']',
@@ -244,6 +240,26 @@ gulp.task('inject:tsconfig', () => {
             }
         }))
         .pipe(gulp.dest('./'));
+}
+
+gulp.task('inject:tsconfig', () => {
+    return injectTsConfig([
+        `${clientPath}/**/!(*.spec|*.mock).ts`,
+       `!${clientPath}/bower_components/**/*`,
+        `${clientPath}/typings/**/*.d.ts`,
+        `!${clientPath}/test_typings/**/*.d.ts`
+    ], 
+    './tsconfig.client.json');
+});
+
+gulp.task('inject:tsconfigTest', () => {
+    return injectTsConfig([
+        `${clientPath}/**/+(*.spec|*.mock).ts`,
+        `!${clientPath}/bower_components/**/*`,
+        `!${clientPath}/typings/**/*.d.ts`,
+        `${clientPath}/test_typings/**/*.d.ts`
+    ], 
+    './tsconfig.client.test.json');
 });<% } %>
 
 gulp.task('inject:css', () => {
