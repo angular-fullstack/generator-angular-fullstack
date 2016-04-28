@@ -131,10 +131,6 @@ describe('angular-fullstack:app', function() {
         });
       });
 
-      it('should pass jscs'); //'foo'
-
-      it('should pass lint');
-
       it('should run server tests successfully', function() {
         return runCmd('grunt test:server').should.be.fulfilled();
       });
@@ -147,10 +143,6 @@ describe('angular-fullstack:app', function() {
         });
       });
 
-      it('should pass jscs');
-
-      it('should pass lint');
-
       it('should run server tests successfully', function() {
         return runCmd('grunt test:server').should.be.fulfilled();
       });
@@ -162,10 +154,6 @@ describe('angular-fullstack:app', function() {
           return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']});
         });
       });
-
-      it('should pass jscs');
-
-      it('should pass lint');
 
       it('should run server tests successfully', function() {
         return runCmd('grunt test:server').should.be.fulfilled();
