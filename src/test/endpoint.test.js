@@ -105,11 +105,14 @@ function runEndpointGen(name, opt={}) {
 
 let jshintCmd = path.join(TEST_DIR, '/fixtures/node_modules/.bin/jshint');
 function jshint(_path, opt={}) {
-  let {exclude, config} = opt;
-  let cmd = `${jshintCmd} ${path.normalize(_path)}`;
-  if(exclude) cmd += ` --exclude ${exclude}`;
-  if(config) cmd += ` --config ${config}`;
-  return runCmd(cmd);
+  _path = path.normalize(_path);
+  return fs.accessAsync(_path, fs.R_OK).then(err => {
+    let {config} = opt;
+    let cmd = `${jshintCmd} ${path.normalize(_path)}`;
+    if(config) cmd += ` --config ${config}`;
+    return runCmd(cmd);
+  });
+}
 }
 
 var config;
