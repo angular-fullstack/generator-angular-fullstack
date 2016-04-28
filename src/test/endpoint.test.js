@@ -175,26 +175,44 @@ describe('angular-fullstack:endpoint', function() {
   describe('with a generated capitalized endpont', function() {
     var dir;
     beforeEach(function() {
-      return runEndpointGen('foo', {config: config['generator-angular-fullstack']}).then(_dir => {
+      return runEndpointGen('Foo', {config: config['generator-angular-fullstack']}).then(_dir => {
         dir = _dir;
+
+        return Promise.all([
+          copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec')
+        ]);
       });
     });
 
+    it('should generate the expected files');
+
     it('should pass jscs');
 
-    it('should pass lint');
+    it('should pass lint', function() {
+      return jshintDir(dir, 'Foo').should.be.fulfilled();
+    });
   });
 
   describe('with a generated path name endpont', function() {
     var dir;
     beforeEach(function() {
-      return runEndpointGen('foo', {config: config['generator-angular-fullstack']}).then(_dir => {
+      return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']}).then(_dir => {
         dir = _dir;
+
+        return Promise.all([
+          copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec')
+        ]);
       });
     });
 
+    it('should generate the expected files');
+
     it('should pass jscs');
 
-    it('should pass lint');
+    it('should pass lint', function() {
+      return jshintDir(dir, 'foo', 'foo/bar').should.be.fulfilled();
+    });
   });
 });
