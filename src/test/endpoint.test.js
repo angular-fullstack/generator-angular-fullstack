@@ -113,6 +113,20 @@ function jshint(_path, opt={}) {
     return runCmd(cmd);
   });
 }
+
+function jshintDir(dir, name, folder) {
+  if(!folder) folder = name;
+  let endpointDir = path.join(dir, 'server/api', folder);
+
+  let regFiles = fs.readdirAsync(endpointDir)
+    .then(files => files.filter(file => minimatch(file, '**/!(*.spec|*.mock|*.integration).js', {dot: true})))
+    .map(file => jshint(path.join('./server/api/', folder, file)));
+
+  let specFiles = fs.readdirAsync(endpointDir)
+    .then(files => files.filter(file => minimatch(file, '**/+(*.spec|*.mock|*.integration).js', {dot: true})))
+    .map(file => jshint(path.join('./server/api/', folder, file), {config: 'server/.jshintrc-spec'}));
+
+  return Promise.all([regFiles, specFiles]);
 }
 
 var config;
@@ -154,16 +168,7 @@ describe('angular-fullstack:endpoint', function() {
     it('should pass jscs');
 
     it('should pass lint', function() {
-      let endpointDir = path.join(dir, 'server/api/foo/');
-      let regFiles = fs.readdirAsync(endpointDir)
-        .then(files => files.filter(file => minimatch(file, '**/!(*.spec|*.mock|*.integration).js', {dot: true})))
-        .map(file => jshint(`./server/api/foo/${file}`));
-
-      let specFiles = fs.readdirAsync(endpointDir)
-        .then(files => files.filter(file => minimatch(file, '**/+(*.spec|*.mock|*.integration).js', {dot: true})))
-        .map(file => jshint(`./server/api/food/${file}`, {config: 'server/.jshintrc-spec'}));
-
-      return Promise.all([regFiles, specFiles]).should.be.fulfilled();
+      return jshintDir(dir, 'foo').should.be.fulfilled();
     });
   });
 
