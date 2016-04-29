@@ -126,6 +126,13 @@ function jshintDir(dir, name, folder) {
 
   return Promise.all([regFiles, specFiles]);
 }
+function jscsDir(dir, name, folder) {
+  if(!folder) folder = name;
+  let endpointDir = path.join(dir, 'server/api', folder);
+
+  return fs.readdirAsync(endpointDir)
+    .map(file => testFile(jscsCmd, path.join('./server/api/', folder, file)));;
+}
 
 var config;
 var genDir;
@@ -154,7 +161,8 @@ describe('angular-fullstack:endpoint', function() {
 
         return Promise.all([
           copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
-          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec')
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
         ]);
       });
     });
@@ -163,7 +171,9 @@ describe('angular-fullstack:endpoint', function() {
       assert.file(getExpectedFiles.endpoint('foo'));
     });
 
-    it('should pass jscs');
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'foo').should.be.fulfilled();
+    });
 
     it('should pass lint', function() {
       return jshintDir(dir, 'foo').should.be.fulfilled();
@@ -178,7 +188,8 @@ describe('angular-fullstack:endpoint', function() {
 
         return Promise.all([
           copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
-          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec')
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
         ]);
       });
     });
@@ -187,7 +198,9 @@ describe('angular-fullstack:endpoint', function() {
       assert.file(getExpectedFiles.endpoint('Foo'));
     });
 
-    it('should pass jscs');
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'Foo').should.be.fulfilled();
+    });
 
     it('should pass lint', function() {
       return jshintDir(dir, 'Foo').should.be.fulfilled();
@@ -202,7 +215,8 @@ describe('angular-fullstack:endpoint', function() {
 
         return Promise.all([
           copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
-          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec')
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
         ]);
       });
     });
@@ -211,7 +225,9 @@ describe('angular-fullstack:endpoint', function() {
       assert.file(getExpectedFiles.endpoint('bar', 'foo/bar'));
     });
 
-    it('should pass jscs');
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'foo', 'foo/bar').should.be.fulfilled();
+    });
 
     it('should pass lint', function() {
       return jshintDir(dir, 'foo', 'foo/bar').should.be.fulfilled();
