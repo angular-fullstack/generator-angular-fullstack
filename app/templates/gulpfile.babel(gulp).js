@@ -227,15 +227,11 @@ gulp.task('inject:js', () => {
         .pipe(gulp.dest(clientPath));
 });<% if(filters.ts) { %>
 
-gulp.task('inject:tsconfig', () => {
-    let src = gulp.src([
-        `${clientPath}/**/!(*.spec|*.mock).ts`,
-        `!${clientPath}/bower_components/**/*`,
-        `${clientPath}/typings/**/*.d.ts`
-    ], {read: false})
+function injectTsConfig(filesGlob, tsconfigPath){
+    let src = gulp.src(filesGlob, {read: false})
         .pipe(plugins.sort());
 
-    return gulp.src('./tsconfig.client.json')
+    return gulp.src(tsconfigPath)
         .pipe(plugins.inject(src, {
             starttag: '"files": [',
             endtag: ']',
@@ -244,6 +240,26 @@ gulp.task('inject:tsconfig', () => {
             }
         }))
         .pipe(gulp.dest('./'));
+}
+
+gulp.task('inject:tsconfig', () => {
+    return injectTsConfig([
+        `${clientPath}/**/!(*.spec|*.mock).ts`,
+       `!${clientPath}/bower_components/**/*`,
+        `${clientPath}/typings/**/*.d.ts`,
+        `!${clientPath}/test_typings/**/*.d.ts`
+    ], 
+    './tsconfig.client.json');
+});
+
+gulp.task('inject:tsconfigTest', () => {
+    return injectTsConfig([
+        `${clientPath}/**/+(*.spec|*.mock).ts`,
+        `!${clientPath}/bower_components/**/*`,
+        `!${clientPath}/typings/**/*.d.ts`,
+        `${clientPath}/test_typings/**/*.d.ts`
+    ], 
+    './tsconfig.client.test.json');
 });<% } %>
 
 gulp.task('inject:css', () => {
@@ -305,12 +321,12 @@ gulp.task('styles', () => {
         .pipe(gulp.dest('.tmp/app'));
 });<% if(filters.ts) { %>
 
-gulp.task('copy:constant', () => {
+gulp.task('copy:constant', ['constant'], () => {
     return gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
         .pipe(gulp.dest('.tmp/app'));
 })
 
-gulp.task('transpile:client', ['tsd', 'constant', 'copy:constant'], () => {
+gulp.task('transpile:client', ['tsd', 'copy:constant'], () => {
     let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
     return tsProject.src()
         .pipe(plugins.sourcemaps.init())
