@@ -99,18 +99,16 @@ function runEndpointGen(name, opt={}) {
 
     gen
       .on('error', reject)
-      .on('end', () => resolve(dir))
+      .on('end', () => resolve(dir));
   });
 }
 
 let jshintCmd = path.join(TEST_DIR, '/fixtures/node_modules/.bin/jshint');
-function jshint(_path, opt={}) {
+let jscsCmd = path.join(TEST_DIR, '/fixtures/node_modules/gulp-jscs/node_modules/.bin/jscs');
+function testFile(command, _path) {
   _path = path.normalize(_path);
-  return fs.accessAsync(_path, fs.R_OK).then(err => {
-    let {config} = opt;
-    let cmd = `${jshintCmd} ${path.normalize(_path)}`;
-    if(config) cmd += ` --config ${config}`;
-    return runCmd(cmd);
+  return fs.accessAsync(_path, fs.R_OK).then(() => {
+    return runCmd(`${command} ${_path}`);
   });
 }
 
@@ -120,11 +118,11 @@ function jshintDir(dir, name, folder) {
 
   let regFiles = fs.readdirAsync(endpointDir)
     .then(files => files.filter(file => minimatch(file, '**/!(*.spec|*.mock|*.integration).js', {dot: true})))
-    .map(file => jshint(path.join('./server/api/', folder, file)));
+    .map(file => testFile(jshintCmd, path.join('./server/api/', folder, file)));
 
   let specFiles = fs.readdirAsync(endpointDir)
     .then(files => files.filter(file => minimatch(file, '**/+(*.spec|*.mock|*.integration).js', {dot: true})))
-    .map(file => jshint(path.join('./server/api/', folder, file), {config: 'server/.jshintrc-spec'}));
+    .map(file => testFile(`${jshintCmd} --config server/.jshintrc-spec`, path.join('./server/api/', folder, file)));
 
   return Promise.all([regFiles, specFiles]);
 }
