@@ -183,7 +183,9 @@ describe('angular-fullstack:endpoint', function() {
       });
     });
 
-    it('should generate the expected files');
+    it('should generate the expected files', function() {
+      assert.file(getExpectedFiles.endpoint('Foo'));
+    });
 
     it('should pass jscs');
 
@@ -205,7 +207,9 @@ describe('angular-fullstack:endpoint', function() {
       });
     });
 
-    it('should generate the expected files');
+    it('should generate the expected files', function() {
+      assert.file(getExpectedFiles.endpoint('bar', 'foo/bar'));
+    });
 
     it('should pass jscs');
 
