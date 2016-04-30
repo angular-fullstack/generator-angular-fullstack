@@ -17,11 +17,15 @@ import {
 
 describe('test fixtures', function() {
   it('should have package.json in fixtures', function() {
-    assert.file([path.join(__dirname, 'fixtures', 'package.json')]);
+    assert.file([path.join(__dirname, 'fixtures/package.json')]);
   });
 
-  it('should have bower.json in fixtures', function() {
-    assert.file([path.join(__dirname, 'fixtures', 'bower.json')]);
+  it('should have .bowerrc & bower.json in fixtures', function() {
+    assert.file([path.join(__dirname, 'fixtures/bower.json'), path.join(__dirname, 'fixtures/.bowerrc')]);
+  });
+
+  it('should have .yo-rc.json in fixtures', function() {
+    assert.file([path.join(__dirname, 'fixtures/.yo-rc.json')]);
   });
 
   it('should have all npm packages in fixtures/node_modules', function() {
