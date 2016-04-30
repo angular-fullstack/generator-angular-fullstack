@@ -210,4 +210,70 @@ describe('angular-fullstack:app', function() {
       return runCmd('grunt test:server').should.be.fulfilled();
     });
   });
+
+  describe('with TypeScript, Jade, Jasmine, LESS, & OAuth', function() {
+    var dir;
+    var testOptions = {
+      buildtool: 'grunt',
+      transpiler: 'ts',
+      markup: 'jade',
+      stylesheet: 'less',
+      router: 'uirouter',
+      testing: 'jasmine',
+      odms: ['mongoose'],
+      auth: true,
+      oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
+      socketio: true,
+      bootstrap: true,
+      uibootstrap: true
+    };
+
+    beforeEach(function() {
+      return runGen(testOptions).then(_dir => {
+        dir = _dir;
+      });
+    });
+
+    it('should generate the proper files', function() {
+      const expectedFiles = getExpectedFiles.app(testOptions);
+      assert.file(expectedFiles);
+      return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
+    });
+
+    it('passes JSCS', function() {
+      return runCmd('grunt jscs').should.be.fulfilled();
+    });
+
+    it('passes lint', function() {
+      return runCmd('grunt tslint').should.be.fulfilled();
+    });
+
+    it('should run client tests successfully', function() {
+      return runCmd('grunt test:client').should.be.fulfilled();
+    });
+
+    it('should run server tests successfully', function() {
+      return runCmd('grunt test:server').should.be.fulfilled();
+    });
+
+    describe('with a generated endpoint', function() {
+      beforeEach(function() {
+        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+          return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
+        });
+      });
+
+      it('should run server tests successfully', function() {
+        return runCmd('grunt test:server').should.be.fulfilled();
+      });
+    });
+
+    if(!process.env.SKIP_E2E) {
+      it('should run e2e tests successfully');
+
+      //it('should run e2e tests successfully for production app', function (done) {
+      //  runTest('grunt test:e2e:prod', this, done, 240000);
+      //});
+    }
+  });
 });
