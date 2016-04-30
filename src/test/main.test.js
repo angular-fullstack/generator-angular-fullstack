@@ -109,7 +109,7 @@ describe('angular-fullstack:app', function() {
     it('generates the proper files', function() {
       const expectedFiles = getExpectedFiles.app(defaultOptions);
       assert.file(expectedFiles);
-      return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.eventually.be.fulfilled;
+      return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
     });
 
     it('passes JSCS', function() {
@@ -128,7 +128,7 @@ describe('angular-fullstack:app', function() {
       return runCmd('grunt test:server').should.be.fulfilled();
     });
 
-    describe('with a generated endpont', function() {
+    describe('with a generated endpoint', function() {
       beforeEach(function() {
         getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
@@ -140,7 +140,7 @@ describe('angular-fullstack:app', function() {
       });
     });
 
-    describe('with a generated capitalized endpont', function() {
+    describe('with a generated capitalized endpoint', function() {
       beforeEach(function() {
         getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('Foo', {config: config['generator-angular-fullstack']});
@@ -152,7 +152,7 @@ describe('angular-fullstack:app', function() {
       });
     });
 
-    describe('with a generated path name endpont', function() {
+    describe('with a generated path name endpoint', function() {
       beforeEach(function() {
         getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']});
@@ -164,41 +164,7 @@ describe('angular-fullstack:app', function() {
       });
     });
 
-    it('should generate expected files with path name endpoint');
-    // [
-    //   'server/api/foo/bar/index.js',
-    //   'server/api/foo/bar/index.spec.js',
-    //   'server/api/foo/bar/bar.controller.js',
-    //   'server/api/foo/bar/bar.events.js',
-    //   'server/api/foo/bar/bar.integration.js',
-    //   'server/api/foo/bar/bar.model.js',
-    //   'server/api/foo/bar/bar.socket.js'
-    // ]
-
-    it('should use existing config if available');
-      // this.timeout(60000);
-      // return copyAsync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json').then(() => {
-      //   var gen = helpers.createGenerator('angular-fullstack:app', [
-      //     '../../generators/app',
-      //     '../../generators/endpoint',
-      //     [
-      //       helpers.createDummyGenerator(),
-      //       'ng-component:app'
-      //     ]
-      //   ], [], {
-      //     skipInstall: true
-      //   });
-      //   helpers.mockPrompt(gen, {
-      //     skipConfig: true
-      //   });
-      //   gen.run(function () {
-      //     assert.file([
-      //       'client/app/main/main.less',
-      //       'server/auth/google/passport.js'
-      //     ]);
-      //     done();
-      //   });
-      // });
+    it('should run server tests successfully with generated snake-case endpoint'); //'foo-bar'
 
     if(!process.env.SKIP_E2E) {
       it('should run e2e tests successfully'); //'grunt test:e2e'
