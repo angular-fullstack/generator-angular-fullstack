@@ -7,6 +7,9 @@ Promise.promisifyAll(fs);
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
 import minimatch from 'minimatch';
+import Checker from 'jscs';
+const jscs = new Checker();
+jscs.registerDefaultRules();
 import * as getExpectedFiles from './get-expected-files';
 import {
   copyAsync,
@@ -104,7 +107,6 @@ function runEndpointGen(name, opt={}) {
 }
 
 let jshintCmd = path.join(TEST_DIR, '/fixtures/node_modules/.bin/jshint');
-let jscsCmd = path.join(TEST_DIR, '/fixtures/node_modules/gulp-jscs/node_modules/.bin/jscs');
 function testFile(command, _path) {
   _path = path.normalize(_path);
   return fs.accessAsync(_path, fs.R_OK).then(() => {
@@ -130,8 +132,23 @@ function jscsDir(dir, name, folder) {
   if(!folder) folder = name;
   let endpointDir = path.join(dir, 'server/api', folder);
 
-  return fs.readdirAsync(endpointDir)
-    .map(file => testFile(jscsCmd, path.join('./server/api/', folder, file)));;
+  return fs.readdirAsync(endpointDir).then(files => {
+    return Promise.map(files, file => {
+      return fs.readFileAsync(path.join('server/api', folder, file), 'utf8').then(data => {
+        let results = jscs.checkString(data)
+        let errors = results.getErrorList();
+        if(errors.length === 0) {
+          return Promise.resolve();
+        } else {
+          errors.forEach(error => {
+            var colorizeOutput = true;
+            console.log(results.explainError(error, colorizeOutput) + '\n');
+          });
+          return Promise.reject();
+        }
+      });
+    });
+  });
 }
 
 var config;
@@ -141,6 +158,10 @@ before(function() {
   return Promise.all([
     runGen(defaultOptions).then(_dir => {
       genDir = _dir;
+
+      return fs.readFileAsync(path.join(genDir, '.jscsrc'), 'utf8').then(data => {
+        jscs.configure(JSON.parse(data));
+      });
     }),
     getConfig(path.join(TEST_DIR, 'fixtures/.yo-rc.json')).then(_config => {
       _config['generator-angular-fullstack'].insertRoutes = false;
