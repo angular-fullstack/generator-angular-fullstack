@@ -16,7 +16,6 @@ import {
 
 const defaultOptions = {
   buildtool: 'grunt',
-  script: 'js',
   transpiler: 'babel',
   markup: 'html',
   stylesheet: 'sass',
@@ -32,10 +31,12 @@ const defaultOptions = {
 };
 const TEST_DIR = __dirname;
 
-function runGen(prompts) {
+function runGen(prompts, opts={}) {
+  let options = opts.options || {skipInstall: true};
+
   return new Promise((resolve, reject) => {
     let dir;
-    helpers
+    let gen = helpers
       .run(require.resolve('../generators/app'))
       .inTmpDir(function(_dir) {
         // this will create a new temporary directory for each new generator run
@@ -43,23 +44,30 @@ function runGen(prompts) {
         if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
         dir = _dir;
 
-        // symlink our dependency directories
-        return Promise.all([
+        let promises = [
           fs.mkdirAsync(dir + '/client').then(() => {
             return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
           }),
           fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
-        ]).then(done);
+        ];
+
+        if(opts.copyConfigFile) {
+          promises.push(copyAsync(path.join(TEST_DIR, 'fixtures/.yo-rc.json'), path.join(dir, '.yo-rc.json')));
+        }
+
+        // symlink our dependency directories
+        return Promise.all(promises).then(done);
       })
       .withGenerators([
         require.resolve('../generators/endpoint'),
         // [helpers.createDummyGenerator(), 'ng-component:app']
       ])
-      .withOptions({
-        skipInstall: true
-      })
       // .withArguments(['upperCaseBug'])
-      .withPrompts(prompts)
+      .withOptions(options);
+
+    if(prompts) gen.withPrompts(prompts);
+
+    gen
       .on('error', reject)
       .on('end', () => resolve(dir));
   });
@@ -89,15 +97,11 @@ function runEndpointGen(name, opt={}) {
 }
 
 describe('angular-fullstack:app', function() {
-  beforeEach(function() {
-    this.gen = runGen(defaultOptions);
-  });
-
   describe('default settings', function() {
     var dir;
 
     beforeEach(function() {
-      return this.gen.then(_dir => {
+      return runGen(defaultOptions).then(_dir => {
         dir = _dir;
       });
     });
@@ -201,5 +205,43 @@ describe('angular-fullstack:app', function() {
 
       it('should run e2e tests successfully for production app'); //'grunt test:e2e:prod'
     }
+  });
+
+  describe('default settings using existing `.yo-rc.json`', function() {
+    var dir;
+
+    beforeEach(function() {
+      return runGen(null, {
+        copyConfigFile: true,
+        options: {
+          skipInstall: true,
+          skipConfig: true
+        }
+      }).then(_dir => {
+        dir = _dir;
+      });
+    });
+
+    it('generates the proper files', function() {
+      const expectedFiles = getExpectedFiles.app(defaultOptions);
+      assert.file(expectedFiles);
+      return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
+    });
+
+    it('passes JSCS', function() {
+      return runCmd('grunt jscs').should.be.fulfilled();
+    });
+
+    it('passes JSHint', function() {
+      return runCmd('grunt jshint').should.be.fulfilled();
+    });
+
+    it('passes client tests', function() {
+      return runCmd('grunt test:client').should.be.fulfilled();
+    });
+
+    it('passes server tests', function() {
+      return runCmd('grunt test:server').should.be.fulfilled();
+    });
   });
 });
