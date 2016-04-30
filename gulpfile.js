@@ -164,6 +164,6 @@ gulp.task('installFixtures', function() {
 });
 
 gulp.task('test', () => {
-    return gulp.src('test/*.test.js')
+    return gulp.src(['test/pre.test.js', 'test/*.test.js'])
         .pipe(mocha());
 });
