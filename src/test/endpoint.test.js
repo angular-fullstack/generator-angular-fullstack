@@ -254,4 +254,31 @@ describe('angular-fullstack:endpoint', function() {
       return jshintDir(dir, 'foo', 'foo/bar').should.be.fulfilled();
     });
   });
+
+  describe('with a generated snake-case endpoint', function() {
+    var dir;
+    beforeEach(function() {
+      return runEndpointGen('foo-bar', {config: config['generator-angular-fullstack']}).then(_dir => {
+        dir = _dir;
+
+        return Promise.all([
+          copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
+        ]);
+      });
+    });
+
+    it('should generate the expected files', function() {
+      assert.file(getExpectedFiles.endpoint('foo-bar'));
+    });
+
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'foo-bar').should.be.fulfilled();
+    });
+
+    it('should pass lint', function() {
+      return jshintDir(dir, 'foo-bar').should.be.fulfilled();
+    });
+  });
 });
