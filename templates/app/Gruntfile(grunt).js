@@ -141,6 +141,7 @@ module.exports = function(grunt) {
         tasks: ['wiredep']
       },
     },
+    <%_ if(!filters.ts) { _%>
 
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
@@ -164,7 +165,8 @@ module.exports = function(grunt) {
       test: {
         src: ['<%%= yeoman.client %>/{app,components}/**/*.{spec,mock}.js']
       }
-    },<% if(filters.ts) { %>
+    },<% } %>
+    <%_ if(filters.ts) { _%>
 
     tslint: {
       options: {
