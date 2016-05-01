@@ -177,9 +177,13 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it('should run e2e tests successfully'); //'grunt test:e2e'
+      it('should run e2e tests successfully', function() {
+        return runCmd('grunt test:e2e').should.be.fulfilled();
+      });
 
-      it('should run e2e tests successfully for production app'); //'grunt test:e2e:prod'
+      it('should run e2e tests successfully for production app', function() {
+        return runCmd('grunt test:e2e:prod').should.be.fulfilled();
+      });
     }
   });
 
@@ -279,7 +283,15 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it('should run e2e tests successfully');
+      it('should run e2e tests successfully', function() {
+        return runCmd('grunt test:e2e:prod').should.be.fulfilled();
+      });
+
+      it('should run e2e tests successfully for production app', function() {
+        return runCmd('grunt test:e2e:prod').should.be.fulfilled();
+      });
+    }
+  });
 
       //it('should run e2e tests successfully for production app', function (done) {
       //  runTest('grunt test:e2e:prod', this, done, 240000);
