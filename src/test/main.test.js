@@ -130,7 +130,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -142,7 +142,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated capitalized endpoint', function() {
       beforeEach(function() {
-        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('Foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -154,7 +154,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated path name endpoint', function() {
       beforeEach(function() {
-        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']});
         });
       });
@@ -166,7 +166,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated snake-case endpoint', function() {
       beforeEach(function() {
-        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo-bar', {config: config['generator-angular-fullstack']});
         });
       });
@@ -189,8 +189,12 @@ describe('angular-fullstack:app', function() {
 
   describe('default settings using existing `.yo-rc.json`', function() {
     var dir;
+    var jscsResult;
+    var lintResult;
+    var clientTestResult;
+    var serverTestResult;
 
-    beforeEach(function() {
+    before(function() {
       return runGen(null, {
         copyConfigFile: true,
         options: {
@@ -199,6 +203,10 @@ describe('angular-fullstack:app', function() {
         }
       }).then(_dir => {
         dir = _dir;
+        jscsResult = runCmd('grunt jscs');
+        lintResult = runCmd('grunt jshint');
+        clientTestResult = runCmd('grunt test:client');
+        serverTestResult = runCmd('grunt test:server');
       });
     });
 
@@ -209,24 +217,28 @@ describe('angular-fullstack:app', function() {
     });
 
     it('passes JSCS', function() {
-      return runCmd('grunt jscs').should.be.fulfilled();
+      return jscsResult.should.be.fulfilled();
     });
 
     it('passes JSHint', function() {
-      return runCmd('grunt jshint').should.be.fulfilled();
+      return lintResult.should.be.fulfilled();
     });
 
     it('passes client tests', function() {
-      return runCmd('grunt test:client').should.be.fulfilled();
+      return clientTestResult.should.be.fulfilled();
     });
 
     it('passes server tests', function() {
-      return runCmd('grunt test:server').should.be.fulfilled();
+      return serverTestResult.should.be.fulfilled();
     });
   });
 
   describe('with TypeScript, Jade, Jasmine, LESS, & OAuth', function() {
     var dir;
+    var jscsResult;
+    var lintResult;
+    var clientTestResult;
+    var serverTestResult;
     var testOptions = {
       buildtool: 'grunt',
       transpiler: 'ts',
@@ -242,9 +254,13 @@ describe('angular-fullstack:app', function() {
       uibootstrap: true
     };
 
-    beforeEach(function() {
+    before(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
+        jscsResult = runCmd('grunt jscs');
+        lintResult = runCmd('grunt tslint');
+        clientTestResult = runCmd('grunt test:client');
+        serverTestResult = runCmd('grunt test:server');
       });
     });
 
@@ -255,24 +271,24 @@ describe('angular-fullstack:app', function() {
     });
 
     it('passes JSCS', function() {
-      return runCmd('grunt jscs').should.be.fulfilled();
+      return jscsResult.should.be.fulfilled();
     });
 
     it('passes lint', function() {
-      return runCmd('grunt tslint').should.be.fulfilled();
+      return lintResult.should.be.fulfilled();
     });
 
     it('should run client tests successfully', function() {
-      return runCmd('grunt test:client').should.be.fulfilled();
+      return clientTestResult.should.be.fulfilled();
     });
 
     it('should run server tests successfully', function() {
-      return runCmd('grunt test:server').should.be.fulfilled();
+      return serverTestResult.should.be.fulfilled();
     });
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -295,6 +311,10 @@ describe('angular-fullstack:app', function() {
 
   describe('with sequelize models, auth', function() {
     var dir;
+    var jscsResult;
+    var lintResult;
+    var clientTestResult;
+    var serverTestResult;
     var testOptions = {
       buildtool: 'grunt',
       transpiler: 'babel',
@@ -313,6 +333,10 @@ describe('angular-fullstack:app', function() {
     beforeEach(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
+        jscsResult = runCmd('grunt jscs');
+        lintResult = runCmd('grunt jshint');
+        clientTestResult = runCmd('grunt test:client');
+        serverTestResult = runCmd('grunt test:server');
       });
     });
 
@@ -323,24 +347,24 @@ describe('angular-fullstack:app', function() {
     });
 
     it('passes JSCS', function() {
-      return runCmd('grunt jscs').should.be.fulfilled();
+      return jscsResult.should.be.fulfilled();
     });
 
     it('passes lint', function() {
-      return runCmd('grunt jshint').should.be.fulfilled();
+      return lintResult.should.be.fulfilled();
     });
 
     it('should run client tests successfully', function() {
-      return runCmd('grunt test:client').should.be.fulfilled();
+      return clientTestResult.should.be.fulfilled();
     });
 
     it('should run server tests successfully', function() {
-      return runCmd('grunt test:server').should.be.fulfilled();
+      return serverTestResult.should.be.fulfilled();
     });
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -363,6 +387,10 @@ describe('angular-fullstack:app', function() {
 
   describe('with TypeScript, Mocha + Chai (should) and no server options', function() {
     var dir;
+    var jscsResult;
+    var lintResult;
+    var clientTestResult;
+    var serverTestResult;
     var testOptions = {
       buildtool: 'grunt',
       transpiler: 'ts',
@@ -382,6 +410,10 @@ describe('angular-fullstack:app', function() {
     beforeEach(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
+        jscsResult = runCmd('grunt jscs');
+        lintResult = runCmd('grunt tslint');
+        clientTestResult = runCmd('grunt test:client');
+        serverTestResult = runCmd('grunt test:server');
       });
     });
 
@@ -392,24 +424,24 @@ describe('angular-fullstack:app', function() {
     });
 
     it('passes JSCS', function() {
-      return runCmd('grunt jscs').should.be.fulfilled();
+      return jscsResult.should.be.fulfilled();
     });
 
     it('passes lint', function() {
-      return runCmd('grunt tslint').should.be.fulfilled();
+      return lintResult.should.be.fulfilled();
     });
 
     it('should run client tests successfully', function() {
-      return runCmd('grunt test:client').should.be.fulfilled();
+      return clientTestResult.should.be.fulfilled();
     });
 
     it('should run server tests successfully', function() {
-      return runCmd('grunt test:server').should.be.fulfilled();
+      return serverTestResult.should.be.fulfilled();
     });
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
