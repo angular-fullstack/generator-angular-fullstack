@@ -164,7 +164,17 @@ describe('angular-fullstack:app', function() {
       });
     });
 
-    it('should run server tests successfully with generated snake-case endpoint'); //'foo-bar'
+    describe('with a generated snake-case endpoint', function() {
+      beforeEach(function() {
+        getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+          return runEndpointGen('foo-bar', {config: config['generator-angular-fullstack']});
+        });
+      });
+
+      it('should run server tests successfully', function() {
+        return runCmd('grunt test:server').should.be.fulfilled();
+      });
+    });
 
     if(!process.env.SKIP_E2E) {
       it('should run e2e tests successfully'); //'grunt test:e2e'
