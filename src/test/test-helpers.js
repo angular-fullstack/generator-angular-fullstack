@@ -8,6 +8,14 @@ import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
 import recursiveReadDir from 'recursive-readdir';
 
+const TEST_DIR = __dirname;
+
+/**
+ * Copy file from src to dest
+ * @param {string} src
+ * @param {string} dest
+ * @returns {Promise}
+ */
 export function copyAsync(src, dest) {
   return fs.readFileAsync(src)
     .then(data => fs.writeFileAsync(dest, data));
@@ -37,6 +45,13 @@ export function runCmd(cmd) {
   });
 }
 
+/**
+ * Assert that only the expected files are present
+ * @param {string[]} expectedFiles - array of expected files
+ * @param {string} [topLevelPath='./'] - root dir of expected files to recursively search
+ * @param {string[]} [skip=['node_modules','bower_components']] - files/folders recursiveReadDir should skip
+ * @returns {Promise}
+ */
 export function assertOnlyFiles(expectedFiles, topLevelPath='./', skip=['node_modules', 'bower_components']) {
   return new Promise((resolve, reject) => {
     recursiveReadDir(topLevelPath, skip, function(err, actualFiles) {
@@ -55,8 +70,62 @@ export function assertOnlyFiles(expectedFiles, topLevelPath='./', skip=['node_mo
   });
 }
 
-export function getConfig(path) {
+/**
+ * Read JSON from a file
+ * @param {string} path
+ * @returns {Promise} - parsed JSON
+ */
+export function readJSON(path) {
   return fs.readFileAsync(path, 'utf8').then(data => {
     return JSON.parse(data);
+  });
+}
+
+/**
+ * Run angular-fullstack:app
+ * @param {object} [prompts]
+ * @param {object} [opts={}]
+ * @param {boolean} [opts.copyConfigFile] - copy default .yo-rc.json
+ * @returns {Promise}
+ */
+export function runGen(prompts, opts={}) {
+  let options = opts.options || {skipInstall: true};
+
+  return new Promise((resolve, reject) => {
+    let dir;
+    let gen = helpers
+      .run(require.resolve('../generators/app'))
+      .inTmpDir(function(_dir) {
+        // this will create a new temporary directory for each new generator run
+        var done = this.async();
+        if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
+        dir = _dir;
+
+        let promises = [
+          fs.mkdirAsync(dir + '/client').then(() => {
+            return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
+          }),
+          fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
+        ];
+
+        if(opts.copyConfigFile) {
+          promises.push(copyAsync(path.join(TEST_DIR, 'fixtures/.yo-rc.json'), path.join(dir, '.yo-rc.json')));
+        }
+
+        // symlink our dependency directories
+        return Promise.all(promises).then(done);
+      })
+      .withGenerators([
+        require.resolve('../generators/endpoint'),
+        // [helpers.createDummyGenerator(), 'ng-component:app']
+      ])
+      // .withArguments(['upperCaseBug'])
+      .withOptions(options);
+
+    if(prompts) gen.withPrompts(prompts);
+
+    gen
+      .on('error', reject)
+      .on('end', () => resolve(dir));
   });
 }

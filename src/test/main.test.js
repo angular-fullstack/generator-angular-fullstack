@@ -10,7 +10,8 @@ import {
   copyAsync,
   runCmd,
   assertOnlyFiles,
-  getConfig
+  readJSON,
+  runGen
 } from './test-helpers';
 
 const defaultOptions = {
@@ -29,48 +30,6 @@ const defaultOptions = {
   socketio: true
 };
 const TEST_DIR = __dirname;
-
-function runGen(prompts, opts={}) {
-  let options = opts.options || {skipInstall: true};
-
-  return new Promise((resolve, reject) => {
-    let dir;
-    let gen = helpers
-      .run(require.resolve('../generators/app'))
-      .inTmpDir(function(_dir) {
-        // this will create a new temporary directory for each new generator run
-        var done = this.async();
-        if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
-        dir = _dir;
-
-        let promises = [
-          fs.mkdirAsync(dir + '/client').then(() => {
-            return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
-          }),
-          fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
-        ];
-
-        if(opts.copyConfigFile) {
-          promises.push(copyAsync(path.join(TEST_DIR, 'fixtures/.yo-rc.json'), path.join(dir, '.yo-rc.json')));
-        }
-
-        // symlink our dependency directories
-        return Promise.all(promises).then(done);
-      })
-      .withGenerators([
-        require.resolve('../generators/endpoint'),
-        // [helpers.createDummyGenerator(), 'ng-component:app']
-      ])
-      // .withArguments(['upperCaseBug'])
-      .withOptions(options);
-
-    if(prompts) gen.withPrompts(prompts);
-
-    gen
-      .on('error', reject)
-      .on('end', () => resolve(dir));
-  });
-}
 
 function runEndpointGen(name, opt={}) {
   let prompts = opt.prompts || {};
@@ -129,7 +88,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -141,7 +100,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated capitalized endpoint', function() {
       beforeEach(function() {
-        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('Foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -153,7 +112,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated path name endpoint', function() {
       beforeEach(function() {
-        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']});
         });
       });
@@ -165,7 +124,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated snake-case endpoint', function() {
       beforeEach(function() {
-        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo-bar', {config: config['generator-angular-fullstack']});
         });
       });
@@ -287,7 +246,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -363,7 +322,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
@@ -440,7 +399,7 @@ describe('angular-fullstack:app', function() {
 
     describe('with a generated endpoint', function() {
       beforeEach(function() {
-        return getConfig(path.join(dir, '.yo-rc.json')).then(config => {
+        return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });

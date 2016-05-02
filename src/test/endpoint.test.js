@@ -14,7 +14,8 @@ import {
   copyAsync,
   runCmd,
   assertOnlyFiles,
-  getConfig
+  readJSON,
+  runGen
 } from './test-helpers';
 
 const TEST_DIR = __dirname;
@@ -35,37 +36,6 @@ const defaultOptions = {
   oauth: [],
   socketio: true
 };
-function runGen(prompts) {
-  return new Promise((resolve, reject) => {
-    let dir;
-    helpers
-      .run(require.resolve('../generators/app'))
-      .inTmpDir(function(_dir) {
-        // this will create a new temporary directory for each new generator run
-        var done = this.async();
-        if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
-        dir = _dir;
-
-        // symlink our dependency directories
-        return Promise.all([
-          fs.mkdirAsync(dir + '/client').then(() => {
-            return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
-          }),
-          fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
-        ]).then(done);
-      })
-      .withGenerators([
-        require.resolve('../generators/endpoint'),
-        // [helpers.createDummyGenerator(), 'ng-component:app']
-      ])
-      .withOptions({
-        skipInstall: true
-      })
-      .withPrompts(prompts)
-      .on('error', reject)
-      .on('end', () => resolve(dir));
-  });
-}
 
 function runEndpointGen(name, opt={}) {
   let prompts = opt.prompts || {};
@@ -162,7 +132,7 @@ before(function() {
         jscs.configure(JSON.parse(data));
       });
     }),
-    getConfig(path.join(TEST_DIR, 'fixtures/.yo-rc.json')).then(_config => {
+    readJSON(path.join(TEST_DIR, 'fixtures/.yo-rc.json')).then(_config => {
       _config['generator-angular-fullstack'].insertRoutes = false;
       _config['generator-angular-fullstack'].pluralizeRoutes = false;
       _config['generator-angular-fullstack'].insertSockets = false;
