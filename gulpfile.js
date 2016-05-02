@@ -22,6 +22,7 @@ const mocha = lazypipe()
     .pipe(gulpMocha, {
         reporter: 'spec',
         timeout: 120000,
+        slow: 500,
         globals: {
             should: require('should')
         },
