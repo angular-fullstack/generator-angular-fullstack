@@ -3,11 +3,9 @@ import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
 import Promise from 'bluebird';
-Promise.promisifyAll(fs);
 import {exec} from 'child_process';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
-import * as getExpectedFiles from './get-expected-files';
 import recursiveReadDir from 'recursive-readdir';
 
 export function copyAsync(src, dest) {

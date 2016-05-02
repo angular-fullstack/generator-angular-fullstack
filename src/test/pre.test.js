@@ -1,19 +1,6 @@
 'use strict';
 import path from 'path';
-import fs from 'fs';
-import _ from 'lodash';
-import Promise from 'bluebird';
-Promise.promisifyAll(fs);
-import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
-import minimatch from 'minimatch';
-import * as getExpectedFiles from './get-expected-files';
-import {
-  copyAsync,
-  runCmd,
-  assertOnlyFiles,
-  getConfig
-} from './test-helpers';
 
 describe('test fixtures', function() {
   it('should have package.json in fixtures', function() {
