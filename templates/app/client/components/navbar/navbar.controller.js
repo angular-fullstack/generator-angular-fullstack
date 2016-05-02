@@ -9,13 +9,19 @@ class NavbarController {
 
   isCollapsed = true;
   //end-non-standard
+  <%_ if(filters.ngroute || filters.auth) { _%>
 
-  constructor(<% if(!filters.uirouter) { %>$location<% } if(!filters.uirouter && filters.auth) { %>, <% } if (filters.auth) { %>Auth<% } %>) {<% if(!filters.uirouter) { %>
-    this.$location = $location;<% } %>
-    <% if (filters.auth) { %>this.isLoggedIn = Auth.isLoggedIn;
+  constructor(<% if(!filters.uirouter) { %>$location<% } if(!filters.uirouter && filters.auth) { %>, <% } if (filters.auth) { %>Auth<% } %>) {
+    <%_ if(!filters.uirouter) { _%>
+    this.$location = $location;
+    <%_ } _%>
+    <%_ if (filters.auth) { _%>
+    this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
-  <% } %>}<% if(!filters.uirouter) { %>
+    <%_ } _%>
+  }<% } %>
+  <%_ if(!filters.uirouter) { _%>
 
   isActive(route) {
     return route === this.$location.path();

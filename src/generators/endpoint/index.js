@@ -22,7 +22,7 @@ export class Generator extends Base {
     });
 
     this.option('endpointDirectory', {
-      desc: 'Parent directory for enpoints',
+      desc: 'Parent directory for endpoints',
       type: String
     });
   }
