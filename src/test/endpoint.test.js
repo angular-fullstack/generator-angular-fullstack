@@ -1,0 +1,253 @@
+'use strict';
+import path from 'path';
+import fs from 'fs';
+import _ from 'lodash';
+import Promise from 'bluebird';
+import helpers from 'yeoman-test';
+import assert from 'yeoman-assert';
+import minimatch from 'minimatch';
+import Checker from 'jscs';
+const jscs = new Checker();
+jscs.registerDefaultRules();
+import * as getExpectedFiles from './get-expected-files';
+import {
+  copyAsync,
+  runCmd,
+  assertOnlyFiles,
+  readJSON,
+  runGen
+} from './test-helpers';
+
+const TEST_DIR = __dirname;
+
+const defaultOptions = {
+  buildtool: 'grunt',
+  script: 'js',
+  transpiler: 'babel',
+  markup: 'html',
+  stylesheet: 'sass',
+  router: 'uirouter',
+  testing: 'mocha',
+  chai: 'expect',
+  bootstrap: true,
+  uibootstrap: true,
+  odms: ['mongoose'],
+  auth: true,
+  oauth: [],
+  socketio: true
+};
+
+function runEndpointGen(name, opt={}) {
+  let prompts = opt.prompts || {};
+  let options = opt.options || {};
+  let config = opt.config;
+
+  return new Promise((resolve, reject) => {
+    let dir;
+    let gen = helpers
+      .run(require.resolve('../generators/endpoint'))
+      .inTmpDir(function(_dir) {
+        // this will create a new temporary directory for each new generator run
+        var done = this.async();
+        if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
+        dir = _dir;
+
+        // symlink our dependency directories
+        return Promise.all([
+          fs.mkdirAsync(dir + '/client').then(() => {
+            return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
+          }),
+          fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
+        ]).then(done);
+      })
+      .withOptions(options)
+      .withArguments([name])
+      .withPrompts(prompts);
+
+    if(config) {
+      gen
+        .withLocalConfig(config);
+    }
+
+    gen
+      .on('error', reject)
+      .on('end', () => resolve(dir));
+  });
+}
+
+let jshintCmd = path.join(TEST_DIR, '/fixtures/node_modules/.bin/jshint');
+function testFile(command, _path) {
+  _path = path.normalize(_path);
+  return fs.accessAsync(_path, fs.R_OK).then(() => {
+    return runCmd(`${command} ${_path}`);
+  });
+}
+
+function jshintDir(dir, name, folder) {
+  if(!folder) folder = name;
+  let endpointDir = path.join(dir, 'server/api', folder);
+
+  let regFiles = fs.readdirAsync(endpointDir)
+    .then(files => files.filter(file => minimatch(file, '**/!(*.spec|*.mock|*.integration).js', {dot: true})))
+    .map(file => testFile(jshintCmd, path.join('./server/api/', folder, file)));
+
+  let specFiles = fs.readdirAsync(endpointDir)
+    .then(files => files.filter(file => minimatch(file, '**/+(*.spec|*.mock|*.integration).js', {dot: true})))
+    .map(file => testFile(`${jshintCmd} --config server/.jshintrc-spec`, path.join('./server/api/', folder, file)));
+
+  return Promise.all([regFiles, specFiles]);
+}
+function jscsDir(dir, name, folder) {
+  if(!folder) folder = name;
+  let endpointDir = path.join(dir, 'server/api', folder);
+
+  return fs.readdirAsync(endpointDir).then(files => {
+    return Promise.map(files, file => {
+      return fs.readFileAsync(path.join('server/api', folder, file), 'utf8').then(data => {
+        let results = jscs.checkString(data)
+        let errors = results.getErrorList();
+        if(errors.length === 0) {
+          return Promise.resolve();
+        } else {
+          errors.forEach(error => {
+            var colorizeOutput = true;
+            console.log(results.explainError(error, colorizeOutput) + '\n');
+          });
+          return Promise.reject();
+        }
+      });
+    });
+  });
+}
+
+var config;
+var genDir;
+
+before(function() {
+  return Promise.all([
+    runGen(defaultOptions).then(_dir => {
+      genDir = _dir;
+
+      return fs.readFileAsync(path.join(genDir, '.jscsrc'), 'utf8').then(data => {
+        jscs.configure(JSON.parse(data));
+      });
+    }),
+    readJSON(path.join(TEST_DIR, 'fixtures/.yo-rc.json')).then(_config => {
+      _config['generator-angular-fullstack'].insertRoutes = false;
+      _config['generator-angular-fullstack'].pluralizeRoutes = false;
+      _config['generator-angular-fullstack'].insertSockets = false;
+      _config['generator-angular-fullstack'].insertModels = false;
+      config = _config;
+    })
+  ]);
+});
+
+describe('angular-fullstack:endpoint', function() {
+  describe(`with a generated endpont 'foo'`, function() {
+    var dir;
+    beforeEach(function() {
+      return runEndpointGen('foo', {config: config['generator-angular-fullstack']}).then(_dir => {
+        dir = _dir;
+
+        return Promise.all([
+          copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
+        ]);
+      });
+    });
+
+    it('should generate the expected files', function() {
+      assert.file(getExpectedFiles.endpoint('foo'));
+    });
+
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'foo').should.be.fulfilled();
+    });
+
+    it('should pass lint', function() {
+      return jshintDir(dir, 'foo').should.be.fulfilled();
+    });
+  });
+
+  describe('with a generated capitalized endpont', function() {
+    var dir;
+    beforeEach(function() {
+      return runEndpointGen('Foo', {config: config['generator-angular-fullstack']}).then(_dir => {
+        dir = _dir;
+
+        return Promise.all([
+          copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
+        ]);
+      });
+    });
+
+    it('should generate the expected files', function() {
+      assert.file(getExpectedFiles.endpoint('Foo'));
+    });
+
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'Foo').should.be.fulfilled();
+    });
+
+    it('should pass lint', function() {
+      return jshintDir(dir, 'Foo').should.be.fulfilled();
+    });
+  });
+
+  describe('with a generated path name endpont', function() {
+    var dir;
+    beforeEach(function() {
+      return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']}).then(_dir => {
+        dir = _dir;
+
+        return Promise.all([
+          copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
+        ]);
+      });
+    });
+
+    it('should generate the expected files', function() {
+      assert.file(getExpectedFiles.endpoint('bar', 'foo/bar'));
+    });
+
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'foo', 'foo/bar').should.be.fulfilled();
+    });
+
+    it('should pass lint', function() {
+      return jshintDir(dir, 'foo', 'foo/bar').should.be.fulfilled();
+    });
+  });
+
+  describe('with a generated snake-case endpoint', function() {
+    var dir;
+    beforeEach(function() {
+      return runEndpointGen('foo-bar', {config: config['generator-angular-fullstack']}).then(_dir => {
+        dir = _dir;
+
+        return Promise.all([
+          copyAsync(path.join(genDir, '/server/.jshintrc'), './server/.jshintrc'),
+          copyAsync(path.join(genDir, '/server/.jshintrc-spec'), './server/.jshintrc-spec'),
+          copyAsync(path.join(genDir, '/.jscsrc'), './.jscsrc')
+        ]);
+      });
+    });
+
+    it('should generate the expected files', function() {
+      assert.file(getExpectedFiles.endpoint('foo-bar'));
+    });
+
+    it('should pass jscs', function() {
+      return jscsDir(dir, 'foo-bar').should.be.fulfilled();
+    });
+
+    it('should pass lint', function() {
+      return jshintDir(dir, 'foo-bar').should.be.fulfilled();
+    });
+  });
+});
