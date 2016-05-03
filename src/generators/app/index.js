@@ -63,16 +63,15 @@ export class Generator extends Base {
         this.log('Out of the box I create an AngularJS app with an Express server.\n');
       },
       checkForConfig: function() {
-        var cb = this.async();
         var existingFilters = this.config.get('filters');
 
         if(existingFilters) {
-          this.prompt([{
+          return this.prompt([{
             type: 'confirm',
             name: 'skipConfig',
             message: 'Existing .yo-rc configuration found, would you like to use it?',
             default: true,
-          }], answers => {
+          }]).then(answers => {
             this.skipConfig = answers.skipConfig;
 
             if(this.skipConfig) {
@@ -92,11 +91,7 @@ export class Generator extends Base {
               this.config.set('filters', this.filters);
               this.config.forceSave();
             }
-
-            cb();
           });
-        } else {
-          cb();
         }
       }
     };
@@ -106,11 +101,10 @@ export class Generator extends Base {
     return {
       clientPrompts: function() {
         if(this.skipConfig) return;
-        var cb = this.async();
 
         this.log('# Client\n');
 
-        this.prompt([{
+        return this.prompt([{
             type: 'list',
             name: 'transpiler',
             message: 'What would you like to write scripts with?',
@@ -156,7 +150,7 @@ export class Generator extends Base {
             name: 'uibootstrap',
             message: 'Would you like to include UI Bootstrap?',
             when: answers => answers.bootstrap
-          }], answers => {
+          }]).then(answers => {
             this.filters.js = true;
             this.filters[answers.transpiler] = true;
             insight.track('transpiler', answers.transpiler);
@@ -184,18 +178,15 @@ export class Generator extends Base {
 
             var styleExt = {sass: 'scss', stylus: 'styl'}[answers.stylesheet];
             this.styleExt = styleExt ? styleExt : answers.stylesheet;
-
-            cb();
           });
       },
       serverPrompts: function() {
         if(this.skipConfig) return;
-        var cb = this.async();
         var self = this;
 
         this.log('\n# Server\n');
 
-        this.prompt([{
+        return this.prompt([{
           type: 'checkbox',
           name: 'odms',
           message: 'What would you like to use for data modeling?',
@@ -245,7 +236,7 @@ export class Generator extends Base {
           // to-do: should not be dependent on ODMs
           when: answers => answers.odms && answers.odms.length !== 0,
           default: true
-        }], answers => {
+        }]).then(answers => {
           if(answers.socketio) this.filters.socketio = true;
           insight.track('socketio', !!answers.socketio);
 
@@ -284,18 +275,15 @@ export class Generator extends Base {
           insight.track('google-oauth', !!this.filters['googleAuth']);
           insight.track('facebook-oauth', !!this.filters['facebookAuth']);
           insight.track('twitter-oauth', !!this.filters['twitterAuth']);
-
-          cb();
         });
       },
       projectPrompts: function() {
         if(this.skipConfig) return;
-        var cb = this.async();
         var self = this;
 
         this.log('\n# Project\n');
 
-        this.prompt([{
+        return this.prompt([{
           type: 'list',
           name: 'buildtool',
           message: 'Would you like to use Gulp or Grunt?',
@@ -320,7 +308,7 @@ export class Generator extends Base {
           choices: ['Expect', 'Should'],
           filter: val => val.toLowerCase(),
           when: answers => answers.testing === 'mocha'
-        }], answers => {
+        }]).then(answers => {
           this.filters[answers.buildtool] = true;
           insight.track('buildtool', answers.buildtool);
 
@@ -338,8 +326,6 @@ export class Generator extends Base {
             this.filters.should = false;
             this.filters.expect = false;
           }
-
-          cb();
         });
       }
     };

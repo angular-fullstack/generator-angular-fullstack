@@ -33,7 +33,6 @@ export class Generator extends Base {
   }
 
   prompting() {
-    var done = this.async();
     var promptCb = (props) => {
       if(props.route.charAt(0) !== '/') {
         props.route = '/' + props.route;
@@ -50,7 +49,6 @@ export class Generator extends Base {
         this.filters[props.models] = true;
         this.filters[props.models + 'Models'] = true;
       }
-      done();
     };
 
     if (this.options.route) {
@@ -92,7 +90,7 @@ export class Generator extends Base {
       when: () => this.filters.mongoose && this.filters.sequelize
     }];
 
-    this.prompt(prompts, promptCb);
+    return this.prompt(prompts).then(promptCb);
   }
 
   configuring() {
