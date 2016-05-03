@@ -35,7 +35,7 @@ const transpile = lazypipe()
     .pipe(babel);
 
 gulp.task('clean', () => {
-    return del(['generators/**/*']);
+    return del(['generators/**/*', './test/(**|!fixtures/node_modules|!fixtures/bower_components)/*']);
 });
 
 gulp.task('babel', () => {
