@@ -91,41 +91,36 @@ export function readJSON(path) {
 export function runGen(prompts, opts={}) {
   let options = opts.options || {skipInstall: true};
 
-  return new Promise((resolve, reject) => {
-    let dir;
-    let gen = helpers
-      .run(require.resolve('../generators/app'))
-      .inTmpDir(function(_dir) {
-        // this will create a new temporary directory for each new generator run
-        var done = this.async();
-        if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
-        dir = _dir;
+  // let dir;
+  let gen = helpers
+    .run(require.resolve('../generators/app'))
+    .inTmpDir(function(dir) {
+      // this will create a new temporary directory for each new generator run
+      var done = this.async();
+      if(DEBUG) console.log(`TEMP DIR: ${dir}`);
 
-        let promises = [
-          fs.mkdirAsync(dir + '/client').then(() => {
-            return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
-          }),
-          fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
-        ];
+      let promises = [
+        fs.mkdirAsync(dir + '/client').then(() => {
+          return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
+        }),
+        fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
+      ];
 
-        if(opts.copyConfigFile) {
-          promises.push(copyAsync(path.join(TEST_DIR, 'fixtures/.yo-rc.json'), path.join(dir, '.yo-rc.json')));
-        }
+      if(opts.copyConfigFile) {
+        promises.push(copyAsync(path.join(TEST_DIR, 'fixtures/.yo-rc.json'), path.join(dir, '.yo-rc.json')));
+      }
 
-        // symlink our dependency directories
-        return Promise.all(promises).then(done);
-      })
-      .withGenerators([
-        require.resolve('../generators/endpoint'),
-        // [helpers.createDummyGenerator(), 'ng-component:app']
-      ])
-      // .withArguments(['upperCaseBug'])
-      .withOptions(options);
+      // symlink our dependency directories
+      return Promise.all(promises).then(done);
+    })
+    .withGenerators([
+      require.resolve('../generators/endpoint'),
+      // [helpers.createDummyGenerator(), 'ng-component:app']
+    ])
+    // .withArguments(['upperCaseBug'])
+    .withOptions(options);
 
-    if(prompts) gen.withPrompts(prompts);
+  if(prompts) gen.withPrompts(prompts);
 
-    gen
-      .on('error', reject)
-      .on('end', () => resolve(dir));
-  });
+  return gen.toPromise();
 }
