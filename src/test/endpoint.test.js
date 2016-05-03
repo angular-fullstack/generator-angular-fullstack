@@ -123,26 +123,26 @@ function jscsDir(dir, name, folder) {
 var config;
 var genDir;
 
-before(function() {
-  return Promise.all([
-    runGen(defaultOptions).then(_dir => {
-      genDir = _dir;
-
-      return fs.readFileAsync(path.join(genDir, '.jscsrc'), 'utf8').then(data => {
-        jscs.configure(JSON.parse(data));
-      });
-    }),
-    readJSON(path.join(TEST_DIR, 'fixtures/.yo-rc.json')).then(_config => {
-      _config['generator-angular-fullstack'].insertRoutes = false;
-      _config['generator-angular-fullstack'].pluralizeRoutes = false;
-      _config['generator-angular-fullstack'].insertSockets = false;
-      _config['generator-angular-fullstack'].insertModels = false;
-      config = _config;
-    })
-  ]);
-});
-
 describe('angular-fullstack:endpoint', function() {
+  before(function() {
+    return Promise.all([
+      runGen(defaultOptions).then(_dir => {
+        genDir = _dir;
+
+        return fs.readFileAsync(path.join(genDir, '.jscsrc'), 'utf8').then(data => {
+          jscs.configure(JSON.parse(data));
+        });
+      }),
+      readJSON(path.join(TEST_DIR, 'fixtures/.yo-rc.json')).then(_config => {
+        _config['generator-angular-fullstack'].insertRoutes = false;
+        _config['generator-angular-fullstack'].pluralizeRoutes = false;
+        _config['generator-angular-fullstack'].insertSockets = false;
+        _config['generator-angular-fullstack'].insertModels = false;
+        config = _config;
+      })
+    ]);
+  });
+
   describe(`with a generated endpont 'foo'`, function() {
     var dir;
     beforeEach(function() {
