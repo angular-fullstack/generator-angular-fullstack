@@ -291,6 +291,7 @@ describe('angular-fullstack:app', function() {
       bootstrap: true,
       uibootstrap: true
     };
+    this.retries(3);  // Sequelize seems to be quite flaky
 
     beforeEach(function() {
       return runGen(testOptions).then(_dir => {
