@@ -95,6 +95,9 @@ UserSchema
   .path('email')
   .validate(function(value, respond) {
     var self = this;
+    if (authTypes.indexOf(this.provider) !== -1) {
+      return respond(true);
+    }
     return this.constructor.findOne({ email: value }).exec()
       .then(function(user) {
         if (user) {
