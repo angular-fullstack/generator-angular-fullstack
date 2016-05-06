@@ -39,7 +39,7 @@ export class Generator extends Base {
         this.filters = {};
 
         // init shared generator properies and methods
-        genBase(this);
+        const genBasePromise = genBase(this);
 
         insight.track('generator', this.rootGeneratorVersion());
         this.nodeVersion = semver.clean(process.version);
@@ -53,10 +53,12 @@ export class Generator extends Base {
           insight.askPermission(null, cb);
         }
 
-        return runCmd('npm --version').then(stdout => {
+        const npmVersionPromise = runCmd('npm --version').then(stdout => {
           this.npmVersion = stdout.toString().trim();
           return insight.track('npm', this.npmVersion);
         });
+
+        return Promise.all([genBasePromise, npmVersionPromise]);
       },
       info: function () {
         this.log(this.yoWelcome);
