@@ -3,6 +3,34 @@
 import path from 'path';
 import fs from 'fs';
 import glob from 'glob';
+import Promise from 'bluebird';
+import {exec} from 'child_process';
+
+const DEBUG = !!process.env.DEBUG;
+
+/**
+ * @callback doneCallback
+ * @param {null|Error} err
+ */
+
+/**
+ * Run the given command in a child process
+ * @param {string} cmd - command to run
+ * @returns {Promise}
+ */
+export function runCmd(cmd) {
+  return new Promise((resolve, reject) => {
+    exec(cmd, {}, function(err, stdout, stderr) {
+      if(err) {
+        console.error(stdout);
+        return reject(err);
+      } else {
+        if(DEBUG) console.log(`${cmd} stdout: ${stdout}`);
+        return resolve(stdout);
+      }
+    });
+  });
+}
 
 function expandFiles(pattern, options) {
   options = options || {};

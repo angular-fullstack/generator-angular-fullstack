@@ -46,6 +46,7 @@
     "gulp-filter": "^4.0.0",
     "insight": "~0.8.1",
     "lodash": "^4.6.1",
+    "semver": "^5.1.0",
     "underscore.string": "^3.1.1",
     "yeoman-generator": "~0.23.3",
     "yeoman-welcome": "^1.0.1"

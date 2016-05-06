@@ -17,7 +17,9 @@ import lusca from 'lusca';
 import config from './environment';<% if (filters.auth) { %>
 import passport from 'passport';<% } %>
 import session from 'express-session';<% if (filters.mongoose) { %>
-import connectMongo from 'connect-mongo';
+<%_ if(semver.satisfies(nodeVersion, '>= 4')) { _%>
+import connectMongo from 'connect-mongo';<% } else { _%>
+import connectMongo from 'connect-mongo/es5';<% } %>
 import mongoose from 'mongoose';
 var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';

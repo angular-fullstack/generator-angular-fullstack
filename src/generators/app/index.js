@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { runCmd } from '../util';
 import chalk from 'chalk';
 import {Base} from 'yeoman-generator';
 import {genBase} from '../generator-base';
@@ -10,6 +11,7 @@ import {exec} from 'child_process';
 import babelStream from 'gulp-babel';
 import beaufityStream from 'gulp-beautify';
 import filter from 'gulp-filter';
+import semver from 'semver';
 
 export class Generator extends Base {
   constructor(...args) {
@@ -33,32 +35,30 @@ export class Generator extends Base {
   get initializing() {
     return {
       init: function () {
-        var cb = this.async();
-
         this.config.set('generatorVersion', this.rootGeneratorVersion());
         this.filters = {};
 
         // init shared generator properies and methods
         genBase(this);
 
-        if(process.env.CI) {
-          insight.optOut = true;
-          return cb();
-        } else if(insight.optOut === undefined) {
-          insight.askPermission(null, cb);
-        } else {
-          return cb();
-        }
-      },
-      info: function () {
         insight.track('generator', this.rootGeneratorVersion());
-        insight.track('node', process.version);
-        exec('npm --version', (err, stdin, stderr) => {
-          if(err || stderr.length > 0) return insight.track('npm', 'error');
-          else return insight.track('npm', stdin.toString().trim());
-        });
+        this.nodeVersion = semver.clean(process.version);
+        this.semver = semver;
+        insight.track('node', this.nodeVersion);
         insight.track('platform', process.platform);
 
+        if(process.env.CI) {
+          insight.optOut = true;
+        } else if(insight.optOut === undefined) {
+          insight.askPermission(null, cb);
+        }
+
+        return runCmd('npm --version').then(stdout => {
+          this.npmVersion = stdout.toString().trim();
+          return insight.track('npm', this.npmVersion);
+        });
+      },
+      info: function () {
         this.log(this.yoWelcome);
         this.log('Out of the box I create an AngularJS app with an Express server.\n');
       },
