@@ -387,6 +387,7 @@ export class Generator extends Base {
             'directiveDirectory': appPath,
             'filterDirectory': appPath,
             'serviceDirectory': appPath,
+            'componentDirectory': `${appPath}components/`,
             'filters': filters,
             'extensions': extensions,
             'basePath': 'client',
