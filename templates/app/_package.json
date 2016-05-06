@@ -149,24 +149,22 @@
     "chai-as-promised": "^5.1.0",
     "chai-things": "^0.2.0",
     "karma": "~0.13.3",
-    "karma-firefox-launcher": "~0.1.6",
-    "karma-script-launcher": "~0.2.0",
-    "karma-chrome-launcher": "~0.2.0",
-    "karma-requirejs": "~0.2.2",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-script-launcher": "^1.0.0",
+    "karma-chrome-launcher": "^1.0.1",
     "karma-jade-preprocessor": "0.0.11",
     "karma-phantomjs-launcher": "~1.0.0",<% if (filters.jade) { %>
     "karma-ng-jade2js-preprocessor": "^0.2.0",<% } %>
-    "karma-ng-html2js-preprocessor": "~0.2.0",
+    "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-spec-reporter": "~0.0.20",
     "sinon-chai": "^2.8.0",
     "mocha": "^2.2.5",<% if (filters.mocha) { %>
-    "karma-mocha": "^0.2.0",
+    "karma-mocha": "^1.0.1",
     "karma-chai-plugins": "~0.7.0",<% } if (filters.jasmine) { %>
     "jasmine-core": "^2.3.4",
-    "karma-jasmine": "~0.3.0",
+    "karma-jasmine": "^1.0.2",
     "jasmine-spec-reporter": "^2.4.0",<% } if(filters.babel) { %>
     "karma-babel-preprocessor": "^6.0.1",<% } %>
-    "requirejs": "~2.2.0",
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
     "supertest": "^1.1.0"<% if(filters.ts) { %>,
