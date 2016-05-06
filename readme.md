@@ -12,10 +12,6 @@
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
 
-## Example project
-
-Source code: https://github.com/DaftMonk/fullstack-demo
-
 ## Usage
 
 Install `yo`, `grunt-cli`/`gulp-cli`, `bower`, and `generator-angular-fullstack`:
