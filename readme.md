@@ -49,7 +49,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Client**
 
-* Scripts: `Babel`, `TypeScript`
+* Scripts: `JavaScript (Babel)`, `TypeScript`
 * Markup:  `HTML`, `Jade`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
@@ -58,7 +58,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Server**
 
-* Scripts: `Babel`
+* Scripts: `JavaScript (Babel)`
 * Database:
   * `None`,
   * `MongoDB`, `SQL`
@@ -68,14 +68,15 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 ## Injection
 
-A grunt task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
+A grunt/gulp task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
 
 * `less` files into `client/app/app.less`
 * `scss` files into `client/app/app.scss`
 * `stylus` files into `client/app/app.styl`
 * `css` files into `client/index.html`
 * `js` files into `client/index.html`
-* `babel` temp `js` files into `client/index.html`
+* `babel`/`typescript` temp `js` files into `client/index.html`
+* `typescript types` into `tsconfig.client.json` & `tsconfig.client.test.json`
 
 ## Generators
 
