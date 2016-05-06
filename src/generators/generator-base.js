@@ -14,11 +14,17 @@ lodash.mixin(s.exports());
 export function genBase(self) {
   self = self || this;
 
-  let yoCheckPromise = genUtils.runCmd('yo --version').then(stdout => {
-    if(!semver.satisfies(semver.clean(stdout), '>= 1.7.1')) {
-      throw new Error('ERROR: You need to update yo to at least 1.7.1 (npm i -g yo)');
-    }
-  });
+  let yoCheckPromise;
+  if(!process.env.CI) {
+    yoCheckPromise = genUtils.runCmd('yo --version').then(stdout => {
+      if(!semver.satisfies(semver.clean(stdout), '>= 1.7.1')) {
+        throw new Error('ERROR: You need to update yo to at least 1.7.1 (npm i -g yo)');
+      }
+    });
+  } else {
+    // CI won't have yo installed
+    yoCheckPromise = Promise.resolve();
+  }
 
   self.lodash = lodash;
   self.yoWelcome = yoWelcome;
