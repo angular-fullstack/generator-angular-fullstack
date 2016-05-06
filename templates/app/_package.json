@@ -128,7 +128,7 @@
     "grunt-angular-templates": "^1.0.3",
     "grunt-dom-munger": "^3.4.0",
     "grunt-protractor-runner": "^3.1.0",
-    "grunt-injector": "^1.0.0",
+    "grunt-injector": "~0.6.0 ",
     "grunt-karma": "^1.0.0",
     "grunt-build-control": "^0.7.0",<% if(filters.sass) { %>
     "grunt-sass": "^1.1.0",<% } %><% if(filters.stylus) { %>
