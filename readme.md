@@ -271,6 +271,8 @@ Produces
 
 ###Openshift
 
+> Note: Openshift uses a quite old version of Node by default. We strongly recommend updating your Node version. [Here's a helpful article](https://blog.openshift.com/any-version-of-nodejs-you-want-in-the-cloud-openshift-does-it-paas-style/).
+
 Deploying to OpenShift can be done in just a few steps:
 
     yo angular-fullstack:openshift
