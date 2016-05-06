@@ -51,7 +51,7 @@
     "gulp-babel": "^6.1.2",<% if(filters.ts) { %>
     "gulp-typescript": "~2.13.0",
     "gulp-tsd": "~0.1.0",
-    "gulp-tslint": "^4.3.0",<% } %>
+    "gulp-tslint": "^5.0.0",<% } %>
     "gulp-cache": "^0.4.2",
     "gulp-concat": "^2.6.0",
     "gulp-env": "^0.4.0",
@@ -128,8 +128,8 @@
     "grunt-angular-templates": "^1.0.3",
     "grunt-dom-munger": "^3.4.0",
     "grunt-protractor-runner": "^3.1.0",
-    "grunt-injector": "^0.6.0",
-    "grunt-karma": "~0.12.0",
+    "grunt-injector": "^1.0.0",
+    "grunt-karma": "^1.0.0",
     "grunt-build-control": "^0.7.0",<% if(filters.sass) { %>
     "grunt-sass": "^1.1.0",<% } %><% if(filters.stylus) { %>
     "grunt-contrib-stylus": "^1.2.0",<% } %>
@@ -141,7 +141,7 @@
     "grunt-mocha-test": "~0.12.7",
     "grunt-mocha-istanbul": "^4.0.2",<% } /*end grunt*/ %>
     "open": "~0.0.4",
-    "jshint-stylish": "~2.1.0",
+    "jshint-stylish": "^2.2.0",
     "connect-livereload": "^0.5.3",
     "istanbul": "~0.4.1",
     "chai": "^3.2.0",
