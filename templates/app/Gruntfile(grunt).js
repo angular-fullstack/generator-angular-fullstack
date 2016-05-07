@@ -705,6 +705,10 @@ module.exports = function(grunt) {
 
     // Compiles Less to CSS
     less: {
+      options: {
+        sourceMap: true,
+        sourceMapFileInline: true
+      },
       server: {
         files: {
           '.tmp/app/app.css' : '<%%= yeoman.client %>/app/app.less'
