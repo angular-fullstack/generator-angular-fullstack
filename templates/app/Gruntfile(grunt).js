@@ -664,19 +664,8 @@ module.exports = function(grunt) {
       }
     },
 
-    tsd: {
-      install: {
-        options: {
-          command: 'reinstall',
-          config: './tsd.json'
-        }
-      },
-      install_test: {
-        options: {
-          command: 'reinstall',
-          config: './tsd_test.json'
-        }
-      }
+    typings: {
+      install: {}
     },<% } %><% if(filters.stylus) { %>
 
     // Compiles Stylus to CSS
@@ -856,7 +845,7 @@ module.exports = function(grunt) {
         'clean:server',
         'env:all',
         'concurrent:pre',<% if(filters.ts) { %>
-        'tsd',<% } %>
+        'typings',<% } %>
         'concurrent:server',
         'injector',
         'wiredep:client',
@@ -869,7 +858,7 @@ module.exports = function(grunt) {
       'clean:server',
       'env:all',
       'concurrent:pre',<% if(filters.ts) { %>
-      'tsd',<% } %>
+      'typings',<% } %>
       'concurrent:server',
       'injector',
       'wiredep:client',
@@ -901,7 +890,7 @@ module.exports = function(grunt) {
         'concurrent:pre',<% if(filters.ts) { %>
         'ts:client',
         'ts:client_test',
-        'tsd',<% } %>
+        'typings',<% } %>
         'concurrent:test',
         'injector',
         'postcss',
@@ -923,8 +912,7 @@ module.exports = function(grunt) {
           'env:all',
           'env:test',
           'concurrent:pre',<% if(filters.ts) { %>
-          'tsd:install',
-          'tsd:install_test',
+          'typings',
           'ts:client',
           'ts:client_test',<% } %>
           'concurrent:test',
@@ -971,7 +959,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'concurrent:pre',<% if(filters.ts) { %>
-    'tsd',<% } %>
+    'typings',<% } %>
     'concurrent:dist',
     'injector',
     'wiredep:client',

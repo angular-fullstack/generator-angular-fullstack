@@ -2,11 +2,12 @@
     "compilerOptions": {
         "sourceMap": true,
         "rootDir": "./client",
-        "outDir": ".tmp"
+        "outDir": ".tmp",
+        "target": "ES5"
     },
     "filesGlob": [
         "client/{app,components}/**/!(*.spec).ts",
-        "client/typings/**/*.d.ts"
+        "typings/main.d.ts"
     ],
     "files": [
         "client/app/account/account.ts",
@@ -36,10 +37,6 @@
         "client/components/ui-router/ui-router.mock.ts",
         "client/components/util/util.module.ts",
         "client/components/util/util.service.ts",
-        "client/typings/angularjs/angular.d.ts",
-        "client/typings/jquery/jquery.d.ts",
-        "client/typings/lodash/lodash.d.ts",
-        "client/typings/socket.io-client/socket.io-client.d.ts",
-        "client/typings/tsd.d.ts"
+        "typings/main.d.ts"
     ]
 }
