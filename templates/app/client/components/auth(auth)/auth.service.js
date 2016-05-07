@@ -1,8 +1,7 @@
 'use strict';
 
-(function() {
-
-function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+  'ngInject';
   var safeCb = Util.safeCb;
   var currentUser = {};
   var userRoles = appConfig.userRoles || [];
@@ -182,8 +181,3 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
 
   return Auth;
 }
-
-angular.module('<%= scriptAppName %>.auth')
-  .factory('Auth', AuthService);
-
-})();

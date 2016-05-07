@@ -1,6 +1,7 @@
 'use strict';
 
-class LoginController {
+export default class LoginController {
+  /*@ngInject*/
   constructor(Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
     this.user = {};
     this.errors = {};
@@ -29,6 +30,3 @@ class LoginController {
     }
   }
 }
-
-angular.module('<%= scriptAppName %>')
-  .controller('LoginController', LoginController);

@@ -3,6 +3,24 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    <%_ /* CLIENT */ _%>
+    "angular": "~1.5.5",<% if(filters.bootstrap) { if(filters.sass) { %>
+    "bootstrap-sass": "~3.1.1",<% } %>
+    "bootstrap": "~3.1.1",<% if(filters.oauth) { %>
+    "bootstrap-social": "~4.9.1",<% }} %>
+    "angular-animate": "~1.5.5",
+    "angular-aria": "~1.5.5",
+    "angular-resource": "~1.5.5",
+    "angular-cookies": "~1.5.5",
+    "angular-sanitize": "~1.5.5",<% if(filters.ngroute) { %>
+    "angular-route": "~1.5.5",<% } if(filters.uibootstrap) { %>
+    "angular-ui-bootstrap": "~1.1.2",<% } %>
+    "font-awesome": ">=4.1.0",<% if(filters.socketio) { %>
+    "angular-socket-io": "~0.7.0",<% } if(filters.uirouter) { %>
+    "angular-ui-router": "~0.2.15",<% } if(filters.auth) { %>
+    "angular-validation-match": "~1.5.2",<% } %>
+    <%_ /* END CLIENT */ _%>
+    "core-js": "^2.2.1",
     "express": "^4.13.3",
     "morgan": "~1.7.0",
     "body-parser": "^1.13.3",
@@ -15,28 +33,32 @@
     "lodash": "^4.6.1",
     "lusca": "^1.3.0",
     "babel-runtime": "^6.6.1",
-    "babel-polyfill": "^6.7.2",<% if (filters.jade) { %>
-    "jade": "^1.11.0",<% } %><% if (filters.html) { %>
-    "ejs": "^2.3.3",<% } %><% if (filters.mongoose) { %>
+    "babel-polyfill": "^6.7.2",<% if(filters.jade) { %>
+    "jade": "^1.11.0",<% } %><% if(filters.html) { %>
+    "ejs": "^2.3.3",<% } %><% if(filters.mongoose) { %>
     "mongoose": "^4.1.2",
     "bluebird": "^3.3.3",
-    "connect-mongo": "^1.1.0",<% } %><% if (filters.sequelize) { %>
+    "connect-mongo": "^1.1.0",<% } %><% if(filters.sequelize) { %>
     "sequelize": "^3.5.1",
     "sqlite3": "~3.1.1",
-    "express-sequelize-session": "0.4.0",<% } %><% if (filters.auth) { %>
+    "express-sequelize-session": "0.4.0",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^7.0.0",
     "express-jwt": "^3.0.0",
     "passport": "~0.3.0",
-    "passport-local": "^1.0.0",<% } %><% if (filters.facebookAuth) { %>
-    "passport-facebook": "^2.0.0",<% } %><% if (filters.twitterAuth) { %>
-    "passport-twitter": "^1.0.3",<% } %><% if (filters.googleAuth) { %>
-    "passport-google-oauth20": "^1.0.0",<% } %><% if (filters.socketio) { %>
+    "passport-local": "^1.0.0",<% } %><% if(filters.facebookAuth) { %>
+    "passport-facebook": "^2.0.0",<% } %><% if(filters.twitterAuth) { %>
+    "passport-twitter": "^1.0.3",<% } %><% if(filters.googleAuth) { %>
+    "passport-google-oauth20": "^1.0.0",<% } %><% if(filters.socketio) { %>
     "socket.io": "^1.3.5",
     "socket.io-client": "^1.3.5",
     "socketio-jwt": "^4.2.0",<% } %>
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "sprint-js": "~0.1.0"
   },
   "devDependencies": {
+    <%_ /* CLIENT */ _%>
+    "angular-mocks": "~1.5.5",
+    <%_ /* END CLIENT */ _%>
     "autoprefixer": "^6.0.0",
     "babel-core": "^6.6.5",
     "babel-register": "^6.6.5",
@@ -51,7 +73,8 @@
     "gulp-babel": "^6.1.2",<% if(filters.ts) { %>
     "gulp-typescript": "~2.13.0",
     "gulp-typings": "^1.3.6",
-    "gulp-tslint": "^5.0.0",<% } %>
+    "gulp-tslint": "^5.0.0",
+    "ts-helpers": "1.1.1",<% } %>
     "gulp-cache": "^0.4.2",
     "gulp-concat": "^2.6.0",
     "gulp-env": "^0.4.0",
@@ -108,8 +131,8 @@
     "grunt-contrib-imagemin": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",<% if (filters.jade) { %>
-    "grunt-contrib-jade": "^1.0.0",<% } %><% if (filters.less) { %>
+    "grunt-contrib-watch": "^1.0.0",<% if(filters.jade) { %>
+    "grunt-contrib-jade": "^1.0.0",<% } %><% if(filters.less) { %>
     "grunt-contrib-less": "^1.2.0",<% } %>
     "grunt-babel": "~6.0.0",<% if(filters.ts) { %>
     "grunt-ts": "^5.3.2",
@@ -140,6 +163,36 @@
     "time-grunt": "^1.2.1",
     "grunt-mocha-test": "~0.12.7",
     "grunt-mocha-istanbul": "^4.0.2",<% } /*end grunt*/ %>
+    <%_ /* WEBPACK */ _%>
+    "webpack": "^1.12.14",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-dev-server": "~1.14.0",
+    "webpack-stream": "^3.2.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.16.0",
+    "awesome-typescript-loader": "0.17.0",
+    "ng-annotate-loader": "~0.1.0",
+    "babel-loader": "^6.2.4",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.4",
+    "imports-loader": "^0.6.5",
+    "isparta-instrumenter-loader": "^1.0.0",
+    "isparta-loader": "^2.0.0",
+    "istanbul-instrumenter-loader": "^0.2.0",
+    "null-loader": "^0.1.1",
+    "postcss-loader": "^0.9.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.0",
+    <%_ if(filters.sass) { _%>
+    "sass-loader": "^3.1.1",<% } %>
+    <%_ if(filters.less) { _%>
+    "less-loader": "",<% } %>
+    <%_ if(filters.stylus) { _%>
+    "stylus-loader": "",<% } %>
+    "tiny-lr": "^0.2.1",
+    "karma-webpack": "^1.7.0",
+    <%_ /* END WEBPACK */ _%>
+    "through2": "^2.0.1",
     "open": "~0.0.4",
     "jshint-stylish": "^2.2.0",
     "connect-livereload": "^0.5.3",
@@ -151,20 +204,17 @@
     "karma": "~0.13.3",
     "karma-firefox-launcher": "^1.0.0",
     "karma-script-launcher": "^1.0.0",
+    "karma-coverage": "^0.5.3",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-jade-preprocessor": "0.0.11",
-    "karma-phantomjs-launcher": "~1.0.0",<% if (filters.jade) { %>
-    "karma-ng-jade2js-preprocessor": "^0.2.0",<% } %>
-    "karma-ng-html2js-preprocessor": "^1.0.0",
+    "karma-phantomjs-launcher": "~1.0.0",
     "karma-spec-reporter": "~0.0.20",
     "sinon-chai": "^2.8.0",
-    "mocha": "^2.2.5",<% if (filters.mocha) { %>
+    "mocha": "^2.2.5",<% if(filters.mocha) { %>
     "karma-mocha": "^1.0.1",
-    "karma-chai-plugins": "~0.7.0",<% } if (filters.jasmine) { %>
+    "karma-chai-plugins": "~0.7.0",<% } if(filters.jasmine) { %>
     "jasmine-core": "^2.3.4",
     "karma-jasmine": "^1.0.2",
-    "jasmine-spec-reporter": "^2.4.0",<% } if(filters.babel) { %>
-    "karma-babel-preprocessor": "^6.0.1",<% } %>
+    "jasmine-spec-reporter": "^2.4.0",<% } %>
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
     "supertest": "^1.1.0"<% if(filters.ts) { %>,

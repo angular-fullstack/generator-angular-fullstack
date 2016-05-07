@@ -1,8 +1,7 @@
 'use strict';
 
-(function() {
-
-function UserResource($resource) {
+export function UserResource($resource) {
+  'ngInject';
   return $resource('/api/users/:id/:controller', {
     id: '@_id'
   }, {
@@ -20,8 +19,3 @@ function UserResource($resource) {
     }
   });
 }
-
-angular.module('<%= scriptAppName %>.auth')
-  .factory('User', UserResource);
-
-})();

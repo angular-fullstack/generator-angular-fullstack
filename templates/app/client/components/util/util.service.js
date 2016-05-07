@@ -1,11 +1,10 @@
 'use strict';
 
-(function() {
-
 /**
  * The Util service is for thin, globally reusable, utility functions
  */
-function UtilService($window) {
+export function UtilService($window) {
+  'ngInject';
   var Util = {
     /**
      * Return a callback or noop function
@@ -63,8 +62,3 @@ function UtilService($window) {
 
   return Util;
 }
-
-angular.module('<%= scriptAppName %>.util')
-  .factory('Util', UtilService);
-
-})();

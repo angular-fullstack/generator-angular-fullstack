@@ -2,13 +2,24 @@
     "compilerOptions": {
         "sourceMap": true,
         "rootDir": "./client",
+        "module": "commonjs",
         "outDir": ".tmp",
+        "removeComments": false,
         "target": "ES5"
     },
+    "exclude": [
+      "node_modules",
+      "typings/main.d.ts",
+      "typings/main"
+    ],
     "filesGlob": [
         "client/{app,components}/**/!(*.spec).ts",
         "typings/main.d.ts"
     ],
+    "awesomeTypescriptLoaderOptions": {
+      "resolveGlobs": true,
+      "forkChecker": true
+    },
     "files": [
         "client/app/account/account.ts",
         "client/app/account/login/login.controller.ts",

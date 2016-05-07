@@ -86,13 +86,58 @@ export default function(app) {
   }
 
   if ('development' === env) {
-    app.use(require('connect-livereload')({
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpack = require('webpack');
+    const makeWebpackConfig = require('../../webpack.make');
+    const webpackConfig = makeWebpackConfig({ DEV: true });
+    const compiler = webpack(webpackConfig);
+
+    const pkgConfig = require('../../package.json');
+    const livereloadServer = require('tiny-lr')();
+    var livereloadServerConfig = {
       ignore: [
         /^\/api\/(.*)/,
         /\.js(\?.*)?$/, /\.css(\?.*)?$/, /\.svg(\?.*)?$/, /\.ico(\?.*)?$/, /\.woff(\?.*)?$/,
         /\.png(\?.*)?$/, /\.jpg(\?.*)?$/, /\.jpeg(\?.*)?$/, /\.gif(\?.*)?$/, /\.pdf(\?.*)?$/
-      ]
+        ],
+      port: (pkgConfig.livereload || {}).port
+    };
+    var triggerLiveReloadChanges = function() {
+      livereloadServer.changed({
+        body: {
+          files: [webpackConfig.output.path + webpackConfig.output.filename]
+        }
+      });
+    };
+    if(livereloadServerConfig.port) {
+      livereloadServer.listen(livereloadServerConfig.port, triggerLiveReloadChanges);
+    } else {
+      /**
+       * Get free port for livereload
+       * server
+       */
+      livereloadServerConfig.port = require('http').createServer().listen(function() {
+        /*eslint no-invalid-this:0*/
+        this.close();
+        livereloadServer.listen(livereloadServerConfig.port, triggerLiveReloadChanges);
+      }).address().port;
+    }
+
+    /**
+     * On change compilation of bundle
+     * trigger livereload change event
+     */
+    compiler.plugin('done', triggerLiveReloadChanges);
+
+    app.use(webpackDevMiddleware(compiler, {
+      stats: {
+        colors: true,
+        timings: true,
+        chunks: false
+      }
     }));
+
+    app.use(require('connect-livereload')(livereloadServerConfig));
   }
 
   if ('development' === env || 'test' === env) {
