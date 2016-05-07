@@ -84,6 +84,10 @@ var processJson = function(src, dest, opt) {
 
             var json = JSON.parse(data.replace(/<%(.*)%>/g, ''));
 
+            if(/package.json/g.test(src) && opt.test) {
+                delete json.scripts.postinstall;
+            }
+
             // set properties
             json.name = opt.appName;
             json.description = opt.private
@@ -103,13 +107,14 @@ var processJson = function(src, dest, opt) {
 
 function updateFixtures(target) {
     const deps = target === 'deps';
+    const test = target === 'test';
     const genVer = require('./package.json').version;
     const dest = __dirname + (deps ? '/angular-fullstack-deps/' : '/test/fixtures/');
     const appName = deps ? 'angular-fullstack-deps' : 'tempApp';
 
     return Promise.all([
-        processJson('templates/app/_package.json', dest + 'package.json', {appName, genVer, private: !deps}),
-        processJson('templates/app/_bower.json', dest + 'bower.json', {appName, genVer, private: !deps})
+        processJson('templates/app/_package.json', dest + 'package.json', {appName, genVer, private: !deps, test: test}),
+        processJson('templates/app/_bower.json', dest + 'bower.json', {appName, genVer, private: !deps, test: test})
     ]);
 }
 
