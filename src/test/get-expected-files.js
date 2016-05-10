@@ -111,8 +111,7 @@ export function app(options) {
     files = files.concat([
       'tsconfig.client.test.json',
       'tsconfig.client.json',
-      'tsd.json',
-      'tsd_test.json',
+      'typings.json',
       'client/tslint.json'
     ]);
   } else {
