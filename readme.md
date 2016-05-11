@@ -335,6 +335,8 @@ Your app should now be live. To view it run `heroku open`.
 >     heroku config:set DOMAIN=<your-custom-domain>
 >
 
+> WARNING: Deployment is untested with Gulp
+
 To make your deployment process easier consider using [grunt-build-control](https://github.com/robwierzbowski/grunt-build-control).
 
 #### Pushing Updates
