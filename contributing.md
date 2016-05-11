@@ -1,6 +1,6 @@
 # Contributing
 
-See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
+See the [Yeoman contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
 
 Additionally for this generator:
 
