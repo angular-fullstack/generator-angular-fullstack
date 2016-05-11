@@ -29,7 +29,7 @@ export class Generator extends Base {
 
   initializing() {
     // init shared generator properies and methods
-    genNamedBase(this);
+    return genNamedBase(this);
   }
 
   prompting() {

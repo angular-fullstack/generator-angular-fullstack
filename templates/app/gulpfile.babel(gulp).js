@@ -245,9 +245,8 @@ function injectTsConfig(filesGlob, tsconfigPath){
 gulp.task('inject:tsconfig', () => {
     return injectTsConfig([
         `${clientPath}/**/!(*.spec|*.mock).ts`,
-       `!${clientPath}/bower_components/**/*`,
-        `${clientPath}/typings/**/*.d.ts`,
-        `!${clientPath}/test_typings/**/*.d.ts`
+        `!${clientPath}/bower_components/**/*`,
+        `typings/main.d.ts`
     ], 
     './tsconfig.client.json');
 });
@@ -256,8 +255,7 @@ gulp.task('inject:tsconfigTest', () => {
     return injectTsConfig([
         `${clientPath}/**/+(*.spec|*.mock).ts`,
         `!${clientPath}/bower_components/**/*`,
-        `!${clientPath}/typings/**/*.d.ts`,
-        `${clientPath}/test_typings/**/*.d.ts`
+        `typings/main.d.ts`
     ], 
     './tsconfig.client.test.json');
 });<% } %>
@@ -298,25 +296,17 @@ gulp.task('inject:<%= styleExt %>', () => {
 });<% } %><% if(filters.ts) { %>
 
 // Install DefinitelyTyped TypeScript definition files
-gulp.task('tsd', cb => {
-    plugins.tsd({
-        command: 'reinstall',
-        config: './tsd.json'
-    }, cb);
-});
-
-gulp.task('tsd:test', cb => {
-    plugins.tsd({
-        command: 'reinstall',
-        config: './tsd_test.json'
-    }, cb);
+gulp.task('typings', () => {
+    return gulp.src("./typings.json")
+        .pipe(plugins.typings());
 });<% } %>
 
 gulp.task('styles', () => {
     <%_ if(!filters.css) { _%>
     return gulp.src(paths.client.mainStyle)
     <%_ } else { _%>
-    return gulp.src(paths.client.styles)<% } %>
+    return gulp.src(paths.client.styles)
+    <%_ } _%>
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
 });<% if(filters.ts) { %>
@@ -326,20 +316,18 @@ gulp.task('copy:constant', ['constant'], () => {
         .pipe(gulp.dest('.tmp/app'));
 })
 
-gulp.task('transpile:client', ['tsd', 'copy:constant'], () => {
-    let tsProject = plugins.typescript.createProject('./tsconfig.client.json');
-    return tsProject.src()
+gulp.task('transpile:client', ['typings', 'copy:constant'], () => {
+    return gulp.src(['client/{app,components}/**/!(*.spec|*.mock).ts', 'typings/main.d.ts'])
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.typescript(tsProject)).js
+        .pipe(plugins.typescript()).js
         .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest('.tmp'));
 });
 
-gulp.task('transpile:client:test', ['tsd:test'], () => {
-    let tsTestProject = plugins.typescript.createProject('./tsconfig.client.test.json');
-    return tsTestProject.src()
+gulp.task('transpile:client:test', ['typings'], () => {
+    return gulp.src(['client/{app,components}/**/+(*.spec|*.mock).ts', 'typings/main.d.ts'])
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.typescript(tsTestProject)).js
+        .pipe(plugins.typescript()).js
         .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest('.tmp/test'));
 });<% } %><% if(filters.babel) { %>
@@ -448,7 +436,7 @@ gulp.task('watch', () => {
         .pipe(gulp.dest('.tmp'))
         .pipe(plugins.livereload());<% } %><% if(filters.ts) { %>
 
-    gulp.watch(paths.client.scripts, ['inject:tsconfig', 'lint:scripts:client', 'transpile:client']);<% } %>
+    gulp.watch(paths.client.scripts, ['lint:scripts:client', 'transpile:client']);<% } %>
 
     plugins.watch(_.union(paths.server.scripts, testFiles))
         .pipe(plugins.plumber())
@@ -459,7 +447,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('serve', cb => {
-    runSequence(['clean:tmp', 'constant', 'env:all'<% if(filters.ts) { %>, 'tsd'<% } %>],
+    runSequence(['clean:tmp', 'constant', 'env:all'<% if(filters.ts) { %>, 'typings'<% } %>],
         ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
@@ -478,7 +466,7 @@ gulp.task('serve:dist', cb => {
 });
 
 gulp.task('serve:debug', cb => {
-    runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'tsd'<% } %>],
+    runSequence(['clean:tmp', 'constant'<% if(filters.ts) { %>, 'typings'<% } %>],
         ['lint:scripts', 'inject'<% if(filters.jade) { %>, 'jade'<% } %>],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
@@ -568,7 +556,7 @@ gulp.task('build', cb => {
         'jade',<% } %>
         'inject',
         'wiredep:client',<% if(filters.ts) { %>
-        'tsd',<% } %>
+        'typings',<% } %>
         [
             'build:images',
             'copy:extras',

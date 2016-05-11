@@ -3,6 +3,10 @@
 (function() {
 
 class AdminController {
+  <%_ if(filters.ts || filters.flow) { _%>
+  users: Object[];
+
+  <%_ } _%>
   constructor(User) {
     // Use the User $resource to fetch all users
     this.users = User.query();
