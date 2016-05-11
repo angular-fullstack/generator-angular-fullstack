@@ -1,3 +1,5 @@
+ - [ ] I understand that GitHub issues are not for tech support, but for questions specific to this generator, bug reports, and feature requests.
+
 Item | Version
 ----- | -----
 generator-angular-fullstack | x.x.x
