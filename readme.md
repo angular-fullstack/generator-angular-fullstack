@@ -29,7 +29,7 @@ Run `yo angular-fullstack`, optionally passing an app name:
 yo angular-fullstack [app-name]
 ```
 
-Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for a preview of the built app.
+Run `grunt`/`gulp build` for building, `grunt serve`/`gulp serve` for development, and `grunt serve:dist`/`gulp serve:dist` for a preview of the built app.
 
 ## Prerequisites
 
@@ -50,6 +50,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 **Client**
 
 * Scripts: `JavaScript (Babel)`, `TypeScript`
+* Module Systems: `Bower`, `Webpack` (soon), `SystemJS + JSPM` (planned)
 * Markup:  `HTML`, `Jade`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
@@ -58,7 +59,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Server**
 
-* Scripts: `JavaScript (Babel)`
+* Scripts: `JavaScript (Babel)`, `TypeScript` (planned)
 * Database:
   * `None`,
   * `MongoDB`, `SQL`
@@ -66,17 +67,6 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
     * oAuth integrations: `Facebook` `Twitter` `Google`
     * Socket.io integration: `Yes`, `No`
 
-## Injection
-
-A grunt/gulp task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
-
-* `less` files into `client/app/app.less`
-* `scss` files into `client/app/app.scss`
-* `stylus` files into `client/app/app.styl`
-* `css` files into `client/index.html`
-* `js` files into `client/index.html`
-* `babel`/`typescript` temp `js` files into `client/index.html`
-* `typescript types` into `tsconfig.client.json` & `tsconfig.client.test.json`
 
 ## Generators
 
@@ -124,6 +114,19 @@ These packages are installed optionally depending on your configuration:
 * bootstrap
 
 All of these can be updated with `bower update` as new versions are released.
+
+## Injection
+
+A grunt/gulp task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
+
+* `less` files into `client/app/app.less`
+* `scss` files into `client/app/app.scss`
+* `stylus` files into `client/app/app.styl`
+* `css` files into `client/index.html`
+* `js` files into `client/index.html`
+* `babel`/`typescript` temp `js` files into `client/index.html`
+* `typescript types` into `tsconfig.client.json` & `tsconfig.client.test.json`
+
 
 ## Configuration
 Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.
