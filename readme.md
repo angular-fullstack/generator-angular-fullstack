@@ -331,6 +331,19 @@ options: {
 One of the odd things about the Node driver is that the default timeout for replica set connections is only 1 second, so make sure you're setting it to something more like 30s like in this example.
 
 
+Note: if you get an `Error: No valid replicaset instance servers found`  you need to modify moongose connection options in config/environment/production.js as follows:  
+```
+options: {
+      db: {
+        safe: true,
+        replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+        server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+      }
+    }
+```
+One of the odd things about the Node driver is that the default timeout for replica set connections is only 1 second, so make sure you're setting it to something more like 30s like in this example.
+
+
 Your app should now be live. To view it run `heroku open`.
 
 >
