@@ -482,8 +482,6 @@ When submitting a bugfix, try to write a test that exposes the bug and fails bef
 
 When submitting a new feature, add tests that cover the feature.
 
-See the `travis.yml` for configuration required to run tests.
-
 ## License
 
 [BSD license](http://opensource.org/licenses/bsd-license.php)
