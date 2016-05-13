@@ -90,6 +90,11 @@ Available generators:
     - [angular-fullstack:heroku](/docs/generators/heroku.md)
 
 
+## Documentation
+
+Check out our [documentation home page](/docs/index.md).
+
+
 ## Bower Components
 
 The following packages are always installed by the [app](#app) generator:
