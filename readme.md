@@ -6,7 +6,7 @@
 [![Gitter chat](https://img.shields.io/gitter/room/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 [![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
-> Yeoman generator for creating MEAN/SEAN stack applications, using MongoDB/SQL, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
+> Yeoman generator for creating MEAN/SEAN stack applications, using ES6, MongoDB/SQL, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
 #### Generated project: 
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
@@ -34,6 +34,7 @@ Run `grunt`/`gulp build` for building, `grunt serve`/`gulp serve` for developmen
 ## Prerequisites
 
 * MongoDB - Download and Install [MongoDB](https://www.mongodb.com/download-center#community) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
+* The project's JavaScript is written in ECMAScript 2015. If you're unfamiliar with the latest changes to the specification for JavaScript, check out http://es6-features.org/
 
 ## Supported Configurations
 
