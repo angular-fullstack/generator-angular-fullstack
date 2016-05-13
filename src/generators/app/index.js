@@ -290,13 +290,14 @@ export class Generator extends Base {
           name: 'buildtool',
           message: 'Would you like to use Gulp or Grunt?',
           choices: ['Grunt', 'Gulp'],
-          default: 0,
+          default: 1,
           filter: val => val.toLowerCase()
         }, {
           type: 'list',
           name: 'testing',
           message: 'What would you like to write tests with?',
-          choices: [ 'Jasmine', 'Mocha + Chai + Sinon'],
+          choices: ['Jasmine', 'Mocha + Chai + Sinon'],
+          default: 1,
           filter: function(val) {
             return {
               'Jasmine': 'jasmine',
