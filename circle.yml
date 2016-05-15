@@ -20,6 +20,8 @@ dependencies:
 
 ## Custom notifications
 #notify:
-  #webhooks:
-    # A list of hashes representing hooks. Only the url field is supported.
-    #- url: https://someurl.com/hooks/circle
+notify:
+  webhooks:
+    # A list of hook hashes, containing the url field
+    # gitter hook
+    - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
