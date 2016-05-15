@@ -1,3 +1,13 @@
+<a name="3.7.2"></a>
+## [3.7.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.1...v3.7.2) (2016-05-15)
+
+
+### Bug Fixes
+
+* **gen:app:** fix insight askPermission ([f6f1fb6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f6f1fb6)), closes [#1889](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1889)
+
+
+
 <a name="3.7.1"></a>
 ## [3.7.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.0...v3.7.1) (2016-05-15)
 
