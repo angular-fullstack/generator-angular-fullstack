@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import Promise from 'bluebird';
 import { runCmd } from '../util';
 import chalk from 'chalk';
 import {Base} from 'yeoman-generator';
@@ -40,6 +41,18 @@ export class Generator extends Base {
 
         // init shared generator properies and methods
         const genBasePromise = genBase(this);
+        let promises = [genBasePromise];
+
+        if(process.env.CI) {
+          insight.optOut = true;
+        } else if(insight.optOut === undefined) {
+          promises.push(new Promise((resolve, reject) => {
+            insight.askPermission(null, (err, optIn) => {
+              if(err) return reject(err);
+              else return resolve(optIn);
+            });
+          }));
+        }
 
         insight.track('generator', this.rootGeneratorVersion());
         this.nodeVersion = semver.clean(process.version);
@@ -47,18 +60,13 @@ export class Generator extends Base {
         insight.track('node', this.nodeVersion);
         insight.track('platform', process.platform);
 
-        if(process.env.CI) {
-          insight.optOut = true;
-        } else if(insight.optOut === undefined) {
-          insight.askPermission(null, cb);
-        }
-
         const npmVersionPromise = runCmd('npm --version').then(stdout => {
           this.npmVersion = stdout.toString().trim();
           return insight.track('npm', this.npmVersion);
         });
+        promises.push(npmVersionPromise);
 
-        return Promise.all([genBasePromise, npmVersionPromise]);
+        return Promise.all(promises);
       },
       info: function () {
         this.log(this.yoWelcome);
