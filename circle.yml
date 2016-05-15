@@ -11,9 +11,6 @@ checkout:
 
 ## Customize dependencies
 dependencies:
-  pre:
-    - sudo service mongodb stop && curl -L -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1204-3.0.2.tgz && tar xvzf mongodb-linux-x86_64-ubuntu1204-3.0.2.tgz && sudo mv mongodb-linux-x86_64-ubuntu1204-3.0.2/bin/* /usr/bin/ && sudo service mongodb start
-
   # we automatically cache and restore many dependencies between
   # builds. If you need to, you can add custom paths to cache:
   cache_directories:
