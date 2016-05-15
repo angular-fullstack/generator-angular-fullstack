@@ -1,5 +1,5 @@
 # AngularJS Full-Stack generator
-![Build Status](https://img.shields.io/codeship/26128390-800a-0133-c5f7-6a23b0487a18/master.svg)
+![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack#info=devDependencies)
