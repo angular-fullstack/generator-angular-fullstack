@@ -1,3 +1,13 @@
+<a name="3.7.1"></a>
+## [3.7.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.0...v3.7.1) (2016-05-15)
+
+
+### Bug Fixes
+
+* **gen:** move bluebird to dependencies ([7d87697](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7d87697)), closes [#1888](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1888)
+
+
+
 <a name="3.7.0"></a>
 # [3.7.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.6.1...v3.7.0) (2016-05-15)
 
