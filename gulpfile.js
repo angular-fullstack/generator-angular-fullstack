@@ -86,6 +86,7 @@ var processJson = function(src, dest, opt) {
 
             if(/package.json/g.test(src) && opt.test) {
                 delete json.scripts.postinstall;
+                json.scripts['update-webdriver'] = 'node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update || node node_modules/protractor/bin/webdriver-manager update';
             }
 
             // set properties
