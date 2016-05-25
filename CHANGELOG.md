@@ -1,3 +1,14 @@
+<a name="3.7.4"></a>
+## [3.7.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.3...v3.7.4) (2016-05-25)
+
+
+### Bug Fixes
+
+* **build:** fix up PR 1896 ([3113a3e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3113a3e))
+* **ie:** IE11 log in works for ports 80 and 443 ([414b80a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/414b80a)), closes [#1880](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1880) [#1896](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1896)
+
+
+
 <a name="3.7.2"></a>
 ## [3.7.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.1...v3.7.2) (2016-05-15)
 
