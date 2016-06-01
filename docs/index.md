@@ -10,6 +10,7 @@ Available generators:
     - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
 * Client Side
     - [angular-fullstack:route](/docs/generators/route.md)
+    - [angular-fullstack:component](/docs/generators/component.md)
     - [angular-fullstack:controller](/docs/generators/controller.md)
     - [angular-fullstack:filter](/docs/generators/filter.md)
     - [angular-fullstack:directive](/docs/generators/directive.md)
