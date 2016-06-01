@@ -558,12 +558,15 @@ gulp.task('build', cb => {
         'wiredep:client',<% if(filters.ts) { %>
         'typings',<% } %>
         [
+            'transpile:client',
+            'transpile:server'
+        ],
+        [
             'build:images',
             'copy:extras',
             'copy:fonts',
             'copy:assets',
             'copy:server',
-            'transpile:server',
             'build:client'
         ],
         cb);
@@ -571,7 +574,7 @@ gulp.task('build', cb => {
 
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
 
-gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant', 'build:images'], () => {
+gulp.task('build:client', ['styles', 'html', 'constant', 'build:images'], () => {
     var manifest = gulp.src(`${paths.dist}/${clientPath}/assets/rev-manifest.json`);
 
     var appFilter = plugins.filter('**/app.js', {restore: true});
