@@ -1,3 +1,18 @@
+<a name="3.7.5"></a>
+## [3.7.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.4...v3.7.5) (2016-06-02)
+
+
+### Bug Fixes
+
+* **build:** fix templateCache generation on gulpfile ([#1936](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1936)) ([#1942](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1942)) ([0286817](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0286817)), closes [#1936](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1936) [#1942](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1942) [#1936](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1936)
+
+
+### Features
+
+* **genBase:** show raw stdout for yo check ([#1944](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1944)) ([7ae3829](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7ae3829))
+
+
+
 <a name="3.7.4"></a>
 ## [3.7.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.3...v3.7.4) (2016-05-25)
 
