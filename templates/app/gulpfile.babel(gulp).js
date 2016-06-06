@@ -341,7 +341,7 @@ gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
     whenServerReady(() => {
-        // open('http://localhost:' + config.port);
+        open('http://localhost:' + config.port);
         cb();
     });
 });
