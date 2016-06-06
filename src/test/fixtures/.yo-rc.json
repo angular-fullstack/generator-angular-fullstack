@@ -26,7 +26,7 @@
       "models": true,
       "mongooseModels": true,
       "mongoose": true,
-      "grunt": true,
+      "gulp": true,
       "mocha": true,
       "jasmine": false,
       "expect": true
