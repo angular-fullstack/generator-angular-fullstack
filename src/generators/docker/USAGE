@@ -1,0 +1,8 @@
+Description:
+    Add a Dockerfile to the dist folder.
+
+Example:
+    yo angular-fullstack:docker
+
+    This will create:
+        a dist folder with a Dockerfile in it
