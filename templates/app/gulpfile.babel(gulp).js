@@ -24,7 +24,9 @@ import makeWebpackConfig from './webpack.make';
 var plugins = gulpLoadPlugins();
 var config;
 const webpackDevConfig = makeWebpackConfig({ DEV: true });
+const webpackE2eConfig = makeWebpackConfig({ E2E: true });
 const webpackDistConfig = makeWebpackConfig({ BUILD: true });
+const webpackTestConfig = makeWebpackConfig({ TEST: true });
 
 const clientPath = 'client';
 const serverPath = 'server';
@@ -202,7 +204,7 @@ gulp.task('inject:tsconfig', () => {
         `${clientPath}/**/!(*.spec|*.mock).ts`,
         `!${clientPath}/bower_components/**/*`,
         `typings/main.d.ts`
-    ], 
+    ],
     './tsconfig.client.json');
 });
 
@@ -211,7 +213,7 @@ gulp.task('inject:tsconfigTest', () => {
         `${clientPath}/**/+(*.spec|*.mock).ts`,
         `!${clientPath}/bower_components/**/*`,
         `typings/main.d.ts`
-    ], 
+    ],
     './tsconfig.client.test.json');
 });<% } %>
 
@@ -262,6 +264,18 @@ gulp.task('webpack:dist', function() {
     return gulp.src(webpackDistConfig.entry.app)
         .pipe(webpack(webpackDistConfig))
         .pipe(gulp.dest(`${paths.dist}/client`));
+});
+
+gulp.task('webpack:test', function() {
+    return gulp.src(webpackTestConfig.entry.app)
+        .pipe(webpack(webpackTestConfig))
+        .pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('webpack:e2e', function() {
+    return gulp.src(webpackE2eConfig.entry.app)
+        .pipe(webpack(webpackE2eConfig))
+        .pipe(gulp.dest('.tmp'));
 });<% if(filters.ts) { %>
 
 // Install DefinitelyTyped TypeScript definition files
@@ -480,7 +494,7 @@ gulp.task('coverage:integration', () => {
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', ['env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
+gulp.task('test:e2e', ['webpack:e2e', 'constant', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
     gulp.src(paths.client.e2e)
         .pipe(protractor({
             configFile: 'protractor.conf.js',

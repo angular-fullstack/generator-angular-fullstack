@@ -17,6 +17,7 @@ module.exports = function makeWebpackConfig(options) {
      */
     var BUILD = !!options.BUILD;
     var TEST = !!options.TEST;
+    var E2E = !!options.E2E;
     var DEV = !!options.DEV;
 
     /**
@@ -300,11 +301,13 @@ module.exports = function makeWebpackConfig(options) {
     // Skip rendering index.html in test mode
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
     // Render index.html
-    config.plugins.push(
-        new HtmlWebpackPlugin({
-            template: 'client/index.html'
-        })
-    );
+    let htmlConfig = {
+        template: 'client/_index.html'
+    }
+    if(E2E) {
+        htmlConfig.filename = 'client/index.html';
+    }
+    config.plugins.push(new HtmlWebpackPlugin(htmlConfig));
 
     // Add build specific plugins
     if(BUILD) {
