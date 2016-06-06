@@ -19,6 +19,8 @@ Install `yo`, `grunt-cli`/`gulp-cli`, `bower`, and `generator-angular-fullstack`
 npm install -g yo grunt-cli gulp-cli bower generator-angular-fullstack
 ```
 
+> To install the latest 4.0.0 Beta with Webpack support, use `generator-angular-fullstack@webpack`
+
 Make a new directory, and `cd` into it:
 ```
 mkdir my-new-project && cd $_
