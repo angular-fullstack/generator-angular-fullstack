@@ -1,0 +1,20 @@
+{
+  "ambientDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20160412133217",
+    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    "socket.io-client": "github:DefinitelyTyped/DefinitelyTyped/socket.io-client/socket.io-client.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"
+  },
+  "ambientDevDependencies": {
+    "angular-protractor": "github:DefinitelyTyped/DefinitelyTyped/angular-protractor/angular-protractor.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    "selenium-webdriver": "github:DefinitelyTyped/DefinitelyTyped/selenium-webdriver/selenium-webdriver.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    <%_ if(filters.mocha) { _%>
+    "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    "assertion-error": "github:DefinitelyTyped/DefinitelyTyped/assertion-error/assertion-error.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    "sinon": "github:DefinitelyTyped/DefinitelyTyped/sinon/sinon.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
+    "sinon-chai": "github:DefinitelyTyped/DefinitelyTyped/sinon-chai/sinon-chai.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"<% } %>
+    <%_ if(filters.jasmine) { _%>
+    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"<% } %>
+  }
+}

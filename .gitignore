@@ -1,9 +1,8 @@
 node_modules
 bower_components
-test/temp
+/generators/*
+/test/*
 demo
 .idea
 .DS_Store
 release.txt
-test/fixtures/bower.json
-test/fixtures/package.json

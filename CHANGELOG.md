@@ -1,3 +1,153 @@
+<a name="3.7.5"></a>
+## [3.7.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.4...v3.7.5) (2016-06-02)
+
+
+### Bug Fixes
+
+* **build:** fix templateCache generation on gulpfile ([#1936](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1936)) ([#1942](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1942)) ([0286817](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0286817)), closes [#1936](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1936) [#1942](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1942) [#1936](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1936)
+
+
+### Features
+
+* **genBase:** show raw stdout for yo check ([#1944](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1944)) ([7ae3829](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7ae3829))
+
+
+
+<a name="3.7.4"></a>
+## [3.7.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.3...v3.7.4) (2016-05-25)
+
+
+### Bug Fixes
+
+* **build:** fix up PR 1896 ([3113a3e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3113a3e))
+* **ie:** IE11 log in works for ports 80 and 443 ([414b80a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/414b80a)), closes [#1880](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1880) [#1896](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1896)
+
+
+
+<a name="3.7.2"></a>
+## [3.7.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.1...v3.7.2) (2016-05-15)
+
+
+### Bug Fixes
+
+* **gen:app:** fix insight askPermission ([f6f1fb6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f6f1fb6)), closes [#1889](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1889)
+
+
+
+<a name="3.7.1"></a>
+## [3.7.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.0...v3.7.1) (2016-05-15)
+
+
+### Bug Fixes
+
+* **gen:** move bluebird to dependencies ([7d87697](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7d87697)), closes [#1888](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1888)
+
+
+
+<a name="3.7.0"></a>
+# [3.7.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.6.1...v3.7.0) (2016-05-15)
+
+
+### Notable Changes
+* The Angular component sub-generator from generator-ng-component was added
+* The generator no longer uses the babel require hook at runtime
+* The generator's template files are now passed through Babel at scaffold time. This allows for things like removing type annotations if the user so chooses.
+* TypeScript uses typings instead of tsd
+
+
+### Bug Fixes
+
+* **client:** remove no-empty from tslint.json ([eafc4e0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/eafc4e0))
+* **client:navbar.controller:** refactor EJS, exclude constructor if empty ([a75b1d4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a75b1d4))
+* **e2e:main:** fix yeoman.png regex ([4b4db99](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4b4db99))
+* **express:** import `connect-mongo/es5` if node < 4 ([63fb77f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/63fb77f)), closes [#1844](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1844)
+* **gen:app:** only include `typings.json` with TS ([6f82220](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6f82220))
+* **gen:endpoint:** 
+  * return promise ([6b30ef7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6b30ef7))
+  * typo ([0787039](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0787039))
+* **gen:grunt:** update paths ([104efc6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/104efc6))
+* **gen:gulp:babel:** return the two merged streams ([3748953](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3748953))
+* **gen:gulp:clean:** also clean test dir ([aedb37e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/aedb37e))
+* **gen:gulp:updateFixtures:** fix saving as private/public ([a2cecab](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a2cecab))
+* **gen:test:endpoint:** `jshint` function also checks that the file exists ([17d9985](https://github.com/angular-fullstack/generator-angular-fullstack/commit/17d9985))
+* **gen:test:main:** fix sql e2e ([a9d238c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a9d238c))
+* **grunt:** exclude jshint config if using TypeScript ([54d4ebd](https://github.com/angular-fullstack/generator-angular-fullstack/commit/54d4ebd))
+* **gulp:** fix racing condition for copy:constant ([f07b451](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f07b451)), closes [#1830](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1830)
+* **package:** 
+  * always make html2js a dependency ([bdf1e4a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bdf1e4a)), closes [#1722](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1722)
+  * grunt-injector 1.0.0 is broken ([3391299](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3391299))
+  * include gulp devDependency ([c857b27](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c857b27))
+* **server:** 
+  * MONGOLAB_URI -> MONGODB_URI ([ae313df](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ae313df)), closes [#1838](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1838)
+* **server:oauth:** 
+  * fix mongoose validation when re-login using twitter oauth ([5f8805d](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5f8805d))
+
+
+### Features
+
+* **client:auth:** add first type definition (`callback: Function`) ([7ed2585](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7ed2585))
+* **gen:** 
+  * add component generator ([bf649ab](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bf649ab)), closes [#1711](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1711)
+  * also build test dir (just like generators dir) ([e09fb76](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e09fb76))
+  * default to gulp, mocha ([4cc2da6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4cc2da6))
+* **gen:app:** run all client files through Babel & JS Beautifier ([1d4ce11](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1d4ce11))
+* **gen:gulp:** 
+  * add installFixtures task ([04a7878](https://github.com/angular-fullstack/generator-angular-fullstack/commit/04a7878))
+  * add mocha ([ead201a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ead201a))
+  * port updateFixtures to Gulp (hot damn is it faster :fire:) ([94d69da](https://github.com/angular-fullstack/generator-angular-fullstack/commit/94d69da))
+* **gen:test:** 
+  * add endpoint path name test ([0b36375](https://github.com/angular-fullstack/generator-angular-fullstack/commit/0b36375))
+  * add endpoint-specific tests ([887476f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/887476f))
+* **grunt:less:** add sourcemap options ([#1868](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1868)) ([55c9a18](https://github.com/angular-fullstack/generator-angular-fullstack/commit/55c9a18)), closes [#1765](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1765)
+* **gulp:ts:** inject client .ts test files automatically into config file. ([17cb4e4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/17cb4e4)), closes [#1828](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1828)
+
+
+
+<a name="3.6.1"></a>
+# [3.6.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.6.0...v3.6.1) (2016-04-23)
+
+
+### Bug Fixes
+
+* **package:** revert to Grunt 0.4.5 if user chooses Grunt ([1cc91a3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1cc91a3)), closes [#1815](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1815)
+
+
+
+<a name="3.6.0"></a>
+# [3.6.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.5.0...v3.6.0) (2016-04-21)
+
+
+### Bug Fixes
+
+* **gen:heroku:** allow for grunt or gulp ([954baa4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/954baa4))
+* **gen:openshift:** allow for grunt or gulp ([2f1a229](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2f1a229))
+* **gulp:** build images before rev-replace ([4139694](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4139694))
+* **gulp:copy:constant:** fix output dir ([a5e31cf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a5e31cf)), closes [#1748](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1748)
+* **gulp:inject:** prevent `'inject:css'` from showing up twice ([09b4f01](https://github.com/angular-fullstack/generator-angular-fullstack/commit/09b4f01))
+* **gulp:inject:css:** remove leading `/` ([6de6272](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6de6272))
+* **gulp:jshint:** include jshint alongside gulp-jshint ([978f6ba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/978f6ba))
+* **gulp:serve:** 
+  * add `env:all` ([27531fb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/27531fb)), closes [#1779](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1779)
+  * remove extra comma ([d9d9f62](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d9d9f62))
+* **gulp:styles:** fix styles task for plain CSS ([dc72c33](https://github.com/angular-fullstack/generator-angular-fullstack/commit/dc72c33)), closes [#1747](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1747)
+* **gulp:test:client:** move around some `'tsd'` tasks ([86c7510](https://github.com/angular-fullstack/generator-angular-fullstack/commit/86c7510))
+* **gulp:wiredep:** copy `exclude` array code from Grunt ([2997e34](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2997e34)), closes [#1739](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1739)
+* **livereload:** ignore api routes and specific non-html files ([c6a396b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c6a396b)), closes [#1636](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1636) [#1764](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1764)
+* **server:user:spec:** replace `context` with `describe` ([5716660](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5716660))
+* **ts:** 
+  * exclude ui-router.mock.ts from tsconfig.client.test.json if using ngroute ([3e40776](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3e40776))
+  * fix typo of gulp's typescript test configuration file ([023b261](https://github.com/angular-fullstack/generator-angular-fullstack/commit/023b261))
+* **user:** fix email and password validation ([474a3a1](https://github.com/angular-fullstack/generator-angular-fullstack/commit/474a3a1))
+
+### Features
+
+* **GitHub:** add issue and PR templates ([79b1db7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/79b1db7))
+* **gulp:** 
+  * add serve:debug, add gulp-node-inspector ([f6eb26d](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f6eb26d))
+  * port `grunt buildcontrol` tasks over to gulp ([3221678](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3221678))
+
+
+
 <a name="3.5.0"></a>
 ## [3.5.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.4.2...v3.5.0) (2016-03-20)
 
