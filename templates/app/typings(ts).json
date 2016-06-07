@@ -13,8 +13,9 @@
     "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
     "assertion-error": "github:DefinitelyTyped/DefinitelyTyped/assertion-error/assertion-error.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
     "sinon": "github:DefinitelyTyped/DefinitelyTyped/sinon/sinon.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
-    "sinon-chai": "github:DefinitelyTyped/DefinitelyTyped/sinon-chai/sinon-chai.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"<% } %>
+    "sinon-chai": "github:DefinitelyTyped/DefinitelyTyped/sinon-chai/sinon-chai.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",<% } %>
     <%_ if(filters.jasmine) { _%>
-    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"<% } %>
+    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",<% } %>
+    "selenium-webdriver": "github:DefinitelyTyped/DefinitelyTyped/selenium-webdriver/selenium-webdriver.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"
   }
 }
