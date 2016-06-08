@@ -42,7 +42,7 @@ Run `grunt`/`gulp build` for building, `grunt serve`/`gulp serve` for developmen
 
 **General**
 
-* Build Systems: `Grunt`, `Gulp`
+* Build Systems: `Grunt` (deprecated, will be removed in 4.0.0), `Gulp`
 * Testing: 
   * `Jasmine`
   * `Mocha + Chai + Sinon`
