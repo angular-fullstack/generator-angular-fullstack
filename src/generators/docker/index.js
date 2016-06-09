@@ -15,18 +15,15 @@ var Generator = module.exports = function Generator() {
 util.inherits(Generator, yeoman.generators.NamedBase);
 
 Generator.prototype.copyDockerfile = function copyDockerfile() {
-  if(this.abort) return;
   var done = this.async();
   this.log(chalk.bold('Creating Dockerfile'));
-  //this.copy('Dockerfile', 'dist/Dockerfile');
-  this.fs.copyTpl(this.templatePath('_Dockerfile'), 'dist/Dockerfile', {});
+  this.fs.copyTpl(this.templatePath('_Dockerfile'), 'dist/Dockerfile', this );
   this.conflicter.resolve(function (err) {
     done();
   });
 };
 
 Generator.prototype.gruntBuild = function gruntBuild() {
-  if(this.abort) return;
   var done = this.async();
 
   this.log(chalk.bold('\nBuilding dist folder, please wait...'));
