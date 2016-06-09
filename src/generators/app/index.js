@@ -297,9 +297,12 @@ export class Generator extends Base {
           type: 'list',
           name: 'buildtool',
           message: 'Would you like to use Gulp or Grunt?',
-          choices: ['Grunt', 'Gulp'],
-          default: 1,
-          filter: val => val.toLowerCase()
+          choices: ['Gulp', 'Grunt (deprecated)'],
+          default: 0,
+          filter: val => ({
+            'Gulp': 'gulp',
+            'Grunt (deprecated)': 'grunt'
+          })[val]
         }, {
           type: 'list',
           name: 'testing',

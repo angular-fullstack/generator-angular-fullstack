@@ -214,8 +214,7 @@ gulp.task('inject', cb => {
     runSequence(['inject:js', 'inject:css'<% if(!filters.css) { %>, 'inject:<%= styleExt %>'<% } %><% if(filters.ts) { %>, 'inject:tsconfig'<% } %>], cb);
 });
 
-gulp.task('inject:js', () => {
-    return gulp.src(paths.client.mainView)
+gulp.task('inject:js', () => gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
             gulp.src(_.union(paths.client.scripts, [<% if(filters.ts) { %>'client/app/app.constant.js', <% } %>`!${clientPath}/**/*.{spec,mock}.<%= scriptExt %>`, `!${clientPath}/app/app.<%= scriptExt %>`]), {read: false})
                 .pipe(plugins.sort(sortModulesFirst)),
@@ -224,8 +223,8 @@ gulp.task('inject:js', () => {
                 endtag: '<!-- endinjector -->',
                 transform: (filepath) => '<script src="' + filepath.replace(`/${clientPath}/`, '')<% if(filters.ts) { %>.replace('.ts', '.js')<% } %> + '"></script>'
             }))
-        .pipe(gulp.dest(clientPath));
-});<% if(filters.ts) { %>
+        .pipe(gulp.dest(clientPath))
+);<% if(filters.ts) { %>
 
 function injectTsConfig(filesGlob, tsconfigPath){
     let src = gulp.src(filesGlob, {read: false})
@@ -242,26 +241,23 @@ function injectTsConfig(filesGlob, tsconfigPath){
         .pipe(gulp.dest('./'));
 }
 
-gulp.task('inject:tsconfig', () => {
-    return injectTsConfig([
+gulp.task('inject:tsconfig', () => injectTsConfig([
         `${clientPath}/**/!(*.spec|*.mock).ts`,
         `!${clientPath}/bower_components/**/*`,
         `typings/main.d.ts`
     ], 
-    './tsconfig.client.json');
-});
+    './tsconfig.client.json')
+);
 
-gulp.task('inject:tsconfigTest', () => {
-    return injectTsConfig([
+gulp.task('inject:tsconfigTest', () => injectTsConfig([
         `${clientPath}/**/+(*.spec|*.mock).ts`,
         `!${clientPath}/bower_components/**/*`,
         `typings/main.d.ts`
     ], 
-    './tsconfig.client.test.json');
-});<% } %>
+    './tsconfig.client.test.json')
+);<% } %>
 
-gulp.task('inject:css', () => {
-    return gulp.src(paths.client.mainView)
+gulp.task('inject:css', () => gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
             gulp.src(`${clientPath}/{app,components}/**/*.css`, {read: false})
                 .pipe(plugins.sort()),
@@ -270,11 +266,10 @@ gulp.task('inject:css', () => {
                 endtag: '<!-- endinjector -->',
                 transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace(`/${clientPath}/`, '').replace('/.tmp/', '') + '">'
             }))
-        .pipe(gulp.dest(clientPath));
-});<% if(!filters.css) { %>
+        .pipe(gulp.dest(clientPath))
+);<% if(!filters.css) { %>
 
-gulp.task('inject:<%= styleExt %>', () => {
-    return gulp.src(paths.client.mainStyle)
+gulp.task('inject:<%= styleExt %>', () => gulp.src(paths.client.mainStyle)
         .pipe(plugins.inject(
             gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
                 .pipe(plugins.sort()),
@@ -292,14 +287,12 @@ gulp.task('inject:<%= styleExt %>', () => {
                     return `@import '${newPath}';`;
                 }
             }))
-        .pipe(gulp.dest(`${clientPath}/app`));
-});<% } %><% if(filters.ts) { %>
+        .pipe(gulp.dest(`${clientPath}/app`))
+);<% } %><% if(filters.ts) { %>
 
 // Install DefinitelyTyped TypeScript definition files
-gulp.task('typings', () => {
-    return gulp.src("./typings.json")
-        .pipe(plugins.typings());
-});<% } %>
+gulp.task('typings', () => gulp.src("./typings.json").pipe(plugins.typings())
+);<% } %>
 
 gulp.task('styles', () => {
     <%_ if(!filters.css) { _%>
@@ -311,32 +304,32 @@ gulp.task('styles', () => {
         .pipe(gulp.dest('.tmp/app'));
 });<% if(filters.ts) { %>
 
-gulp.task('copy:constant', ['constant'], () => {
-    return gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
-        .pipe(gulp.dest('.tmp/app'));
-})
+gulp.task('copy:constant', ['constant'], () => 
+    gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
+        .pipe(gulp.dest('.tmp/app'))
+)
 
-gulp.task('transpile:client', ['typings', 'copy:constant'], () => {
-    return gulp.src(['client/{app,components}/**/!(*.spec|*.mock).ts', 'typings/main.d.ts'])
+gulp.task('transpile:client', ['typings', 'copy:constant'], () => 
+    gulp.src(['client/{app,components}/**/!(*.spec|*.mock).ts', 'typings/main.d.ts'])
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript()).js
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(gulp.dest('.tmp'));
-});
+        .pipe(gulp.dest('.tmp'))
+);
 
-gulp.task('transpile:client:test', ['typings'], () => {
-    return gulp.src(['client/{app,components}/**/+(*.spec|*.mock).ts', 'typings/main.d.ts'])
+gulp.task('transpile:client:test', ['typings'], () => 
+    gulp.src(['client/{app,components}/**/+(*.spec|*.mock).ts', 'typings/main.d.ts'])
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript()).js
         .pipe(plugins.sourcemaps.write('.'))
-        .pipe(gulp.dest('.tmp/test'));
-});<% } %><% if(filters.babel) { %>
+        .pipe(gulp.dest('.tmp/test'))
+);<% } %><% if(filters.babel) { %>
 
-gulp.task('transpile:client', () => {
-    return gulp.src(paths.client.scripts)
+gulp.task('transpile:client', () => 
+    gulp.src(paths.client.scripts)
         .pipe(transpileClient())
-        .pipe(gulp.dest('.tmp'));
-});<% } %>
+        .pipe(gulp.dest('.tmp'))
+);<% } %>
 
 gulp.task('transpile:server', () => {
     return gulp.src(_.union(paths.server.scripts, paths.server.json))
@@ -346,35 +339,35 @@ gulp.task('transpile:server', () => {
 
 gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:scripts:server'], cb));
 
-gulp.task('lint:scripts:client', () => {
-    return gulp.src(_.union(
+gulp.task('lint:scripts:client', () => 
+    gulp.src(_.union(
         paths.client.scripts,
         _.map(paths.client.test, blob => '!' + blob),
         [`!${clientPath}/app/app.constant.<%= scriptExt %>`]
     ))
-        .pipe(lintClientScripts());
-});
+        .pipe(lintClientScripts())
+);
 
 gulp.task('lint:scripts:server', () => {
-    return gulp.src(_.union(paths.server.scripts, _.map(paths.server.test, blob => '!' + blob)))
-        .pipe(lintServerScripts());
-});
+    gulp.src(_.union(paths.server.scripts, _.map(paths.server.test, blob => '!' + blob)))
+        .pipe(lintServerScripts())
+);
 
-gulp.task('lint:scripts:clientTest', () => {
-    return gulp.src(paths.client.test)
-        .pipe(lintClientScripts());
-});
+gulp.task('lint:scripts:clientTest', () => 
+    gulp.src(paths.client.test)
+        .pipe(lintClientScripts())
+);
 
-gulp.task('lint:scripts:serverTest', () => {
-    return gulp.src(paths.server.test)
-        .pipe(lintServerTestScripts());
-});
+gulp.task('lint:scripts:serverTest', () => 
+    gulp.src(paths.server.test)
+        .pipe(lintServerTestScripts())
+);
 
-gulp.task('jscs', () => {
-  return gulp.src(_.union(paths.client.scripts, paths.server.scripts))
+gulp.task('jscs', () => 
+  gulp.src(_.union(paths.client.scripts, paths.server.scripts))
       .pipe(plugins.jscs())
       .pipe(plugins.jscs.reporter());
-});
+);
 
 gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
@@ -476,9 +469,7 @@ gulp.task('serve:debug', cb => {
         cb);
 });
 
-gulp.task('test', cb => {
-    return runSequence('test:server', 'test:client', cb);
-});
+gulp.task('test', cb => runSequence('test:server', 'test:client', cb));
 
 gulp.task('test:server', cb => {
     runSequence(
@@ -490,15 +481,12 @@ gulp.task('test:server', cb => {
         cb);
 });
 
-gulp.task('mocha:unit', () => {
-    return gulp.src(paths.server.test.unit)
-        .pipe(mocha());
-});
+gulp.task('mocha:unit', () => gulp.src(paths.server.test.unit).pipe(mocha()));
 
-gulp.task('mocha:integration', () => {
-    return gulp.src(paths.server.test.integration)
-        .pipe(mocha());
-});
+gulp.task('mocha:integration', () => 
+    gulp.src(paths.server.test.integration)
+        .pipe(mocha())
+);
 
 gulp.task('test:client', ['wiredep:test', 'constant'<% if(filters.ts) { %>, 'transpile:client', 'transpile:client:test'<% } %>], (done) => {
     new KarmaServer({
