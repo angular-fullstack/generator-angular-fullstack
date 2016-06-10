@@ -49,7 +49,7 @@ export function app(options) {
     'client/.htaccess',
     'client/favicon.ico',
     'client/robots.txt',
-    'client/index.html',
+    'client/_index.html',
     `client/polyfills.${script}`,
     'client/app/app.' + script,
     'client/app/app.config.' + script,
