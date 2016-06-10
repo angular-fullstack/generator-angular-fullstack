@@ -138,7 +138,7 @@ module.exports = function makeWebpackConfig(options) {
             // Compiles ES6 and ES7 into ES5 code
             test: /\.js$/,
             loader: 'babel',
-            query: {comments: DEV},
+            query: {comments: DEV || E2E},
             include: [
                 path.resolve(__dirname, 'client/'),
                 path.resolve(__dirname, 'node_modules/lodash-es/')
