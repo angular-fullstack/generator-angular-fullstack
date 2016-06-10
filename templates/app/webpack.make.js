@@ -3,6 +3,7 @@
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var fs = require('fs');
@@ -72,7 +73,7 @@ module.exports = function makeWebpackConfig(options) {
 
             // Output path from the view of the page
             // Uses webpack-dev-server in development
-            publicPath: BUILD || DEV ? '/' : `http://localhost:${8080}/`,
+            publicPath: BUILD || DEV || E2E ? '/' : `http://localhost:${8080}/`,
             //publicPath: BUILD ? '/' : 'http://localhost:' + env.port + '/',
 
             // Filename for entry points
@@ -305,9 +306,11 @@ module.exports = function makeWebpackConfig(options) {
         template: 'client/_index.html'
     }
     if(E2E) {
-        htmlConfig.filename = 'client/index.html';
+        htmlConfig.filename = '../client/index.html';
+        htmlConfig.alwaysWriteToDisk = true;
     }
     config.plugins.push(new HtmlWebpackPlugin(htmlConfig));
+    if(E2E) config.plugins.push(new HtmlWebpackHarddiskPlugin());
 
     // Add build specific plugins
     if(BUILD) {
