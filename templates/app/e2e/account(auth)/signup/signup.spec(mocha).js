@@ -62,10 +62,16 @@ describe('Signup View', function() {
     it('should signup a new user, log them in, and redirecting to "/"', function() {
       page.signup(testUser);
 
-      var navbar = require('../../components/navbar/navbar.po');
+      var currentUrl;
+      return browser.getCurrentUrl().then(url => {
+        currentUrl = url;
+        browser.wait(() => browser.getCurrentUrl().then(url => url !== currentUrl));
+      }).then(function () {
+        var navbar = require('../../components/navbar/navbar.po');
 
-      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
-      <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
+        <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+        <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
+      });
     });
 
     describe('and invalid credentials', function() {

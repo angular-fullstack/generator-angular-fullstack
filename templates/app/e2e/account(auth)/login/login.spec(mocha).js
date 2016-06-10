@@ -56,12 +56,18 @@ describe('Login View', function() {
   describe('with local auth', function() {
 
     it('should login a user and redirecting to "/"', function() {
-      page.login(testUser);
+      page.login(testUser).then(() => {
+        var currentUrl;
+        return browser.getCurrentUrl().then(url => {
+          currentUrl = url;
+          browser.wait(() => browser.getCurrentUrl().then(url => url !== currentUrl));
+        }).then(() => {
+          var navbar = require('../../components/navbar/navbar.po');
 
-      var navbar = require('../../components/navbar/navbar.po');
-
-      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
-      <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
+          <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+          <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
+        });
+      });
     });
 
     describe('and invalid credentials', function() {
