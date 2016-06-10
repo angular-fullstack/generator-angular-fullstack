@@ -1,12 +1,13 @@
 'use strict';
 
-class SignupController {
+export default class SignupController {
   //start-non-standard
   user = {};
   errors = {};
   submitted = false;
   //end-non-standard
 
+  /*@ngInject*/
   constructor(Auth<% if (filters.ngroute) { %>, $location<% } %><% if (filters.uirouter) { %>, $state<% } %>) {
     this.Auth = Auth;<% if (filters.ngroute) { %>
     this.$location = $location;<% } if (filters.uirouter) { %>
@@ -47,6 +48,3 @@ if (filters.sequelizeModels) { %>
     }
   }
 }
-
-angular.module('<%= scriptAppName %>')
-  .controller('SignupController', SignupController);

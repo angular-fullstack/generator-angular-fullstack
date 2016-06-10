@@ -1,10 +1,10 @@
 'use strict';
 
-(function() {
-
-function authInterceptor($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $injector<% } %>, Util) {
-  <% if (filters.uirouter) { %>var state;
-  <% } %>return {
+export function authInterceptor($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $location<% } if (filters.uirouter) { %>, $injector<% } %>, Util) {
+  'ngInject';
+  <%_ if (filters.uirouter) { _%>
+  var state;<% } %>
+  return {
     // Add authorization token to headers
     request(config) {
       config.headers = config.headers || {};
@@ -17,7 +17,10 @@ function authInterceptor($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $
     // Intercept 401s and redirect you to login
     responseError(response) {
       if (response.status === 401) {
-        <% if (filters.ngroute) { %>$location.path('/login');<% } if (filters.uirouter) { %>(state || (state = $injector.get('$state'))).go('login');<% } %>
+        <%_ if (filters.ngroute) { _%>
+        $location.path('/login');<% } %>
+        <%_ if (filters.uirouter) { _%>
+        (state || (state = $injector.get('$state'))).go('login');<% } %>
         // remove any stale tokens
         $cookies.remove('token');
       }
@@ -25,8 +28,3 @@ function authInterceptor($rootScope, $q, $cookies<% if (filters.ngroute) { %>, $
     }
   };
 }
-
-angular.module('<%= scriptAppName %>.auth')
-  .factory('authInterceptor', authInterceptor);
-
-})();

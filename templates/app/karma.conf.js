@@ -1,5 +1,8 @@
 // Karma configuration
-// http://karma-runner.github.io/0.10/config/configuration-file.html
+// http://karma-runner.github.io/0.13/config/configuration-file.html
+/*eslint-env node*/
+
+import makeWebpackConfig from './webpack.make';
 
 module.exports = function(config) {
   config.set({
@@ -17,45 +20,47 @@ module.exports = function(config) {
     },<% } %>
 
     // list of files / patterns to load in the browser
-    files: [
-      // bower:js
-      // endbower<% if (filters.socketio) { %>
-      'node_modules/socket.io-client/socket.io.js',<% } %><% if(filters.ts) { %>
-      '.tmp/app/app.js',
-      '.tmp/{app,components}/**/*.module.js',
-      '.tmp/{app,components}/**/*.js',
-      '.tmp/test/**/*.js',<% } %><% if(filters.babel) { %>
-      'client/app/app.js',
-      'client/{app,components}/**/*.module.js',
-      'client/{app,components}/**/*.js',<% } %>
-      'client/{app,components}/**/*.<%= filters.jade ? '{jade,html}' : 'html' %>'
-    ],
+    files: ['spec.js'],
 
     preprocessors: {
-      '**/*.html': 'ng-html2js',<% if (filters.jade) { %>
-      '**/*.jade': 'ng-jade2js',<% } if (filters.babel) { %>
-      'client/{app,components}/**/*.js': 'babel'<% } %>
+      'spec.js': ['webpack']
     },
 
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'client/'
-    },<% if (filters.jade) { %>
+    webpack: makeWebpackConfig({ TEST: true }),
 
-    ngJade2JsPreprocessor: {
-      stripPrefix: 'client/'
-    },<% } if (filters.babel) { %>
+    webpackMiddleware: {
+      // webpack-dev-middleware configuration
+      // i. e.
+      noInfo: true
+    },
 
-    babelPreprocessor: {
-      options: {
-        sourceMap: 'inline'
-      },
-      filename: function (file) {
-        return file.originalPath.replace(/\.js$/, '.es5.js');
-      },
-      sourceFileName: function (file) {
-        return file.originalPath;
-      }
-    },<% } %>
+    coverageReporter: {
+      reporters: [{
+        type: 'html', //produces a html document after code is run
+        subdir: 'client'
+      }, {
+        type: 'json',
+        subdir: '.',
+        file: 'client-coverage.json'
+      }],
+      dir: 'coverage/' //path to created html doc
+    },
+
+    plugins: [
+      require('karma-chai-plugins'),
+      require('karma-chrome-launcher'),
+      require('karma-coverage'),
+      require('karma-firefox-launcher'),
+      <%_ if(filters.mocha) { _%>
+      require('karma-mocha'),
+      require('karma-chai-plugins'),<% } %>
+      <%_ if(filters.jasmine) { _%>
+      require('karma-jasmine'),<% } %>
+      require('karma-spec-reporter'),
+      require('karma-phantomjs-launcher'),
+      require('karma-script-launcher'),
+      require('karma-webpack')
+    ],
 
     // list of files / patterns to exclude
     exclude: [],
@@ -74,7 +79,7 @@ module.exports = function(config) {
     // - junit
     // - growl
     // - coverage
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage'],
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,

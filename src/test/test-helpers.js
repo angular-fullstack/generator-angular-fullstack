@@ -100,9 +100,6 @@ export function runGen(prompts, opts={}) {
       if(DEBUG) console.log(`TEMP DIR: ${dir}`);
 
       let promises = [
-        fs.mkdirAsync(dir + '/client').then(() => {
-          return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
-        }),
         fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
       ];
 

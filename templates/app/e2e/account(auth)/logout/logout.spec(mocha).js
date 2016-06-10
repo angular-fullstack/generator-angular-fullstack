@@ -38,17 +38,23 @@ describe('Logout View', function() {
   describe('with local auth', function() {
 
     it('should logout a user and redirecting to "/"', function() {
-      var navbar = require('../../components/navbar/navbar.po');
+      var currentUrl;
+      return browser.getCurrentUrl().then(url => {
+        currentUrl = url;
+        browser.wait(() => browser.getCurrentUrl().then(url => url !== currentUrl));
+      }).then(() => {
+        var navbar = require('../../components/navbar/navbar.po');
 
-      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
-      <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
+        <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+        <%= expect() %>navbar.navbarAccountGreeting.getText()<%= to() %>.eventually.equal('Hello ' + testUser.name);
 
-      browser.get(config.baseUrl + '/logout');
+        browser.get(config.baseUrl + '/logout');
 
-      navbar = require('../../components/navbar/navbar.po');
+        navbar = require('../../components/navbar/navbar.po');
 
-      <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
-      <%= expect() %>navbar.navbarAccountGreeting.isDisplayed()<%= to() %>.eventually.equal(false);
+        <%= expect() %>browser.getCurrentUrl()<%= to() %>.eventually.equal(config.baseUrl + '/');
+        <%= expect() %>navbar.navbarAccountGreeting.isDisplayed()<%= to() %>.eventually.equal(false);
+      });
     });
 
   });

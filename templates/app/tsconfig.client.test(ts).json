@@ -2,6 +2,7 @@
     "compilerOptions": {
         "sourceMap": true,
         "rootDir": "./client",
+        "module": "commonjs",
         "outDir": ".tmp/test"
     },
     "filesGlob": [
