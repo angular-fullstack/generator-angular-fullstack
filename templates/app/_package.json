@@ -172,7 +172,7 @@
     "html-webpack-plugin": "^2.16.0",
     "html-webpack-harddisk-plugin": "~0.0.2",
     <%_ if(filters.jade) { _%>
-    "jade-loader": "~0.8.0",<% } %>
+    "pug-html-loader": "^1.0.5",<% } %>
     "awesome-typescript-loader": "0.17.0",
     "ng-annotate-loader": "~0.1.0",
     "babel-loader": "^6.2.4",
