@@ -498,11 +498,9 @@ gulp.task('test:e2e', ['webpack:e2e', 'constant', 'env:all', 'env:test', 'start:
     gulp.src(paths.client.e2e)
         .pipe(protractor({
             configFile: 'protractor.conf.js',
-        })).on('error', err => {
-            console.log(err)
-        }).on('end', () => {
-            process.exit();
-        });
+        }))
+        .on('error', e => { throw e })
+        .on('end', () => { process.exit() });
 });
 
 gulp.task('test:client', ['constant'], done => {
