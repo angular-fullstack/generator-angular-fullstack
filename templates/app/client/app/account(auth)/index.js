@@ -6,14 +6,15 @@ import routing from './account.routes';
 import login from './login';
 import settings from './settings';
 import signup from './signup';
-import oauthButtons from '../../components/oauth-buttons';
+<%_ if(filters.oauth) { _%>
+import oauthButtons from '../../components/oauth-buttons';<% } %>
 
 export default angular.module('<%= scriptAppName %>.account', [
     uiRouter,
     login,
     settings,
-    signup,
-    oauthButtons
+    signup<% if(filters.oauth) { %>,
+    oauthButtons<% } %>
 ])
     .config(routing)
     <%_ if (filters.ngroute) { _%>
