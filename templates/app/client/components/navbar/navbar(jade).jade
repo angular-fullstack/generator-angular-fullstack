@@ -9,14 +9,14 @@ div.navbar.navbar-default.navbar-static-top
       a.navbar-brand(href='/') <%= lodash.slugify(lodash.humanize(appname)) %>
 
     div#navbar-main.navbar-collapse.collapse(uib-collapse='$ctrl.isCollapsed')
-      ul.$ctrl.navbar-nav
+      ul.nav.navbar-nav
         li(ng-repeat='item in $ctrl.menu', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: $ctrl.isActive(item.link)}'<% } %>)
           a(<% if (filters.uirouter) { %>ui-sref='{{item.state}}'<% } else { %>ng-href='{{item.link}}'<% } %>) {{item.title}}<% if (filters.auth) { %>
 
         li(ng-show='$ctrl.isAdmin()', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: $ctrl.isActive("/admin")}'<% } %>)
           a(<% if (filters.uirouter) { %>ui-sref='admin'<% } else { %>href='/admin'<% } %>) Admin
 
-      ul.$ctrl.navbar-$ctrl.navbar-right
+      ul.nav.navbar-nav.navbar-right
         li(ng-hide='$ctrl.isLoggedIn()', <% if (filters.uirouter) { %>ui-sref-active='active'<% } else { %>ng-class='{active: $ctrl.isActive("/signup")}'<% } %>)
           a(<% if (filters.uirouter) { %>ui-sref='signup'<% } else { %>href='/signup'<% } %>) Sign up
 
