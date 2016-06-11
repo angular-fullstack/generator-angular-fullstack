@@ -166,19 +166,20 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
             loader: 'file'
         }, {
-            <%_ if(filters.sass) { _%>
+            <%_ if(filters.jade) { _%>
             // Jade LOADER
             // Reference: https://github.com/webpack/jade-loader
             // Allow loading jade throw js
             test: /\.jade$/,
-            loaders: ['raw', 'jade']
+            loaders: ['pug-html']
         }, {<% } %>
+            <%_ if(filters.html) { _%>
             // HTML LOADER
             // Reference: https://github.com/webpack/raw-loader
             // Allow loading html through js
             test: /\.html$/,
             loader: 'raw'
-        }, {
+        }, {<% } %>
             // CSS LOADER
             // Reference: https://github.com/webpack/css-loader
             // Allow loading css through js
