@@ -6,7 +6,7 @@ export default function routes($stateProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: 'app/account/login/login.html',
+        template: require('./login/login.<%= templateExt %>'),
         controller: 'LoginController',
         controllerAs: 'vm'
       })
@@ -25,13 +25,13 @@ export default function routes($stateProvider) {
       })
       .state('signup', {
         url: '/signup',
-        templateUrl: 'app/account/signup/signup.html',
+        template: require('./signup/signup.<%= templateExt %>'),
         controller: 'SignupController',
         controllerAs: 'vm'
       })
       .state('settings', {
         url: '/settings',
-        templateUrl: 'app/account/settings/settings.html',
+        template: require('./settings/settings.<%= templateExt %>'),
         controller: 'SettingsController',
         controllerAs: 'vm',
         authenticate: true
@@ -42,7 +42,7 @@ export default function routes($stateProvider) {
     'ngInject';
     $routeProvider
       .when('/login', {
-        templateUrl: 'app/account/login/login.html',
+        template: require('./login/login.<%= templateExt %>'),
         controller: 'LoginController',
         controllerAs: 'vm'
       })
@@ -59,12 +59,12 @@ export default function routes($stateProvider) {
         }
       })
       .when('/signup', {
-        templateUrl: 'app/account/signup/signup.html',
+        template: require('./signup/signup.<%= templateExt %>'),
         controller: 'SignupController',
         controllerAs: 'vm'
       })
       .when('/settings', {
-        templateUrl: 'app/account/settings/settings.html',
+        template: require('./settings/settings.<%= templateExt %>'),
         controller: 'SettingsController',
         controllerAs: 'vm',
         authenticate: true

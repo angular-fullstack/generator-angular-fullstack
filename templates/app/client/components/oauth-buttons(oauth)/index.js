@@ -9,7 +9,7 @@ export function OauthButtonsController($window) {
 export default angular.module('<%= scriptAppName %>.oauthButtons', [])
   .directive('oauthButtons', function() {
     return {
-      template: require('./oauth-buttons.html'),
+      template: require('./oauth-buttons.<%= templateExt %>'),
       restrict: 'EA',
       controller: OauthButtonsController,
       controllerAs: 'OauthButtons',

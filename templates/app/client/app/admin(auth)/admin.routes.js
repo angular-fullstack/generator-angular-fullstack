@@ -5,7 +5,7 @@ export default function routes($routeProvider) {
   'ngInject';
   $routeProvider
     .when('/admin', {
-      templateUrl: 'app/admin/admin.html',
+      template: require('./admin.<%= templateExt %>'),
       controller: 'AdminController',
       controllerAs: 'admin',
       authenticate: 'admin'
@@ -17,7 +17,7 @@ export default function routes($stateProvider) {
   $stateProvider
     .state('admin', {
       url: '/admin',
-      templateUrl: 'app/admin/admin.html',
+      template: require('./admin.<%= templateExt %>'),
       controller: 'AdminController',
       controllerAs: 'admin',
       authenticate: 'admin'

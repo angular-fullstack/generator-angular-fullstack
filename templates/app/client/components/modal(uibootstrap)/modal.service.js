@@ -13,7 +13,7 @@ export function Modal($rootScope, $uibModal) {
     angular.extend(modalScope, scope);
 
     return $uibModal.open({
-      templateUrl: 'components/modal/modal.html',
+      template: require('./modal.<%= templateExt %>'),
       windowClass: modalClass,
       scope: modalScope
     });
