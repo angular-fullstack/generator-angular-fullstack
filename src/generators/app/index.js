@@ -555,14 +555,10 @@ export class Generator extends Base {
     };
   }
 
-  get install() {
-    return {
-      installDeps: function() {
-        this.installDependencies({
-          skipInstall: this.options['skip-install']
-        });
-      }
-    };
+  install() {
+    if(!this.options['skip-install']) {
+      this.spawnCommand('npm', ['install']);
+    }
   }
 
   get end() {
