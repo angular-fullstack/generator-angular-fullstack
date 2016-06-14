@@ -1,38 +1,43 @@
 'use strict';
-var util = require('util');
-var yeoman = require('yeoman-generator');
-var exec = require('child_process').exec;
-var chalk = require('chalk');
-var path = require('path');
-var s = require('underscore.string');
+import {exec} from 'child_process';
+import chalk from 'chalk';
+import path from 'path';
+import {Base} from 'yeoman-generator';
+import Promise from 'bluebird';
 
-var Generator = module.exports = function Generator() {
-  yeoman.generators.Base.apply(this, arguments);
-  this.sourceRoot(path.join(__dirname, './templates'));
-  this.filters = this.config.get('filters') || {};
-};
+class Generator extends Base {
+  constructor(...args) {
+    super(...args);
 
-util.inherits(Generator, yeoman.generators.NamedBase);
+    this.sourceRoot(path.join(__dirname, '../../templates/docker'));
+  }
 
-Generator.prototype.copyDockerfile = function copyDockerfile() {
-  var done = this.async();
-  this.log(chalk.bold('Creating Dockerfile'));
-  this.fs.copyTpl(this.templatePath('_Dockerfile'), 'dist/Dockerfile', this );
-  this.conflicter.resolve(function (err) {
-    done();
-  });
-};
+  initializing() {
+    return genBase(this);
+  }
 
-Generator.prototype.gruntBuild = function gruntBuild() {
-  var done = this.async();
+  copyDockerfile() {
+    var done = this.async();
+    this.log(chalk.bold('Creating Dockerfile'));
+    this.fs.copyTpl(this.templatePath('_Dockerfile'), 'dist/Dockerfile', this);
+    this.conflicter.resolve(err => {
+      done(err);
+    });
+  }
 
-  this.log(chalk.bold('\nBuilding dist folder, please wait...'));
-  var child = exec('grunt build', function (err, stdout) {
-    done();
-  }.bind(this));
-  child.stdout.on('data', function(data) {
-    this.log(data.toString());
-  }.bind(this));
-};
+  gruntBuild() {
+    this.log(chalk.bold('\nBuilding dist folder, please wait...'));
 
+    return new Promise((resolve, reject) => {
+      var child = exec('grunt build', (err, stdout) => {
+        if(err) return reject(err);
 
+        resolve();
+      });
+
+      child.stdout.on('data', data => {
+        this.log(data.toString());
+      });
+    });
+  }
+}
