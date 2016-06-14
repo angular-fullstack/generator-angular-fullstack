@@ -5,7 +5,7 @@ import path from 'path';
 import {Base} from 'yeoman-generator';
 import Promise from 'bluebird';
 
-class Generator extends Base {
+export default class Generator extends Base {
   constructor(...args) {
     super(...args);
 
