@@ -59,7 +59,8 @@ module.exports = function(config) {
       require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),
       require('karma-script-launcher'),
-      require('karma-webpack')
+      require('karma-webpack'),
+      require('karma-sourcemap-loader')
     ],
 
     // list of files / patterns to exclude
