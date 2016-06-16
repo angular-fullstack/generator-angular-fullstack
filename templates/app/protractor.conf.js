@@ -65,6 +65,8 @@ var config = {
   },
 
   onPrepare: function() {
+    browser.ignoreSynchronization = true;
+
     require('babel-register');<% if (filters.mocha) { %>
     // Load Mocha and Chai + plugins
     require('./mocha.conf');
