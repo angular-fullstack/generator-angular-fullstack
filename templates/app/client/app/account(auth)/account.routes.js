@@ -38,7 +38,7 @@ export default function routes($stateProvider) {
       });
 }<% } %>
 <%_ if (filters.ngroute) { _%>
-export default function routes($stateProvider) {
+export default function routes($routeProvider) {
     'ngInject';
     $routeProvider
       .when('/login', {

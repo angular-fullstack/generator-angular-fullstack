@@ -8,7 +8,7 @@ import {routerDecorator} from './router.decorator';
 import {AuthService} from './auth.service';
 import {UserResource} from './user.service';
 <%_ if (filters.ngroute) { _%>
-import ngRoute from 'angular-route';<% } %>
+const ngRoute = require('angular-route');<% } %>
 <%_ if (filters.uirouter) { _%>
 import uiRouter from 'angular-ui-router';<% } %>
 

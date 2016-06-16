@@ -1,6 +1,6 @@
 import angular from 'angular';
 <%_ if(filters.ngroute) { _%>
-import ngroute from 'angular-route';<% } _%>
+const ngRoute = require('angular-route');<% } _%>
 <%_ if(filters.uirouter) { _%>
 import uiRouter from 'angular-ui-router';<% } _%>
 
@@ -40,7 +40,7 @@ export class MainController {
 
 export default angular.module('<%= scriptAppName %>.main', [
   <%_ if(filters.ngroute) { _%>
-  ngroute<% } _%>
+  ngRoute<% } _%>
   <%_ if(filters.uirouter) { _%>
   uiRouter<% } _%>
 ])

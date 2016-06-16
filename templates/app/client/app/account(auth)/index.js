@@ -1,6 +1,9 @@
 'use strict';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+<%_ if (filters.ngroute) { _%>
+const ngRoute = require('angular-route'); <% } %>
+<%_ if (filters.uirouter) { _%>
+import uiRouter from 'angular-ui-router';<% } %>
 
 import routing from './account.routes';
 import login from './login';
@@ -10,7 +13,10 @@ import signup from './signup';
 import oauthButtons from '../../components/oauth-buttons';<% } %>
 
 export default angular.module('<%= scriptAppName %>.account', [
-    uiRouter,
+    <%_ if (filters.ngroute) { _%>
+    ngRoute,<% } %>
+    <%_ if (filters.uirouter) { _%>
+    uiRouter,<% } %>
     login,
     settings,
     signup<% if(filters.oauth) { %>,

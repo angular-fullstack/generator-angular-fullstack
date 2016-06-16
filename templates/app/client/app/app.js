@@ -7,7 +7,7 @@ import ngSanitize from 'angular-sanitize';
 <%_ if(filters.socketio) { _%>
 import 'angular-socket-io';<% } %>
 <%_ if(filters.ngroute) { _%>
-import ngRoute from 'angular-route';<% } %>
+const ngRoute = require('angular-route');<% } %>
 <%_ if(filters.uirouter) { _%>
 import uiRouter from 'angular-ui-router';<% } %>
 <%_ if(filters.uibootstrap) { _%>
