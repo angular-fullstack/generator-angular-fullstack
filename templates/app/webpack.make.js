@@ -203,7 +203,7 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.(scss|sass)$/,
             loaders: ['style', 'css', 'sass'],
             include: [
-                path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/.scss'),
+                path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
                 path.resolve(__dirname, 'client/app/app.scss')
             ]<% } %>
             <%_ if(filters.less) { _%>
@@ -212,7 +212,7 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.less$/,
             loaders: ['style', 'css', 'less'],
             include: [
-                path.resolve(__dirname, 'node_modules/'),//TODO: bootstrap
+                path.resolve(__dirname, 'node_modules/bootstrap/less/*.less'),
                 path.resolve(__dirname, 'client/app/app.less')
             ]<% } %>
             <%_ if(filters.stylus) { _%>
@@ -221,7 +221,7 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.styl$/,
             loaders: ['style', 'css', 'stylus'],
             include: [
-                path.resolve(__dirname, 'node_modules/'),//TODO: bootstrap
+                path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
                 path.resolve(__dirname, 'client/app/app.styl')
             ]<% } %>
         }<% } %>]
