@@ -187,9 +187,9 @@
     <%_ if(filters.sass) { _%>
     "sass-loader": "^3.1.1",<% } %>
     <%_ if(filters.less) { _%>
-    "less-loader": "",<% } %>
+    "less-loader": "^2.2.3",<% } %>
     <%_ if(filters.stylus) { _%>
-    "stylus-loader": "",<% } %>
+    "stylus-loader": "^2.1.1",<% } %>
     "tiny-lr": "^0.2.1",
     "karma-webpack": "^1.7.0",
     <%_ /* END WEBPACK */ _%>
