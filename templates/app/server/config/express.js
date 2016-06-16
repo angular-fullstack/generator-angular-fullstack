@@ -15,8 +15,8 @@ import errorHandler from 'errorhandler';
 import path from 'path';
 import lusca from 'lusca';
 import config from './environment';<% if (filters.auth) { %>
-import passport from 'passport';<% } %>
-import session from 'express-session';<% if (filters.mongoose) { %>
+import passport from 'passport';<% } %><% if(!filters.noModels) { %>
+import session from 'express-session';<% } %><% if (filters.mongoose) { %>
 <%_ if(semver.satisfies(nodeVersion, '>= 4')) { _%>
 import connectMongo from 'connect-mongo';<% } else { _%>
 import connectMongo from 'connect-mongo/es5';<% } %>
@@ -52,6 +52,7 @@ export default function(app) {
   app.use(cookieParser());<% if (filters.auth) { %>
   app.use(passport.initialize());<% } %>
 
+  <% if(!filters.noModels) { %>
   // Persist sessions with MongoStore / sequelizeStore
   // We need to enable sessions for passport-twitter because it's an
   // oauth 1.0 strategy, and Lusca depends on sessions
@@ -83,7 +84,7 @@ export default function(app) {
       },
       xssProtection: true
     }));
-  }
+  }<% } %>
 
   if ('development' === env) {
     const webpackDevMiddleware = require('webpack-dev-middleware');
