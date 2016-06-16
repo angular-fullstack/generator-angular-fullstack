@@ -11,7 +11,6 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import http from 'http';
 import open from 'open';
 import lazypipe from 'lazypipe';
-import {stream as wiredep} from 'wiredep';
 import nodemon from 'nodemon';
 import {Server as KarmaServer} from 'karma';
 import runSequence from 'run-sequence';
@@ -507,7 +506,10 @@ gulp.task('test:client', ['constant'], done => {
     new KarmaServer({
       configFile: `${__dirname}/${paths.karma}`,
       singleRun: true
-    }, done).start();
+    }, err => {
+        done(err);
+        process.exit(err);
+    }).start();
 });
 
 /********************
