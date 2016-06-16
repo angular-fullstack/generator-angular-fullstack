@@ -1,32 +1,11 @@
-@import "../../node_modules/font-awesome/css/font-awesome.css"
-<% if (filters.bootstrap) { %>@import "../../node_modules/bootstrap/dist/css/bootstrap.css"
-<% if (filters.oauth) { %>@import "../../node_modules/bootstrap-social/bootstrap-social.css"
-<% } %>
-//
-// Bootstrap Fonts
-//
+$fa-font-path = '../assets/fonts/font-awesome/'
+@import '~font-awesome-stylus/stylus/index'
 
-@font-face
-  font-family: 'Glyphicons Halflings'
-  src: url('/assets/fonts/bootstrap/glyphicons-halflings-regular.eot')
-  src: url('/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-  url('/assets/fonts/bootstrap/glyphicons-halflings-regular.woff') format('woff'),
-  url('/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf') format('truetype'),
-  url('/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-<% } %>
-//
-// Font Awesome Fonts
-//
-
-@font-face
-  font-family: 'FontAwesome'
-  src: url('/assets/fonts/font-awesome/fontawesome-webfont.eot?v=4.1.0')
-  src: url('/assets/fonts/font-awesome/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'),
-  url('/assets/fonts/font-awesome/fontawesome-webfont.woff?v=4.1.0') format('woff'),
-  url('/assets/fonts/font-awesome/fontawesome-webfont.ttf?v=4.1.0') format('truetype'),
-  url('/assets/fonts/font-awesome/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
-  font-weight: normal
-  font-style: normal
+<%_ if (filters.bootstrap) { %>
+$icon-font-path = '../assets/fonts/bootstrap/'
+@import '~bootstrap-styl/bootstrap/index';
+<% if (filters.oauth) { %>@import '~bootstrap-social/bootstrap-social.css'
+<% } %><% } %>
 
 //
 // App-wide Styles
