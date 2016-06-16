@@ -442,7 +442,6 @@ gulp.task('test:server', cb => {
         'env:test',
         'mocha:unit',
         'mocha:integration',
-        'mocha:coverage',
         cb);
 });
 
@@ -456,7 +455,7 @@ gulp.task('mocha:integration', () => {
         .pipe(mocha());
 });
 
-gulp.task('mocha:coverage', cb => {
+gulp.task('test:server:coverage', cb => {
   runSequence('coverage:pre',
               'env:all',
               'env:test',
