@@ -1,6 +1,5 @@
 'use strict';
-
-import $ from 'sprint-js';
+const $ = require('sprint-js');
 import OauthButtons from './index';
 
 describe('Directive: oauthButtons', function() {
