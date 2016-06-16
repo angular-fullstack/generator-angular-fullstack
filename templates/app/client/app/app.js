@@ -28,7 +28,8 @@ import footer from '../components/footer/footer.component';
 import main from './main/main.component';
 import './app.constant';
 import util from '../components/util/util.module';
-import socket from '../components/socket/socket.service';
+<%_ if(filters.socketio) { _%>
+import socket from '../components/socket/socket.service';<% } %>
 
 
 import './app.<%= styleExt %>';
@@ -56,10 +57,12 @@ angular.module('<%= scriptAppName %>', [
   footer,
   main,
   '<%= scriptAppName %>.constants',
-  socket,
+  <%_ if(filters.socketio) { _%>
+  socket,<% } %>
   util
 ])
   .config(routeConfig)
+  <%_ if(filters.auth) { _%>
   .run(function($rootScope, $location, Auth) {
     'ngInject';
     // Redirect to login if route requires auth and you're not logged in
@@ -70,7 +73,7 @@ angular.module('<%= scriptAppName %>', [
         }
       });
     });
-  });
+  })<% } %>;
 
 angular
   .element(document)
