@@ -149,7 +149,6 @@ module.exports = function makeWebpackConfig(options) {
             // Transpile .ts files using awesome-typescript-loader
             test: /\.ts$/,
             loader: 'awesome-typescript-loader',
-            exclude: [/\.(spec|e2e)\.ts$/],
             query: {
                 tsconfig: path.resolve(__dirname, 'tsconfig.client.json')
             },
