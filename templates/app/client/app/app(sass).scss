@@ -1,11 +1,11 @@
 <%_ if (filters.bootstrap) { _%>
 $icon-font-path: '/assets/fonts/bootstrap/';
-@import '../../node_modules/bootstrap-sass/vendor/assets/stylesheets/bootstrap';
+@import '~bootstrap-sass/vendor/assets/stylesheets/bootstrap';
 <%_ if(filters.oauth) { _%>
-@import '../../node_modules/bootstrap-social/bootstrap-social.scss';
+@import '~bootstrap-social/bootstrap-social.scss';
 <% }} _%>
 $fa-font-path: '/assets/fonts/font-awesome/';
-@import '../../node_modules/font-awesome/scss/font-awesome';
+@import '~font-awesome/scss/font-awesome';
 
 // @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,900|Roboto:300,500,700,900);
 
