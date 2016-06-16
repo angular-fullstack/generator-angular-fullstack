@@ -14,7 +14,7 @@
     ],
     "filesGlob": [
         "client/{app,components}/**/!(*.spec).ts",
-        "typings/main.d.ts"
+        "typings/browser.d.ts"
     ],
     "awesomeTypescriptLoaderOptions": {
       "resolveGlobs": true,
