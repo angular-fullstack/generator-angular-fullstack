@@ -76,7 +76,7 @@
     "jscs": "^3.0.3",
     "lazypipe": "^1.0.1",
     "merge-stream": "^1.0.0",
-    "minimatch": "^3.0.0",
+    "minimatch": "^3.0.2",
     "mocha": "^2.5.2",
     "q": "^1.0.1",
     "recursive-readdir": "^2.0.0",
