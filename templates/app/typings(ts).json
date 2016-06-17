@@ -1,6 +1,7 @@
 {
   "ambientDependencies": {
     "angular": "registry:dt/angular#1.5.0+20160412133217",
+    "angular-resource": "registry:dt/angular-resource#1.5.0+20160613142217",
     "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
     "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
     "socket.io-client": "github:DefinitelyTyped/DefinitelyTyped/socket.io-client/socket.io-client.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
