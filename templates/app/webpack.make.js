@@ -170,7 +170,7 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/webpack/jade-loader
             // Allow loading jade throw js
             test: /\.jade$/,
-            loaders: ['raw', 'pug-html']
+            loaders: ['pug-html']
         }, {<% } %>
             <%_ if(filters.html) { _%>
             // HTML LOADER
