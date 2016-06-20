@@ -31,9 +31,9 @@ export function routerDecorator($rootScope<% if(filters.ngroute) { %>, $location
 
         event.preventDefault();
         <%_ if(filters.ngroute) { _%>
-        $location.path('/');<% } %>
+        $location.path('/login');<% } %>
         <%_ if(filters.uirouter) { _%>
-        $state.go('main');<% } %>
+        $state.go('login');<% } %>
       });
     }
   });
