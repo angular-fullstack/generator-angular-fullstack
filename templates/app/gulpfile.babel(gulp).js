@@ -102,18 +102,42 @@ function whenServerReady(cb) {
  ********************/
 
 let lintClientScripts = lazypipe()<% if(filters.babel) { %>
-    .pipe(plugins.jshint, `${clientPath}/.jshintrc`)
-    .pipe(plugins.jshint.reporter, 'jshint-stylish');<% } %><% if(filters.ts) { %>
+    .pipe(plugins.eslint, `${clientPath}/.eslintrc`)
+    .pipe(plugins.eslint.format);<% } %><% if(filters.ts) { %>
     .pipe(plugins.tslint, require(`./${clientPath}/tslint.json`))
     .pipe(plugins.tslint.report, 'verbose', {emitError: false});<% } %>
 
+const lintClientTestScripts = lazypipe()
+    <%_ if(filters.babel) { -%>
+    .pipe(plugins.eslint, {
+        configFile: `${clientPath}/.eslintrc`,
+        envs: [
+            'browser',
+            'es6',
+            'mocha'
+        ]
+    })
+    .pipe(plugins.eslint.format);
+    <%_ } -%>
+    <%_ if(filters.ts) { -%>
+    .pipe(plugins.tslint, require(`./${clientPath}/tslint.json`))
+    .pipe(plugins.tslint.report, 'verbose', {emitError: false});
+    <%_ } -%>
+
 let lintServerScripts = lazypipe()
-    .pipe(plugins.jshint, `${serverPath}/.jshintrc`)
-    .pipe(plugins.jshint.reporter, 'jshint-stylish');
+    .pipe(plugins.eslint, `${serverPath}/.eslintrc`)
+    .pipe(plugins.eslint.format);
 
 let lintServerTestScripts = lazypipe()
-    .pipe(plugins.jshint, `${serverPath}/.jshintrc-spec`)
-    .pipe(plugins.jshint.reporter, 'jshint-stylish');
+    .pipe(plugins.eslint, {
+        configFile: `${serverPath}/.eslintrc`,
+        envs: [
+            'node',
+            'es6',
+            'mocha'
+        ]
+    })
+    .pipe(plugins.eslint.format);
 
 let transpileServer = lazypipe()
     .pipe(plugins.sourcemaps.init)
