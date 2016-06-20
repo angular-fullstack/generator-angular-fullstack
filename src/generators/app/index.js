@@ -475,7 +475,7 @@ export class Generator extends Base {
                 return true;
               } else {
                 // strip `// @flow` comments if not using flow
-                return !(/@flow)/.test(commentContents));
+                return !(/@flow/.test(commentContents));
               }
             },
             babelrc: false  // don't grab the generator's `.babelrc`
