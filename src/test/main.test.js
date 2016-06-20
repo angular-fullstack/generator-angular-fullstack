@@ -70,10 +70,6 @@ describe('angular-fullstack:app', function() {
       return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
     });
 
-    it('passes JSCS', function() {
-      return runCmd('gulp jscs').should.be.fulfilled();
-    });
-
     it('passes lint', function() {
       return runCmd('gulp lint:scripts').should.be.fulfilled();
     });
@@ -149,7 +145,6 @@ describe('angular-fullstack:app', function() {
 
   describe('default settings using existing `.yo-rc.json`', function() {
     var dir;
-    var jscsResult;
     var lintResult;
     var clientTestResult;
     var serverTestResult;
@@ -163,7 +158,6 @@ describe('angular-fullstack:app', function() {
         }
       }).then(_dir => {
         dir = _dir;
-        jscsResult = runCmd('gulp jscs');
         lintResult = runCmd('gulp lint:scripts');
         clientTestResult = runCmd('gulp test:client');
         serverTestResult = runCmd('gulp test:server');
@@ -174,10 +168,6 @@ describe('angular-fullstack:app', function() {
       const expectedFiles = getExpectedFiles.app(defaultOptions);
       assert.file(expectedFiles);
       return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
-    });
-
-    it('passes JSCS', function() {
-      return jscsResult.should.be.fulfilled();
     });
 
     it('passes lint', function() {
@@ -195,7 +185,6 @@ describe('angular-fullstack:app', function() {
 
   describe('with TypeScript, Jade, Jasmine, LESS, & OAuth', function() {
     var dir;
-    var jscsResult;
     var lintResult;
     var clientTestResult;
     var serverTestResult;
@@ -217,7 +206,6 @@ describe('angular-fullstack:app', function() {
     before(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
-        jscsResult = runCmd('gulp jscs');
         lintResult = runCmd('gulp lint:scripts');
         clientTestResult = runCmd('gulp test:client');
         serverTestResult = runCmd('gulp test:server');
@@ -228,10 +216,6 @@ describe('angular-fullstack:app', function() {
       const expectedFiles = getExpectedFiles.app(testOptions);
       assert.file(expectedFiles);
       return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
-    });
-
-    it('passes JSCS', function() {
-      return jscsResult.should.be.fulfilled();
     });
 
     it('passes lint', function() {
@@ -273,7 +257,6 @@ describe('angular-fullstack:app', function() {
 
   describe('with sequelize models, auth', function() {
     var dir;
-    var jscsResult;
     var lintResult;
     var clientTestResult;
     var serverTestResult;
@@ -296,7 +279,6 @@ describe('angular-fullstack:app', function() {
     beforeEach(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
-        jscsResult = runCmd('gulp jscs');
         lintResult = runCmd('gulp lint:scripts');
         clientTestResult = runCmd('gulp test:client');
         serverTestResult = runCmd('gulp test:server');
@@ -307,10 +289,6 @@ describe('angular-fullstack:app', function() {
       const expectedFiles = getExpectedFiles.app(testOptions);
       assert.file(expectedFiles);
       return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
-    });
-
-    it('passes JSCS', function() {
-      return jscsResult.should.be.fulfilled();
     });
 
     it('passes lint', function() {
@@ -352,7 +330,6 @@ describe('angular-fullstack:app', function() {
 
   describe('with TypeScript, Mocha + Chai (should) and no server options', function() {
     var dir;
-    var jscsResult;
     var lintResult;
     var clientTestResult;
     var serverTestResult;
@@ -375,7 +352,6 @@ describe('angular-fullstack:app', function() {
     beforeEach(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
-        jscsResult = runCmd('gulp jscs');
         lintResult = runCmd('gulp lint:scripts');
         clientTestResult = runCmd('gulp test:client');
         serverTestResult = runCmd('gulp test:server');
@@ -386,10 +362,6 @@ describe('angular-fullstack:app', function() {
       const expectedFiles = getExpectedFiles.app(testOptions);
       assert.file(expectedFiles);
       return assertOnlyFiles(expectedFiles, path.normalize(dir)).should.be.fulfilled();
-    });
-
-    it('passes JSCS', function() {
-      return jscsResult.should.be.fulfilled();
     });
 
     it('passes lint', function() {
