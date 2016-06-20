@@ -1,3 +1,6 @@
 'use strict';
+import {UtilService} from './util.service';
 
-angular.module('<%= scriptAppName %>.util', []);
+export default angular.module('<%= scriptAppName %>.util', [])
+  .factory('Util', UtilService)
+  .name;

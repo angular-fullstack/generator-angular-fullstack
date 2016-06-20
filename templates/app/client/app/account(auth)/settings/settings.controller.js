@@ -1,9 +1,10 @@
 'use strict';
 
-class SettingsController {
+export default class SettingsController {
   errors = {};
   submitted = false;
 
+  /*@ngInject*/
   constructor(Auth) {
     this.Auth = Auth;
   }
@@ -24,6 +25,3 @@ class SettingsController {
     }
   }
 }
-
-angular.module('<%= scriptAppName %>')
-  .controller('SettingsController', SettingsController);

@@ -53,12 +53,8 @@ function runEndpointGen(name, opt={}) {
         dir = _dir;
 
         // symlink our dependency directories
-        return Promise.all([
-          fs.mkdirAsync(dir + '/client').then(() => {
-            return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
-          }),
-          fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
-        ]).then(done);
+        return fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
+          .then(done);
       })
       .withOptions(options)
       .withArguments([name])

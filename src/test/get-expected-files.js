@@ -49,21 +49,22 @@ export function app(options) {
     'client/.htaccess',
     'client/favicon.ico',
     'client/robots.txt',
-    'client/index.html',
+    'client/_index.html',
+    `client/polyfills.${script}`,
     'client/app/app.' + script,
+    'client/app/app.config.' + script,
     'client/app/app.' + stylesheet,
-    'client/app/main/main.' + script,
+    'client/app/main/main.component.' + script,
+    'client/app/main/main.component.spec.' + script,
+    'client/app/main/main.routes.' + script,
     'client/app/main/main.' + markup,
     'client/app/main/main.' + stylesheet,
-    'client/app/main/main.controller.' + script,
-    'client/app/main/main.controller.spec.' + script,
     'client/assets/images/yeoman.png',
     'client/components/footer/footer.' + stylesheet,
     'client/components/footer/footer.' + markup,
-    'client/components/footer/footer.directive.' + script,
+    'client/components/footer/footer.component.' + script,
     'client/components/navbar/navbar.' + markup,
-    'client/components/navbar/navbar.controller.' + script,
-    'client/components/navbar/navbar.directive.' + script,
+    'client/components/navbar/navbar.component.' + script,
     'client/components/util/util.module.' + script,
     'client/components/util/util.service.' + script,
     'server/.jshintrc',
@@ -89,7 +90,6 @@ export function app(options) {
     'e2e/main/main.spec.js',
     'e2e/components/navbar/navbar.po.js',
     '.babelrc',
-    '.bowerrc',
     '.buildignore',
     '.editorconfig',
     '.gitattributes',
@@ -97,13 +97,18 @@ export function app(options) {
     '.travis.yml',
     '.jscsrc',
     '.yo-rc.json',
-    'Gruntfile.js',
+    'gulpfile.babel.js',
     'package.json',
-    'bower.json',
     'karma.conf.js',
     'mocha.conf.js',
+    'mocha.global.js',
     'protractor.conf.js',
-    'README.md'
+    'README.md',
+    'spec.js',
+    'webpack.build.js',
+    'webpack.dev.js',
+    'webpack.test.js',
+    'webpack.make.js'
   ]);
 
   /* TypeScript */
@@ -118,6 +123,11 @@ export function app(options) {
     files = files.concat([
       'client/.jshintrc'
     ]);
+  }
+
+  /* Flow */
+  if(options.flow) {
+    files.push('.flowconfig');
   }
 
   /* Ui-Router */
@@ -155,18 +165,22 @@ export function app(options) {
   /* Authentication */
   if (options.auth) {
     files = files.concat([
-      'client/app/account/account.' + script,
+      'client/app/account/index.' + script,
+      'client/app/account/account.routes.' + script,
       'client/app/account/login/login.' + markup,
+      'client/app/account/login/index.' + script,
       'client/app/account/login/login.controller.' + script,
       'client/app/account/settings/settings.' + markup,
+      'client/app/account/settings/index.' + script,
       'client/app/account/settings/settings.controller.' + script,
       'client/app/account/signup/signup.' + markup,
+      'client/app/account/signup/index.' + script,
       'client/app/account/signup/signup.controller.' + script,
+      'client/app/admin/index.' + script,
       'client/app/admin/admin.' + markup,
       'client/app/admin/admin.' + stylesheet,
-      'client/app/admin/admin.module.' + script,
-      'client/app/admin/admin.router.' + script,
       'client/app/admin/admin.controller.' + script,
+      'client/app/admin/admin.routes.' + script,
       'client/components/auth/auth.module.' + script,
       'client/components/auth/auth.service.' + script,
       'client/components/auth/interceptor.service.' + script,
@@ -200,11 +214,10 @@ export function app(options) {
 
 
     files = files.concat([
+      'client/components/oauth-buttons/index.' + script,
       'client/components/oauth-buttons/oauth-buttons.' + stylesheet,
       'client/components/oauth-buttons/oauth-buttons.' + markup,
-      'client/components/oauth-buttons/oauth-buttons.controller.' + script,
       'client/components/oauth-buttons/oauth-buttons.controller.spec.' + script,
-      'client/components/oauth-buttons/oauth-buttons.directive.' + script,
       'client/components/oauth-buttons/oauth-buttons.directive.spec.' + script,
       'e2e/components/oauth-buttons/oauth-buttons.po.js'
     ]);
