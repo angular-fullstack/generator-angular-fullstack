@@ -19,13 +19,16 @@ export class Generator extends Base {
   constructor(...args) {
     super(...args);
 
-    this.env.alias('angular-fullstack', 'afs');
-    this.env.alias('afs', 'angular-fullstack');
-
     this.argument('name', { type: String, required: false });
 
     this.option('skip-install', {
       desc: 'Do not install dependencies',
+      type: Boolean,
+      defaults: false
+    });
+
+    this.option('skip-config', {
+      desc: 'Always use existing .yo-rc.json',
       type: Boolean,
       defaults: false
     });
@@ -79,34 +82,38 @@ export class Generator extends Base {
       checkForConfig: function() {
         var existingFilters = this.config.get('filters');
 
-        if(existingFilters) {
-          return this.prompt([{
-            type: 'confirm',
-            name: 'skipConfig',
-            message: 'Existing .yo-rc configuration found, would you like to use it?',
-            default: true,
-          }]).then(answers => {
-            this.skipConfig = answers.skipConfig;
+        if(!existingFilters) return;
 
-            if(this.skipConfig) {
-              insight.track('skipConfig', 'true');
-              this.filters = existingFilters;
+        let promise = this.options['skip-config']
+          ? Promise.resolve({skipConfig: true})
+          : this.prompt([{
+              type: 'confirm',
+              name: 'skipConfig',
+              message: 'Existing .yo-rc configuration found, would you like to use it?',
+              default: true,
+            }]);
 
-              this.scriptExt = this.filters.ts ? 'ts' : 'js';
-              this.templateExt = this.filters.jade ? 'jade' : 'html';
-              this.styleExt = this.filters.sass ? 'scss' : 
-                this.filters.less ? 'less' : 
-                this.filters.stylus ? 'styl' : 
-                'css';
-            } else {
-              insight.track('skipConfig', 'false');
-              this.filters = {};
-              this.forceConfig = true;
-              this.config.set('filters', this.filters);
-              this.config.forceSave();
-            }
-          });
-        }
+        promise.then(answers => {
+          this.skipConfig = answers.skipConfig;
+
+          if(this.skipConfig) {
+            insight.track('skipConfig', 'true');
+            this.filters = existingFilters;
+
+            this.scriptExt = this.filters.ts ? 'ts' : 'js';
+            this.templateExt = this.filters.jade ? 'jade' : 'html';
+            this.styleExt = this.filters.sass ? 'scss' :
+              this.filters.less ? 'less' :
+              this.filters.stylus ? 'styl' :
+              'css';
+          } else {
+            insight.track('skipConfig', 'false');
+            this.filters = {};
+            this.forceConfig = true;
+            this.config.set('filters', this.filters);
+            this.config.forceSave();
+          }
+        });
       }
     };
   }
