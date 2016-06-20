@@ -130,12 +130,11 @@ export class Generator extends Base {
               }[val];
             }
           }, {
-          // TODO: enable once Babel setup supports Flow
-          //   type: 'confirm',
-          //   name: 'flow',
-          //   message: 'Would you like to use Flow types with Babel?',
-          //   when: answers => answers.transpiler === 'babel'
-          // }, {
+            type: 'confirm',
+            name: 'flow',
+            message: 'Would you like to use Flow types with Babel?',
+            when: answers => answers.transpiler === 'babel'
+          }, {
             type: 'list',
             name: 'markup',
             message: 'What would you like to write markup with?',
@@ -453,15 +452,16 @@ export class Generator extends Base {
            ]);
          */
 
+        const flow = this.filters.flow;
+
         let babelPlugins = [
           'babel-plugin-syntax-flow',
           'babel-plugin-syntax-class-properties'
         ];
 
-        // TODO: enable once Babel setup supports Flow
-        // if(this.filters.babel && !this.filters.flow) {
+        if(this.filters.babel && !flow) {
           babelPlugins.push('babel-plugin-transform-flow-strip-types');
-        // }
+        }
 
         let jsFilter = filter(['client/**/*.js'], {restore: true});
         this.registerTransformStream([
@@ -470,7 +470,14 @@ export class Generator extends Base {
             plugins: babelPlugins.map(require.resolve),
             /* Babel get's confused about these if you're using an `npm link`ed
                 generator-angular-fullstack, thus the `require.resolve` */
-            // retainLines: true,
+            shouldPrintComment(commentContents) {
+              if(flow) {
+                return true;
+              } else {
+                // strip `// @flow` comments if not using flow
+                return !(/@flow)/.test(commentContents));
+              }
+            },
             babelrc: false  // don't grab the generator's `.babelrc`
           }),
           beaufityStream({

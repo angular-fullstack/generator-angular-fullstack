@@ -1,4 +1,5 @@
 'use strict';
+// @flow
 
 export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
   'ngInject';
