@@ -132,6 +132,7 @@ export class Generator extends Base {
           }, {
             type: 'confirm',
             name: 'flow',
+            default: false,
             message: 'Would you like to use Flow types with Babel?',
             when: answers => answers.transpiler === 'babel'
           }, {
