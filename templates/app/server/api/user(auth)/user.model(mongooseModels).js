@@ -185,7 +185,7 @@ UserSchema.methods = {
   /**
    * Make salt
    *
-   * @param {Number} byteSize Optional salt byte size, default to 16
+   * @param {Number} [byteSize] - Optional salt byte size, default to 16
    * @param {Function} callback
    * @return {String}
    * @api public
@@ -198,14 +198,12 @@ UserSchema.methods = {
       byteSize = defaultByteSize;
     } else if (typeof arguments[1] === 'function') {
       callback = arguments[1];
+    } else {
+      throw new Error('Missing Callback');
     }
 
     if (!byteSize) {
       byteSize = defaultByteSize;
-    }
-
-    if (!callback) {
-      return crypto.randomBytes(byteSize).toString('base64');
     }
 
     return crypto.randomBytes(byteSize, (err, salt) => {
