@@ -29,8 +29,8 @@ angular.module('<%= scriptAppName %>.auth')
           }
 
           event.preventDefault();<% if (filters.ngroute) { %>
-          $location.path('/');<% } if (filters.uirouter) { %>
-          $state.go('main');<% } %>
+          $location.path('/login');<% } if (filters.uirouter) { %>
+          $state.go('login');<% } %>
         });
       }
     });
