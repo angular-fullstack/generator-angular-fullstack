@@ -1,9 +1,8 @@
 'use strict';
-
+/*eslint no-invalid-this:0*/
 import crypto from 'crypto';
-import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
-import {Schema} from 'mongoose';<% if (filters.oauth) { %>
+import mongoose, {Schema} from 'mongoose';<% if(filters.oauth) { %>
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
@@ -12,13 +11,17 @@ var UserSchema = new Schema({
   email: {
     type: String,
     lowercase: true,
-    required: <% if(filters.oauth) { %>function() {
-      if (authTypes.indexOf(this.provider) === -1) {
+    <%_ if(filters.oauth) { -%>
+    required() {
+      if(authTypes.indexOf(this.provider) === -1) {
         return true;
       } else {
         return false;
       }
-    }<% } else { %>true<% } %>
+    }
+    <%_ } else { -%>
+    required: true
+    <%_ } -%>
   },
   role: {
     type: String,
@@ -27,7 +30,7 @@ var UserSchema = new Schema({
   password: {
     type: String,
     required: <% if(filters.oauth) { %>function() {
-      if (authTypes.indexOf(this.provider) === -1) {
+      if(authTypes.indexOf(this.provider) === -1) {
         return true;
       } else {
         return false;
@@ -35,9 +38,9 @@ var UserSchema = new Schema({
     }<% } else { %>true<% } %>
   },
   provider: String,
-  salt: String<% if (filters.oauth) { %>,<% if (filters.facebookAuth) { %>
-  facebook: {},<% } %><% if (filters.twitterAuth) { %>
-  twitter: {},<% } %><% if (filters.googleAuth) { %>
+  salt: String<% if(filters.oauth) { %>,<% if(filters.facebookAuth) { %>
+  facebook: {},<% } %><% if(filters.twitterAuth) { %>
+  twitter: {},<% } %><% if(filters.googleAuth) { %>
   google: {},<% } %>
   github: {}<% } %>
 });
@@ -51,8 +54,8 @@ UserSchema
   .virtual('profile')
   .get(function() {
     return {
-      'name': this.name,
-      'role': this.role
+      name: this.name,
+      role: this.role
     };
   });
 
@@ -61,8 +64,8 @@ UserSchema
   .virtual('token')
   .get(function() {
     return {
-      '_id': this._id,
-      'role': this.role
+      _id: this._id,
+      role: this.role
     };
   });
 
@@ -73,18 +76,20 @@ UserSchema
 // Validate empty email
 UserSchema
   .path('email')
-  .validate(function(email) {<% if (filters.oauth) { %>
-    if (authTypes.indexOf(this.provider) !== -1) {
+  .validate(function(email) {
+    <%_ if(filters.oauth) { -%>
+    if(authTypes.indexOf(this.provider) !== -1) {
       return true;
-    }<% } %>
+    }
+    <%_ } -%>
     return email.length;
   }, 'Email cannot be blank');
 
 // Validate empty password
 UserSchema
   .path('password')
-  .validate(function(password) {<% if (filters.oauth) { %>
-    if (authTypes.indexOf(this.provider) !== -1) {
+  .validate(function(password) {<% if(filters.oauth) { %>
+    if(authTypes.indexOf(this.provider) !== -1) {
       return true;
     }<% } %>
     return password.length;
@@ -94,15 +99,16 @@ UserSchema
 UserSchema
   .path('email')
   .validate(function(value, respond) {
-    var self = this;
-    <%_ if(filters.oauth) { _%>
-    if (authTypes.indexOf(this.provider) !== -1) {
+    <%_ if(filters.oauth) { -%>
+    if(authTypes.indexOf(this.provider) !== -1) {
       return respond(true);
-    }<% } %>
+    }
+
+    <%_ } -%>
     return this.constructor.findOne({ email: value }).exec()
-      .then(function(user) {
-        if (user) {
-          if (self.id === user.id) {
+      .then(user => {
+        if(user) {
+          if(this.id === user.id) {
             return respond(true);
           }
           return respond(false);
@@ -124,13 +130,13 @@ var validatePresenceOf = function(value) {
 UserSchema
   .pre('save', function(next) {
     // Handle new/update passwords
-    if (!this.isModified('password')) {
+    if(!this.isModified('password')) {
       return next();
     }
 
-    if (!validatePresenceOf(this.password)) {
-      <% if (filters.oauth) { %>if (authTypes.indexOf(this.provider) === -1) {
-        <% } %>return next(new Error('Invalid password'));<% if (filters.oauth) { %>
+    if(!validatePresenceOf(this.password)) {
+      <% if(filters.oauth) { %>if(authTypes.indexOf(this.provider) === -1) {
+        <% } %>return next(new Error('Invalid password'));<% if(filters.oauth) { %>
       } else {
         return next();
       }<% } %>
@@ -138,16 +144,16 @@ UserSchema
 
     // Make salt with a callback
     this.makeSalt((saltErr, salt) => {
-      if (saltErr) {
+      if(saltErr) {
         return next(saltErr);
       }
       this.salt = salt;
       this.encryptPassword(this.password, (encryptErr, hashedPassword) => {
-        if (encryptErr) {
+        if(encryptErr) {
           return next(encryptErr);
         }
         this.password = hashedPassword;
-        next();
+        return next();
       });
     });
   });
@@ -165,19 +171,19 @@ UserSchema.methods = {
    * @api public
    */
   authenticate(password, callback) {
-    if (!callback) {
+    if(!callback) {
       return this.password === this.encryptPassword(password);
     }
 
     this.encryptPassword(password, (err, pwdGen) => {
-      if (err) {
+      if(err) {
         return callback(err);
       }
 
-      if (this.password === pwdGen) {
-        callback(null, true);
+      if(this.password === pwdGen) {
+        return callback(null, true);
       } else {
-        callback(null, false);
+        return callback(null, false);
       }
     });
   },
@@ -193,24 +199,24 @@ UserSchema.methods = {
   makeSalt(byteSize, callback) {
     var defaultByteSize = 16;
 
-    if (typeof arguments[0] === 'function') {
+    if(typeof arguments[0] === 'function') {
       callback = arguments[0];
       byteSize = defaultByteSize;
-    } else if (typeof arguments[1] === 'function') {
+    } else if(typeof arguments[1] === 'function') {
       callback = arguments[1];
     } else {
       throw new Error('Missing Callback');
     }
 
-    if (!byteSize) {
+    if(!byteSize) {
       byteSize = defaultByteSize;
     }
 
     return crypto.randomBytes(byteSize, (err, salt) => {
-      if (err) {
-        callback(err);
+      if(err) {
+        return callback(err);
       } else {
-        callback(null, salt.toString('base64'));
+        return callback(null, salt.toString('base64'));
       }
     });
   },
@@ -224,8 +230,8 @@ UserSchema.methods = {
    * @api public
    */
   encryptPassword(password, callback) {
-    if (!password || !this.salt) {
-      if (!callback) {
+    if(!password || !this.salt) {
+      if(!callback) {
         return null;
       } else {
         return callback('Missing password or salt');
@@ -236,13 +242,13 @@ UserSchema.methods = {
     var defaultKeyLength = 64;
     var salt = new Buffer(this.salt, 'base64');
 
-    if (!callback) {
+    if(!callback) {
       return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
                    .toString('base64');
     }
 
     return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, (err, key) => {
-      if (err) {
+      if(err) {
         callback(err);
       } else {
         callback(null, key.toString('base64'));
