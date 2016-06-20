@@ -125,6 +125,11 @@ export function app(options) {
     ]);
   }
 
+  /* Flow */
+  if(options.flow) {
+    files.push('.flowconfig');
+  }
+
   /* Ui-Router */
   if (options.router === 'uirouter') {
     files = files.concat([
