@@ -128,6 +128,24 @@ module.exports = function makeWebpackConfig(options) {
         sourceComments: false
     };<% } %>
 
+    <%_ if(filters.babel) { -%>
+    config.babel = {
+        shouldPrintComment(commentContents) {
+            <%_ if(filters.flow) { -%>
+            let regex = DEV
+                // keep `// @flow`, `/*@ngInject*/`, & flow type comments in dev
+                ? /(@flow|@ngInject|^:)/
+                // keep `/*@ngInject*/`
+                : /@ngInject/;
+            return regex.test(commentContents);
+            <%_ } -%>
+            <%_ if(!filters.flow) { -%>
+            // keep `/*@ngInject*/`
+            return /@ngInject/.test(commentContents);
+            <%_ } -%>
+        }
+    }<% } %>
+
     // Initialize module
     config.module = {
         preLoaders: [],
@@ -138,7 +156,6 @@ module.exports = function makeWebpackConfig(options) {
             // Compiles ES6 and ES7 into ES5 code
             test: /\.js$/,
             loader: 'babel',
-            query: {comments: DEV || E2E},
             include: [
                 path.resolve(__dirname, 'client/'),
                 path.resolve(__dirname, 'node_modules/lodash-es/')
