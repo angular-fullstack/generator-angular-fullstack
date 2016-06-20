@@ -233,15 +233,23 @@
     "node": "^4.4.0",
     "npm": "^2.14.20"
   },
-  "scripts": {<% if(filters.gulp) { %>
-    "test": "gulp test",<% } else { %>
-    "test": "grunt test",<% } %>
-    <%_ if(filters.ts) { _%>
-    "postinstall": "./node_modules/.bin/typings install",<% } %>
-    <%_ if(semver.satisfies(npmVersion, '>= 3')) { _%>
+  "scripts": {
+    <%_ if(filters.gulp) { -%>
+    "test": "gulp test",
+    <%_ } else { -%>
+    "test": "grunt test",
+    <%_ } -%>
+    <%_ if(filters.ts) { -%>
+    "postinstall": "./node_modules/.bin/typings install",
+    <%_ } -%>
+    <%_ if(filters.flow) { -%>
+    "flow": "flow",
+    <%_ } -%>
+    <%_ if(semver.satisfies(npmVersion, '>= 3')) { -%>
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
-    <%_ } else { _%>
-    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update",<% } %>
+    <%_ } else { -%>
+    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update",
+    <%_ } -%>
     "start": "node server"
   },
   "private": true
