@@ -33,6 +33,7 @@ const paths = {
     client: {
         assets: `${clientPath}/assets/**/*`,
         images: `${clientPath}/assets/images/**/*`,
+        revManifest: `${clientPath}/assets/rev-manifest.json`,
         scripts: [
             `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`,
             `!${clientPath}/bower_components/**/*`<% if(filters.ts) { %>,
@@ -180,41 +181,8 @@ gulp.task('env:prod', () => {
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:css'<% if(!filters.css) { %>, 'inject:<%= styleExt %>'<% } %><% if(filters.ts) { %>, 'inject:tsconfig'<% } %>], cb);
-});<% if(filters.ts) { %>
-
-function injectTsConfig(filesGlob, tsconfigPath){
-    let src = gulp.src(filesGlob, {read: false})
-        .pipe(plugins.sort());
-
-    return gulp.src(tsconfigPath)
-        .pipe(plugins.inject(src, {
-            starttag: '"files": [',
-            endtag: ']',
-            transform: (filepath, file, i, length) => {
-                return `"${filepath.substr(1)}"${i + 1 < length ? ',' : ''}`;
-            }
-        }))
-        .pipe(gulp.dest('./'));
-}
-
-gulp.task('inject:tsconfig', () => {
-    return injectTsConfig([
-        `${clientPath}/**/!(*.spec|*.mock).ts`,
-        `!${clientPath}/bower_components/**/*`,
-        `typings/main.d.ts`
-    ],
-    './tsconfig.client.json');
+    runSequence(['inject:css'<% if(!filters.css) { %>, 'inject:<%= styleExt %>'<% } %>], cb);
 });
-
-gulp.task('inject:tsconfigTest', () => {
-    return injectTsConfig([
-        `${clientPath}/**/+(*.spec|*.mock).ts`,
-        `!${clientPath}/bower_components/**/*`,
-        `typings/main.d.ts`
-    ],
-    './tsconfig.client.test.json');
-});<% } %>
 
 gulp.task('inject:css', () => {
     return gulp.src(paths.client.mainView)
@@ -522,13 +490,9 @@ gulp.task('build', cb => {
             'clean:tmp'
         ],
         'inject',
-        [
-            'transpile:client',
-            'transpile:server'
-        ],
+        'transpile:server',
         [
             'build:images',
-            'generate-favicon',
             'typings'
         ],
         [
@@ -568,7 +532,7 @@ gulp.task('build:images', () => {
         }))
         .pipe(plugins.rev())
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/images`))
-        .pipe(plugins.rev.manifest(`${paths.dist}/${clientPath}/assets/rev-manifest.json`, {
+        .pipe(plugins.rev.manifest(`${paths.dist}/${paths.client.revManifest}`, {
             base: `${paths.dist}/${clientPath}/assets`,
             merge: true
         }))
@@ -577,7 +541,7 @@ gulp.task('build:images', () => {
 
 gulp.task('revReplaceWebpack', function() {
     return gulp.src('dist/client/app.*.js')
-        .pipe(plugins.revReplace({manifest: gulp.src(paths.client.assets.revManifest)}))
+        .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
         .pipe(gulp.dest('dist/client'));
 });
 
