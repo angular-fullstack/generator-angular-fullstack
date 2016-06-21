@@ -522,13 +522,9 @@ gulp.task('build', cb => {
             'clean:tmp'
         ],
         'inject',
-        [
-            'transpile:client',
-            'transpile:server'
-        ],
+        'transpile:server',
         [
             'build:images',
-            'generate-favicon',
             'typings'
         ],
         [
