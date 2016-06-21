@@ -33,6 +33,7 @@ const paths = {
     client: {
         assets: `${clientPath}/assets/**/*`,
         images: `${clientPath}/assets/images/**/*`,
+        revManifest: `${clientPath}/assets/rev-manifest.json`,
         scripts: [
             `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`,
             `!${clientPath}/bower_components/**/*`<% if(filters.ts) { %>,
@@ -564,7 +565,7 @@ gulp.task('build:images', () => {
         }))
         .pipe(plugins.rev())
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/images`))
-        .pipe(plugins.rev.manifest(`${paths.dist}/${clientPath}/assets/rev-manifest.json`, {
+        .pipe(plugins.rev.manifest(`${paths.dist}/${paths.client.revManifest}`, {
             base: `${paths.dist}/${clientPath}/assets`,
             merge: true
         }))
@@ -573,7 +574,7 @@ gulp.task('build:images', () => {
 
 gulp.task('revReplaceWebpack', function() {
     return gulp.src('dist/client/app.*.js')
-        .pipe(plugins.revReplace({manifest: gulp.src(paths.client.assets.revManifest)}))
+        .pipe(plugins.revReplace({manifest: gulp.src(`${paths.dist}/${paths.client.revManifest}`)}))
         .pipe(gulp.dest('dist/client'));
 });
 
