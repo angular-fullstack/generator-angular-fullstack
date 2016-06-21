@@ -353,13 +353,15 @@ gulp.task('start:server:prod', () => {
 
 gulp.task('start:inspector', () => {
     gulp.src([])
-        .pipe(plugins.nodeInspector());
+        .pipe(plugins.nodeInspector({
+          debugPort: <%= debugPort %>
+        }));
 });
 
 gulp.task('start:server:debug', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-        config = require(`./${serverPath}/config/environment`);
-    nodemon(`-w ${serverPath} --debug-brk ${serverPath}`)
+    config = require(`./${serverPath}/config/environment`);
+    nodemon(`-w ${serverPath} --debug=<%= debugPort %> --debug-brk ${serverPath}`)
         .on('log', onServerLog);
 });
 

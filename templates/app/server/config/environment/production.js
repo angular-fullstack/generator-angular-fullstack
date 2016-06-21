@@ -12,7 +12,7 @@ module.exports = {
   // Server port
   port: process.env.OPENSHIFT_NODEJS_PORT
     || process.env.port
-    || 8080<% if (filters.mongoose) { %>,
+    || <%= prodPort %><% if(filters.mongoose) { %>,
 
   // MongoDB connection options
   mongo: {

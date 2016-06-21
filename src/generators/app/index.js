@@ -38,6 +38,24 @@ export class Generator extends Base {
       type: String,
       defaults: 'App'
     });
+
+    this.option('dev-port', {
+      desc: 'Port to use for the development HTTP server',
+      type: String,
+      defaults: '9000'
+    });
+
+    this.option('debug-port', {
+      desc: 'Port to use for the server debugger',
+      type: String,
+      defaults: '5858'
+    });
+
+    this.option('prod-port', {
+      desc: 'Port to use for the production HTTP Server',
+      type: String,
+      defaults: '8080'
+    });
   }
 
   get initializing() {
@@ -308,9 +326,12 @@ export class Generator extends Base {
           type: 'list',
           name: 'buildtool',
           message: 'Would you like to use Gulp or Grunt?',
-          choices: ['Grunt', 'Gulp'],
-          default: 1,
-          filter: val => val.toLowerCase()
+          choices: ['Gulp', 'Grunt (deprecated)'],
+          default: 0,
+          filter: val => ({
+            'Gulp': 'gulp',
+            'Grunt (deprecated)': 'grunt'
+          })[val]
         }, {
           type: 'list',
           name: 'testing',
