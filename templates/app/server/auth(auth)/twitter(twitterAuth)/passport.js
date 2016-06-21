@@ -8,6 +8,9 @@ export function setup(User, config) {
     callbackURL: config.twitter.callbackURL
   },
   function(token, tokenSecret, profile, done) {
+    if(!isNAN(profile._json.id)){
+      profile._json.id = profile._json.id.toString();
+    }
     <% if (filters.mongooseModels) { %>User.findOne({'twitter.id': profile.id}).exec()<% }
        if (filters.sequelizeModels) { %>User.find({where:{'twitter.id': profile.id}})<% } %>
       .then(user => {
