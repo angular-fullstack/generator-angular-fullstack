@@ -86,7 +86,7 @@ function eslintDir(dir, name, folder) {
 
   let specFiles = fs.readdirAsync(endpointDir)
     .then(files => files.filter(file => minimatch(file, '**/+(*.spec|*.mock|*.integration).js', {dot: true})))
-    .map(file => testFile(`${eslintCmd} --env node,es6,mocha`, path.join('./server/api/', folder, file)));
+    .map(file => testFile(`${eslintCmd} --env node,es6,mocha --global sinon,expect`, path.join('./server/api/', folder, file)));
 
   return Promise.all([regFiles, specFiles]);
 }
