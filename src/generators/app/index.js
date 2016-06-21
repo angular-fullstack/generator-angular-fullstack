@@ -31,6 +31,24 @@ export class Generator extends Base {
       type: String,
       defaults: 'App'
     });
+
+    this.option('dev-port', {
+      desc: 'Port to use for the development HTTP server',
+      type: String,
+      defaults: '9000'
+    });
+
+    this.option('debug-port', {
+      desc: 'Port to use for the server debugger',
+      type: String,
+      defaults: '5858'
+    });
+
+    this.option('prod-port', {
+      desc: 'Port to use for the production HTTP Server',
+      type: String,
+      defaults: '8080'
+    });
   }
 
   get initializing() {
@@ -90,9 +108,9 @@ export class Generator extends Base {
 
               this.scriptExt = this.filters.ts ? 'ts' : 'js';
               this.templateExt = this.filters.jade ? 'jade' : 'html';
-              this.styleExt = this.filters.sass ? 'scss' : 
-                this.filters.less ? 'less' : 
-                this.filters.stylus ? 'styl' : 
+              this.styleExt = this.filters.sass ? 'scss' :
+                this.filters.less ? 'less' :
+                this.filters.stylus ? 'styl' :
                 'css';
             } else {
               insight.track('skipConfig', 'false');
@@ -103,6 +121,11 @@ export class Generator extends Base {
             }
           });
         }
+      },
+      assignPorts() {
+        this.devPort = this.options['dev-port'];
+        this.debugPort = this.options['debug-port'];
+        this.prodPort = this.options['prod-port'];
       }
     };
   }
