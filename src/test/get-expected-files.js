@@ -67,8 +67,7 @@ export function app(options) {
     'client/components/navbar/navbar.component.' + script,
     'client/components/util/util.module.' + script,
     'client/components/util/util.service.' + script,
-    'server/.jshintrc',
-    'server/.jshintrc-spec',
+    'server/.eslintrc',
     'server/app.js',
     'server/index.js',
     'server/routes.js',
@@ -92,10 +91,10 @@ export function app(options) {
     '.babelrc',
     '.buildignore',
     '.editorconfig',
+    '.eslintrc',
     '.gitattributes',
     '.gitignore',
     '.travis.yml',
-    '.jscsrc',
     '.yo-rc.json',
     'gulpfile.babel.js',
     'package.json',
@@ -121,7 +120,7 @@ export function app(options) {
     ]);
   } else {
     files = files.concat([
-      'client/.jshintrc'
+      'client/.eslintrc'
     ]);
   }
 

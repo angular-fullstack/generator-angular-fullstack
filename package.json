@@ -74,7 +74,6 @@
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7",
     "jit-grunt": "~0.10.0",
-    "jscs": "^3.0.3",
     "lazypipe": "^1.0.1",
     "merge-stream": "^1.0.0",
     "minimatch": "^3.0.0",

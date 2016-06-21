@@ -12,15 +12,15 @@ export function setup(User, config) {
     ]
   },
   function(accessToken, refreshToken, profile, done) {
-    <% if (filters.mongooseModels) { %>User.findOne({'facebook.id': profile.id}).exec()<% }
-       if (filters.sequelizeModels) { %>User.find({where:{'facebook.id': profile.id}})<% } %>
+    <% if(filters.mongooseModels) { %>User.findOne({'facebook.id': profile.id}).exec()<% }
+       if(filters.sequelizeModels) { %>User.find({where:{'facebook.id': profile.id}})<% } %>
       .then(user => {
-        if (user) {
+        if(user) {
           return done(null, user);
         }
 
-        <% if (filters.mongooseModels) { %>user = new User({<% }
-           if (filters.sequelizeModels) { %>user = User.build({<% } %>
+        <% if(filters.mongooseModels) { %>user = new User({<% }
+           if(filters.sequelizeModels) { %>user = User.build({<% } %>
           name: profile.displayName,
           email: profile.emails[0].value,
           role: 'user',
@@ -28,7 +28,7 @@ export function setup(User, config) {
           facebook: profile._json
         });
         user.save()
-          .then(user => done(null, user))
+          .then(savedUser => done(null, savedUser))
           .catch(err => done(err));
       })
       .catch(err => done(err));
