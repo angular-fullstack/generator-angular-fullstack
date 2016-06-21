@@ -10,6 +10,7 @@ Available generators:
     - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
 * Client Side
     - [angular-fullstack:route](/docs/generators/route.md)
+    - [angular-fullstack:component](/docs/generators/component.md)
     - [angular-fullstack:controller](/docs/generators/controller.md)
     - [angular-fullstack:filter](/docs/generators/filter.md)
     - [angular-fullstack:directive](/docs/generators/directive.md)
@@ -109,7 +110,7 @@ Overview
     ├── client
     │   ├── app                 - All of our app specific components go in here
     │   ├── assets              - Custom assets: fonts, images, etc…
-    │   ├── components          - Our reusable components, non-specific to to our app
+    │   ├── components          - Our reusable components, non-specific to our app
     │
     ├── e2e                     - Our protractor end to end tests
     │

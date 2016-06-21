@@ -1,0 +1,27 @@
+## Customize the test machine
+machine:
+  node:
+    version: 5.11.1
+  post:
+    - npm install -g gulp-cli grunt-cli bower
+
+## Customize checkout
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init # use submodules
+
+## Customize dependencies
+dependencies:
+  # we automatically cache and restore many dependencies between
+  # builds. If you need to, you can add custom paths to cache:
+  cache_directories:
+    - "test/fixtures/node_modules"
+
+## Custom notifications
+#notify:
+notify:
+  webhooks:
+    # A list of hook hashes, containing the url field
+    # gitter hook
+    - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789

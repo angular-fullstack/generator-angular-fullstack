@@ -1,5 +1,5 @@
 # AngularJS Full-Stack generator
-![Build Status](https://img.shields.io/codeship/26128390-800a-0133-c5f7-6a23b0487a18/master.svg)
+![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack#info=devDependencies)
@@ -18,6 +18,8 @@ Install `yo`, `grunt-cli`/`gulp-cli`, `bower`, and `generator-angular-fullstack`
 ```
 npm install -g yo grunt-cli gulp-cli bower generator-angular-fullstack
 ```
+
+> To install the latest 4.0.0 Beta with Webpack support, use `generator-angular-fullstack@beta`
 
 Make a new directory, and `cd` into it:
 ```
@@ -40,7 +42,7 @@ Run `grunt`/`gulp build` for building, `grunt serve`/`gulp serve` for developmen
 
 **General**
 
-* Build Systems: `Grunt`, `Gulp`
+* Build Systems: `Grunt` (deprecated, will be removed in 4.0.0), `Gulp`
 * Testing: 
   * `Jasmine`
   * `Mocha + Chai + Sinon`
@@ -79,6 +81,7 @@ Available generators:
     - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
 * Client Side
     - [angular-fullstack:route](/docs/generators/route.md)
+    - [angular-fullstack:component](/docs/generators/component.md)
     - [angular-fullstack:controller](/docs/generators/controller.md)
     - [angular-fullstack:filter](/docs/generators/filter.md)
     - [angular-fullstack:directive](/docs/generators/directive.md)
