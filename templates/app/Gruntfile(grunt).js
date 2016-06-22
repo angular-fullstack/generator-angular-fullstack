@@ -46,7 +46,7 @@ module.exports = function(grunt) {
       },
       prod: {
         options: {
-          port: process.env.PORT || <%= prodPort %>
+          port: process.env.PORT || <%= prodPort %>,
           script: '<%%= yeoman.dist %>/<%%= yeoman.server %>'
         }
       }
