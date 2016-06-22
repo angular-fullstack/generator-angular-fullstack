@@ -22,6 +22,18 @@ function respondWithResult(res, statusCode) {
   };
 }
 
+function saveUpsert(new) {
+  return function(entity) {
+    <%_ if(filters.mongooseModels) { -%>
+    var updated = _.assignIn(entity, updates);
+    return updated.save();
+    <%_ } -%>
+    <%_ if(filters.sequelizeModels) { -%>
+    return entity.updateAttributes(updates);
+    <%_ } -%>
+  };
+}
+
 function saveUpdates(updates) {
   return function(entity) {
     <%_ if(filters.mongooseModels) { -%>
@@ -90,6 +102,23 @@ export function create(req, res) {
   <% if(filters.mongooseModels) { %>return <%= classedName %>.create(req.body)<% }
      if(filters.sequelizeModels) { %>return <%= classedName %>.create(req.body)<% } %>
     .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
+
+// Upserts the given <%= classedName %> in the DB at the specified ID
+export function upsert(req, res) {
+  if(req.body._id) {
+    delete req.body._id;
+  }
+  <%_ if(filters.mongooseModels) { -%>
+  return <%= classedName %>.findOneAndUpdate(req.params.id, req.body, {upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()<% } %>
+  <%_ if(filters.sequelizeModels) { -%>
+  return <%= classedName %>.upsert(req.body, {
+    where: {
+      _id: req.params.id
+    }
+  })<% } %>
+    .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
