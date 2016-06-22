@@ -137,6 +137,7 @@ let styles = lazypipe()
     .pipe(plugins.sass)<% } if(filters.less) { %>
     .pipe(plugins.less)<% } %>
     <%_ if(filters.css) { _%>
+    .pipe(plugins.concat, 'app.css')
     .pipe(plugins.cleanCss, {processImportFrom: ['!fonts.googleapis.com']})<% } %>
     .pipe(plugins.autoprefixer, {browsers: ['last 1 version']})
     .pipe(plugins.sourcemaps.write, '.');<% if(filters.babel) { %>
