@@ -1,7 +1,7 @@
 {
   "name": "<%= lodash.slugify(lodash.humanize(appname)) %>",
   "version": "0.0.0",
-  "main": "server/app.js",
+  "main": "server/index.js",
   "dependencies": {
     "express": "^4.13.3",
     "morgan": "~1.7.0",

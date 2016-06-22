@@ -483,12 +483,19 @@ gulp.task('test', cb => {
     return runSequence('test:server', 'test:client', cb);
 });
 
-gulp.task('test:server', cb => {
+gulp.task('test:server', ['constant'], cb => {
     runSequence(
         'env:all',
         'env:test',
         'mocha:unit',
         'mocha:integration',
+        cb);
+});
+
+gulp.task('test:server:coverage', ['constant'], cb => {
+    runSequence(
+        'env:all',
+        'env:test',
         'mocha:coverage',
         cb);
 });
@@ -557,6 +564,7 @@ gulp.task('build', cb => {
             'clean:tmp'
         ],<% if(filters.jade) { %>
         'jade',<% } %>
+        'constant',
         'inject',
         'wiredep:client',<% if(filters.ts) { %>
         'typings',<% } %>
@@ -718,14 +726,54 @@ gulp.task('mocha:coverage', cb => {
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', ['env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
+gulp.task('build:dev', cb => {
+    runSequence(['clean:tmp', 'constant', 'env:all'],
+        ['lint:scripts', 'inject'],
+        ['wiredep:client'],
+        ['transpile:client', 'styles'],
+        cb);
+});
+
+var server;
+gulp.task('start:server:e2e', ['build:dev'], () => {
+    const fork = require('child_process').fork;
+    process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+    config = require(`./${serverPath}/config/environment`);
+    server = fork('./');
+});
+gulp.task('start:server:e2e:prod', ['build'], () => {
+    const fork = require('child_process').fork;
+    process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+    config = require(`./${serverPath}/config/environment`);
+    process.env.PORT = process.env.PORT || config.port;
+    server = fork(`${paths.dist}/${serverPath}`);
+});
+
+gulp.task('test:e2e', ['env:test', 'start:server:e2e', 'webdriver_update'], () => {
+    let errors;
     gulp.src(paths.client.e2e)
         .pipe(protractor({
-            configFile: 'protractor.conf.js',
+            configFile: 'protractor.conf.js'
         })).on('error', err => {
-            console.log(err)
+            console.log(err);
+            errors++;
         }).on('end', () => {
-            process.exit();
+            server.kill();
+            process.exit(errors);
+        });
+});
+
+gulp.task('test:e2e:prod', ['env:prod', 'start:server:e2e:prod', 'webdriver_update'], () => {
+    let errors = 0;
+    gulp.src(paths.client.e2e)
+        .pipe(protractor({
+            configFile: 'protractor.conf.js'
+        })).on('error', err => {
+            console.log(err);
+            errors++;
+        }).on('end', () => {
+            server.kill();
+            process.exit(errors);
         });
 });
 

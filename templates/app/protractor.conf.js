@@ -85,6 +85,10 @@ var config = {
     // Setup mongo for tests
     var mongoose = require('mongoose');
     mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database<% } %>
+  },
+
+  onCleanUp: function(exitCode) {
+    setTimeout(() => process.kill(exitCode), 5000);
   }
 };
 

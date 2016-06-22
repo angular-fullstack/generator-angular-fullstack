@@ -3,12 +3,13 @@ import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
 import Promise from 'bluebird';
-import {exec} from 'child_process';
+import {exec, fork} from 'child_process';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
 import recursiveReadDir from 'recursive-readdir';
 
 const TEST_DIR = __dirname;
+const DEBUG = process.env.DEBUG || false;
 
 /**
  * Copy file from src to dest
@@ -29,17 +30,18 @@ export function copyAsync(src, dest) {
 /**
  * Run the given command in a child process
  * @param {string} cmd - command to run
+ * @param {Object} [options={}]
  * @returns {Promise}
  */
-export function runCmd(cmd) {
+export function runCmd(cmd, options={}) {
   return new Promise((resolve, reject) => {
-    exec(cmd, {}, function(err, stdout, stderr) {
+    exec(cmd, options, function(err, stdout, stderr) {
       if(err) {
         console.error(stdout);
         return reject(err);
       } else {
         if(DEBUG) console.log(`${cmd} stdout: ${stdout}`);
-        return resolve();
+        return resolve(stdout);
       }
     });
   });
@@ -83,13 +85,16 @@ export function readJSON(path) {
 
 /**
  * Run angular-fullstack:app
+ * @param {String} [name]
  * @param {object} [prompts]
  * @param {object} [opts={}]
  * @param {boolean} [opts.copyConfigFile] - copy default .yo-rc.json
  * @returns {Promise}
  */
-export function runGen(prompts, opts={}) {
+export function runGen(name='test', opts={}) {
+  let prompts = opts.prompts || {};
   let options = opts.options || {skipInstall: true};
+  // let config = opts.config;
 
   // let dir;
   let gen = helpers
@@ -117,10 +122,92 @@ export function runGen(prompts, opts={}) {
       require.resolve('../generators/endpoint'),
       // [helpers.createDummyGenerator(), 'ng-component:app']
     ])
-    // .withArguments(['upperCaseBug'])
+    .withArguments([name])
     .withOptions(options);
 
   if(prompts) gen.withPrompts(prompts);
 
   return gen.toPromise();
+}
+
+/**
+ * @param {String} name
+ * @param {Object} [opt={}]
+ * @param {Object} [opt.prompts={}] - prompt answers
+ * @param {Object} [opt.options={}]
+ * @param {Object} [opt.config] - .yo-rc.json config
+ */
+export function runEndpointGen(name, opt={}) {
+  let prompts = opt.prompts || {};
+  let options = opt.options || {};
+  let config = opt.config;
+
+  return new Promise((resolve, reject) => {
+    let gen = helpers
+      .run(require.resolve('../generators/endpoint'), {tmpdir: false})
+      .withOptions(options)
+      .withArguments([name])
+      .withPrompts(prompts);
+
+    if(config) {
+      gen
+        .withLocalConfig(config);
+    }
+
+    gen
+      .on('error', reject)
+      .on('end', () => resolve())
+  });
+}
+
+// Yeoman generators rely on the current process's current working directory.
+// In order to allow multiple generators to be run in parallel, we need to run each gen in a separate child process.
+
+/**
+ * Run angular-fullstack:app in a forked child process
+ * @param {String} [name]
+ * @param {object} [options={}]
+ * @returns {Promise}
+ */
+export function runGenForked(name, options={}) {
+  let child = fork(path.resolve('./gen.app.js'), [name, JSON.stringify(options)]);
+
+  return new Promise((resolve, reject) => {
+    child.on('message', msg => {
+      child.kill();
+      resolve(msg);
+    });
+    child.on('error', err => {
+      child.kill();
+      reject(err);
+    });
+    // child.on('disconnect', () => console.log('RIP'));
+  });
+}
+
+/**
+ * Run angular-fullstack:app in a forked child process
+ * @param {String} name
+ * @param {object} options
+ * @param {String} dir
+ * @returns {Promise}
+ */
+export function runEndpointGenForked(name, options, dir) {
+  let child = fork(path.resolve('./gen.endpoint.js'), [
+    name,
+    JSON.stringify(options),
+    dir
+  ]);
+
+  return new Promise((resolve, reject) => {
+    child.on('message', msg => {
+      child.kill();
+      resolve(msg);
+    });
+    child.on('error', err => {
+      child.kill();
+      reject(err);
+    });
+    // child.on('disconnect', () => console.log('RIP'));
+  });
 }

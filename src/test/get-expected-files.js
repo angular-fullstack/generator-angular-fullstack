@@ -97,11 +97,12 @@ export function app(options) {
     '.travis.yml',
     '.jscsrc',
     '.yo-rc.json',
-    'Gruntfile.js',
+    'gulpfile.babel.js',
     'package.json',
     'bower.json',
     'karma.conf.js',
     'mocha.conf.js',
+    'mocha.global.js',
     'protractor.conf.js',
     'README.md'
   ]);
