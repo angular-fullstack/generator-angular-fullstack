@@ -2,7 +2,7 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 <%_ if(filters.oauth) { -%>
 @import '~bootstrap-social/bootstrap-social.css';
-<%_ }} -%>
+<%_ } -%>
 /**
  * Bootstrap Fonts
  */
