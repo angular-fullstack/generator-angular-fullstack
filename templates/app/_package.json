@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
-    <%_ /* CLIENT */ _%>
+    <%# CLIENT %>
     "angular": "~1.5.5",<% if(filters.bootstrap) { if(filters.sass) { %>
     "bootstrap-sass": "~3.1.1",<% } %>
     "bootstrap": "~3.1.1",<% if(filters.oauth) { %>
@@ -19,7 +19,7 @@
     "angular-socket-io": "~0.7.0",<% } if(filters.uirouter) { %>
     "angular-ui-router": "~0.2.15",<% } if(filters.auth) { %>
     "angular-validation-match": "~1.5.2",<% } %>
-    <%_ /* END CLIENT */ _%>
+    <%# END CLIENT %>
     "core-js": "^2.2.1",
     "express": "^4.13.3",
     "morgan": "~1.7.0",
@@ -56,11 +56,11 @@
     "sprint-js": "~0.1.0"
   },
   "devDependencies": {
-    <%_ /* CLIENT */ _%>
+    <%# CLIENT %>
     "angular-mocks": "~1.5.5",<% if(filters.stylus) { %>
     "bootstrap-styl": "^5.0.5",
     "font-awesome-stylus": "^4.6.2",<% } %>
-    <%_ /* END CLIENT */ _%>
+    <%# END CLIENT %>
     "autoprefixer": "^6.0.0",
     "babel-core": "^6.6.5",
     "babel-eslint": "^6.0.4",
@@ -121,7 +121,7 @@
     "gulp-recess": "^1.1.2",<% } %>
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
-    <%_ /* WEBPACK */ _%>
+    <%# WEBPACK %>
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-dev-server": "~1.14.0",
@@ -152,7 +152,7 @@
     "stylus-loader": "^2.1.1",<% } %>
     "tiny-lr": "^0.2.1",
     "karma-webpack": "^1.7.0",
-    <%_ /* END WEBPACK */ _%>
+    <%# END WEBPACK %>
     "through2": "^2.0.1",
     "open": "~0.0.4",
     "connect-livereload": "^0.5.3",
