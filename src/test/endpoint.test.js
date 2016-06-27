@@ -18,7 +18,6 @@ import {
 const TEST_DIR = __dirname;
 
 const defaultOptions = {
-  buildtool: 'grunt',
   script: 'js',
   transpiler: 'babel',
   markup: 'html',

@@ -35,8 +35,7 @@ const paths = {
         images: `${clientPath}/assets/images/**/*`,
         revManifest: `${clientPath}/assets/rev-manifest.json`,
         scripts: [
-            `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`,
-            `!${clientPath}/bower_components/**/*`<% if(filters.ts) { %>,
+            `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`<% if(filters.ts) { %>,
             `!${clientPath}/{typings,test_typings}/**/*`<% } %>
         ],
         styles: [`${clientPath}/{app,components}/**/*.<%= styleExt %>`],
@@ -44,8 +43,7 @@ const paths = {
         views: `${clientPath}/{app,components}/**/*.<%= templateExt %>`,
         mainView: `${clientPath}/index.html`,
         test: [`${clientPath}/{app,components}/**/*.{spec,mock}.<%= scriptExt %>`],
-        e2e: ['e2e/**/*.spec.js'],
-        bower: `${clientPath}/bower_components/`
+        e2e: ['e2e/**/*.spec.js']
     },
     server: {
         scripts: [
@@ -616,9 +614,7 @@ gulp.task('copy:assets', () => {
 
 gulp.task('copy:server', () => {
     return gulp.src([
-        'package.json',
-        'bower.json',
-        '.bowerrc'
+        'package.json'
     ], {cwdbase: true})
         .pipe(gulp.dest(paths.dist));
 });

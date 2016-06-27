@@ -72,7 +72,7 @@
     "babel-plugin-transform-class-properties": "^6.6.0",
     "babel-plugin-transform-runtime": "^6.6.0",
     "babel-preset-es2015": "^6.6.0",
-    "eslint": "^2.12.0",<% if(filters.gulp) { %>
+    "eslint": "^2.12.0",
     "del": "^2.0.2",
     "gulp": "^3.9.1",
     "gulp-add-src": "^0.2.0",
@@ -121,50 +121,6 @@
     "gulp-recess": "^1.1.2",<% } %>
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
-    "isparta": "^4.0.0",
-    "utile": "~0.3.0",
-    "nodemon": "^1.3.7",
-    "run-sequence": "^1.1.0",
-    "lazypipe": "^1.0.1",<% } /*end gulp*/ if(filters.grunt) { %>
-    "grunt": "^0.4.5",
-    "grunt-concurrent": "^2.0.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-concat": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^1.0.0",
-    "grunt-contrib-imagemin": "^1.0.0",
-    "grunt-contrib-uglify": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",<% if(filters.jade) { %>
-    "grunt-contrib-jade": "^1.0.0",<% } %><% if(filters.less) { %>
-    "grunt-contrib-less": "^1.2.0",<% } %>
-    "grunt-babel": "~6.0.0",<% if(filters.ts) { %>
-    "grunt-ts": "^5.3.2",
-    "grunt-typings": "~0.1.4",
-    "grunt-tslint": "~3.1.0",<% } %>
-    "grunt-google-cdn": "~0.4.0",
-    "grunt-newer": "^1.1.1",
-    "grunt-ng-annotate": "^2.0.1",
-    "grunt-ng-constant": "^2.0.1",
-    "grunt-filerev": "^2.3.1",
-    "grunt-usemin": "^3.0.0",
-    "grunt-env": "~0.4.1",
-    "grunt-node-inspector": "^0.4.1",
-    "grunt-nodemon": "^0.4.0",
-    "grunt-angular-templates": "^1.0.3",
-    "grunt-dom-munger": "^3.4.0",
-    "grunt-protractor-runner": "^3.1.0",
-    "grunt-injector": "~0.6.0 ",
-    "grunt-karma": "^1.0.0",
-    "grunt-build-control": "^0.7.0",<% if(filters.sass) { %>
-    "grunt-sass": "^1.1.0",<% } %><% if(filters.stylus) { %>
-    "grunt-contrib-stylus": "^1.2.0",<% } %>
-    "jit-grunt": "~0.10.0",
-    "grunt-express-server": "^0.5.1",
-    "grunt-postcss": "~0.8.0",
-    "grunt-open": "~0.2.3",
-    "time-grunt": "^1.2.1",
-    "grunt-mocha-test": "~0.12.7",
-    "grunt-mocha-istanbul": "^4.0.2",<% } /*end grunt*/ %>
     <%_ /* WEBPACK */ _%>
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
@@ -231,11 +187,7 @@
     "npm": "^2.14.20"
   },
   "scripts": {
-    <%_ if(filters.gulp) { -%>
     "test": "gulp test",
-    <%_ } else { -%>
-    "test": "grunt test",
-    <%_ } -%>
     <%_ if(filters.ts) { -%>
     "postinstall": "./node_modules/.bin/typings install",
     <%_ } -%>
