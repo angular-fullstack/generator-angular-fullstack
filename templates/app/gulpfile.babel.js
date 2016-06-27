@@ -199,21 +199,8 @@ gulp.task('env:prod', () => {
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:css'<% if(!filters.css) { %>, 'inject:<%= styleExt %>'<% } %>], cb);
+    runSequence(['inject:<%= styleExt %>'], cb);
 });
-
-gulp.task('inject:css', () => {
-    return gulp.src(paths.client.mainView)
-        .pipe(plugins.inject(
-            gulp.src(`${clientPath}/{app,components}/**/*.css`, {read: false})
-                .pipe(plugins.sort()),
-            {
-                starttag: '<!-- injector:css -->',
-                endtag: '<!-- endinjector -->',
-                transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace(`/${clientPath}/`, '').replace('/.tmp/', '') + '">'
-            }))
-        .pipe(gulp.dest(clientPath));
-});<% if(!filters.css) { %>
 
 gulp.task('inject:<%= styleExt %>', () => {
     return gulp.src(paths.client.mainStyle)
@@ -221,10 +208,10 @@ gulp.task('inject:<%= styleExt %>', () => {
             gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
                 .pipe(plugins.sort()),
             {
-                <%_ if(filters.stylus) { _%>
-                starttag: '/* inject:styl */',
+                <%_ if(filters.stylus || filters.css) { -%>
+                starttag: '/* inject:<%= styleExt %> */',
                 endtag: '/* endinject */',
-                <%_ } _%>
+                <%_ } -%>
                 transform: (filepath) => {
                     let newPath = filepath
                         .replace(`/${clientPath}/app/`, '')
@@ -235,7 +222,7 @@ gulp.task('inject:<%= styleExt %>', () => {
                 }
             }))
         .pipe(gulp.dest(`${clientPath}/app`));
-});<% } %>
+});
 
 gulp.task('webpack:dev', function() {
     const webpackDevConfig = makeWebpackConfig({ DEV: true });
