@@ -1,7 +1,7 @@
 {
   "name": "<%= lodash.slugify(lodash.humanize(appname)) %>",
   "version": "0.0.0",
-  "main": "server/app.js",
+  "main": "server/index.js",
   "dependencies": {
     <%# CLIENT %>
     "angular": "~1.5.5",<% if(filters.bootstrap) { if(filters.sass) { %>
