@@ -268,12 +268,7 @@ gulp.task('styles', () => {
     <%_ } _%>
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
-});<% if(filters.ts) { %>
-
-gulp.task('copy:constant', ['constant'], () => {
-    return gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
-        .pipe(gulp.dest('.tmp/app'));
-});<% } %>
+});
 
 gulp.task('transpile:server', () => {
     return gulp.src(_.union(paths.server.scripts, paths.server.json))
@@ -286,8 +281,7 @@ gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:script
 gulp.task('lint:scripts:client', () => {
     return gulp.src(_.union(
         paths.client.scripts,
-        _.map(paths.client.test, blob => '!' + blob),
-        [`!${clientPath}/app/app.constant.<%= scriptExt %>`]
+        _.map(paths.client.test, blob => '!' + blob)
     ))
         .pipe(lintClientScripts());
 });
@@ -370,7 +364,6 @@ gulp.task('serve', cb => {
         [
             'clean:tmp',
             'lint:scripts',
-            'constant',
             'inject',
             'copy:fonts:dev',
             'env:all'<% if(filters.ts) { %>,
@@ -388,7 +381,6 @@ gulp.task('serve:debug', cb => {
         [
             'clean:tmp',
             'lint:scripts',
-            'constant',
             'inject',
             'copy:fonts:dev',
             'env:all'<% if(filters.ts) { %>,
@@ -471,7 +463,7 @@ gulp.task('coverage:integration', () => {
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', ['webpack:e2e', 'constant', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
+gulp.task('test:e2e', ['webpack:e2e', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
     gulp.src(paths.client.e2e)
         .pipe(protractor({
             configFile: 'protractor.conf.js',
@@ -480,7 +472,7 @@ gulp.task('test:e2e', ['webpack:e2e', 'constant', 'env:all', 'env:test', 'start:
         .on('end', () => { process.exit() });
 });
 
-gulp.task('test:client', ['constant'], done => {
+gulp.task('test:client', done => {
     new KarmaServer({
       configFile: `${__dirname}/${paths.karma}`,
       singleRun: true
@@ -518,21 +510,6 @@ gulp.task('build', cb => {
 });
 
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
-
-gulp.task('constant', function() {
-  let sharedConfig = require(`./${serverPath}/config/environment/shared`);
-  return plugins.ngConstant({
-    name: '<%= scriptAppName %>.constants',
-    deps: [],
-    wrap: true,
-    stream: true,
-    constants: { appConfig: sharedConfig }
-  })
-    .pipe(plugins.rename({
-      basename: 'app.constant'
-    }))
-    .pipe(gulp.dest(`${clientPath}/app/`))
-});
 
 gulp.task('build:images', () => {
     return gulp.src(paths.client.images)

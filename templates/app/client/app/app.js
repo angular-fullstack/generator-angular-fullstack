@@ -26,7 +26,7 @@ import admin from './admin';<% } %>
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import main from './main/main.component';
-import './app.constant';
+import constants from './app.constants';
 import util from '../components/util/util.module';
 <%_ if(filters.socketio) { _%>
 import socket from '../components/socket/socket.service';<% } %>
@@ -56,7 +56,7 @@ angular.module('<%= scriptAppName %>', [
   navbar,
   footer,
   main,
-  '<%= scriptAppName %>.constants',
+  constants,
   <%_ if(filters.socketio) { _%>
   socket,<% } %>
   util

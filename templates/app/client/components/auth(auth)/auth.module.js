@@ -1,6 +1,6 @@
 'use strict';
 import angular from 'angular';
-// import constants from '../../app/app.constant';
+import constants from '../../app/app.constants';
 import util from '../util/util.module';
 import ngCookies from 'angular-cookies';
 import {authInterceptor} from './interceptor.service';
@@ -18,7 +18,7 @@ function addInterceptor($httpProvider) {
 }
 
 export default angular.module('<%= scriptAppName %>.auth', [
-  '<%= scriptAppName %>.constants',
+  constants,
   util,
   ngCookies<% if(filters.ngroute) { %>,
   ngRoute<% } if(filters.uirouter) { %>,
