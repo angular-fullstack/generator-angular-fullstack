@@ -216,8 +216,8 @@ gulp.task('inject:<%= styleExt %>', () => {
                     let newPath = filepath
                         .replace(`/${clientPath}/app/`, '')
                         .replace(`/${clientPath}/components/`, '../components/')
-                        .replace(/_(.*).<%= styleExt %>/, (match, p1, offset, string) => p1)
-                        .replace('.<%= styleExt %>', '');
+                        .replace(/_(.*).<%= styleExt %>/, (match, p1, offset, string) => p1)<% if(filters.css) { %>;<% } else { %>
+                        .replace('.<%= styleExt %>', '');<% } %>
                     return `@import '${newPath}';`;
                 }
             }))
