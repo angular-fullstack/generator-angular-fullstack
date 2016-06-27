@@ -17,8 +17,9 @@ function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
     if (entity) {
-      res.status(statusCode).json(entity);
+      return res.status(statusCode).json(entity);
     }
+    return null;
   };
 }
 
