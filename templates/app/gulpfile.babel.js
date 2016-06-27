@@ -22,10 +22,6 @@ import makeWebpackConfig from './webpack.make';
 
 var plugins = gulpLoadPlugins();
 var config;
-const webpackDevConfig = makeWebpackConfig({ DEV: true });
-const webpackE2eConfig = makeWebpackConfig({ E2E: true });
-const webpackDistConfig = makeWebpackConfig({ BUILD: true });
-const webpackTestConfig = makeWebpackConfig({ TEST: true });
 
 const clientPath = 'client';
 const serverPath = 'server';
@@ -242,6 +238,7 @@ gulp.task('inject:<%= styleExt %>', () => {
 });<% } %>
 
 gulp.task('webpack:dev', function() {
+    const webpackDevConfig = makeWebpackConfig({ DEV: true });
     return gulp.src(webpackDevConfig.entry.app)
         .pipe(plugins.plumber())
         .pipe(webpack(webpackDevConfig))
@@ -250,18 +247,21 @@ gulp.task('webpack:dev', function() {
 });
 
 gulp.task('webpack:dist', function() {
+    const webpackDistConfig = makeWebpackConfig({ BUILD: true });
     return gulp.src(webpackDistConfig.entry.app)
         .pipe(webpack(webpackDistConfig))
         .pipe(gulp.dest(`${paths.dist}/client`));
 });
 
 gulp.task('webpack:test', function() {
+    const webpackTestConfig = makeWebpackConfig({ TEST: true });
     return gulp.src(webpackTestConfig.entry.app)
         .pipe(webpack(webpackTestConfig))
         .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('webpack:e2e', function() {
+    const webpackE2eConfig = makeWebpackConfig({ E2E: true });
     return gulp.src(webpackE2eConfig.entry.app)
         .pipe(webpack(webpackE2eConfig))
         .pipe(gulp.dest('.tmp'));
