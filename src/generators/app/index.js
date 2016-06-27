@@ -132,6 +132,11 @@ export class Generator extends Base {
             this.config.forceSave();
           }
         });
+      },
+      assignPorts() {
+        this.devPort = this.options['dev-port'];
+        this.debugPort = this.options['debug-port'];
+        this.prodPort = this.options['prod-port'];
       }
     };
   }
