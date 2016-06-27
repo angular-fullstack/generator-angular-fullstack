@@ -419,8 +419,12 @@ gulp.task('watch', () => {
 
     plugins.livereload.listen();
 
-    plugins.watch(paths.client.styles, () => {  //['inject:<%= styleExt %>']
+    plugins.watch(paths.client.styles, () => {
+        <%_ if(!filters.css) { -%>
         gulp.src(paths.client.mainStyle)
+        <%_ } else { -%>
+        gulp.src(paths.client.styles)
+        <%_ } -%>
             .pipe(plugins.plumber())
             .pipe(styles())
             .pipe(gulp.dest('.tmp/app'))
@@ -433,7 +437,7 @@ gulp.task('watch', () => {
         .pipe(plugins.plumber())
         .pipe(plugins.livereload());<% if(filters.babel) { %>
 
-    plugins.watch(paths.client.scripts) //['inject:js']
+    plugins.watch(paths.client.scripts)
         .pipe(plugins.plumber())
         .pipe(transpileClient())
         .pipe(gulp.dest('.tmp'))
