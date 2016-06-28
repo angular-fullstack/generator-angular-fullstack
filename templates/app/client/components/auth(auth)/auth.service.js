@@ -113,6 +113,15 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     },
 
     /**
+     * Gets all available info on a user
+     *
+     * @return {Object}
+     */
+    getCurrentUserSync() {
+      return currentUser;
+    },
+
+    /**
      * Check if a user is logged in
      *   (synchronous|asynchronous)
      *
@@ -130,6 +139,15 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
           safeCb(callback)(is);
           return is;
         });
+    },
+
+    /**
+     * Check if a user is logged in
+     *
+     * @return {Bool}
+     */
+    isLoggedInSync() {
+      return currentUser.hasOwnProperty('role');
     },
 
      /**
@@ -158,6 +176,20 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
         });
     },
 
+    /**
+      * Check if a user has a specified role or higher
+      *
+      * @param  {String} role - the role to check against
+      * @return {Bool}
+      */
+    hasRoleSync(role) {
+      var hasRole = function(r, h) {
+        return userRoles.indexOf(r) >= userRoles.indexOf(h);
+      };
+
+      return hasRole(currentUser.role, role);
+    },
+
      /**
       * Check if a user is an admin
       *   (synchronous|asynchronous)
@@ -168,6 +200,15 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     isAdmin() {
       return Auth.hasRole
         .apply(Auth, [].concat.apply(['admin'], arguments));
+    },
+
+     /**
+      * Check if a user is an admin
+      *
+      * @return {Bool}
+      */
+    isAdminSync() {
+      return Auth.hasRoleSync('admin');
     },
 
     /**
