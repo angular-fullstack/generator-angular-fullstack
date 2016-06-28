@@ -1,12 +1,17 @@
 'use strict';
 import path from 'path';
 import fs from 'fs';
-import _ from 'lodash';
 import Promise from 'bluebird';
+Promise.promisifyAll(fs);
+import _ from 'lodash';
 import {exec, fork} from 'child_process';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
+import minimatch from 'minimatch';
 import recursiveReadDir from 'recursive-readdir';
+import Checker from 'jscs';
+const jscs = new Checker();
+jscs.registerDefaultRules();
 
 const TEST_DIR = __dirname;
 const DEBUG = process.env.DEBUG || false;
@@ -138,28 +143,42 @@ export function runGen(name='test', opts={}) {
  * @param {Object} [opt.prompts={}] - prompt answers
  * @param {Object} [opt.options={}]
  * @param {Object} [opt.config] - .yo-rc.json config
+ * @param {Boolean} [opt.tmpdir] - whether to run in cwd or a tmp dir
  */
 export function runEndpointGen(name, opt={}) {
   let prompts = opt.prompts || {};
   let options = opt.options || {};
   let config = opt.config;
+  let tmpdir = !!opt.tmpdir;
 
-  return new Promise((resolve, reject) => {
-    let gen = helpers
-      .run(require.resolve('../generators/endpoint'), {tmpdir: false})
-      .withOptions(options)
-      .withArguments([name])
-      .withPrompts(prompts);
+  let gen = helpers
+    .run(require.resolve('../generators/endpoint'), {tmpdir})
+    .withOptions(options)
+    .withArguments([name])
+    .withPrompts(prompts);
 
-    if(config) {
-      gen
-        .withLocalConfig(config);
-    }
+  if(tmpdir) {
+    gen.inTmpDir(function(dir) {
+      // this will create a new temporary directory for each new generator run
+      var done = this.async();
+      if(DEBUG) console.log(`TEMP DIR: ${dir}`);
 
+      // symlink our dependency directories
+      return Promise.all([
+        fs.mkdirAsync(dir + '/client').then(() => {
+          return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
+        }),
+        fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
+      ]).then(done);
+    });
+  }
+
+  if(config) {
     gen
-      .on('error', reject)
-      .on('end', () => resolve())
-  });
+      .withLocalConfig(config);
+  }
+
+  return gen.toPromise();
 }
 
 // Yeoman generators rely on the current process's current working directory.
@@ -211,5 +230,50 @@ export function runEndpointGenForked(name, options, dir) {
       reject(err);
     });
     // child.on('disconnect', () => console.log('RIP'));
+  });
+}
+
+let jshintCmd = path.join(TEST_DIR, '/fixtures/node_modules/.bin/jshint');
+function testFile(command, _path, options) {
+  _path = path.normalize(_path);
+  return fs.accessAsync(_path, fs.R_OK).then(() => {
+    return runCmd(`${command} ${_path}`, options);
+  });
+}
+
+export function jshintDir(dir, name, folder) {
+  if(!folder) folder = name;
+  let endpointDir = path.normalize(path.join(dir, 'server/api', folder));
+
+  let regFiles = fs.readdirAsync(endpointDir)
+    .then(files => files.filter(file => minimatch(file, '**/!(*.spec|*.mock|*.integration).js', {dot: true})))
+    .map(file => testFile(jshintCmd, path.join(endpointDir, file), {cwd: dir}));
+
+  let specFiles = fs.readdirAsync(endpointDir)
+    .then(files => files.filter(file => minimatch(file, '**/+(*.spec|*.mock|*.integration).js', {dot: true})))
+    .map(file => testFile(`${jshintCmd} --config server/.jshintrc-spec`, path.join(endpointDir, file), {cwd: dir}));
+
+  return Promise.all([regFiles, specFiles]);
+}
+export function jscsDir(dir, name, folder) {
+  if(!folder) folder = name;
+  let endpointDir = path.join(dir, 'server/api', folder);
+
+  return fs.readdirAsync(endpointDir).then(files => {
+    return Promise.map(files, file => {
+      return fs.readFileAsync(path.join(endpointDir, file), 'utf8').then(data => {
+        let results = jscs.checkString(data)
+        let errors = results.getErrorList();
+        if(errors.length === 0) {
+          return Promise.resolve();
+        } else {
+          errors.forEach(error => {
+            var colorizeOutput = true;
+            console.log(results.explainError(error, colorizeOutput) + '\n');
+          });
+          return Promise.reject();
+        }
+      });
+    });
   });
 }

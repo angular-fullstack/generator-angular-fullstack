@@ -18,7 +18,7 @@ let dir = process.argv[4];
 process.chdir(dir);
 
 runEndpointGen(name, options).then(dir => {
-  process.send('done');
+  process.send(dir);
 });
 
 // process.on('disconnect',function() {
