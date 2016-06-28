@@ -44,7 +44,7 @@ async function macro(t, command, endpoint) {
   if(endpoint) {
     let config = await readJSON(path.join(t.context.dir, '.yo-rc.json'));
 
-    await runEndpointGenForked('foo', {config: config['generator-angular-fullstack']}, t.context.dir);
+    await runEndpointGenForked(endpoint, {config: config['generator-angular-fullstack']}, t.context.dir);
   }
 
   if(typeof command === 'string') {
