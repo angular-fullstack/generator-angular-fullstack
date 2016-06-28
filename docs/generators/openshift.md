@@ -31,8 +31,8 @@ To make your deployment process easier consider using [grunt-build-control](http
 
 **Pushing Updates**
 
-    grunt
+    gulp build
 
 Commit and push the resulting build, located in your dist folder:
 
-    grunt buildcontrol:openshift
+    gulp buildcontrol:openshift

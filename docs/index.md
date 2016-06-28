@@ -50,7 +50,7 @@ All of these can be updated with `bower update` as new versions are released.
 
 ## Injection
 
-A grunt/gulp task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
+A gulp task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
 
 * `less` files into `client/app/app.less`
 * `scss` files into `client/app/app.scss`
@@ -68,11 +68,11 @@ A `.yo-rc` file is generated for helping you copy configuration across projects,
 
 ## Testing
 
-Running `grunt test` will run the client and server unit tests with karma and mocha.
+Running `gulp test` will run the client and server unit tests with karma and mocha.
 
-Use `grunt test:server` to only run server tests.
+Use `gulp test:server` to only run server tests.
 
-Use `grunt test:client` to only run client tests.
+Use `gulp test:client` to only run client tests.
 
 **Protractor tests**
 
@@ -80,11 +80,11 @@ To setup protractor e2e tests, you must first run
 
 `npm run update-webdriver`
 
-Use `grunt test:e2e` to have protractor go through tests located in the `e2e` folder.
+Use `gulp test:e2e` to have protractor go through tests located in the `e2e` folder.
 
 **Code Coverage**
 
-Use `grunt test:coverage` to run mocha-istanbul and generate code coverage reports.
+Use `gulp test:coverage` to run mocha-istanbul and generate code coverage reports.
 
 `coverage/server` will be populated with `e2e` and `unit` folders containing the `lcov` reports.
 
@@ -97,11 +97,12 @@ The coverage taget has 3 available options:
 
 **Debugging**
 
-Use `grunt serve:debug` for a more debugging-friendly environment.
+Use `gulp serve:debug` for a more debugging-friendly environment.
 
 ## Environment Variables
 
-Keeping your app secrets and other sensitive information in source control isn't a good idea. To have grunt launch your app with specific environment variables, add them to the git ignored environment config file: `server/config/local.env.js`.
+Keeping your app secrets and other sensitive information in source control isn't a good idea.
+To have gulp launch your app with specific environment variables, add them to the git ignored environment config file: `server/config/local.env.js`.
 
 ## Project Structure
 

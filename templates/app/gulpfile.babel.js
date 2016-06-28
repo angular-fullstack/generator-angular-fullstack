@@ -22,10 +22,6 @@ import makeWebpackConfig from './webpack.make';
 
 var plugins = gulpLoadPlugins();
 var config;
-const webpackDevConfig = makeWebpackConfig({ DEV: true });
-const webpackE2eConfig = makeWebpackConfig({ E2E: true });
-const webpackDistConfig = makeWebpackConfig({ BUILD: true });
-const webpackTestConfig = makeWebpackConfig({ TEST: true });
 
 const clientPath = 'client';
 const serverPath = 'server';
@@ -35,8 +31,7 @@ const paths = {
         images: `${clientPath}/assets/images/**/*`,
         revManifest: `${clientPath}/assets/rev-manifest.json`,
         scripts: [
-            `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`,
-            `!${clientPath}/bower_components/**/*`<% if(filters.ts) { %>,
+            `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`<% if(filters.ts) { %>,
             `!${clientPath}/{typings,test_typings}/**/*`<% } %>
         ],
         styles: [`${clientPath}/{app,components}/**/*.<%= styleExt %>`],
@@ -44,8 +39,7 @@ const paths = {
         views: `${clientPath}/{app,components}/**/*.<%= templateExt %>`,
         mainView: `${clientPath}/index.html`,
         test: [`${clientPath}/{app,components}/**/*.{spec,mock}.<%= scriptExt %>`],
-        e2e: ['e2e/**/*.spec.js'],
-        bower: `${clientPath}/bower_components/`
+        e2e: ['e2e/**/*.spec.js']
     },
     server: {
         scripts: [
@@ -205,21 +199,8 @@ gulp.task('env:prod', () => {
  ********************/
 
 gulp.task('inject', cb => {
-    runSequence(['inject:css'<% if(!filters.css) { %>, 'inject:<%= styleExt %>'<% } %>], cb);
+    runSequence(['inject:<%= styleExt %>'], cb);
 });
-
-gulp.task('inject:css', () => {
-    return gulp.src(paths.client.mainView)
-        .pipe(plugins.inject(
-            gulp.src(`${clientPath}/{app,components}/**/*.css`, {read: false})
-                .pipe(plugins.sort()),
-            {
-                starttag: '<!-- injector:css -->',
-                endtag: '<!-- endinjector -->',
-                transform: (filepath) => '<link rel="stylesheet" href="' + filepath.replace(`/${clientPath}/`, '').replace('/.tmp/', '') + '">'
-            }))
-        .pipe(gulp.dest(clientPath));
-});<% if(!filters.css) { %>
 
 gulp.task('inject:<%= styleExt %>', () => {
     return gulp.src(paths.client.mainStyle)
@@ -227,23 +208,24 @@ gulp.task('inject:<%= styleExt %>', () => {
             gulp.src(_.union(paths.client.styles, ['!' + paths.client.mainStyle]), {read: false})
                 .pipe(plugins.sort()),
             {
-                <%_ if(filters.stylus) { _%>
-                starttag: '/* inject:styl */',
+                <%_ if(filters.stylus || filters.css) { -%>
+                starttag: '/* inject:<%= styleExt %> */',
                 endtag: '/* endinject */',
-                <%_ } _%>
+                <%_ } -%>
                 transform: (filepath) => {
                     let newPath = filepath
                         .replace(`/${clientPath}/app/`, '')
                         .replace(`/${clientPath}/components/`, '../components/')
-                        .replace(/_(.*).<%= styleExt %>/, (match, p1, offset, string) => p1)
-                        .replace('.<%= styleExt %>', '');
+                        .replace(/_(.*).<%= styleExt %>/, (match, p1, offset, string) => p1)<% if(filters.css) { %>;<% } else { %>
+                        .replace('.<%= styleExt %>', '');<% } %>
                     return `@import '${newPath}';`;
                 }
             }))
         .pipe(gulp.dest(`${clientPath}/app`));
-});<% } %>
+});
 
 gulp.task('webpack:dev', function() {
+    const webpackDevConfig = makeWebpackConfig({ DEV: true });
     return gulp.src(webpackDevConfig.entry.app)
         .pipe(plugins.plumber())
         .pipe(webpack(webpackDevConfig))
@@ -252,18 +234,21 @@ gulp.task('webpack:dev', function() {
 });
 
 gulp.task('webpack:dist', function() {
+    const webpackDistConfig = makeWebpackConfig({ BUILD: true });
     return gulp.src(webpackDistConfig.entry.app)
         .pipe(webpack(webpackDistConfig))
         .pipe(gulp.dest(`${paths.dist}/client`));
 });
 
 gulp.task('webpack:test', function() {
+    const webpackTestConfig = makeWebpackConfig({ TEST: true });
     return gulp.src(webpackTestConfig.entry.app)
         .pipe(webpack(webpackTestConfig))
         .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('webpack:e2e', function() {
+    const webpackE2eConfig = makeWebpackConfig({ E2E: true });
     return gulp.src(webpackE2eConfig.entry.app)
         .pipe(webpack(webpackE2eConfig))
         .pipe(gulp.dest('.tmp'));
@@ -283,12 +268,7 @@ gulp.task('styles', () => {
     <%_ } _%>
         .pipe(styles())
         .pipe(gulp.dest('.tmp/app'));
-});<% if(filters.ts) { %>
-
-gulp.task('copy:constant', ['constant'], () => {
-    return gulp.src(`${clientPath}/app/app.constant.js`, { dot: true })
-        .pipe(gulp.dest('.tmp/app'));
-});<% } %>
+});
 
 gulp.task('transpile:server', () => {
     return gulp.src(_.union(paths.server.scripts, paths.server.json))
@@ -301,8 +281,7 @@ gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:script
 gulp.task('lint:scripts:client', () => {
     return gulp.src(_.union(
         paths.client.scripts,
-        _.map(paths.client.test, blob => '!' + blob),
-        [`!${clientPath}/app/app.constant.<%= scriptExt %>`]
+        _.map(paths.client.test, blob => '!' + blob)
     ))
         .pipe(lintClientScripts());
 });
@@ -385,7 +364,6 @@ gulp.task('serve', cb => {
         [
             'clean:tmp',
             'lint:scripts',
-            'constant',
             'inject',
             'copy:fonts:dev',
             'env:all'<% if(filters.ts) { %>,
@@ -403,7 +381,6 @@ gulp.task('serve:debug', cb => {
         [
             'clean:tmp',
             'lint:scripts',
-            'constant',
             'inject',
             'copy:fonts:dev',
             'env:all'<% if(filters.ts) { %>,
@@ -486,7 +463,7 @@ gulp.task('coverage:integration', () => {
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', ['webpack:e2e', 'constant', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
+gulp.task('test:e2e', ['webpack:e2e', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
     gulp.src(paths.client.e2e)
         .pipe(protractor({
             configFile: 'protractor.conf.js',
@@ -495,7 +472,7 @@ gulp.task('test:e2e', ['webpack:e2e', 'constant', 'env:all', 'env:test', 'start:
         .on('end', () => { process.exit() });
 });
 
-gulp.task('test:client', ['constant'], done => {
+gulp.task('test:client', done => {
     new KarmaServer({
       configFile: `${__dirname}/${paths.karma}`,
       singleRun: true
@@ -533,21 +510,6 @@ gulp.task('build', cb => {
 });
 
 gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**`], {dot: true}));
-
-gulp.task('constant', function() {
-  let sharedConfig = require(`./${serverPath}/config/environment/shared`);
-  return plugins.ngConstant({
-    name: '<%= scriptAppName %>.constants',
-    deps: [],
-    wrap: true,
-    stream: true,
-    constants: { appConfig: sharedConfig }
-  })
-    .pipe(plugins.rename({
-      basename: 'app.constant'
-    }))
-    .pipe(gulp.dest(`${clientPath}/app/`))
-});
 
 gulp.task('build:images', () => {
     return gulp.src(paths.client.images)
@@ -616,9 +578,7 @@ gulp.task('copy:assets', () => {
 
 gulp.task('copy:server', () => {
     return gulp.src([
-        'package.json',
-        'bower.json',
-        '.bowerrc'
+        'package.json'
     ], {cwdbase: true})
         .pipe(gulp.dest(paths.dist));
 });

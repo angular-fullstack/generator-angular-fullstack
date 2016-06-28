@@ -329,16 +329,6 @@ export class Generator extends Base {
 
         return this.prompt([{
           type: 'list',
-          name: 'buildtool',
-          message: 'Would you like to use Gulp or Grunt?',
-          choices: ['Gulp', 'Grunt (deprecated)'],
-          default: 0,
-          filter: val => ({
-            'Gulp': 'gulp',
-            'Grunt (deprecated)': 'grunt'
-          })[val]
-        }, {
-          type: 'list',
           name: 'testing',
           message: 'What would you like to write tests with?',
           choices: ['Jasmine', 'Mocha + Chai + Sinon'],
@@ -357,9 +347,6 @@ export class Generator extends Base {
           filter: val => val.toLowerCase(),
           when: answers => answers.testing === 'mocha'
         }]).then(answers => {
-          this.filters[answers.buildtool] = true;
-          insight.track('buildtool', answers.buildtool);
-
           this.filters[answers.testing] = true;
           insight.track('testing', answers.testing);
           if(answers.testing === 'mocha') {

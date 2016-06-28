@@ -14,7 +14,6 @@ Transpiler | Babel / TypeScript
 Markup | HTML / Jade
 CSS | CSS / LESS / SCSS / Stylus
 Router | ngRoute / ui-router
-Build Tool | Grunt / Gulp
 Client Tests | Jasmine / Mocha
 DB | MongoDB / SQL
 Auth | Y / N
