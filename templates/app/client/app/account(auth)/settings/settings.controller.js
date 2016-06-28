@@ -1,8 +1,30 @@
 'use strict';
+// @flow
+<%_ if(filters.flow) { -%>
+type User = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+<%_ } -%>
+<%_ if(filters.ts) { -%>
+interface User {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+<%_ } -%>
 
 export default class SettingsController {
-  errors = {};
+  user: User = {
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  };
+  errors = {other: undefined};
+  message = '';
   submitted = false;
+  Auth;
 
   /*@ngInject*/
   constructor(Auth) {
@@ -12,7 +34,7 @@ export default class SettingsController {
   changePassword(form) {
     this.submitted = true;
 
-    if (form.$valid) {
+    if(form.$valid) {
       this.Auth.changePassword(this.user.oldPassword, this.user.newPassword)
         .then(() => {
           this.message = 'Password successfully changed.';
