@@ -37,7 +37,9 @@
   },
   "ava": {
     "files": [
-      "test/app.default.test.js"
+      "test/fixtures.test.js",
+      "test/app.default.test.js",
+      "test/endpoint.test.js"
     ],
     "timeout": "2m"
   },
