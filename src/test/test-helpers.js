@@ -54,7 +54,7 @@ export function runCmd(cmd, options={}) {
  * @param {string[]} [skip=['node_modules','bower_components']] - files/folders recursiveReadDir should skip
  * @returns {Promise}
  */
-export function assertOnlyFiles(expectedFiles, topLevelPath='./', skip=['node_modules', 'bower_components']) {
+export function assertFiles(expectedFiles, topLevelPath='./', skip=['node_modules', 'bower_components']) {
   return new Promise((resolve, reject) => {
     recursiveReadDir(topLevelPath, skip, function(err, actualFiles) {
       if(err) return reject(err);
@@ -62,10 +62,12 @@ export function assertOnlyFiles(expectedFiles, topLevelPath='./', skip=['node_mo
       actualFiles = _.map(actualFiles.concat(), file => path.normalize(file.replace(path.normalize(`${topLevelPath}/`), '')));
       expectedFiles = _.map(expectedFiles, file => path.normalize(file));
 
-      let extras = _.pullAll(actualFiles, expectedFiles);
+      let missing = _.difference(expectedFiles, actualFiles).map(extra => `- ${extra}`);
+      let extras = _.pullAll(actualFiles, expectedFiles).map(extra => `+ ${extra}`);
+      let errors = missing.concat(extras);
 
-      if(extras.length !== 0) {
-        return reject(extras);
+      if(errors.length !== 0) {
+        return reject(errors);
       }
       resolve();
     });

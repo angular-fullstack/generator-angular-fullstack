@@ -11,7 +11,7 @@ import * as getExpectedFiles from './get-expected-files';
 import {
   copyAsync,
   runCmd,
-  assertOnlyFiles,
+  assertFiles,
   readJSON,
   runGenForked,
   runEndpointGenForked
@@ -83,7 +83,7 @@ test.beforeEach('run the generator in a temp dir', async t => {
 
 test('generates the proper files', macro, t => {
   const expectedFiles = getExpectedFiles.app(defaultOptions);
-  return t.notThrows(assertOnlyFiles(expectedFiles, path.normalize(t.context.dir)));
+  return t.notThrows(assertFiles(expectedFiles, path.normalize(t.context.dir)));
 });
 test(macro, 'gulp jscs');
 test(macro, 'gulp lint:scripts');
