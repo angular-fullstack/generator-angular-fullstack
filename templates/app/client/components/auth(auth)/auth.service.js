@@ -29,10 +29,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Promise}
      */
     login({email, password}, callback: Function) {
-      return $http.post('/auth/local', {
-        email: email,
-        password: password
-      })
+      return $http.post('/auth/local', { email, password })
         .then(res => {
           $cookies.put('token', res.data.token);
           currentUser = User.get();
@@ -86,10 +83,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Promise}
      */
     changePassword(oldPassword, newPassword, callback) {
-      return User.changePassword({ id: currentUser._id }, {
-        oldPassword: oldPassword,
-        newPassword: newPassword
-      }, function() {
+      return User.changePassword({ id: currentUser._id }, { oldPassword, newPassword }, function() {
         return safeCb(callback)(null);
       }, function(err) {
         return safeCb(callback)(err);
