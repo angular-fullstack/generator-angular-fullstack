@@ -53,6 +53,7 @@ export function app(options) {
     `client/polyfills.${script}`,
     'client/app/app.' + script,
     'client/app/app.config.' + script,
+    'client/app/app.constants.' + script,
     'client/app/app.' + stylesheet,
     'client/app/main/main.component.' + script,
     'client/app/main/main.component.spec.' + script,
