@@ -10,13 +10,13 @@ export function routerDecorator($rootScope<% if(filters.ngroute) { %>, $location
     }
 
     if(typeof next.authenticate === 'string') {
-      Auth.hasRole(next.authenticate, _.noop).then(has => {
+      Auth.hasRole(next.authenticate).then(has => {
         if(has) {
           return;
         }
 
         event.preventDefault();
-        return Auth.isLoggedIn(_.noop).then(is => {
+        return Auth.isLoggedIn().then(is => {
           <%_ if(filters.ngroute) { _%>
           $location.path(is ? '/' : '/login');<% } %>
           <%_ if(filters.uirouter) { _%>
@@ -24,7 +24,7 @@ export function routerDecorator($rootScope<% if(filters.ngroute) { %>, $location
         });
       });
     } else {
-      Auth.isLoggedIn(_.noop).then(is => {
+      Auth.isLoggedIn().then(is => {
         if(is) {
           return;
         }
