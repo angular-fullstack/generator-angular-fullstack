@@ -120,6 +120,11 @@
     "gulp-recess": "^1.1.2",<% } %>
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
+    "isparta": "^4.0.0",
+    "utile": "~0.3.0",
+    "nodemon": "^1.3.7",
+    "run-sequence": "^1.1.0",
+    "lazypipe": "^1.0.1",
     <%# WEBPACK %>
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
