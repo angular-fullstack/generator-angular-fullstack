@@ -6,7 +6,7 @@ export class NavbarComponent {
     'title': 'Home',
     <% if (filters.uirouter) { %>'state': 'main'<% } else { %>'link': '/'<% } %>
   }];
-  
+
   isCollapsed = true;
   //end-non-standard
   <%_ if(filters.ngroute || filters.auth) { _%>
@@ -17,9 +17,9 @@ export class NavbarComponent {
     this.$location = $location;
     <%_ } _%>
     <%_ if (filters.auth) { _%>
-    this.isLoggedIn = Auth.isLoggedIn;
-    this.isAdmin = Auth.isAdmin;
-    this.getCurrentUser = Auth.getCurrentUser;
+    this.isLoggedIn = Auth.isLoggedInSync;
+    this.isAdmin = Auth.isAdminSync;
+    this.getCurrentUser = Auth.getCurrentUserSync;
     <%_ } _%>
   }<% } %>
   <%_ if(!filters.uirouter) { _%>
