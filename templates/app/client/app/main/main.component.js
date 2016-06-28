@@ -7,12 +7,18 @@ import uiRouter from 'angular-ui-router';<% } _%>
 import routing from './main.routes';
 
 export class MainController {
+  $http;
+  <%_ if(filters.socketio) { -%>
+  socket;<% } %>
+  awesomeThings = [];
+  <%_ if(filters.models) { -%>
+  newThing = '';<% } %>
+
   /*@ngInject*/
   constructor($http<% if(filters.socketio) { %>, $scope, socket<% } %>) {
-    this.$http = $http;<% if (filters.socketio) { %>
-    this.socket = socket;<% } %>
-    this.awesomeThings = [];
-    <%_ if (filters.socketio) { _%>
+    this.$http = $http;
+    <%_ if(filters.socketio) { -%>
+    this.socket = socket;
 
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('thing');

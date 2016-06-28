@@ -1,10 +1,17 @@
 'use strict';
 // @flow
+class User {
+  _id: string = '';
+  name: string = '';
+  email: string = '';
+  role: string = '';
+  $promise = undefined;
+}
 
 export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
   'ngInject';
   var safeCb = Util.safeCb;
-  var currentUser = {};
+  var currentUser: User = new User();
   var userRoles = appConfig.userRoles || [];
 
   if ($cookies.get('token') && $location.path() !== '/logout') {
@@ -46,7 +53,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      */
     logout() {
       $cookies.remove('token');
-      currentUser = {};
+      currentUser = new User();
     },
 
     /**
