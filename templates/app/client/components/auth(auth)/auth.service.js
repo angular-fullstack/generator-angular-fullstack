@@ -127,7 +127,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool|Promise}
      */
     isLoggedIn(callback) {
-      return Auth.getCurrentUser(null)
+      return Auth.getCurrentUser()
         .then(user => {
           var is = user.hasOwnProperty('role');
           safeCb(callback)(is);
@@ -152,7 +152,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       * @return {Bool|Promise}
       */
     hasRole(role, callback) {
-      return Auth.getCurrentUser(null)
+      return Auth.getCurrentUser()
         .then(user => {
           var has = user.hasOwnProperty('role')
             ? hasRole(user.role, role)
