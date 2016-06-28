@@ -27,7 +27,7 @@
         .form-group.has-error
           p.help-block(ng-show='form.email.$error.required && form.password.$error.required && vm.submitted')
             | Please enter your email and password.
-          p.help-block {{ vm.errors.other }}
+          p.help-block {{ vm.errors.login }}
 
         div
           button.btn.btn-inverse.btn-lg.btn-login(type='submit')

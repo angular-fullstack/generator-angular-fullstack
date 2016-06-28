@@ -25,7 +25,7 @@ export default class LoginController {
         <% if (filters.ngroute) { %>this.$location.path('/');<% } %><% if (filters.uirouter) { %>this.$state.go('main');<% } %>
       })
       .catch(err => {
-        this.errors.other = err.message;
+        this.errors.login = err.message;
       });
     }
   }
