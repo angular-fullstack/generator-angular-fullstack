@@ -1,4 +1,6 @@
 # AngularJS Full-Stack generator
+![generator-angular-fullstack](http://angular-fullstack.github.io/generator-angular-fullstack/media/svg/angular-fullstack-logo.svg)
+
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
@@ -7,6 +9,8 @@
 [![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
 > Yeoman generator for creating MEAN/SEAN stack applications, using ES6, MongoDB/SQL, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
+
+
 
 #### Generated project: 
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
