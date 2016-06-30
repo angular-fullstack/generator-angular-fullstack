@@ -33,7 +33,7 @@
   "scripts": {
     "test": "gulp updateFixtures:test && gulp installFixtures && gulp build && ava",
     "prepublish": "gulp build",
-    "ava": "ava"
+    "ava": "cross-env NODE_ENV=test ava"
   },
   "ava": {
     "files": [
@@ -50,6 +50,7 @@
     "babel-preset-stage-2": "^6.5.0",
     "bluebird": "^3.3.5",
     "chalk": "^1.1.0",
+    "cross-env": "^1.0.8",
     "generator-ng-component": "~0.3.0",
     "glob": "^7.0.3",
     "gulp-babel": "^6.1.2",
