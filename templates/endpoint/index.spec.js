@@ -7,6 +7,7 @@ var <%= cameledName %>CtrlStub = {
   show: '<%= cameledName %>Ctrl.show',
   create: '<%= cameledName %>Ctrl.create',
   upsert: '<%= cameledName %>Ctrl.upsert',
+  patch: '<%= cameledName %>Ctrl.patch',
   destroy: '<%= cameledName %>Ctrl.destroy'<% } %>
 };
 
@@ -66,9 +67,9 @@ describe('<%= classedName %> API Router:', function() {
   });
 
   describe('PATCH <%= route %>/:id', function() {
-    it('should route to <%= cameledName %>.controller.update', function() {
+    it('should route to <%= cameledName %>.controller.patch', function() {
       <%= expect() %>routerStub.patch
-        .withArgs('/:id', '<%= cameledName %>Ctrl.update')
+        .withArgs('/:id', '<%= cameledName %>Ctrl.patch')
         <%= to() %>.have.been.calledOnce;
     });
   });
