@@ -7,12 +7,13 @@ import { runCmd } from '../util';
 import chalk from 'chalk';
 import {Base} from 'yeoman-generator';
 import {genBase} from '../generator-base';
-import insight from '../insight-init';
 import {exec} from 'child_process';
 import babelStream from 'gulp-babel';
 import beaufityStream from 'gulp-beautify';
 import filter from 'gulp-filter';
 import semver from 'semver';
+
+var insight;
 
 export class Generator extends Base {
   constructor(...args) {
@@ -61,15 +62,21 @@ export class Generator extends Base {
         const genBasePromise = genBase(this);
         let promises = [genBasePromise];
 
-        if(process.env.CI) {
-          insight.optOut = true;
-        } else if(insight.optOut === undefined) {
-          promises.push(new Promise((resolve, reject) => {
-            insight.askPermission(null, (err, optIn) => {
-              if(err) return reject(err);
-              else return resolve(optIn);
-            });
-          }));
+        if(process.env.CI || process.env.NODE_ENV === 'test') {
+          insight = {
+            track() {},
+            optOut: true
+          };
+        } else {
+          insight = require('../insight-init');
+          if(insight.optOut === undefined) {
+            promises.push(new Promise((resolve, reject) => {
+              insight.askPermission(null, (err, optIn) => {
+                if(err) return reject(err);
+                else return resolve(optIn);
+              });
+            }));
+          }
         }
 
         insight.track('generator', this.rootGeneratorVersion());
