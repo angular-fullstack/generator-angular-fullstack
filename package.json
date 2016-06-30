@@ -40,7 +40,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.7.0",
     "bluebird": "^3.3.5",
     "chalk": "^1.1.0",
-    "generator-ng-component": "~0.3.0",
+    "generator-ng-component": "~0.3.1",
     "glob": "^7.0.3",
     "gulp-babel": "^6.1.2",
     "gulp-beautify": "^2.0.0",
