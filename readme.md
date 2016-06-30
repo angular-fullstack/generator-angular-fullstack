@@ -167,3 +167,5 @@ Is your company using Angular-FullStack? Ask your boss to support the project. Y
 <a href="https://opencollective.com/angular-fullstack/sponsor/8/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/8/avatar"></a>
 <a href="https://opencollective.com/angular-fullstack/sponsor/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/9/avatar"></a>
 <a href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar"></a>
+
+![generator-angular-fullstack](http://angular-fullstack.github.io/generator-angular-fullstack/media/svg/angular-fullstack-boxes.svg)
