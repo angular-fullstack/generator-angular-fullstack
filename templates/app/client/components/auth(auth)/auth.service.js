@@ -100,7 +100,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     /**
      * Gets all available info on a user
      *
-     * @param  {Function} [callback] - funciton(user)
+     * @param  {Function} [callback] - optional, function(user)
      * @return {Promise}
      */
     getCurrentUser(callback) {
@@ -134,7 +134,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool|Promise}
      */
     isLoggedIn(callback) {
-      return Auth.getCurrentUser()
+      return Auth.getCurrentUser(undefined)
         .then(user => {
           var is = user.hasOwnProperty('role');
           safeCb(callback)(is);
@@ -159,7 +159,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       * @return {Bool|Promise}
       */
     hasRole(role, callback) {
-      return Auth.getCurrentUser()
+      return Auth.getCurrentUser(undefined)
         .then(user => {
           var has = user.hasOwnProperty('role')
             ? hasRole(user.role, role)
