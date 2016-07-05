@@ -428,7 +428,7 @@ export class Generator extends Base {
             'basePath': 'client',
             'forceConfig': this.forceConfig
           }
-        }, { local: require.resolve('generator-ng-component/app/index.js') });
+        }, { local: require.resolve('generator-ng-component/generators/app/index.js') });
       },
       ngModules: function() {
         var angModules = [
