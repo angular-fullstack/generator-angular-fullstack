@@ -1,14 +1,19 @@
 'use strict';
 
 export class NavbarComponent {
-  //start-non-standard
   menu = [{
     'title': 'Home',
     <% if (filters.uirouter) { %>'state': 'main'<% } else { %>'link': '/'<% } %>
   }];
-
+  <%_ if(!filters.uirouter) { -%>
+  $location;
+  <%_ } -%>
+  <%_ if (filters.auth) { -%>
+  isLoggedIn: Function;
+  isAdmin: Function;
+  getCurrentUser: Function;
+  <%_ } -%>
   isCollapsed = true;
-  //end-non-standard
   <%_ if(filters.ngroute || filters.auth) { _%>
 
   constructor(<% if(!filters.uirouter) { %>$location<% } if(!filters.uirouter && filters.auth) { %>, <% } if (filters.auth) { %>Auth<% } %>) {

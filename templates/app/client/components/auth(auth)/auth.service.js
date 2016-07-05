@@ -1,10 +1,17 @@
 'use strict';
 // @flow
+class User {
+  _id: string = '';
+  name: string = '';
+  email: string = '';
+  role: string = '';
+  $promise = undefined;
+}
 
 export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
   'ngInject';
   var safeCb = Util.safeCb;
-  var currentUser = {};
+  var currentUser: User = new User();
   var userRoles = appConfig.userRoles || [];
   /**
    * Check if userRole is >= role
@@ -25,10 +32,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * Authenticate user and save token
      *
      * @param  {Object}   user     - login info
-     * @param  {Function} callback - optional, function(error, user)
+     * @param  {Function} callback - function(error, user)
      * @return {Promise}
      */
-    login({email, password}, callback: Function) {
+    login({email, password}, callback?: Function) {
       return $http.post('/auth/local', { email, password })
         .then(res => {
           $cookies.put('token', res.data.token);
@@ -51,17 +58,17 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      */
     logout() {
       $cookies.remove('token');
-      currentUser = {};
+      currentUser = new User();
     },
 
     /**
      * Create a new user
      *
      * @param  {Object}   user     - user info
-     * @param  {Function} callback - optional, function(error, user)
+     * @param  {Function} callback - function(error, user)
      * @return {Promise}
      */
-    createUser(user, callback) {
+    createUser(user, callback?: Function) {
       return User.save(user,
         function(data) {
           $cookies.put('token', data.token);
@@ -79,10 +86,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      *
      * @param  {String}   oldPassword
      * @param  {String}   newPassword
-     * @param  {Function} callback    - optional, function(error, user)
+     * @param  {Function} callback    - function(error, user)
      * @return {Promise}
      */
-    changePassword(oldPassword, newPassword, callback) {
+    changePassword(oldPassword, newPassword, callback?: Function) {
       return User.changePassword({ id: currentUser._id }, { oldPassword, newPassword }, function() {
         return safeCb(callback)(null);
       }, function(err) {
@@ -93,10 +100,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     /**
      * Gets all available info on a user
      *
-     * @param  {Function} [callback] - funciton(user)
+     * @param  {Function} [callback] - function(user)
      * @return {Promise}
      */
-    getCurrentUser(callback) {
+    getCurrentUser(callback?: Function) {
       var value = currentUser.hasOwnProperty('$promise')
         ? currentUser.$promise
         : currentUser;
@@ -124,10 +131,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * Check if a user is logged in
      *
      * @param  {Function} [callback] - function(is)
-     * @return {Bool|Promise}
+     * @return {Promise}
      */
-    isLoggedIn(callback) {
-      return Auth.getCurrentUser()
+    isLoggedIn(callback?: Function) {
+      return Auth.getCurrentUser(undefined)
         .then(user => {
           var is = user.hasOwnProperty('role');
           safeCb(callback)(is);
@@ -149,10 +156,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       *
       * @param  {String}     role     - the role to check against
       * @param  {Function} [callback] - function(has)
-      * @return {Bool|Promise}
+      * @return {Promise}
       */
-    hasRole(role, callback) {
-      return Auth.getCurrentUser()
+    hasRole(role, callback?: Function) {
+      return Auth.getCurrentUser(undefined)
         .then(user => {
           var has = user.hasOwnProperty('role')
             ? hasRole(user.role, role)
