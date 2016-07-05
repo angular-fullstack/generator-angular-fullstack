@@ -46,7 +46,8 @@
       "expect",
       "should",
       "uirouter",
-      "es6"
+      "es6",
+      "modules"
     ],
     "extensions": [
       "babel",

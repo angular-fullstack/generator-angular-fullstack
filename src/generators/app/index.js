@@ -415,6 +415,7 @@ export class Generator extends Base {
         if(this.filters.less) extensions.push('less');
 
         filters.push('es6'); // Generate ES6 syntax code
+        filters.push('modules');  // Generate ES6 Module imports/exports
 
         this.composeWith('ng-component', {
           options: {
