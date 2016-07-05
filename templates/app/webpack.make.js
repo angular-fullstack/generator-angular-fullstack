@@ -320,14 +320,14 @@ module.exports = function makeWebpackConfig(options) {
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
     // Render index.html
     let htmlConfig = {
-        template: 'client/_index.html'
+        template: 'client/_index.html',
+        filename: '../client/index.html',
+        alwaysWriteToDisk: true
     }
-    if(E2E) {
-        htmlConfig.filename = '../client/index.html';
-        htmlConfig.alwaysWriteToDisk = true;
-    }
-    config.plugins.push(new HtmlWebpackPlugin(htmlConfig));
-    if(E2E) config.plugins.push(new HtmlWebpackHarddiskPlugin());
+    config.plugins.push(
+      new HtmlWebpackPlugin(htmlConfig),
+      new HtmlWebpackHarddiskPlugin()
+    );
 
     // Add build specific plugins
     if(BUILD) {
