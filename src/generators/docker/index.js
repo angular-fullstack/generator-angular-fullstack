@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import path from 'path';
 import {Base} from 'yeoman-generator';
 import Promise from 'bluebird';
+import {genBase} from '../generator-base';
 
 export class Generator extends Base {
   constructor(...args) {
