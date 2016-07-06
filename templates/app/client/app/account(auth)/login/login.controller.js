@@ -36,6 +36,7 @@ export default class LoginController {
     this.$location = $location;
     <%_ } if(filters.uirouter) { -%>
     this.$state = $state;<% } %>
+    this.errors = {login: undefined};
   }
 
   login(form) {

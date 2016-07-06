@@ -61,11 +61,14 @@ var config = {
 
   // Prepare environment for tests
   params: {
-    serverConfig: require('./server/config/environment')
+    serverConfig: (() => {
+      require('babel-register');
+      return require('./server/config/environment');
+    })()
   },
 
   onPrepare: function() {
-    browser.ignoreSynchronization = true;
+    // browser.ignoreSynchronization = true;
 
     require('babel-register');<% if (filters.mocha) { %>
     // Load Mocha and Chai + plugins
