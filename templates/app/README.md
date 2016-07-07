@@ -14,9 +14,7 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 ### Developing<% var i = 1; %>
 
-<%= i++ %>. Run `npm install` to install server dependencies.
-
-<%= i++ %>. Run `bower install` to install front-end dependencies.<% if(filters.mongoose) { %>
+<%= i++ %>. Run `npm install` to install server dependencies.<% if(filters.mongoose) { %>
 
 <%= i++ %>. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running<% } %>
 
@@ -24,7 +22,6 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 ## Build & development
 
-Run `gulp build` for building and `gulp serve` for preview.
 Run `gulp build` for building and `gulp serve` for preview.
 
 ## Testing
