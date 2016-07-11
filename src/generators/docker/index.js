@@ -29,8 +29,10 @@ export class Generator extends Base {
   gruntBuild() {
     this.log(chalk.bold('\nBuilding dist folder, please wait...'));
 
+    var buildCommand = this.filters.grunt ? 'grunt build' : 'gulp build';
+
     return new Promise((resolve, reject) => {
-      var child = exec('grunt build', (err, stdout) => {
+      var child = exec(buildCommand, (err, stdout) => {
         if(err) return reject(err);
 
         resolve();
