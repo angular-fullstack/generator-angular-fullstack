@@ -37,4 +37,4 @@ deployment:
     # update the upstream dockerfile after a push
     branch: [master, docker-integration]
     commands:
-      - ./angular-fullstack-dockerfile/create_branch.sh
+      - generator-angular-fullstack/angular-fullstack-dockerfile/create_branch.sh
