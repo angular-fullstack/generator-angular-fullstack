@@ -24,13 +24,15 @@ function respondWithResult(res, statusCode) {
 
 function saveUpdates(updates) {
   return function(entity) {
-    <%_ if(filters.mongooseModels) { -%>
-    var updated = _.merge(entity, updates);
-    return updated.save();
-    <%_ } -%>
-    <%_ if(filters.sequelizeModels) { -%>
-    return entity.updateAttributes(updates);
-    <%_ } -%>
+    if (entity) {
+      <%_ if(filters.mongooseModels) { -%>
+      var updated = _.merge(entity, updates);
+      return updated.save();
+      <%_ } -%>
+      <%_ if(filters.sequelizeModels) { -%>
+      return entity.updateAttributes(updates);
+      <%_ } -%>
+    }
   };
 }
 
