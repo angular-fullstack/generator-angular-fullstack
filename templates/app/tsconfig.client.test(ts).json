@@ -2,27 +2,11 @@
     "compilerOptions": {
         "sourceMap": true,
         "rootDir": "./client",
+        "module": "commonjs",
         "outDir": ".tmp/test"
     },
     "filesGlob": [
         "client/{app,components}/**/*.{spec,mock}.ts",
         "client/test_typings/**/*.d.ts"
-    ],
-    "files": [
-        "client/app/main/main.controller.spec.ts",
-        "client/components/oauth-buttons/oauth-buttons.controller.spec.ts",
-        "client/components/oauth-buttons/oauth-buttons.directive.spec.ts",
-        "client/components/socket/socket.mock.ts",
-        <%_ if(filters.uirouter) { _%>
-        "client/components/ui-router/ui-router.mock.ts",<% } %>
-        "client/test_typings/angular-protractor/angular-protractor.d.ts",
-        "client/test_typings/selenium-webdriver/selenium-webdriver.d.ts",<% if(filters.mocha) { %>
-        "client/test_typings/mocha/mocha.d.ts",
-        "client/test_typings/chai/chai.d.ts",
-        "client/test_typings/assertion-error/assertion-error.d.ts",
-        "client/test_typings/sinon/sinon.d.ts",
-        "client/test_typings/sinon-chai/sinon-chai.d.ts",<% } %><% if(filters.jasmine) { %>
-        "client/test_typings/jasmine/jasmine.d.ts",<% } %>
-        "client/test_typings/tsd.d.ts"
     ]
 }

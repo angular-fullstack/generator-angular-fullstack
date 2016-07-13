@@ -11,6 +11,7 @@ import insight from '../insight-init';
 import {exec} from 'child_process';
 import babelStream from 'gulp-babel';
 import beaufityStream from 'gulp-beautify';
+import tap from 'gulp-tap';
 import filter from 'gulp-filter';
 import semver from 'semver';
 
@@ -26,10 +27,34 @@ export class Generator extends Base {
       defaults: false
     });
 
+    this.option('skip-config', {
+      desc: 'Always use existing .yo-rc.json',
+      type: Boolean,
+      defaults: false
+    });
+
     this.option('app-suffix', {
       desc: 'Allow a custom suffix to be added to the module name',
       type: String,
       defaults: 'App'
+    });
+
+    this.option('dev-port', {
+      desc: 'Port to use for the development HTTP server',
+      type: String,
+      defaults: '9000'
+    });
+
+    this.option('debug-port', {
+      desc: 'Port to use for the server debugger',
+      type: String,
+      defaults: '5858'
+    });
+
+    this.option('prod-port', {
+      desc: 'Port to use for the production HTTP Server',
+      type: String,
+      defaults: '8080'
     });
   }
 
@@ -75,34 +100,43 @@ export class Generator extends Base {
       checkForConfig: function() {
         var existingFilters = this.config.get('filters');
 
-        if(existingFilters) {
-          return this.prompt([{
-            type: 'confirm',
-            name: 'skipConfig',
-            message: 'Existing .yo-rc configuration found, would you like to use it?',
-            default: true,
-          }]).then(answers => {
-            this.skipConfig = answers.skipConfig;
+        if(!existingFilters) return;
 
-            if(this.skipConfig) {
-              insight.track('skipConfig', 'true');
-              this.filters = existingFilters;
+        let promise = this.options['skip-config']
+          ? Promise.resolve({skipConfig: true})
+          : this.prompt([{
+              type: 'confirm',
+              name: 'skipConfig',
+              message: 'Existing .yo-rc configuration found, would you like to use it?',
+              default: true,
+            }]);
 
-              this.scriptExt = this.filters.ts ? 'ts' : 'js';
-              this.templateExt = this.filters.jade ? 'jade' : 'html';
-              this.styleExt = this.filters.sass ? 'scss' : 
-                this.filters.less ? 'less' : 
-                this.filters.stylus ? 'styl' : 
-                'css';
-            } else {
-              insight.track('skipConfig', 'false');
-              this.filters = {};
-              this.forceConfig = true;
-              this.config.set('filters', this.filters);
-              this.config.forceSave();
-            }
-          });
-        }
+        promise.then(answers => {
+          this.skipConfig = answers.skipConfig;
+
+          if(this.skipConfig) {
+            insight.track('skipConfig', 'true');
+            this.filters = existingFilters;
+
+            this.scriptExt = this.filters.ts ? 'ts' : 'js';
+            this.templateExt = this.filters.jade ? 'jade' : 'html';
+            this.styleExt = this.filters.sass ? 'scss' :
+              this.filters.less ? 'less' :
+              this.filters.stylus ? 'styl' :
+              'css';
+          } else {
+            insight.track('skipConfig', 'false');
+            this.filters = {};
+            this.forceConfig = true;
+            this.config.set('filters', this.filters);
+            this.config.forceSave();
+          }
+        });
+      },
+      assignPorts() {
+        this.devPort = this.options['dev-port'];
+        this.debugPort = this.options['debug-port'];
+        this.prodPort = this.options['prod-port'];
       }
     };
   }
@@ -126,12 +160,12 @@ export class Generator extends Base {
               }[val];
             }
           }, {
-          // TODO: enable once Babel setup supports Flow
-          //   type: 'confirm',
-          //   name: 'flow',
-          //   message: 'Would you like to use Flow types with Babel?',
-          //   when: answers => answers.transpiler === 'babel'
-          // }, {
+            type: 'confirm',
+            name: 'flow',
+            default: false,
+            message: 'Would you like to use Flow types with Babel?',
+            when: answers => answers.transpiler === 'babel'
+          }, {
             type: 'list',
             name: 'markup',
             message: 'What would you like to write markup with?',
@@ -295,13 +329,6 @@ export class Generator extends Base {
 
         return this.prompt([{
           type: 'list',
-          name: 'buildtool',
-          message: 'Would you like to use Gulp or Grunt?',
-          choices: ['Grunt', 'Gulp'],
-          default: 1,
-          filter: val => val.toLowerCase()
-        }, {
-          type: 'list',
           name: 'testing',
           message: 'What would you like to write tests with?',
           choices: ['Jasmine', 'Mocha + Chai + Sinon'],
@@ -320,9 +347,6 @@ export class Generator extends Base {
           filter: val => val.toLowerCase(),
           when: answers => answers.testing === 'mocha'
         }]).then(answers => {
-          this.filters[answers.buildtool] = true;
-          insight.track('buildtool', answers.buildtool);
-
           this.filters[answers.testing] = true;
           insight.track('testing', answers.testing);
           if(answers.testing === 'mocha') {
@@ -449,24 +473,32 @@ export class Generator extends Base {
            ]);
          */
 
+        const flow = this.filters.flow;
+
         let babelPlugins = [
           'babel-plugin-syntax-flow',
           'babel-plugin-syntax-class-properties'
         ];
 
-        // TODO: enable once Babel setup supports Flow
-        // if(this.filters.babel && !this.filters.flow) {
+        if(this.filters.babel && !flow) {
           babelPlugins.push('babel-plugin-transform-flow-strip-types');
-        // }
+        }
 
-        const jsFilter = filter(['client/**/*.js'], {restore: true});
+        let jsFilter = filter(['client/**/*.js'], {restore: true});
         this.registerTransformStream([
           jsFilter,
           babelStream({
             plugins: babelPlugins.map(require.resolve),
             /* Babel get's confused about these if you're using an `npm link`ed
                 generator-angular-fullstack, thus the `require.resolve` */
-            // retainLines: true,
+            shouldPrintComment(commentContents) {
+              if(flow) {
+                return true;
+              } else {
+                // strip `// @flow` comments if not using flow
+                return !(/@flow/.test(commentContents));
+              }
+            },
             babelrc: false  // don't grab the generator's `.babelrc`
           }),
           beaufityStream({
@@ -493,6 +525,42 @@ export class Generator extends Base {
           jsFilter.restore
         ]);
 
+        /**
+         * TypeScript doesn't play nicely with things that don't have a default export
+         */
+        if(this.filters.ts) {
+          const modulesToFix = [
+            ['angular', 'angular'],
+            ['ngCookies', 'angular-cookies'],
+            ['ngResource', 'angular-resource'],
+            ['ngSanitize', 'angular-sanitize'],
+            ['uiRouter', 'angular-ui-router'],
+            ['uiBootstrap', 'angular-ui-bootstrap'],
+            ['ngMessages', 'angular-messages'],
+            ['io', 'socket.io-client']
+          ];
+          function replacer(contents) {
+            modulesToFix.forEach(([moduleName, importName]) => {
+              contents = contents.replace(
+                `import ${moduleName} from '${importName}'`,
+                `const ${moduleName} = require('${importName}')`
+              );
+            });
+            return contents;
+          }
+
+          let tsFilter = filter(['client/**/*.ts'], {restore: true});
+          this.registerTransformStream([
+            tsFilter,
+            tap(function(file, t) {
+              var contents = file.contents.toString();
+              contents = replacer(contents);
+              file.contents = new Buffer(contents);
+            }),
+            tsFilter.restore
+          ]);
+        }
+
         let self = this;
         this.sourceRoot(path.join(__dirname, '../../templates/app'));
         this.processDirectory('.', '.');
@@ -515,14 +583,10 @@ export class Generator extends Base {
     };
   }
 
-  get install() {
-    return {
-      installDeps: function() {
-        this.installDependencies({
-          skipInstall: this.options['skip-install']
-        });
-      }
-    };
+  install() {
+    if(!this.options['skip-install']) {
+      this.spawnCommand('npm', ['install']);
+    }
   }
 
   get end() {

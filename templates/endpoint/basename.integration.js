@@ -6,7 +6,6 @@ import request from 'supertest';<% if(filters.models) { %>
 var new<%= classedName %>;<% } %>
 
 describe('<%= classedName %> API:', function() {
-
   describe('GET <%= route %>', function() {
     var <%= cameledName %>s;
 
@@ -16,7 +15,7 @@ describe('<%= classedName %> API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          if (err) {
+          if(err) {
             return done(err);
           }
           <%= cameledName %>s = res.body;
@@ -27,7 +26,6 @@ describe('<%= classedName %> API:', function() {
     it('should respond with JSON array', function() {
       <%= expect() %><%= cameledName %>s<%= to() %>.be.instanceOf(Array);
     });
-
   });<% if(filters.models) { %>
 
   describe('POST <%= route %>', function() {
@@ -41,7 +39,7 @@ describe('<%= classedName %> API:', function() {
         .expect(201)
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          if (err) {
+          if(err) {
             return done(err);
           }
           new<%= classedName %> = res.body;
@@ -53,7 +51,6 @@ describe('<%= classedName %> API:', function() {
       <%= expect() %>new<%= classedName %>.name<%= to() %>.equal('New <%= classedName %>');
       <%= expect() %>new<%= classedName %>.info<%= to() %>.equal('This is the brand new <%= cameledName %>!!!');
     });
-
   });
 
   describe('GET <%= route %>/:id', function() {
@@ -65,7 +62,7 @@ describe('<%= classedName %> API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
-          if (err) {
+          if(err) {
             return done(err);
           }
           <%= cameledName %> = res.body;
@@ -81,7 +78,6 @@ describe('<%= classedName %> API:', function() {
       <%= expect() %><%= cameledName %>.name<%= to() %>.equal('New <%= classedName %>');
       <%= expect() %><%= cameledName %>.info<%= to() %>.equal('This is the brand new <%= cameledName %>!!!');
     });
-
   });
 
   describe('PUT <%= route %>/:id', function() {
@@ -97,7 +93,7 @@ describe('<%= classedName %> API:', function() {
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
-          if (err) {
+          if(err) {
             return done(err);
           }
           updated<%= classedName %> = res.body;
@@ -113,17 +109,15 @@ describe('<%= classedName %> API:', function() {
       <%= expect() %>updated<%= classedName %>.name<%= to() %>.equal('Updated <%= classedName %>');
       <%= expect() %>updated<%= classedName %>.info<%= to() %>.equal('This is the updated <%= cameledName %>!!!');
     });
-
   });
 
   describe('DELETE <%= route %>/:id', function() {
-
     it('should respond with 204 on successful removal', function(done) {
       request(app)
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(204)
-        .end((err, res) => {
-          if (err) {
+        .end(err => {
+          if(err) {
             return done(err);
           }
           done();
@@ -134,14 +128,12 @@ describe('<%= classedName %> API:', function() {
       request(app)
         .delete('<%= route %>/' + new<%= classedName %>._id)
         .expect(404)
-        .end((err, res) => {
-          if (err) {
+        .end(err => {
+          if(err) {
             return done(err);
           }
           done();
         });
     });
-
   });<% } %>
-
 });

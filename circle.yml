@@ -3,7 +3,7 @@ machine:
   node:
     version: 5.11.1
   post:
-    - npm install -g gulp-cli grunt-cli bower
+    - npm install -g gulp-cli
 
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
@@ -22,6 +22,9 @@ dependencies:
   # builds. If you need to, you can add custom paths to cache:
   cache_directories:
     - "test/fixtures/node_modules"
+  post:
+    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
+    - tar -xzf sc-latest-linux.tar.gz
 
 ## Custom notifications
 #notify:
@@ -38,3 +41,12 @@ deployment:
     branch: [master, docker-integration]
     commands:
       - generator-angular-fullstack/angular-fullstack-dockerfile/create_branch.sh
+
+test:
+  pre:
+    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
+        background: true
+    # Wait for tunnel to be ready
+    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+  post:
+    - killall --wait sc  # wait for Sauce Connect to close the tunnel

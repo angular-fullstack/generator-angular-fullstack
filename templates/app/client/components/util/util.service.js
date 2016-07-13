@@ -1,11 +1,10 @@
 'use strict';
 
-(function() {
-
 /**
  * The Util service is for thin, globally reusable, utility functions
  */
-function UtilService($window) {
+export function UtilService($window) {
+  'ngInject';
   var Util = {
     /**
      * Return a callback or noop function
@@ -50,7 +49,7 @@ function UtilService($window) {
       origins = origins.filter(function(o) {
         let hostnameCheck = url.hostname === o.hostname;
         let protocolCheck = url.protocol === o.protocol;
-        // 2nd part of the special treatment for IE fix (see above):  
+        // 2nd part of the special treatment for IE fix (see above):
         // This part is when using well-known ports 80 or 443 with IE,
         // when $window.location.port==='' instead of the real port number.
         // Probably the same cause as this IE bug: https://goo.gl/J9hRta
@@ -63,8 +62,3 @@ function UtilService($window) {
 
   return Util;
 }
-
-angular.module('<%= scriptAppName %>.util')
-  .factory('Util', UtilService);
-
-})();

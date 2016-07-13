@@ -1,11 +1,15 @@
 'use strict';
 
-describe('Component: mainComponent', function() {
+import main from './main.component';
+import {MainController} from './main.component';
 
-  // load the controller's module
-  beforeEach(module('<%= scriptAppName %>'));<% if (filters.uirouter) {%>
-  beforeEach(module('stateMock'));<% } %><% if (filters.socketio) {%>
-  beforeEach(module('socketMock'));<% } %>
+describe('Component: MainComponent', function() {
+
+  beforeEach(angular.mock.module(main));
+  <%_ if (filters.uirouter) { _%>
+  beforeEach(angular.mock.module('stateMock'));<% } _%>
+  <%_ if (filters.socketio) { _%>
+  beforeEach(angular.mock.module('socketMock'));<% } %>
 
   var scope;
   var mainComponent;<% if (filters.uirouter) {%>

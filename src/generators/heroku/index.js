@@ -115,10 +115,9 @@ Generator.prototype.copyProcfile = function copyProcfile() {
 Generator.prototype.build = function build() {
   if(this.abort) return;
   var done = this.async();
-  var buildCommand = this.filters.grunt ? 'grunt build' : 'gulp build';
 
   this.log(chalk.bold('\nBuilding dist folder, please wait...'));
-  var child = exec(buildCommand, function (err, stdout) {
+  var child = exec('gulp build', function (err, stdout) {
     done();
   }.bind(this));
   child.stdout.on('data', function(data) {
@@ -189,10 +188,10 @@ Generator.prototype.gitForcePush = function gitForcePush() {
       }
 
       this.log(chalk.yellow(
-        'After app modification run\n\t' + 
-        chalk.bold(this.filters.grunt ? 'grunt build' : 'gulp build') +
+        'After app modification run\n\t' +
+        chalk.bold('gulp build') +
         '\nThen deploy with\n\t' +
-        chalk.bold(this.filters.grunt ? 'grunt buildcontrol:heroku' : 'gulp buildcontrol:heroku')
+        chalk.bold('gulp buildcontrol:heroku')
       ));
     }
     done();

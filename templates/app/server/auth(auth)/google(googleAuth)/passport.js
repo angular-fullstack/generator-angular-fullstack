@@ -8,15 +8,15 @@ export function setup(User, config) {
     callbackURL: config.google.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    <% if (filters.mongooseModels) { %>User.findOne({'google.id': profile.id}).exec()<% }
-       if (filters.sequelizeModels) { %>User.find({where:{'google.id': profile.id}})<% } %>
+    <% if(filters.mongooseModels) { %>User.findOne({'google.id': profile.id}).exec()<% }
+       if(filters.sequelizeModels) { %>User.find({where:{'google.id': profile.id}})<% } %>
       .then(user => {
-        if (user) {
+        if(user) {
           return done(null, user);
         }
 
-        <% if (filters.mongooseModels) { %>user = new User({<% }
-           if (filters.sequelizeModels) { %>user = User.build({<% } %>
+        <% if(filters.mongooseModels) { %>user = new User({<% }
+           if(filters.sequelizeModels) { %>user = User.build({<% } %>
           name: profile.displayName,
           email: profile.emails[0].value,
           role: 'user',
@@ -24,9 +24,9 @@ export function setup(User, config) {
           provider: 'google',
           google: profile._json
         });
-        <% if (filters.mongooseModels) { %>user.save()<% }
-           if (filters.sequelizeModels) { %>user.save()<% } %>
-          .then(user => done(null, user))
+        <% if(filters.mongooseModels) { %>user.save()<% }
+           if(filters.sequelizeModels) { %>user.save()<% } %>
+          .then(savedUser => done(null, savedUser))
           .catch(err => done(err));
       })
       .catch(err => done(err));
