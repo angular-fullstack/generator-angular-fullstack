@@ -25,3 +25,11 @@ notify:
     # A list of hook hashes, containing the url field
     # gitter hook
     - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
+
+## Deployments
+deployment:
+  docker:
+    # update the upstream dockerfile after a push
+    branch: [master, docker-integration]
+    commands:
+      - ./angular-fullstack-dockerfile/create_branch.sh
