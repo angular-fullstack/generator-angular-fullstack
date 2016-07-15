@@ -259,12 +259,12 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it('should run e2e tests successfully', function() {
+      it.skip('should run e2e tests successfully', function() {
         this.retries(2);
         return runCmd('grunt test:e2e').should.be.fulfilled();
       });
 
-      it('should run e2e tests successfully for production app', function() {
+      it.skip('should run e2e tests successfully for production app', function() {
         this.retries(2);
         return runCmd('grunt test:e2e:prod').should.be.fulfilled();
       });
@@ -338,12 +338,12 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it('should run e2e tests successfully', function() {
+      it.skip('should run e2e tests successfully', function() {
         this.retries(2);
         return runCmd('grunt test:e2e').should.be.fulfilled();
       });
 
-      it('should run e2e tests successfully for production app', function() {
+      it.skip('should run e2e tests successfully for production app', function() {
         this.retries(2);
         return runCmd('grunt test:e2e:prod').should.be.fulfilled();
       });
@@ -417,12 +417,12 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it('should run e2e tests successfully', function() {
+      it.skip('should run e2e tests successfully', function() {
         this.retries(2);
         return runCmd('grunt test:e2e').should.be.fulfilled();
       });
 
-      it('should run e2e tests successfully for production app', function() {
+      it.skip('should run e2e tests successfully for production app', function() {
         this.retries(2);
         return runCmd('grunt test:e2e:prod').should.be.fulfilled();
       });
