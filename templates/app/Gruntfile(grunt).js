@@ -36,7 +36,7 @@ module.exports = function(grunt) {
     },
     express: {
       options: {
-        port: process.env.PORT || 9000
+        port: process.env.PORT || <%= devPort %>
       },
       dev: {
         options: {
@@ -46,6 +46,7 @@ module.exports = function(grunt) {
       },
       prod: {
         options: {
+          port: process.env.PORT || <%= prodPort %>,
           script: '<%%= yeoman.dist %>/<%%= yeoman.server %>'
         }
       }
@@ -239,7 +240,7 @@ module.exports = function(grunt) {
         options: {
           nodeArgs: ['--debug-brk'],
           env: {
-            PORT: process.env.PORT || 9000
+            PORT: process.env.PORT || <%= devPort %>
           },
           callback: function(nodemon) {
             nodemon.on('log', function(event) {
@@ -249,7 +250,7 @@ module.exports = function(grunt) {
             // opens browser on initial server start
             nodemon.on('config:update', function() {
               setTimeout(function() {
-                require('open')('http://localhost:8080/debug?port=5858');
+                require('open')('http://localhost:<%= devPort %>/debug?port=<%= debugPort %>');
               }, 500);
             });
           }
