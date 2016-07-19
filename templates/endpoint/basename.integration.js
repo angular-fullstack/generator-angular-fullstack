@@ -58,7 +58,7 @@ describe('<%= classedName %> API:', function() {
 
     beforeEach(function(done) {
       request(app)
-        .get('<%= route %>/' + new<%= classedName %>._id)
+        .get(`<%= route %>/${new<%= classedName %>._id}`)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -85,7 +85,7 @@ describe('<%= classedName %> API:', function() {
 
     beforeEach(function(done) {
       request(app)
-        .put('<%= route %>/' + new<%= classedName %>._id)
+        .put(`<%= route %>/${new<%= classedName %>._id}`)
         .send({
           name: 'Updated <%= classedName %>',
           info: 'This is the updated <%= cameledName %>!!!'
@@ -112,7 +112,7 @@ describe('<%= classedName %> API:', function() {
 
     it('should respond with the updated <%= cameledName %> on a subsequent GET', function(done) {
       request(app)
-        .get('<%= route %>/' + new<%= classedName %>._id)
+        .get(`<%= route %>/${new<%= classedName %>._id}`)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
@@ -120,7 +120,7 @@ describe('<%= classedName %> API:', function() {
             return done(err);
           }
           let <%= cameledName %> = res.body;
-      
+
           <%= expect() %><%= cameledName %>.name<%= to() %>.equal('Updated <%= classedName %>');
           <%= expect() %><%= cameledName %>.info<%= to() %>.equal('This is the updated <%= cameledName %>!!!');
 
@@ -134,10 +134,10 @@ describe('<%= classedName %> API:', function() {
 
     beforeEach(function(done) {
       request(app)
-        .patch('<%= route %>/' + new<%= classedName %>._id)
+        .patch(`<%= route %>/${new<%= classedName %>._id}`)
         .send([
-          { "op": "replace", "path": "/name", value: 'Patched <%= classedName %>' },
-          { "op": "replace", "path": "/info", value: 'This is the patched <%= cameledName %>!!!' }
+          { op: 'replace', path: '/name', value: 'Patched <%= classedName %>' },
+          { op: 'replace', path: '/info', value: 'This is the patched <%= cameledName %>!!!' }
         ])
         .expect(200)
         .expect('Content-Type', /json/)
@@ -163,7 +163,7 @@ describe('<%= classedName %> API:', function() {
   describe('DELETE <%= route %>/:id', function() {
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete('<%= route %>/' + new<%= classedName %>._id)
+        .delete(`<%= route %>/${new<%= classedName %>._id}`)
         .expect(204)
         .end(err => {
           if(err) {
@@ -175,7 +175,7 @@ describe('<%= classedName %> API:', function() {
 
     it('should respond with 404 when <%= cameledName %> does not exist', function(done) {
       request(app)
-        .delete('<%= route %>/' + new<%= classedName %>._id)
+        .delete(`<%= route %>/${new<%= classedName %>._id}`)
         .expect(404)
         .end(err => {
           if(err) {
