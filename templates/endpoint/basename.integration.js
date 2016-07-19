@@ -129,6 +129,37 @@ describe('<%= classedName %> API:', function() {
     });
   });
 
+  describe('PATCH <%= route %>/:id', function() {
+    var patched<%= classedName %>;
+
+    beforeEach(function(done) {
+      request(app)
+        .patch('<%= route %>/' + new<%= classedName %>._id)
+        .send([
+          { "op": "replace", "path": "/name", value: 'Patched <%= classedName %>' },
+          { "op": "replace", "path": "/info", value: 'This is the patched <%= cameledName %>!!!' }
+        ])
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res) {
+          if(err) {
+            return done(err);
+          }
+          patched<%= classedName %> = res.body;
+          done();
+        });
+    });
+
+    afterEach(function() {
+      patched<%= classedName %> = {};
+    });
+
+    it('should respond with the patched <%= cameledName %>', function() {
+      <%= expect() %>patched<%= classedName %>.name<%= to() %>.equal('Patched <%= classedName %>');
+      <%= expect() %>patched<%= classedName %>.info<%= to() %>.equal('This is the patched <%= cameledName %>!!!');
+    });
+  });
+
   describe('DELETE <%= route %>/:id', function() {
     it('should respond with 204 on successful removal', function(done) {
       request(app)
