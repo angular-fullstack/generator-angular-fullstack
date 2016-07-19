@@ -25,6 +25,9 @@ var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);<% } %>
+import stripAnsi from 'strip-ansi'; 
+ 
+var browserSync = require('browser-sync').create(); 
 
 export default function(app) {
   var env = app.get('env');
@@ -93,52 +96,43 @@ export default function(app) {
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
 
-    const pkgConfig = require('../../package.json');
-    const livereloadServer = require('tiny-lr')();
-    var livereloadServerConfig = {
-      ignore: [
-        /^\/api\/(.*)/,
-        /\.js(\?.*)?$/, /\.css(\?.*)?$/, /\.svg(\?.*)?$/, /\.ico(\?.*)?$/, /\.woff(\?.*)?$/,
-        /\.png(\?.*)?$/, /\.jpg(\?.*)?$/, /\.jpeg(\?.*)?$/, /\.gif(\?.*)?$/, /\.pdf(\?.*)?$/
-        ],
-      port: (pkgConfig.livereload || {}).port
-    };
-    var triggerLiveReloadChanges = function() {
-      livereloadServer.changed({
-        body: {
-          files: [webpackConfig.output.path + webpackConfig.output.filename]
-        }
-      });
-    };
-    if(livereloadServerConfig.port) {
-      livereloadServer.listen(livereloadServerConfig.port, triggerLiveReloadChanges);
-    } else {
-      /**
-       * Get free port for livereload
-       * server
-       */
-      livereloadServerConfig.port = require('http').createServer().listen(function() {
-        /*eslint no-invalid-this:0*/
-        this.close();
-        livereloadServer.listen(livereloadServerConfig.port, triggerLiveReloadChanges);
-      }).address().port;
-    }
+    /**
+     * Run Browsersync and use middleware for Hot Module Replacement
+     */
+    browserSync.init({
+      open: false,
+      logFileChanges: false,
+      proxy: 'localhost:' + config.port,
+      ws: true,
+      middleware: [
+        webpackDevMiddleware(compiler, {
+          noInfo: false,
+          stats: {
+            colors: true,
+            timings: true,
+            chunks: false   
+          }
+        })
+      ],
+      port: config.browserSyncPort,
+      plugins: ['bs-fullscreen-message']
+    });
 
     /**
-     * On change compilation of bundle
-     * trigger livereload change event
+     * Reload all devices when bundle is complete
+     * or send a fullscreen error message to the browser instead
      */
-    compiler.plugin('done', triggerLiveReloadChanges);
-
-    app.use(webpackDevMiddleware(compiler, {
-      stats: {
-        colors: true,
-        timings: true,
-        chunks: false
-      }
-    }));
-
-    app.use(require('connect-livereload')(livereloadServerConfig));
+    compiler.plugin('done', function (stats) {
+      console.log('webpack done hook');
+        if (stats.hasErrors() || stats.hasWarnings()) {
+            return browserSync.sockets.emit('fullscreen:message', {
+                title: "Webpack Error:",
+                body:  stripAnsi(stats.toString()),
+                timeout: 100000
+            });
+        }
+        browserSync.reload();
+    });
   }
 
   if ('development' === env || 'test' === env) {
