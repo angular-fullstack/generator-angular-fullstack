@@ -105,9 +105,27 @@ describe('<%= classedName %> API:', function() {
       updated<%= classedName %> = {};
     });
 
-    it('should respond with the updated <%= cameledName %>', function() {
-      <%= expect() %>updated<%= classedName %>.name<%= to() %>.equal('Updated <%= classedName %>');
-      <%= expect() %>updated<%= classedName %>.info<%= to() %>.equal('This is the updated <%= cameledName %>!!!');
+    it('should respond with the original <%= cameledName %>', function() {
+      <%= expect() %>updated<%= classedName %>.name<%= to() %>.equal('New <%= classedName %>');
+      <%= expect() %>updated<%= classedName %>.info<%= to() %>.equal('This is the brand new <%= cameledName %>!!!');
+    });
+
+    it('should respond with the updated <%= cameledName %> on a subsequent GET', function(done) {
+      request(app)
+        .get('<%= route %>/' + new<%= classedName %>._id)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if(err) {
+            return done(err);
+          }
+          let <%= cameledName %> = res.body;
+      
+          <%= expect() %><%= cameledName %>.name<%= to() %>.equal('Updated <%= classedName %>');
+          <%= expect() %><%= cameledName %>.info<%= to() %>.equal('This is the updated <%= cameledName %>!!!');
+
+          done();
+        });
     });
   });
 
