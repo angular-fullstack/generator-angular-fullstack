@@ -6,7 +6,8 @@ var <%= cameledName %>CtrlStub = {
   index: '<%= cameledName %>Ctrl.index'<% if(filters.models) { %>,
   show: '<%= cameledName %>Ctrl.show',
   create: '<%= cameledName %>Ctrl.create',
-  update: '<%= cameledName %>Ctrl.update',
+  upsert: '<%= cameledName %>Ctrl.upsert',
+  patch: '<%= cameledName %>Ctrl.patch',
   destroy: '<%= cameledName %>Ctrl.destroy'<% } %>
 };
 
@@ -58,17 +59,17 @@ describe('<%= classedName %> API Router:', function() {
   });
 
   describe('PUT <%= route %>/:id', function() {
-    it('should route to <%= cameledName %>.controller.update', function() {
+    it('should route to <%= cameledName %>.controller.upsert', function() {
       <%= expect() %>routerStub.put
-        .withArgs('/:id', '<%= cameledName %>Ctrl.update')
+        .withArgs('/:id', '<%= cameledName %>Ctrl.upsert')
         <%= to() %>.have.been.calledOnce;
     });
   });
 
   describe('PATCH <%= route %>/:id', function() {
-    it('should route to <%= cameledName %>.controller.update', function() {
+    it('should route to <%= cameledName %>.controller.patch', function() {
       <%= expect() %>routerStub.patch
-        .withArgs('/:id', '<%= cameledName %>Ctrl.update')
+        .withArgs('/:id', '<%= cameledName %>Ctrl.patch')
         <%= to() %>.have.been.calledOnce;
     });
   });

@@ -33,7 +33,7 @@ export function copyAsync(src, dest) {
  */
 export function runCmd(cmd) {
   return new Promise((resolve, reject) => {
-    exec(cmd, {}, function(err, stdout, stderr) {
+    exec(cmd, {maxBuffer: 1024 * 500}, function(err, stdout, stderr) {
       if(err) {
         console.error(stdout);
         return reject(err);
