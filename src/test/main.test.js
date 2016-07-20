@@ -281,7 +281,6 @@ describe('angular-fullstack:app', function() {
         dir = _dir;
         lintResult = runCmd('gulp lint:scripts');
         clientTestResult = runCmd('gulp test:client');
-        serverTestResult = runCmd('gulp test:server');
       });
     });
 
@@ -300,17 +299,17 @@ describe('angular-fullstack:app', function() {
     });
 
     it.skip('should run server tests successfully', function() {
-      return serverTestResult.should.be.fulfilled();
+      return runCmd('gulp test:server').should.be.fulfilled();
     });
 
-    describe('with a generated endpoint', function() {
+    describe.skip('with a generated endpoint', function() {
       beforeEach(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
       });
 
-      it.skip('should run server tests successfully', function() {
+      it('should run server tests successfully', function() {
         return runCmd('gulp test:server').should.be.fulfilled();
       });
     });
