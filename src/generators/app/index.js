@@ -415,7 +415,7 @@ export class Generator extends Base {
         if(this.filters.less) extensions.push('less');
 
         filters.push('es6'); // Generate ES6 syntax code
-        filters.push('modules');  // Generate ES6 Module imports/exports
+        filters.push('webpack');  // Generate ES6 Module imports/exports
 
         this.composeWith('ng-component', {
           options: {
@@ -536,6 +536,7 @@ export class Generator extends Base {
             ['ngResource', 'angular-resource'],
             ['ngSanitize', 'angular-sanitize'],
             ['uiRouter', 'angular-ui-router'],
+            ['ngRoute', 'angular-route'],
             ['uiBootstrap', 'angular-ui-bootstrap'],
             ['ngMessages', 'angular-messages'],
             ['io', 'socket.io-client']
