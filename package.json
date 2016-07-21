@@ -50,7 +50,7 @@
     "lodash": "^4.13.1",
     "semver": "^5.1.0",
     "underscore.string": "^3.1.1",
-    "yeoman-generator": "~0.23.3",
+    "yeoman-generator": "~0.24.1",
     "yeoman-welcome": "^1.0.1"
   },
   "devDependencies": {
