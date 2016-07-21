@@ -47,7 +47,7 @@
       "should",
       "uirouter",
       "es6",
-      "modules"
+      "webpack"
     ],
     "extensions": [
       "babel",
