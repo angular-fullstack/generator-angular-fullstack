@@ -111,7 +111,7 @@ export class Generator extends Base {
               default: true,
             }]);
 
-        promise.then(answers => {
+        return promise.then(answers => {
           this.skipConfig = answers.skipConfig;
 
           if(this.skipConfig) {
