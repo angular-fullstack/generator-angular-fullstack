@@ -13,7 +13,8 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
-import lusca from 'lusca';
+<%_ if(!filters.noModels) { -%>
+import lusca from 'lusca';<% } %>
 import config from './environment';<% if (filters.auth) { %>
 import passport from 'passport';<% } %><% if(!filters.noModels) { %>
 import session from 'express-session';<% } %><% if (filters.mongoose) { %>
