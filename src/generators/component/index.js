@@ -6,7 +6,7 @@ class Generator extends Base {
     this.composeWith('ng-component:component', {
       arguments: this.arguments
     }, {
-      local: require.resolve('generator-ng-component/component')
+      local: require.resolve('generator-ng-component/generators/component')
     });
   }
 }

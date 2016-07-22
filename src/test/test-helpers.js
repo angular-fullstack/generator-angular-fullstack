@@ -33,7 +33,7 @@ export function copyAsync(src, dest) {
  */
 export function runCmd(cmd) {
   return new Promise((resolve, reject) => {
-    exec(cmd, {}, function(err, stdout, stderr) {
+    exec(cmd, {maxBuffer: 1024 * 500}, function(err, stdout, stderr) {
       if(err) {
         console.error(stdout);
         return reject(err);
@@ -100,9 +100,6 @@ export function runGen(prompts, opts={}) {
       if(DEBUG) console.log(`TEMP DIR: ${dir}`);
 
       let promises = [
-        fs.mkdirAsync(dir + '/client').then(() => {
-          return fs.symlinkAsync(__dirname + '/fixtures/bower_components', dir + '/client/bower_components');
-        }),
         fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
       ];
 

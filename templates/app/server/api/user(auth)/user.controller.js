@@ -89,7 +89,7 @@ export function show(req, res, next) {
  */
 export function destroy(req, res) {
   <% if (filters.mongooseModels) { %>return User.findByIdAndRemove(req.params.id).exec()<% }
-     if (filters.sequelizeModels) { %>return User.destroy({ _id: req.params.id })<% } %>
+     if (filters.sequelizeModels) { %>return User.destroy({ where: { _id: req.params.id } })<% } %>
     .then(function() {
       res.status(204).end();
     })

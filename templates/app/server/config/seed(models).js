@@ -19,8 +19,8 @@ var User = sqldb.User;<% } %><% } %>
     <% if (filters.mongooseModels) { %>Thing.create({<% }
        if (filters.sequelizeModels) { %>Thing.bulkCreate([{<% } %>
       name: 'Development Tools',
-      info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
-             'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
+      info: 'Integration with popular tools such as Webpack, Gulp, Babel, TypeScript, Karma, ' +
+             'Mocha, ESLint, Node Inspector, Livereload, Protractor, Pug, ' +
              'Stylus, Sass, and Less.'
     }, {
       name: 'Server and Client integration',

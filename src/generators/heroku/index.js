@@ -110,11 +110,10 @@ export default class Generator extends Base {
   build() {
     if(this.abort) return;
     var done = this.async();
-    var buildCommand = this.filters.grunt ? 'grunt build' : 'gulp build';
 
     this.log(chalk.bold('\nBuilding dist folder, please wait...'));
 
-    var child = exec(buildCommand, (err, stdout) => {
+    var child = exec('gulp build', (err, stdout) => {
       done();
     });
 
@@ -192,9 +191,9 @@ Your app should now be live. To view it run
 
         this.log(chalk.yellow(`
 After app modification run
-\t${chalk.bold(this.filters.grunt ? 'grunt build' : 'gulp build')}
+\t${chalk.bold('gulp build')}
 Then deploy with
-\t${chalk.bold(this.filters.grunt ? 'grunt buildcontrol:heroku' : 'gulp buildcontrol:heroku')}`));
+\t${chalk.bold('gulp buildcontrol:heroku')}`));
       }
       done();
     });

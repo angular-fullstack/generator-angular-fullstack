@@ -1,8 +1,26 @@
 {
   "name": "<%= lodash.slugify(lodash.humanize(appname)) %>",
   "version": "0.0.0",
-  "main": "server/app.js",
+  "main": "server/index.js",
   "dependencies": {
+    <%# CLIENT %>
+    "angular": "~1.5.5",<% if(filters.bootstrap) { if(filters.sass) { %>
+    "bootstrap-sass": "~3.1.1",<% } %>
+    "bootstrap": "~3.1.1",<% if(filters.oauth) { %>
+    "bootstrap-social": "~4.9.1",<% }} %>
+    "angular-animate": "~1.5.5",
+    "angular-aria": "~1.5.5",
+    "angular-resource": "~1.5.5",
+    "angular-cookies": "~1.5.5",
+    "angular-sanitize": "~1.5.5",<% if(filters.ngroute) { %>
+    "angular-route": "~1.5.5",<% } if(filters.uibootstrap) { %>
+    "angular-ui-bootstrap": "~1.1.2",<% } %>
+    "font-awesome": ">=4.1.0",<% if(filters.socketio) { %>
+    "angular-socket-io": "~0.7.0",<% } if(filters.uirouter) { %>
+    "angular-ui-router": "~0.2.15",<% } if(filters.auth) { %>
+    "angular-validation-match": "~1.5.2",<% } %>
+    <%# END CLIENT %>
+    "core-js": "^2.2.1",
     "express": "^4.13.3",
     "morgan": "~1.7.0",
     "body-parser": "^1.13.3",
@@ -12,37 +30,52 @@
     "errorhandler": "^1.4.2",
     "compression": "^1.5.2",
     "composable-middleware": "^0.3.0",
+    "fast-json-patch": "^1.0.0",
     "lodash": "^4.6.1",
     "lusca": "^1.3.0",
     "babel-runtime": "^6.6.1",
-    "babel-polyfill": "^6.7.2",<% if (filters.jade) { %>
-    "jade": "^1.11.0",<% } %><% if (filters.html) { %>
-    "ejs": "^2.3.3",<% } %><% if (filters.mongoose) { %>
+    "babel-polyfill": "^6.7.2",<% if(filters.jade) { %>
+    "jade": "^1.11.0",<% } %><% if(filters.html) { %>
+    "ejs": "^2.3.3",<% } %><% if(filters.mongoose) { %>
     "mongoose": "^4.1.2",
     "bluebird": "^3.3.3",
-    "connect-mongo": "^1.2.1",<% } %><% if (filters.sequelize) { %>
+    "connect-mongo": "^1.2.1",<% } %><% if(filters.sequelize) { %>
     "sequelize": "^3.5.1",
     "sqlite3": "~3.1.1",
-    "express-sequelize-session": "0.4.0",<% } %><% if (filters.auth) { %>
+    "express-sequelize-session": "0.4.0",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^7.0.0",
     "express-jwt": "^3.0.0",
     "passport": "~0.3.0",
-    "passport-local": "^1.0.0",<% } %><% if (filters.facebookAuth) { %>
-    "passport-facebook": "^2.0.0",<% } %><% if (filters.twitterAuth) { %>
-    "passport-twitter": "^1.0.3",<% } %><% if (filters.googleAuth) { %>
-    "passport-google-oauth20": "^1.0.0",<% } %><% if (filters.socketio) { %>
+    "passport-local": "^1.0.0",<% } %><% if(filters.facebookAuth) { %>
+    "passport-facebook": "^2.0.0",<% } %><% if(filters.twitterAuth) { %>
+    "passport-twitter": "^1.0.3",<% } %><% if(filters.googleAuth) { %>
+    "passport-google-oauth20": "^1.0.0",<% } %><% if(filters.socketio) { %>
     "socket.io": "^1.3.5",
     "socket.io-client": "^1.3.5",
     "socketio-jwt": "^4.2.0",<% } %>
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "sprint-js": "~0.1.0"
   },
   "devDependencies": {
+    <%# CLIENT %>
+    "angular-mocks": "~1.5.5",<% if(filters.stylus) { %>
+    "bootstrap-styl": "^5.0.5",
+    "font-awesome-stylus": "^4.6.2",<% } %>
+    <%# END CLIENT %>
     "autoprefixer": "^6.0.0",
     "babel-core": "^6.6.5",
+    "babel-eslint": "^6.0.4",
     "babel-register": "^6.6.5",
+    "browser-sync": "^2.8.0",
+    "bs-fullscreen-message": "^1.0.0",
+    <%_ if(filters.flow) { -%>
+    "flow-bin": "^0.27.0",
+    "babel-plugin-syntax-flow": "^6.8.0",
+    "babel-plugin-transform-flow-comments": "^6.8.0",<% } %>
     "babel-plugin-transform-class-properties": "^6.6.0",
     "babel-plugin-transform-runtime": "^6.6.0",
-    "babel-preset-es2015": "^6.6.0",<% if(filters.gulp) { %>
+    "babel-preset-es2015": "^6.6.0",
+    "eslint": "^2.12.0",
     "del": "^2.0.2",
     "gulp": "^3.9.1",
     "gulp-add-src": "^0.2.0",
@@ -51,24 +84,21 @@
     "gulp-babel": "^6.1.2",<% if(filters.ts) { %>
     "gulp-typescript": "~2.13.0",
     "gulp-typings": "^1.3.6",
-    "gulp-tslint": "^5.0.0",<% } %>
+    "gulp-tslint": "^5.0.0",
+    "ts-helpers": "1.1.1",<% } %>
     "gulp-cache": "^0.4.2",
     "gulp-concat": "^2.6.0",
     "gulp-env": "^0.4.0",
+    "gulp-eslint": "^2.0.0",
     "gulp-filter": "^4.0.0",
     "gulp-imagemin": "^2.2.1",
     "gulp-inject": "^4.0.0",
     "gulp-istanbul": "~0.10.3",
     "gulp-istanbul-enforcer": "^1.0.3",
-    "gulp-jscs": "^3.0.2",
-    "gulp-jshint": "^2.0.0",
-    "jshint": "2.9.2",
-    "gulp-livereload": "^3.8.0",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-clean-css": "^2.0.6",
     "gulp-mocha": "^2.1.3",
     "gulp-ng-annotate": "^2.0.0",
-    "gulp-ng-constant": "^1.1.0",
     "gulp-node-inspector": "^0.1.0",
     "gulp-plumber": "^1.0.1",
     "gulp-protractor": "^2.1.0",
@@ -97,52 +127,40 @@
     "nodemon": "^1.3.7",
     "run-sequence": "^1.1.0",
     "lazypipe": "^1.0.1",
-    "wiredep": "^2.2.2",<% } /*end gulp*/ if(filters.grunt) { %>
-    "grunt": "^0.4.5",
-    "grunt-wiredep": "^2.0.0",
-    "grunt-concurrent": "^2.0.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-concat": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^1.0.0",
-    "grunt-contrib-imagemin": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-uglify": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",<% if (filters.jade) { %>
-    "grunt-contrib-jade": "^1.0.0",<% } %><% if (filters.less) { %>
-    "grunt-contrib-less": "^1.2.0",<% } %>
-    "grunt-babel": "~6.0.0",<% if(filters.ts) { %>
-    "grunt-ts": "^5.3.2",
-    "grunt-typings": "~0.1.4",
-    "grunt-tslint": "~3.1.0",<% } %>
-    "grunt-google-cdn": "~0.4.0",
-    "grunt-jscs": "^2.1.0",
-    "grunt-newer": "^1.1.1",
-    "grunt-ng-annotate": "^2.0.1",
-    "grunt-ng-constant": "^2.0.1",
-    "grunt-filerev": "^2.3.1",
-    "grunt-usemin": "^3.0.0",
-    "grunt-env": "~0.4.1",
-    "grunt-node-inspector": "^0.4.1",
-    "grunt-nodemon": "^0.4.0",
-    "grunt-angular-templates": "^1.0.3",
-    "grunt-dom-munger": "^3.4.0",
-    "grunt-protractor-runner": "^3.1.0",
-    "grunt-injector": "~0.6.0 ",
-    "grunt-karma": "^1.0.0",
-    "grunt-build-control": "^0.7.0",<% if(filters.sass) { %>
-    "grunt-sass": "^1.1.0",<% } %><% if(filters.stylus) { %>
-    "grunt-contrib-stylus": "^1.2.0",<% } %>
-    "jit-grunt": "~0.10.0",
-    "grunt-express-server": "^0.5.1",
-    "grunt-postcss": "~0.8.0",
-    "grunt-open": "~0.2.3",
-    "time-grunt": "^1.2.1",
-    "grunt-mocha-test": "~0.12.7",
-    "grunt-mocha-istanbul": "^4.0.2",<% } /*end grunt*/ %>
+    <%# WEBPACK %>
+    "webpack": "^1.12.14",
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-dev-server": "~1.14.0",
+    "webpack-stream": "^3.2.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.16.0",
+    "html-webpack-harddisk-plugin": "~0.0.2",
+    <%_ if(filters.jade) { _%>
+    "pug-html-loader": "^1.0.8",<% } %>
+    "awesome-typescript-loader": "0.17.0",
+    "ng-annotate-loader": "~0.1.0",
+    "babel-loader": "^6.2.4",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.4",
+    "imports-loader": "^0.6.5",
+    "isparta-instrumenter-loader": "^1.0.0",
+    "isparta-loader": "^2.0.0",
+    "istanbul-instrumenter-loader": "^0.2.0",
+    "null-loader": "^0.1.1",
+    "postcss-loader": "^0.9.1",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.0",
+    <%_ if(filters.sass) { _%>
+    "sass-loader": "^3.1.1",<% } %>
+    <%_ if(filters.less) { _%>
+    "less-loader": "^2.2.3",<% } %>
+    <%_ if(filters.stylus) { _%>
+    "stylus-loader": "^2.1.1",<% } %>
+    "tiny-lr": "^0.2.1",
+    "karma-webpack": "^1.7.0",
+    <%# END WEBPACK %>
+    "through2": "^2.0.1",
     "open": "~0.0.4",
-    "jshint-stylish": "^2.2.0",
-    "connect-livereload": "^0.5.3",
     "istanbul": "~0.4.1",
     "chai": "^3.2.0",
     "sinon": "^1.16.1",
@@ -151,39 +169,42 @@
     "karma": "~0.13.3",
     "karma-firefox-launcher": "^1.0.0",
     "karma-script-launcher": "^1.0.0",
+    "karma-coverage": "^0.5.3",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-jade-preprocessor": "0.0.11",
-    "karma-phantomjs-launcher": "~1.0.0",<% if (filters.jade) { %>
-    "karma-ng-jade2js-preprocessor": "^0.2.0",<% } %>
-    "karma-ng-html2js-preprocessor": "^1.0.0",
+    "karma-phantomjs-launcher": "~1.0.0",
     "karma-spec-reporter": "~0.0.20",
+    "karma-sourcemap-loader": "~0.3.7",
     "sinon-chai": "^2.8.0",
-    "mocha": "^2.2.5",<% if (filters.mocha) { %>
+    "mocha": "^2.2.5",<% if(filters.mocha) { %>
     "karma-mocha": "^1.0.1",
-    "karma-chai-plugins": "~0.7.0",<% } if (filters.jasmine) { %>
+    "karma-chai-plugins": "~0.7.0",<% } if(filters.jasmine) { %>
     "jasmine-core": "^2.3.4",
     "karma-jasmine": "^1.0.2",
-    "jasmine-spec-reporter": "^2.4.0",<% } if(filters.babel) { %>
-    "karma-babel-preprocessor": "^6.0.1",<% } %>
+    "jasmine-spec-reporter": "^2.4.0",<% } %>
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
+    "strip-ansi": "^3.0.1",
     "supertest": "^1.1.0"<% if(filters.ts) { %>,
     "tslint": "^3.5.0",
     "typings": "^0.8.1"<% } %>
   },
   "engines": {
-    "node": "^4.4.0",
-    "npm": "^2.14.20"
+    "node": "^4.4.6",
+    "npm": "^2.15.5"
   },
-  "scripts": {<% if(filters.gulp) { %>
-    "test": "gulp test",<% } else { %>
-    "test": "grunt test",<% } %>
-    <%_ if(filters.ts) { _%>
-    "postinstall": "./node_modules/.bin/typings install",<% } %>
-    <%_ if(semver.satisfies(npmVersion, '>= 3')) { _%>
+  "scripts": {
+    "test": "gulp test",
+    <%_ if(filters.ts) { -%>
+    "postinstall": "./node_modules/.bin/typings install",
+    <%_ } -%>
+    <%_ if(filters.flow) { -%>
+    "flow": "flow",
+    <%_ } -%>
+    <%_ if(semver.satisfies(npmVersion, '>= 3')) { -%>
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
-    <%_ } else { _%>
-    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update",<% } %>
+    <%_ } else { -%>
+    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update",
+    <%_ } -%>
     "start": "node server"
   },
   "private": true

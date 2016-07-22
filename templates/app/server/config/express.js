@@ -13,10 +13,11 @@ import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
-import lusca from 'lusca';
+<%_ if(!filters.noModels) { -%>
+import lusca from 'lusca';<% } %>
 import config from './environment';<% if (filters.auth) { %>
-import passport from 'passport';<% } %>
-import session from 'express-session';<% if (filters.mongoose) { %>
+import passport from 'passport';<% } %><% if(!filters.noModels) { %>
+import session from 'express-session';<% } %><% if (filters.mongoose) { %>
 <%_ if(semver.satisfies(nodeVersion, '>= 4')) { _%>
 import connectMongo from 'connect-mongo';<% } else { _%>
 import connectMongo from 'connect-mongo/es5';<% } %>
@@ -25,6 +26,9 @@ var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);<% } %>
+import stripAnsi from 'strip-ansi'; 
+ 
+var browserSync = require('browser-sync').create(); 
 
 export default function(app) {
   var env = app.get('env');
@@ -52,6 +56,7 @@ export default function(app) {
   app.use(cookieParser());<% if (filters.auth) { %>
   app.use(passport.initialize());<% } %>
 
+  <% if(!filters.noModels) { %>
   // Persist sessions with MongoStore / sequelizeStore
   // We need to enable sessions for passport-twitter because it's an
   // oauth 1.0 strategy, and Lusca depends on sessions
@@ -83,16 +88,52 @@ export default function(app) {
       },
       xssProtection: true
     }));
-  }
+  }<% } %>
 
   if ('development' === env) {
-    app.use(require('connect-livereload')({
-      ignore: [
-        /^\/api\/(.*)/,
-        /\.js(\?.*)?$/, /\.css(\?.*)?$/, /\.svg(\?.*)?$/, /\.ico(\?.*)?$/, /\.woff(\?.*)?$/,
-        /\.png(\?.*)?$/, /\.jpg(\?.*)?$/, /\.jpeg(\?.*)?$/, /\.gif(\?.*)?$/, /\.pdf(\?.*)?$/
-      ]
-    }));
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpack = require('webpack');
+    const makeWebpackConfig = require('../../webpack.make');
+    const webpackConfig = makeWebpackConfig({ DEV: true });
+    const compiler = webpack(webpackConfig);
+
+    /**
+     * Run Browsersync and use middleware for Hot Module Replacement
+     */
+    browserSync.init({
+      open: false,
+      logFileChanges: false,
+      proxy: 'localhost:' + config.port,
+      ws: true,
+      middleware: [
+        webpackDevMiddleware(compiler, {
+          noInfo: false,
+          stats: {
+            colors: true,
+            timings: true,
+            chunks: false   
+          }
+        })
+      ],
+      port: config.browserSyncPort,
+      plugins: ['bs-fullscreen-message']
+    });
+
+    /**
+     * Reload all devices when bundle is complete
+     * or send a fullscreen error message to the browser instead
+     */
+    compiler.plugin('done', function (stats) {
+      console.log('webpack done hook');
+        if (stats.hasErrors() || stats.hasWarnings()) {
+            return browserSync.sockets.emit('fullscreen:message', {
+                title: "Webpack Error:",
+                body:  stripAnsi(stats.toString()),
+                timeout: 100000
+            });
+        }
+        browserSync.reload();
+    });
   }
 
   if ('development' === env || 'test' === env) {

@@ -1,14 +1,15 @@
 'use strict';
+/*eslint no-process-env:0*/
 
-var path = require('path');
-var _ = require('lodash');
+import path from 'path';
+import _ from 'lodash';
 
-function requiredProcessEnv(name) {
-  if (!process.env[name]) {
+/*function requiredProcessEnv(name) {
+  if(!process.env[name]) {
     throw new Error('You must set the ' + name + ' environment variable');
   }
   return process.env[name];
-}
+}*/
 
 // All configurations will extend these options
 // ============================================
@@ -16,7 +17,10 @@ var all = {
   env: process.env.NODE_ENV,
 
   // Root path of server
-  root: path.normalize(__dirname + '/../../..'),
+  root: path.normalize(`${__dirname}/../../..`),
+
+  // Browser-sync port
+  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
 
   // Server port
   port: process.env.PORT || <%= devPort %>,
@@ -39,24 +43,24 @@ var all = {
         safe: true
       }
     }
-  }<% if (filters.facebookAuth) { %>,
+  }<% if(filters.facebookAuth) { %>,
 
   facebook: {
-    clientID:     process.env.FACEBOOK_ID || 'id',
+    clientID: process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
-  }<% } %><% if (filters.twitterAuth) { %>,
+    callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
+  }<% } %><% if(filters.twitterAuth) { %>,
 
   twitter: {
-    clientID:     process.env.TWITTER_ID || 'id',
+    clientID: process.env.TWITTER_ID || 'id',
     clientSecret: process.env.TWITTER_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/twitter/callback'
-  }<% } %><% if (filters.googleAuth) { %>,
+    callbackURL: `${process.env.DOMAIN || ''}/auth/twitter/callback`
+  }<% } %><% if(filters.googleAuth) { %>,
 
   google: {
-    clientID:     process.env.GOOGLE_ID || 'id',
+    clientID: process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
+    callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
   }<% } %>
 };
 
@@ -65,4 +69,4 @@ var all = {
 module.exports = _.merge(
   all,
   require('./shared'),
-  require('./' + process.env.NODE_ENV + '.js') || {});
+  require(`./${process.env.NODE_ENV}.js`) || {});

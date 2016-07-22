@@ -6,7 +6,8 @@ var <%= cameledName %>CtrlStub = {
   index: '<%= cameledName %>Ctrl.index'<% if(filters.models) { %>,
   show: '<%= cameledName %>Ctrl.show',
   create: '<%= cameledName %>Ctrl.create',
-  update: '<%= cameledName %>Ctrl.update',
+  upsert: '<%= cameledName %>Ctrl.upsert',
+  patch: '<%= cameledName %>Ctrl.patch',
   destroy: '<%= cameledName %>Ctrl.destroy'<% } %>
 };
 
@@ -20,8 +21,8 @@ var routerStub = {
 
 // require the index with our stubbed out modules
 var <%= cameledName %>Index = proxyquire('./index.js', {
-  'express': {
-    Router: function() {
+  express: {
+    Router() {
       return routerStub;
     }
   },
@@ -29,69 +30,55 @@ var <%= cameledName %>Index = proxyquire('./index.js', {
 });
 
 describe('<%= classedName %> API Router:', function() {
-
   it('should return an express router instance', function() {
     <%= expect() %><%= cameledName %>Index<%= to() %>.equal(routerStub);
   });
 
   describe('GET <%= route %>', function() {
-
     it('should route to <%= cameledName %>.controller.index', function() {
       <%= expect() %>routerStub.get
         .withArgs('/', '<%= cameledName %>Ctrl.index')
         <%= to() %>.have.been.calledOnce;
     });
-
   });<% if(filters.models) { %>
 
   describe('GET <%= route %>/:id', function() {
-
     it('should route to <%= cameledName %>.controller.show', function() {
       <%= expect() %>routerStub.get
         .withArgs('/:id', '<%= cameledName %>Ctrl.show')
         <%= to() %>.have.been.calledOnce;
     });
-
   });
 
   describe('POST <%= route %>', function() {
-
     it('should route to <%= cameledName %>.controller.create', function() {
       <%= expect() %>routerStub.post
         .withArgs('/', '<%= cameledName %>Ctrl.create')
         <%= to() %>.have.been.calledOnce;
     });
-
   });
 
   describe('PUT <%= route %>/:id', function() {
-
-    it('should route to <%= cameledName %>.controller.update', function() {
+    it('should route to <%= cameledName %>.controller.upsert', function() {
       <%= expect() %>routerStub.put
-        .withArgs('/:id', '<%= cameledName %>Ctrl.update')
+        .withArgs('/:id', '<%= cameledName %>Ctrl.upsert')
         <%= to() %>.have.been.calledOnce;
     });
-
   });
 
   describe('PATCH <%= route %>/:id', function() {
-
-    it('should route to <%= cameledName %>.controller.update', function() {
+    it('should route to <%= cameledName %>.controller.patch', function() {
       <%= expect() %>routerStub.patch
-        .withArgs('/:id', '<%= cameledName %>Ctrl.update')
+        .withArgs('/:id', '<%= cameledName %>Ctrl.patch')
         <%= to() %>.have.been.calledOnce;
     });
-
   });
 
   describe('DELETE <%= route %>/:id', function() {
-
     it('should route to <%= cameledName %>.controller.destroy', function() {
       <%= expect() %>routerStub.delete
         .withArgs('/:id', '<%= cameledName %>Ctrl.destroy')
         <%= to() %>.have.been.calledOnce;
     });
-
   });<% } %>
-
 });

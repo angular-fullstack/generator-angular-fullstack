@@ -1,45 +1,46 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     <%= route %>              ->  index<% if (filters.models) { %>
+ * GET     <%= route %>              ->  index<% if(filters.models) { %>
  * POST    <%= route %>              ->  create
  * GET     <%= route %>/:id          ->  show
- * PUT     <%= route %>/:id          ->  update
+ * PUT     <%= route %>/:id          ->  upsert
+ * PATCH   <%= route %>/:id          ->  patch
  * DELETE  <%= route %>/:id          ->  destroy<% } %>
  */
 
-'use strict';<% if (filters.models) { %>
+'use strict';<% if(filters.models) { %>
 
-import _ from 'lodash';<% if (filters.mongooseModels) { %>
-import <%= classedName %> from './<%= basename %>.model';<% } if (filters.sequelizeModels) { %>
+import jsonpatch from 'fast-json-patch';<% if(filters.mongooseModels) { %>
+import <%= classedName %> from './<%= basename %>.model';<% } if(filters.sequelizeModels) { %>
 import {<%= classedName %>} from '<%= relativeRequire(config.get('registerModelsFile')) %>';<% } %>
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
-    if (entity) {
+    if(entity) {
       return res.status(statusCode).json(entity);
     }
     return null;
   };
 }
 
-function saveUpdates(updates) {
+function patchUpdates(patches) {
   return function(entity) {
-    <% if (filters.mongooseModels) { %>var updated = _.merge(entity, updates);
-    return updated.save()
-      .then(updated => {<% }
-       if (filters.sequelizeModels) { %>return entity.updateAttributes(updates)
-      .then(updated => {<% } %>
-        return updated;
-      });
+    try {
+      jsonpatch.apply(entity, patches, /*validate*/ true);
+    } catch(err) {
+      return Promise.reject(err);
+    }
+
+    return entity.save();
   };
 }
 
 function removeEntity(res) {
   return function(entity) {
-    if (entity) {
-      <% if (filters.mongooseModels) { %>return entity.remove()<% }
-         if (filters.sequelizeModels) { %>return entity.destroy()<% } %>
+    if(entity) {
+      <% if(filters.mongooseModels) { %>return entity.remove()<% }
+         if(filters.sequelizeModels) { %>return entity.destroy()<% } %>
         .then(() => {
           res.status(204).end();
         });
@@ -49,7 +50,7 @@ function removeEntity(res) {
 
 function handleEntityNotFound(res) {
   return function(entity) {
-    if (!entity) {
+    if(!entity) {
       res.status(404).end();
       return null;
     }
@@ -65,18 +66,18 @@ function handleError(res, statusCode) {
 }<% } %>
 
 // Gets a list of <%= classedName %>s
-export function index(req, res) {<% if (!filters.models) { %>
+export function index(req, res) {<% if(!filters.models) { %>
   res.json([]);<% } else { %>
-  <% if (filters.mongooseModels) { %>return <%= classedName %>.find().exec()<% }
-     if (filters.sequelizeModels) { %>return <%= classedName %>.findAll()<% } %>
+  <% if(filters.mongooseModels) { %>return <%= classedName %>.find().exec()<% }
+     if(filters.sequelizeModels) { %>return <%= classedName %>.findAll()<% } %>
     .then(respondWithResult(res))
     .catch(handleError(res));<% } %>
-}<% if (filters.models) { %>
+}<% if(filters.models) { %>
 
 // Gets a single <%= classedName %> from the DB
 export function show(req, res) {
-  <% if (filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
-     if (filters.sequelizeModels) { %>return <%= classedName %>.find({
+  <% if(filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
+     if(filters.sequelizeModels) { %>return <%= classedName %>.find({
     where: {
       _id: req.params.id
     }
@@ -88,33 +89,50 @@ export function show(req, res) {
 
 // Creates a new <%= classedName %> in the DB
 export function create(req, res) {
-  <% if (filters.mongooseModels) { %>return <%= classedName %>.create(req.body)<% }
-     if (filters.sequelizeModels) { %>return <%= classedName %>.create(req.body)<% } %>
+  <% if(filters.mongooseModels) { %>return <%= classedName %>.create(req.body)<% }
+     if(filters.sequelizeModels) { %>return <%= classedName %>.create(req.body)<% } %>
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Updates an existing <%= classedName %> in the DB
-export function update(req, res) {
-  if (req.body._id) {
+// Upserts the given <%= classedName %> in the DB at the specified ID
+export function upsert(req, res) {
+  if(req.body._id) {
     delete req.body._id;
   }
-  <% if (filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
-     if (filters.sequelizeModels) { %>return <%= classedName %>.find({
+  <%_ if(filters.mongooseModels) { -%>
+  return <%= classedName %>.findOneAndUpdate(req.params.id, req.body, {upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()<% } %>
+  <%_ if(filters.sequelizeModels) { -%>
+  return <%= classedName %>.upsert(req.body, {
+    where: {
+      _id: req.params.id
+    }
+  })<% } %>
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+// Updates an existing <%= classedName %> in the DB
+export function patch(req, res) {
+  if(req.body._id) {
+    delete req.body._id;
+  }
+  <% if(filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
+     if(filters.sequelizeModels) { %>return <%= classedName %>.find({
     where: {
       _id: req.params.id
     }
   })<% } %>
     .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
+    .then(patchUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Deletes a <%= classedName %> from the DB
 export function destroy(req, res) {
-  <% if (filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
-     if (filters.sequelizeModels) { %>return <%= classedName %>.find({
+  <% if(filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
+     if(filters.sequelizeModels) { %>return <%= classedName %>.find({
     where: {
       _id: req.params.id
     }

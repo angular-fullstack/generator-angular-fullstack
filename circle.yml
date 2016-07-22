@@ -3,7 +3,7 @@ machine:
   node:
     version: 5.11.1
   post:
-    - npm install -g gulp-cli grunt-cli bower
+    - npm install -g gulp-cli
 
 ## Customize checkout
 checkout:

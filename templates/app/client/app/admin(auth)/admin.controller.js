@@ -1,12 +1,11 @@
 'use strict';
 
-(function() {
-
-class AdminController {
+export default class AdminController {
   <%_ if(filters.ts || filters.flow) { _%>
   users: Object[];
 
   <%_ } _%>
+  /*@ngInject*/
   constructor(User) {
     // Use the User $resource to fetch all users
     this.users = User.query();
@@ -17,8 +16,3 @@ class AdminController {
     this.users.splice(this.users.indexOf(user), 1);
   }
 }
-
-angular.module('<%= scriptAppName %>.admin')
-  .controller('AdminController', AdminController);
-
-})();
