@@ -8,7 +8,8 @@ export default function routes($stateProvider) {
         url: '/login',
         template: require('./login/login.<%= templateExt %>'),
         controller: 'LoginController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        guest: true
       })
       .state('logout', {
         url: '/logout?referrer',
@@ -27,7 +28,8 @@ export default function routes($stateProvider) {
         url: '/signup',
         template: require('./signup/signup.<%= templateExt %>'),
         controller: 'SignupController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        guest: true
       })
       .state('settings', {
         url: '/settings',
