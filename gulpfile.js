@@ -35,7 +35,7 @@ const transpile = lazypipe()
     .pipe(babel);
 
 gulp.task('clean', () => {
-    return del(['generators/**/*', './test/(**|!fixtures/node_modules|!fixtures/bower_components)/*']);
+    return del(['generators/**/*', './test/(**|!fixtures/node_modules)/*']);
 });
 
 gulp.task('babel', () => {
@@ -86,7 +86,7 @@ var processJson = function(src, dest, opt) {
 
             if(/package.json/g.test(src) && opt.test) {
                 delete json.scripts.postinstall;
-                json.scripts['update-webdriver'] = 'node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update || node node_modules/protractor/bin/webdriver-manager update';
+                json.scripts['update-webdriver'] = 'node node_modules/gulp-protractor-runner/node_modules/protractor/bin/webdriver-manager update || node node_modules/protractor/bin/webdriver-manager update';
             }
 
             // set properties
@@ -113,10 +113,7 @@ function updateFixtures(target) {
     const dest = __dirname + (deps ? '/angular-fullstack-deps/' : '/test/fixtures/');
     const appName = deps ? 'angular-fullstack-deps' : 'tempApp';
 
-    return Promise.all([
-        processJson('templates/app/_package.json', dest + 'package.json', {appName, genVer, private: !deps, test: test}),
-        processJson('templates/app/_bower.json', dest + 'bower.json', {appName, genVer, private: !deps, test: test})
-    ]);
+    return processJson('templates/app/_package.json', dest + 'package.json', {appName, genVer, private: !deps, test: test});
 }
 
 gulp.task('updateFixtures', cb => {
@@ -143,16 +140,13 @@ function execAsync(cmd, opt) {
 }
 
 gulp.task('installFixtures', function() {
-    gutil.log('installing npm & bower dependencies for generated app');
+    gutil.log('installing npm dependencies for generated app');
     let progress = setInterval(() => {
         process.stdout.write('.');
     }, 1 * 1000);
     shell.cd('test/fixtures');
 
-    return Promise.all([
-        execAsync('npm install --quiet', {cwd: '../fixtures'}),
-        execAsync('bower install', {cwd: '../fixtures'})
-    ]).then(() => {
+    execAsync('npm install --quiet', {cwd: '../fixtures'}).then(() => {
         process.stdout.write('\n');
         if(!process.env.SAUCE_USERNAME) {
             gutil.log('running npm run-script update-webdriver');

@@ -26,7 +26,6 @@
       "models": true,
       "mongooseModels": true,
       "mongoose": true,
-      "grunt": true,
       "mocha": true,
       "jasmine": false,
       "expect": true
@@ -47,7 +46,8 @@
       "expect",
       "should",
       "uirouter",
-      "es6"
+      "es6",
+      "webpack"
     ],
     "extensions": [
       "babel",

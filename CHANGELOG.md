@@ -1,3 +1,14 @@
+<a name="3.7.6"></a>
+## [3.7.6](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.5...v3.7.6) (2016-06-21)
+
+
+### Notable Changes
+
+* Add deprecation warning about Grunt
+* Bumped a few generator dependencies
+
+
+
 <a name="3.7.5"></a>
 ## [3.7.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.4...v3.7.5) (2016-06-02)
 

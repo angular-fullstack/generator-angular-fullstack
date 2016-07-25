@@ -1,16 +1,23 @@
-<% if (filters.bootstrap) { %>
+<%_ if (filters.bootstrap) { -%>
+@import '~bootstrap/dist/css/bootstrap.css';
+<%_ if(filters.oauth) { -%>
+@import '~bootstrap-social/bootstrap-social.css';
+<%_ } -%>
 /**
  * Bootstrap Fonts
  */
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.eot');
-  src: url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-  url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'),
-  url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
-  url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}<% } %>
+  src: url('/assets/fonts/bootstrap/glyphicons-halflings-regular.eot');
+  src: url('/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/bootstrap/glyphicons-halflings-regular.woff') format('woff'),
+  url('/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf') format('truetype'),
+  url('/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+<%_ } -%>
+@import '~font-awesome/css/font-awesome.css';
 
 /**
  *Font Awesome Fonts
@@ -18,11 +25,11 @@
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../bower_components/font-awesome/fonts/fontawesome-webfont.eot?v=4.1.0');
-  src: url('../bower_components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'),
-  url('../bower_components/font-awesome/fonts/fontawesome-webfont.woff?v=4.1.0') format('woff'),
-  url('../bower_components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.1.0') format('truetype'),
-  url('../bower_components/font-awesome/fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
+  src: url('/assets/fonts/font-awesome/fontawesome-webfont.eot?v=4.1.0');
+  src: url('/assets/fonts/font-awesome/fontawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'),
+  url('/assets/fonts/font-awesome/fontawesome-webfont.woff?v=4.1.0') format('woff'),
+  url('/assets/fonts/font-awesome/fontawesome-webfont.ttf?v=4.1.0') format('truetype'),
+  url('/assets/fonts/font-awesome/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -44,3 +51,12 @@
     max-width: 730px;
   }
 }<% } %>
+
+/* Component styles are injected through gulp */
+/* inject:css */
+@import 'admin/admin.css';
+@import 'main/main.css';
+@import '../components/footer/footer.css';
+@import '../components/modal/modal.css';
+@import '../components/oauth-buttons/oauth-buttons.css';
+/* endinject */

@@ -1,11 +1,17 @@
 'use strict';
 
-describe('Controller: OauthButtonsCtrl', function() {
+import {OauthButtonsController} from './index';
 
+describe('Controller: OauthButtonsController', function() {
+
+  var controller, $window;
+
+  beforeEach(() => {
+    angular.module('test', [])
+      .controller('OauthButtonsController', OauthButtonsController);
+  });
   // load the controller's module
-  beforeEach(module('<%= scriptAppName %>'));
-
-  var OauthButtonsCtrl, $window;
+  beforeEach(angular.mock.module('test'));
 
   // Initialize the controller and a mock $window
   beforeEach(inject(function($controller) {
@@ -13,13 +19,13 @@ describe('Controller: OauthButtonsCtrl', function() {
       location: {}
     };
 
-    OauthButtonsCtrl = $controller('OauthButtonsCtrl', {
+    controller = $controller('OauthButtonsController', {
       $window: $window
     });
   }));
 
   it('should attach loginOauth', function() {<% if (filters.jasmine) { %>
-    expect(OauthButtonsCtrl.loginOauth).toEqual(jasmine.any(Function));<% } if (filters.mocha) { %>
-    <%= expect() %>OauthButtonsCtrl.loginOauth<%= to() %>.be.a('function');<% } %>
+    expect(controller.loginOauth).toEqual(jasmine.any(Function));<% } if (filters.mocha) { %>
+    <%= expect() %>controller.loginOauth<%= to() %>.be.a('function');<% } %>
   });
 });
