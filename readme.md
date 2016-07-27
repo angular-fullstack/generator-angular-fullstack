@@ -26,17 +26,10 @@ npm install -g yo gulp-cli generator-angular-fullstack
 
 > To install the latest 4.0.0 Beta with Webpack support, use `generator-angular-fullstack@beta`
 
-Make a new directory, and `cd` into it:
+Run `yo angular-fullstack`
 ```
-mkdir my-new-project && cd $_
+yo angular-fullstack
 ```
-
-Run `yo angular-fullstack`, optionally passing an app name:
-```
-yo angular-fullstack [app-name]
-```
-
-Run `gulp build` for building, `gulp serve` for development, and `gulp serve:dist` for a preview of the built app.
 
 **See the [Getting Started](/docs/getting-started/index.md) guide for more information.**
 
