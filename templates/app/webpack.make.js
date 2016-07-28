@@ -183,10 +183,10 @@ module.exports = function makeWebpackConfig(options) {
             loader: 'file'
         }, {
             <%_ if(filters.jade) { _%>
-            // Jade LOADER
-            // Reference: https://github.com/webpack/jade-loader
-            // Allow loading jade throw js
-            test: /\.jade$/,
+            // Pug HTML LOADER
+            // Reference: https://github.com/willyelm/pug-html-loader
+            // Allow loading Pug throw js
+            test: /\.(jade|pug)$/,
             loaders: ['pug-html']
         }, {<% } %>
             <%_ if(filters.html) { _%>

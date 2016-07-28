@@ -229,8 +229,7 @@ gulp.task('webpack:dev', function() {
     return gulp.src(webpackDevConfig.entry.app)
         .pipe(plugins.plumber())
         .pipe(webpack(webpackDevConfig))
-        .pipe(gulp.dest('.tmp'))
-        .pipe(plugins.livereload());
+        .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('webpack:dist', function() {
@@ -311,7 +310,7 @@ gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
     whenServerReady(() => {
-        open('http://localhost:' + config.port);
+        open('http://localhost:' + config.browserSyncPort);
         cb();
     });
 });
@@ -347,12 +346,9 @@ gulp.task('start:server:debug', () => {
 gulp.task('watch', () => {
     var testFiles = _.union(paths.client.test, paths.server.test.unit, paths.server.test.integration);
 
-    plugins.livereload.listen();
-
     plugins.watch(_.union(paths.server.scripts, testFiles))
         .pipe(plugins.plumber())
-        .pipe(lintServerScripts())
-        .pipe(plugins.livereload());
+        .pipe(lintServerScripts());
 
     plugins.watch(_.union(paths.server.test.unit, paths.server.test.integration))
         .pipe(plugins.plumber())
