@@ -17,9 +17,9 @@ dependencies:
   # builds. If you need to, you can add custom paths to cache:
   cache_directories:
     - "test/fixtures/node_modules"
-  post:
-    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
-    - tar -xzf sc-latest-linux.tar.gz
+#  post:
+#    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
+#    - tar -xzf sc-latest-linux.tar.gz
 
 ## Custom notifications
 #notify:
@@ -29,11 +29,11 @@ notify:
     # gitter hook
     - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
 
-test:
-  pre:
-    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
-        background: true
-    # Wait for tunnel to be ready
-    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
-  post:
-    - killall --wait sc  # wait for Sauce Connect to close the tunnel
+#test:
+#  pre:
+#    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
+#        background: true
+#    # Wait for tunnel to be ready
+#    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
+#  post:
+#    - killall --wait sc  # wait for Sauce Connect to close the tunnel
