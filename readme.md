@@ -53,7 +53,7 @@ yo angular-fullstack
 **Client**
 
 * Scripts: `JavaScript (Babel)`, `TypeScript`
-* Module Systems: `Bower`, `Webpack` (soon), `SystemJS + JSPM` (planned)
+* Module Systems: `Webpack`, `SystemJS + JSPM` (maybe)
 * Markup:  `HTML`, `Jade`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
@@ -67,7 +67,7 @@ yo angular-fullstack
   * `None`,
   * `MongoDB`, `SQL`
     * Authentication boilerplate: `Yes`, `No`
-    * oAuth integrations: `Facebook` `Twitter` `Google`
+    * oAuth integrations: `Facebook`, `Twitter`, `Google`
     * Socket.io integration: `Yes`, `No`
 
 
@@ -79,7 +79,7 @@ Available generators:
     - [angular-fullstack](/docs/generators/app.md) (aka [angular-fullstack:app](/docs/generators/app.md))
 * Server Side
     - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
-* Client Side
+* Client Side (via [generator-ng-component](https://github.com/DaftMonk/generator-ng-component))
     - [angular-fullstack:route](/docs/generators/route.md)
     - [angular-fullstack:component](/docs/generators/component.md)
     - [angular-fullstack:controller](/docs/generators/controller.md)
