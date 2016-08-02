@@ -53,7 +53,7 @@ yo angular-fullstack
 **Client**
 
 * Scripts: `JavaScript (Babel)`, `TypeScript`
-* Module Systems: `Bower`, `Webpack` (soon), `SystemJS + JSPM` (planned)
+* Module Systems: `Webpack`, `SystemJS + JSPM` (maybe)
 * Markup:  `HTML`, `Jade`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
@@ -67,7 +67,7 @@ yo angular-fullstack
   * `None`,
   * `MongoDB`, `SQL`
     * Authentication boilerplate: `Yes`, `No`
-    * oAuth integrations: `Facebook` `Twitter` `Google`
+    * oAuth integrations: `Facebook`, `Twitter`, `Google`
     * Socket.io integration: `Yes`, `No`
 
 
