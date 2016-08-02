@@ -70,7 +70,7 @@
     "grunt-release": "^0.14.0",
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.1",
-    "gulp-mocha": "^2.2.0",
+    "gulp-mocha": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7",
     "jit-grunt": "~0.10.0",
