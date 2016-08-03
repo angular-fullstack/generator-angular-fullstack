@@ -80,7 +80,7 @@
     "mocha": "^3.0.0",
     "q": "^1.0.1",
     "recursive-readdir": "^2.0.0",
-    "run-sequence": "^1.2.1",
+    "run-sequence": "^1.2.2",
     "shelljs": "^0.7.0",
     "should": "^10.0.0",
     "yeoman-assert": "^2.0.0",
