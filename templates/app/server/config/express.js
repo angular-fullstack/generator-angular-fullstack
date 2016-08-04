@@ -7,7 +7,7 @@
 import express from 'express';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
-import compression from 'compression';
+import shrinkRay from 'shrink-ray';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
@@ -49,7 +49,7 @@ export default function(app) {
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');<% } %><% if (filters.jade) { %>
   app.set('view engine', 'jade');<% } %>
-  app.use(compression());
+  app.use(shrinkRay());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
