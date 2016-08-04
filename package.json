@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "babel-plugin-syntax-class-properties": "^6.5.0",
-    "babel-plugin-syntax-flow": "^6.5.0",
+    "babel-plugin-syntax-flow": "^6.8.0",
     "babel-plugin-transform-flow-strip-types": "^6.7.0",
     "bluebird": "^3.3.5",
     "chalk": "^1.1.0",
