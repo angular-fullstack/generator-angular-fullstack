@@ -491,8 +491,8 @@ gulp.task('build', cb => {
         'inject',
         'transpile:server',
         [
-            'build:images',
-            'typings'
+            'build:images'<% if(filters.ts) { %>,
+            'typings'<% } %>
         ],
         [
             'copy:extras',
