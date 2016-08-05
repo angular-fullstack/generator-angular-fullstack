@@ -59,7 +59,8 @@
   "devDependencies": {
     <%# CLIENT %>
     "angular-mocks": "~1.5.5",<% if(filters.stylus) { %>
-    "bootstrap-styl": "^5.0.5",
+    <%_ if(filters.bootstrap) { -%>
+    "bootstrap-styl": "^5.0.5",<% } %>
     "font-awesome-stylus": "^4.6.2",<% } %>
     <%# END CLIENT %>
     "autoprefixer": "^6.0.0",
