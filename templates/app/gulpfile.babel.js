@@ -236,6 +236,9 @@ gulp.task('webpack:dist', function() {
     const webpackDistConfig = makeWebpackConfig({ BUILD: true });
     return gulp.src(webpackDistConfig.entry.app)
         .pipe(webpack(webpackDistConfig))
+        .on('error', (err) => {
+          this.emit('end'); // Recover from errors
+        })
         .pipe(gulp.dest(`${paths.dist}/client`));
 });
 
