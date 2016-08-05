@@ -78,59 +78,38 @@
     "eslint": "^2.12.0",
     "del": "^2.0.2",
     "gulp": "^3.9.1",
-    "gulp-add-src": "^0.2.0",
-    "gulp-angular-templatecache": "^2.0.0",
-    "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",<% if(filters.ts) { %>
     "gulp-typescript": "~2.13.0",
     "gulp-typings": "^1.3.6",
     "gulp-tslint": "^5.0.0",
     "ts-helpers": "1.1.1",<% } %>
-    "gulp-cache": "^0.4.2",
-    "gulp-concat": "^2.6.0",
     "gulp-env": "^0.4.0",
     "gulp-eslint": "^2.0.0",
-    "gulp-filter": "^4.0.0",
     "gulp-imagemin": "^3.0.1",
     "gulp-inject": "^4.0.0",
     "gulp-istanbul": "~0.10.3",
     "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-load-plugins": "^1.0.0-rc.1",
-    "gulp-clean-css": "^2.0.6",
     "gulp-mocha": "^2.1.3",
-    "gulp-ng-annotate": "^2.0.0",
     "gulp-node-inspector": "^0.1.0",
     "gulp-plumber": "^1.0.1",
     "gulp-protractor": "^2.1.0",
-    "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.0.0",
     "gulp-rev-replace": "^0.4.2",
     "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp-svgmin": "^1.1.2",
-    "gulp-uglify": "^1.2.0",
-    "gulp-useref": "^3.0.3",
     "gulp-util": "^3.0.5",
-    "gulp-watch": "^4.3.5",<% if(filters.jade) { %>
-    "gulp-jade": "^1.0.1",<% } if(filters.stylus) { %>
-    "gulp-stylus": "^2.0.4",
+    "gulp-watch": "^4.3.5",
     "gulp-stylint": "^3.0.0",
-    "nib": "^1.1.0",<% } if(filters.sass) { %>
-    "gulp-sass": "^2.2.0",
-    "gulp-scss-lint": "^0.3.9",<% } if(filters.less) { %>
-    "gulp-less": "^3.0.3",
-    "gulp-recess": "^1.1.2",<% } %>
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
     "isparta": "^4.0.0",
-    "utile": "~0.3.0",
     "nodemon": "^1.3.7",
     "run-sequence": "^1.1.0",
     "lazypipe": "^1.0.1",
     <%# WEBPACK %>
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
-    "webpack-dev-server": "~1.14.0",
     "webpack-stream": "^3.2.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.16.0",
@@ -156,7 +135,6 @@
     "less-loader": "^2.2.3",<% } %>
     <%_ if(filters.stylus) { _%>
     "stylus-loader": "^2.1.1",<% } %>
-    "tiny-lr": "^0.2.1",
     "karma-webpack": "^1.7.0",
     <%# END WEBPACK %>
     "through2": "^2.0.1",
