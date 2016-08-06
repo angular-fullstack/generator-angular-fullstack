@@ -189,8 +189,8 @@
     "typings": "^0.8.1"<% } %>
   },
   "engines": {
-    "node": "^4.4.6",
-    "npm": "^2.15.5"
+    "node": "^6.2.2",
+    "npm": "^3.9.5"
   },
   "scripts": {
     "test": "gulp test",
