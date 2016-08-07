@@ -26,9 +26,6 @@ var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);<% } %>
-import stripAnsi from 'strip-ansi'; 
- 
-var browserSync = require('browser-sync').create(); 
 
 export default function(app) {
   var env = app.get('env');
@@ -92,10 +89,12 @@ export default function(app) {
 
   if ('development' === env) {
     const webpackDevMiddleware = require('webpack-dev-middleware');
+    const stripAnsi = require('strip-ansi'); 
     const webpack = require('webpack');
     const makeWebpackConfig = require('../../webpack.make');
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
+    const browserSync = require('browser-sync').create(); 
 
     /**
      * Run Browsersync and use middleware for Hot Module Replacement
@@ -128,7 +127,7 @@ export default function(app) {
         if (stats.hasErrors() || stats.hasWarnings()) {
             return browserSync.sockets.emit('fullscreen:message', {
                 title: "Webpack Error:",
-                body:  stripAnsi(stats.toString()),
+                body: stripAnsi(stats.toString()),
                 timeout: 100000
             });
         }
