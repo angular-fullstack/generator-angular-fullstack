@@ -15,8 +15,7 @@ import nodemon from 'nodemon';
 import {Server as KarmaServer} from 'karma';
 import runSequence from 'run-sequence';
 import {protractor, webdriver_update} from 'gulp-protractor';
-import {Instrumenter} from 'isparta';<% if(filters.stylus) { %>
-import nib from 'nib';<% } %>
+import {Instrumenter} from 'isparta';
 import webpack from 'webpack-stream';
 import makeWebpackConfig from './webpack.make';
 
