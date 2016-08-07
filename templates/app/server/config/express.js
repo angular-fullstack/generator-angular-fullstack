@@ -44,8 +44,8 @@ export default function(app) {
 
   app.set('views', config.root + '/server/views');<% if (filters.html) { %>
   app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'html');<% } %><% if (filters.jade) { %>
-  app.set('view engine', 'jade');<% } %>
+  app.set('view engine', 'html');<% } %><% if (filters.pug) { %>
+  app.set('view engine', 'pug');<% } %>
   app.use(shrinkRay());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());

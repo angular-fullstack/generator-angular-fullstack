@@ -33,8 +33,8 @@
     "lodash": "^4.6.1",
     "lusca": "^1.3.0",
     "babel-runtime": "^6.6.1",
-    "babel-polyfill": "^6.7.2",<% if(filters.jade) { %>
-    "jade": "^1.11.0",<% } %><% if(filters.html) { %>
+    "babel-polyfill": "^6.7.2",<% if(filters.pug) { %>
+    "pug": "2.0.0-beta4",<% } %><% if(filters.html) { %>
     "ejs": "^2.3.3",<% } %><% if(filters.mongoose) { %>
     "mongoose": "^4.1.2",
     "bluebird": "^3.3.3",
@@ -115,7 +115,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.16.0",
     "html-webpack-harddisk-plugin": "~0.0.2",
-    <%_ if(filters.jade) { _%>
+    <%_ if(filters.pug) { _%>
     "pug-html-loader": "^1.0.8",<% } %>
     "awesome-typescript-loader": "0.17.0",
     "ng-annotate-loader": "~0.1.0",

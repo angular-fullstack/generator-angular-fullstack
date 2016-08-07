@@ -30,5 +30,5 @@ yo angular-fullstack
 ```
 
 You'll then be asked a series of questions regarding options for the generated app. Such things include using JavaScript or TypeScript,
-HTML or Jade, Bootstrap, SQL, and so on. If you don't know what to answer for a question, just hitting `ENTER` will use the default options
+HTML or Pug, Bootstrap, SQL, and so on. If you don't know what to answer for a question, just hitting `ENTER` will use the default options
 for that question, and move on to the next one.

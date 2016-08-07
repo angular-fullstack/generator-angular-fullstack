@@ -11,7 +11,7 @@ etc | etc
 Item | Answer
 ----- | -----
 Transpiler | Babel / TypeScript
-Markup | HTML / Jade
+Markup | HTML / Pug
 CSS | CSS / LESS / SCSS / Stylus
 Router | ngRoute / ui-router
 Client Tests | Jasmine / Mocha

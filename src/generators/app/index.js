@@ -119,7 +119,7 @@ export class Generator extends Base {
             this.filters = existingFilters;
 
             this.scriptExt = this.filters.ts ? 'ts' : 'js';
-            this.templateExt = this.filters.jade ? 'jade' : 'html';
+            this.templateExt = this.filters.pug ? 'pug' : 'html';
             this.styleExt = this.filters.sass ? 'scss' :
               this.filters.less ? 'less' :
               this.filters.stylus ? 'styl' :
@@ -169,7 +169,7 @@ export class Generator extends Base {
             type: 'list',
             name: 'markup',
             message: 'What would you like to write markup with?',
-            choices: ['HTML', 'Jade'],
+            choices: ['HTML', 'Pug'],
             filter: val => val.toLowerCase()
           }, {
             type: 'list',
@@ -408,7 +408,7 @@ export class Generator extends Base {
         if(this.filters.ts) extensions.push('ts');
         if(this.filters.js) extensions.push('js');
         if(this.filters.html) extensions.push('html');
-        if(this.filters.jade) extensions.push('jade');
+        if(this.filters.pug) extensions.push('pug');
         if(this.filters.css) extensions.push('css');
         if(this.filters.stylus) extensions.push('styl');
         if(this.filters.sass) extensions.push('scss');
