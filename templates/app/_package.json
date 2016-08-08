@@ -140,7 +140,7 @@
     <%# END WEBPACK %>
     "through2": "^2.0.1",
     "open": "~0.0.4",
-    "istanbul": "~0.4.1",
+    "istanbul": "1.1.0-alpha.1",
     "chai": "^3.2.0",
     "sinon": "^1.16.1",
     "chai-as-promised": "^5.1.0",
