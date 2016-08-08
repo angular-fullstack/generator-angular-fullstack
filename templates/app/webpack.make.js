@@ -182,7 +182,7 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([\?]?.*)$/,
             loader: 'file'
         }, {
-            <%_ if(filters.jade) { _%>
+            <%_ if(filters.pug) { _%>
             // Pug HTML LOADER
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js

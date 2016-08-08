@@ -14,7 +14,7 @@ export function app(options) {
       css: 'css'
     },
     markup: {
-      jade: 'jade',
+      pug: 'pug',
       html: 'html'
     },
     script: {
