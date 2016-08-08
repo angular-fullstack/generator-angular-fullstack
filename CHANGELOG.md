@@ -2,7 +2,7 @@
 ## [4.0.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.6...v4.0.0) (2016-08-08)
 
 
-### Notable Changes
+## Notable Changes
 
 ### [Webpack](http://webpack.github.io/)
 * No more Bower
