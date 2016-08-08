@@ -1,3 +1,40 @@
+<a name="4.0.0"></a>
+## [4.0.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.6...v4.0.0) (2016-08-08)
+
+
+### Notable Changes
+
+### [Webpack](http://webpack.github.io/)
+* No more Bower
+* Webpack is a Module Bundler for the front-end.
+* Everything starts in `client/app.js`. It imports (using CommonJS / ES2015 imports) everything else needed from there.
+* Whenever we create a new Angular 1 module, we export its name, and import that name in another module up the tree, all the way to `client/app.js`. This design pattern allows for easy lazy-loading.
+
+### Gulp v Grunt
+Grunt has been removed. 
+* Gulp is significantly faster to run
+* Gulp focuses on programmatic configuration, which makes it a breeze to configure compared to Grunt's JSON-config-focused configuration.
+* Gulp development is much more active, with Gulp 4.0.0 hopefully being released soon.
+
+### ESLint
+JSHint + JSCS have been replaced with ESLint. ESLint provides a gigantic amount of rules, and is easily pluggable with many plugins. It uses Espree. Also, JSCS has merged with ESLint.
+
+### Types
+Flow support has been added. TypeScript type errors have been fixed.
+
+### Async/Sync Auth methods
+The following methods from the client Auth service have been split into two: `getCurrentUser`, `isLoggedIn`, `hasRole`, `isAdmin`. The reason that these methods could be both synchronous and asynchronous depending on how many arguments were passed is because they were called from Angular templates. Now, the Angular templates call the sync form of these methods (e.x. `getCurrentUserSync`), and the original functions are now only async.
+
+### Constants
+The task runner no longer takes care of creating an Angular module for config constants. It is taken care of by webpack now (the `shared.js` files is now just `require`d)
+
+### Endpoint PUT/PATCH
+PUT now defaults to an upsert. PATCH now actually does an HTTP PATCH.
+
+### -Livereload +Browsersync
+Livereload has been removed in favor of [Browsersync](https://www.browsersync.io/)
+
+
 <a name="3.7.6"></a>
 ## [3.7.6](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.5...v3.7.6) (2016-06-21)
 
@@ -6,7 +43,6 @@
 
 * Add deprecation warning about Grunt
 * Bumped a few generator dependencies
-
 
 
 <a name="3.7.5"></a>
