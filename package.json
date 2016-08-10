@@ -82,7 +82,7 @@
     "recursive-readdir": "^2.0.0",
     "run-sequence": "^1.2.1",
     "shelljs": "^0.7.0",
-    "should": "^10.0.0",
+    "should": "^11.0.0",
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "~1.4.0"
   },
