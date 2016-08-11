@@ -70,7 +70,7 @@
     "browser-sync": "^2.8.0",
     "bs-fullscreen-message": "^1.0.0",
     <%_ if(filters.flow) { -%>
-    "flow-bin": "^0.27.0",
+    "flow-bin": "^0.30.0",
     "babel-plugin-syntax-flow": "^6.8.0",
     "babel-plugin-transform-flow-comments": "^6.8.0",<% } %>
     "babel-plugin-transform-class-properties": "^6.6.0",
