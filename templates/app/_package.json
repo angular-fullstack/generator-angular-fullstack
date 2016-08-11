@@ -18,7 +18,7 @@
     "font-awesome": ">=4.1.0",<% if(filters.socketio) { %>
     "angular-socket-io": "~0.7.0",<% } if(filters.uirouter) { %>
     "angular-ui-router": "~0.2.15",<% } if(filters.auth) { %>
-    "angular-validation-match": "~1.5.2",<% } %>
+    "angular-validation-match": "^1.9.0",<% } %>
     <%# END CLIENT %>
     "core-js": "^2.2.1",
     "express": "^4.13.3",
