@@ -168,3 +168,13 @@ gulp.task('test', () => {
     return gulp.src(['test/pre.test.js', 'test/*.test.js'])
         .pipe(mocha());
 });
+
+gulp.task('updateSubmodules', () => console.log('TODO'));
+gulp.task('changelog', () => console.log('TODO'));
+gulp.task('generateDemo', () => console.log('TODO'));
+gulp.task('demo', () => console.log('TODO')); // ['clean:demo', 'generateDemo']
+gulp.task('releaseDemo', () => console.log('TODO')); //['demo', 'releaseDemoBuild', 'buildcontrol:release']
+gulp.task('releaseDemoBuild', () => console.log('TODO'));
+gulp.task('deps', () => console.log('TODO')); // updateFixtures, david
+gulp.task('release', () => console.log('TODO'));
+gulp.task('lint', () => console.log('TODO'));
