@@ -14,7 +14,7 @@
     "angular-cookies": "~1.5.5",
     "angular-sanitize": "~1.5.5",<% if(filters.ngroute) { %>
     "angular-route": "~1.5.5",<% } if(filters.uibootstrap) { %>
-    "angular-ui-bootstrap": "~1.1.2",<% } %>
+    "angular-ui-bootstrap": "^2.0.1",<% } %>
     "font-awesome": ">=4.1.0",<% if(filters.socketio) { %>
     "angular-socket-io": "~0.7.0",<% } if(filters.uirouter) { %>
     "angular-ui-router": "~0.2.15",<% } if(filters.auth) { %>
