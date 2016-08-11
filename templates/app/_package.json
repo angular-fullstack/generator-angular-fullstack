@@ -5,8 +5,8 @@
   "dependencies": {
     <%# CLIENT %>
     "angular": "~1.5.5",<% if(filters.bootstrap) { if(filters.sass) { %>
-    "bootstrap-sass": "~3.1.1",<% } %>
-    "bootstrap": "~3.1.1",<% if(filters.oauth) { %>
+    "bootstrap-sass": "~3.3.7",<% } %>
+    "bootstrap": "~3.3.7",<% if(filters.oauth) { %>
     "bootstrap-social": "~4.9.1",<% }} %>
     "angular-animate": "~1.5.5",
     "angular-aria": "~1.5.5",
