@@ -17,7 +17,7 @@
     "angular-ui-bootstrap": "^2.0.1",<% } %>
     "font-awesome": ">=4.1.0",<% if(filters.socketio) { %>
     "angular-socket-io": "~0.7.0",<% } if(filters.uirouter) { %>
-    "angular-ui-router": "~0.2.15",<% } if(filters.auth) { %>
+    "angular-ui-router": "~0.3.1",<% } if(filters.auth) { %>
     "angular-validation-match": "^1.9.0",<% } %>
     <%# END CLIENT %>
     "core-js": "^2.2.1",
