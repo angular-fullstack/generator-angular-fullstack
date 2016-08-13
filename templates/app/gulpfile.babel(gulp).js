@@ -580,10 +580,10 @@ gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**
 gulp.task('build:client', ['styles', 'html', 'constant', 'build:images'], () => {
     var manifest = gulp.src(`${paths.dist}/${clientPath}/assets/rev-manifest.json`);
 
-    var appFilter = plugins.filter('**/app.js', {restore: true});
-    var jsFilter = plugins.filter('**/*.js', {restore: true});
-    var cssFilter = plugins.filter('**/*.css', {restore: true});
-    var htmlBlock = plugins.filter(['**/*.!(html)'], {restore: true});
+    var appFilter = plugins.filter('**/app.js', {restore: true, dot: true});
+    var jsFilter = plugins.filter('**/*.js', {restore: true, dot: true});
+    var cssFilter = plugins.filter('**/*.css', {restore: true, dot: true});
+    var htmlBlock = plugins.filter(['**/*.!(html)'], {restore: true, dot: true});
 
     return gulp.src(paths.client.mainView)
         .pipe(plugins.useref())
