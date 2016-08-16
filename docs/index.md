@@ -5,22 +5,22 @@
 Available generators:
 
 * App
-    - [angular-fullstack](/docs/generators/app.md) (aka [angular-fullstack:app](/docs/generators/app.md))
+    - [angular-fullstack](Generators/app.md) (aka [angular-fullstack:app](Generators/app.md))
 * Server Side
-    - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
+    - [angular-fullstack:endpoint](Generators/endpoint.md)
 * Client Side (via [generator-ng-component](https://github.com/DaftMonk/generator-ng-component))
-    - [angular-fullstack:route](/docs/generators/route.md)
-    - [angular-fullstack:component](/docs/generators/component.md)
-    - [angular-fullstack:controller](/docs/generators/controller.md)
-    - [angular-fullstack:filter](/docs/generators/filter.md)
-    - [angular-fullstack:directive](/docs/generators/directive.md)
-    - [angular-fullstack:service](/docs/generators/service.md)
-    - [angular-fullstack:provider](/docs/generators/service.md)
-    - [angular-fullstack:factory](/docs/generators/service.md)
-    - [angular-fullstack:decorator](/docs/generators/decorator.md)
+    - [angular-fullstack:route](Generators/route.md)
+    - [angular-fullstack:component](Generators/component.md)
+    - [angular-fullstack:controller](Generators/controller.md)
+    - [angular-fullstack:filter](Generators/filter.md)
+    - [angular-fullstack:directive](Generators/directive.md)
+    - [angular-fullstack:service](Generators/service.md)
+    - [angular-fullstack:provider](Generators/service.md)
+    - [angular-fullstack:factory](Generators/service.md)
+    - [angular-fullstack:decorator](Generators/decorator.md)
 * Deployment
-    - [angular-fullstack:openshift](/docs/generators/openshift.md)
-    - [angular-fullstack:heroku](/docs/generators/heroku.md)
+    - [angular-fullstack:openshift](Generators/openshift.md)
+    - [angular-fullstack:heroku](Generators/heroku.md)
 
 
 ## Bower Components

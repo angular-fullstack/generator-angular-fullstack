@@ -15,6 +15,7 @@ const lazypipe = require('lazypipe');
 const runSequence = require('run-sequence');
 const merge = require('merge-stream');
 const shell = require('shelljs');
+const ghPages = require('gulp-gh-pages');
 
 var watching = false;
 
@@ -178,3 +179,14 @@ gulp.task('releaseDemoBuild', () => console.log('TODO'));
 gulp.task('deps', () => console.log('TODO')); // updateFixtures, david
 gulp.task('release', () => console.log('TODO'));
 gulp.task('lint', () => console.log('TODO'));
+
+gulp.task('daux', () => {
+    return execAsync('daux');
+});
+gulp.task('gh-pages', () => {
+  return gulp.src('./static/**/*')
+    .pipe(ghPages());
+});
+gulp.task('docs', cb => {
+    return runSequence('daux', 'gh-pages', cb);
+});

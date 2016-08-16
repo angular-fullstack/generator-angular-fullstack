@@ -31,7 +31,7 @@ Run `yo angular-fullstack`
 yo angular-fullstack
 ```
 
-**See the [Getting Started](/docs/getting-started/index.md) guide for more information.**
+**See the [Getting Started](http://angular-fullstack.github.io/generator-angular-fullstack/Getting_Started/Prerequisites.html) guide for more information.**
 
 ## Prerequisites
 
@@ -97,7 +97,7 @@ Available generators:
 
 ## Documentation
 
-Check out our [documentation home page](/docs/index.md).
+Check out our [documentation home page](http://angular-fullstack.github.io/generator-angular-fullstack).
 
 
 ## Contribute

@@ -1,5 +1,3 @@
-# Getting Started
-
 ## Prerequisites
 
 Make sure you have all the required dependencies available:
@@ -16,12 +14,12 @@ your computer's startup. Example:
 ```bash
 #!/bin/bash
 
-/var/lib/mongo/server/3.2/bin/mongod.exe --dbpath /data/db
+/var/lib/mongo/server/3.2/bin/mongod --dbpath /data/db
 ```
 
 Make a new directory, and `cd` into it:
 ```bash
-mkdir afs && cd $_
+mkdir myapp && cd $_
 ```
 
 Run `yo angular-fullstack`, optionally passing an app name:
