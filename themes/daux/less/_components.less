@@ -1,0 +1,355 @@
+/* ===========================================================================================
+Base tags
+============================================================================================== */
+
+a {
+    text-decoration: none;
+    color: @light;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+hr {
+    clear: both;
+    margin: 1em 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+code {
+    color: @dark;
+}
+
+/* ===========================================================================================
+Components
+============================================================================================== */
+
+.Button {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+    border: 1px solid transparent;
+    white-space: nowrap;
+    border-radius: 4px;
+
+    &--small {
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+
+    &--default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+
+        &.Button--active {
+            color: #333;
+            background-color: #e6e6e6;
+            border-color: #adadad;
+        }
+    }
+}
+
+.ButtonGroup {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle; // match .Button alignment given font-size hack above
+
+    .Button + .Button {
+        margin-left: -1px;
+    }
+
+    > .Button {
+        position: relative;
+        float: left;
+
+        // Bring the "active" button to the front
+        &:hover,
+        &:focus {
+            z-index: 2;
+        }
+
+        &:active,
+        &.Button--active {
+            z-index: 3;
+        }
+
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+
+        // Set corners individual because sometimes a single button can be in a .btn-group and we need :first-child and :last-child to both match
+        &:first-child {
+            margin-left: 0;
+            &:not(:last-child):not(.dropdown-toggle) {
+                .border-right-radius(0);
+            }
+        }
+
+        // Need .dropdown-toggle since :last-child doesn't apply given a .dropdown-menu immediately after it
+        &:last-child:not(:first-child) {
+            .border-left-radius(0);
+        }
+    }
+}
+
+.Navbar {
+    height: @navbar-height;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    background-color: @dark;
+    margin-bottom: 0;
+
+    &__brand {
+        float: left;
+        padding: 15px 20px;
+        font-size: 18px;
+        line-height: 20px;
+        height: @navbar-height;
+
+        color: @light;
+        text-shadow: none;
+
+        font-family: @font-family-heading;
+        font-weight: 700;
+    }
+}
+
+.CodeToggler {
+    &__text {
+        font-size: 12px;
+        line-height: 1.5;
+        padding: 6px 10px 6px 0;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+// Sidebar navigation
+.Nav {
+    margin: 0;
+    padding: 0;
+
+    &__arrow {
+        display: inline-block;
+        position: relative;
+        width: 16px;
+        margin-left: -16px;
+
+        &::before {
+            position: absolute;
+            display: block;
+            content: "";
+            margin: -0.25em 0 0 -0.4em;
+            left: 50%;
+            top: 50%;
+            width: 0.5em;
+            height: 0.5em;
+            border-right: 0.15em solid @dark;
+            border-top: 0.15em solid @dark;
+            transform: rotate(45deg);
+            transition-duration: 0.3s;
+        }
+    }
+
+    &__item {
+        display: block;
+
+        a {
+            display: block;
+            margin: 0;
+            padding: 6px 15px 6px 20px;
+            font-family: @font-family-heading;
+            font-weight: 400;
+            color: @dark;
+            font-size: 15px;
+            text-shadow: none;
+            border-color: @lines;
+
+            &:hover {
+                color: @dark;
+                text-shadow: none;
+                background-color: @sidebar-hover;
+            }
+        }
+    }
+
+    .Nav {
+        display: none;
+        margin-left: 15px;
+
+        .Nav__item {
+            a {
+                margin: 0;
+                margin-left: -15px;
+                padding: 3px 30px;
+                font-family: @font-family-text;
+                color: @text;
+                opacity: 0.7;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            &--active a {
+                color: @dark;
+            }
+        }
+    }
+
+    &__item {
+        &--open,
+        &--active {
+            > a {
+                background-color: @sidebar-hover;
+            }
+        }
+
+        &--open {
+            > .Nav {
+                display: block;
+            }
+
+            > a > .Nav__arrow::before {
+                margin-left: -0.25em;
+                transform: rotate(135deg);
+            }
+        }
+    }
+}
+
+.Page__header {
+    margin: 0 0 10px 0;
+    padding: 0;
+    border-bottom: 1px solid #eee;
+
+    .clearfix();
+
+    h1 {
+        margin: 0;
+        padding: 0;
+    }
+
+    &--separator {
+        height: 0.6em;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.Github {
+    position: absolute;
+    top: @navbar-height;
+    right: 0;
+    z-index: 200;
+}
+
+.Links {
+    padding: 0 20px;
+
+    a {
+        font-family: @font-family-heading;
+        font-weight: 400;
+        color: @light;
+        line-height: 2em;
+    }
+}
+
+.Search {
+    position: relative;
+    float: right;
+    margin: 8px 20px;
+    vertical-align: middle;
+
+    &__field {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 30px 6px 0;
+
+        color: #555;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+
+        &:focus {
+            border-color: @light;
+            outline: 0;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px 2px rgba(102, 175, 233, 0.6);
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        right: 9px;
+        top: 9px;
+
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.TableOfContents {
+    font-size: 16px;
+    padding-left: 0;
+    border-left: 6px solid #efefef;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .TableOfContents {
+        border-left-width: 0;
+    }
+}
+
+.Pager {
+    padding-left: 0;
+    margin: 1em 0;
+    list-style: none;
+    text-align: center;
+    clear: both;
+
+    .clearfix();
+
+    li {
+        display: inline;
+
+        > a {
+            display: inline-block;
+            padding: 5px 14px;
+
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+        }
+
+        > a:hover,
+        > a:focus {
+            text-decoration: none;
+            background-color: #eee;
+        }
+    }
+
+    &--next > a {
+        float: right;
+    }
+
+    &--prev > a {
+        float: left;
+    }
+}

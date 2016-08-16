@@ -1,0 +1,218 @@
+/* ===========================================================================================
+Homepage
+============================================================================================== */
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+.container--inner {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.Homepage {
+    padding-top: 60px !important;
+    background-color: @light;
+    .kill-box-shadow;
+    border-radius: 0;
+    border: none;
+    color: @dark;
+    overflow: hidden;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.HomepageTitle {
+    h2 {
+        width: 80%;
+        font-size: 30px;
+        margin: 20px auto;
+        text-align: center;
+    }
+}
+
+.HomepageImage {
+    img {
+        display: block;
+        max-width: 80%;
+        margin: 0 auto;
+        height: auto;
+    }
+}
+
+.HomepageButtons {
+    padding: 20px 0;
+    background-color: @sidebar-hover;
+    text-align: center;
+
+    .Button--hero {
+        padding: 20px 30px;
+        .kill-background-image;
+        .kill-box-shadow;
+        border-radius: 0;
+        text-shadow: none;
+        border: none;
+        opacity: 0.8;
+        margin: 0 10px;
+        text-transform: uppercase;
+        border: 5px solid @dark;
+
+        font-family: @font-family-heading;
+        font-weight: 700;
+
+        @media (max-width: 768px) {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &.Button--secondary {
+            background-color: @sidebar-hover;
+            color: @dark;
+        }
+
+        &.Button--primary {
+            background-color: @dark;
+            color: @sidebar-background;
+        }
+    }
+}
+
+.HomepageContent {
+    background-color: white;
+    padding: 40px 0;
+
+    @media (min-width: 769px) {
+        .row {
+            margin: 0 -15px;
+        }
+
+        .col-third {
+            width: 33.333333%;
+            float: left;
+
+            position: relative;
+            min-height: 1px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+
+    ul, ol {
+        li {
+            list-style: none;
+            padding-bottom: 0.5em;
+
+            &::before {
+                content: '';
+                width: 0;
+                height: 0;
+                border: 3px solid transparent;
+                border-left: 3px solid @light;
+                float: left;
+                display: block;
+                margin: 6px 6px 6px -12px;
+            }
+        }
+    }
+
+    .lead {
+        font-family: @font-family-heading;
+        font-weight: 300;
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+    }
+
+    @media (min-width: 768px) {
+        padding: 40px 20px;
+
+        .lead {
+            font-size: 21px;
+        }
+    }
+}
+
+.HomepageFooter {
+    background-color: @dark;
+    .kill-box-shadow;
+    border-radius: 0;
+    color: @light;
+    border: none;
+
+    @media (max-width: 768px) {
+        padding: 0 20px;
+        text-align: center;
+
+        .HomepageFooter__links {
+            padding-left: 0;
+            list-style-type: none;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .HomepageFooter__links {
+            float: left;
+        }
+
+        .HomepageFooter__twitter {
+            float: right;
+        }
+    }
+
+    &__links {
+        margin: 40px 0;
+
+        li {
+            a {
+                line-height: 32px;
+
+                font-size: 16px;
+                font-family: @font-family-heading;
+                font-weight: 700;
+
+                &:hover {
+                    color: @light;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    &__twitter {
+        margin: 40px 0;
+    }
+
+    .Twitter {
+        margin-bottom: 20px;
+    }
+}

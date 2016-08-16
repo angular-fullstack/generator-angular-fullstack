@@ -1,0 +1,149 @@
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ===========================================================================================
+Docs Body & Page Structure
+============================================================================================== */
+
+html, body {
+    height: 100%;
+    background-color: #fff;
+    color: @text;
+}
+
+.Columns {
+    &__left {
+        background-color: @sidebar-background;
+    }
+
+    &__right {
+        &__content {
+            padding: 10px;
+            background-color: #fff;
+        }
+    }
+}
+
+.Collapsible {
+    &__container {
+        padding: 10px 15px;
+        display: block;
+        background-color: @lines;
+        border-bottom: 1px solid @lines;
+    }
+
+    //mobile friendly sub-nav
+    &__content {
+        display: none;
+    }
+
+    &__trigger {
+        padding: 7px 10px;
+        .kill-background-image;
+        .kill-box-shadow;
+        background-color: @sidebar-hover;
+        border: none;
+
+        &--bar {
+            display: block;
+            width: 18px;
+            height: 2px;
+            margin-top: 2px;
+            margin-bottom: 3px;
+            background-color: @dark;
+            .kill-box-shadow;
+        }
+
+        &:hover {
+            .kill-box-shadow;
+            background-color: @dark;
+
+            .icon-bar {
+                background-color: @light;
+                .kill-box-shadow;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    body {
+        //Needed only for floating code blocks
+        background-color: @light;
+    }
+
+    .Navbar {
+        position: fixed;
+        z-index: @zindex-navbar-fixed;
+        width: 100%;
+    }
+
+    .Collapsible {
+        &__container {
+            display: none;
+        }
+
+        &__content {
+            display: block !important;
+        }
+    }
+
+    .Columns {
+        height: 100%;
+        padding-top: @navbar-height;
+
+        &::after,
+        &::before {
+            content: " ";
+            display: table;
+        }
+
+        &::after {
+            clear: both;
+        }
+
+        &__left, &__right {
+            position: relative;
+            min-height: 1px;
+            float: left;
+            overflow: auto;
+            height: 100%;
+        }
+
+        &__left {
+            width: 25%;
+            border-right: 1px solid @lines;
+            overflow-x: hidden;
+        }
+
+        &__right {
+            width: 75%;
+            &__content {
+                padding: 20px;
+                min-height: 100%;
+            }
+        }
+    }
+}
+
+@media print {
+    .Columns__right {
+        width: 100% !important;
+    }
+
+    h1 a[href]::after {
+        font-size: 50%;
+    }
+
+    .hidden-print {
+        display: none;
+    }
+}

@@ -1,0 +1,135 @@
+/* ===========================================================================================
+Base CSS
+============================================================================================== */
+
+body {
+    font-family: @font-family-text;
+    text-rendering: optimizeLegibility;
+    font-smoothing: antialiased;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: @font-family-heading;
+    font-weight: 300;
+}
+
+.s-content {
+    @import "../../common/less/_typography.less";
+
+    pre {
+        border: none;
+        border-radius: 0;
+        padding: 10px 30px;
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+}
+
+//Content pages float view
+.Columns__right--float {
+    @media (min-width: 1150px) {
+        .Columns__right__content {
+            height: 100%;
+            overflow: auto;
+            padding: 0 !important;
+            background-color: transparent !important;
+            position: relative;
+
+            article {
+                width: 100%;
+                min-height: 100%;
+                overflow: auto;
+                position: relative;
+                z-index: 1;
+
+                &::before {
+                    content: "";
+                    width: 50%;
+                    min-height: 100%;
+                    overflow: auto;
+                    background-color: white;
+                    display: block;
+                    margin: 0;
+                    position: absolute;
+                    z-index: -1;
+                }
+            }
+        }
+
+        .Pager,
+        .Page__header,
+        .s-content blockquote,
+        .s-content p,
+        .s-content ul,
+        .s-content ol,
+        .s-content dl,
+        .s-content h2,
+        .s-content h3,
+        .s-content h4,
+        .s-content h5,
+        .s-content h6,
+        .s-content hr,
+        .s-content table {
+            float: left;
+            clear: left;
+            width: 47%;
+            margin-left: 1.5%;
+            margin-right: 1.5%;
+        }
+
+        .s-content {
+            table {
+                background-color: white;
+                white-space: normal;
+
+                pre, code {
+                    white-space: normal;
+                }
+            }
+
+            blockquote, p, ul, ol, dl, h2, h3, h4, h5, h6, hr {
+                &::before {
+                    width: 100%;
+                    height: 10px;
+                    display: block;
+                    clear: both;
+                }
+
+                p, ul, ol, dl, h2, h3, h4, h5, h6, pre, hr {
+                    width: auto;
+                    float: none;
+                    display: block;
+                }
+            }
+
+            hr {
+                border-color: #ddd;
+            }
+
+            // Paragraphs and code inside lists and
+            // blockquotes should have 100% width
+            li, blockquote {
+                p, pre {
+                    width: 100%;
+                }
+            }
+
+            pre {
+                float: left;
+                clear: right;
+                width: 50%;
+                border: none;
+                border-left: 10px solid white;
+                margin: 0 0 10px 0;
+                padding: 0;
+
+                code {
+                    padding: 0 0.5em;
+                }
+            }
+        }
+    }
+}

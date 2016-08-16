@@ -1,0 +1,39 @@
+
+* {
+    text-shadow: none !important;
+    color: #000 !important; // Black prints faster: h5bp.com/s
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.page-break {
+    display: block;
+    page-break-before: always;
+}
+
+h1, h2 {
+    page-break-after: avoid;
+    page-break-before: auto;
+}
+
+pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+}
+
+img {
+    page-break-inside: avoid;
+}
+
+a,
+a:visited {
+    text-decoration: underline;
+}
+
+a[href]::after {
+    content: " (" attr(href) ")";
+}
+
+abbr[title]::after {
+    content: " (" attr(title) ")";
+}
