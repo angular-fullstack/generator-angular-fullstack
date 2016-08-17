@@ -488,9 +488,9 @@ export class Generator extends Base {
 
         const genDir = path.join(__dirname, '../../');
 
-        let jsFilter = filter(['client/**/*.js'], {restore: true});
+        let clientJsFilter = filter(['client/**/*.js'], {restore: true});
         this.registerTransformStream([
-          jsFilter,
+          clientJsFilter,
           babelStream({
             plugins: babelPlugins.map(require.resolve),
             /* Babel get's confused about these if you're using an `npm link`ed
@@ -528,14 +528,9 @@ export class Generator extends Base {
           }),
           eslint({
             fix: true, 
-            configFile: path.join(genDir, 'templates/app/.eslintrc'),
-            env: {
-              es6: true,
-              browser: true,
-              commonjs: true
-            }
+            configFile: path.join(genDir, 'templates/app/client/.eslintrc(babel)')
           }),
-          jsFilter.restore
+          clientJsFilter.restore
         ]);
 
         /**
@@ -574,6 +569,16 @@ export class Generator extends Base {
             tsFilter.restore
           ]);
         }
+
+        let serverJsFilter = filter(['server/**/*.js'], {restore: true});
+        this.registerTransformStream([
+          serverJsFilter,
+          eslint({
+            fix: true, 
+            configFile: path.join(genDir, 'templates/app/server/.eslintrc')
+          }),
+          serverJsFilter.restore
+        ]);
 
         let self = this;
         this.sourceRoot(path.join(__dirname, '../../templates/app'));
