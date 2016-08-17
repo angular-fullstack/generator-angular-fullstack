@@ -13,6 +13,7 @@
   - Windows Server 2012 (*all builds/ updates*)
 </center>
 <h2>Prerequisites</h2>
+
 **Install Python**
   - Download 2.7 from 
     - Install to C:\Python27 (*The Default Path*) ** 
@@ -42,9 +43,9 @@
 <h2>Getting your project started</h2>
 
 **Install the generator**
-- Create an empty folder for your project
-- Open CMD as administrator and change directories to your app's directory ```cd c:\example```
-- Run ```npm install -g yo gulp-cli generator-angular-fullstack```
+  - Create an empty folder for your project
+  - Open CMD as administrator and change directories to your app's directory ```cd c:\example```
+  - Run ```npm install -g yo gulp-cli generator-angular-fullstack```
 
 <h2>Move App into production</h2>
 <p>The below steps assume you have purchased a domain and have pointed your DNS to your public IP</p>
