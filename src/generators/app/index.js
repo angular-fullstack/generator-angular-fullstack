@@ -13,6 +13,7 @@ import babelStream from 'gulp-babel';
 import beaufityStream from 'gulp-beautify';
 import tap from 'gulp-tap';
 import filter from 'gulp-filter';
+import eslint from 'gulp-eslint';
 import semver from 'semver';
 
 export class Generator extends Base {
@@ -485,6 +486,8 @@ export class Generator extends Base {
           babelPlugins.push('babel-plugin-transform-flow-strip-types');
         }
 
+        const genDir = path.join(__dirname, '../../');
+
         let jsFilter = filter(['client/**/*.js'], {restore: true});
         this.registerTransformStream([
           jsFilter,
@@ -522,6 +525,15 @@ export class Generator extends Base {
             "wrap_attributes": "auto",
             "wrap_attributes_indent_size": 4,
             "end_with_newline": true
+          }),
+          eslint({
+            fix: true, 
+            configFile: path.join(genDir, 'templates/app/.eslintrc'),
+            env: {
+              es6: true,
+              browser: true,
+              commonjs: true
+            }
           }),
           jsFilter.restore
         ]);
