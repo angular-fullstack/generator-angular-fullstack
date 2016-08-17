@@ -28,6 +28,13 @@ notify:
     # A list of hook hashes, containing the url field
     # gitter hook
     - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
+    
+deployment:
+  docs:
+    branch: master
+    commands:
+      - composer global require justinwalsh/daux.io
+      - gulp docs
 
 #test:
 #  pre:

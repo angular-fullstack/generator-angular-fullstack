@@ -23,42 +23,9 @@ Available generators:
     - [angular-fullstack:heroku](Generators/heroku.md)
 
 
-## Bower Components
-
-The following packages are always installed by the [app](#app) generator:
-
-* angular
-* angular-cookies
-* angular-mocks
-* angular-resource
-* angular-sanitize
-* es5-shim
-* font-awesome
-* json3
-* jquery
-* lodash
-
-These packages are installed optionally depending on your configuration:
-
-* angular-route
-* angular-ui-router
-* angular-socket-io
-* angular-bootstrap
-* bootstrap
-
-All of these can be updated with `bower update` as new versions are released.
-
 ## Injection
 
-A gulp task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
-
-* `less` files into `client/app/app.less`
-* `scss` files into `client/app/app.scss`
-* `stylus` files into `client/app/app.styl`
-* `css` files into `client/index.html`
-* `js` files into `client/index.html`
-* `babel`/`typescript` temp `js` files into `client/index.html`
-* `typescript types` into `tsconfig.client.json` & `tsconfig.client.test.json`
+A gulp task looks for new SCSS/LESS/Stylus files in your `client/app` and `client/components` folder and automatically injects them into the main style file (ex `client/app/app.scss`) based on an injection block.
 
 
 ## Configuration
