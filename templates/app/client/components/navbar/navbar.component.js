@@ -1,4 +1,6 @@
 'use strict';
+/* eslint no-sync: 0 */
+import angular from 'angular';
 
 export class NavbarComponent {
   menu = [{
