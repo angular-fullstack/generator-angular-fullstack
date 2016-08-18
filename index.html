@@ -115,54 +115,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="page_Bower_Components">Bower Components</h2>
-<p>The following packages are always installed by the <a href="#app">app</a> generator:</p>
-<ul>
-<li>angular</li>
-<li>angular-cookies</li>
-<li>angular-mocks</li>
-<li>angular-resource</li>
-<li>angular-sanitize</li>
-<li>es5-shim</li>
-<li>font-awesome</li>
-<li>json3</li>
-<li>jquery</li>
-<li>lodash</li>
-</ul>
-<p>These packages are installed optionally depending on your configuration:</p>
-<ul>
-<li>angular-route</li>
-<li>angular-ui-router</li>
-<li>angular-socket-io</li>
-<li>angular-bootstrap</li>
-<li>bootstrap</li>
-</ul>
-<p>All of these can be updated with <code>bower update</code> as new versions are released.</p>
 <h2 id="page_Injection">Injection</h2>
-<p>A gulp task looks for new files in your <code>client/app</code> and <code>client/components</code> folder and automatically injects them in the appropriate places based on an injection block.</p>
-<ul>
-<li>
-<code>less</code> files into <code>client/app/app.less</code>
-</li>
-<li>
-<code>scss</code> files into <code>client/app/app.scss</code>
-</li>
-<li>
-<code>stylus</code> files into <code>client/app/app.styl</code>
-</li>
-<li>
-<code>css</code> files into <code>client/index.html</code>
-</li>
-<li>
-<code>js</code> files into <code>client/index.html</code>
-</li>
-<li>
-<code>babel</code>/<code>typescript</code> temp <code>js</code> files into <code>client/index.html</code>
-</li>
-<li>
-<code>typescript types</code> into <code>tsconfig.client.json</code> &amp; <code>tsconfig.client.test.json</code>
-</li>
-</ul>
+<p>A gulp task looks for new SCSS/LESS/Stylus files in your <code>client/app</code> and <code>client/components</code> folder and automatically injects them into the main style file (ex <code>client/app/app.scss</code>) based on an injection block.</p>
 <h2 id="page_Configuration">Configuration</h2>
 <p>Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.</p>
 <p>A <code>.yo-rc</code> file is generated for helping you copy configuration across projects, and to allow you to keep track of your settings. You can change this as you see fit.</p>
@@ -239,7 +193,7 @@ To have gulp launch your app with specific environment variables, add them to th
     <div class="container">
         <div class="container--inner">
                             <ul class="HomepageFooter__links">
-                    <li><a href="https://www.npmjs.com/package/generator-angular-fullstack" target="_blank">Download</a></li><li><a href="https://github.com/angular-fullstack/generator-angular-fullstack" target="_blank">GitHub Repo</a></li><li><a href="https://github.com/angular-fullstack/generator-angular-fullstack/issues" target="_blank">Help/Support/Bugs</a></li><li><a href="https://opencollective.com/angular-fullstack" target="_blank">Support our Open Collective</a></li>                </ul>
+                    <li><a href="https://www.npmjs.com/package/generator-angular-fullstack" target="_blank">Download</a></li><li><a href="https://github.com/angular-fullstack/generator-angular-fullstack" target="_blank">GitHub Repo</a></li><li><a href="https://github.com/angular-fullstack/generator-angular-fullstack/issues" target="_blank">Help/Support/Bugs</a></li><li><a href="https://gitter.im/angular-fullstack/generator-angular-fullstack" target="_blank">Our Gitter Chatroom</a></li><li><a href="https://opencollective.com/angular-fullstack" target="_blank">Support our Open Collective</a></li>                </ul>
             
                     </div>
     </div>
