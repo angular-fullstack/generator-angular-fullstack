@@ -13,6 +13,7 @@ import babelStream from 'gulp-babel';
 import beaufityStream from 'gulp-beautify';
 import tap from 'gulp-tap';
 import filter from 'gulp-filter';
+import eslint from 'gulp-eslint';
 import semver from 'semver';
 
 export class Generator extends Base {
@@ -485,9 +486,11 @@ export class Generator extends Base {
           babelPlugins.push('babel-plugin-transform-flow-strip-types');
         }
 
-        let jsFilter = filter(['client/**/*.js'], {restore: true});
+        const genDir = path.join(__dirname, '../../');
+
+        let clientJsFilter = filter(['client/**/*.js'], {restore: true});
         this.registerTransformStream([
-          jsFilter,
+          clientJsFilter,
           babelStream({
             plugins: babelPlugins.map(require.resolve),
             /* Babel get's confused about these if you're using an `npm link`ed
@@ -523,7 +526,11 @@ export class Generator extends Base {
             "wrap_attributes_indent_size": 4,
             "end_with_newline": true
           }),
-          jsFilter.restore
+          eslint({
+            fix: true, 
+            configFile: path.join(genDir, 'templates/app/client/.eslintrc(babel)')
+          }),
+          clientJsFilter.restore
         ]);
 
         /**
@@ -562,6 +569,16 @@ export class Generator extends Base {
             tsFilter.restore
           ]);
         }
+
+        let serverJsFilter = filter(['server/**/*.js'], {restore: true});
+        this.registerTransformStream([
+          serverJsFilter,
+          eslint({
+            fix: true, 
+            configFile: path.join(genDir, 'templates/app/server/.eslintrc')
+          }),
+          serverJsFilter.restore
+        ]);
 
         let self = this;
         this.sourceRoot(path.join(__dirname, '../../templates/app'));

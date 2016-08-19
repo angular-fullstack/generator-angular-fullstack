@@ -1,5 +1,6 @@
 'use strict';
-
+import * as _ from 'lodash';
+import angular from 'angular';
 import io from 'socket.io-client';
 
 function Socket(socketFactory) {

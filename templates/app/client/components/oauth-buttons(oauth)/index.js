@@ -1,4 +1,5 @@
 'use strict';
+import angular from 'angular';
 
 export function OauthButtonsController($window) {
   this.loginOauth = function(provider) {
