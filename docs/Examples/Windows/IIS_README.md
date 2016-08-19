@@ -1,18 +1,15 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<center>
-<div style="width:100%">
-<img src="http://joshlavely.com/images/yo_windows_mean.gif"/>
-</div>
-<h1> Angular-Generator-Fullstack on Windows</h1>
-<p>This is a walk through to get generator-angular-fullstack up and running on a windows machine.</p>
-<p>This walk through has been tested on:</p>
+
+![Yeoman / Windows/ MEAN](http://joshlavely.com/images/yo_windows_mean.gif)
+# Angular-Generator-Fullstack on Windows
+This is a walk through to get generator-angular-fullstack up and running on a windows machine.
+This walk through has been tested on:
   - Windows Vista
   - Windows 7
   - Windows 8
   - Windows Server 2008 (*all builds/ updates*)
   - Windows Server 2012 (*all builds/ updates*)
-</center>
-<h2>Prerequisites</h2>
+
+## Prerequisites
 
 **Install Python**
   - Download 2.7 from 
@@ -40,20 +37,89 @@
   - Start the MongoDB server by running "mongod.exe" from the command line, "mongod.exe" is located in "C:\Program Files\MongoDB\Server\[MONGODB VERSION]\bin", for example for version 3.2 the following command will start MongoDB
 ``"C:\Program Files\MongoDB\Server\3.2\bin\mongod"``
   
-<h2>Getting your project started</h2>
+## Getting your project started
 
 **Install the generator**
   - Create an empty folder for your project
   - Open CMD as administrator and change directories to your app's directory ```cd c:\example```
   - Run ```npm install -g yo gulp-cli generator-angular-fullstack```
 
-<h2>Move App into production</h2>
-<p>The below steps assume you have purchased a domain and have pointed your DNS to your public IP</p>
+## Move App into production
+The below steps assume you have purchased a domain and have pointed your DNS to your public IP
   **Build and prep**
   - Run the build process ```gulp serve:dist```
   - Move your *dist* folder to your desired directory (*This is where IIS will be pointed at*)
   - Copy the contents of the 'server' folder **into** your 'client' folder
-  - Copy down the [web.config]() and place this inside your 'client' folder
+  - Copy down the web.config from below and place this inside your 'client' folder (*save it as 'web.config'*)
+   
+   ```
+<configuration>
+  <system.webServer>
+
+    <!-- indicates that the socketio.js file is a node.js application
+    to be handled by the iisnode module -->
+
+    <handlers>
+      <add name="iisnode" path="app.js" verb="*" modules="iisnode" />
+      <add name="iisnode-socketio" path="config/socketio.js" verb="*" modules="iisnode" />
+    </handlers>
+    <iisnode node_env="PRODUCTION"
+         nodeProcessCountPerApplication="1"
+         maxConcurrentRequestsPerProcess="1024"
+         maxNamedPipeConnectionRetry="100"
+         namedPipeConnectionRetryDelay="250"
+         maxNamedPipeConnectionPoolSize="512"
+         maxNamedPipePooledConnectionAge="30000"
+         asyncCompletionThreadCount="0"
+         initialRequestBufferSize="4096"
+         maxRequestBufferSize="65536"
+         uncFileChangesPollingInterval="5000"
+         gracefulShutdownTimeout="60000"
+         loggingEnabled="true"
+         logDirectory="iisnode"
+         debuggingEnabled="true"
+         debugHeaderEnabled="false"
+         debuggerPortRange="5058-6058"
+         debuggerPathSegment="debug"
+         maxLogFileSizeInKB="128"
+         maxTotalLogFileSizeInKB="1024"
+         maxLogFiles="20"
+         devErrorsEnabled="true"
+         flushResponse="false"
+         enableXFF="false"
+         promoteServerVars=""
+         configOverrides="iisnode.yml"
+         watchedFiles="web.config;*.js" />
+    <!-- indicate that all strafic the URL paths beginning with 'socket.io' should be 
+    redirected to the server socketio.js, node.js, application to avoid IIS attempting to 
+    serve that content using other handlers (e.g. static file handlers)
+    -->
+
+    <rewrite>
+         <rules>
+              <rule name="LogFile" patternSyntax="ECMAScript">
+                   <match url="socket.io"/>
+                   <action type="Rewrite" url="app.js"/>
+              </rule>
+              <rule name="DynamicContent">
+                <conditions>
+                    <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
+                </conditions>
+                    <action type="Rewrite" url="app.js"/>
+              </rule>
+         </rules>
+    </rewrite>    
+
+    <!-- disable the IIS websocket module to allow node.js to provide its own 
+    WebSocket implementation -->
+
+    <webSocket enabled="false" />
+    
+  </system.webServer>
+</configuration>
+   ```
+   
+   
   **Setup IIS**
   - Open IIS Manager (*Start > Type 'IIS Manager'*)
   - Create your new site (*Expand Server > Right click sites > 'Add Websites'*)
@@ -64,6 +130,6 @@
 
 **Start your server**
   - Run ```gulp serve:dist```
-<h1> Congratulations, you did it! Now go code something awesome!</h1>
+# Congratulations, you did it! Now go code something awesome!
   
   
