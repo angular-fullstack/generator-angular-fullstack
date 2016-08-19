@@ -46,7 +46,8 @@ This walk through has been tested on:
 
 ## Move App into production
 The below steps assume you have purchased a domain and have pointed your DNS to your public IP
-  **Build and prep**
+
+**Build and prep**
   - Run the build process ```gulp serve:dist```
   - Move your *dist* folder to your desired directory (*This is where IIS will be pointed at*)
   - Copy the contents of the 'server' folder **into** your 'client' folder
