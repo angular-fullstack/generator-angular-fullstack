@@ -1,3 +1,8 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
+
 ## Customize the test machine
 machine:
   node:
