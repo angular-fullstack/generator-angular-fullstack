@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>IIS - Angular Full-Stack</title>
+    <meta name="description" content="Yeoman generator for creating MEAN/SEAN stack applications, using ES6, MongoDB/SQL, Express, AngularJS, and Node - lets you quickly set up a project following best practices." />
+    <meta name="author" content="Andrew Koroluk">
+    <meta charset="UTF-8">
+    <link rel="icon" href="../themes/daux/img/favicon-blue.png" type="image/x-icon">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link href='../themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+    <a href="https://github.com/angular-fullstack/generator-angular-fullstack" target="_blank" id="github-ribbon" class="Github hidden-print"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<div class="Navbar hidden-print">
+    <a class="Navbar__brand" href="../index.html">Angular Full-Stack</a>
+
+    <div class="Search">
+        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451"><path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/></svg>
+        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on" results=25 autosave=text_search>
+    </div>
+</div>
+<div class="Columns content">
+    <div class="Columns__left hidden-print Collapsible">
+        <div class="Collapsible__container">
+            <button type="button" class="Button Collapsible__trigger">
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+                <span class="Collapsible__trigger--bar"></span>
+            </button>
+        </div>
+
+        <div class="Collapsible__content">
+            <!-- Navigation -->
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/Prerequisites.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Prerequisites.html">Prerequisites</a></li><li class='Nav__item '><a href="../Getting_Started/Installation.html">Installation</a></li><li class='Nav__item '><a href="../Getting_Started/Running_the_Generator.html">Running the Generator</a></li><li class='Nav__item '><a href="../Getting_Started/Project_Overview.html">Project Overview</a></li></ul></li><li class='Nav__item  has-children'><a href="../Deployment/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Deployment</a><ul class='Nav'><li class='Nav__item '><a href="../Deployment/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Developing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Developing</a><ul class='Nav'><li class='Nav__item '><a href="../Developing/title.html">title</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Examples/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../Examples/title.html">title</a></li><li class='Nav__item '><a href="../Examples/Heroku_Deployment.html">Heroku Deployment</a></li><li class='Nav__item Nav__item--active'><a href="../Examples/IIS.html">IIS</a></li><li class='Nav__item '><a href="../Examples/Modal.html">Modal</a></li></ul></li><li class='Nav__item  has-children'><a href="../Generators/app.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Generators</a><ul class='Nav'><li class='Nav__item '><a href="../Generators/app.html">app</a></li><li class='Nav__item '><a href="../Generators/component.html">component</a></li><li class='Nav__item '><a href="../Generators/controller.html">controller</a></li><li class='Nav__item '><a href="../Generators/decorator.html">decorator</a></li><li class='Nav__item '><a href="../Generators/directive.html">directive</a></li><li class='Nav__item '><a href="../Generators/endpoint.html">endpoint</a></li><li class='Nav__item '><a href="../Generators/filter.html">filter</a></li><li class='Nav__item '><a href="../Generators/heroku.html">heroku</a></li><li class='Nav__item '><a href="../Generators/openshift.html">openshift</a></li><li class='Nav__item '><a href="../Generators/route.html">route</a></li><li class='Nav__item '><a href="../Generators/service.html">service</a></li></ul></li></ul>
+
+            <div class="Links">
+                                    <hr/>
+                                            <a href="https://www.npmjs.com/package/generator-angular-fullstack" target="_blank">Download</a>
+                        <br />
+                                            <a href="https://github.com/angular-fullstack/generator-angular-fullstack" target="_blank">GitHub Repo</a>
+                        <br />
+                                            <a href="https://github.com/angular-fullstack/generator-angular-fullstack/issues" target="_blank">Help/Support/Bugs</a>
+                        <br />
+                                            <a href="https://gitter.im/angular-fullstack/generator-angular-fullstack" target="_blank">Our Gitter Chatroom</a>
+                        <br />
+                                            <a href="https://opencollective.com/angular-fullstack" target="_blank">Support our Open Collective</a>
+                        <br />
+                                    
+                                    <div class="CodeToggler">
+                        <hr/>
+                                                    <a class="CodeToggler__button CodeToggler__button--main" href="#">Show Code Blocks Inline</a><br>
+                                            </div>
+                
+                            </div>
+        </div>
+        <!-- For Mobile -->
+
+
+    </div>
+    <div class="Columns__right ">
+
+        <div class="Columns__right__content">
+            <div class="doc_content">
+                <article class="Page">
+            <div class="Page__header">
+            <h1><a href="../Examples/title.html">Examples</a> <svg class="Page__header--separator" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 477.175 477.175"><path d="M360.73 229.075l-225.1-225.1c-5.3-5.3-13.8-5.3-19.1 0s-5.3 13.8 0 19.1l215.5 215.5-215.5 215.5c-5.3 5.3-5.3 13.8 0 19.1 2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-4l225.1-225.1c5.3-5.2 5.3-13.8.1-19z"/></svg> <a href="../Examples/IIS.html">IIS</a></h1>
+        </div>
+    
+    <div class="s-content">
+        <p><img src="http://joshlavely.com/images/yo_windows_mean.gif" alt="Yeoman / Windows/ MEAN" /></p>
+<h1 id="page_Angular_Generator_Fullstack_on_Windows">Angular-Generator-Fullstack on Windows</h1>
+<p>This is a walk through to get generator-angular-fullstack up and running on a windows machine.
+This walk through has been tested on:</p>
+<ul>
+<li>Windows Vista</li>
+<li>Windows 7</li>
+<li>Windows 8</li>
+<li>Windows Server 2008 (<em>all builds/ updates</em>)</li>
+<li>Windows Server 2012 (<em>all builds/ updates</em>)</li>
+</ul>
+<h2 id="page_Prerequisites">Prerequisites</h2>
+<p><strong>Install Python</strong></p>
+<ul>
+<li>Download 2.7 from
+<ul>
+<li>Install to C:\Python27 (<em>The Default Path</em>) **</li>
+</ul>
+</li>
+<li>After Python is installed add the %Path% (<em>C:\Python27\python.exe</em>) to your Windows Path Env variable.</li>
+<li>Start &gt; Type <code>Environment Variables</code> &gt; click &quot;Edit the System Environment Variables&quot; &gt; Envrionment Variables &gt;
+Click &quot;Path&quot; &gt; &quot;Edit&quot;</li>
+<li>Add C:\Python27\python.exe to the very end. (<em>Click into box and press 'End'</em>)</li>
+</ul>
+<p><strong>Install NodeJS on Windows</strong></p>
+<ul>
+<li>Download the latest stable release of NodeJS from https://nodejs.org and install using all the default options.</li>
+</ul>
+<p><strong>Install IISNode</strong></p>
+<ul>
+<li>Install Latest Stable release of <a href="https://github.com/tjanczuk/iisnode">IISNode</a>
+</li>
+</ul>
+<p><strong>Install IIS URL-Rewrite Module</strong></p>
+<ul>
+<li>Install the <a href="http://www.iis.net/downloads/microsoft/url-rewrite">URL-Rewrite Module</a> extension</li>
+</ul>
+<p><strong>Install MongoDB on Windows</strong></p>
+<ul>
+<li>Download the current stable release of MongoDB from https://www.mongodb.org/downloads and install using the &quot;Complete&quot; setup type and all the default options.</li>
+<li>Create the MongoDB data directory</li>
+<li>Create an empty folder at &quot;C:\data\db&quot;.</li>
+<li>MongoDB requires a directory for storing all of it's data, the default directory is &quot;C:\data\db&quot;, you can use a different directory if you prefer by specifying the &quot;--dbpath&quot; parameter when starting the MongoDB server (below).</li>
+<li>Start MongoDB Server on Windows</li>
+<li>Start the MongoDB server by running &quot;mongod.exe&quot; from the command line, &quot;mongod.exe&quot; is located in &quot;C:\Program Files\MongoDB\Server[MONGODB VERSION]\bin&quot;, for example for version 3.2 the following command will start MongoDB
+<code>&quot;C:\Program Files\MongoDB\Server\3.2\bin\mongod&quot;</code>
+</li>
+</ul>
+<h2 id="page_Getting_your_project_started">Getting your project started</h2>
+<p><strong>Install the generator</strong></p>
+<ul>
+<li>Create an empty folder for your project</li>
+<li>Open CMD as administrator and change directories to your app's directory <code>cd c:\example</code>
+</li>
+<li>Run <code>npm install -g yo gulp-cli generator-angular-fullstack</code>
+</li>
+</ul>
+<h2 id="page_Move_App_into_production">Move App into production</h2>
+<p>The below steps assume you have purchased a domain and have pointed your DNS to your public IP</p>
+<p><strong>Build and prep</strong></p>
+<ul>
+<li>Run the build process <code>gulp serve:dist</code>
+</li>
+<li>Move your <em>dist</em> folder to your desired directory (<em>This is where IIS will be pointed at</em>)</li>
+<li>Copy the contents of the 'server' folder <strong>into</strong> your 'client' folder</li>
+<li>Copy down the web.config from below and place this inside your 'client' folder (<em>save it as 'web.config'</em>)</li>
+</ul>
+<pre><code>&lt;configuration&gt;
+&lt;system.webServer&gt;
+
+ &lt;!-- indicates that the socketio.js file is a node.js application
+ to be handled by the iisnode module --&gt;
+
+ &lt;handlers&gt;
+   &lt;add name=&quot;iisnode&quot; path=&quot;app.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
+   &lt;add name=&quot;iisnode-socketio&quot; path=&quot;config/socketio.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
+ &lt;/handlers&gt;
+ &lt;iisnode node_env=&quot;PRODUCTION&quot;
+      nodeProcessCountPerApplication=&quot;1&quot;
+      maxConcurrentRequestsPerProcess=&quot;1024&quot;
+      maxNamedPipeConnectionRetry=&quot;100&quot;
+      namedPipeConnectionRetryDelay=&quot;250&quot;
+      maxNamedPipeConnectionPoolSize=&quot;512&quot;
+      maxNamedPipePooledConnectionAge=&quot;30000&quot;
+      asyncCompletionThreadCount=&quot;0&quot;
+      initialRequestBufferSize=&quot;4096&quot;
+      maxRequestBufferSize=&quot;65536&quot;
+      uncFileChangesPollingInterval=&quot;5000&quot;
+      gracefulShutdownTimeout=&quot;60000&quot;
+      loggingEnabled=&quot;true&quot;
+      logDirectory=&quot;iisnode&quot;
+      debuggingEnabled=&quot;true&quot;
+      debugHeaderEnabled=&quot;false&quot;
+      debuggerPortRange=&quot;5058-6058&quot;
+      debuggerPathSegment=&quot;debug&quot;
+      maxLogFileSizeInKB=&quot;128&quot;
+      maxTotalLogFileSizeInKB=&quot;1024&quot;
+      maxLogFiles=&quot;20&quot;
+      devErrorsEnabled=&quot;true&quot;
+      flushResponse=&quot;false&quot;
+      enableXFF=&quot;false&quot;
+      promoteServerVars=&quot;&quot;
+      configOverrides=&quot;iisnode.yml&quot;
+      watchedFiles=&quot;web.config;*.js&quot; /&gt;
+ &lt;!-- indicate that all strafic the URL paths beginning with 'socket.io' should be 
+ redirected to the server socketio.js, node.js, application to avoid IIS attempting to 
+ serve that content using other handlers (e.g. static file handlers)
+ --&gt;
+
+ &lt;rewrite&gt;
+      &lt;rules&gt;
+           &lt;rule name=&quot;LogFile&quot; patternSyntax=&quot;ECMAScript&quot;&gt;
+                &lt;match url=&quot;socket.io&quot;/&gt;
+                &lt;action type=&quot;Rewrite&quot; url=&quot;app.js&quot;/&gt;
+           &lt;/rule&gt;
+           &lt;rule name=&quot;DynamicContent&quot;&gt;
+             &lt;conditions&gt;
+                 &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;True&quot;/&gt;
+             &lt;/conditions&gt;
+                 &lt;action type=&quot;Rewrite&quot; url=&quot;app.js&quot;/&gt;
+           &lt;/rule&gt;
+      &lt;/rules&gt;
+ &lt;/rewrite&gt;    
+
+ &lt;!-- disable the IIS websocket module to allow node.js to provide its own 
+ WebSocket implementation --&gt;
+
+ &lt;webSocket enabled=&quot;false&quot; /&gt;
+ 
+&lt;/system.webServer&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p><strong>Setup IIS</strong></p>
+<ul>
+<li>Open IIS Manager (<em>Start &gt; Type 'IIS Manager'</em>)</li>
+<li>Create your new site (<em>Expand Server &gt; Right click sites &gt; 'Add Websites'</em>)</li>
+<li>Enter your site's name</li>
+<li>Enter the directory path to your 'client' folder (*C:\example\dist\client*)</li>
+<li>Enter your hostname (<em>Your a-record</em>)</li>
+<li>Leave all other defaults and click 'Ok'</li>
+</ul>
+<p><strong>Start your server</strong></p>
+<ul>
+<li>Run <code>gulp serve:dist</code>
+</li>
+</ul>
+<h1 id="page_Congratulations_you_did_it_Now_go_code_something_awesome">Congratulations, you did it! Now go code something awesome!</h1>
+    </div>
+
+        <nav>
+        <ul class="Pager">
+            <li class=Pager--prev><a href="../Examples/Heroku_Deployment.html">Previous</a></li>            <li class=Pager--next><a href="../Examples/Modal.html">Next</a></li>        </ul>
+    </nav>
+    </article>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-48443700-5', '');
+    ga('send', 'pageview');
+</script>
+
+    <!-- jQuery -->
+    <script src="../themes/daux/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../themes/daux/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../themes/daux/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(function() {
+                tipuesearch({
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>
