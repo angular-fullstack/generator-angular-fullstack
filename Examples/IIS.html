@@ -84,8 +84,7 @@
         </div>
     
     <div class="s-content">
-        <p><img src="http://joshlavely.com/images/yo_windows_mean.gif" alt="Yeoman / Windows/ MEAN" /></p>
-<h1 id="page_Angular_Generator_Fullstack_on_Windows">Angular-Generator-Fullstack on Windows</h1>
+        <h1 id="page_Angular_Full_Stack_Generator_deployment_on_Windows">Angular Full-Stack Generator deployment on Windows</h1>
 <p>This is a walk through to get generator-angular-fullstack up and running on a windows machine.
 This walk through has been tested on:</p>
 <ul>
@@ -98,19 +97,23 @@ This walk through has been tested on:</p>
 <h2 id="page_Prerequisites">Prerequisites</h2>
 <p><strong>Install Python</strong></p>
 <ul>
-<li>Download 2.7 from
+<li>Download Python 2.7 from <a href="https://www.python.org/downloads/">python.org/downloads</a>
 <ul>
-<li>Install to C:\Python27 (<em>The Default Path</em>) **</li>
+<li>Install to <code>C:\Python27</code> (<em>The Default Path</em>) **</li>
 </ul>
 </li>
-<li>After Python is installed add the %Path% (<em>C:\Python27\python.exe</em>) to your Windows Path Env variable.</li>
-<li>Start &gt; Type <code>Environment Variables</code> &gt; click &quot;Edit the System Environment Variables&quot; &gt; Envrionment Variables &gt;
-Click &quot;Path&quot; &gt; &quot;Edit&quot;</li>
+<li>After Python is installed add the path (<em><code>C:\Python27\</code></em>) to your Windows <code>PATH</code> environment variable.
+<ul>
+<li>Start &gt; Type <code>Environment Variables</code> &gt; click &quot;Edit the System Environment Variables&quot; &gt; Envrionment Variables &gt; Click &quot;Path&quot; &gt; &quot;Edit&quot;</li>
+</ul>
+</li>
 <li>Add C:\Python27\python.exe to the very end. (<em>Click into box and press 'End'</em>)</li>
 </ul>
 <p><strong>Install NodeJS on Windows</strong></p>
 <ul>
-<li>Download the latest stable release of NodeJS from https://nodejs.org and install using all the default options.</li>
+<li>Download &amp; Install <a href="https://github.com/coreybutler/nvm-windows/releases">nvm-windows</a>.</li>
+<li>Run <code>nvm install 6.4.0</code> for the version of node that you want</li>
+<li>Run <code>nvm use 6.4.0</code> to use that version</li>
 </ul>
 <p><strong>Install IISNode</strong></p>
 <ul>
@@ -125,20 +128,20 @@ Click &quot;Path&quot; &gt; &quot;Edit&quot;</li>
 <ul>
 <li>Download the current stable release of MongoDB from https://www.mongodb.org/downloads and install using the &quot;Complete&quot; setup type and all the default options.</li>
 <li>Create the MongoDB data directory</li>
-<li>Create an empty folder at &quot;C:\data\db&quot;.</li>
-<li>MongoDB requires a directory for storing all of it's data, the default directory is &quot;C:\data\db&quot;, you can use a different directory if you prefer by specifying the &quot;--dbpath&quot; parameter when starting the MongoDB server (below).</li>
-<li>Start MongoDB Server on Windows</li>
-<li>Start the MongoDB server by running &quot;mongod.exe&quot; from the command line, &quot;mongod.exe&quot; is located in &quot;C:\Program Files\MongoDB\Server[MONGODB VERSION]\bin&quot;, for example for version 3.2 the following command will start MongoDB
-<code>&quot;C:\Program Files\MongoDB\Server\3.2\bin\mongod&quot;</code>
+<li>Create an empty folder at ex. <code>C:\data\db</code>.</li>
+<li>MongoDB requires a directory for storing all of it's data. The default directory is <code>C:\data\db</code>. You can use a different directory if you prefer by specifying the &quot;--dbpath&quot; parameter when starting the MongoDB server (below).</li>
+<li>Start the MongoDB server daemon by running <code>mongod.exe</code> from the command line. <code>mongod.exe</code> is likely located in <code>C:\Program Files\MongoDB\Server\[MONGODB VERSION]\bin</code>; for example for version 3.2 the following command will start MongoDB: <code>C:\Program Files\MongoDB\Server\3.2\bin\mongod</code>
 </li>
 </ul>
 <h2 id="page_Getting_your_project_started">Getting your project started</h2>
 <p><strong>Install the generator</strong></p>
 <ul>
 <li>Create an empty folder for your project</li>
-<li>Open CMD as administrator and change directories to your app's directory <code>cd c:\example</code>
+<li>Open a terminal and change directories to your app's directory <code>cd c:\example</code>
 </li>
 <li>Run <code>npm install -g yo gulp-cli generator-angular-fullstack</code>
+</li>
+<li>Run <code>yo angular-fullstack</code>
 </li>
 </ul>
 <h2 id="page_Move_App_into_production">Move App into production</h2>
@@ -147,73 +150,73 @@ Click &quot;Path&quot; &gt; &quot;Edit&quot;</li>
 <ul>
 <li>Run the build process <code>gulp serve:dist</code>
 </li>
-<li>Move your <em>dist</em> folder to your desired directory (<em>This is where IIS will be pointed at</em>)</li>
-<li>Copy the contents of the 'server' folder <strong>into</strong> your 'client' folder</li>
+<li>Move your <code>dist/</code> folder to your desired directory (<em>This is where IIS will be pointed at</em>)</li>
+<li>Copy the contents of the <code>server/</code> folder <strong>into</strong> your <code>client/</code> folder</li>
 <li>Copy down the web.config from below and place this inside your 'client' folder (<em>save it as 'web.config'</em>)</li>
 </ul>
 <pre><code>&lt;configuration&gt;
-&lt;system.webServer&gt;
+  &lt;system.webServer&gt;
 
- &lt;!-- indicates that the socketio.js file is a node.js application
- to be handled by the iisnode module --&gt;
+    &lt;!-- indicates that the socketio.js file is a node.js application
+    to be handled by the iisnode module --&gt;
 
- &lt;handlers&gt;
-   &lt;add name=&quot;iisnode&quot; path=&quot;app.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
-   &lt;add name=&quot;iisnode-socketio&quot; path=&quot;config/socketio.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
- &lt;/handlers&gt;
- &lt;iisnode node_env=&quot;PRODUCTION&quot;
-      nodeProcessCountPerApplication=&quot;1&quot;
-      maxConcurrentRequestsPerProcess=&quot;1024&quot;
-      maxNamedPipeConnectionRetry=&quot;100&quot;
-      namedPipeConnectionRetryDelay=&quot;250&quot;
-      maxNamedPipeConnectionPoolSize=&quot;512&quot;
-      maxNamedPipePooledConnectionAge=&quot;30000&quot;
-      asyncCompletionThreadCount=&quot;0&quot;
-      initialRequestBufferSize=&quot;4096&quot;
-      maxRequestBufferSize=&quot;65536&quot;
-      uncFileChangesPollingInterval=&quot;5000&quot;
-      gracefulShutdownTimeout=&quot;60000&quot;
-      loggingEnabled=&quot;true&quot;
-      logDirectory=&quot;iisnode&quot;
-      debuggingEnabled=&quot;true&quot;
-      debugHeaderEnabled=&quot;false&quot;
-      debuggerPortRange=&quot;5058-6058&quot;
-      debuggerPathSegment=&quot;debug&quot;
-      maxLogFileSizeInKB=&quot;128&quot;
-      maxTotalLogFileSizeInKB=&quot;1024&quot;
-      maxLogFiles=&quot;20&quot;
-      devErrorsEnabled=&quot;true&quot;
-      flushResponse=&quot;false&quot;
-      enableXFF=&quot;false&quot;
-      promoteServerVars=&quot;&quot;
-      configOverrides=&quot;iisnode.yml&quot;
-      watchedFiles=&quot;web.config;*.js&quot; /&gt;
- &lt;!-- indicate that all strafic the URL paths beginning with 'socket.io' should be 
- redirected to the server socketio.js, node.js, application to avoid IIS attempting to 
- serve that content using other handlers (e.g. static file handlers)
- --&gt;
+    &lt;handlers&gt;
+      &lt;add name=&quot;iisnode&quot; path=&quot;app.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
+      &lt;add name=&quot;iisnode-socketio&quot; path=&quot;config/socketio.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
+    &lt;/handlers&gt;
+    &lt;iisnode node_env=&quot;PRODUCTION&quot;
+         nodeProcessCountPerApplication=&quot;1&quot;
+         maxConcurrentRequestsPerProcess=&quot;1024&quot;
+         maxNamedPipeConnectionRetry=&quot;100&quot;
+         namedPipeConnectionRetryDelay=&quot;250&quot;
+         maxNamedPipeConnectionPoolSize=&quot;512&quot;
+         maxNamedPipePooledConnectionAge=&quot;30000&quot;
+         asyncCompletionThreadCount=&quot;0&quot;
+         initialRequestBufferSize=&quot;4096&quot;
+         maxRequestBufferSize=&quot;65536&quot;
+         uncFileChangesPollingInterval=&quot;5000&quot;
+         gracefulShutdownTimeout=&quot;60000&quot;
+         loggingEnabled=&quot;true&quot;
+         logDirectory=&quot;iisnode&quot;
+         debuggingEnabled=&quot;true&quot;
+         debugHeaderEnabled=&quot;false&quot;
+         debuggerPortRange=&quot;5058-6058&quot;
+         debuggerPathSegment=&quot;debug&quot;
+         maxLogFileSizeInKB=&quot;128&quot;
+         maxTotalLogFileSizeInKB=&quot;1024&quot;
+         maxLogFiles=&quot;20&quot;
+         devErrorsEnabled=&quot;true&quot;
+         flushResponse=&quot;false&quot;
+         enableXFF=&quot;false&quot;
+         promoteServerVars=&quot;&quot;
+         configOverrides=&quot;iisnode.yml&quot;
+         watchedFiles=&quot;web.config;*.js&quot; /&gt;
+    &lt;!-- indicate that all strafic the URL paths beginning with 'socket.io' should be 
+    redirected to the server socketio.js, node.js, application to avoid IIS attempting to 
+    serve that content using other handlers (e.g. static file handlers)
+    --&gt;
 
- &lt;rewrite&gt;
-      &lt;rules&gt;
-           &lt;rule name=&quot;LogFile&quot; patternSyntax=&quot;ECMAScript&quot;&gt;
-                &lt;match url=&quot;socket.io&quot;/&gt;
-                &lt;action type=&quot;Rewrite&quot; url=&quot;app.js&quot;/&gt;
-           &lt;/rule&gt;
-           &lt;rule name=&quot;DynamicContent&quot;&gt;
-             &lt;conditions&gt;
-                 &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;True&quot;/&gt;
-             &lt;/conditions&gt;
-                 &lt;action type=&quot;Rewrite&quot; url=&quot;app.js&quot;/&gt;
-           &lt;/rule&gt;
-      &lt;/rules&gt;
- &lt;/rewrite&gt;    
+    &lt;rewrite&gt;
+         &lt;rules&gt;
+              &lt;rule name=&quot;LogFile&quot; patternSyntax=&quot;ECMAScript&quot;&gt;
+                   &lt;match url=&quot;socket.io&quot;/&gt;
+                   &lt;action type=&quot;Rewrite&quot; url=&quot;app.js&quot;/&gt;
+              &lt;/rule&gt;
+              &lt;rule name=&quot;DynamicContent&quot;&gt;
+                &lt;conditions&gt;
+                    &lt;add input=&quot;{REQUEST_FILENAME}&quot; matchType=&quot;IsFile&quot; negate=&quot;True&quot;/&gt;
+                &lt;/conditions&gt;
+                    &lt;action type=&quot;Rewrite&quot; url=&quot;app.js&quot;/&gt;
+              &lt;/rule&gt;
+         &lt;/rules&gt;
+    &lt;/rewrite&gt;    
 
- &lt;!-- disable the IIS websocket module to allow node.js to provide its own 
- WebSocket implementation --&gt;
+    &lt;!-- disable the IIS websocket module to allow node.js to provide its own 
+    WebSocket implementation --&gt;
 
- &lt;webSocket enabled=&quot;false&quot; /&gt;
- 
-&lt;/system.webServer&gt;
+    &lt;webSocket enabled=&quot;false&quot; /&gt;
+    
+  &lt;/system.webServer&gt;
 &lt;/configuration&gt;
 </code></pre>
 <p><strong>Setup IIS</strong></p>
@@ -221,7 +224,7 @@ Click &quot;Path&quot; &gt; &quot;Edit&quot;</li>
 <li>Open IIS Manager (<em>Start &gt; Type 'IIS Manager'</em>)</li>
 <li>Create your new site (<em>Expand Server &gt; Right click sites &gt; 'Add Websites'</em>)</li>
 <li>Enter your site's name</li>
-<li>Enter the directory path to your 'client' folder (*C:\example\dist\client*)</li>
+<li>Enter the directory path to your <code>client/</code> folder (<em><code>C:\example\dist\client\</code></em>)</li>
 <li>Enter your hostname (<em>Your a-record</em>)</li>
 <li>Leave all other defaults and click 'Ok'</li>
 </ul>
