@@ -49,7 +49,8 @@ module.exports = function makeWebpackConfig(options) {
                 <%_ if(filters.ngroute) { _%>
                 'angular-route',<% } %>
                 'angular-sanitize',
-                'angular-socket-io',
+                <%_ if(filters.socketio) { _%>
+                'angular-socket-io',<% } %>
                 'angular-ui-bootstrap',
                 <%_ if(filters.uirouter) { _%>
                 'angular-ui-router',<% } %>
