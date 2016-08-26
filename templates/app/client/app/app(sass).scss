@@ -1,6 +1,6 @@
 <%_ if (filters.bootstrap) { _%>
 $icon-font-path: '/assets/fonts/bootstrap/';
-@import '~bootstrap-sass/vendor/assets/stylesheets/bootstrap';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
 <%_ if(filters.oauth) { _%>
 @import '~bootstrap-social/bootstrap-social.scss';
 <% }} _%>
