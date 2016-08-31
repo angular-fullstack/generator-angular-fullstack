@@ -39,7 +39,7 @@
     "babel-plugin-syntax-class-properties": "^6.5.0",
     "babel-plugin-syntax-flow": "^6.5.0",
     "babel-plugin-transform-flow-strip-types": "^6.7.0",
-    "bluebird": "^3.3.5",
+    "bluebird": "^3.4.5",
     "chalk": "^1.1.0",
     "generator-ng-component": "~1.0.2",
     "glob": "^7.0.5",
