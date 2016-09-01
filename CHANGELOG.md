@@ -1,3 +1,23 @@
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.1...v4.0.2) (2016-09-01)
+
+
+### Bug Fixes
+
+* **client:socket.service:** import lodash named exports ([231e500](https://github.com/angular-fullstack/generator-angular-fullstack/commit/231e500))
+* **gulp:build:** remove protractor typings ([#2144](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2144)) ([b9abc58](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b9abc58))
+
+
+### Features
+
+* **docs:** add daux.io docs ([f1e7a87](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f1e7a87))
+* **gen:app:** 
+  * add eslint to the yo write stream ([85921be](https://github.com/angular-fullstack/generator-angular-fullstack/commit/85921be)), closes [#2157](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2157)
+  * run eslint w/ fix on both client & server ([c5ab431](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c5ab431))
+* **gen:gulp:** add TODO tasks in gulpfile. rm 2 old grunt tasks ([1e25de7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1e25de7))
+
+
+
 <a name="4.0.0"></a>
 ## [4.0.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.6...v4.0.0) (2016-08-08)
 
