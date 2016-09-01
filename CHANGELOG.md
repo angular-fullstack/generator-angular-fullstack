@@ -1,3 +1,15 @@
+<a name="4.0.3"></a>
+## [4.0.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.2...v4.0.3) (2016-09-01)
+
+
+### Bug Fixes
+
+* **gen:** fix doc img generation\n\nAdd gulp task to copy images to gh-pages ([5bb43be](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5bb43be))
+* **gen:heroku:** fix module export, gen base ([8e50326](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8e50326)), closes [#2148](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2148)
+* **webpack:** fix boostrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
+
+
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.1...v4.0.2) (2016-09-01)
 
