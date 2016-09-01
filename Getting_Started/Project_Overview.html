@@ -48,7 +48,7 @@
 
         <div class="Collapsible__content">
             <!-- Navigation -->
-            <ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../Getting_Started/Prerequisites.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Prerequisites.html">Prerequisites</a></li><li class='Nav__item '><a href="../Getting_Started/Installation.html">Installation</a></li><li class='Nav__item '><a href="../Getting_Started/Running_the_Generator.html">Running the Generator</a></li><li class='Nav__item Nav__item--active'><a href="../Getting_Started/Project_Overview.html">Project Overview</a></li></ul></li><li class='Nav__item  has-children'><a href="../Contributing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Contributing</a><ul class='Nav'><li class='Nav__item '><a href="../Contributing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Deployment/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Deployment</a><ul class='Nav'><li class='Nav__item '><a href="../Deployment/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Developing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Developing</a><ul class='Nav'><li class='Nav__item '><a href="../Developing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Examples/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../Examples/title.html">title</a></li><li class='Nav__item '><a href="../Examples/Heroku_Deployment.html">Heroku Deployment</a></li><li class='Nav__item '><a href="../Examples/IIS.html">IIS</a></li><li class='Nav__item '><a href="../Examples/Modal.html">Modal</a></li></ul></li><li class='Nav__item  has-children'><a href="../Generators/app.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Generators</a><ul class='Nav'><li class='Nav__item '><a href="../Generators/app.html">app</a></li><li class='Nav__item '><a href="../Generators/component.html">component</a></li><li class='Nav__item '><a href="../Generators/controller.html">controller</a></li><li class='Nav__item '><a href="../Generators/decorator.html">decorator</a></li><li class='Nav__item '><a href="../Generators/directive.html">directive</a></li><li class='Nav__item '><a href="../Generators/endpoint.html">endpoint</a></li><li class='Nav__item '><a href="../Generators/filter.html">filter</a></li><li class='Nav__item '><a href="../Generators/heroku.html">heroku</a></li><li class='Nav__item '><a href="../Generators/openshift.html">openshift</a></li><li class='Nav__item '><a href="../Generators/route.html">route</a></li><li class='Nav__item '><a href="../Generators/service.html">service</a></li></ul></li></ul>
+            <ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../Getting_Started/Prerequisites.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Prerequisites.html">Prerequisites</a></li><li class='Nav__item '><a href="../Getting_Started/Installation.html">Installation</a></li><li class='Nav__item '><a href="../Getting_Started/Running_Your_New_App.html">Running Your New App</a></li><li class='Nav__item Nav__item--active'><a href="../Getting_Started/Project_Overview.html">Project Overview</a></li></ul></li><li class='Nav__item  has-children'><a href="../Contributing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Contributing</a><ul class='Nav'><li class='Nav__item '><a href="../Contributing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Deployment/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Deployment</a><ul class='Nav'><li class='Nav__item '><a href="../Deployment/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Developing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Developing</a><ul class='Nav'><li class='Nav__item '><a href="../Developing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Examples/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../Examples/title.html">title</a></li><li class='Nav__item '><a href="../Examples/Heroku_Deployment.html">Heroku Deployment</a></li><li class='Nav__item '><a href="../Examples/IIS.html">IIS</a></li><li class='Nav__item '><a href="../Examples/Modal.html">Modal</a></li></ul></li><li class='Nav__item  has-children'><a href="../Generators/app.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Generators</a><ul class='Nav'><li class='Nav__item '><a href="../Generators/app.html">app</a></li><li class='Nav__item '><a href="../Generators/component.html">component</a></li><li class='Nav__item '><a href="../Generators/controller.html">controller</a></li><li class='Nav__item '><a href="../Generators/decorator.html">decorator</a></li><li class='Nav__item '><a href="../Generators/directive.html">directive</a></li><li class='Nav__item '><a href="../Generators/endpoint.html">endpoint</a></li><li class='Nav__item '><a href="../Generators/filter.html">filter</a></li><li class='Nav__item '><a href="../Generators/heroku.html">heroku</a></li><li class='Nav__item '><a href="../Generators/openshift.html">openshift</a></li><li class='Nav__item '><a href="../Generators/route.html">route</a></li><li class='Nav__item '><a href="../Generators/service.html">service</a></li></ul></li></ul>
 
             <div class="Links">
                                     <hr/>
@@ -84,11 +84,126 @@
         </div>
     
     <div class="s-content">
-            </div>
+        <h2 id="page_Project_Overview">Project Overview</h2>
+<p>What follows is an overfiew of the files/folders in your newly generated project.</p>
+<h3 id="page_Project_Root">Project Root</h3>
+<ul>
+<li>.babelrc - configuration for <a href="https://babeljs.io/">Babel</a>, a JavaScript transpiler</li>
+<li>.editorconfig - config file used to keep conistent file editing across text editors</li>
+<li>.eslintrc - all of the rules applying to the ESLint JavaScript linter</li>
+<li>.travis.yml - a sample configuration file for Travis CI</li>
+<li>.yo-rc.json - a configuration file for the Angular Full-Stack Generator</li>
+<li>gulpfile.babel.js - Gulp task runner file</li>
+<li>karma.conf.js - Karma browser testing configuration</li>
+<li>mocha.conf.js - Mocha test framework configuration</li>
+<li>mocha.global.js - teardown file for Mocha</li>
+<li>package.json - npm manifest, contains information for all project dependencies</li>
+<li>protractor.conf.js - configuration for Protractor e2e test framework</li>
+<li>README.md - a readme file generator based on your options, for your scaffolded project</li>
+<li>spec.js - test file for Webpack used by Karma</li>
+<li>webpack.make.js - main file for Webpack configuration
+	* The following export the config from <code>webpack.make.js</code> for their respective build targets:
+	* webpack.dev.js
+	* webpack.test.js
+	* webpack.build.js</li>
+</ul>
+<h3 id="page_"><code>client/</code></h3>
+<pre><code>│   .eslintrc // eslint config for client files
+│   polyfills.js // imports of polyfills
+│   _index.html // template for the root HTML file of your app
+│
+├───app
+│   │   app.config.js // contains app-wide configuration code
+│   │   app.constants.js // gets injected with constants from `server/config/environment/shared.js`
+│   │   app.{js,ts} // root JavaScript file of your app
+│   │   app.{css,scss,stylus,less} // root CSS file of your app
+│   │
+│   ├───account // pages related to login / signup / user settings
+│   │   │   account.routes.js // route information
+│   │   │   index.js // account module root
+│   │   │
+│   │   ├───login
+│   │   ├───settings
+│   │   └───signup
+│   │
+│   ├───admin // site admin page
+│   │
+│   └───main // main component, homepage
+│
+├───assets // where static assets are stored
+│
+└───components
+    ├───auth
+    │       auth.module.js // module containing auth components
+    │       auth.service.js // authentication service
+    │       interceptor.service.js // intercepts requests and adds tokens if needed. Also redirects 401s to the login page.
+    │       router.decorator.js // facilitates auth-based routing configuration
+    │       user.service.js // user resource service
+    │
+    ├───footer
+    │
+    ├───modal
+    │
+    ├───navbar
+    │
+    ├───oauth-buttons // buttons for oauth login on signup / login pages
+    │
+    ├───socket
+    │       socket.mock.js // mock service for unit testing
+    │       socket.service.js // service for Socket IO integration
+    │
+    ├───ui-router
+    │       ui-router.mock.js // mock service for unit testing
+    │
+    └───util // general utility service
+</code></pre>
+<h3 id="page_"><code>server/</code></h3>
+<pre><code>│   .eslintrc // server-specific ESLint config, imports rules from root file
+│   app.js // root server module
+│   index.js // imports `app.js`. Enables Babel require hook when in development mode.
+│   routes.js // imports / config for server endpoints
+│
+├───api
+│   ├───thing
+│   │       index.js // root module
+│   │       index.spec.js // root module tests
+│   │       thing.controller.js // endpoint logic
+│   │       thing.events.js // endpoint events (save, delete, etc) logic
+│   │       thing.integration.js // integration tests
+│   │       thing.model.js // Mongoose / Sequelize data model
+│   │       thing.socket.js // Socket IO logic / config
+│   │
+│   └───user // API for Users
+│
+├───auth
+│   │   auth.service.js
+│   │   index.js // imports local/oauth auth modules
+│   │
+│   ├───local // regular auth, signed up directly via your site
+│   ├───google // Google OAuth
+│   └───&lt;etc...&gt;
+│
+└───config
+    │   express.js // Express server setup
+    │   local.env.js // ignored by Git
+    │   local.env.sample.js // sensitive environment variables are stored here, and added at server start. Copy to `local.env.js`.
+    │   seed.js // re-seeds database with fresh data
+    │   socketio.js // Socket IO configuration / imports
+    │
+    └───environment
+            development.js
+            index.js
+            production.js
+            shared.js // config constants shared with the client code
+            test.js
+</code></pre>
+<h3 id="page_"><code>e2e/</code></h3>
+<p>End-To-End testing files (use by <a href="https://github.com/angular/protractor">Protractor</a> with <a href="https://github.com/mochajs/mocha">Mocha</a>)</p>
+    </div>
 
         <nav>
         <ul class="Pager">
-            <li class=Pager--prev><a href="../Getting_Started/Running_the_Generator.html">Previous</a></li>            <li class=Pager--next><a href="../Contributing/title.html">Next</a></li>        </ul>
+            <li class=Pager--prev><a href="../Getting_Started/Running_Your_New_App.html">Previous</a></li>            <li class=Pager--next><a href="../Contributing/title.html">Next</a></li>        </ul>
     </nav>
     </article>
 

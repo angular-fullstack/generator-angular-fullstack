@@ -48,7 +48,7 @@
 
         <div class="Collapsible__content">
             <!-- Navigation -->
-            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/Prerequisites.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Prerequisites.html">Prerequisites</a></li><li class='Nav__item '><a href="../Getting_Started/Installation.html">Installation</a></li><li class='Nav__item '><a href="../Getting_Started/Running_the_Generator.html">Running the Generator</a></li><li class='Nav__item '><a href="../Getting_Started/Project_Overview.html">Project Overview</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Contributing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Contributing</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Contributing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Deployment/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Deployment</a><ul class='Nav'><li class='Nav__item '><a href="../Deployment/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Developing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Developing</a><ul class='Nav'><li class='Nav__item '><a href="../Developing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Examples/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../Examples/title.html">title</a></li><li class='Nav__item '><a href="../Examples/Heroku_Deployment.html">Heroku Deployment</a></li><li class='Nav__item '><a href="../Examples/IIS.html">IIS</a></li><li class='Nav__item '><a href="../Examples/Modal.html">Modal</a></li></ul></li><li class='Nav__item  has-children'><a href="../Generators/app.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Generators</a><ul class='Nav'><li class='Nav__item '><a href="../Generators/app.html">app</a></li><li class='Nav__item '><a href="../Generators/component.html">component</a></li><li class='Nav__item '><a href="../Generators/controller.html">controller</a></li><li class='Nav__item '><a href="../Generators/decorator.html">decorator</a></li><li class='Nav__item '><a href="../Generators/directive.html">directive</a></li><li class='Nav__item '><a href="../Generators/endpoint.html">endpoint</a></li><li class='Nav__item '><a href="../Generators/filter.html">filter</a></li><li class='Nav__item '><a href="../Generators/heroku.html">heroku</a></li><li class='Nav__item '><a href="../Generators/openshift.html">openshift</a></li><li class='Nav__item '><a href="../Generators/route.html">route</a></li><li class='Nav__item '><a href="../Generators/service.html">service</a></li></ul></li></ul>
+            <ul class='Nav'><li class='Nav__item  has-children'><a href="../Getting_Started/Prerequisites.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item '><a href="../Getting_Started/Prerequisites.html">Prerequisites</a></li><li class='Nav__item '><a href="../Getting_Started/Installation.html">Installation</a></li><li class='Nav__item '><a href="../Getting_Started/Running_Your_New_App.html">Running Your New App</a></li><li class='Nav__item '><a href="../Getting_Started/Project_Overview.html">Project Overview</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../Contributing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Contributing</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Contributing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Deployment/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Deployment</a><ul class='Nav'><li class='Nav__item '><a href="../Deployment/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Developing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Developing</a><ul class='Nav'><li class='Nav__item '><a href="../Developing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Examples/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../Examples/title.html">title</a></li><li class='Nav__item '><a href="../Examples/Heroku_Deployment.html">Heroku Deployment</a></li><li class='Nav__item '><a href="../Examples/IIS.html">IIS</a></li><li class='Nav__item '><a href="../Examples/Modal.html">Modal</a></li></ul></li><li class='Nav__item  has-children'><a href="../Generators/app.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Generators</a><ul class='Nav'><li class='Nav__item '><a href="../Generators/app.html">app</a></li><li class='Nav__item '><a href="../Generators/component.html">component</a></li><li class='Nav__item '><a href="../Generators/controller.html">controller</a></li><li class='Nav__item '><a href="../Generators/decorator.html">decorator</a></li><li class='Nav__item '><a href="../Generators/directive.html">directive</a></li><li class='Nav__item '><a href="../Generators/endpoint.html">endpoint</a></li><li class='Nav__item '><a href="../Generators/filter.html">filter</a></li><li class='Nav__item '><a href="../Generators/heroku.html">heroku</a></li><li class='Nav__item '><a href="../Generators/openshift.html">openshift</a></li><li class='Nav__item '><a href="../Generators/route.html">route</a></li><li class='Nav__item '><a href="../Generators/service.html">service</a></li></ul></li></ul>
 
             <div class="Links">
                                     <hr/>
@@ -84,7 +84,62 @@
         </div>
     
     <div class="s-content">
-        <p>[stub]</p>
+        <h2 id="page_Contributing">Contributing</h2>
+<h2 id="page_Releasing_a_new_version">Releasing a new version</h2>
+<ul>
+<li>Bump <code>package.json</code> version</li>
+<li>[
+<ul>
+<li>
+<code>grunt conventionalChangelog</code>
+</li>
+<li>
+<code>cd angular-fullstack-deps</code>
+<ul>
+<li>
+<code>git checkout master</code>
+</li>
+<li>
+<code>git pull</code>
+</li>
+<li>
+<code>cd ..</code>
+</li>
+<li>
+<code>gulp updateFixtures:deps</code>
+</li>
+<li>
+<code>cd angular-fullstack-deps</code>
+</li>
+<li>
+<code>git add .</code>
+</li>
+<li>
+<code>git commit -m $VERSION</code>
+</li>
+<li>
+<code>git push</code>
+</li>
+<li>
+<code># npm publish</code>
+]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<code>git add ./{CHANGELOG.md,angular-fullstack-deps,package.json}</code>
+</li>
+<li>
+<code>git commit -m $VERSION</code>
+</li>
+<li>
+<code>git push</code>
+</li>
+<li>
+<code># npm publish</code>
+</li>
+</ul>
     </div>
 
         <nav>
