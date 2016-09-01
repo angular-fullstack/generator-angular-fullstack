@@ -51,7 +51,8 @@ module.exports = function makeWebpackConfig(options) {
                 'angular-sanitize',
                 <%_ if(filters.socketio) { _%>
                 'angular-socket-io',<% } %>
-                'angular-ui-bootstrap',
+                <%_ if(filters.uibootstrap) { -%>
+                'angular-ui-bootstrap',<% } %>
                 <%_ if(filters.uirouter) { _%>
                 'angular-ui-router',<% } %>
                 'lodash'
