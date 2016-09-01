@@ -1,3 +1,15 @@
+<a name="4.0.4"></a>
+## [4.0.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.3...v4.0.4) (2016-09-01)
+
+
+### Bug Fixes
+
+* **webpack:** 
+  * conditionally exclude ui-bootstrap ([dd131d9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/dd131d9))
+  * fix webpack vendor import ([#2177](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2177)) ([aa32054](https://github.com/angular-fullstack/generator-angular-fullstack/commit/aa32054)), closes [#2177](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2177)
+
+
+
 <a name="4.0.3"></a>
 ## [4.0.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.2...v4.0.3) (2016-09-01)
 
