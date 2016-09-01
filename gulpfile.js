@@ -183,10 +183,14 @@ gulp.task('lint', () => console.log('TODO'));
 gulp.task('daux', () => {
     return execAsync('daux');
 });
+gulp.task('copy_docs_images', () => {
+  return gulp.src('./media/svg/*')
+    .pipe(gulp.dest('./static/'));
+});
 gulp.task('gh-pages', () => {
   return gulp.src('./static/**/*')
     .pipe(ghPages());
 });
 gulp.task('docs', cb => {
-    return runSequence('daux', 'gh-pages', cb);
+    return runSequence('daux', 'copy_docs_images', 'gh-pages', cb);
 });
