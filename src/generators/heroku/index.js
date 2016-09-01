@@ -6,9 +6,9 @@ import {exec} from 'child_process';
 import chalk from 'chalk';
 import path from 'path';
 import s from 'underscore.string';
-import {genNamedBase} from '../generator-base';
+import {genBase} from '../generator-base';
 
-export default class Generator extends Base {
+export class Generator extends Base {
   constructor(...args) {
     super(...args);
 
@@ -16,7 +16,7 @@ export default class Generator extends Base {
   }
 
   initializing() {
-    return genNamedBase(this);
+    return genBase(this);
   }
 
   askForName() {
@@ -203,3 +203,5 @@ Then deploy with
     });
   }
 }
+
+module.exports = Generator;
