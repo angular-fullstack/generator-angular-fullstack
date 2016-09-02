@@ -70,7 +70,7 @@
     "browser-sync": "^2.8.0",
     "bs-fullscreen-message": "^1.0.0",
     <%_ if(filters.flow) { -%>
-    "flow-bin": "^0.30.0",
+    "flow-bin": "^0.31.0",
     "babel-plugin-syntax-flow": "^6.8.0",
     "babel-plugin-transform-flow-comments": "^6.8.0",<% } %>
     "babel-plugin-transform-class-properties": "^6.6.0",
@@ -88,13 +88,13 @@
     "gulp-eslint": "^2.0.0",
     "gulp-imagemin": "^3.0.1",
     "gulp-inject": "^4.0.0",
-    "gulp-istanbul": "~0.10.3",
+    "gulp-istanbul": "^1.1.1",
     "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-mocha": "^2.1.3",
     "gulp-node-inspector": "^0.1.0",
     "gulp-plumber": "^1.0.1",
-    "gulp-protractor": "^2.1.0",
+    "gulp-protractor": "^3.0.0",
     "gulp-rev": "^7.0.0",
     "gulp-rev-replace": "^0.4.2",
     "gulp-sort": "^2.0.0",
@@ -120,19 +120,19 @@
     "awesome-typescript-loader": "0.17.0",
     "ng-annotate-loader": "~0.1.0",
     "babel-loader": "^6.2.4",
-    "css-loader": "^0.23.1",
-    "file-loader": "^0.8.4",
+    "css-loader": "^0.24.0",
+    "file-loader": "^0.9.0",
     "imports-loader": "^0.6.5",
     "isparta-instrumenter-loader": "^1.0.0",
     "isparta-loader": "^2.0.0",
     "istanbul-instrumenter-loader": "^0.2.0",
     "null-loader": "^0.1.1",
-    "postcss-loader": "^0.9.1",
+    "postcss-loader": "^0.11.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.0",
     <%_ if(filters.sass) { _%>
     "node-sass": "^3.8.0",
-    "sass-loader": "^3.1.1",<% } %>
+    "sass-loader": "^4.0.1",<% } %>
     <%_ if(filters.less) { _%>
     "less": "^2.7.1",
     "less-loader": "^2.2.3",<% } %>
@@ -151,13 +151,13 @@
     "karma": "~0.13.3",
     "karma-firefox-launcher": "^1.0.0",
     "karma-script-launcher": "^1.0.0",
-    "karma-coverage": "^0.5.3",
-    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "^1.0.0",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-phantomjs-launcher": "~1.0.0",
     "karma-spec-reporter": "~0.0.20",
     "karma-sourcemap-loader": "~0.3.7",
     "sinon-chai": "^2.8.0",
-    "mocha": "^2.2.5",<% if(filters.mocha) { %>
+    "mocha": "^3.0.2",<% if(filters.mocha) { %>
     "karma-mocha": "^1.0.1",
     "karma-chai-plugins": "~0.7.0",<% } if(filters.jasmine) { %>
     "jasmine-core": "^2.3.4",
