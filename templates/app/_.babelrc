@@ -1,0 +1,9 @@
+{
+    "presets": ["es2015"],
+    "plugins": [
+      <%_ if(filters.flow) { -%>
+      "transform-flow-comments",
+      <%_ } -%>
+      "transform-class-properties"
+    ]
+}

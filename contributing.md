@@ -1,6 +1,6 @@
 # Contributing
 
-See the [contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
+See the [Yeoman contributing docs](https://github.com/yeoman/yeoman/blob/master/contributing.md)
 
 Additionally for this generator:
 
@@ -9,6 +9,24 @@ Additionally for this generator:
 * When submitting a PR, make sure that the commit messages match the [AngularJS conventions][commit-message-format] (see below).
 * When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
 * When submitting a new feature, add tests that cover the feature.
+* Open Issues marked with the [EASY](https://github.com/angular-fullstack/generator-angular-fullstack/issues?q=is%3Aopen+is%3Aissue+label%3AEasy) label are believed to be easy changes, and would be good Issues to tackle for new contributors.
+
+This project has 2 main branches: `master` and `canary`. The `master` branch is where the current stable code lives and should be used for production setups. The `canary` branch is the main development branch, this is where PRs should be submitted to (backport fixes may be applied to `master`).
+
+By separating the current stable code from the cutting-edge development we hope to provide a stable and efficient workflow for users and developers alike.
+
+When submitting a PR, make sure that the commit messages match the [AngularJS conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/).
+
+When submitting a bugfix, try to write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
+
+When submitting a new feature, add tests that cover the feature.
+
+To run the generator:
+
+1. Clone it and `cd` to its root
+2. `npm install`
+3. `npm link` (tells npm to look to your own version)
+4. `yo angular-fullstack` as normal. It should run from your cloned version rather than the one downloaded from npm.
 
 ## Git Commit Guidelines
 
@@ -64,3 +82,23 @@ reference GitHub issues that this commit **Closes**.
 A detailed explanation can be found in this [document][commit-message-format].
 
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y
+
+# Releasing
+*(for contributors with push access)*
+
+The `grunt release` task will do most of the work for you, see [`grunt-release`](https://github.com/geddski/grunt-release#using-grunt-release) for valid release targets.
+
+* Run the release task `grunt release:RELEASE_TARGET`.
+
+* Push and publish the `angular-fullstack-deps` submodule.
+```bash
+$ cd angular-fullstack-deps
+$ git push && npm publish
+$ cd ..
+```
+
+* Push and publish `generator-angular-fullstack`.
+```bash
+$ git push && git push --tags
+$ npm publish
+```

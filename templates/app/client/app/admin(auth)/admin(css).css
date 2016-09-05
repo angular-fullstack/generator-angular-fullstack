@@ -1,0 +1,19 @@
+.trash { color:rgb(209, 91, 71); }
+
+.user-list li {
+	display: flex;
+	border: none;
+	border-bottom: 1px lightgray solid;
+	margin-bottom: 0;
+}
+.user-list li:last-child {
+	border-bottom: none;
+}
+.user-list li .user-info {
+	flex-grow: 1;
+}
+.user-list li .trash {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+}

@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "rootDir": "./client",
+        "module": "commonjs",
+        "outDir": ".tmp/test"
+    },
+    "filesGlob": [
+        "client/{app,components}/**/*.{spec,mock}.ts",
+        "client/test_typings/**/*.d.ts"
+    ]
+}

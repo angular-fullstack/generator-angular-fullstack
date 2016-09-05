@@ -1,0 +1,29 @@
+<% if(filters.bootstrap) { %>@import '~bootstrap/less/bootstrap.less';
+<% if(filters.oauth) { %>@import '~bootstrap-social/bootstrap-social.less';
+<% }} %>@import '~font-awesome/less/font-awesome.less';
+
+<% if(filters.bootstrap) { %>@icon-font-path: '/assets/fonts/bootstrap/';<% } %>
+@fa-font-path: '/assets/fonts/font-awesome/';
+
+/**
+ * App-wide Styles
+ */
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+<% if(!filters.bootstrap) { %>
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+<% } %>
+/* inject:less */
+@import 'admin/admin.less';
+@import 'main/main.less';
+/* endinject */
