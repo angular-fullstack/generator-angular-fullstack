@@ -183,7 +183,7 @@ describe('angular-fullstack:app', function() {
     });
   });
 
-  describe('with TypeScript, Jade, Jasmine, LESS, & OAuth', function() {
+  describe('with TypeScript, Pug, Jasmine, LESS, & OAuth', function() {
     var dir;
     var lintResult;
     var clientTestResult;
@@ -191,7 +191,7 @@ describe('angular-fullstack:app', function() {
     var testOptions = {
       buildtool: 'gulp',
       transpiler: 'ts',
-      markup: 'jade',
+      markup: 'pug',
       stylesheet: 'less',
       router: 'uirouter',
       testing: 'jasmine',
@@ -263,7 +263,7 @@ describe('angular-fullstack:app', function() {
     var testOptions = {
       buildtool: 'gulp',
       transpiler: 'babel',
-      markup: 'jade',
+      markup: 'pug',
       stylesheet: 'css',
       router: 'uirouter',
       testing: 'jasmine',
@@ -335,7 +335,7 @@ describe('angular-fullstack:app', function() {
     var testOptions = {
       buildtool: 'gulp',
       transpiler: 'ts',
-      markup: 'jade',
+      markup: 'pug',
       stylesheet: 'stylus',
       router: 'uirouter',
       testing: 'mocha',

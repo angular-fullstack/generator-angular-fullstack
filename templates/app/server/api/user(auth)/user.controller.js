@@ -2,7 +2,6 @@
 <% if (filters.mongooseModels) { %>
 import User from './user.model';<% } %><% if (filters.sequelizeModels) { %>
 import {User} from '../../sqldb';<% } %>
-import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 
@@ -44,7 +43,7 @@ export function index(req, res) {
 /**
  * Creates a new user
  */
-export function create(req, res, next) {
+export function create(req, res) {
   <% if (filters.mongooseModels) { %>var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
@@ -99,7 +98,7 @@ export function destroy(req, res) {
 /**
  * Change a users password
  */
-export function changePassword(req, res, next) {
+export function changePassword(req, res) {
   var userId = req.user._id;
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
@@ -155,6 +154,6 @@ export function me(req, res, next) {
 /**
  * Authentication callback
  */
-export function authCallback(req, res, next) {
+export function authCallback(req, res) {
   res.redirect('/');
 }

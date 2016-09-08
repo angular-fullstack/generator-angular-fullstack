@@ -6,3 +6,6 @@ demo
 .idea
 .DS_Store
 release.txt
+static
+generator-angular-fullstack.iml
+src/generator-angular-fullstack.iml
