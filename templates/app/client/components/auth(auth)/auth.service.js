@@ -148,7 +148,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     isLoggedInSync() {
-      return currentUser.hasOwnProperty('role');
+      return currentUser.hasOwnProperty('role') && currentUser.role !== '';
     },
 
      /**
