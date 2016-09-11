@@ -161,8 +161,10 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     hasRole(role, callback?: Function) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
-          var has = user.hasOwnProperty('role')
+          var has = user
+            ? user.hasOwnProperty('role')
             ? hasRole(user.role, role)
+            : false
             : false;
 
           safeCb(callback)(has);
