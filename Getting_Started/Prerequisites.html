@@ -48,7 +48,7 @@
 
         <div class="Collapsible__content">
             <!-- Navigation -->
-            <ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../Getting_Started/Prerequisites.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Getting_Started/Prerequisites.html">Prerequisites</a></li><li class='Nav__item '><a href="../Getting_Started/Installation.html">Installation</a></li><li class='Nav__item '><a href="../Getting_Started/Running_Your_New_App.html">Running Your New App</a></li><li class='Nav__item '><a href="../Getting_Started/Project_Overview.html">Project Overview</a></li></ul></li><li class='Nav__item  has-children'><a href="../Contributing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Contributing</a><ul class='Nav'><li class='Nav__item '><a href="../Contributing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Deployment/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Deployment</a><ul class='Nav'><li class='Nav__item '><a href="../Deployment/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Developing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Developing</a><ul class='Nav'><li class='Nav__item '><a href="../Developing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Examples/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../Examples/title.html">title</a></li><li class='Nav__item '><a href="../Examples/Heroku_Deployment.html">Heroku Deployment</a></li><li class='Nav__item '><a href="../Examples/IIS.html">IIS</a></li><li class='Nav__item '><a href="../Examples/Modal.html">Modal</a></li></ul></li><li class='Nav__item  has-children'><a href="../Generators/app.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Generators</a><ul class='Nav'><li class='Nav__item '><a href="../Generators/app.html">app</a></li><li class='Nav__item '><a href="../Generators/component.html">component</a></li><li class='Nav__item '><a href="../Generators/controller.html">controller</a></li><li class='Nav__item '><a href="../Generators/decorator.html">decorator</a></li><li class='Nav__item '><a href="../Generators/directive.html">directive</a></li><li class='Nav__item '><a href="../Generators/endpoint.html">endpoint</a></li><li class='Nav__item '><a href="../Generators/filter.html">filter</a></li><li class='Nav__item '><a href="../Generators/heroku.html">heroku</a></li><li class='Nav__item '><a href="../Generators/openshift.html">openshift</a></li><li class='Nav__item '><a href="../Generators/route.html">route</a></li><li class='Nav__item '><a href="../Generators/service.html">service</a></li></ul></li></ul>
+            <ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../Getting_Started/Prerequisites.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Getting Started</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../Getting_Started/Prerequisites.html">Prerequisites</a></li><li class='Nav__item '><a href="../Getting_Started/Installation.html">Installation</a></li><li class='Nav__item '><a href="../Getting_Started/Running_Your_New_App.html">Running Your New App</a></li><li class='Nav__item '><a href="../Getting_Started/Project_Overview.html">Project Overview</a></li></ul></li><li class='Nav__item  has-children'><a href="../Developing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Developing</a><ul class='Nav'><li class='Nav__item '><a href="../Developing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Deployment/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Deployment</a><ul class='Nav'><li class='Nav__item '><a href="../Deployment/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Contributing/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Contributing</a><ul class='Nav'><li class='Nav__item '><a href="../Contributing/title.html">title</a></li></ul></li><li class='Nav__item  has-children'><a href="../Examples/title.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Examples</a><ul class='Nav'><li class='Nav__item '><a href="../Examples/title.html">title</a></li><li class='Nav__item '><a href="../Examples/Heroku_Deployment.html">Heroku Deployment</a></li><li class='Nav__item '><a href="../Examples/IIS.html">IIS</a></li><li class='Nav__item '><a href="../Examples/Modal.html">Modal</a></li></ul></li><li class='Nav__item  has-children'><a href="../Generators/app.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Generators</a><ul class='Nav'><li class='Nav__item '><a href="../Generators/app.html">app</a></li><li class='Nav__item '><a href="../Generators/component.html">component</a></li><li class='Nav__item '><a href="../Generators/controller.html">controller</a></li><li class='Nav__item '><a href="../Generators/decorator.html">decorator</a></li><li class='Nav__item '><a href="../Generators/directive.html">directive</a></li><li class='Nav__item '><a href="../Generators/endpoint.html">endpoint</a></li><li class='Nav__item '><a href="../Generators/filter.html">filter</a></li><li class='Nav__item '><a href="../Generators/heroku.html">heroku</a></li><li class='Nav__item '><a href="../Generators/openshift.html">openshift</a></li><li class='Nav__item '><a href="../Generators/route.html">route</a></li><li class='Nav__item '><a href="../Generators/service.html">service</a></li></ul></li></ul>
 
             <div class="Links">
                                     <hr/>
@@ -85,9 +85,11 @@
     
     <div class="s-content">
         <h2 id="page_Prerequisites">Prerequisites</h2>
-<p>Make sure you have all the required dependencies available:</p>
+<h3 id="page_npm_modules">npm modules</h3>
+<p>Make sure you have all the required Node dependencies available:</p>
 <pre><code class="language-bash">npm install -g yo gulp-cli generator-angular-fullstack
 </code></pre>
+<h3 id="page_MongoDB">MongoDB</h3>
 <p>If you're using MongoDB (which you probably are), you'll have to install it from <a href="https://www.mongodb.com/download-center#community">here</a>.
 You should then run the <code>mongod</code> process, which is in <code>&lt;install_path&gt;/MongoDB/Server/&lt;version&gt;/bin/</code>. You'll also want a <code>/data/db</code> folder
 somewhere for Mongo to put your database in. It would be wise to make a script to automate this command, and maybe even run this script on
@@ -96,6 +98,71 @@ your computer's startup. Example:</p>
 
 /var/lib/mongo/server/3.2/bin/mongod --dbpath /data/db
 </code></pre>
+<h3 id="page_node_gyp">node-gyp</h3>
+<p><code>node-gyp</code> is a cross-platform command-line tool written in Node.js for compiling native addon modules for Node.js. You'll need it for things like brotli compression.</p>
+<p>Read through the <a href="https://github.com/nodejs/node-gyp#installation">Installation section of the <code>node-gyp</code> readme</a>. Basically you'll need <a href="https://www.python.org/downloads/">Python 2.7</a>, <code>make</code>, and a C/C++ compiler (like GCC on unix, Xcode on OS X, or Visual Studio tools on Windows). To tell npm to use Python 2.7 (if you also have a different version installed), run <code>npm config set python /path/to/executable/python2.7</code>. Here's a snapshot of the instructions from their readme:</p>
+<ul>
+<li>
+<p>On Unix:</p>
+<ul>
+<li>
+<code>python</code> (<code>v2.7</code> recommended, <code>v3.x.x</code> is <strong><em>not</em></strong> supported)</li>
+<li>
+<code>make</code>
+</li>
+<li>A proper C/C++ compiler toolchain, like <a href="https://gcc.gnu.org">GCC</a>
+</li>
+</ul>
+</li>
+<li>
+<p>On Mac OS X:</p>
+<ul>
+<li>
+<code>python</code> (<code>v2.7</code> recommended, <code>v3.x.x</code> is <strong><em>not</em></strong> supported) (already installed on Mac OS X)</li>
+<li>
+<a href="https://developer.apple.com/xcode/download/">Xcode</a>
+<ul>
+<li>You also need to install the <code>Command Line Tools</code> via Xcode. You can find this under the menu <code>Xcode -&gt; Preferences -&gt; Downloads</code>
+</li>
+<li>This step will install <code>gcc</code> and the related toolchain containing <code>make</code>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>On Windows:</p>
+<ul>
+<li>Option 1: Install all the required tools and configurations using Microsoft's <a href="https://github.com/felixrieseberg/windows-build-tools">windows-build-tools</a> using <code>npm install --global --production windows-build-tools</code> from an elevated PowerShell or CMD.exe (run as Administrator).</li>
+<li>Option 2: Install tools and configuration manually:
+<ul>
+<li>
+<p>Visual C++ Build Environment:</p>
+<ul>
+<li>
+<p>Option 1: Install <a href="http://landinghub.visualstudio.com/visual-cpp-build-tools">Visual C++ Build Tools</a> using the <strong>Default Install</strong> option.</p>
+</li>
+<li>
+<p>Option 2: Install <a href="https://www.visualstudio.com/products/visual-studio-community-vs">Visual Studio 2015</a> (or modify an existing installation) and select <em>Common Tools for Visual C++</em> during setup. This also works with the free Community and Express for Desktop editions.</p>
+</li>
+</ul>
+<blockquote>
+<p>:bulb: [Windows Vista / 7 only] requires <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40773">.NET Framework 4.5.1</a></p>
+</blockquote>
+</li>
+<li>
+<p>Install <a href="https://www.python.org/downloads/">Python 2.7</a> (<code>v3.x.x</code> is not supported), and run <code>npm config set python python2.7</code> (or see below for further instructions on specifying the proper Python version and path.)</p>
+</li>
+<li>
+<p>Launch cmd, <code>npm config set msvs_version 2015</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>If the above steps didn't work for you, please visit <a href="https://github.com/Microsoft/nodejs-guidelines/blob/master/windows-environment.md#compiling-native-addon-modules">Microsoft's Node.js Guidelines for Windows</a> for additional tips.</p>
+</li>
+</ul>
+<h3 id="page_Create_a_new_folder_for_your_project">Create a new folder for your project</h3>
 <p>Make a new directory, and <code>cd</code> into it:</p>
 <pre><code class="language-bash">mkdir myapp &amp;&amp; cd $_
 </code></pre>
