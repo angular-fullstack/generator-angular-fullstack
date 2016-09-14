@@ -17,9 +17,9 @@
   ],
   "homepage": "https://github.com/angular-fullstack/generator-angular-fullstack",
   "bugs": "https://github.com/angular-fullstack/generator-angular-fullstack/issues",
-  "author": "Tyler Henkel (http://tylerhenkel.com/)",
+  "author": "Andrew Koroluk <koroluka@gmail.com> (http://andrewk.me/)",
   "contributors": [
-    "Andrew Koroluk <koroluka@gmail.com> (http://andrewk.me/)",
+    "Tyler Henkel (http://tylerhenkel.com/)",
     "Cody Mize <me@codymize.com> (http://codymize.com/)",
     "Brian Ford <btford@umich.edu> (http://briantford.com/)",
     "Pascal Hartig <passy@twitter.com> (http://passy.me/)",
