@@ -1,3 +1,19 @@
+<a name="4.0.5"></a>
+## [4.0.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.4...v4.0.5) (2016-09-15)
+
+
+### Bug Fixes
+
+* **client:auth:** fix hasOwnProperty instances, fix User usage ([#2232](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2232)) ([f41e420](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f41e420)), closes [#2232](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2232) [#2212](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2212)
+* **client:oauthButtons:** add ngInject ([#2209](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2209)) ([9ce58e8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9ce58e8)), closes [#2206](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2206)
+* **endpoint:controller:** fix findOneAndUpdate syntax ([1c2a219](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1c2a219)), closes [#2221](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2221)
+* **heroku:** Changed port variable to capital letters so heroku recognize it ([44dccba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/44dccba)), closes [#2185](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2185)
+* **karma:** remove extra `require` ([c188229](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c188229)), closes [#2219](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2219)
+* **server:twitter:** make sure IDs are strings ([5991a72](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5991a72)), closes [#1997](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1997)
+* **socket:** add ngInject ([#2208](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2208)) ([b530695](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b530695)), closes [#2203](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2203)
+
+
+
 <a name="4.0.4"></a>
 ## [4.0.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.3...v4.0.4) (2016-09-01)
 
