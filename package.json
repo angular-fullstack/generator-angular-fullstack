@@ -68,7 +68,7 @@
     "grunt-conventional-changelog": "^6.1.0",
     "grunt-david": "~0.7.0",
     "grunt-env": "^0.4.1",
-    "grunt-mocha-test": "^0.12.7",
+    "grunt-mocha-test": "^0.13.2",
     "grunt-release": "^0.14.0",
     "gulp": "^3.9.1",
     "gulp-gh-pages": "^0.5.4",
