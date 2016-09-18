@@ -1,3 +1,6 @@
 [submodule "angular-fullstack-deps"]
 	path = angular-fullstack-deps
 	url = git@github.com:angular-fullstack/angular-fullstack-deps.git
+[submodule "angular-fullstack-dockerfile"]
+	path = angular-fullstack-dockerfile
+	url = git@github.com:angular-fullstack/angular-fullstack-dockerfile.git

@@ -7,7 +7,7 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 ### Prerequisites
 
 - [Git](https://git-scm.com/)
-- [Node.js and npm](nodejs.org) Node ^4.4.6, npm ^2.15.5
+- [Node.js and npm](nodejs.org) Node >= 4.x.x, npm >= 2.x.x
 - [Gulp](http://gulpjs.com/) (`npm install --global gulp`)<% if(filters.mongoose) { %>
 - [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`<% } if(filters.sequelize) { %>
 - [SQLite](https://www.sqlite.org/quickstart.html)<% } %>

@@ -5,6 +5,11 @@ machine:
   post:
     - npm install -g gulp-cli
 
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    - sudo apt-get update
+    - sudo apt-get install google-chrome-stable
+
 ## Customize checkout
 checkout:
   post:
@@ -28,6 +33,14 @@ notify:
     # A list of hook hashes, containing the url field
     # gitter hook
     - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
+
+## Deployments
+deployment:
+  docker:
+    # update the upstream dockerfile after a push
+    branch: [master, docker-integration]
+    commands:
+      - generator-angular-fullstack/angular-fullstack-dockerfile/create_branch.sh
 
 test:
   pre:

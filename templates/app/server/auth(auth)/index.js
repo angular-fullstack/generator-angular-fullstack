@@ -1,7 +1,5 @@
 'use strict';
-
 import express from 'express';
-import passport from 'passport';
 import config from '../config/environment';<% if (filters.mongooseModels) { %>
 import User from '../api/user/user.model';<% } %><% if (filters.sequelizeModels) { %>
 import {User} from '../sqldb';<% } %>
