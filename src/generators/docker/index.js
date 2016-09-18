@@ -1,9 +1,11 @@
 'use strict';
+import util from 'util';
+import yeoman from 'yeoman-generator';
+import {Base} from 'yeoman-generator';
 import {exec} from 'child_process';
 import chalk from 'chalk';
 import path from 'path';
-import {Base} from 'yeoman-generator';
-import Promise from 'bluebird';
+import s from 'underscore.string';
 import {genBase} from '../generator-base';
 
 export class Generator extends Base {
@@ -26,10 +28,10 @@ export class Generator extends Base {
     });
   }
 
-  gruntBuild() {
+  build() {
     this.log(chalk.bold('\nBuilding dist folder, please wait...'));
 
-    var buildCommand = this.filters.grunt ? 'grunt build' : 'gulp build';
+    var buildCommand =  'gulp build';
 
     return new Promise((resolve, reject) => {
       var child = exec(buildCommand, (err, stdout) => {
