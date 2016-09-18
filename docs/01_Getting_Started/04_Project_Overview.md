@@ -4,24 +4,26 @@ What follows is an overfiew of the files/folders in your newly generated project
 
 ### Project Root
 
-* .babelrc - configuration for [Babel], a JavaScript transpiler
-* .editorconfig - config file used to keep conistent file editing across text editors
-* .eslintrc - all of the rules applying to the ESLint JavaScript linter
-* .travis.yml - a sample configuration file for Travis CI
-* .yo-rc.json - a configuration file for the Angular Full-Stack Generator
-* gulpfile.babel.js - Gulp task runner file
-* karma.conf.js - Karma browser testing configuration
-* mocha.conf.js - Mocha test framework configuration
-* mocha.global.js - teardown file for Mocha
-* package.json - npm manifest, contains information for all project dependencies
-* protractor.conf.js - configuration for Protractor e2e test framework
-* README.md - a readme file generator based on your options, for your scaffolded project
-* spec.js - test file for Webpack used by Karma
-* webpack.make.js - main file for Webpack configuration
-	* The following export the config from `webpack.make.js` for their respective build targets:
-	* webpack.dev.js
-	* webpack.test.js
-	* webpack.build.js
+```
+.babelrc // configuration for [Babel], a JavaScript transpiler
+.editorconfig // config file used to keep conistent file editing across text editors
+.eslintrc // all of the rules applying to the ESLint JavaScript linter
+.travis.yml // a sample configuration file for Travis CI
+.yo-rc.json // a configuration file for the Angular Full-Stack Generator
+gulpfile.babel.js // Gulp task runner file
+karma.conf.js // Karma browser testing configuration
+mocha.conf.js // Mocha test framework configuration
+mocha.global.js // teardown file for Mocha
+package.json // npm manifest, contains information for all project dependencies
+protractor.conf.js // configuration for Protractor e2e test framework
+README.md // a readme file generator based on your options, for your scaffolded project
+spec.js // test file for Webpack used by Karma
+webpack.make.js // main file for Webpack configuration
+    //The following export the config from `webpack.make.js` for their respective build targets:
+    webpack.dev.js
+    webpack.test.js
+    webpack.build.js
+```
 
 ### `client/`
 

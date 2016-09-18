@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-fullstack",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node",
   "keywords": [
     "yeoman-generator",
@@ -17,9 +17,9 @@
   ],
   "homepage": "https://github.com/angular-fullstack/generator-angular-fullstack",
   "bugs": "https://github.com/angular-fullstack/generator-angular-fullstack/issues",
-  "author": "Tyler Henkel (http://tylerhenkel.com/)",
+  "author": "Andrew Koroluk <koroluka@gmail.com> (http://andrewk.me/)",
   "contributors": [
-    "Andrew Koroluk <koroluka@gmail.com> (http://andrewk.me/)",
+    "Tyler Henkel (http://tylerhenkel.com/)",
     "Cody Mize <me@codymize.com> (http://codymize.com/)",
     "Brian Ford <btford@umich.edu> (http://briantford.com/)",
     "Pascal Hartig <passy@twitter.com> (http://passy.me/)",
@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "babel-eslint": "^6.1.2",
-    "babel-plugin-syntax-class-properties": "^6.5.0",
-    "babel-plugin-syntax-flow": "^6.5.0",
+    "babel-plugin-syntax-class-properties": "^6.13.0",
+    "babel-plugin-syntax-flow": "^6.13.0",
     "babel-plugin-transform-flow-strip-types": "^6.14.0",
     "bluebird": "^3.4.5",
     "chalk": "^1.1.0",
@@ -87,7 +87,7 @@
     "shelljs": "^0.7.0",
     "should": "^11.1.0",
     "yeoman-assert": "^2.0.0",
-    "yeoman-test": "~1.4.0"
+    "yeoman-test": "~1.5.0"
   },
   "engines": {
     "node": "^6.2.2",

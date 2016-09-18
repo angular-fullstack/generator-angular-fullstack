@@ -1,3 +1,19 @@
+<a name="4.0.5"></a>
+## [4.0.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.4...v4.0.5) (2016-09-15)
+
+
+### Bug Fixes
+
+* **client:auth:** fix hasOwnProperty instances, fix User usage ([#2232](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2232)) ([f41e420](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f41e420)), closes [#2232](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2232) [#2212](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2212)
+* **client:oauthButtons:** add ngInject ([#2209](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2209)) ([9ce58e8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9ce58e8)), closes [#2206](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2206)
+* **endpoint:controller:** fix findOneAndUpdate syntax ([1c2a219](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1c2a219)), closes [#2221](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2221)
+* **heroku:** Changed port variable to capital letters so heroku recognize it ([44dccba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/44dccba)), closes [#2185](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2185)
+* **karma:** remove extra `require` ([c188229](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c188229)), closes [#2219](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2219)
+* **server:twitter:** make sure IDs are strings ([5991a72](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5991a72)), closes [#1997](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1997)
+* **socket:** add ngInject ([#2208](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2208)) ([b530695](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b530695)), closes [#2203](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2203)
+
+
+
 <a name="4.0.4"></a>
 ## [4.0.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.3...v4.0.4) (2016-09-01)
 
@@ -77,6 +93,29 @@ PUT now defaults to an upsert. PATCH now actually does an HTTP PATCH.
 
 ### -Livereload +Browsersync
 Livereload has been removed in favor of [Browsersync](https://www.browsersync.io/)
+
+
+
+<a name="3.8.0"></a>
+# [3.8.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.6...v3.8.0) (2016-09-15)
+
+
+### Bug Fixes
+
+* **authorization:** header workaround for IE11 ([2362103](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2362103)), closes [#2051](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2051)
+* **endpoint:controller:** wrap saveUpdates in an if(entity) statement ([31c0a79](https://github.com/angular-fullstack/generator-angular-fullstack/commit/31c0a79)), closes [#2052](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2052) [#2059](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2059)
+* **grunt:** 
+  * add comma ([485c44b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/485c44b))
+  * run express:prod on production port ([aac61b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/aac61b2)), closes [#1814](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1814)
+* **gulp:** fix plain css generation ([#2013](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2013)) ([54479fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/54479fc)), closes [#2013](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2013)
+* **gulpfile:** gulp-filter[@4](https://github.com/4).0.0 need "dot:true" option ([1fbf24b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1fbf24b)), closes [#2146](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2146) [#2151](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2151)
+* **server:** return express stuff ([81ea8fa](https://github.com/angular-fullstack/generator-angular-fullstack/commit/81ea8fa))
+
+
+### Features
+
+* **gen:** add configurable ports ([#2005](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2005)) ([50e6d0c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/50e6d0c))
+
 
 
 <a name="3.7.6"></a>
