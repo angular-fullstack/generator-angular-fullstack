@@ -43,7 +43,7 @@
     "sqlite3": "~3.1.1",
     "express-sequelize-session": "0.4.0",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^7.0.0",
-    "express-jwt": "^3.0.0",
+    "express-jwt": "^5.0.0",
     "passport": "~0.3.0",
     "passport-local": "^1.0.0",<% } %><% if(filters.facebookAuth) { %>
     "passport-facebook": "^2.0.0",<% } %><% if(filters.twitterAuth) { %>
