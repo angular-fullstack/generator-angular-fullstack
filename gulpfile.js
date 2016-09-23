@@ -15,6 +15,7 @@ const lazypipe = require('lazypipe');
 const runSequence = require('run-sequence');
 const merge = require('merge-stream');
 const shell = require('shelljs');
+const ghPages = require('gulp-gh-pages');
 
 var watching = false;
 
@@ -167,4 +168,29 @@ gulp.task('installFixtures', function() {
 gulp.task('test', () => {
     return gulp.src(['test/pre.test.js', 'test/*.test.js'])
         .pipe(mocha());
+});
+
+gulp.task('updateSubmodules', () => console.log('TODO'));
+gulp.task('changelog', () => console.log('TODO'));
+gulp.task('generateDemo', () => console.log('TODO'));
+gulp.task('demo', () => console.log('TODO')); // ['clean:demo', 'generateDemo']
+gulp.task('releaseDemo', () => console.log('TODO')); //['demo', 'releaseDemoBuild', 'buildcontrol:release']
+gulp.task('releaseDemoBuild', () => console.log('TODO'));
+gulp.task('deps', () => console.log('TODO')); // updateFixtures, david
+gulp.task('release', () => console.log('TODO'));
+gulp.task('lint', () => console.log('TODO'));
+
+gulp.task('daux', () => {
+    return execAsync('daux');
+});
+gulp.task('copy_docs_images', () => {
+  return gulp.src('./media/svg/*')
+    .pipe(gulp.dest('./static/'));
+});
+gulp.task('gh-pages', () => {
+  return gulp.src('./static/**/*')
+    .pipe(ghPages());
+});
+gulp.task('docs', cb => {
+    return runSequence('daux', 'copy_docs_images', 'gh-pages', cb);
 });

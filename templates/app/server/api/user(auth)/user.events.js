@@ -14,18 +14,18 @@ UserEvents.setMaxListeners(0);
 
 // Model events<% if (filters.mongooseModels) { %>
 var events = {
-  'save': 'save',
-  'remove': 'remove'
+  save: 'save',
+  remove: 'remove'
 };<% } if (filters.sequelizeModels) { %>
 var events = {
-  'afterCreate': 'save',
-  'afterUpdate': 'save',
-  'afterDestroy': 'remove'
+  afterCreate: 'save',
+  afterUpdate: 'save',
+  afterDestroy: 'remove'
 };<% } %>
 
 // Register the event emitter to the model events
-for (var e in events) {
-  var event = events[e];<% if (filters.mongooseModels) { %>
+for(var e in events) {
+  let event = events[e];<% if (filters.mongooseModels) { %>
   User.schema.post(e, emitEvent(event));<% } if (filters.sequelizeModels) { %>
   User.hook(e, emitEvent(event));<% } %>
 }

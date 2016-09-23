@@ -1,6 +1,6 @@
 'use strict';
 // @flow
-class User {
+class _User {
   _id: string = '';
   name: string = '';
   email: string = '';
@@ -11,7 +11,7 @@ class User {
 export function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
   'ngInject';
   var safeCb = Util.safeCb;
-  var currentUser: User = new User();
+  var currentUser: _User = new _User();
   var userRoles = appConfig.userRoles || [];
   /**
    * Check if userRole is >= role
@@ -27,7 +27,6 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
   }
 
   var Auth = {
-
     /**
      * Authenticate user and save token
      *
@@ -58,7 +57,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      */
     logout() {
       $cookies.remove('token');
-      currentUser = new User();
+      currentUser = new _User();
     },
 
     /**
@@ -104,7 +103,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Promise}
      */
     getCurrentUser(callback?: Function) {
-      var value = currentUser.hasOwnProperty('$promise')
+      var value = _.get(currentUser, '$promise')
         ? currentUser.$promise
         : currentUser;
 
@@ -136,7 +135,8 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     isLoggedIn(callback?: Function) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
-          var is = user.hasOwnProperty('role');
+          let is = _.get(user, 'role');
+
           safeCb(callback)(is);
           return is;
         });
@@ -148,7 +148,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
      * @return {Bool}
      */
     isLoggedInSync() {
-      return currentUser.hasOwnProperty('role');
+      return !!_.get(currentUser, 'role');
     },
 
      /**
@@ -161,9 +161,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     hasRole(role, callback?: Function) {
       return Auth.getCurrentUser(undefined)
         .then(user => {
-          var has = user.hasOwnProperty('role')
-            ? hasRole(user.role, role)
-            : false;
+          let has = hasRole(_.get(user, 'role'), role);
 
           safeCb(callback)(has);
           return has;
@@ -177,7 +175,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       * @return {Bool}
       */
     hasRoleSync(role) {
-      return hasRole(currentUser.role, role);
+      return hasRole(_.get(currentUser, 'role'), role);
     },
 
      /**

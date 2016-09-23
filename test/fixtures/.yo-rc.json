@@ -46,7 +46,8 @@
       "expect",
       "should",
       "uirouter",
-      "es6"
+      "es6",
+      "webpack"
     ],
     "extensions": [
       "babel",
