@@ -175,7 +175,10 @@
         "new-parens": 2,                                            //disallow the omission of parentheses when invoking a constructor with no arguments
         "newline-after-var": 0,                                     //require or disallow an empty newline after variable declarations
         "newline-before-return": 0,                                 //require newline before return statement
-        "newline-per-chained-call": 0,                              //enforce newline after each call when chaining the calls
+        "newline-per-chained-call": [
+            "error",
+            {"ignoreChainWithDepth": 2}
+        ],                                                          //enforce newline after each call when chaining the calls
         "no-array-constructor": 2,                                  //disallow use of the Array constructor
         "no-bitwise": 0,                                            //disallow use of bitwise operators
         "no-continue": 0,                                           //disallow use of the continue statement

@@ -15,8 +15,7 @@ import nodemon from 'nodemon';
 import {Server as KarmaServer} from 'karma';
 import runSequence from 'run-sequence';
 import {protractor, webdriver_update} from 'gulp-protractor';
-import {Instrumenter} from 'isparta';<% if(filters.stylus) { %>
-import nib from 'nib';<% } %>
+import {Instrumenter} from 'isparta';
 import webpack from 'webpack-stream';
 import makeWebpackConfig from './webpack.make';
 
@@ -236,6 +235,9 @@ gulp.task('webpack:dist', function() {
     const webpackDistConfig = makeWebpackConfig({ BUILD: true });
     return gulp.src(webpackDistConfig.entry.app)
         .pipe(webpack(webpackDistConfig))
+        .on('error', (err) => {
+          this.emit('end'); // Recover from errors
+        })
         .pipe(gulp.dest(`${paths.dist}/client`));
 });
 
@@ -491,8 +493,8 @@ gulp.task('build', cb => {
         'inject',
         'transpile:server',
         [
-            'build:images',
-            'typings'
+            'build:images'<% if(filters.ts) { %>,
+            'typings'<% } %>
         ],
         [
             'copy:extras',
@@ -509,11 +511,12 @@ gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**
 
 gulp.task('build:images', () => {
     return gulp.src(paths.client.images)
-        .pipe(plugins.imagemin({
-            optimizationLevel: 5,
-            progressive: true,
-            interlaced: true
-        }))
+        .pipe(plugins.imagemin([
+            plugins.imagemin.optipng({optimizationLevel: 5}),
+            plugins.imagemin.jpegtran({progressive: true}),
+            plugins.imagemin.gifsicle({interlaced: true}),
+            plugins.imagemin.svgo({plugins: [{removeViewBox: false}]})
+        ]))
         .pipe(plugins.rev())
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/images`))
         .pipe(plugins.rev.manifest(`${paths.dist}/${paths.client.revManifest}`, {
