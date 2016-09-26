@@ -126,7 +126,5 @@ The below steps assume you have purchased a domain and have pointed your DNS to 
   - Enter your hostname (*Your a-record*)
   - Leave all other defaults and click 'Ok'
 
-**Start your server**
-  - Run `gulp serve:dist`
 
 # Congratulations, you did it! Now go code something awesome!
