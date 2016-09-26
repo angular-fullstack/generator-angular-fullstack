@@ -72,6 +72,6 @@ export function Modal($rootScope, $uibModal) {
   };
 }
 
-export default angular.module('<%= scriptAppName %>.Modal',[])
+export default angular.module('<%= scriptAppName %>.Modal', [])
   .factory('Modal', Modal)
   .name;
