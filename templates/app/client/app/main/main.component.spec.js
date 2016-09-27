@@ -1,7 +1,6 @@
 'use strict';
 
-import main from './main.component';
-import {MainController} from './main.component';
+import {MainComponent} from './main.component';
 
 describe('Component: MainComponent', function() {
 

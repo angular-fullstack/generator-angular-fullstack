@@ -1,28 +1,28 @@
-'use strict';
 import angular from 'angular';
-<%_ if (filters.ngroute) { _%>
-const ngRoute = require('angular-route'); <% } %>
-<%_ if (filters.uirouter) { _%>
+<%_ if(filters.ngroute) { _%>
+const ngRoute = require('angular-route');<% } %>
+<%_ if(filters.uirouter) { _%>
 import uiRouter from 'angular-ui-router';<% } %>
 
-import routing from './account.routes';
-import login from './login';
-import settings from './settings';
-import signup from './signup';
+import AuthModule from '../../components/auth/auth.module';
 <%_ if(filters.oauth) { _%>
 import oauthButtons from '../../components/oauth-buttons';<% } %>
 
-export default angular.module('<%= scriptAppName %>.account', [
-    <%_ if (filters.ngroute) { _%>
-    ngRoute,<% } %>
-    <%_ if (filters.uirouter) { _%>
-    uiRouter,<% } %>
-    login,
-    settings,
-    signup<% if(filters.oauth) { %>,
-    oauthButtons<% } %>
+import { LoginController } from './login/login.controller';
+import { SettingsController } from './settings/settings.controller';
+import { SignupController } from './signup/signup.controller';
+
+import routing from './account.routes';
+
+export default angular.module('aksiteApp.account', [
+	AuthModule,
+	<%_ if(filters.ngroute) { _%>ngRoute<% } %><%_ if(filters.uirouter) { _%>uiRouter<% } %>,
+	oauthButtons,
 ])
     .config(routing)
+    .controller('LoginController', LoginController)
+    .controller('SettingsController', SettingsController)
+    .controller('SignupController', SignupController)
     <%_ if (filters.ngroute) { _%>
     .run(function($rootScope) {
       'ngInject';

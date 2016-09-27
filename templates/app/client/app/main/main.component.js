@@ -1,12 +1,10 @@
-import angular from 'angular';
-<%_ if(filters.ngroute) { _%>
-const ngRoute = require('angular-route');<% } _%>
-<%_ if(filters.uirouter) { _%>
-import uiRouter from 'angular-ui-router';<% } _%>
+import { Component, Inject } from '@angular/core';
 
-import routing from './main.routes';
-
-export class MainController {
+export let MainComponent = @Component({
+  selector: 'main',
+  template: require('./main.html')
+})
+class MainComponent {
   $http;
   <%_ if(filters.socketio) { -%>
   socket;<% } %>
@@ -14,23 +12,23 @@ export class MainController {
   <%_ if(filters.models) { -%>
   newThing = '';<% } %>
 
-  /*@ngInject*/
-  constructor($http<% if(filters.socketio) { %>, $scope, socket<% } %>) {
+  static parameters = ['$http'<% if(filters.socketio) { %>, 'socket'<% } %>];
+  constructor(@Inject('$http') $http<% if(filters.socketio) { %>, @Inject('socket') socket<% } %>) {
     this.$http = $http;
     <%_ if(filters.socketio) { -%>
-    this.socket = socket;
-
-    $scope.$on('$destroy', function() {
-      socket.unsyncUpdates('thing');
-    });<% } %>
+    this.socket = socket;<% } %>
   }
 
-  $onInit() {
+  ngOnInit() {
     this.$http.get('/api/things').then(response => {
       this.awesomeThings = response.data;<% if (filters.socketio) { %>
       this.socket.syncUpdates('thing', this.awesomeThings);<% } %>
     });
-  }<% if (filters.models) { %>
+  }<%_ if(filters.socketio) { -%>
+
+  ngOnDestroy() {
+    this.socket.unsyncUpdates('thing');
+  }<% } %><% if (filters.models) { %>
 
   addThing() {
     if (this.newThing) {
@@ -43,16 +41,3 @@ export class MainController {
     this.$http.delete('/api/things/' + thing._id);
   }<% } %>
 }
-
-export default angular.module('<%= scriptAppName %>.main', [
-  <%_ if(filters.ngroute) { _%>
-  ngRoute<% } _%>
-  <%_ if(filters.uirouter) { _%>
-  uiRouter<% } _%>
-])
-    .config(routing)
-    .component('main', {
-      template: require('./main.<%= templateExt %>'),
-      controller: MainController
-    })
-    .name;

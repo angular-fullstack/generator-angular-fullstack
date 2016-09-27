@@ -1,6 +1,6 @@
 'use strict';
 
-export default class AdminController {
+export class AdminController {
   <%_ if(filters.ts || filters.flow) { _%>
   users: Object[];
 

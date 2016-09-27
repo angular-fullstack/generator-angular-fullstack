@@ -479,6 +479,7 @@ export class Generator extends Base {
 
         let babelPlugins = [
           'babel-plugin-syntax-flow',
+          'babel-plugin-syntax-decorators',
           'babel-plugin-syntax-class-properties'
         ];
 
