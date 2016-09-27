@@ -179,7 +179,7 @@ gulp.task('releaseDemo', () => console.log('TODO')); //['demo', 'releaseDemoBuil
 gulp.task('releaseDemoBuild', () => console.log('TODO'));
 gulp.task('deps', () => console.log('TODO')); // updateFixtures, david
 gulp.task('release', () => console.log('TODO'));
-gulp.task('lint', () => console.log('TODO'));
+gulp.task('lint', () => console.log('TODO')); // ['gulpfile.js', 'src/**/*.js']
 
 gulp.task('daux', () => {
     return execAsync('daux');
