@@ -15,7 +15,7 @@ interface User {
 }
 <%_ } -%>
 
-export default class LoginController {
+export class LoginController {
   user: User = {
     name: '',
     email: '',
@@ -36,6 +36,8 @@ export default class LoginController {
     this.$location = $location;
     <%_ } if(filters.uirouter) { -%>
     this.$state = $state;<% } %>
+
+    this.errors = {};
   }
 
   login(form) {

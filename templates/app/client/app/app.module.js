@@ -9,14 +9,14 @@ import uiRouter from 'angular-ui-router';<% } %>
 <%_ if(filters.uibootstrap) { _%>
 import uiBootstrap from 'angular-ui-bootstrap';<% } %>
 
-// import constants from './app.constants';
+import constants from './app.constants';
 import main from './main/main.module';
-// import directives from '../components/directives.module';
-// <%_ if(filters.auth) { _%>
-// import authModule from '../components/auth/auth.module';
-// import accountModule from './account/account.module';
-// import adminModule from './admin/admin.module';<% } %>
-// import util from '../components/util/util.module';
+import directives from '../components/directives.module';
+<%_ if(filters.auth) { _%>
+import authModule from '../components/auth/auth.module';
+import accountModule from './account/account.module';
+import adminModule from './admin/admin.module';<% } %>
+import util from '../components/util/util.module';
 
 <%_ if(filters.socketio) { _%>
 import { SocketService } from '../components/socket/socket.service';<% } %>
@@ -33,27 +33,27 @@ export default angular.module('<%= scriptAppName %>', [
     uiRouter,<% } %>
     <%_ if(filters.uibootstrap) { _%>
     uiBootstrap,<% } %>
-    // constants,
+    constants,
     main,
-    // directives,
-    // <%_ if(filters.auth) { _%>
-    // authModule,
-    // accountModule,
-    // adminModule,<% } %>
-    // util,
+    directives,
+    <%_ if(filters.auth) { _%>
+    authModule,
+    accountModule,
+    adminModule,<% } %>
+    util,
 ])
     .service('socket', SocketService)
     .config(routeConfig)
     <%_ if(filters.auth) { _%>
-    // .run(function($rootScope, $location, Auth) {
-    //   'ngInject';
-    //   // Redirect to login if route requires auth and you're not logged in
-    //   $rootScope.$on('$stateChangeStart', function(event, next) {
-    //     Auth.isLoggedIn(function(loggedIn) {
-    //       if(next.authenticate && !loggedIn) {
-    //         $location.path('/login');
-    //       }
-    //     });
-    //   });
-    // })<% } %>
+    .run(function($rootScope, $location, Auth) {
+      'ngInject';
+      // Redirect to login if route requires auth and you're not logged in
+      $rootScope.$on('$stateChangeStart', function(event, next) {
+        Auth.isLoggedIn(function(loggedIn) {
+          if(next.authenticate && !loggedIn) {
+            $location.path('/login');
+          }
+        });
+      });
+    })<% } %>
     .name;

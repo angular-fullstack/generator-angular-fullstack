@@ -15,7 +15,7 @@ interface User {
 }
 <%_ } -%>
 
-export default class SettingsController {
+export class SettingsController {
   user: User = {
     oldPassword: '',
     newPassword: '',

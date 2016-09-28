@@ -17,7 +17,7 @@ interface User {
 }
 <%_ } -%>
 
-export default class SignupController {
+export class SignupController {
   user: User = {
     name: '',
     email: '',
