@@ -244,14 +244,14 @@ UserSchema.methods = {
 
     if(!callback) {
       return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
-                   .toString('base64');
+        .toString('base64');
     }
 
     return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, (err, key) => {
       if(err) {
-        callback(err);
+        return callback(err);
       } else {
-        callback(null, key.toString('base64'));
+        return callback(null, key.toString('base64'));
       }
     });
   }

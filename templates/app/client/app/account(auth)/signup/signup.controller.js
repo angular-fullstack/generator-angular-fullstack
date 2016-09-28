@@ -1,5 +1,7 @@
 'use strict';
 // @flow
+import angular from 'angular';
+
 <%_ if(filters.flow) { -%>
 type User = {
   name: string;

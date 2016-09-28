@@ -3,11 +3,10 @@
  */
 'use strict';
 
-import config from './environment';
+// import config from './environment';
 
 // When the user disconnects.. perform this
-function onDisconnect(socket) {
-}
+function onDisconnect(/*socket*/) {}
 
 // When the user connects.. perform this
 function onConnect(socket) {
@@ -37,8 +36,7 @@ export default function(socketio) {
   // }));
 
   socketio.on('connection', function(socket) {
-    socket.address = socket.request.connection.remoteAddress +
-      ':' + socket.request.connection.remotePort;
+    socket.address = `${socket.request.connection.remoteAddress}:${socket.request.connection.remotePort}`;
 
     socket.connectedAt = new Date();
 

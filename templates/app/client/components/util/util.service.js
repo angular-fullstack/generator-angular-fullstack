@@ -1,4 +1,5 @@
 'use strict';
+import angular from 'angular';
 
 /**
  * The Util service is for thin, globally reusable, utility functions

@@ -261,49 +261,6 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('updateFixtures', 'updates package and bower fixtures', function(target) {
-    var genVer = require('./package.json').version;
-    var dest = __dirname + ((target === 'deps') ? '/angular-fullstack-deps/' : '/test/fixtures/');
-    var appName = (target === 'deps') ? 'angular-fullstack-deps' : 'tempApp';
-
-    var processJson = function(s, d) {
-      // read file, strip all ejs conditionals, and parse as json
-      var json = JSON.parse(fs.readFileSync(path.resolve(s), 'utf8').replace(/<%(.*)%>/g, ''));
-      // set properties
-      json.name = appName, json.version = genVer;
-      if (target === 'deps') { json.private = false; }
-      // stringify json and write it to the destination
-      fs.writeFileSync(path.resolve(d), JSON.stringify(json, null, 2));
-    };
-
-    processJson('templates/app/_package.json', dest + 'package.json');
-    processJson('templates/app/_bower.json', dest + 'bower.json');
-  });
-
-  grunt.registerTask('installFixtures', 'install package and bower fixtures', function() {
-    var done = this.async();
-
-    shell.cd('test/fixtures');
-    grunt.log.ok('installing npm dependencies for generated app');
-    child_process.exec('npm install --quiet', {cwd: '../fixtures'}, function (error, stdout, stderr) {
-
-      grunt.log.ok('installing bower dependencies for generated app');
-      child_process.exec('bower install', {cwd: '../fixtures'}, function (error, stdout, stderr) {
-
-        if(!process.env.SAUCE_USERNAME) {
-          grunt.log.ok('running npm run-script update-webdriver');
-          child_process.exec('npm run-script update-webdriver', function() {
-            shell.cd('../../');
-            done();
-          });
-        } else {
-          shell.cd('../../');
-          done();
-        }
-      })
-    });
-  });
-
   grunt.registerTask('test', function(target, option) {
     if (target === 'fast') {
       grunt.task.run([

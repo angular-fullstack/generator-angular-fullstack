@@ -49,8 +49,10 @@ module.exports = function makeWebpackConfig(options) {
                 <%_ if(filters.ngroute) { _%>
                 'angular-route',<% } %>
                 'angular-sanitize',
-                'angular-socket-io',
-                'angular-ui-bootstrap',
+                <%_ if(filters.socketio) { _%>
+                'angular-socket-io',<% } %>
+                <%_ if(filters.uibootstrap) { -%>
+                'angular-ui-bootstrap',<% } %>
                 <%_ if(filters.uirouter) { _%>
                 'angular-ui-router',<% } %>
                 'lodash'
@@ -182,7 +184,7 @@ module.exports = function makeWebpackConfig(options) {
             test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([\?]?.*)$/,
             loader: 'file'
         }, {
-            <%_ if(filters.jade) { _%>
+            <%_ if(filters.pug) { _%>
             // Pug HTML LOADER
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js
