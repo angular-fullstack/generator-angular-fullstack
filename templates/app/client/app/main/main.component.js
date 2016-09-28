@@ -41,3 +41,5 @@ class MainComponent {
     this.$http.delete('/api/things/' + thing._id);
   }<% } %>
 }
+
+MainComponent.parameters = ['$http'<% if(filters.socketio) { %>, 'socket'<% } %>];
