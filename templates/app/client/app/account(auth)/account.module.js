@@ -20,9 +20,18 @@ export default angular.module('aksiteApp.account', [
 	oauthButtons,
 ])
     .config(routing)
-    .controller('LoginController', LoginController)
-    .controller('SettingsController', SettingsController)
-    .controller('SignupController', SignupController)
+    .component('login', {
+      template: require('./login/login.<%= templateExt %>'),
+      controller: LoginController
+    })
+    .component('settings', {
+      template: require('./settings/settings.<%= templateExt %>'),
+      controller: SettingsController
+    })
+    .component('signup', {
+      template: require('./signup/signup.<%= templateExt %>'),
+      controller: SignupController
+    })
     <%_ if (filters.ngroute) { _%>
     .run(function($rootScope) {
       'ngInject';

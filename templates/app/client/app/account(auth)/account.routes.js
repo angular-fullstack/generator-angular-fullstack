@@ -6,14 +6,12 @@ export default function routes($stateProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
-        template: require('./login/login.<%= templateExt %>'),
-        controller: 'LoginController',
-        controllerAs: 'vm'
+        template: '<login></login>'
       })
       .state('logout', {
         url: '/logout?referrer',
         referrer: 'main',
-        template: '',
+        template: '<h2>Logging Out...</h2>',
         controller: function($state, Auth) {
           'ngInject';
           var referrer = $state.params.referrer
@@ -25,15 +23,11 @@ export default function routes($stateProvider) {
       })
       .state('signup', {
         url: '/signup',
-        template: require('./signup/signup.<%= templateExt %>'),
-        controller: 'SignupController',
-        controllerAs: 'vm'
+        template: '<signup></signup>'
       })
       .state('settings', {
         url: '/settings',
-        template: require('./settings/settings.<%= templateExt %>'),
-        controller: 'SettingsController',
-        controllerAs: 'vm',
+        template: '<settings></settings>',
         authenticate: true
       });
 }<% } %>
@@ -42,14 +36,12 @@ export default function routes($routeProvider) {
     'ngInject';
     $routeProvider
       .when('/login', {
-        template: require('./login/login.<%= templateExt %>'),
-        controller: 'LoginController',
-        controllerAs: 'vm'
+        template: '<login></login>'
       })
       .when('/logout', {
         name: 'logout',
         referrer: '/',
-        template: '',
+        template: '<h2>Logging Out...</h2>',
         controller: function($location, $route, Auth) {
           var referrer = $route.current.params.referrer ||
                           $route.current.referrer ||
@@ -59,14 +51,10 @@ export default function routes($routeProvider) {
         }
       })
       .when('/signup', {
-        template: require('./signup/signup.<%= templateExt %>'),
-        controller: 'SignupController',
-        controllerAs: 'vm'
+        template: '<signup></signup>'
       })
       .when('/settings', {
-        template: require('./settings/settings.<%= templateExt %>'),
-        controller: 'SettingsController',
-        controllerAs: 'vm',
+        template: '<settings></settings>',
         authenticate: true
       });
 }<% } %>
