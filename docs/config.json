@@ -1,6 +1,6 @@
 {
     "title": "Angular Full-Stack",
-    "tagline": "Yeoman generator for creating MEAN/SEAN stack applications, using ES6, MongoDB/SQL, Express, AngularJS, and Node - lets you quickly set up a project following best practices.",
+    "tagline": "The Angular Full-Stack Generator",
     "author": "Andrew Koroluk",
     "image": "angular-fullstack-logo.svg",
     "templates": "daux/templates",
