@@ -4,7 +4,7 @@ See the [Yeoman contributing docs](https://github.com/yeoman/yeoman/blob/master/
 
 Additionally for this generator:
 
-* Please submit PRs to the `canary` branch, it is the main development branch for this generator.
+* Please submit bug fix PRs to the `master` branch. Please submit large feature PRs to the `canary` branch; it is the main development branch for this generator.
 * When submitting an issue, please follow the [guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.
 * When submitting a PR, make sure that the commit messages match the [AngularJS conventions][commit-message-format] (see below).
 * When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test alongside the fix.
