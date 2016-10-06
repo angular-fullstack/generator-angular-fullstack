@@ -1,6 +1,4 @@
-
-![Yeoman / Windows/ MEAN](http://joshlavely.com/images/yo_windows_mean.gif)
-# Angular-Generator-Fullstack on Windows
+# Angular Full-Stack Generator deployment on Windows
 This is a walk through to get generator-angular-fullstack up and running on a windows machine.
 This walk through has been tested on:
   - Windows Vista
@@ -12,16 +10,17 @@ This walk through has been tested on:
 ## Prerequisites
 
 **Install Python**
-  - Download 2.7 from 
-    - Install to C:\Python27 (*The Default Path*) ** 
-  - After Python is installed add the %Path% (*C:\Python27\python.exe*) to your Windows Path Env variable.
-  - Start > Type ```Environment Variables``` > click "Edit the System Environment Variables" > Envrionment Variables > 
-          Click "Path" > "Edit"
+  - Download Python 2.7 from [python.org/downloads](https://www.python.org/downloads/)
+    - Install to `C:\Python27` (*The Default Path*) ** 
+  - After Python is installed add the path (*`C:\Python27\`*) to your Windows `PATH` environment variable.
+    - Start > Type `Environment Variables` > click "Edit the System Environment Variables" > Envrionment Variables > Click "Path" > "Edit"
   - Add C:\Python27\python.exe to the very end. (*Click into box and press 'End'*)
-  
+
 **Install NodeJS on Windows**
-  - Download the latest stable release of NodeJS from https://nodejs.org and install using all the default options.
- 
+  - Download & Install [nvm-windows](https://github.com/coreybutler/nvm-windows/releases).
+  - Run `nvm install 6.4.0` for the version of node that you want
+  - Run `nvm use 6.4.0` to use that version
+
 **Install IISNode**
   - Install Latest Stable release of [IISNode](https://github.com/tjanczuk/iisnode)
 
@@ -31,29 +30,28 @@ This walk through has been tested on:
 **Install MongoDB on Windows**
   - Download the current stable release of MongoDB from https://www.mongodb.org/downloads and install using the "Complete" setup type and all the default options.
   - Create the MongoDB data directory
-  - Create an empty folder at "C:\data\db".
-  - MongoDB requires a directory for storing all of it's data, the default directory is "C:\data\db", you can use a different directory if you prefer by specifying the "--dbpath" parameter when starting the MongoDB server (below).
-  - Start MongoDB Server on Windows
-  - Start the MongoDB server by running "mongod.exe" from the command line, "mongod.exe" is located in "C:\Program Files\MongoDB\Server\[MONGODB VERSION]\bin", for example for version 3.2 the following command will start MongoDB
-``"C:\Program Files\MongoDB\Server\3.2\bin\mongod"``
+  - Create an empty folder at ex. `C:\data\db`.
+  - MongoDB requires a directory for storing all of it's data. The default directory is `C:\data\db`. You can use a different directory if you prefer by specifying the "--dbpath" parameter when starting the MongoDB server (below).
+  - Start the MongoDB server daemon by running `mongod.exe` from the command line. `mongod.exe` is likely located in `C:\Program Files\MongoDB\Server\[MONGODB VERSION]\bin`; for example for version 3.2 the following command will start MongoDB: `C:\Program Files\MongoDB\Server\3.2\bin\mongod`
   
 ## Getting your project started
 
 **Install the generator**
   - Create an empty folder for your project
-  - Open CMD as administrator and change directories to your app's directory ```cd c:\example```
-  - Run ```npm install -g yo gulp-cli generator-angular-fullstack```
+  - Open a terminal and change directories to your app's directory `cd c:\example`
+  - Run `npm install -g yo gulp-cli generator-angular-fullstack`
+  - Run `yo angular-fullstack`
 
 ## Move App into production
 The below steps assume you have purchased a domain and have pointed your DNS to your public IP
 
 **Build and prep**
-  - Run the build process ```gulp serve:dist```
-  - Move your *dist* folder to your desired directory (*This is where IIS will be pointed at*)
-  - Copy the contents of the 'server' folder **into** your 'client' folder
+  - Run the build process `gulp serve:dist`
+  - Move your `dist/` folder to your desired directory (*This is where IIS will be pointed at*)
+  - Copy the contents of the `server/` folder **into** your `client/` folder
   - Copy down the web.config from below and place this inside your 'client' folder (*save it as 'web.config'*)
-   
-   ```
+
+```
 <configuration>
   <system.webServer>
 
@@ -118,19 +116,17 @@ The below steps assume you have purchased a domain and have pointed your DNS to 
     
   </system.webServer>
 </configuration>
-   ```
-   
-   
-  **Setup IIS**
+```
+
+**Setup IIS**
   - Open IIS Manager (*Start > Type 'IIS Manager'*)
   - Create your new site (*Expand Server > Right click sites > 'Add Websites'*)
   - Enter your site's name
-  - Enter the directory path to your 'client' folder (*C:\example\dist\client\*)
+  - Enter the directory path to your `client/` folder (*`C:\example\dist\client\`*)
   - Enter your hostname (*Your a-record*)
   - Leave all other defaults and click 'Ok'
 
 **Start your server**
-  - Run ```gulp serve:dist```
+  - Run `gulp serve:dist`
+
 # Congratulations, you did it! Now go code something awesome!
-  
-  

@@ -1,5 +1,5 @@
 # AngularJS Full-Stack generator
-![generator-angular-fullstack](http://angular-fullstack.github.io/generator-angular-fullstack/media/svg/angular-fullstack-logo.svg)
+![generator-angular-fullstack](http://angular-fullstack.github.io/generator-angular-fullstack/angular-fullstack-logo.svg)
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
@@ -23,8 +23,9 @@ Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
 ```
 npm install -g yo gulp-cli generator-angular-fullstack
 ```
+__Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
 
-> To install the latest 4.0.0 Beta with Webpack support, use `generator-angular-fullstack@beta`
+---
 
 Run `yo angular-fullstack`
 ```
@@ -37,7 +38,6 @@ yo angular-fullstack
 
 * MongoDB - Download and Install [MongoDB](https://www.mongodb.com/download-center#community) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
 * The project's JavaScript is written in ECMAScript 2015. If you're unfamiliar with the latest changes to the specification for JavaScript, check out http://es6-features.org/
-* [`node-gyp`](https://github.com/nodejs/node-gyp) - You'll likely need to be able to use `node-gyp`, Node's tool for compiling native add-ons (for things like database drivers). See its [Installation section](https://github.com/nodejs/node-gyp#installation) for more instructions.
 
 ## Supported Configurations
 
@@ -164,4 +164,4 @@ Is your company using Angular-FullStack? Ask your boss to support the project. Y
 <a href="https://opencollective.com/angular-fullstack/sponsor/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/9/avatar"></a>
 <a href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar"></a>
 
-![generator-angular-fullstack](http://angular-fullstack.github.io/generator-angular-fullstack/media/svg/angular-fullstack-boxes.svg)
+![generator-angular-fullstack](http://angular-fullstack.github.io/generator-angular-fullstack/angular-fullstack-boxes.svg)
