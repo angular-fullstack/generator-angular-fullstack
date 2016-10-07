@@ -42,7 +42,7 @@ export default function(app) {
   app.use(express.static(app.get('appPath')));
   app.use(morgan('dev'));
 
-  app.set('views', config.root + '/server/views');<% if(filters.html) { %>
+  app.set('views', `${config.root}/server/views`);<% if(filters.html) { %>
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');<% } %><% if(filters.pug) { %>
   app.set('view engine', 'pug');<% } %>
@@ -102,7 +102,7 @@ export default function(app) {
     browserSync.init({
       open: false,
       logFileChanges: false,
-      proxy: 'localhost:' + config.port,
+      proxy: `localhost:${config.port}`,
       ws: true,
       middleware: [
         webpackDevMiddleware(compiler, {

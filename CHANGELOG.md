@@ -1,3 +1,26 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.5...v4.1.0) (2016-09-30)
+
+
+## Notable Changes
+
+* We've bumped some of the Babel deps to `^6.16.0`. This should fix the issues everyone's been seeing with class properties being stripped when using the default settings of Babel without Flow types.
+
+
+### Bug Fixes
+
+* **client:modal:** Fix unknown provider error ([68b7b69](https://github.com/angular-fullstack/generator-angular-fullstack/commit/68b7b69)), closes [#2247](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2247)
+
+
+### Features
+
+* **client:footer:** 
+  * add documentation link ([ad44ee2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ad44ee2))
+  * modify footer ([3ca3cd5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3ca3cd5))
+* **gen:gulp:** port changelog code to gulp ([045abfb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/045abfb))
+
+
+
 <a name="4.0.5"></a>
 ## [4.0.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.4...v4.0.5) (2016-09-15)
 

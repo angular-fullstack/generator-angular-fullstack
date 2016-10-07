@@ -23,6 +23,9 @@ Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
 ```
 npm install -g yo gulp-cli generator-angular-fullstack
 ```
+__Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
+
+---
 
 Run `yo angular-fullstack`
 ```
@@ -35,7 +38,6 @@ yo angular-fullstack
 
 * MongoDB - Download and Install [MongoDB](https://www.mongodb.com/download-center#community) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
 * The project's JavaScript is written in ECMAScript 2015. If you're unfamiliar with the latest changes to the specification for JavaScript, check out http://es6-features.org/
-* [`node-gyp`](https://github.com/nodejs/node-gyp) - You'll likely need to be able to use `node-gyp`, Node's tool for compiling native add-ons (for things like database drivers). See its [Installation section](https://github.com/nodejs/node-gyp#installation) for more instructions.
 
 ## Supported Configurations
 

@@ -12,32 +12,11 @@ module.exports = function (grunt) {
   var gitCmd = gruntUtils.gitCmd;
   var gitCmdAsync = gruntUtils.gitCmdAsync;
 
-  // Load grunt tasks automatically, when needed
-  require('jit-grunt')(grunt, {
-    buildcontrol: 'grunt-build-control'
-  });
-
   grunt.initConfig({
     config: {
       demo: 'demo'
     },
     pkg: grunt.file.readJSON('package.json'),
-    conventionalChangelog: {
-      options: {
-        changelogOpts: {
-          // conventional-changelog options go here
-          preset: 'angular'
-        },
-        writerOpts: {
-          // conventional-changelog-writer options go here
-          finalizeContext: gruntUtils.conventionalChangelog.finalizeContext,
-          commitPartial: gruntUtils.conventionalChangelog.commitPartial
-        }
-      },
-      release: {
-        src: 'CHANGELOG.md'
-      }
-    },
     release: {
       options: {
         commitMessage: '<%= version %>',
@@ -49,17 +28,6 @@ module.exports = function (grunt) {
         push: false,
         pushTags: false,
         npm: false
-      }
-    },
-    updateSubmodules: {
-      options: {
-        modules: ['angular-fullstack-deps']
-      }
-    },
-    commitNgFullstackDeps: {
-      options: {
-        cwd: 'angular-fullstack-deps',
-        files: ['package.json', 'bower.json']
       }
     },
     stage: {
@@ -82,43 +50,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    jshint: {
-      options: {
-        curly: false,
-        node: true
-      },
-      all: ['Gruntfile.js', 'src/**/*.js']
-    },
-    env: {
-      fast: {
-        SKIP_E2E: true
-      }
-    },
-    mochaTest: {
-      test: {
-        src: [
-          'test/*.js'
-        ],
-        options: {
-          reporter: 'spec',
-          timeout: 120000
-        }
-      }
-    },
-    clean: {
-      demo: {
-        files: [{
-          dot: true,
-          src: [
-            '<%= config.demo %>/*',
-            '!<%= config.demo %>/readme.md',
-            '!<%= config.demo %>/node_modules',
-            '!<%= config.demo %>/.git',
-            '!<%= config.demo %>/dist'
-          ]
-        }]
-      }
-    },
     david: {
       gen: {
         options: {}
@@ -134,26 +65,6 @@ module.exports = function (grunt) {
   grunt.registerTask('stage', 'git add files before running the release task', function () {
     var files = grunt.config('stage.options').files;
     gitCmd(['add'].concat(files), {}, this.async());
-  });
-
-  grunt.registerTask('updateSubmodules', function() {
-    grunt.config.requires('updateSubmodules.options.modules');
-    var modules = grunt.config.get('updateSubmodules').options.modules;
-
-    Q()
-      .then(gitCmdAsync(['submodule', 'update', '--init', '--recursive']))
-      .then(function() {
-        var thens = [];
-        for (var i = 0, modulesLength = modules.length; i < modulesLength; i++) {
-          var opts = {cwd: modules[i]};
-          thens.push(gitCmdAsync(['checkout', 'master'], opts));
-          thens.push(gitCmdAsync(['fetch'], opts));
-          thens.push(gitCmdAsync(['pull'], opts));
-        }
-        return thens.reduce(Q.when, Q());
-      })
-      .catch(grunt.fail.fatal.bind(grunt.fail))
-      .finally(this.async());
   });
 
   grunt.registerTask('commitNgFullstackDeps', function() {
@@ -259,20 +170,6 @@ module.exports = function (grunt) {
     function gruntRelease() {
       return run('grunt buildcontrol:heroku');
     }
-  });
-
-  grunt.registerTask('test', function(target, option) {
-    if (target === 'fast') {
-      grunt.task.run([
-        'env:fast'
-      ]);
-    }
-
-    return grunt.task.run([
-      'updateFixtures',
-      'installFixtures',
-      'mochaTest'
-    ])
   });
 
   grunt.registerTask('deps', function(target) {
