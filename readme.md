@@ -8,7 +8,7 @@
 [![Gitter chat](https://img.shields.io/gitter/room/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 [![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
-> Yeoman generator for creating MEAN/SEAN stack applications, using ES6, MongoDB/SQL, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
+> Yeoman generator for creating MEAN/SEAN stack applications, using ES6, MongoDB/SQL, Express, Angular, and Node - lets you quickly set up a project following best practices.
 
 
 
@@ -51,13 +51,14 @@ yo angular-fullstack
 
 **Client**
 
+* Frameworks: Angular 1.5 / Angular 2 Hybrid Application
 * Scripts: `JavaScript (Babel)`, `TypeScript`
-* Module Systems: `Webpack`, ~~`SystemJS + JSPM`~~ (maybe)
+* Module Systems: `Webpack`
 * Markup:  `HTML`, `Pug`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
-* Angular Routers: `ngRoute`, `ui-router`
+* Angular Routers: `ngRoute`/`@angular/router`, `ui-router`
 * CSS Frameworks: `Bootstrap`
-  * Option to include `UI Bootstrap`
+  * Option to include `UI Bootstrap`/`ng2-bootstrap`
 
 **Server**
 
