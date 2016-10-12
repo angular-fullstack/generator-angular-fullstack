@@ -1,5 +1,4 @@
 'use strict';
-import * as _ from 'lodash';
 
 export function routerDecorator($rootScope<% if(filters.ngroute) { %>, $location<% } if(filters.uirouter) { %>, $state<% } %>, Auth) {
   'ngInject';

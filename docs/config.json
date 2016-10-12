@@ -1,0 +1,34 @@
+{
+    "title": "Angular Full-Stack",
+    "tagline": "The Angular Full-Stack Generator",
+    "author": "Andrew Koroluk",
+    "image": "angular-fullstack-logo.svg",
+    "templates": "daux/templates",
+    "ignore": {
+        "files": ["Work_In_Progress.md"],
+        "folders": ["99_Not_Ready"]
+    },
+    "live": {
+        "clean_urls": true
+    },
+    "html": {
+        "theme": "daux-blue",
+        "breadcrumbs": true,
+        "breadcrumb_separator": "Chevrons",
+        "toggle_code": true,
+        "date_modified": true,
+        "float": false,
+        "inherit_index": true,
+        "search": true,
+
+        "repo": "angular-fullstack/generator-angular-fullstack",
+        "google_analytics": "UA-48443700-5",
+        "links": {
+            "Download": "https://www.npmjs.com/package/generator-angular-fullstack",
+            "GitHub Repo": "https://github.com/angular-fullstack/generator-angular-fullstack",
+            "Help/Support/Bugs": "https://github.com/angular-fullstack/generator-angular-fullstack/issues",
+            "Our Gitter Chatroom": "https://gitter.im/angular-fullstack/generator-angular-fullstack",
+            "Support our Open Collective": "https://opencollective.com/angular-fullstack"
+        }
+    }
+}

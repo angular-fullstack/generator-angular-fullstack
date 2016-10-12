@@ -1,3 +1,146 @@
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.5...v4.1.0) (2016-09-30)
+
+
+## Notable Changes
+
+* We've bumped some of the Babel deps to `^6.16.0`. This should fix the issues everyone's been seeing with class properties being stripped when using the default settings of Babel without Flow types.
+
+
+### Bug Fixes
+
+* **client:modal:** Fix unknown provider error ([68b7b69](https://github.com/angular-fullstack/generator-angular-fullstack/commit/68b7b69)), closes [#2247](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2247)
+
+
+### Features
+
+* **client:footer:** 
+  * add documentation link ([ad44ee2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ad44ee2))
+  * modify footer ([3ca3cd5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3ca3cd5))
+* **gen:gulp:** port changelog code to gulp ([045abfb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/045abfb))
+
+
+
+<a name="4.0.5"></a>
+## [4.0.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.4...v4.0.5) (2016-09-15)
+
+
+### Bug Fixes
+
+* **client:auth:** fix hasOwnProperty instances, fix User usage ([#2232](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2232)) ([f41e420](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f41e420)), closes [#2232](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2232) [#2212](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2212)
+* **client:oauthButtons:** add ngInject ([#2209](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2209)) ([9ce58e8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9ce58e8)), closes [#2206](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2206)
+* **endpoint:controller:** fix findOneAndUpdate syntax ([1c2a219](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1c2a219)), closes [#2221](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2221)
+* **heroku:** Changed port variable to capital letters so heroku recognize it ([44dccba](https://github.com/angular-fullstack/generator-angular-fullstack/commit/44dccba)), closes [#2185](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2185)
+* **karma:** remove extra `require` ([c188229](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c188229)), closes [#2219](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2219)
+* **server:twitter:** make sure IDs are strings ([5991a72](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5991a72)), closes [#1997](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1997)
+* **socket:** add ngInject ([#2208](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2208)) ([b530695](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b530695)), closes [#2203](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2203)
+
+
+
+<a name="4.0.4"></a>
+## [4.0.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.3...v4.0.4) (2016-09-01)
+
+
+### Bug Fixes
+
+* **webpack:** 
+  * conditionally exclude ui-bootstrap ([dd131d9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/dd131d9))
+  * fix webpack vendor import ([#2177](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2177)) ([aa32054](https://github.com/angular-fullstack/generator-angular-fullstack/commit/aa32054)), closes [#2177](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2177)
+
+
+
+<a name="4.0.3"></a>
+## [4.0.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.2...v4.0.3) (2016-09-01)
+
+
+### Bug Fixes
+
+* **gen:** fix doc img generation\n\nAdd gulp task to copy images to gh-pages ([5bb43be](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5bb43be))
+* **gen:heroku:** fix module export, gen base ([8e50326](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8e50326)), closes [#2148](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2148)
+* **webpack:** fix boostrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
+
+
+
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.1...v4.0.2) (2016-09-01)
+
+
+### Bug Fixes
+
+* **client:socket.service:** import lodash named exports ([231e500](https://github.com/angular-fullstack/generator-angular-fullstack/commit/231e500))
+* **gulp:build:** remove protractor typings ([#2144](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2144)) ([b9abc58](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b9abc58))
+
+
+### Features
+
+* **docs:** add daux.io docs ([f1e7a87](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f1e7a87))
+* **gen:app:** 
+  * add eslint to the yo write stream ([85921be](https://github.com/angular-fullstack/generator-angular-fullstack/commit/85921be)), closes [#2157](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2157)
+  * run eslint w/ fix on both client & server ([c5ab431](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c5ab431))
+* **gen:gulp:** add TODO tasks in gulpfile. rm 2 old grunt tasks ([1e25de7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1e25de7))
+
+
+
+<a name="4.0.0"></a>
+## [4.0.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.6...v4.0.0) (2016-08-08)
+
+
+## Notable Changes
+
+### [Webpack](http://webpack.github.io/)
+* No more Bower
+* Webpack is a Module Bundler for the front-end.
+* Everything starts in `client/app.js`. It imports (using CommonJS / ES2015 imports) everything else needed from there.
+* Whenever we create a new Angular 1 module, we export its name, and import that name in another module up the tree, all the way to `client/app.js`. This design pattern allows for easy lazy-loading.
+
+### Gulp v Grunt
+Grunt has been removed. 
+* Gulp is significantly faster to run
+* Gulp focuses on programmatic configuration, which makes it a breeze to configure compared to Grunt's JSON-config-focused configuration.
+* Gulp development is much more active, with Gulp 4.0.0 hopefully being released soon.
+
+### ESLint
+JSHint + JSCS have been replaced with ESLint. ESLint provides a gigantic amount of rules, and is easily pluggable with many plugins. It uses Espree. Also, JSCS has merged with ESLint.
+
+### Types
+Flow support has been added. TypeScript type errors have been fixed.
+
+### Async/Sync Auth methods
+The following methods from the client Auth service have been split into two: `getCurrentUser`, `isLoggedIn`, `hasRole`, `isAdmin`. The reason that these methods could be both synchronous and asynchronous depending on how many arguments were passed is because they were called from Angular templates. Now, the Angular templates call the sync form of these methods (e.x. `getCurrentUserSync`), and the original functions are now only async.
+
+### Constants
+The task runner no longer takes care of creating an Angular module for config constants. It is taken care of by webpack now (the `shared.js` files is now just `require`d)
+
+### Endpoint PUT/PATCH
+PUT now defaults to an upsert. PATCH now actually does an HTTP PATCH.
+
+### -Livereload +Browsersync
+Livereload has been removed in favor of [Browsersync](https://www.browsersync.io/)
+
+
+
+<a name="3.8.0"></a>
+# [3.8.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.6...v3.8.0) (2016-09-15)
+
+
+### Bug Fixes
+
+* **authorization:** header workaround for IE11 ([2362103](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2362103)), closes [#2051](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2051)
+* **endpoint:controller:** wrap saveUpdates in an if(entity) statement ([31c0a79](https://github.com/angular-fullstack/generator-angular-fullstack/commit/31c0a79)), closes [#2052](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2052) [#2059](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2059)
+* **grunt:** 
+  * add comma ([485c44b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/485c44b))
+  * run express:prod on production port ([aac61b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/aac61b2)), closes [#1814](https://github.com/angular-fullstack/generator-angular-fullstack/issues/1814)
+* **gulp:** fix plain css generation ([#2013](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2013)) ([54479fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/54479fc)), closes [#2013](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2013)
+* **gulpfile:** gulp-filter[@4](https://github.com/4).0.0 need "dot:true" option ([1fbf24b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/1fbf24b)), closes [#2146](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2146) [#2151](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2151)
+* **server:** return express stuff ([81ea8fa](https://github.com/angular-fullstack/generator-angular-fullstack/commit/81ea8fa))
+
+
+### Features
+
+* **gen:** add configurable ports ([#2005](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2005)) ([50e6d0c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/50e6d0c))
+
+
+
 <a name="3.7.6"></a>
 ## [3.7.6](https://github.com/angular-fullstack/generator-angular-fullstack/compare/3.7.5...v3.7.6) (2016-06-21)
 
@@ -6,7 +149,6 @@
 
 * Add deprecation warning about Grunt
 * Bumped a few generator dependencies
-
 
 
 <a name="3.7.5"></a>

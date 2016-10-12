@@ -14,7 +14,7 @@ import uiRouter from 'angular-ui-router';<% } %>
 import uiBootstrap from 'angular-ui-bootstrap';<% } %>
 // import ngMessages from 'angular-messages';
 <%_ if(filters.auth) { _%>
-//import ngValidationMatch from 'angular-validation-match';<% } %>
+// import ngValidationMatch from 'angular-validation-match';<% } %>
 
 
 import {routeConfig} from './app.config';
@@ -35,7 +35,6 @@ import socket from '../components/socket/socket.service';<% } %>
 import './app.<%= styleExt %>';
 
 angular.module('<%= scriptAppName %>', [
-  // ngAnimate,
   ngCookies,
   ngResource,
   ngSanitize,
@@ -47,9 +46,7 @@ angular.module('<%= scriptAppName %>', [
   uiRouter,<% } _%>
   <%_ if(filters.uibootstrap) { %>
   uiBootstrap,<% } %>
-  // ngMessages,
   <%_ if(filters.auth) { %>
-  // ngValidationMatch,
   _Auth,
   account,
   admin,<% } _%>
