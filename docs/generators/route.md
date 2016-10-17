@@ -20,9 +20,9 @@ Produces:
 Your new `myroute.component.js` will contain Angular code registering a new module, defaulting to `myApp.myRoute`. The default export of the component will be this name. Make sure to import this name in a parent Angular module, and add it as a dependency like so:
 
 ```js
-import myRouteComponent from './myroute/myroute.component';
+import MyRouteModule from './myroute/myroute.component';
 
 ...
 
-angular.module('myApp.myParent', [myRouteComponent]);
+angular.module('myApp.myParent', [MyRouteModule]);
 ```

@@ -4,6 +4,7 @@ Sets up a new AngularJS + Express app, generating all the boilerplate you need t
 Usage:
 ```bash
 Usage:
+  yo angular-fullstack [options] [<name>]
   yo angular-fullstack:app [options] [<name>]
 
 Options:
