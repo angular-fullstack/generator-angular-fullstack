@@ -80,7 +80,7 @@ webpack: bundle is now VALID.
 And then our default browser should open up to the app:
 
 
-<img src="/images/afs-screenshot.png" style="max-width: 800px; box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);" alt="App Screenshot">
+<img src="../images/afs-screenshot.png" alt="App Screenshot">
 
 
 Fantastic! We're now up and running with our Full-Stack Angular web application! So what can it do?
@@ -90,7 +90,7 @@ Fantastic! We're now up and running with our Full-Stack Angular web application!
 Assuming you scaffolded with a back-end database, you should see some 'features'. If you scaffolded with socket.io, you should see 'x' buttons next to each, and an input box. Try opening two browser windows to the same page side-by-side, and hitting the 'x' on one of the features. You should see the feature get removed on both web pages. Neat! This is because these database object changes are communicated to clients using socket.io.
 
 
-<img src="/images/socket.io-demo.gif" style="max-width: 800px; box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);" alt="Socket.io demo">
+<img src="../images/socket.io-demo.gif" alt="Socket.io demo screenshot">
 
 
 Neat. Let's see what else we can do.

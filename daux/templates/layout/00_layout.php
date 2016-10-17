@@ -25,6 +25,8 @@
     echo "<link href='$css' rel='stylesheet' type='text/css'>";
 } ?>
 
+    <link href="<?= $base_url; ?>docs.css" rel="stylesheet" type="text/css">
+
     <?php if ($params['html']['search']) {
     ?>
         <!-- Tipue Search -->
