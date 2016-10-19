@@ -87,14 +87,33 @@
     
     <div class="s-content">
         <h3 id="page_Heroku">Heroku</h3>
-<p>Deploying to heroku only takes a few steps.</p>
-<pre><code>yo angular-fullstack:heroku
+<h4 id="page_Setup">Setup</h4>
+<p>You need a <a href="http://www.heroku.com">Heroku</a> account and have the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up">Heroku Toolbelt</a> installed.</p>
+<p>Create an app on Heroku and give it a name (e.g. myapp) :</p>
+<pre><code>heroku apps:create myapp
 </code></pre>
-<p>To work with your new heroku app using the command line, you will need to run any <code>heroku</code> commands from the <code>dist</code> folder.</p>
-<p>If you're using mongoDB you will need to add a database to your app:</p>
+<p>You can also use Heroku dashboard to create an app.</p>
+<p>If you're using mongoDB you will need to add a database to your app (e.g. <a href="https://mlab.com/">mlab</a> or <a href="https://www.compose.com/mongodb">compose</a>):
+Here we use mlab:</p>
 <pre><code>heroku addons:create mongolab
 </code></pre>
-<p>Note: if you get an <code>Error: No valid replicaset instance servers found</code>  you need to modify moongose connection options in config/environment/production.js as follows:</p>
+<p>Now, build your app by running:</p>
+<pre><code>gulp build
+</code></pre>
+<p>This creates a folder called <code>dist</code>.</p>
+<p>Now go to <code>dist</code> and set it up as a git repository:</p>
+<pre><code>git init 
+</code></pre>
+<p>Add Heroku's app as your <code>dist</code> folder's remote repository:</p>
+<pre><code>heroku git:remote -a myapp
+</code></pre>
+<p>It is time to push your local repository to Heroku. From your app's root run:</p>
+<pre><code>gulp buildcontrol:heroku
+</code></pre>
+<p>Your app should be live now. To view your app run:</p>
+<pre><code>heroku open
+</code></pre>
+<p>Note on MongoDB setup: if you get an <code>Error: No valid replicaset instance servers found</code>  you need to modify moongose connection options in config/environment/production.js as follows:</p>
 <pre><code>options: {
   db: {
     safe: true,
@@ -104,7 +123,6 @@
 }
 </code></pre>
 <p>One of the odd things about the Node driver is that the default timeout for replica set connections is only 1 second, so make sure you're setting it to something more like 30s like in this example.</p>
-<p>Your app should now be live. To view it run <code>heroku open</code>.</p>
 <blockquote>
 <p>If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using <strong>Facebook</strong> oAuth we would do this :</p>
 <pre><code>heroku config:set FACEBOOK_ID=id
@@ -116,7 +134,6 @@ heroku config:set FACEBOOK_SECRET=secret
 heroku config:set DOMAIN=&lt;your-custom-domain&gt;
 </code></pre>
 </blockquote>
-<p>To make your deployment process easier consider using <a href="https://github.com/robwierzbowski/grunt-build-control">grunt-build-control</a>.</p>
 <h4 id="page_Pushing_Updates">Pushing Updates</h4>
 <pre><code>gulp build
 </code></pre>
