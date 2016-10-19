@@ -1,21 +1,47 @@
 ### Heroku
 
-Deploying to heroku only takes a few steps.
+#### Setup
+You need a [Heroku](www.heroku.com) account and have the [Heroku Toolbelt](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) installed. 
 
+Create an app on Heroku and give it a name (e.g. myapp) :
 ```
-yo angular-fullstack:heroku
+heroku apps:create myapp
 ```
+You can also use Heroku dashboard to create an app. 
 
-To work with your new heroku app using the command line, you will need to run any `heroku` commands from the `dist` folder.
-
-
-If you're using mongoDB you will need to add a database to your app:
-
+If you're using mongoDB you will need to add a database to your app (e.g. [mlab](https://mlab.com/) or [compose](https://www.compose.com/mongodb)): 
+Here we use mlab:
 ```
 heroku addons:create mongolab
 ```
 
-Note: if you get an `Error: No valid replicaset instance servers found`  you need to modify moongose connection options in config/environment/production.js as follows:  
+Now, build your app by running: 
+```
+gulp build
+```
+This creates a folder called `dist`. 
+
+Now go to `dist` and set it up as a git repository:
+```
+git init 
+```
+
+Add Heroku's app as your `dist` folder's remote repository:
+```
+heroku git:remote -a myapp
+```
+
+It is time to push your local repository to Heroku. From your app's root run:
+```
+gulp buildcontrol:heroku
+```
+
+Your app should be live now. To view your app run:
+```
+heroku open
+```
+
+Note on MongoDB setup: if you get an `Error: No valid replicaset instance servers found`  you need to modify moongose connection options in config/environment/production.js as follows:  
 ```
 options: {
   db: {
@@ -25,10 +51,8 @@ options: {
   }
 }
 ```
+
 One of the odd things about the Node driver is that the default timeout for replica set connections is only 1 second, so make sure you're setting it to something more like 30s like in this example.
-
-
-Your app should now be live. To view it run `heroku open`.
 
 >
 > If you're using any oAuth strategies, you must set environment variables for your selected oAuth. For example, if we're using **Facebook** oAuth we would do this :
@@ -47,8 +71,6 @@ Your app should now be live. To view it run `heroku open`.
 > ```
 >
 
-To make your deployment process easier consider using [grunt-build-control](https://github.com/robwierzbowski/grunt-build-control).
-
 #### Pushing Updates
 
 ```
@@ -56,7 +78,6 @@ gulp build
 ```
 
 Commit and push the resulting build, located in your dist folder:
-
 ```
 gulp buildcontrol:heroku
 ```
