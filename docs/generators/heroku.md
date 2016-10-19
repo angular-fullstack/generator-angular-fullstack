@@ -1,7 +1,7 @@
 ### Heroku
 
 #### Setup
-You need a [Heroku](www.heroku.com) account and have the [Heroku Toolbelt](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) installed. 
+You need a [Heroku](https://www.heroku.com) account and have the [Heroku Toolbelt](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up) installed. 
 
 Create an app on Heroku and give it a name (e.g. myapp) :
 ```
