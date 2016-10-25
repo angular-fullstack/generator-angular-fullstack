@@ -4,6 +4,7 @@ Generates an AngularJS service.
 Example:
 ```bash
 yo angular-fullstack:service myService
+[?] What module name would you like to use? myApp.myService
 [?] Where would you like to create this service? client/app/
 ```
 
