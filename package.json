@@ -39,7 +39,7 @@
     "babel-eslint": "^7.0.0",
     "babel-register": "^6.16.0",
     "babel-plugin-syntax-class-properties": "^6.13.0",
-    "babel-plugin-syntax-flow": "^6.13.0",
+    "babel-plugin-syntax-flow": "^6.18.0",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
     "bluebird": "^3.4.5",
     "chalk": "^1.1.0",
