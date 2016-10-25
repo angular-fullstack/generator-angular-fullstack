@@ -4,6 +4,7 @@ Generates a directive.
 Example:
 ```bash
 yo angular-fullstack:directive myDirective
+[?] What module name would you like to use? myApp.myDirective
 [?] Where would you like to create this directive? client/app/
 [?] Does this directive need an external html file? Yes
 ```
@@ -20,6 +21,7 @@ Produces:
 Example:
 ```bash
 yo angular-fullstack:directive simple
+[?] What module name would you like to use? myApp.simple
 [?] Where would you like to create this directive? client/app/
 [?] Does this directive need an external html file? No
 ```
