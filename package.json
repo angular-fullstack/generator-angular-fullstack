@@ -69,7 +69,7 @@
     "gulp": "^3.9.1",
     "gulp-conventional-changelog": "^1.1.0",
     "gulp-gh-pages": "^0.5.4",
-    "gulp-if": "^2.0.1",
+    "gulp-if": "^2.0.2",
     "gulp-mocha": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7",
