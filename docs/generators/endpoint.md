@@ -8,7 +8,7 @@ Usage:
 
 Options:
   -h,   --help               # Print the generator's options and usage
-        --skip-cache         # Do not remember prompt answers           Default: false
+        --skip-cache         # Do not remember prompt answers             Default: false
         --route              # URL for the endpoint
         --models             # Specify which model(s) to use            Options: mongoose, sequelize
         --endpointDirectory  # Parent directory for enpoints

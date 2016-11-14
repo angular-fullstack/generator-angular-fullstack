@@ -7,7 +7,7 @@
 import express from 'express';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
-import compression from 'compression';
+import shrinkRay from 'shrink-ray';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
@@ -15,9 +15,9 @@ import errorHandler from 'errorhandler';
 import path from 'path';
 <%_ if(!filters.noModels) { -%>
 import lusca from 'lusca';<% } %>
-import config from './environment';<% if (filters.auth) { %>
+import config from './environment';<% if(filters.auth) { %>
 import passport from 'passport';<% } %><% if(!filters.noModels) { %>
-import session from 'express-session';<% } %><% if (filters.mongoose) { %>
+import session from 'express-session';<% } %><% if(filters.mongoose) { %>
 <%_ if(semver.satisfies(nodeVersion, '>= 4')) { _%>
 import connectMongo from 'connect-mongo';<% } else { _%>
 import connectMongo from 'connect-mongo/es5';<% } %>
@@ -26,18 +26,15 @@ var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';
 import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);<% } %>
-import stripAnsi from 'strip-ansi'; 
- 
-var browserSync = require('browser-sync').create(); 
 
 export default function(app) {
   var env = app.get('env');
 
-  if (env === 'development' || env === 'test') {
+  if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
   }
 
-  if (env === 'production') {
+  if(env === 'production') {
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
   }
 
@@ -45,15 +42,15 @@ export default function(app) {
   app.use(express.static(app.get('appPath')));
   app.use(morgan('dev'));
 
-  app.set('views', config.root + '/server/views');<% if (filters.html) { %>
+  app.set('views', `${config.root}/server/views`);<% if(filters.html) { %>
   app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'html');<% } %><% if (filters.jade) { %>
-  app.set('view engine', 'jade');<% } %>
-  app.use(compression());
+  app.set('view engine', 'html');<% } %><% if(filters.pug) { %>
+  app.set('view engine', 'pug');<% } %>
+  app.use(shrinkRay());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
-  app.use(cookieParser());<% if (filters.auth) { %>
+  app.use(cookieParser());<% if(filters.auth) { %>
   app.use(passport.initialize());<% } %>
 
   <% if(!filters.noModels) { %>
@@ -63,7 +60,7 @@ export default function(app) {
   app.use(session({
     secret: config.secrets.session,
     saveUninitialized: true,
-    resave: false<% if (filters.mongoose) { %>,
+    resave: false<% if(filters.mongoose) { %>,
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
       db: '<%= lodash.slugify(lodash.humanize(appname)) %>'
@@ -75,7 +72,7 @@ export default function(app) {
    * Lusca - express server security
    * https://github.com/krakenjs/lusca
    */
-  if (env !== 'test' && !process.env.SAUCE_USERNAME) {
+  if(env !== 'test' && !process.env.SAUCE_USERNAME) {
     app.use(lusca({
       csrf: {
         angular: true
@@ -90,12 +87,14 @@ export default function(app) {
     }));
   }<% } %>
 
-  if ('development' === env) {
+  if(env === 'development') {
     const webpackDevMiddleware = require('webpack-dev-middleware');
+    const stripAnsi = require('strip-ansi'); 
     const webpack = require('webpack');
     const makeWebpackConfig = require('../../webpack.make');
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
+    const browserSync = require('browser-sync').create(); 
 
     /**
      * Run Browsersync and use middleware for Hot Module Replacement
@@ -103,7 +102,7 @@ export default function(app) {
     browserSync.init({
       open: false,
       logFileChanges: false,
-      proxy: 'localhost:' + config.port,
+      proxy: `localhost:${config.port}`,
       ws: true,
       middleware: [
         webpackDevMiddleware(compiler, {
@@ -125,10 +124,10 @@ export default function(app) {
      */
     compiler.plugin('done', function (stats) {
       console.log('webpack done hook');
-        if (stats.hasErrors() || stats.hasWarnings()) {
+        if(stats.hasErrors() || stats.hasWarnings()) {
             return browserSync.sockets.emit('fullscreen:message', {
                 title: "Webpack Error:",
-                body:  stripAnsi(stats.toString()),
+                body: stripAnsi(stats.toString()),
                 timeout: 100000
             });
         }
@@ -136,7 +135,7 @@ export default function(app) {
     });
   }
 
-  if ('development' === env || 'test' === env) {
+  if(env === 'development' || env === 'test') {
     app.use(errorHandler()); // Error handler - has to be last
   }
 }
