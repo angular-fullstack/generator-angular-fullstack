@@ -35,7 +35,7 @@
     "babel-runtime": "^6.6.1",
     "babel-polyfill": "^6.7.2",<% if(filters.pug) { %>
     "pug": "2.0.0-beta4",<% } %><% if(filters.html) { %>
-    "ejs": "^2.3.3",<% } %><% if(filters.mongoose) { %>
+    "ejs": "^2.5.3",<% } %><% if(filters.mongoose) { %>
     "mongoose": "^4.1.2",
     "bluebird": "^3.3.3",
     "connect-mongo": "^1.2.1",<% } %><% if(filters.sequelize) { %>
