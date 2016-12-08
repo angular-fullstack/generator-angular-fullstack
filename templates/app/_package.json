@@ -4,16 +4,16 @@
   "main": "server/index.js",
   "dependencies": {
     <%# CLIENT %>
-    "angular": "~1.5.5",<% if(filters.bootstrap) { if(filters.sass) { %>
+    "angular": "~1.6.0",<% if(filters.bootstrap) { if(filters.sass) { %>
     "bootstrap-sass": "~3.3.7",<% } %>
     "bootstrap": "~3.3.7",<% if(filters.oauth) { %>
     "bootstrap-social": "^5.0.0",<% }} %>
-    "angular-animate": "~1.5.5",
-    "angular-aria": "~1.5.5",
-    "angular-resource": "~1.5.5",
-    "angular-cookies": "~1.5.5",
-    "angular-sanitize": "~1.5.5",<% if(filters.ngroute) { %>
-    "angular-route": "~1.5.5",<% } if(filters.uibootstrap) { %>
+    "angular-animate": "~1.6.0",
+    "angular-aria": "~1.6.0",
+    "angular-resource": "~1.6.0",
+    "angular-cookies": "~1.6.0",
+    "angular-sanitize": "~1.6.0",<% if(filters.ngroute) { %>
+    "angular-route": "~1.6.0",<% } if(filters.uibootstrap) { %>
     "angular-ui-bootstrap": "^2.0.1",<% } %>
     "font-awesome": ">=4.1.0",<% if(filters.socketio) { %>
     "angular-socket-io": "~0.7.0",<% } if(filters.uirouter) { %>
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     <%# CLIENT %>
-    "angular-mocks": "~1.5.5",<% if(filters.stylus) { %>
+    "angular-mocks": "~1.6.0",<% if(filters.stylus) { %>
     <%_ if(filters.bootstrap) { -%>
     "bootstrap-styl": "^5.0.5",<% } %>
     "font-awesome-stylus": "^4.6.2",<% } %>
