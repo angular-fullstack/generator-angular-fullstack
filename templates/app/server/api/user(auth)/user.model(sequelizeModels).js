@@ -33,7 +33,9 @@ export default function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: true
+        notEmpty: true,
+        min: 8,
+        max: 128,
       }
     },
     provider: DataTypes.STRING,
