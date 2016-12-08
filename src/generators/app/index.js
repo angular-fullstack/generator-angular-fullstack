@@ -14,6 +14,8 @@ import beaufityStream from 'gulp-beautify';
 import tap from 'gulp-tap';
 import filter from 'gulp-filter';
 import eslint from 'gulp-eslint';
+import html2jade from 'gulp-html2jade';
+import rename from 'gulp-rename';
 import semver from 'semver';
 
 export class Generator extends Base {
@@ -543,6 +545,24 @@ export class Generator extends Base {
           ]);
         }
 
+        // Convert HTML into Pug
+        if(this.filters.pug) {
+          let pugFilter = filter(['**/*.html'], {restore: true});
+          this.registerTransformStream([
+            pugFilter,
+            html2jade({
+              nspaces: 2,
+              noemptypipe: true,
+              bodyless: true,
+            }),
+            rename(path => {
+              path.extname = '.pug';
+            }),
+            pugFilter.restore
+          ]);
+        }
+
+        // ESLint fix server files
         let serverJsFilter = filter(['server/**/*.js'], {restore: true});
         this.registerTransformStream([
           serverJsFilter,
