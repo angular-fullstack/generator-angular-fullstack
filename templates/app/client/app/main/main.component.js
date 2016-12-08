@@ -1,40 +1,48 @@
-import angular from 'angular';
-<%_ if(filters.ngroute) { _%>
-const ngRoute = require('angular-route');<% } _%>
-<%_ if(filters.uirouter) { _%>
-import uiRouter from 'angular-ui-router';<% } _%>
+import { Component, OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> } from '@angular/core';
+import { Http } from '@angular/http';
+import { SocketService } from '../../components/socket/socket.service';
 
-import routing from './main.routes';
-
-export class MainController {
-  $http;
+export let MainComponent = @Component({
+    selector: 'main',
+    template: require('./main.<%=templateExt%>'),
+    styles: [require('./main.<%=styleExt%>')],
+})
+class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> {
+  Http;
   <%_ if(filters.socketio) { -%>
-  socket;<% } %>
+  SocketService;<% } %>
   awesomeThings = [];
   <%_ if(filters.models) { -%>
   newThing = '';<% } %>
 
-  /*@ngInject*/
-  constructor($http<% if(filters.socketio) { %>, $scope, socket<% } %>) {
-    this.$http = $http;
+  static parameters = [Http, SocketService];
+  constructor(_Http_: Http<% if(filters.socketio) { %>, _SocketService_: SocketService<% } %>) {
+    this.Http = _Http_;
     <%_ if(filters.socketio) { -%>
-    this.socket = socket;
-
-    $scope.$on('$destroy', function() {
-      socket.unsyncUpdates('thing');
-    });<% } %>
+    this.SocketService = _SocketService_;<% } %>
   }
 
-  $onInit() {
-    this.$http.get('/api/things').then(response => {
-      this.awesomeThings = response.data;<% if (filters.socketio) { %>
-      this.socket.syncUpdates('thing', this.awesomeThings);<% } %>
-    });
+  ngOnInit() {
+    this.Http.get('/api/things')
+      .map(res => {
+        return res.json();
+        <%_ if(filters.socketio) { -%>
+        // this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
+      })
+      .catch(err => Observable.throw(err.json().error || 'Server error'))
+      .subscribe(things => {
+        this.awesomeThings = things;
+      });
   }<% if (filters.models) { %>
+  <%_ if(filters.socketio) { %>
+
+  ngOnDestroy() {
+    this.SocketService.unsyncUpdates('thing');
+  }<% } %>
 
   addThing() {
-    if (this.newThing) {
-      this.$http.post('/api/things', { name: this.newThing });
+    if(this.newThing) {
+      this.Http.post('/api/things', { name: this.newThing });
       this.newThing = '';
     }
   }
@@ -43,16 +51,3 @@ export class MainController {
     this.$http.delete('/api/things/' + thing._id);
   }<% } %>
 }
-
-export default angular.module('<%= scriptAppName %>.main', [
-  <%_ if(filters.ngroute) { _%>
-  ngRoute<% } _%>
-  <%_ if(filters.uirouter) { _%>
-  uiRouter<% } _%>
-])
-    .config(routing)
-    .component('main', {
-      template: require('./main.<%= templateExt %>'),
-      controller: MainController
-    })
-    .name;

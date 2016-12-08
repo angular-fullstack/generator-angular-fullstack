@@ -52,6 +52,10 @@
   }
 }<% } %>
 
+[hidden] {
+  display: none !important;
+}
+
 /* Component styles are injected through gulp */
 /* inject:css */
 @import 'admin/admin.css';

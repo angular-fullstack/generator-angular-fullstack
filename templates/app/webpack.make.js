@@ -41,20 +41,6 @@ module.exports = function makeWebpackConfig(options) {
             app: './client/app/app.<%= scriptExt %>',
             polyfills: './client/polyfills.<%= scriptExt %>',
             vendor: [
-                'angular',
-                'angular-animate',
-                'angular-aria',
-                'angular-cookies',
-                'angular-resource',
-                <%_ if(filters.ngroute) { _%>
-                'angular-route',<% } %>
-                'angular-sanitize',
-                <%_ if(filters.socketio) { _%>
-                'angular-socket-io',<% } %>
-                <%_ if(filters.uibootstrap) { -%>
-                'angular-ui-bootstrap',<% } %>
-                <%_ if(filters.uirouter) { _%>
-                'angular-ui-router',<% } %>
                 'lodash'
             ]
         };
@@ -220,10 +206,10 @@ module.exports = function makeWebpackConfig(options) {
             // SASS LOADER
             // Reference: https://github.com/jtangelder/sass-loader
             test: /\.(scss|sass)$/,
-            loaders: ['style', 'css', 'sass'],
+            loaders: ['raw', 'sass'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
-                path.resolve(__dirname, 'client/app/app.scss')
+                path.resolve(__dirname, 'client')
             ]<% } %>
             <%_ if(filters.less) { _%>
             // LESS LOADER
@@ -245,11 +231,6 @@ module.exports = function makeWebpackConfig(options) {
             ]<% } %>
         }<% } %>]
     };
-
-    config.module.postLoaders = [{
-        test: /\.<%= scriptExt %>$/,
-        loader: 'ng-annotate?single_quotes'
-    }];
 
     <%_ if(filters.babel) { _%>
     // ISPARTA INSTRUMENTER LOADER
@@ -372,7 +353,9 @@ module.exports = function makeWebpackConfig(options) {
                 'process.env': {
                     NODE_ENV: '"development"'
                 }
-            })
+            }),
+
+            new webpack.HotModuleReplacementPlugin()
         );
     }
 

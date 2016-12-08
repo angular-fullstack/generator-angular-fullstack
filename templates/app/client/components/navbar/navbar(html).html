@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-static-top">
   <div class="container">
     <div class="navbar-header">
-      <button class="navbar-toggle" type="button" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed">
+      <button class="navbar-toggle" type="button" (click)="isCollapsed = !isCollapsed">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -9,20 +9,24 @@
       </button>
       <a href="/" class="navbar-brand"><%= lodash.slugify(lodash.humanize(appname)) %></a>
     </div>
-    <div uib-collapse="$ctrl.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+    <div [collapse]="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in $ctrl.menu" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: $ctrl.isActive(item.link)}"<% } %>>
-            <a <% if (filters.uirouter) { %>ui-sref="{{item.state}}"<% } else { %>ng-href="{{item.link}}"<% } %>>{{item.title}}</a>
-        </li><% if (filters.auth) { %>
-        <li ng-show="$ctrl.isAdmin()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: $ctrl.isActive('/admin')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="admin"<% } else { %>href="/admin"<% } %>>Admin</a></li><% } %>
-      </ul><% if (filters.auth) { %>
+        <li *ngFor="let item of menu" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive(item.link)}"<% } %>>
+            <a <% if(filters.uirouter) { %>uiSref="{{item.state}}"<% } else { %>ng-href="{{item.link}}"<% } %>>{{item.title}}</a>
+        </li>
+        <%_ if(filters.auth) { -%>
+        <li [hidden]="!isAdmin" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/admin')}"<% } %>>
+          <a <% if(filters.uirouter) { %>uiSref="admin"<% } else { %>href="/admin"<% } %>>Admin</a>
+        </li><% } %>
+      </ul>
+      <%_ if(filters.auth) { -%>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="$ctrl.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: $ctrl.isActive('/signup')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="signup"<% } else { %>href="/signup"<% } %>>Sign up</a></li>
-        <li ng-hide="$ctrl.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: $ctrl.isActive('/login')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="login"<% } else { %>href="/login"<% } %>>Login</a></li>
-        <li ng-show="$ctrl.isLoggedIn()"><p class="navbar-text">Hello {{ $ctrl.getCurrentUser().name }}</p> </li>
-        <li ng-show="$ctrl.isLoggedIn()" <% if (filters.uirouter) { %>ui-sref-active="active"<% } else { %>ng-class="{active: $ctrl.isActive('/settings')}"<% } %>><a <% if (filters.uirouter) { %>ui-sref="settings"<% } else { %>href="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="$ctrl.isLoggedIn()"><a <% if (filters.uirouter) { %>ui-sref="logout"<% } else { %>href="/logout"<% } %>>Logout</a></li>
+        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/signup')}"<% } %>><a <% if(filters.uirouter) { %>uiSref="signup"<% } else { %>href="/signup"<% } %>>Sign up</a></li>
+        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/login')}"<% } %>><a <% if(filters.uirouter) { %>uiSref="login"<% } else { %>href="/login"<% } %>>Login</a></li>
+        <li [hidden]="!isLoggedIn"><p class="navbar-text">Hello {{ currentUser.name }}</p> </li>
+        <li [hidden]="!isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/settings')}"<% } %>><a <% if(filters.uirouter) { %>uiSref="settings"<% } else { %>href="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li [hidden]="!isLoggedIn"><a (click)="logout()">Logout</a></li>
       </ul><% } %>
     </div>
   </div>

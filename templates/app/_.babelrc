@@ -1,9 +1,16 @@
 {
-    "presets": ["es2015"],
+    "presets": [
+      "es2015",
+      "es2016",
+      "es2017",
+      "stage-0"
+    ],
     "plugins": [
       <%_ if(filters.flow) { -%>
       "transform-flow-comments",
       <%_ } -%>
-      "transform-class-properties"
+      "angular2-annotations",
+      "transform-runtime",
+      "transform-decorators-legacy"
     ]
 }

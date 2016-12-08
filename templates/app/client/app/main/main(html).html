@@ -10,8 +10,11 @@
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in $ctrl.awesomeThings">
-        <li><a href="#" uib-tooltip="{{thing.info}}">{{thing.name}}<% if (filters.socketio) { %><button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button><% } %></a></li>
+      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" *ngFor="let thing of awesomeThings">
+        <li><a href="#"<% if(filters.uibootstrap) { %> [tooltip]="thing.info"<% } %>>
+          {{thing.name}}<% if(filters.models) { %>
+          <button type="button" class="close" (click)="deleteThing(thing)">&times;</button><% } %>
+        </a></li>
       </ul>
     </div>
   </div><% if (filters.socketio) { %>
@@ -19,9 +22,9 @@
   <form class="thing-form">
     <label>Syncs in realtime across clients</label>
     <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="$ctrl.newThing">
+      <input type="text" class="form-control" placeholder="Add a new thing here." [(ngModel)]="newThing" name="thing">
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="$ctrl.addThing()">Add New</button>
+        <button type="submit" class="btn btn-primary" (click)="addThing()">Add New</button>
       </span>
     </p>
   </form><% } %>

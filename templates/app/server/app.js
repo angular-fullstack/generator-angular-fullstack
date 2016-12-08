@@ -27,8 +27,7 @@ if(config.seedDB) {
 var app = express();
 var server = http.createServer(app);<% if (filters.socketio) { %>
 var socketio = require('socket.io')(server, {
-  serveClient: config.env !== 'production',
-  path: '/socket.io-client'
+  serveClient: false
 });
 require('./config/socketio').default(socketio);<% } %>
 require('./config/express').default(app);

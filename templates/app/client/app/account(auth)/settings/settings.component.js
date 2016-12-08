@@ -1,4 +1,6 @@
-'use strict';
+import { Component } from '@angular/core';
+import { AuthService } from '../../../components/auth/auth.service';
+
 // @flow
 <%_ if(filters.flow) { -%>
 type User = {
@@ -15,7 +17,11 @@ interface User {
 }
 <%_ } -%>
 
-export default class SettingsController {
+export let SettingsComponent = @Component({
+  selector: 'settings',
+  template: require('./settings.<%=templateExt%>'),
+})
+class SettingsComponent {
   user: User = {
     oldPassword: '',
     newPassword: '',
@@ -24,11 +30,11 @@ export default class SettingsController {
   errors = {other: undefined};
   message = '';
   submitted = false;
-  Auth;
+  AuthService;
 
-  /*@ngInject*/
-  constructor(Auth) {
-    this.Auth = Auth;
+  static parameters = [AuthService];
+  constructor(_AuthService_: AuthService) {
+    this.AuthService = _AuthService_;
   }
 
   changePassword(form) {

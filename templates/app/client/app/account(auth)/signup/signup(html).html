@@ -4,75 +4,77 @@
       <h1>Sign up</h1>
     </div>
     <div class="col-sm-12">
-      <form class="form" name="form" ng-submit="vm.register(form)" novalidate>
+      <form class="form" name="form" (ngSubmit)="register(form)" novalidate #signupForm="ngForm">
 
-        <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
-                                            'has-error': form.name.$invalid && vm.submitted }">
+        <div class="form-group"
+          [class.has-success]="name.valid && submitted"
+          [class.has-error]="!name.valid && submitted">
           <label>Name</label>
 
-          <input type="text" name="name" class="form-control" ng-model="vm.user.name"
-                 required/>
-          <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
+          <input type="text" name="name" class="form-control" [(ngModel)]="user.name" required #name="ngModel">
+          <p class="help-block" [hidden]="name.valid || (name.pristine && !signupForm.submitted)">
             A name is required
           </p>
         </div>
 
-        <div class="form-group" ng-class="{ 'has-success': form.email.$valid && vm.submitted,
-                                            'has-error': form.email.$invalid && vm.submitted }">
+        <div class="form-group"
+          [class.has-success]="email.valid && signupForm.submitted"
+          [class.has-error]="!email.valid && signupForm.submitted">
           <label>Email</label>
 
-          <input type="email" name="email" class="form-control" ng-model="vm.user.email"
-                 required
-                 mongoose-error/>
-          <p class="help-block" ng-show="form.email.$error.email && vm.submitted">
-            Doesn't look like a valid email.
+          <input type="email" name="email" class="form-control" [(ngModel)]="user.email"
+            required
+            mongoose-error
+            #email="ngModel">
+          <p class="help-block" [hidden]="email.valid || (email.pristine && !signupForm.submitted)">
+            Please enter a valid email address.
           </p>
-          <p class="help-block" ng-show="form.email.$error.required && vm.submitted">
-            What's your email address?
-          </p>
-          <p class="help-block" ng-show="form.email.$error.mongoose">
-            {{ vm.errors.email }}
+          <p class="help-block" [hidden]="!errors.email">
+            {{ errors.email }}
           </p>
         </div>
 
-        <div class="form-group" ng-class="{ 'has-success': form.password.$valid && vm.submitted,
-                                            'has-error': form.password.$invalid && vm.submitted }">
+        <div class="form-group"
+          [class.has-success]="password.valid || (password.pristine && !signupForm.submitted)"
+          [class.has-error]="!password.valid || (password.pristine && !signupForm.submitted)">
           <label>Password</label>
 
-          <input type="password" name="password" class="form-control" ng-model="vm.user.password"
-                 ng-minlength="3"
-                 required
-                 mongoose-error/>
-          <p class="help-block"
-             ng-show="(form.password.$error.minlength || form.password.$error.required) && vm.submitted">
-            Password must be at least 3 characters.
+          <input type="password" name="password" class="form-control" [(ngModel)]="user.password"
+            minlength="8"
+            maxlength="128"
+            required
+            mongoose-error
+            #password="ngModel"/>
+          <p class="help-block" [hidden]="password.valid || (password.pristine && !signupForm.submitted)">
+            Password must be between 8 and 128 characters.
           </p>
-          <p class="help-block" ng-show="form.password.$error.mongoose">
-            {{ vm.errors.password }}
+          <p class="help-block" [hidden]="errors.password">
+            {{ errors.password }}
           </p>
         </div>
 
-        <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && vm.submitted,
-                                            'has-error': form.confirmPassword.$invalid && vm.submitted }">
+        <div class="form-group"
+          [class.has-success]="confirmPassword.valid || (confirmPassword.pristine && !signupForm.submitted)"
+          [class.has-error]="!confirmPassword.valid || (confirmPassword.pristine && !signupForm.submitted)">
           <label>Confirm Password</label>
-          <input type="password" name="confirmPassword" class="form-control" ng-model="vm.user.confirmPassword"
-                 match="vm.user.password"
-                 ng-minlength="3" required/>
-          <p class="help-block"
-             ng-show="form.confirmPassword.$error.match && vm.submitted">
-            Passwords must match.
+          <input type="password" name="confirmPassword" class="form-control" [(ngModel)]="user.confirmPassword"
+            ac-match-control="password"
+            required
+            #confirmPassword="ngModel">
+          <p class="help-block" [hidden]="confirmPassword.valid || (confirmPassword.pristine && !signupForm.submitted)">
+            Please confirm your password. Passwords must match.
           </p>
         </div>
 
         <div>
-          <button class="btn btn-inverse btn-lg btn-register" type="submit">
+          <button class="btn btn-inverse btn-lg btn-register" type="submit" [disabled]="!signupForm.form.valid">
             Sign up
           </button>
-          <a class="btn btn-default btn-lg btn-login" <% if (filters.uirouter) { %>ui-sref="login"<% } else { %>href="/login"<% } %>>
+          <a class="btn btn-default btn-lg btn-login" <% if(filters.uirouter) { %>uiSref="login"<% } else { %>href="/login"<% } %>>
             Login
           </a>
         </div>
-<% if (filters.oauth) { %>
+<% if(filters.oauth) { %>
         <hr/>
         <div class="row">
           <div class="col-sm-4 col-md-3">

@@ -11,6 +11,7 @@ import shrinkRay from 'shrink-ray';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import errorHandler from 'errorhandler';
 import path from 'path';
 <%_ if(!filters.noModels) { -%>
@@ -72,11 +73,9 @@ export default function(app) {
    * Lusca - express server security
    * https://github.com/krakenjs/lusca
    */
-  if(env !== 'test' && !process.env.SAUCE_USERNAME) {
+  if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) {
     app.use(lusca({
-      csrf: {
-        angular: true
-      },
+      csrf: true,
       xframe: 'SAMEORIGIN',
       hsts: {
         maxAge: 31536000, //1 year, in seconds
@@ -94,7 +93,17 @@ export default function(app) {
     const makeWebpackConfig = require('../../webpack.make');
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
-    const browserSync = require('browser-sync').create(); 
+    const browserSync = require('browser-sync').create();
+
+    app.use(cors({
+      origin: true,
+      credentials: true,
+    }));
+
+    app.use(function(req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', `http://localhost:${config.browserSyncPort}`);
+      next();
+    });
 
     /**
      * Run Browsersync and use middleware for Hot Module Replacement
@@ -122,16 +131,16 @@ export default function(app) {
      * Reload all devices when bundle is complete
      * or send a fullscreen error message to the browser instead
      */
-    compiler.plugin('done', function (stats) {
+    compiler.plugin('done', function(stats) {
       console.log('webpack done hook');
-        if(stats.hasErrors() || stats.hasWarnings()) {
-            return browserSync.sockets.emit('fullscreen:message', {
-                title: "Webpack Error:",
-                body: stripAnsi(stats.toString()),
-                timeout: 100000
-            });
-        }
-        browserSync.reload();
+      if(stats.hasErrors() || stats.hasWarnings()) {
+        return browserSync.sockets.emit('fullscreen:message', {
+          title: "Webpack Error:",
+          body: stripAnsi(stats.toString()),
+          timeout: 100000
+        });
+      }
+      browserSync.reload();
     });
   }
 
