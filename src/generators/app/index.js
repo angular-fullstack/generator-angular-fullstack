@@ -5,10 +5,10 @@ import path from 'path';
 import Promise from 'bluebird';
 import { runCmd } from '../util';
 import chalk from 'chalk';
-import {Base} from 'yeoman-generator';
-import {genBase} from '../generator-base';
+import { Base } from 'yeoman-generator';
+import { genBase } from '../generator-base';
 import insight from '../insight-init';
-import {exec} from 'child_process';
+import { exec } from 'child_process';
 import babelStream from 'gulp-babel';
 import beaufityStream from 'gulp-beautify';
 import tap from 'gulp-tap';
@@ -479,7 +479,9 @@ export class Generator extends Base {
 
         let babelPlugins = [
           'babel-plugin-syntax-flow',
-          'babel-plugin-syntax-class-properties'
+          'babel-plugin-syntax-class-properties',
+          'babel-plugin-syntax-decorators',
+          'babel-plugin-syntax-export-extensions',
         ];
 
         if(this.filters.babel && !flow) {
@@ -505,27 +507,6 @@ export class Generator extends Base {
             },
             babelrc: false  // don't grab the generator's `.babelrc`
           }),
-          beaufityStream({
-            "indent_size": 2,
-            "indent_char": " ",
-            "indent_level": 0,
-            "indent_with_tabs": false,
-            "preserve_newlines": true,
-            "max_preserve_newlines": 10,
-            "jslint_happy": false,
-            "space_after_anon_function": false,
-            "brace_style": "collapse",
-            "keep_array_indentation": false,
-            "keep_function_indentation": false,
-            "space_before_conditional": true,
-            "break_chained_methods": true,
-            "eval_code": false,
-            "unescape_strings": false,
-            "wrap_line_length": 100,
-            "wrap_attributes": "auto",
-            "wrap_attributes_indent_size": 4,
-            "end_with_newline": true
-          }),
           eslint({
             fix: true, 
             configFile: path.join(genDir, 'templates/app/client/.eslintrc(babel)')
@@ -538,14 +519,6 @@ export class Generator extends Base {
          */
         if(this.filters.ts) {
           const modulesToFix = [
-            ['angular', 'angular'],
-            ['ngCookies', 'angular-cookies'],
-            ['ngResource', 'angular-resource'],
-            ['ngSanitize', 'angular-sanitize'],
-            ['uiRouter', 'angular-ui-router'],
-            ['ngRoute', 'angular-route'],
-            ['uiBootstrap', 'angular-ui-bootstrap'],
-            ['ngMessages', 'angular-messages'],
             ['io', 'socket.io-client']
           ];
           function replacer(contents) {
@@ -580,7 +553,6 @@ export class Generator extends Base {
           serverJsFilter.restore
         ]);
 
-        let self = this;
         this.sourceRoot(path.join(__dirname, '../../templates/app'));
         this.processDirectory('.', '.');
       },

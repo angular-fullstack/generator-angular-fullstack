@@ -1,10 +1,8 @@
-import angular from 'angular';
+import { Component } from '@angular/core';
 
-export class FooterComponent {}
-
-export default angular.module('directives.footer', [])
-  .component('footer', {
-    template: require('./footer.<%= templateExt %>'),
-    controller: FooterComponent
-  })
-  .name;
+export let FooterComponent = @Component({
+    selector: 'footer',
+    template: require('./footer.html'),
+    styles: [require('./footer.scss')]
+})
+class FooterComponent {}

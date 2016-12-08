@@ -1,12 +1,12 @@
-<% if(filters.facebookAuth) { %><a ng-class="classes" ng-click="OauthButtons.loginOauth('facebook')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-facebook">
+<% if(filters.facebookAuth) { %><a class="btn-block" (click)="loginOauth('facebook')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-facebook">
   <i class="fa fa-facebook"></i>
   Connect with Facebook
 </a>
-<% } if (filters.googleAuth) { %><a ng-class="classes" ng-click="OauthButtons.loginOauth('google')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-google">
+<% } if (filters.googleAuth) { %><a class="btn-block" (click)="loginOauth('google')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-google">
   <i class="fa fa-google-plus"></i>
   Connect with Google+
 </a>
-<% } if (filters.twitterAuth) { %><a ng-class="classes" ng-click="OauthButtons.loginOauth('twitter')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-twitter">
+<% } if (filters.twitterAuth) { %><a class="btn-block" (click)="loginOauth('twitter')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-twitter">
   <i class="fa fa-twitter"></i>
   Connect with Twitter
 </a><% } %>

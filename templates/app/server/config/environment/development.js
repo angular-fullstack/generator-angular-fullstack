@@ -4,7 +4,6 @@
 // Development specific configuration
 // ==================================
 module.exports = {<% if (filters.mongoose) { %>
-
   // MongoDB connection options
   mongo: {
     uri: 'mongodb://localhost/<%= lodash.slugify(appname) %>-dev'
@@ -24,5 +23,4 @@ module.exports = {<% if (filters.mongoose) { %>
 
   // Seed database on startup
   seedDB: true
-
 };

@@ -140,7 +140,7 @@
         "brace-style": 2,                                           //enforce one true brace style
         "camelcase": 1,                                             //require camel case names
         "comma-spacing": [2, {"before": false, "after": true}],     //enforce spacing before and after comma
-        "comma-style": 2,                                           //enforce one true comma style
+        "comma-style": ["error", "last"],                           //enforce one true comma style
         "computed-property-spacing": 2,                             //require or disallow padding inside computed properties
         "consistent-this": 2,                                       //enforce consistent naming when capturing the current execution context
         "eol-last": 2,                                              //enforce newline at the end of file, with no multiple empty lines
@@ -170,7 +170,7 @@
         "max-nested-callbacks": 2,                                  //specify the maximum depth callbacks can be nested
         "max-params": 0,                                            //limits the number of parameters that can be used in the function declaration.
         "max-statements": 0,                                        //specify the maximum number of statement allowed in a function
-        "max-statements-per-line": 0,                               //enforce a maximum number of statements allowed per line
+        "max-statements-per-line": ["error", { "max": 1 }],         //enforce a maximum number of statements allowed per line
         "new-cap": 0,                                               //require a capital letter for constructors
         "new-parens": 2,                                            //disallow the omission of parentheses when invoking a constructor with no arguments
         "newline-after-var": 0,                                     //require or disallow an empty newline after variable declarations
