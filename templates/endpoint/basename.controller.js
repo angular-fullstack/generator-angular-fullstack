@@ -101,7 +101,7 @@ export function upsert(req, res) {
     delete req.body._id;
   }
   <%_ if(filters.mongooseModels) { -%>
-  return <%= classedName %>.findOneAndUpdate(req.params.id, req.body, {upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()<% } %>
+  return <%= classedName %>.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()<% } %>
   <%_ if(filters.sequelizeModels) { -%>
   return <%= classedName %>.upsert(req.body, {
     where: {

@@ -1,8 +1,10 @@
 'use strict';
-
+import * as _ from 'lodash';
+import angular from 'angular';
 import io from 'socket.io-client';
 
 function Socket(socketFactory) {
+    'ngInject';
     // socket.io now auto-configures its connection when we ommit a connection url
     var ioSocket = io('', {
       // Send auth token on connection, you will need to DI the Auth service above

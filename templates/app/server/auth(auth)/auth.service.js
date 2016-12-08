@@ -1,6 +1,4 @@
 'use strict';
-
-import passport from 'passport';
 import config from '../config/environment';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
@@ -60,11 +58,10 @@ export function hasRole(roleRequired) {
   return compose()
     .use(isAuthenticated())
     .use(function meetsRequirements(req, res, next) {
-      if (config.userRoles.indexOf(req.user.role) >=
-          config.userRoles.indexOf(roleRequired)) {
-        next();
+      if (config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
+        return next();
       } else {
-        res.status(403).send('Forbidden');
+        return res.status(403).send('Forbidden');
       }
     });
 }
