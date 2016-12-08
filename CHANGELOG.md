@@ -1,3 +1,18 @@
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.0...v4.1.1) (2016-12-08)
+
+
+## Notable Changes
+
+* Upgraded to Angular 1.6
+
+
+### Bug Fixes
+
+* **gen:factory:** fix factory subgen location ([b09cfe5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b09cfe5)), closes [#2381](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2381)
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.5...v4.1.0) (2016-09-30)
 
