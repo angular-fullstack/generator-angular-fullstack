@@ -43,25 +43,35 @@ var all = {
         safe: true
       }
     }
-  }<% if(filters.facebookAuth) { %>,
+  },
+  <%_ if(filters.facebookAuth) { -%>
 
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'id',
     clientSecret: process.env.FACEBOOK_SECRET || 'secret',
     callbackURL: `${process.env.DOMAIN || ''}/auth/facebook/callback`
-  }<% } %><% if(filters.twitterAuth) { %>,
+  },<% } %>
+  <%_ if(filters.twitterAuth) { -%>
 
   twitter: {
-    clientID: process.env.TWITTER_ID || 'id',
+    clientID: process.env.TWITTER_ID || 'id'
     clientSecret: process.env.TWITTER_SECRET || 'secret',
     callbackURL: `${process.env.DOMAIN || ''}/auth/twitter/callback`
-  }<% } %><% if(filters.googleAuth) { %>,
+  },<% } %>
+  <%_ if(filters.githubAuth) { -%>
+
+  github: {
+    clientID: process.env.GITHUB_ID || 'id',
+    clientSecret: process.env.GITHUB_SECRET || 'secret',
+    callbackURL: `${process.env.DOMAIN || ''}/auth/github/callback`
+  },<% } %>
+  <%_ if(filters.googleAuth) { -%>
 
   google: {
     clientID: process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
     callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
-  }<% } %>
+  },<% } %>
 };
 
 // Export the config object based on the NODE_ENV

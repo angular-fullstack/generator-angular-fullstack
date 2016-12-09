@@ -51,6 +51,9 @@ describe('Login View', function() {
     <%= expect() %>page.form.oauthButtons.google.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } if (filters.twitterAuth) { %>
     <%= expect() %>page.form.oauthButtons.twitter.getText()<%= to() %>.eventually.equal('Connect with Twitter');
     <%= expect() %>page.form.oauthButtons.twitter.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } %>
+    <%_ if (filters.githubAuth) { -%>
+    <%= expect() %>page.form.oauthButtons.github.getText()<%= to() %>.eventually.equal('Connect with GitHub');
+    <%= expect() %>page.form.oauthButtons.github.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } %>
   });<% } %>
 
   describe('with local auth', function() {

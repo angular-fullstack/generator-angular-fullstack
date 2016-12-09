@@ -1,7 +1,7 @@
 'use strict';
 
-var config = browser.params;<% if (filters.mongooseModels) { %>
-var UserModel = require(config.serverConfig.root + '/server/api/user/user.model').default;<% } %><% if (filters.sequelizeModels) { %>
+var config = browser.params;<% if(filters.mongooseModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model').default;<% } %><% if(filters.sequelizeModels) { %>
 var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
 
 describe('Signup View', function() {
@@ -38,22 +38,25 @@ describe('Signup View', function() {
     expect(page.form.confirmPassword.getAttribute('name')).toBe('confirmPassword');
     expect(page.form.submit.getAttribute('type')).toBe('submit');
     expect(page.form.submit.getText()).toBe('Sign up');
-  });<% if (filters.oauth) { %>
+  });<% if(filters.oauth) { %>
 
-  it('should include oauth buttons with correct classes applied', function() {<% if (filters.facebookAuth) { %>
+  it('should include oauth buttons with correct classes applied', function() {<% if(filters.facebookAuth) { %>
     expect(page.form.oauthButtons.facebook.getText()).toBe('Connect with Facebook');
-    expect(page.form.oauthButtons.facebook.getAttribute('class')).toMatch('btn-block');<% } if (filters.googleAuth) { %>
+    expect(page.form.oauthButtons.facebook.getAttribute('class')).toMatch('btn-block');<% } if(filters.googleAuth) { %>
     expect(page.form.oauthButtons.google.getText()).toBe('Connect with Google+');
-    expect(page.form.oauthButtons.google.getAttribute('class')).toMatch('btn-block');<% } if (filters.twitterAuth) { %>
+    expect(page.form.oauthButtons.google.getAttribute('class')).toMatch('btn-block');<% } if(filters.twitterAuth) { %>
     expect(page.form.oauthButtons.twitter.getText()).toBe('Connect with Twitter');
     expect(page.form.oauthButtons.twitter.getAttribute('class')).toMatch('btn-block');<% } %>
+    <%_ if(filters.githubAuth) { -%>
+    expect(page.form.oauthButtons.github.getText()).toBe('Connect with GitHub');
+    expect(page.form.oauthButtons.github.getAttribute('class')).toMatch('btn-block');<% } %>
   });<% } %>
 
   describe('with local auth', function() {
 
     beforeAll(function(done) {
-      <% if (filters.mongooseModels) { %>UserModel.remove().then(done);<% }
-         if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(done);<% } %>
+      <% if(filters.mongooseModels) { %>UserModel.remove().then(done);<% }
+         if(filters.sequelizeModels) { %>UserModel.destroy({ where: {} }).then(done);<% } %>
     });
 
     it('should signup a new user, log them in, and redirecting to "/"', function() {

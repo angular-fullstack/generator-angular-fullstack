@@ -262,6 +262,10 @@ export class Generator extends Base {
           message: 'Would you like to include additional oAuth strategies?',
           when: answers => answers.auth,
           choices: [{
+            value: 'githubAuth',
+            name: 'GitHub',
+            checked: false
+          }, {
             value: 'googleAuth',
             name: 'Google',
             checked: false
@@ -317,6 +321,7 @@ export class Generator extends Base {
             });
           }
           insight.track('oauth', !!this.filters.oauth);
+          insight.track('github-oauth', !!this.filters['githubeAuth']);
           insight.track('google-oauth', !!this.filters['googleAuth']);
           insight.track('facebook-oauth', !!this.filters['facebookAuth']);
           insight.track('twitter-oauth', !!this.filters['twitterAuth']);

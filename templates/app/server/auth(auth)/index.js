@@ -9,12 +9,16 @@ require('./local/passport').setup(User, config);<% if (filters.facebookAuth) { %
 require('./facebook/passport').setup(User, config);<% } %><% if (filters.googleAuth) { %>
 require('./google/passport').setup(User, config);<% } %><% if (filters.twitterAuth) { %>
 require('./twitter/passport').setup(User, config);<% } %>
+<%_ if (filters.githubAuth) { -%>
+require('./github/passport').setup(User, config);<% } %>
 
 var router = express.Router();
 
 router.use('/local', require('./local').default);<% if (filters.facebookAuth) { %>
-router.use('/facebook', require('./facebook').default);<% } %><% if (filters.twitterAuth) { %>
-router.use('/twitter', require('./twitter').default);<% } %><% if (filters.googleAuth) { %>
-router.use('/google', require('./google').default);<% } %>
+router.use('/facebook', require('./facebook').default);<% } %><% if (filters.googleAuth) { %>
+router.use('/google', require('./google').default);<% } %><% if (filters.twitterAuth) { %>
+router.use('/twitter', require('./twitter').default);<% } %>
+<%_ if (filters.githubAuth) { -%>
+router.use('/github', require('./github').default);<% } %>
 
 export default router;

@@ -197,7 +197,7 @@ describe('angular-fullstack:app', function() {
       testing: 'jasmine',
       odms: ['mongoose'],
       auth: true,
-      oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
+      oauth: ['twitterAuth', 'facebookAuth', 'googleAuth', 'githubAuth'],
       socketio: true,
       bootstrap: true,
       uibootstrap: true
