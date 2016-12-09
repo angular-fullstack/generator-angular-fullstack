@@ -51,17 +51,16 @@
     <%# CLIENT %>
     "@angularclass/match-control": "^2.0.0",
     "reflect-metadata": "^0.1.3",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "^0.6.25",
+    "rxjs": "5.0.0-rc.4",
+    "zone.js": "^0.7.2",
     "@angular/common": "^2.3.0",
     "@angular/compiler": "^2.3.0",
     "@angular/core": "^2.3.0",
     "@angular/forms": "^2.3.0",
     "@angular/http": "^2.3.0",
-    <%#"@angular/material": "^2.0.0-alpha.10",%>
     "@angular/platform-browser": "^2.3.0",
     "@angular/platform-browser-dynamic": "^2.3.0",
-    <% if(filters.ngroute) { %>
+    <%_ if(filters.ngroute) { -%>
     "@angular/router": "^3.3.0",<% } %>
     "@angularclass/hmr": "^1.2.1",
     "angular2-universal": "2.1.0-rc.1",
@@ -71,7 +70,7 @@
     <% if(filters.uirouter) { %>
     "ui-router-ng2": "^1.0.0-beta.3",<% } %>
 
-  <% if(filters.bootstrap) { %>
+  <%_ if(filters.bootstrap) { -%>
     "bootstrap": "~3.3.7",
     <% if(filters.uibootstrap) { %>
     "ng2-bootstrap": "~1.1.16",<% } %>
@@ -81,7 +80,9 @@
     "bootstrap-styl": "^5.0.8",<% } %>
     <% if(filters.oauth) { %>
     "bootstrap-social": "^5.1.1",<% } %>
-  <% } %>
+  <%_ } %>
+  <%_ if(filters.material) { -%>
+    "@angular/material": "^2.0.0-alpha.11",<% } %>
 
     "font-awesome": ">=4.1.0",
     <% if(filters.stylus) { %>

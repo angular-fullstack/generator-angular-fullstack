@@ -16,14 +16,14 @@ class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDestroy<% }
   newThing = '';<% } %>
 
   static parameters = [Http, SocketService];
-  constructor(_Http_: Http<% if(filters.socketio) { %>, _SocketService_: SocketService<% } %>) {
-    this.Http = _Http_;
+  constructor(http: Http<% if(filters.socketio) { %>, socketService: SocketService<% } %>) {
+    this.http = http;
     <%_ if(filters.socketio) { -%>
-    this.SocketService = _SocketService_;<% } %>
+    this.socketService = socketService;<% } %>
   }
 
   ngOnInit() {
-    this.Http.get('/api/things')
+    return this.http.get('/api/things')
       .map(res => {
         return res.json();
         <%_ if(filters.socketio) { -%>
@@ -33,7 +33,7 @@ class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDestroy<% }
       .subscribe(things => {
         this.awesomeThings = things;
       });
-  }<% if (filters.models) { %>
+  }<% if(filters.models) { %>
   <%_ if(filters.socketio) { %>
 
   ngOnDestroy() {
