@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
 import { StateService } from 'ui-router-ng2';<% } %>
 import { AuthService } from '../auth/auth.service';<% } %>
 
-export let NavbarComponent = @Component({
+@Component({
   selector: 'navbar',
   template: require('./navbar.html')
 })
-class NavbarComponent {
+export class NavbarComponent {
   isCollapsed = true;
   isLoggedIn;
   isAdmin;

@@ -17,11 +17,11 @@ interface User {
 }
 <%_ } -%>
 
-export let SettingsComponent = @Component({
+@Component({
   selector: 'settings',
   template: require('./settings.<%=templateExt%>'),
 })
-class SettingsComponent {
+export class SettingsComponent {
   user: User = {
     oldPassword: '',
     newPassword: '',

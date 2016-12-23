@@ -10,10 +10,10 @@ import { NgModule } from '@angular/core';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 
-export let AuthModule = @NgModule({
+@NgModule({
     providers: [
         AuthService,
         UserService
     ]
 })
-class AuthModule {}
+export class AuthModule {}

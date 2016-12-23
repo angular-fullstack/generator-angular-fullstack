@@ -2,12 +2,12 @@ import { Component, OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> } from 
 import { Http } from '@angular/http';
 import { SocketService } from '../../components/socket/socket.service';
 
-export let MainComponent = @Component({
+@Component({
     selector: 'main',
     template: require('./main.<%=templateExt%>'),
     styles: [require('./main.<%=styleExt%>')],
 })
-class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> {
+export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> {
   Http;
   <%_ if(filters.socketio) { -%>
   SocketService;<% } %>

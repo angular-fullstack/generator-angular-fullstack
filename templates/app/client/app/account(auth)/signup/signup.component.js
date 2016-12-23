@@ -19,12 +19,12 @@ interface User {
   password: string;
 }<% } %>
 
-export let SignupComponent = @Component({
+@Component({
   selector: 'signup',
   template: require('./signup.<%=templateExt%>'),
   directives: [...ANGULARCLASS_MATCH_CONTROL_DIRECTIVES]
 })
-class SignupComponent {
+export class SignupComponent {
   user: User = {
     name: '',
     email: '',
