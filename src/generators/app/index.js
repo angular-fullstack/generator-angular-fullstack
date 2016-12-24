@@ -483,6 +483,10 @@ export class Generator extends Base {
             .find(jscodeshift.TypeAnnotation)
             .remove()
             .toSource();
+          contents = jscodeshift(contents)
+            .find(jscodeshift.GenericTypeAnnotation)
+            .remove()
+            .toSource();
 
           // remove any `type Foo = { .. }` declarations
           contents = jscodeshift(contents)
