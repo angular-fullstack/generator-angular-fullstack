@@ -87,6 +87,9 @@
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "~1.5.0"
   },
+  "peerDependencies": {
+    "yo": ">= 1.7.1"
+  },
   "engines": {
     "node": "^6.2.2",
     "npm": "^3.9.5"
