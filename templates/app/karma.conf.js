@@ -9,8 +9,10 @@ module.exports = function(config) {
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
-    // testing framework to use (jasmine/mocha/qunit/...)<% if (filters.jasmine) { %>
-    frameworks: ['jasmine'],<% } if (filters.mocha) { %>
+    // testing framework to use (jasmine/mocha/qunit/...)
+    <%_ if (filters.jasmine) { -%>
+    frameworks: ['jasmine'],<% } %>
+    <%_ if (filters.mocha) { -%>
     frameworks: ['mocha', 'chai', 'sinon-chai', 'chai-as-promised', 'chai-things'],
 
     client: {
@@ -20,18 +22,20 @@ module.exports = function(config) {
     },<% } %>
 
     // list of files / patterns to load in the browser
-    files: ['spec.js'],
+    files: [
+      { pattern: './spec.js', watched: false }
+    ],
 
     preprocessors: {
-      'spec.js': ['webpack']
+      'spec.js': ['webpack', 'sourcemap']
     },
 
     webpack: makeWebpackConfig({ TEST: true }),
 
     webpackMiddleware: {
       // webpack-dev-middleware configuration
-      // i. e.
-      noInfo: true
+      noInfo: true,
+      stats: 'errors-only'
     },
 
     coverageReporter: {
@@ -50,10 +54,10 @@ module.exports = function(config) {
       require('karma-chrome-launcher'),
       require('karma-coverage'),
       require('karma-firefox-launcher'),
-      <%_ if(filters.mocha) { _%>
+      <%_ if(filters.mocha) { -%>
       require('karma-mocha'),
       require('karma-chai-plugins'),<% } %>
-      <%_ if(filters.jasmine) { _%>
+      <%_ if(filters.jasmine) { -%>
       require('karma-jasmine'),<% } %>
       require('karma-spec-reporter'),
       require('karma-phantomjs-launcher'),

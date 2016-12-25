@@ -1,5 +1,5 @@
 'use strict';
-import { noop } from 'lodash-es';
+import { noop } from 'lodash';
 
 export class SocketServiceMock {
     socket = {
