@@ -1,12 +1,9 @@
-'use strict';
-
 import fs from 'fs';
 import path from 'path';
 import Promise from 'bluebird';
 import { runCmd } from '../util';
 import chalk from 'chalk';
-import { Base } from 'yeoman-generator';
-import { genBase } from '../generator-base';
+import { Base } from '../generator-base';
 import insight from '../insight-init';
 import { exec } from 'child_process';
 import babelStream from 'gulp-babel';
@@ -28,17 +25,18 @@ export class Generator extends Base {
       defaults: false
     });
 
+    // This is mainly for development purposes
     this.option('skip-config', {
       desc: 'Always use existing .yo-rc.json',
       type: Boolean,
       defaults: false
     });
 
-    this.option('app-suffix', {
-      desc: 'Allow a custom suffix to be added to the module name',
-      type: String,
-      defaults: 'App'
-    });
+    // this.option('app-suffix', {
+    //   desc: 'Allow a custom suffix to be added to the module name',
+    //   type: String,
+    //   defaults: 'App'
+    // });
 
     this.option('dev-port', {
       desc: 'Port to use for the development HTTP server',
@@ -65,9 +63,7 @@ export class Generator extends Base {
         this.config.set('generatorVersion', this.rootGeneratorVersion());
         this.filters = {};
 
-        // init shared generator properies and methods
-        const genBasePromise = genBase(this);
-        let promises = [genBasePromise];
+        let promises = [];
 
         if(process.env.CI) {
           insight.optOut = true;
@@ -96,7 +92,7 @@ export class Generator extends Base {
       },
       info: function () {
         this.log(this.yoWelcome);
-        this.log('Out of the box I create an AngularJS app with an Express server.\n');
+        this.log('Out of the box I create an Angular app with an Express server.\n');
       },
       checkForConfig: function() {
         var existingFilters = this.config.get('filters');
@@ -390,6 +386,7 @@ export class Generator extends Base {
         this.config.set('filters', this.filters);
         this.config.forceSave();
       },
+      // TODO: switch to ng2 component generator
       // ngComponent: function() {
       //   if(this.skipConfig) return;
       //   var appPath = 'client/app/';
