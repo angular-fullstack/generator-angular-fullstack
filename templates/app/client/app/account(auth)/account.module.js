@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SettingsComponent } from './settings/settings.component';
 
-export let AccountModule = @NgModule({
+@NgModule({
     imports: [
         FormsModule,
         <%_ if (filters.uirouter) { -%>
@@ -28,4 +28,4 @@ export let AccountModule = @NgModule({
         SettingsComponent,
     ],
 })
-class AccountModule {}
+export class AccountModule {}

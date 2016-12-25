@@ -52,6 +52,7 @@
     "gulp-filter": "^4.0.0",
     "gulp-tap": "^0.1.3",
     "insight": "~0.8.3",
+    "jscodeshift": "^0.3.30",
     "lodash": "^4.17.0",
     "semver": "^5.1.0",
     "underscore.string": "^3.1.1",

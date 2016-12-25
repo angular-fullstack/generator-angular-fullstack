@@ -17,8 +17,8 @@ class User {
   $promise = undefined;
 }
 
-export let AuthService = @Injectable()
-class AuthService {
+@Injectable()
+export class AuthService {
   _currentUser: User = {};
   @Output() currentUserChanged = new EventEmitter(true);
   userRoles = userRoles || [];

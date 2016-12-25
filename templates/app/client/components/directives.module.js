@@ -10,7 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 <%_ if(filters.oauth) { -%>
 import { OauthButtonsComponent } from './oauth-buttons/oauth-buttons.component';<% } %>
 
-export let DirectivesModule = @NgModule({
+@NgModule({
   imports: [
     CommonModule,
     UIRouterModule.forChild(),
@@ -30,4 +30,4 @@ export let DirectivesModule = @NgModule({
     OauthButtonsComponent,<% } %>
   ]
 })
-class DirectivesModule {}
+export class DirectivesModule {}

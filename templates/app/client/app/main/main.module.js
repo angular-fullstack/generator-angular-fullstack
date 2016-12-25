@@ -21,7 +21,7 @@ export const STATES = [
   { name: 'main', url: '/', component: MainComponent },
 ];<% } %>
 
-export let MainModule = @NgModule({
+@NgModule({
     imports: [
         BrowserModule,
         FormsModule,
@@ -45,4 +45,4 @@ export let MainModule = @NgModule({
         MainComponent,
     ],
 })
-class MainModule {}
+export class MainModule {}

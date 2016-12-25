@@ -20,11 +20,11 @@ interface User {
 }
 <%_ } -%>
 
-export let LoginComponent = @Component({
+@Component({
   selector: 'login',
   template: require('./login.<%=templateExt%>'),
 })
-class LoginComponent {
+export class LoginComponent {
   user: User = {
     name: '',
     email: '',

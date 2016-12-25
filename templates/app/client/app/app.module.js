@@ -83,7 +83,7 @@ if(constants.env === 'development') {
   providers.push({ provide: RequestOptions, useClass: HttpOptions });
 }
 
-export let AppModule = @NgModule({
+@NgModule({
     providers,
     imports: [
         BrowserModule,
@@ -99,4 +99,4 @@ export let AppModule = @NgModule({
     ],
     bootstrap: [AppComponent]
 })
-class AppModule {}
+export class AppModule {}

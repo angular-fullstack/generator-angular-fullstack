@@ -14,8 +14,8 @@ type UserType = {
   email: string;
 }
 
-export let UserService = @Injectable()
-class UserService {
+@Injectable()
+export class UserService {
   static parameters = [AuthHttp];
   constructor(authHttp: AuthHttp) {
     this.AuthHttp = authHttp;

@@ -12,6 +12,7 @@ import tap from 'gulp-tap';
 import filter from 'gulp-filter';
 import eslint from 'gulp-eslint';
 import semver from 'semver';
+import jscodeshift from 'jscodeshift';
 
 export class Generator extends Base {
   constructor(...args) {
@@ -458,52 +459,51 @@ export class Generator extends Base {
   get writing() {
     return {
       generateProject: function() {
-        /**
-         * var tap = require('gulp-tap');
-           this.registerTransformStream([
-              extensionFilter,
-              tap(function(file, t) {
-                  var contents = file.contents.toString();
-                  contents = beautify_js(contents, config);
-                  file.contents = new Buffer(contents);
-              }),
-              //prettifyJs(config),
-              extensionFilter.restore
-           ]);
-         */
-
         const flow = this.filters.flow;
 
-        let babelPlugins = [
-          'babel-plugin-syntax-flow',
-          'babel-plugin-syntax-class-properties',
-          'babel-plugin-syntax-decorators',
-          'babel-plugin-syntax-export-extensions',
-        ];
-
-        if(this.filters.babel && !flow) {
-          babelPlugins.push('babel-plugin-transform-flow-strip-types');
-        }
-
         const genDir = path.join(__dirname, '../../');
+
+        // TODO: remove babel stuff from dependencies
+        const codeshiftStream = tap(function(file, t) {
+          var contents = file.contents.toString();
+
+          // remove `implements Foo` from class declarations
+          contents = jscodeshift(contents)
+            .find(jscodeshift.ClassDeclaration)
+            .forEach(path => {
+              path.value.implements = null;
+            })
+            .toSource();
+
+          // remove any type annotations
+          contents = jscodeshift(contents)
+            .find(jscodeshift.TypeAnnotation)
+            .remove()
+            .toSource();
+          contents = jscodeshift(contents)
+            .find(jscodeshift.GenericTypeAnnotation)
+            .remove()
+            .toSource();
+
+          // remove any `type Foo = { .. }` declarations
+          contents = jscodeshift(contents)
+            .find(jscodeshift.TypeAlias)
+            .remove()
+            .toSource();
+
+          // remove any flow directive comments
+          contents = jscodeshift(contents)
+            .find(jscodeshift.Comment, path => path.type === 'CommentLine' && path.value.includes('@flow'))
+            .forEach(path => path.prune())
+            .toSource();
+
+          file.contents = new Buffer(contents);
+        });
 
         let clientJsFilter = filter(['client/**/*.js'], {restore: true});
         this.registerTransformStream([
           clientJsFilter,
-          babelStream({
-            plugins: babelPlugins.map(require.resolve),
-            /* Babel get's confused about these if you're using an `npm link`ed
-                generator-angular-fullstack, thus the `require.resolve` */
-            shouldPrintComment(commentContents) {
-              if(flow) {
-                return true;
-              } else {
-                // strip `// @flow` comments if not using flow
-                return !(/@flow/.test(commentContents));
-              }
-            },
-            babelrc: false  // don't grab the generator's `.babelrc`
-          }),
+          codeshiftStream,
           eslint({
             fix: true, 
             configFile: path.join(genDir, 'templates/app/client/.eslintrc(babel)')

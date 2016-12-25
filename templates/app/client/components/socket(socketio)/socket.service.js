@@ -4,8 +4,8 @@ import { noop, find, remove } from 'lodash';
 import io from 'socket.io-client';
 import constants from '../../app/app.constants';
 
-export let SocketService = @Injectable()
-class SocketService {
+@Injectable()
+export class SocketService {
   socket;
 
   constructor() {
