@@ -1,14 +1,11 @@
 'use strict';
 
 import path from 'path';
-import {Base} from 'yeoman-generator';
-import {genNamedBase} from '../generator-base';
+import { NamedBase } from '../generator-base';
 
-export class Generator extends Base {
+export class Generator extends NamedBase {
   constructor(...args) {
     super(...args);
-
-    this.argument('name', { type: String, required: true });
 
     this.option('route', {
       desc: 'URL for the endpoint',
@@ -24,11 +21,6 @@ export class Generator extends Base {
       desc: 'Parent directory for endpoints',
       type: String
     });
-  }
-
-  initializing() {
-    // init shared generator properies and methods
-    return genNamedBase(this);
   }
 
   prompting() {
