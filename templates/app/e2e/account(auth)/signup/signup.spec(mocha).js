@@ -1,7 +1,7 @@
 'use strict';
 
-var config = browser.params;<% if (filters.mongooseModels) { %>
-var UserModel = require(config.serverConfig.root + '/server/api/user/user.model').default;<% } %><% if (filters.sequelizeModels) { %>
+var config = browser.params;<% if(filters.mongooseModels) { %>
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model').default;<% } %><% if(filters.sequelizeModels) { %>
 var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
 
 describe('Signup View', function() {
@@ -26,8 +26,8 @@ describe('Signup View', function() {
   });
 
   after(function() {
-    <% if (filters.mongooseModels) { %>return UserModel.remove();<% }
-       if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
+    <% if(filters.mongooseModels) { %>return UserModel.remove();<% }
+       if(filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
   });
 
   it('should include signup form with correct inputs and submit button', function() {
@@ -41,22 +41,25 @@ describe('Signup View', function() {
     <%= expect() %>page.form.confirmPassword.getAttribute('name')<%= to() %>.eventually.equal('confirmPassword');
     <%= expect() %>page.form.submit.getAttribute('type')<%= to() %>.eventually.equal('submit');
     <%= expect() %>page.form.submit.getText()<%= to() %>.eventually.equal('Sign up');
-  });<% if (filters.oauth) { %>
+  });<% if(filters.oauth) { %>
 
-  it('should include oauth buttons with correct classes applied', function() {<% if (filters.facebookAuth) { %>
+  it('should include oauth buttons with correct classes applied', function() {<% if(filters.facebookAuth) { %>
     <%= expect() %>page.form.oauthButtons.facebook.getText()<%= to() %>.eventually.equal('Connect with Facebook');
-    <%= expect() %>page.form.oauthButtons.facebook.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } if (filters.googleAuth) { %>
+    <%= expect() %>page.form.oauthButtons.facebook.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } if(filters.googleAuth) { %>
     <%= expect() %>page.form.oauthButtons.google.getText()<%= to() %>.eventually.equal('Connect with Google+');
-    <%= expect() %>page.form.oauthButtons.google.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } if (filters.twitterAuth) { %>
+    <%= expect() %>page.form.oauthButtons.google.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } if(filters.twitterAuth) { %>
     <%= expect() %>page.form.oauthButtons.twitter.getText()<%= to() %>.eventually.equal('Connect with Twitter');
     <%= expect() %>page.form.oauthButtons.twitter.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } %>
+    <%_ if(filters.githubAuth) { -%>
+    <%= expect() %>page.form.oauthButtons.github.getText()<%= to() %>.eventually.equal('Connect with GitHub');
+    <%= expect() %>page.form.oauthButtons.github.getAttribute('class')<%= to() %>.eventually.contain('btn-block');<% } %>
   });<% } %>
 
   describe('with local auth', function() {
 
     before(function() {
-      <% if (filters.mongooseModels) { %>return UserModel.remove();<% }
-         if (filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
+      <% if(filters.mongooseModels) { %>return UserModel.remove();<% }
+         if(filters.sequelizeModels) { %>return UserModel.destroy({ where: {} });<% } %>
     })
 
     it('should signup a new user, log them in, and redirecting to "/"', function() {

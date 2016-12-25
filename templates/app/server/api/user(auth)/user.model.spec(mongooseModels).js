@@ -54,7 +54,20 @@ describe('User Model', function() {
     it('should fail when saving without an email', function() {
       user.email = undefined;
       return <%= expect() %>user.save()<%= to() %>.be.rejected;
-    });<% if (filters.oauth && filters.googleAuth) { %>
+    });
+    <%_ if(filters.githubAuth) { -%>
+
+    describe('given user provider is github', function() {
+      beforeEach(function() {
+        user.provider = 'github';
+      });
+
+      it('should succeed when saving without an email', function() {
+        user.email = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %>
+    <%_ if(filters.oauth && filters.googleAuth) { -%>
 
     describe('given user provider is google', function() {
       beforeEach(function() {
@@ -65,7 +78,7 @@ describe('User Model', function() {
         user.email = null;
         return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
       });
-    });<% } %><% if (filters.oauth && filters.facebookAuth) { %>
+    });<% } %><% if(filters.oauth && filters.facebookAuth) { %>
 
     describe('given user provider is facebook', function() {
       beforeEach(function() {
@@ -76,7 +89,7 @@ describe('User Model', function() {
         user.email = null;
         return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
       });
-    });<% } %><% if (filters.oauth && filters.twitterAuth) { %>
+    });<% } %><% if(filters.oauth && filters.twitterAuth) { %>
 
     describe('given user provider is twitter', function() {
       beforeEach(function() {
@@ -87,7 +100,7 @@ describe('User Model', function() {
         user.email = null;
         return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
       });
-    });<% } %><% if (filters.oauth) { %>
+    });<% } %><% if(filters.oauth) { %>
 
     describe('given user provider is github', function() {
       beforeEach(function() {
@@ -137,7 +150,20 @@ describe('User Model', function() {
             return u.authenticate('password');
           })<%= to() %>.eventually.be.true;
       });
-    });<% if (filters.oauth && filters.googleAuth) { %>
+    });
+    <%_ if(filters.oauth && filters.githubAuth) { -%>
+
+    describe('given user provider is github', function() {
+      beforeEach(function() {
+        user.provider = 'github';
+      });
+
+      it('should succeed when saving without a password', function() {
+        user.password = null;
+        return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
+      });
+    });<% } %>
+    <%_ if(filters.oauth && filters.googleAuth) { -%>
 
     describe('given user provider is google', function() {
       beforeEach(function() {
@@ -148,7 +174,7 @@ describe('User Model', function() {
         user.password = null;
         return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
       });
-    });<% } %><% if (filters.oauth && filters.facebookAuth) { %>
+    });<% } %><% if(filters.oauth && filters.facebookAuth) { %>
 
     describe('given user provider is facebook', function() {
       beforeEach(function() {
@@ -159,7 +185,7 @@ describe('User Model', function() {
         user.password = null;
         return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
       });
-    });<% } %><% if (filters.oauth && filters.twitterAuth) { %>
+    });<% } %><% if(filters.oauth && filters.twitterAuth) { %>
 
     describe('given user provider is twitter', function() {
       beforeEach(function() {
@@ -170,7 +196,7 @@ describe('User Model', function() {
         user.password = null;
         return <%= expect() %>user.save()<%= to() %>.be.fulfilled;
       });
-    });<% } %><% if (filters.oauth) { %>
+    });<% } %><% if(filters.oauth) { %>
 
     describe('given user provider is github', function() {
       beforeEach(function() {

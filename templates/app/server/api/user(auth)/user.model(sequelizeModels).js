@@ -1,7 +1,7 @@
 'use strict';
 
 import crypto from 'crypto';<% if(filters.oauth) { %>
-var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
+const authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
 var validatePresenceOf = function(value) {
   return value && value.length;
@@ -37,11 +37,17 @@ export default function(sequelize, DataTypes) {
       }
     },
     provider: DataTypes.STRING,
-    salt: DataTypes.STRING<% if(filters.oauth) { %>,<% if(filters.facebookAuth) { %>
-    facebook: DataTypes.JSON,<% } %><% if(filters.twitterAuth) { %>
-    twitter: DataTypes.JSON,<% } %><% if(filters.googleAuth) { %>
+    salt: DataTypes.STRING,
+  <% if(filters.oauth) { %>
+    <%_ if(filters.facebookAuth) { -%>
+    facebook: DataTypes.JSON,<% } %>
+    <%_ if(filters.twitterAuth) { -%>
+    twitter: DataTypes.JSON,<% } %>
+    <%_ if(filters.githubAuth) { -%>
+    github: DataTypes.JSON,<% } %>
+    <%_ if(filters.googleAuth) { -%>
     google: DataTypes.JSON,<% } %>
-    github: DataTypes.JSON<% } %>
+   <% } %>
 
   }, {
 

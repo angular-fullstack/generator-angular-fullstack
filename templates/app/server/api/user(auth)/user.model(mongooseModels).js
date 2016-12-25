@@ -38,11 +38,17 @@ var UserSchema = new Schema({
     }<% } else { %>true<% } %>
   },
   provider: String,
-  salt: String<% if(filters.oauth) { %>,<% if(filters.facebookAuth) { %>
-  facebook: {},<% } %><% if(filters.twitterAuth) { %>
-  twitter: {},<% } %><% if(filters.googleAuth) { %>
+  salt: String,
+<%_ if(filters.oauth) { -%>
+  <%_ if(filters.facebookAuth) { -%>
+  facebook: {},<% } %>
+  <%_ if(filters.twitterAuth) { -%>
+  twitter: {},<% } %>
+  <%_ if(filters.googleAuth) { -%>
   google: {},<% } %>
-  github: {}<% } %>
+  <%_ if(filters.githubAuth) { -%>
+  github: {},
+<% } %>
 });
 
 /**
