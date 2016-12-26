@@ -6,8 +6,6 @@ import chalk from 'chalk';
 import { Base } from '../generator-base';
 import insight from '../insight-init';
 import { exec } from 'child_process';
-import babelStream from 'gulp-babel';
-import beaufityStream from 'gulp-beautify';
 import tap from 'gulp-tap';
 import filter from 'gulp-filter';
 import eslint from 'gulp-eslint';
