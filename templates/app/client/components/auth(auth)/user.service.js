@@ -31,7 +31,7 @@ export class UserService {
       .catch(this.handleError);
   }
   get(user = {id: 'me'}): Observable<UserType> {
-    return this.AuthHttp.get(`/api/users/${user.id}`)
+    return this.AuthHttp.get(`/api/users/${user.id || user._id}`)
       .map((res:Response) => res.json())
       .catch(this.handleError);
   }
@@ -41,13 +41,13 @@ export class UserService {
       .catch(this.handleError);
   }
   changePassword(user, oldPassword, newPassword) {
-    return this.AuthHttp.put(`/api/users/${user.id}/password`, {oldPassword, newPassword})
+    return this.AuthHttp.put(`/api/users/${user.id || user._id}/password`, {oldPassword, newPassword})
       .map((res:Response) => res.json())
       .catch(this.handleError);
   }
   remove(user) {
-    return this.AuthHttp.delete(`/api/users/${user.id}`)
-      .map((res:Response) => res.json())
+    return this.AuthHttp.delete(`/api/users/${user.id || user._id}`)
+      .map(() => user)
       .catch(this.handleError);
   }
 }
