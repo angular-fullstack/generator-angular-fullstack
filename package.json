@@ -72,7 +72,7 @@
     "gulp-if": "^2.0.1",
     "gulp-mocha": "^3.0.0",
     "gulp-plumber": "^1.1.0",
-    "gulp-util": "^3.0.7",
+    "gulp-util": "^3.0.8",
     "jit-grunt": "~0.10.0",
     "lazypipe": "^1.0.1",
     "merge-stream": "^1.0.0",
