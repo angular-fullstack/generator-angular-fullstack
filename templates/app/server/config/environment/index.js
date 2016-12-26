@@ -68,5 +68,5 @@ var all = {
 // ==============================================
 module.exports = _.merge(
   all,
-  require('./shared'),
+  require('./shared').default,
   require(`./${process.env.NODE_ENV}.js`) || {});
