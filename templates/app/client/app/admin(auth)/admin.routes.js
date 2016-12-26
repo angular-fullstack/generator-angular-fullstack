@@ -1,25 +1,9 @@
-'use strict';
+import { AdminComponent } from './admin.component';
 
-<%_ if (filters.ngroute) { _%>
-export default function routes($routeProvider) {
-  'ngInject';
-  $routeProvider
-    .when('/admin', {
-      template: require('./admin.<%= templateExt %>'),
-      controller: 'AdminController',
-      controllerAs: 'admin',
-      authenticate: 'admin'
-    });
-};<% } %>
-<%_ if (filters.uirouter) { _%>
-export default function routes($stateProvider) {
-  'ngInject';
-  $stateProvider
-    .state('admin', {
-      url: '/admin',
-      template: require('./admin.<%= templateExt %>'),
-      controller: 'AdminController',
-      controllerAs: 'admin',
-      authenticate: 'admin'
-    });
-};<% } %>
+<%_ if(filters.uirouter) { -%>
+export const STATES = [{
+  name: 'admin',
+  url: '/admin',
+  component: AdminComponent,
+}];<% } %>
+<%_ if(filters.ngroute) { -%><% } %>
