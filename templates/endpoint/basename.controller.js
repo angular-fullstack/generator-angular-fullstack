@@ -42,7 +42,7 @@ function removeEntity(res) {
       <% if(filters.mongooseModels) { %>return entity.remove()<% }
          if(filters.sequelizeModels) { %>return entity.destroy()<% } %>
         .then(() => {
-          res.status(204).end();
+          return res.status(204).end();
         });
     }
   };

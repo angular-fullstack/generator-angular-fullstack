@@ -146,7 +146,7 @@ export function me(req, res, next) {
       if (!user) {
         return res.status(401).end();
       }
-      res.json(user);
+      return res.json(user);
     })
     .catch(err => next(err));
 }
