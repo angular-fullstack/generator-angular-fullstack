@@ -66,7 +66,7 @@ export class Generator extends Base {
     var done = this.async();
 
     this.log(chalk.bold('\nInitializing deployment repo'));
-    this.mkdir('dist');
+    this.mkdir('dist'); //FIXME: removed
     var child = exec('git init', { cwd: 'dist' }, (err, stdout, stderr) => {
       done();
     });
@@ -101,7 +101,7 @@ export class Generator extends Base {
     if(this.abort) return;
     var done = this.async();
     this.log(chalk.bold('Creating Procfile'));
-    this.copy('Procfile', 'dist/Procfile');
+    this.copy('Procfile', 'dist/Procfile'); // FIXME: removed
     this.conflicter.resolve(err => {
       done();
     });

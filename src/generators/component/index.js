@@ -1,13 +1,9 @@
 'use strict';
-import {Base} from 'yeoman-generator';
+import YoGenerator from 'yeoman-generator';
 
-class Generator extends Base {
-  compose() {
-    this.composeWith('ng-component:component', {
-      arguments: this.arguments
-    }, {
-      local: require.resolve('generator-ng-component/generators/component')
-    });
+class Generator extends YoGenerator {
+  compose() { 
+    this.composeWith(require.resolve('generator-ng-component/generators/component'), {}, this.arguments);
   }
 }
 

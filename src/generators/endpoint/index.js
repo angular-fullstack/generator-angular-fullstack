@@ -42,14 +42,14 @@ export class Generator extends NamedBase {
       }
     };
 
-    if(this.options.route) {
-      if(this.filters.mongoose && this.filters.sequelize && this.options.models) {
-        return promptCb(this.options);
+    if(this.option['route']) {
+      if(this.filters.mongoose && this.filters.sequelize && this.option['models']) {
+        return promptCb(this.option);
       } else {
-        if(this.filters.mongooseModels) this.options.models = 'mongoose';
-        else if(this.filters.sequelizeModels) this.options.models = 'sequelize';
-        else delete this.options.models;
-        return promptCb(this.options);
+        if(this.filters.mongooseModels) this.option['models'] = 'mongoose';
+        else if(this.filters.sequelizeModels) this.option['models'] = 'sequelize';
+        else delete this.option['models'];
+        return promptCb(this.option);
       }
     }
 
@@ -83,7 +83,7 @@ export class Generator extends NamedBase {
   }
 
   configuring() {
-    this.routeDest = path.join(this.options.endpointDirectory
+    this.routeDest = path.join(this.option.endpointDirectory
       || this.config.get('endpointDirectory')
       || 'server/api/', this.name);
   }

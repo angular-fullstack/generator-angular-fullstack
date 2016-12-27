@@ -57,7 +57,7 @@ Generator.prototype.gitInit = function gitInit() {
   var done = this.async();
 
   this.log(chalk.bold('Initializing deployment repo'));
-  this.mkdir('dist');
+  this.mkdir('dist'); //FIXME: removed
   exec('git init', { cwd: 'dist' }, function (err, stdout, stderr) {
     this.log(stdout);
     done();
@@ -187,7 +187,7 @@ Generator.prototype.enableOpenShiftHotDeploy = function enableOpenshiftHotDeploy
   if(this.abort || !this.openshift_remote_exists ) return;
   var done = this.async();
   this.log(chalk.bold("\nEnabling HotDeploy for OpenShift"));
-  this.copy('hot_deploy', 'dist/.openshift/markers/hot_deploy');
+  this.copy('hot_deploy', 'dist/.openshift/markers/hot_deploy'); // FIXME: removed
   this.conflicter.resolve(function (err) {
     done();
   });
