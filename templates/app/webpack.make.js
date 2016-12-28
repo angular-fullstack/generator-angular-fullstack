@@ -238,7 +238,7 @@ module.exports = function makeWebpackConfig(options) {
             // Stylus LOADER
             // Reference: https://github.com/
             test: /\.styl$/,
-            loaders: ['style', 'css', 'stylus'],
+            loaders: ['style', 'css', 'stylus?paths=node_modules/bootstrap-styl'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
                 path.resolve(__dirname, 'client/app/app.styl')
