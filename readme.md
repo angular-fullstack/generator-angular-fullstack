@@ -56,7 +56,7 @@ yo angular-fullstack
 **Client**
 
 * Scripts: `JavaScript (Babel)`, `TypeScript`
-* Module Systems: `Webpack`, ~~`SystemJS + JSPM`~~ (maybe)
+* Module Systems: `Webpack`
 * Markup:  `HTML`, `Pug`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
