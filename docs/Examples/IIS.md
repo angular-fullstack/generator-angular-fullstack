@@ -118,15 +118,12 @@ The below steps assume you have purchased a domain and have pointed your DNS to 
 </configuration>
 ```
 
-**Setup IIS**
+**Setup IIS (if new build in IIS)**
   - Open IIS Manager (*Start > Type 'IIS Manager'*)
   - Create your new site (*Expand Server > Right click sites > 'Add Websites'*)
   - Enter your site's name
   - Enter the directory path to your `client/` folder (*`C:\example\dist\client\`*)
   - Enter your hostname (*Your a-record*)
   - Leave all other defaults and click 'Ok'
-
-**Start your server**
-  - Run `gulp serve:dist`
 
 # Congratulations, you did it! Now go code something awesome!
