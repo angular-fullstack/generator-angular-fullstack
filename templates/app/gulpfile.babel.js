@@ -542,7 +542,7 @@ gulp.task('copy:extras', () => {
 });
 
 /**
- * turns 'boostrap/fonts/font.woff' into 'boostrap/font.woff'
+ * turns 'bootstrap/fonts/font.woff' into 'bootstrap/font.woff'
  */
 function flatten() {
     return through2.obj(function(file, enc, next) {
