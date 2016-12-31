@@ -72,7 +72,7 @@
 
 * **gen:** fix doc img generation\n\nAdd gulp task to copy images to gh-pages ([5bb43be](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5bb43be))
 * **gen:heroku:** fix module export, gen base ([8e50326](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8e50326)), closes [#2148](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2148)
-* **webpack:** fix boostrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
+* **webpack:** fix bootstrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
 
 
 
