@@ -1,5 +1,7 @@
 'use strict';
 
+/* globals describe, expect, it, before, after, beforeEach, afterEach */
+
 import app from '../..';<% if (filters.mongooseModels) { %>
 import User from './user.model';<% } %><% if (filters.sequelizeModels) { %>
 import {User} from '../../sqldb';<% } %>
