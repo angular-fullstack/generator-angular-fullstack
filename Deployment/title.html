@@ -87,6 +87,27 @@
     
     <div class="s-content">
         <p>[STUB]</p>
+<h1 id="page_Deployment">Deployment</h1>
+<h2 id="page_Manual_Linux_server">Manual (Linux server)</h2>
+<ol>
+<li>
+<p>Run <code>gulp build</code>. This will build your project into the <code>dist</code> folder by default.</p>
+</li>
+<li>
+<p>Zip up the contents of your <code>dist</code> folder and send it off to your server.</p>
+</li>
+<li>
+<p>On your server, unzip your built files somewhere on the disk. Ex: in a <code>myproj</code> folder.</p>
+</li>
+<li>
+<pre><code class="language-bash"></code></pre>
+</li>
+</ol>
+<p>$ cd myproj</p>
+<pre><code>
+5. ```
+$ NODE_ENV=production node ./server
+</code></pre>
     </div>
 
         <nav>
