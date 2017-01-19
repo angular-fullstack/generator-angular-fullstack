@@ -10,10 +10,8 @@
 
 3. On your server, unzip your built files somewhere on the disk. Ex: in a `myproj` folder.
 
-4. ```bash
-$ cd myproj
-```
+4. `$ cd myproj`
 
-5. ```
-$ NODE_ENV=production node ./server
-```
+5. `$ npm install --production`
+
+6. `$ NODE_ENV=production node ./server`
