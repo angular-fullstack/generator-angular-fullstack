@@ -1,239 +1,57 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <title>Angular Full-Stack </title>
-    <meta name="description" content="The Angular Full-Stack Generator" />
-    <meta name="author" content="Andrew Koroluk">
+<html>
+  <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="themes/daux/img/favicon-blue.png" type="image/x-icon">
-    <!-- Mobile -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Angular Full-Stack Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2B3A42">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
 
-    <!-- Font -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
-    <!-- CSS -->
-    <link href='themes/daux/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
-    <link href="docs.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,600|Source+Sans+Pro:200,400,400i,500" rel="stylesheet">
 
-            <!-- Tipue Search -->
-        <link href="tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
     
-    <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
-<body class="">
-    <div class="Navbar hidden-print">
-    <div class="container">
-        <a class="Navbar__brand" href="index.html">Angular Full-Stack</a>
+      <link href="/043ed37fcd931621cf95.css" rel="stylesheet">
+    
 
-    <div class="Search">
-        <svg class="Search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451 451"><path d="M447.05 428l-109.6-109.6c29.4-33.8 47.2-77.9 47.2-126.1C384.65 86.2 298.35 0 192.35 0 86.25 0 .05 86.3.05 192.3s86.3 192.3 192.3 192.3c48.2 0 92.3-17.8 126.1-47.2L428.05 447c2.6 2.6 6.1 4 9.5 4s6.9-1.3 9.5-4c5.2-5.2 5.2-13.8 0-19zM26.95 192.3c0-91.2 74.2-165.3 165.3-165.3 91.2 0 165.3 74.2 165.3 165.3s-74.1 165.4-165.3 165.4c-91.1 0-165.3-74.2-165.3-165.4z"/></svg>
-        <input type="search" id="tipue_search_input" class="Search__field" placeholder="Search..." autocomplete="on" results=25 autosave=text_search>
-    </div>
-    </div>
-</div>
-
-    <a href="https://github.com/angular-fullstack/generator-angular-fullstack" target="_blank" id="github-ribbon" class="Github hidden-print"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-
-<div class="Homepage">
-    <div class="HomepageTitle container">
-        <h2>The Angular Full-Stack Generator</h2>    </div>
-
-    <div class="HomepageImage container">
-        <img class="homepage-image img-responsive" src="angular-fullstack-logo.svg" alt="Angular Full-Stack">    </div>
-
-    <div class="HomepageButtons">
-        <div class="container">
-            <a href="https://github.com/angular-fullstack/generator-angular-fullstack" class="Button Button--secondary Button--hero">View On GitHub</a><a href="Getting_Started/Prerequisites.html" class="Button Button--primary Button--hero">View Documentation</a>            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-
-<div class="HomepageContent">
-    <div class="container">
-        <div class="container--inner">
-            <div class="doc_content s-content">
-                <h1 id="page_Documentation_Home">Documentation Home</h1>
-<h2 id="page_Generators">Generators</h2>
-<p>Available generators:</p>
-<ul>
-<li>App
-<ul>
-<li>
-<a href="Generators/app.html">angular-fullstack</a> (aka <a href="Generators/app.html">angular-fullstack:app</a>)</li>
-</ul>
-</li>
-<li>Server Side
-<ul>
-<li>
-<a href="Generators/endpoint.html">angular-fullstack:endpoint</a>
-</li>
-</ul>
-</li>
-<li>Client Side (via <a href="https://github.com/DaftMonk/generator-ng-component">generator-ng-component</a>)
-<ul>
-<li>
-<a href="Generators/route.html">angular-fullstack:route</a>
-</li>
-<li>
-<a href="Generators/component.html">angular-fullstack:component</a>
-</li>
-<li>
-<a href="Generators/controller.html">angular-fullstack:controller</a>
-</li>
-<li>
-<a href="Generators/filter.html">angular-fullstack:filter</a>
-</li>
-<li>
-<a href="Generators/directive.html">angular-fullstack:directive</a>
-</li>
-<li>
-<a href="Generators/service.html">angular-fullstack:service</a>
-</li>
-<li>
-<a href="Generators/service.html">angular-fullstack:provider</a>
-</li>
-<li>
-<a href="Generators/service.html">angular-fullstack:factory</a>
-</li>
-<li>
-<a href="Generators/decorator.html">angular-fullstack:decorator</a>
-</li>
-</ul>
-</li>
-<li>Deployment
-<ul>
-<li>
-<a href="Generators/openshift.html">angular-fullstack:openshift</a>
-</li>
-<li>
-<a href="Generators/heroku.html">angular-fullstack:heroku</a>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="page_Injection">Injection</h2>
-<p>A gulp task looks for new SCSS/LESS/Stylus files in your <code>client/app</code> and <code>client/components</code> folder and automatically injects them into the main style file (ex <code>client/app/app.scss</code>) based on an injection block.</p>
-<h2 id="page_Configuration">Configuration</h2>
-<p>Yeoman generated projects can be further tweaked according to your needs by modifying project files appropriately.</p>
-<p>A <code>.yo-rc</code> file is generated for helping you copy configuration across projects, and to allow you to keep track of your settings. You can change this as you see fit.</p>
-<h2 id="page_Testing">Testing</h2>
-<p>Running <code>gulp test</code> will run the client and server unit tests with karma and mocha.</p>
-<p>Use <code>gulp test:server</code> to only run server tests.</p>
-<p>Use <code>gulp test:client</code> to only run client tests.</p>
-<p><strong>Protractor tests</strong></p>
-<p>To setup protractor e2e tests, you must first run</p>
-<p><code>npm run update-webdriver</code></p>
-<p>Use <code>gulp test:e2e</code> to have protractor go through tests located in the <code>e2e</code> folder.</p>
-<p><strong>Code Coverage</strong></p>
-<p>Use <code>gulp test:coverage</code> to run mocha-istanbul and generate code coverage reports.</p>
-<p><code>coverage/server</code> will be populated with <code>e2e</code> and <code>unit</code> folders containing the <code>lcov</code> reports.</p>
-<p>The coverage taget has 3 available options:</p>
-<ul>
-<li>
-<code>test:coverage:unit</code> generate server unit test coverage</li>
-<li>
-<code>test:coverage:e2e</code> generate server e2e test coverage</li>
-<li>
-<code>test:coverage:check</code> combine the coverage reports and check against predefined thresholds</li>
-</ul>
-<ul>
-<li>
-<em>when no option is given <code>test:coverage</code> runs all options in the above order</em>
-</li>
-</ul>
-<p><strong>Debugging</strong></p>
-<p>Use <code>gulp serve:debug</code> for a more debugging-friendly environment.</p>
-<h2 id="page_Environment_Variables">Environment Variables</h2>
-<p>Keeping your app secrets and other sensitive information in source control isn't a good idea.
-To have gulp launch your app with specific environment variables, add them to the git ignored environment config file: <code>server/config/local.env.js</code>.</p>
-<h2 id="page_Project_Structure">Project Structure</h2>
-<p>Overview</p>
-<pre><code>├── client
-│   ├── app                 - All of our app specific components go in here
-│   ├── assets              - Custom assets: fonts, images, etc…
-│   ├── components          - Our reusable components, non-specific to our app
-│
-├── e2e                     - Our protractor end to end tests
-│
-└── server
-    ├── api                 - Our apps server api
-    ├── auth                - For handling authentication with different auth strategies
-    ├── components          - Our reusable or app-wide components
-    ├── config              - Where we do the bulk of our apps configuration
-    │   └── local.env.js    - Keep our environment variables out of source control
-    │   └── environment     - Configuration specific to the node environment
-    └── views               - Server rendered views
+    <script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+  </head>
+  <body>
+    <div id="site" class="site"><div class="interactive" id="components/navigation/navigation.jsx" data-props="{&quot;sections&quot;:[{&quot;title&quot;:&quot;Get-Started&quot;,&quot;url&quot;:&quot;get-started&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;Installation&quot;,&quot;url&quot;:&quot;get-started/installation&quot;},{&quot;title&quot;:&quot;Running&quot;,&quot;url&quot;:&quot;get-started/running&quot;},{&quot;title&quot;:&quot;Project Overview&quot;,&quot;url&quot;:&quot;get-started/overview&quot;}]},{&quot;title&quot;:&quot;Guides&quot;,&quot;url&quot;:&quot;guides&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;asdf&quot;,&quot;url&quot;:&quot;guides/asdf&quot;}]},{&quot;title&quot;:&quot;Developing&quot;,&quot;url&quot;:&quot;developing&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;developing/01_Adding_a_Route&quot;,&quot;url&quot;:&quot;developing/01_Adding_a_Route&quot;}]},{&quot;title&quot;:&quot;Deployment&quot;,&quot;url&quot;:&quot;deployment&quot;,&quot;pages&quot;:[]},{&quot;title&quot;:&quot;Examples&quot;,&quot;url&quot;:&quot;examples&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;Heroku Deploy&quot;,&quot;url&quot;:&quot;examples/Heroku_Deployment&quot;},{&quot;title&quot;:&quot;IIS&quot;,&quot;url&quot;:&quot;examples/IIS&quot;}]},{&quot;title&quot;:&quot;Generators&quot;,&quot;url&quot;:&quot;generators&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;App&quot;,&quot;url&quot;:&quot;generators/app&quot;},{&quot;title&quot;:&quot;Route&quot;,&quot;url&quot;:&quot;generators/route&quot;},{&quot;title&quot;:&quot;Service&quot;,&quot;url&quot;:&quot;generators/service&quot;},{&quot;title&quot;:&quot;Component&quot;,&quot;url&quot;:&quot;generators/component&quot;},{&quot;title&quot;:&quot;Controller&quot;,&quot;url&quot;:&quot;generators/controller&quot;},{&quot;title&quot;:&quot;Decorator&quot;,&quot;url&quot;:&quot;generators/decorator&quot;},{&quot;title&quot;:&quot;Directive&quot;,&quot;url&quot;:&quot;generators/directive&quot;},{&quot;title&quot;:&quot;Endpoint&quot;,&quot;url&quot;:&quot;generators/endpoint&quot;},{&quot;title&quot;:&quot;Filter&quot;,&quot;url&quot;:&quot;generators/filter&quot;},{&quot;title&quot;:&quot;Heroku&quot;,&quot;url&quot;:&quot;generators/heroku&quot;},{&quot;title&quot;:&quot;Openshift&quot;,&quot;url&quot;:&quot;generators/openshift&quot;}]},{&quot;title&quot;:&quot;Other&quot;,&quot;url&quot;:&quot;/&quot;,&quot;pages&quot;:[]}],&quot;pageUrl&quot;:&quot;/&quot;}"><header class="navigation"></header></div><div class="interactive" id="components/sidebar-mobile/sidebar-mobile.jsx" data-props="{&quot;sections&quot;:[{&quot;title&quot;:&quot;Get-Started&quot;,&quot;url&quot;:&quot;get-started&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;Installation&quot;,&quot;url&quot;:&quot;get-started/installation&quot;},{&quot;title&quot;:&quot;Running&quot;,&quot;url&quot;:&quot;get-started/running&quot;},{&quot;title&quot;:&quot;Project Overview&quot;,&quot;url&quot;:&quot;get-started/overview&quot;}]},{&quot;title&quot;:&quot;Guides&quot;,&quot;url&quot;:&quot;guides&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;asdf&quot;,&quot;url&quot;:&quot;guides/asdf&quot;}]},{&quot;title&quot;:&quot;Developing&quot;,&quot;url&quot;:&quot;developing&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;developing/01_Adding_a_Route&quot;,&quot;url&quot;:&quot;developing/01_Adding_a_Route&quot;}]},{&quot;title&quot;:&quot;Deployment&quot;,&quot;url&quot;:&quot;deployment&quot;,&quot;pages&quot;:[]},{&quot;title&quot;:&quot;Examples&quot;,&quot;url&quot;:&quot;examples&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;Heroku Deploy&quot;,&quot;url&quot;:&quot;examples/Heroku_Deployment&quot;},{&quot;title&quot;:&quot;IIS&quot;,&quot;url&quot;:&quot;examples/IIS&quot;}]},{&quot;title&quot;:&quot;Generators&quot;,&quot;url&quot;:&quot;generators&quot;,&quot;pages&quot;:[{&quot;title&quot;:&quot;App&quot;,&quot;url&quot;:&quot;generators/app&quot;},{&quot;title&quot;:&quot;Route&quot;,&quot;url&quot;:&quot;generators/route&quot;},{&quot;title&quot;:&quot;Service&quot;,&quot;url&quot;:&quot;generators/service&quot;},{&quot;title&quot;:&quot;Component&quot;,&quot;url&quot;:&quot;generators/component&quot;},{&quot;title&quot;:&quot;Controller&quot;,&quot;url&quot;:&quot;generators/controller&quot;},{&quot;title&quot;:&quot;Decorator&quot;,&quot;url&quot;:&quot;generators/decorator&quot;},{&quot;title&quot;:&quot;Directive&quot;,&quot;url&quot;:&quot;generators/directive&quot;},{&quot;title&quot;:&quot;Endpoint&quot;,&quot;url&quot;:&quot;generators/endpoint&quot;},{&quot;title&quot;:&quot;Filter&quot;,&quot;url&quot;:&quot;generators/filter&quot;},{&quot;title&quot;:&quot;Heroku&quot;,&quot;url&quot;:&quot;generators/heroku&quot;},{&quot;title&quot;:&quot;Openshift&quot;,&quot;url&quot;:&quot;generators/openshift&quot;}]},{&quot;title&quot;:&quot;Other&quot;,&quot;url&quot;:&quot;/&quot;,&quot;pages&quot;:[]}]}"><nav class="sidebar-mobile"></nav></div><div class="splash"><div class="splash-logo"><img src="/b1f772d933f9f49909c680938fa43454.svg"></div><div class="container splash__section"><h1>The Angular Full-Stack Generator</h1><div><h2 class="header"><a class="anchor" href="#install-run-the-generator-" id="install-run-the-generator-"></a><span class="text">Install &amp; run the generator.</span><a class="icon-link" href="#install-run-the-generator-"></a></h2>
+<div class="homepage__wrap"><div class="homepage__left"><p><strong>Install Yeoman, generator-angular-fullstack, &amp; the Gulp CLI</strong></p>
+<pre><code class="lang-bash">$ npm <span class="token function">install</span> --global yo generator-angular-fullstack gulp-cli
 </code></pre>
-<p>An example client component in <code>client/app</code></p>
-<pre><code>main
-├── main.js                 - Routes
-├── main.controller.js      - Controller for our main route
-├── main.controller.spec.js - Test
-├── main.html               - View
-└── main.less               - Styles
+<p></p></div><div class="homepage__right"><p></p>
+<p><strong>Make a new folder for your project, scope into it, and run the generator.</strong></p>
+<pre><code class="lang-bash">$ <span class="token function">mkdir</span> example <span class="token operator">&amp;&amp;</span> <span class="token function">cd</span> <span class="token variable">$_</span>
+$ yo angular-fullstack
+<span class="token punctuation">..</span>.
 </code></pre>
-<p>An example server component in <code>server/api</code></p>
-<pre><code>thing
-├── index.js                - Routes
-├── thing.controller.js     - Controller for our `thing` endpoint
-├── thing.model.js          - Database model
-├── thing.socket.js         - Register socket events
-└── thing.spec.js           - Test
+<p>Answer the generator&apos;s questions to scaffold an app tailored to your preferences.</p>
+<p></p></div><p></p>
+<p></p></div><p></p>
+<h2 class="header"><a class="anchor" href="#get-up-and-running" id="get-up-and-running"></a><span class="text">Get up and running</span><a class="icon-link" href="#get-up-and-running"></a></h2>
+<div class="homepage__wrap"><div class="homepage__left"><p><strong>Start the development server</strong></p>
+<pre><code class="lang-bash">$ gulp serve
 </code></pre>
-            </div>
-        </div>
-    </div>
-</div>
+<p>Your web browser should open up to a page similar to the one shown to the right.</p>
+<p></p></div><p></p>
+<div class="homepage__right"><p><img src="/../assets/afs-screenshot-cropped.png" alt="Home page screenshot"></p>
+<p></p></div><p></p>
+<p></p></div><p></p>
+</div></div><div class="container splash__section"><h1>Support the Team</h1><p>Through contributions, donations, and sponsorship, you allow this project to thrive.</p><h2>Sponsors</h2><div class="support"><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/0/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/0/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/1/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/1/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/2/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/2/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/3/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/3/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/4/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/4/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/5/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/5/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/6/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/6/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/7/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/7/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/8/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/8/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/9/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/11/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/11/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/12/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/12/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/13/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/13/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/14/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/14/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/15/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/15/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/16/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/16/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/17/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/17/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/18/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/18/avatar" alt="sponsor avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/sponsor/19/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/19/avatar" alt="sponsor avatar"></a></div><h2>Backers</h2><div class="support"><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/0/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/0/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/1/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/1/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/2/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/2/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/3/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/3/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/4/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/4/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/5/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/5/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/6/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/6/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/7/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/7/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/8/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/8/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/9/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/10/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/11/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/11/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/12/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/12/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/13/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/13/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/14/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/14/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/15/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/15/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/16/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/16/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/17/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/17/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/18/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/18/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/19/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/19/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/20/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/20/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/21/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/21/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/22/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/22/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/23/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/23/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/24/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/24/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/25/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/25/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/26/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/26/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/27/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/27/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/28/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/28/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/29/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/29/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/30/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/30/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/31/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/31/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/32/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/32/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/33/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/33/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/34/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/34/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/35/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/35/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/36/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/36/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/37/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/37/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/38/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/38/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/39/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/39/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/40/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/40/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/41/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/41/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/42/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/42/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/43/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/43/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/44/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/44/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/45/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/45/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/46/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/46/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/47/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/47/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/48/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/48/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/49/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/49/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/50/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/50/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/51/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/51/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/52/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/52/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/53/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/53/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/54/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/54/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/55/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/55/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/56/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/56/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/57/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/57/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/58/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/58/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/59/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/59/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/60/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/60/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/61/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/61/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/62/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/62/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/63/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/63/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/64/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/64/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/65/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/65/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/66/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/66/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/67/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/67/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/68/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/68/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/69/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/69/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/70/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/70/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/71/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/71/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/72/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/72/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/73/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/73/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/74/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/74/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/75/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/75/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/76/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/76/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/77/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/77/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/78/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/78/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/79/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/79/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/80/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/80/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/81/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/81/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/82/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/82/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/83/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/83/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/84/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/84/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/85/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/85/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/86/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/86/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/87/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/87/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/88/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/88/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/89/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/89/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/90/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/90/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/91/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/91/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/92/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/92/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/93/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/93/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/94/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/94/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/95/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/95/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/96/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/96/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/97/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/97/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/98/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/98/avatar" alt="backer avatar"></a><a class="support__item" href="https://opencollective.com/angular-fullstack/backer/99/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/99/avatar" alt="backer avatar"></a></div></div></div><div class="footer"><div class="container footer__inner"><section class="footer__left"><a href="/get-started" class="footer__link">Get Started</a><a href="https://github.com/angular-fullstack" target="_blank" class="footer__link">Organization</a><a href="https://github.com/angular-fullstack/generator-angular-fullstack/blob/master/contributing.md" target="_blank" class="footer__link">Contribute</a></section><section class="footer__middle"><a href="/" class="footer__icon"><img src="/44c8aeaa24cb28d0a5c6a45de449fd7d.svg"></a></section><section class="footer__right"><a href="https://gitter.im/angular-fullstack/generator-angular-fullstack" target="_blank" class="footer__link">Support</a><a href="https://github.com/angular-fullstack/generator-angular-fullstack/releases" target="_blank" class="footer__link">Changelog</a></section></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-46921629-2', 'auto');ga('send', 'pageview');</script></div>
 
-<div class="HomepageFooter">
-    <div class="container">
-        <div class="container--inner">
-                            <ul class="HomepageFooter__links">
-                    <li><a href="https://www.npmjs.com/package/generator-angular-fullstack" target="_blank">Download</a></li><li><a href="https://github.com/angular-fullstack/generator-angular-fullstack" target="_blank">GitHub Repo</a></li><li><a href="https://github.com/angular-fullstack/generator-angular-fullstack/issues" target="_blank">Help/Support/Bugs</a></li><li><a href="https://gitter.im/angular-fullstack/generator-angular-fullstack" target="_blank">Our Gitter Chatroom</a></li><li><a href="https://opencollective.com/angular-fullstack" target="_blank">Support our Open Collective</a></li>                </ul>
-            
-                    </div>
-    </div>
-    <div class="clearfix"></div>
-</div>
+    
+      <script src="/4fe15b637dba6e38256ebd992a2e8a3e.js"></script>
+    
 
     <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ((window.gitter = {}).chat = {}).options = {
+        room: 'angular-fullstack/generator-angular-fullstack',
+        activationElement: false
+      };
+    </script>
 
-    ga('create', 'UA-48443700-5', '');
-    ga('send', 'pageview');
-</script>
-
-    <!-- jQuery -->
-    <script src="themes/daux/js/jquery-1.11.3.min.js"></script>
-
-    <!-- hightlight.js -->
-    <script src="themes/daux/js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-    <!-- JS -->
-    
-    <script src="themes/daux/js/daux.js"></script>
-
-            <!-- Tipue Search -->
-        <script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
-
-        <script>
-            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
-            $(function() {
-                tipuesearch({
-                    'base_url': ''
-                });
-            });
-        </script>
-    
-</body>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
 </html>
