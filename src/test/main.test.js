@@ -58,7 +58,7 @@ describe('angular-fullstack:app', function() {
   describe('default settings', function() {
     var dir;
 
-    beforeEach(function() {
+    before(function() {
       return runGen(defaultOptions).then(_dir => {
         dir = _dir;
       });
@@ -83,7 +83,7 @@ describe('angular-fullstack:app', function() {
     });
 
     describe('with a generated endpoint', function() {
-      beforeEach(function() {
+      before(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
@@ -95,9 +95,9 @@ describe('angular-fullstack:app', function() {
     });
 
     describe('with a generated capitalized endpoint', function() {
-      beforeEach(function() {
+      before(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
-          return runEndpointGen('Foo', {config: config['generator-angular-fullstack']});
+          return runEndpointGen('Bar', {config: config['generator-angular-fullstack']});
         });
       });
 
@@ -107,9 +107,9 @@ describe('angular-fullstack:app', function() {
     });
 
     describe('with a generated path name endpoint', function() {
-      beforeEach(function() {
+      before(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
-          return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']});
+          return runEndpointGen('foo/baz', {config: config['generator-angular-fullstack']});
         });
       });
 
@@ -119,9 +119,9 @@ describe('angular-fullstack:app', function() {
     });
 
     describe('with a generated snake-case endpoint', function() {
-      beforeEach(function() {
+      before(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
-          return runEndpointGen('foo-bar', {config: config['generator-angular-fullstack']});
+          return runEndpointGen('foo-boo', {config: config['generator-angular-fullstack']});
         });
       });
 
@@ -231,7 +231,7 @@ describe('angular-fullstack:app', function() {
     });
 
     describe('with a generated endpoint', function() {
-      beforeEach(function() {
+      before(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
@@ -276,7 +276,7 @@ describe('angular-fullstack:app', function() {
     };
     this.retries(3);  // Sequelize seems to be quite flaky
 
-    beforeEach(function() {
+    before(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
         lintResult = runCmd('gulp lint:scripts');
@@ -303,7 +303,7 @@ describe('angular-fullstack:app', function() {
     });
 
     describe.skip('with a generated endpoint', function() {
-      beforeEach(function() {
+      before(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
@@ -348,7 +348,7 @@ describe('angular-fullstack:app', function() {
       uibootstrap: false
     };
 
-    beforeEach(function() {
+    before(function() {
       return runGen(testOptions, {options: {devPort: '9005'}}).then(_dir => {
         dir = _dir;
         lintResult = runCmd('gulp lint:scripts');
@@ -376,7 +376,7 @@ describe('angular-fullstack:app', function() {
     });
 
     describe('with a generated endpoint', function() {
-      beforeEach(function() {
+      before(function() {
         return readJSON(path.join(dir, '.yo-rc.json')).then(config => {
           return runEndpointGen('foo', {config: config['generator-angular-fullstack']});
         });
