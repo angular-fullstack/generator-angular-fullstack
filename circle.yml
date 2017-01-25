@@ -25,11 +25,10 @@ dependencies:
     - "docs/node_modules"
   override:
     - npm i
+#    - gulp build # npm 5 won't run `prepublish` on `npm i`, we will need to re-enable this once we go to a Node version using npm 5+
     - cd docs && npm i
     - gulp updateFixtures:test
-    - gulp installFixtures
-  post:
-    - gulp build
+    - cd test/fixtures && npm i && npm run-script update-webdriver
 
 test:
   override:
