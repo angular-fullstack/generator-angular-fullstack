@@ -1,0 +1,234 @@
+// Markdown styling is based on https://gist.github.com/tuzz/3331384.
+@import 'vars';
+@import 'functions';
+@import 'prism-theme';
+
+.page__content,
+.splash__section {
+  line-height:1.5em;
+
+  h1 { font-size: getFontSize(4); }
+  h2 { font-size: getFontSize(3); }
+  h3 { font-size: getFontSize(2); }
+  h4 { font-size: getFontSize(1); }
+  h5 { font-size: getFontSize(0); }
+  h6 { font-size: getFontSize(-1); }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-stack-heading;
+    font-weight:600;
+    line-height:1.4;
+    margin:1.5em 0 0.25em;
+    color:getColor(fiord);
+
+    &:first-child { margin-top:0; }
+    tt, code { font-size: 90%; color: inherit }
+  }
+
+  p, blockquote, table, pre {
+    margin:1em 0;
+  }
+
+  ul, ol, dl {
+    margin:0.5em 0 1em;
+  }
+
+  li {
+    margin:0.5em 0;
+  }
+
+  hr {
+    border:none;
+    background-color:getColor(alto);
+    height:3px;
+    margin:2em 0;
+  }
+
+  ul, ol {
+    padding-left: 30px;
+
+    &:first-child { margin-top:0; }
+    &:last-child { margin-bottom:0; }
+  }
+
+  dl {
+    dt {
+      font-size: getFontSize(0);
+      font-weight: bold;
+      font-style: italic;
+      margin: 15px 0 5px;
+
+      &:first-child { padding: 0; }
+    }
+
+    dd {
+      margin: 0 0 15px;
+      padding: 0 15px;
+    }
+
+    dt, dd {
+      > :first-child { margin-top: 0; }
+      > :last-child { margin-bottom: 0; }
+    }
+  }
+
+  blockquote {
+    border-left: 4px solid #dddddd;
+    padding:0.75em 1em;
+    color:getColor(dove-grey);
+
+    > :first-child { margin-top: 0; }
+    > :last-child { margin-bottom: 0; }
+
+    &.tip,
+    &.warning,
+    &.todo {
+      border-left:none;
+      border-radius: 3px;
+
+      .tip-content {
+        font-style: italic;
+      }
+
+      code {
+        color: inherit;
+      }
+    }
+
+    &.tip {
+      background-color: #DCF2FD;
+      color: #618ca0;
+    }
+    &.warning {
+      background-color: #fbedb7;
+      color: #8c8466;
+    }
+    &.todo {
+      background-color: #fbddcd;
+      color: #907a6e;
+    }
+  }
+
+  table {
+    display:block;
+    width:100%;
+    overflow:auto;
+
+    tr {
+      border-top: 1px solid #cccccc;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+
+      &:nth-child(2n) { background-color: #f8f8f8; }
+
+      th {
+        font-weight: bold;
+        border: 1px solid #cccccc;
+        text-align: left;
+        margin: 0;
+        padding: 6px 13px;
+      }
+
+      td {
+        border: 1px solid #cccccc;
+        text-align: left;
+        margin: 0;
+        padding: 6px 13px;
+
+        img {
+          max-width:none;
+        }
+      }
+
+      th, td {
+        white-space: nowrap;
+
+        > :first-child { margin-top: 0; }
+        > :last-child { margin-bottom: 0; }
+      }
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  b, strong {
+    font-weight:600;
+  }
+
+  code, tt {
+    font-family: $font-stack-code;
+    font-size: 90%;
+    margin: 0 2px;
+    padding: 2px 6px;
+    white-space: nowrap;
+    background-color: transparentize(getColor(fiord), 0.94);
+    border-radius: 3px;
+    text-shadow: 0 1px 0 transparentize(getColor(white), 0.4);
+  }
+
+  a code {
+    color: $text-color-highlight;
+  }
+
+  pre {
+    background-color: rgba(238, 238, 238, 0.35);
+    background-color: getColor(elephant);
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 8px 16px;
+    border-radius: 3px;
+
+    code {
+      margin: 0;
+      padding: 0;
+      white-space: pre;
+      border: none;
+      background: transparent;
+      text-shadow: 0 1px 0 transparentize(darken(getColor(elephant), 10%), 0.5);
+      color: desaturate(getColor(malibu), 40%);
+
+      .code-details-summary-span {
+        margin-left: -15px;
+        cursor: pointer;
+      }
+
+      a {
+        border-bottom: 1px dotted getColor(denim);
+      }
+
+      .code-link {
+        position: relative;
+
+        &:hover {
+          color: lighten(getColor(denim), 15%);
+        }
+      }
+    }
+
+    code, tt {
+      background-color: transparent;
+      border: none;
+    }
+  }
+
+  p {
+    code, tt {
+      display: inline-block;
+      max-width: 100%;
+      line-height: initial;
+      overflow: auto;
+      margin: 0;
+      vertical-align: middle;
+    }
+  }
+
+  span {
+    code, tt {
+      white-space: pre-line;
+    }
+  }
+}

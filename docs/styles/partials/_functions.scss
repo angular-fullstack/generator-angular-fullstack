@@ -1,0 +1,12 @@
+// Custom functions
+
+@import 'vars';
+@import '~modularscale-sass/stylesheets/modular-scale';
+
+@function getFontSize($step) {
+  @return ms($step, 16px, $minor-third)
+}
+
+@function getColor($name) {
+  @return map-get($colors, $name);
+}
