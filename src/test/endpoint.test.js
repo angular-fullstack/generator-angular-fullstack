@@ -67,27 +67,34 @@ function runEndpointGen(name, opt={}) {
   });
 }
 
-let eslintCmd = path.join(TEST_DIR, '/fixtures/node_modules/.bin/eslint');
-function testFile(command, _path) {
-  _path = path.normalize(_path);
-  return fs.accessAsync(_path, fs.R_OK).then(() => {
-    return runCmd(`${command} ${_path}`);
-  });
+const ESLINT_CMD = path.join(TEST_DIR, '/fixtures/node_modules/.bin/eslint');
+
+/**
+ * @param {string[]} files
+ * @param {string} [flags]
+ */
+function eslintFiles(files, flags = '') {
+  return runCmd(`${ESLINT_CMD} ${flags} ${files.join(' ')}`);
 }
 
 function eslintDir(dir, name, folder) {
   if(!folder) folder = name;
   let endpointDir = path.join(dir, 'server/api', folder);
+  let files = fs.readdirAsync(endpointDir);
 
-  let regFiles = fs.readdirAsync(endpointDir)
+  let regFiles = files
     .then(files => files.filter(file => minimatch(file, '**/!(*.spec|*.mock|*.integration).js', {dot: true})))
-    .map(file => testFile(eslintCmd, path.join('./server/api/', folder, file)));
+    .then(files => files.map(file => path.join('./server/api/', folder, file)));
 
-  let specFiles = fs.readdirAsync(endpointDir)
+  let specFiles = files
     .then(files => files.filter(file => minimatch(file, '**/+(*.spec|*.mock|*.integration).js', {dot: true})))
-    .map(file => testFile(`${eslintCmd} --env node,es6,mocha --global sinon,expect`, path.join('./server/api/', folder, file)));
+    .then(files => files.map(file => path.join('./server/api/', folder, file)));
 
-  return Promise.all([regFiles, specFiles]);
+  let regLint = regFiles.then(files => eslintFiles(files));
+
+  let specLint = specFiles.then(files => eslintFiles(files, '--env node,es6,mocha --global sinon,expect'));
+
+  return Promise.all([regLint, specLint]);
 }
 
 var config;
