@@ -1,0 +1,57 @@
+@import 'vars';
+@import 'mixins';
+@import 'functions';
+
+.vote-button {
+  text-align: center;
+  &__value {
+    font-size: 150%;
+  }
+
+  &__value, &__my-value, &__upDown {
+    display: block;
+    width: 90px;
+  }
+
+  &__upDown {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.vote-new-button {
+  display: flex;
+  justify-content: center;
+
+  @include break(medium) {
+    justify-content: inherit;
+  }
+
+  &__arrows {
+    flex: 0 0 10%;
+  }
+
+  &__value {
+    font-size: 15pt;
+  }
+
+  &__value, &__my-value{
+    display: inline;
+    margin-left: 5px;
+    align-self: center;
+  }
+
+  &__upDown {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  &__logout-value {
+    align-self: center;
+    font-size: 20pt;
+    margin: auto;
+  }
+}

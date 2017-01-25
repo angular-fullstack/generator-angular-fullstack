@@ -1,0 +1,102 @@
+@import 'functions';
+
+.algolia-autocomplete {
+  display: flex !important;
+  position: relative;
+
+  .ds-dropdown-menu {
+    box-shadow: none;
+
+    &:before {
+      content: none;
+    }
+
+    [class^=ds-dataset-] {
+      border-radius: 0;
+      border-color: getColor(malibu);
+      border-width: 2px 0;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+      padding: 0;
+    }
+
+    .ds-suggestion.ds-cursor .algolia-docsearch-suggestion--content {
+      background: transparentize(getColor(malibu), 0.9) !important;
+    }
+  }
+
+  .algolia-docsearch-suggestion {
+    padding: 0;
+  }
+
+  .algolia-docsearch-suggestion--wrapper {
+    display: flex;
+    padding: 0;
+  }
+
+  .algolia-docsearch-suggestion--text {
+    color: getColor(dusty-grey);
+
+    .algolia-docsearch-suggestion--highlight {
+      color: $text-color-highlight;
+      box-shadow: none;
+      font-weight: bold;
+    }
+  }
+
+  .algolia-docsearch-suggestion--highlight {
+    color: $text-color-highlight;
+    background: rgba(getColor(malibu), 0.15);
+  }
+
+  .algolia-docsearch-suggestion--category-header {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.9em;
+    border-color: getColor(alto);
+    color: getColor(mine-shaft);
+    margin: 0;
+    padding: 6px 16px;
+  }
+
+  .algolia-docsearch-suggestion--subcategory-column {
+    padding: 8px 16px 8px 12px;
+    background: transparentize(getColor(dusty-grey), 0.92);
+    display: block;
+    color: transparent;
+  }
+
+  .algolia-docsearch-suggestion__secondary .algolia-docsearch-suggestion--subcategory-column {
+    color: getColor(dove-grey);
+  }
+
+  .algolia-docsearch-suggestion--content {
+    padding: 8px 16px 8px 12px;
+  }
+
+  .ds-suggestion:nth-child(n+2) {
+    .algolia-docsearch-suggestion--category-header {
+      border-top: 1px solid #dedede;
+    }
+  }
+
+  .algolia-docsearch-suggestion--title {
+    color: getColor(mine-shaft);
+  }
+
+  .ds-suggestion:last-child {
+    .algolia-docsearch-suggestion--subcategory-column,
+    .algolia-docsearch-suggestion--content {
+      padding-bottom: 26px;
+    }
+  }
+
+  .algolia-docsearch-footer {
+    position: absolute;
+    bottom: 4px;
+    right: 16px;
+  }
+
+  .aa-suggestion-title-separator {
+    color: getColor(dusty-grey);
+  }
+}

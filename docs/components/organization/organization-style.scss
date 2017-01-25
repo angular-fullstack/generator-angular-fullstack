@@ -1,0 +1,34 @@
+@import 'functions';
+@import 'mixins';
+
+.organization {
+  padding: 1.5em;
+}
+
+.organization__projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @include break {
+    justify-content: flex-start;
+  }
+}
+
+.organization__project {
+  width: 280px;
+  height: 420px;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: 2px;
+  box-shadow: 0 0 1px getColor(dove-grey); 
+  overflow: hidden;
+  background: getColor(concrete);
+  transition: all 250ms;
+
+  &:hover {
+    box-shadow: 0 0 5px getColor(emperor);
+    background: white;
+  }
+}
