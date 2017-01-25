@@ -114,7 +114,7 @@ describe('angular-fullstack:endpoint', function() {
     ]);
   });
 
-  describe(`with a generated endpont 'foo'`, function() {
+  describe(`with a generated endpoint 'foo'`, function() {
     var dir;
     beforeEach(function() {
       return runEndpointGen('foo', {config: config['generator-angular-fullstack']}).then(_dir => {
@@ -136,7 +136,7 @@ describe('angular-fullstack:endpoint', function() {
     });
   });
 
-  describe('with a generated capitalized endpont', function() {
+  describe('with a generated capitalized endpoint', function() {
     var dir;
     beforeEach(function() {
       return runEndpointGen('Foo', {config: config['generator-angular-fullstack']}).then(_dir => {
@@ -158,7 +158,7 @@ describe('angular-fullstack:endpoint', function() {
     });
   });
 
-  describe('with a generated path name endpont', function() {
+  describe('with a generated path name endpoint', function() {
     var dir;
     beforeEach(function() {
       return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']}).then(_dir => {
