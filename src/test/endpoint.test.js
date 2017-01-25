@@ -1,7 +1,6 @@
 'use strict';
 import path from 'path';
 import fs from 'fs';
-import _ from 'lodash';
 import Promise from 'bluebird';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
@@ -10,7 +9,6 @@ import * as getExpectedFiles from './get-expected-files';
 import {
   copyAsync,
   runCmd,
-  assertOnlyFiles,
   readJSON,
   runGen
 } from './test-helpers';
