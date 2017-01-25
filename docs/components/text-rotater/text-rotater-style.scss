@@ -1,0 +1,46 @@
+.text-rotater {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  padding: 0 0.3em;
+  vertical-align: bottom;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    height: 3px;
+    left: 0;
+  }
+
+  &::after {
+    top: 0;
+    background-image: linear-gradient(#{getColor(elephant)}, transparent);
+  }
+
+  &::before {
+    bottom: 0;
+    z-index: 1;
+    background-image: linear-gradient(transparent, #{getColor(elephant)});
+  }
+
+  > * {
+    display: inline-block;
+  }
+}
+
+.text-rotater--slide-up {
+  transition: transform 1s;
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transform: translateY(-100%);
+}
+
+.text-rotater__wrap {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: left;
+
+  > * {
+    flex-shrink: 0;
+  }
+}
