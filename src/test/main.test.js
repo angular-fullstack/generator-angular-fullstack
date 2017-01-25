@@ -349,7 +349,7 @@ describe('angular-fullstack:app', function() {
     };
 
     beforeEach(function() {
-      return runGen(testOptions).then(_dir => {
+      return runGen(testOptions, {options: {devPort: '9005'}}).then(_dir => {
         dir = _dir;
         lintResult = runCmd('gulp lint:scripts');
         clientTestResult = runCmd('gulp test:client');
