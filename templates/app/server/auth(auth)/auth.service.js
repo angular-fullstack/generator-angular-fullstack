@@ -22,11 +22,18 @@ export function isAuthenticated() {
       if (req.query && req.query.hasOwnProperty('access_token')) {
         req.headers.authorization = 'Bearer ' + req.query.access_token;
       }
-     // IE11 forgets to set Authorization header sometimes. Pull from cookie instead.
-     if (req.query && typeof req.headers.authorization === 'undefined') {
-       req.headers.authorization = 'Bearer ' + req.cookies.token;
-     }
+      // IE11 forgets to set Authorization header sometimes. Pull from cookie instead.
+      if (req.cookies && req.cookies.hasOwnProperty('token') && typeof req.headers.authorization === 'undefined') {
+        req.headers.authorization = 'Bearer ' + req.cookies.token;
+      }
       validateJwt(req, res, next);
+    })
+    // UnauthorizedError handler.
+    .use(function(err, req, res, next) {
+      if(err.name === 'UnauthorizedError') {
+        res.status(err.status).send(err.message);
+      }
+      next();
     })
     // Attach user to request
     .use(function(req, res, next) {
