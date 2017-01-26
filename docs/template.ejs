@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
     <% for (var file in webpackConfig.template.cssFiles) { %>
-      <link href="<%= '/generator-angular-fullstack' + webpackConfig.template.cssFiles[file] %>" rel="stylesheet">
+      <link href="<%= webpackConfig.template.cssFiles[file] %>" rel="stylesheet">
     <% } %>
 
     <script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
@@ -20,7 +20,7 @@
     <%- webpackConfig.html %>
 
     <% for (var script of webpackConfig.template.jsFiles) { %>
-      <script src="<%= '/generator-angular-fullstack' + script %>"></script>
+      <script src="<%= script %>"></script>
     <% } %>
 
     <script>
