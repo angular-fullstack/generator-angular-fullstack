@@ -10,6 +10,7 @@ mongoose.Promise = require('bluebird');<% } %><% if (filters.sequelize) { %>
 import sqldb from './sqldb';<% } %>
 import config from './config/environment';
 import http from 'http';
+<% if(filters.models) { %>import seedDatabaseIfNeeded from './config/seed';<% } %>
 <% if (filters.mongoose) { %>
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -17,11 +18,6 @@ mongoose.connection.on('error', function(err) {
   console.error('MongoDB connection error: ' + err);
   process.exit(-1); // eslint-disable-line no-process-exit
 });
-<% } %><% if(filters.models) { %>
-// Populate databases with sample data
-if(config.seedDB) {
-  require('./config/seed');
-}
 <% } %>
 // Setup server
 var app = express();
@@ -41,12 +37,14 @@ function startServer() {
   });
 }
 <% if(filters.sequelize) { %>
-sqldb.sequelize.sync()
+sqldb.sequelize.sync()<% if(filters.models) { %>
+  .then(seedDatabaseIfNeeded)<% } %>
   .then(startServer)
   .catch(function(err) {
     console.log('Server failed to start due to error: %s', err);
   });
-<% } else { %>
+<% } else { %><% if(filters.models) { %>
+seedDatabaseIfNeeded();<% } %>
 setImmediate(startServer);
 <% } %>
 // Expose app

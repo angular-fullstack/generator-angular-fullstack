@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title><%= webpackConfig.template.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2B3A42">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,600|Source+Sans+Pro:200,400,400i,500" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+    <% for (var file in webpackConfig.template.cssFiles) { %>
+      <link href="<%= webpackConfig.template.cssFiles[file] %>" rel="stylesheet">
+    <% } %>
+
+    <script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+  </head>
+  <body>
+    <%- webpackConfig.html %>
+
+    <% for (var script of webpackConfig.template.jsFiles) { %>
+      <script src="<%= script %>"></script>
+    <% } %>
+
+    <script>
+      ((window.gitter = {}).chat = {}).options = {
+        room: 'angular-fullstack/generator-angular-fullstack',
+        activationElement: false
+      };
+    </script>
+
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+  </body>
+</html>

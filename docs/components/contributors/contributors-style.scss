@@ -1,0 +1,37 @@
+@import 'functions';
+
+.contributors__list {
+  padding: 6px;
+}
+
+.contributor {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1em;
+  font-size: 14px;
+
+  img {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  }
+
+  .contributor__name {
+    color: getColor(fiord);
+    margin-top: -6px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+    line-height: 1.4;
+    transition: color 0.1s;
+    padding: 0 6px;
+    border-radius: 2px;
+    background: transparentize(getColor(white), 0.05);
+  }
+
+  &:hover {
+    .contributor__name {
+      color: lighten(getColor(denim), 5%);
+    }
+  }
+}

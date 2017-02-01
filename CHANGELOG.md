@@ -1,3 +1,16 @@
+<a name="4.1.2"></a>
+## [4.1.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.1...v4.1.2) (2017-01-09)
+
+
+### Bug Fixes
+
+* **css:** fix stylus-loader options ([641646c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/641646c))
+* **eslint:** hides global variable warnings ([#2448](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2448)) ([6aae4f5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6aae4f5))
+* **sql:** Fix form field not displaying sequalize error ([d2cc15a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d2cc15a)), closes [#2400](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2400)
+* **webpack:css:** disable css-loader sourceMap option ([d48f0b0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d48f0b0)), closes [#2188](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2188)
+
+
+
 <a name="4.1.1"></a>
 ## [4.1.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.0...v4.1.1) (2016-12-08)
 
@@ -72,7 +85,7 @@
 
 * **gen:** fix doc img generation\n\nAdd gulp task to copy images to gh-pages ([5bb43be](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5bb43be))
 * **gen:heroku:** fix module export, gen base ([8e50326](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8e50326)), closes [#2148](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2148)
-* **webpack:** fix boostrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
+* **webpack:** fix bootstrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
 
 
 
