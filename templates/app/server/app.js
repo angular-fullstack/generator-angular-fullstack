@@ -44,6 +44,7 @@ sqldb.sequelize.sync()
     console.log('Server failed to start due to error: %s', err);
   });
 <% } else { %>
+seedDatabaseIfNeeded();
 setImmediate(startServer);
 <% } %>
 // Expose app
