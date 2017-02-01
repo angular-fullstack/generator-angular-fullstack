@@ -37,14 +37,14 @@ function startServer() {
   });
 }
 <% if(filters.sequelize) { %>
-sqldb.sequelize.sync()
+sqldb.sequelize.sync()<% if(filters.models) { %>
+  .then(seedDatabaseIfNeeded)<% } %>
   .then(startServer)
-<% if(filters.models) { %>  .then(seedDatabaseIfNeeded)<% } %>
   .catch(function(err) {
     console.log('Server failed to start due to error: %s', err);
   });
-<% } else { %>
-seedDatabaseIfNeeded();
+<% } else { %><% if(filters.models) { %>
+seedDatabaseIfNeeded();<% } %>
 setImmediate(startServer);
 <% } %>
 // Expose app
