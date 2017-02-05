@@ -176,7 +176,7 @@ export function app(options) {
       'client/app/account/signup/signup.' + markup,
       'client/app/account/signup/index.' + script,
       'client/app/account/signup/signup.controller.' + script,
-      'client/app/admin/index.' + script,
+      'client/app/admin/admin.component.' + script,
       'client/app/admin/admin.' + markup,
       'client/app/admin/admin.' + stylesheet,
       'client/app/admin/admin.controller.' + script,

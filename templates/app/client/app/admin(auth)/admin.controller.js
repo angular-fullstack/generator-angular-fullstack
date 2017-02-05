@@ -7,8 +7,11 @@ export default class AdminController {
   <%_ } _%>
   /*@ngInject*/
   constructor(User) {
-    // Use the User $resource to fetch all users
-    this.users = User.query();
+    this.User = User;
+  }
+
+  $onInit() {
+    this.users = this.User.query(); // Fetch all users
   }
 
   delete(user) {
