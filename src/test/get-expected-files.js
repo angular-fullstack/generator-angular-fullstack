@@ -179,7 +179,6 @@ export function app(options) {
       'client/app/admin/admin.component.' + script,
       'client/app/admin/admin.' + markup,
       'client/app/admin/admin.' + stylesheet,
-      'client/app/admin/admin.controller.' + script,
       'client/app/admin/admin.routes.' + script,
       'client/components/auth/auth.module.' + script,
       'client/components/auth/auth.service.' + script,
