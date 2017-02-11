@@ -2,7 +2,8 @@
 /*eslint no-invalid-this:0*/
 import crypto from 'crypto';
 mongoose.Promise = require('bluebird');
-import mongoose, {Schema} from 'mongoose';<% if(filters.oauth) { %>
+import mongoose, {Schema} from 'mongoose';
+import {registerEvents} from './user.events';<% if(filters.oauth) { %>
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
@@ -257,4 +258,5 @@ UserSchema.methods = {
   }
 };
 
+registerEvents(UserSchema);
 export default mongoose.model('User', UserSchema);
