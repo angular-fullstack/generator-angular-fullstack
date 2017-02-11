@@ -1,3 +1,22 @@
+<a name="4.1.3"></a>
+## [4.1.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.2...v4.1.3) (2017-02-11)
+
+
+### Bug Fixes
+
+* **events:** mongoose event registration ([e3ed67f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e3ed67f)), closes [#2479](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2479)
+* **webpack:** don't use html-plugin in test ([959c31c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/959c31c)), closes [#2374](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2374)
+
+
+### Performance Improvements
+
+* **test:endpoint:** 
+  * reduce number of eslint commands run ([6faa7f0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6faa7f0))
+  * remove unused imports ([95a5aab](https://github.com/angular-fullstack/generator-angular-fullstack/commit/95a5aab))
+* **test:main:** reduce number of app generations ([d42d0b6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d42d0b6))
+
+
+
 <a name="4.1.2"></a>
 ## [4.1.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.1...v4.1.2) (2017-01-09)
 
