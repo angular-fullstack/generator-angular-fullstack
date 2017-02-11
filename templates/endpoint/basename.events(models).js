@@ -4,8 +4,7 @@
 
 'use strict';
 
-import {EventEmitter} from 'events';<% if(filters.mongooseModels) { %>
-import <%= classedName %> from './<%= basename %>.model';<% } if(filters.sequelizeModels) { %>
+import {EventEmitter} from 'events';<% if(filters.sequelizeModels) { %>
 var <%= classedName %> = require('<%= relativeRequire(config.get('registerModelsFile')) %>').<%= classedName %>;<% } %>
 var <%= classedName %>Events = new EventEmitter();
 
@@ -27,10 +26,12 @@ var events = {
 <%_ } -%>
 
 // Register the event emitter to the model events
-for(var e in events) {
-  let event = events[e];<% if(filters.mongooseModels) { %>
-  <%= classedName %>.schema.post(e, emitEvent(event));<% } if(filters.sequelizeModels) { %>
-  <%= classedName %>.hook(e, emitEvent(event));<% } %>
+function registerEvents(<%= classedName %>) {
+  for(var e in events) {
+    let event = events[e];<% if(filters.mongooseModels) { %>
+    <%= classedName %>.post(e, emitEvent(event));<% } if(filters.sequelizeModels) { %>
+    <%= classedName %>.hook(e, emitEvent(event));<% } %>
+  }
 }
 
 function emitEvent(event) {
@@ -40,5 +41,7 @@ function emitEvent(event) {
     done(null);<% } %>
   };
 }
-
+<% if (filters.sequelizeModels) { %>
+registerEvents(<%= classedName %>);<% } if (filters.mongooseModels) { %>
+export {registerEvents};<% } %>
 export default <%= classedName %>Events;
