@@ -141,7 +141,7 @@
     "webpack": "2.2.0",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-dev-server": "^2.2.0-rc.0",
-    "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "extract-text-webpack-plugin": "2.0.0",
     "html-webpack-plugin": "^2.24.1",
     "html-webpack-harddisk-plugin": "~0.0.2",
     <%_ if(filters.pug) { _%>
