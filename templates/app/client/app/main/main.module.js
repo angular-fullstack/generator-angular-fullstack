@@ -6,7 +6,7 @@ import { UIRouterModule } from 'ui-router-ng2';<% } %>
 <%_ if(filters.ngroute) { %>
 import { RouterModule, Routes } from '@angular/router';<% } %>
 <%_ if(filters.uibootstrap) { %>
-import { TooltipModule } from 'ng2-bootstrap/ng2-bootstrap';<% } %>
+import { TooltipModule } from 'ng2-bootstrap';<% } %>
 
 import { MainComponent } from './main.component';
 <%_ if(filters.socketio) { -%>
@@ -32,7 +32,7 @@ export const STATES = [
             states: STATES,
         }),<% } %>
         <%_ if(filters.uibootstrap) { %>
-        TooltipModule,<% } %>
+        TooltipModule.forRoot(),<% } %>
     ],
     declarations: [
         MainComponent,

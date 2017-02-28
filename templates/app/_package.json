@@ -63,8 +63,7 @@
     <%#"@angular/material": "^2.0.0-alpha.10",%>
     "@angular/platform-browser": "^2.3.0",
     "@angular/platform-browser-dynamic": "^2.3.0",
-    <% if(filters.ngroute) { %>
-    "@angular/router": "^3.3.0",<% } %>
+    "@angular/router": "^3.4.7",
     "@angularclass/hmr": "^1.2.1",
     "angular2-universal": "2.1.0-rc.1",
     "angular2-jwt": "^0.1.24",
@@ -96,7 +95,6 @@
     "babel-core": "^6.6.5",
     "babel-eslint": "^6.0.4",
     "babel-register": "^6.16.0",
-    "browser-sync": "^2.8.0",
     "bs-fullscreen-message": "^1.0.0",
     <%_ if(filters.flow) { -%>
     "flow-bin": "^0.31.0",
