@@ -299,8 +299,8 @@ gulp.task('jscs', () => {
 gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
-    whenServerReady(() => {
-        open('http://localhost:' + config.browserSyncPort);
+    return require('./webpack.server').start(config.clientPort).then(() => {
+        open(`http://localhost:${config.clientPort}`);
         cb();
     });
 });

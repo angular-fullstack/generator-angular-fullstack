@@ -1,5 +1,6 @@
 'use strict';
 /*eslint-env node*/
+const _ = require('lodash');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -84,7 +85,7 @@ module.exports = function makeWebpackConfig(options) {
             modulesDirectories: [
                 'node_modules'
             ],
-            extensions: ['', '.js', '.ts']
+            extensions: ['.js', '.ts']
         };
     }
 
@@ -110,22 +111,18 @@ module.exports = function makeWebpackConfig(options) {
 
     // Initialize module
     config.module = {
-        noParse: [
-            path.join(__dirname, 'node_modules', 'zone.js', 'dist'),
-            path.join(__dirname, 'node_modules', '@angular', 'bundles'),
-        ],
         rules: [{
             // JS LOADER
             // Reference: https://github.com/babel/babel-loader
             // Transpile .js files using babel-loader
             // Compiles ES6 and ES7 into ES5 code
             test: /\.js$/,
-            use: {
-                loader: 'babel',
+            use: [{
+                loader: 'babel-loader',
                 options: {
                     plugins: TEST ? ['istanbul'] : [],
                 }
-            },
+            }].concat(DEV ? '@angularclass/hmr-loader' : []),
             include: [
                 path.resolve(__dirname, 'client/'),
                 path.resolve(__dirname, 'server/config/environment/shared.js'),
@@ -136,13 +133,13 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/s-panferov/awesome-typescript-loader
             // Transpile .ts files using awesome-typescript-loader
             test: /\.ts$/,
-            use: {
+            use: [{
                 loader: 'awesome-typescript-loader',
                 <%_ if(filters.ts) { -%>
                 options: {
                     tsconfig: path.resolve(__dirname, 'tsconfig.client.json')
                 },<% } %>
-            },
+            }].concat(DEV ? '@angularclass/hmr-loader' : []),
             include: [
                 path.resolve(__dirname, 'client/')
             ]
@@ -154,21 +151,21 @@ module.exports = function makeWebpackConfig(options) {
             // Pass along the updated reference to your code
             // You can add here any file extension you want to get copied to your output
             test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)([\?]?.*)$/,
-            use: 'file'
+            use: 'file-loader'
         }, {
             <%_ if(filters.pug) { _%>
             // Pug HTML LOADER
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js
             test: /\.(jade|pug)$/,
-            use: 'pug-html'
+            use: 'pug-html-loader'
         }, {<% } %>
             <%_ if(filters.html) { _%>
             // HTML LOADER
             // Reference: https://github.com/webpack/raw-loader
             // Allow loading html through js
             test: /\.html$/,
-            use: 'raw'
+            use: 'raw-loader'
         }, {<% } %>
             // CSS LOADER
             // Reference: https://github.com/webpack/css-loader
@@ -183,16 +180,16 @@ module.exports = function makeWebpackConfig(options) {
                 //
                 // Reference: https://github.com/webpack/style-loader
                 // Use style-loader in development for hot-loading
-                ? ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+                ? ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss-loader']})
                 // Reference: https://github.com/webpack/null-loader
                 // Skip loading css in test mode
-                : 'null'
+                : 'null-loader'
         }<% if(!filters.css) { %>, {
             <%_ if(filters.sass) { _%>
             // SASS LOADER
             // Reference: https://github.com/jtangelder/sass-loader
             test: /\.(scss|sass)$/,
-            use: ['raw', 'sass'],
+            use: ['raw-loader', 'sass-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
                 path.resolve(__dirname, 'client')
@@ -201,7 +198,7 @@ module.exports = function makeWebpackConfig(options) {
             // LESS LOADER
             // Reference: https://github.com/
             test: /\.less$/,
-            use: ['style', 'css', 'less'],
+            use: ['style-loader', 'css-loader', 'less-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/less/*.less'),
                 path.resolve(__dirname, 'client/app/app.less')
@@ -210,7 +207,7 @@ module.exports = function makeWebpackConfig(options) {
             // Stylus LOADER
             // Reference: https://github.com/
             test: /\.styl$/,
-            use: ['style', 'css', 'stylus'],
+            use: ['style-loader', 'css-loader', 'stylus-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
                 path.resolve(__dirname, 'client/app/app.styl')
@@ -238,8 +235,9 @@ module.exports = function makeWebpackConfig(options) {
         // Reference: https://github.com/webpack/extract-text-webpack-plugin
         // Extract css files
         // Disabled when in test mode or not in build mode
-        new ExtractTextPlugin('[name].[hash].css', {
-            disable: !BUILD || TEST
+        new ExtractTextPlugin({
+            filename: '[name].[hash].css',
+            disable: !BUILD || TEST,
         }),
 
         new webpack.LoaderOptionsPlugin({
@@ -365,21 +363,6 @@ module.exports = function makeWebpackConfig(options) {
         };
         config.debug = false;
     }
-
-    /**
-     * Dev server configuration
-     * Reference: http://webpack.github.io/docs/configuration.html#devserver
-     * Reference: http://webpack.github.io/docs/webpack-dev-server.html
-     */
-    config.devServer = {
-        contentBase: './client/',
-        stats: {
-            modules: false,
-            cached: false,
-            colors: true,
-            chunk: false
-        }
-    };
 
     config.node = {
         global: true,
