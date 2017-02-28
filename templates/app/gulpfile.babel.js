@@ -241,7 +241,6 @@ function webpackCompile(options, cb) {
 gulp.task('webpack:dev', cb => webpackCompile({ DEV: true }, cb));
 gulp.task('webpack:dist', cb => webpackCompile({ BUILD: true }, cb));
 gulp.task('webpack:test', cb => webpackCompile({ TEST: true }, cb));
-gulp.task('webpack:e2e', cb => webpackCompile({ E2E: true }, cb));
 <%_ if(filters.ts) { -%>
 
 // Install DefinitelyTyped TypeScript definition files
@@ -450,7 +449,7 @@ gulp.task('coverage:integration', () => {
 // Downloads the selenium webdriver
 gulp.task('webdriver_update', webdriver_update);
 
-gulp.task('test:e2e', ['webpack:e2e', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
+gulp.task('test:e2e', ['webpack:dist', 'env:all', 'env:test', 'start:server', 'webdriver_update'], cb => {
     gulp.src(paths.client.e2e)
         .pipe(protractor({
             configFile: 'protractor.conf.js',
