@@ -1,0 +1,59 @@
+@import 'functions';
+@import 'mixins';
+
+.splash-viz {
+  position:relative;
+  display:flex;
+  height:calc(100vh - 55px);
+  min-height:320px;
+  max-height:720px;
+  background:getColor(elephant);
+  flex-direction: column;
+
+  &__heading {
+    color: getColor(white);
+    font-size: getFontSize(4);
+    text-align: center;
+    font-weight: 200;
+    margin-top: 24px;
+
+    @include break {
+      font-size: getFontSize(5);
+    }
+  }
+
+  &__modules {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 65vw;
+    min-width: 550px;
+    margin: auto;
+    display: none;
+
+    @include break {
+      display: block;
+    }
+
+    img {
+      // Padding is needed to center align
+      // webpack icon with the module image
+      padding-top: 3vw;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__cube {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+
+  }
+}

@@ -1,0 +1,16 @@
+# Top-most EditorConfig file
+root = true
+
+# Set default charset
+[*.{js}]
+charset = utf-8
+
+# 4 space indentation
+[*.{md,js,jsx,scss,hbs}]
+indent_style = space
+indent_size = 2
+
+# Format Config
+[{package.json}]
+indent_style = space
+indent_size = 2

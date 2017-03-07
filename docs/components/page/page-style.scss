@@ -1,0 +1,49 @@
+@import 'vars';
+@import 'mixins';
+@import 'functions';
+
+.page {
+  position: relative;
+  flex: 1 0 auto;
+  display: flex;
+}
+
+// XXX: Temporary hack to fix sidebar width
+.page div:first-of-type {
+  flex: 0 0 auto;
+  overflow: auto;
+
+  @include break {
+    flex:0 0 30%;
+  }
+
+  @include break('large') {
+    flex:0 0 25%;
+  }
+}
+
+.page__content {
+  overflow-x: hidden;
+  width: 100%;
+  padding: 1.5em 1em;
+
+  @media break {
+    flex: 3;
+    padding: 1.5em;
+  }
+}
+
+.page__edit {
+  display: none;
+
+  @include break {
+    position: absolute;
+    display: block;
+    top: 1.5em;
+    right: 1.5em;
+    font-size: getFontSize(-1);
+    text-transform: uppercase;
+
+    i { font-size:0.8em; }
+  }
+}

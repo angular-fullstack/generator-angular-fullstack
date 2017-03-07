@@ -6,7 +6,7 @@ general:
 ## Customize the test machine
 machine:
   node:
-    version: 5.11.1
+    version: 6.9.4
   post:
     - npm install -g gulp-cli
 
@@ -22,9 +22,17 @@ dependencies:
   # builds. If you need to, you can add custom paths to cache:
   cache_directories:
     - "test/fixtures/node_modules"
-#  post:
-#    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
-#    - tar -xzf sc-latest-linux.tar.gz
+    - "docs/node_modules"
+  override:
+    - npm i
+#    - gulp build # npm 5 won't run `prepublish` on `npm i`, we will need to re-enable this once we go to a Node version using npm 5+
+    - cd docs && npm i
+    - gulp updateFixtures:test
+    - cd test/fixtures && npm i && npm run-script update-webdriver
+
+test:
+  override:
+    - gulp test
 
 ## Custom notifications
 #notify:
@@ -33,13 +41,12 @@ notify:
     # A list of hook hashes, containing the url field
     # gitter hook
     - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
-    
-# deployment:
-  # docs:
-    # branch: master
-    # commands:
-      # - composer global require justinwalsh/daux.io
-      # - gulp docs
+
+deployment:
+  docs:
+    branch: master
+    commands:
+      - cd docs && npm run build && npm run deploy
 
 #test:
 #  pre:

@@ -189,7 +189,7 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js
             test: /\.(jade|pug)$/,
-            loaders: ['pug-html']
+            loaders: ['raw-loader', 'pug-html']
         }, {<% } %>
             <%_ if(filters.html) { _%>
             // HTML LOADER
@@ -211,7 +211,7 @@ module.exports = function makeWebpackConfig(options) {
                 //
                 // Reference: https://github.com/webpack/style-loader
                 // Use style-loader in development for hot-loading
-                ? ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+                ? ExtractTextPlugin.extract('style', 'css!postcss')
                 // Reference: https://github.com/webpack/null-loader
                 // Skip loading css in test mode
                 : 'null'
@@ -238,7 +238,7 @@ module.exports = function makeWebpackConfig(options) {
             // Stylus LOADER
             // Reference: https://github.com/
             test: /\.styl$/,
-            loaders: ['style', 'css', 'stylus'],
+            loaders: ['style', 'css', 'stylus?paths=node_modules/bootstrap-styl'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
                 path.resolve(__dirname, 'client/app/app.styl')
@@ -321,15 +321,17 @@ module.exports = function makeWebpackConfig(options) {
     // Skip rendering index.html in test mode
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
     // Render index.html
-    let htmlConfig = {
-        template: 'client/_index.html',
-        filename: '../client/index.html',
-        alwaysWriteToDisk: true
+    if(!TEST) {
+        let htmlConfig = {
+            template: 'client/_index.html',
+            filename: '../client/index.html',
+            alwaysWriteToDisk: true
+        }
+        config.plugins.push(
+          new HtmlWebpackPlugin(htmlConfig),
+          new HtmlWebpackHarddiskPlugin()
+        );
     }
-    config.plugins.push(
-      new HtmlWebpackPlugin(htmlConfig),
-      new HtmlWebpackHarddiskPlugin()
-    );
 
     // Add build specific plugins
     if(BUILD) {

@@ -4,8 +4,7 @@
 
 'use strict';
 
-import {EventEmitter} from 'events';<% if (filters.mongooseModels) { %>
-import User from './user.model';<% } if (filters.sequelizeModels) { %>
+import {EventEmitter} from 'events';<% if (filters.sequelizeModels) { %>
 import {User} from '../../sqldb';<% } %>
 var UserEvents = new EventEmitter();
 
@@ -24,10 +23,12 @@ var events = {
 };<% } %>
 
 // Register the event emitter to the model events
-for(var e in events) {
-  let event = events[e];<% if (filters.mongooseModels) { %>
-  User.schema.post(e, emitEvent(event));<% } if (filters.sequelizeModels) { %>
-  User.hook(e, emitEvent(event));<% } %>
+function registerEvents(User) {
+  for(var e in events) {
+    let event = events[e];<% if (filters.mongooseModels) { %>
+    User.post(e, emitEvent(event));<% } if (filters.sequelizeModels) { %>
+    User.hook(e, emitEvent(event));<% } %>
+  }
 }
 
 function emitEvent(event) {
@@ -37,5 +38,7 @@ function emitEvent(event) {
     done(null);<% } %>
   }
 }
-
+<% if (filters.sequelizeModels) { %>
+registerEvents(User);<% } if (filters.mongooseModels) { %>
+export {registerEvents};<% } %>
 export default UserEvents;
