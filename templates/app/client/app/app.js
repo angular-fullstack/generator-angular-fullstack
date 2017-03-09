@@ -15,7 +15,7 @@ import uiRouter from 'angular-ui-router';<% } %>
 import uiBootstrap from 'angular-ui-bootstrap';<% } %>
 // import ngMessages from 'angular-messages';
 <%_ if(filters.auth) { _%>
-// <% } %>
+<% } %>
 
 
 import {routeConfig} from './app.config';
