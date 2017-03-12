@@ -189,7 +189,7 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js
             test: /\.(jade|pug)$/,
-            loaders: ['pug-html']
+            loaders: ['raw-loader', 'pug-html']
         }, {<% } %>
             <%_ if(filters.html) { _%>
             // HTML LOADER
