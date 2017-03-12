@@ -547,7 +547,8 @@ export class Generator extends Base {
             ['ngRoute', 'angular-route'],
             ['uiBootstrap', 'angular-ui-bootstrap'],
             ['ngMessages', 'angular-messages'],
-            ['io', 'socket.io-client']
+            ['io', 'socket.io-client'],
+            ['ngValidationMatch', 'angular-validation-match'] 
           ];
           function replacer(contents) {
             modulesToFix.forEach(([moduleName, importName]) => {
