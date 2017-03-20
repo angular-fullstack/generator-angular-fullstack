@@ -54,7 +54,7 @@
     "lodash": "^4.17.4",
     "semver": "^5.1.0",
     "underscore.string": "^3.1.1",
-    "yeoman-generator": "~0.24.1",
+    "yeoman-generator": "~1.1.0",
     "yeoman-welcome": "^1.0.1"
   },
   "devDependencies": {
@@ -70,7 +70,7 @@
     "gulp-conventional-changelog": "^1.1.0",
     "gulp-gh-pages": "^0.5.4",
     "gulp-if": "^2.0.1",
-    "gulp-mocha": "^3.0.0",
+    "gulp-mocha": "^4.0.1",
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7",
     "jit-grunt": "~0.10.0",

@@ -1,4 +1,6 @@
 # AngularJS Full-Stack generator
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/angular-fullstack/generator-angular-fullstack.svg)](https://greenkeeper.io/)
 ![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-logo.svg)
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
