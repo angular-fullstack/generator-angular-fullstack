@@ -9,7 +9,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var fs = require('fs');
 var path = require('path');
-var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 module.exports = function makeWebpackConfig(options) {
     /**
@@ -76,13 +75,13 @@ module.exports = function makeWebpackConfig(options) {
 
     <%_ if(filters.ts) { _%>
     config.resolve = {
-        modulesDirectories: ['node_modules'],
+        modules: ['node_modules'],
         extensions: ['.js', '.ts']
     };<% } %>
 
     if(TEST) {
         config.resolve = {
-            modulesDirectories: [
+            modules: [
                 'node_modules'
             ],
             extensions: ['.js', '.ts']
@@ -158,7 +157,7 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js
             test: /\.(jade|pug)$/,
-            use: 'pug-html-loader'
+            use: ['raw-loaer', 'pug-html-loader']
         }, {<% } %>
             <%_ if(filters.html) { _%>
             // HTML LOADER
@@ -180,7 +179,7 @@ module.exports = function makeWebpackConfig(options) {
                 //
                 // Reference: https://github.com/webpack/style-loader
                 // Use style-loader in development for hot-loading
-                ? ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss-loader']})
+                ? ExtractTextPlugin.extract({fallback: 'style-loader', use: ['css-loader', 'postcss-loader']})
                 // Reference: https://github.com/webpack/null-loader
                 // Skip loading css in test mode
                 : 'null-loader'
@@ -224,14 +223,6 @@ module.exports = function makeWebpackConfig(options) {
      * List: http://webpack.github.io/docs/list-of-plugins.html
      */
     config.plugins = [
-        /*
-         * Plugin: ForkCheckerPlugin
-         * Description: Do type checking in a separate process, so webpack don't need to wait.
-         *
-         * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-         */
-        new ForkCheckerPlugin(),
-
         // Reference: https://github.com/webpack/extract-text-webpack-plugin
         // Extract css files
         // Disabled when in test mode or not in build mode

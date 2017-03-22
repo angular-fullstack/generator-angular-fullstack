@@ -542,7 +542,7 @@ export class Generator extends Base {
 
         // Convert HTML into Pug
         if(this.filters.pug) {
-          let pugFilter = filter(['**/*.html'], {restore: true});
+          let pugFilter = filter(['**/*.html', '!client/_index.html'], {restore: true});
           this.registerTransformStream([
             pugFilter,
             html2jade({
