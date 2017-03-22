@@ -24,7 +24,7 @@ import {routeConfig} from './app.config';
 <%_ if(filters.auth) { _%>
 import _Auth from '../components/auth/auth.module';
 import account from './account';
-import admin from './admin';<% } %>
+import admin from './admin/admin.component';<% } %>
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import main from './main/main.component';
