@@ -79,27 +79,27 @@ yo angular-fullstack
 Available generators:
 
 * App
-    - [angular-fullstack](/docs/generators/app.md) (aka [angular-fullstack:app](/docs/generators/app.md))
+    - [angular-fullstack](https://angular-fullstack.github.io/generators/app/) (aka [angular-fullstack:app](https://angular-fullstack.github.io/generators/app/))
 * Server Side
-    - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
+    - [angular-fullstack:endpoint](https://angular-fullstack.github.io/generators/endpoint)
 * Client Side (via [generator-ng-component](https://github.com/DaftMonk/generator-ng-component))
-    - [angular-fullstack:route](/docs/generators/route.md)
-    - [angular-fullstack:component](/docs/generators/component.md)
-    - [angular-fullstack:controller](/docs/generators/controller.md)
-    - [angular-fullstack:filter](/docs/generators/filter.md)
-    - [angular-fullstack:directive](/docs/generators/directive.md)
-    - [angular-fullstack:service](/docs/generators/service.md)
-    - [angular-fullstack:provider](/docs/generators/service.md)
-    - [angular-fullstack:factory](/docs/generators/service.md)
-    - [angular-fullstack:decorator](/docs/generators/decorator.md)
+    - [angular-fullstack:route](https://angular-fullstack.github.io/generators/route)
+    - [angular-fullstack:component](https://angular-fullstack.github.io/generators/component)
+    - [angular-fullstack:controller](https://angular-fullstack.github.io/generators/controller)
+    - [angular-fullstack:filter](https://angular-fullstack.github.io/generators/filter)
+    - [angular-fullstack:directive](https://angular-fullstack.github.io/generators/directive)
+    - [angular-fullstack:service](https://angular-fullstack.github.io/generators/service)
+    - [angular-fullstack:provider](https://angular-fullstack.github.io/generators/service)
+    - [angular-fullstack:factory](https://angular-fullstack.github.io/generators/service)
+    - [angular-fullstack:decorator](https://angular-fullstack.github.io/generators/decorator)
 * Deployment
-    - [angular-fullstack:openshift](/docs/generators/openshift.md)
-    - [angular-fullstack:heroku](/docs/generators/heroku.md)
+    - [angular-fullstack:openshift](https://angular-fullstack.github.io/generators/openshift)
+    - [angular-fullstack:heroku](https://angular-fullstack.github.io/generators/heroku)
 
 
 ## Documentation
 
-Check out our [documentation home page](http://angular-fullstack.github.io/generator-angular-fullstack).
+Check out our [documentation home page](http://angular-fullstack.github.io/).
 
 
 ## Contribute
