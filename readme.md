@@ -1,5 +1,5 @@
 # AngularJS Full-Stack generator
-![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-logo.svg)
+[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-logo.svg)](https://angular-fullstack.github.io/)
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
@@ -166,4 +166,4 @@ Is your company using Angular-FullStack? Ask your boss to support the project. Y
 <a href="https://opencollective.com/angular-fullstack/sponsor/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/9/avatar"></a>
 <a href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar"></a>
 
-![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)
+[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)](https://angular-fullstack.github.io/)
