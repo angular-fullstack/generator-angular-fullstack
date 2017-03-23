@@ -15,6 +15,7 @@
     "angular-bootstrap": "~1.1.2",<% } %>
     "font-awesome": ">=4.1.0",
     "lodash": "~2.4.1"<% if(filters.socketio) { %>,
+    "socket-io-client": "^1.4.5",
     "angular-socket-io": "~0.7.0"<% } if (filters.uirouter) { %>,
     "angular-ui-router": "~0.2.15"<% } if (filters.auth) { %>,
     "angular-validation-match": "~1.5.2"<% } %>
