@@ -523,7 +523,7 @@ gulp.task('wiredep:client', () => {
                 /bootstrap-sass-official/<% } if(filters.oauth) { %>,
                 /bootstrap-social\.css/<% }}} %>
             ],
-            ignorePath: clientPath
+            ignorePath: './' + clientPath
         }))
         .pipe(gulp.dest(`${clientPath}/`));
 });
