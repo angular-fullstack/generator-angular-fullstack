@@ -38,8 +38,8 @@ module.exports = function makeWebpackConfig(options) {
         config.entry = {};
     } else {
         config.entry = {
-            app: './client/app/app.<%= scriptExt %>',
-            polyfills: './client/polyfills.<%= scriptExt %>',
+            app: path.join(__dirname, '/client/app/app.<%= scriptExt %>'),
+            polyfills: path.join(__dirname, '/client/polyfills.<%= scriptExt %>'),
             vendor: [
                 'lodash'
             ]
