@@ -18,6 +18,12 @@ import uiBootstrap from 'angular-ui-bootstrap';<% } %>
 import ngValidationMatch from 'angular-validation-match';
 <% } %>
 
+<% if (filters.i18nSupport) { %> 
+import i18n from 'angular-translate';  
+import i18nCookie from 'angular-translate-storage-cookie';  
+import i18nLocal from 'angular-translate-storage-local';  
+import i18nLoader from 'angular-translate-loader-static-files';  
+<% } %> 
 
 import {routeConfig} from './app.config';
 
@@ -60,6 +66,8 @@ angular.module('<%= scriptAppName %>', [
   constants,
   <%_ if(filters.socketio) { _%>
   socket,<% } %>
+  <% if (filters.i18nSupport) { %> 
+    'pascalprecht.translate',<% } %>   
   util
 ])
   .config(routeConfig)
