@@ -1,11 +1,11 @@
 .container
   .row
     .col-sm-12
-      h1 Change Password
+      h1<% if (filters.i18nSupport) { %>(translate="CHANGE_PASSWORD")<% } else { %> Change Password<% } %>
     .col-sm-12
       form.form(name='form', ng-submit='vm.changePassword(form)', novalidate='')
         .form-group
-          label Current Password
+          label<% if (filters.i18nSupport) { %>(translate="CURRENT_PASSWORD")<% } else { %> Current Password<% } %>
           input.form-control(type='password'
             name='password'
             ng-model='vm.user.oldPassword'
@@ -13,23 +13,23 @@
           p.help-block(ng-show='form.password.$error.mongoose')
             | {{ vm.errors.other }}
         .form-group
-          label New Password
+          label<% if (filters.i18nSupport) { %>(translate="NEW_PASSWORD")<% } else { %> New Password<% } %>
           input.form-control(type='password'
             name='newPassword'
             ng-model='vm.user.newPassword'
             ng-minlength='3', required='')
-          p.help-block(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || vm.submitted)')
-            | Password must be at least 3 characters.
+          p.help-block(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || vm.submitted)'<% if (filters.i18nSupport) { %> translate="PASSWORD_LENGTH_MSG"<% } %>)
+            | <% if (!filters.i18nSupport) { %>Password must be at least 3 characters.<% } %>
         .form-group
-          label Confirm New Password
+          label<% if (filters.i18nSupport) { %>(translate="CONFIRM_NEW_PASSWORD")<% } else { %> Confirm New Password<% } %>
           input.form-control(type='password'
             name='confirmPassword'
             ng-model='vm.user.confirmPassword'
             match="vm.user.newPassword"
             ng-minlength='3', required='')
-          p.help-block(ng-show='fvm.orm.confirmPassword.$error.match && vm.submitted')
-            | Passwords must match.
+          p.help-block(ng-show='fvm.orm.confirmPassword.$error.match && vm.submitted'<% if (filters.i18nSupport) { %> translate="PASSWORDS_MATCH_MSG"<% } %>)
+            | <% if (!filters.i18nSupport) { %>Passwords must match.<% } %>
 
         p.help-block  {{ vm.message }}
 
-        button.btn.btn-lg.btn-primary(type='submit') Save changes
+        button.btn.btn-lg.btn-primary(type='submit'<% if (filters.i18nSupport) { %> translate="SAVE_CHANGES"<% } %>) <% if (!filters.i18nSupport) { %>Save changes<% } %>
