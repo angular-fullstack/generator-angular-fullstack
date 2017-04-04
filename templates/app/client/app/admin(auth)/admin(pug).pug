@@ -1,6 +1,6 @@
 .container
-  p
-    | The delete user and user index api routes are restricted to users with the 'admin' role.
+  p<% if (filters.i18nSupport) { %>(translate="ADMIN_RESTRICT_MSG")<% } %>
+    | <% if (!filters.i18nSupport) { %>The delete user and user index api routes are restricted to users with the 'admin' role.<% } %>
   ul.list-group
     li.list-group-item(ng-repeat='user in admin.users')
       strong {{user.name}}
