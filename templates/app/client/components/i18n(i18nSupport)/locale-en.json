@@ -38,5 +38,8 @@
   "EMAIL_INVALID_FORMAT_MSG":"Doesn't look like a valid email.", 
   "EMAIL_QUESTION_MSG":"What's your email address?", 
   "PASSWORD_INVALID_MSG":"This password is not correct.", 
-  "EMAIL_UNREGISTRED_MSG":"This email is not registered." 
+  "EMAIL_UNREGISTRED_MSG":"This email is not registered." ,
+  "CONNECT_WITH_FACEBOOK":"Connect with Facebook",
+  "CONNECT_WITH_GOOGLE_PLUS":"Connect with Google+",
+   "CONNECT_WITH_TWITTER":"Connect with Twitter"  
 } 
