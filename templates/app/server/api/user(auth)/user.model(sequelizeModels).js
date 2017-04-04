@@ -20,7 +20,11 @@ export default function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       unique: {
-        msg: 'The specified email address is already in use.'
+        <% if (filters.i18nSupport) { %> 
+          msg: 'EMAIL_IN_USE_MSG'  
+        <% } else { %> 
+          msg: 'The specified email address is already in use.' 
+        <% } %> 
       },
       validate: {
         isEmail: true
