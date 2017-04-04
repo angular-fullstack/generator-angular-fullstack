@@ -191,7 +191,7 @@ export class Generator extends Base {
             type: 'confirm',
             name: 'i18nSupport', 
             default: false, 
-            message: 'Would you like to include i18n support (multi-language)?', 
+            message: 'Would you like to include i18n support (multi-language)?'
           }, { 
             type: 'confirm',             
             name: 'bootstrap',
@@ -560,7 +560,7 @@ export class Generator extends Base {
             ['i18n', 'angular-translate'], 
             ['i18nCookie', 'angular-translate-storage-cookie'], 
             ['i18nLocal', 'angular-translate-storage-local'], 
-            ['i18nLoader', 'angular-translate-loader-static-files']             
+            ['i18nLoader', 'angular-translate-loader-static-files'],             
             ['ngValidationMatch', 'angular-validation-match'] 
           ];
           function replacer(contents) {
