@@ -197,14 +197,16 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  makeSalt(byteSize, callback) {
-    var defaultByteSize = 16;
+  makeSalt(...args) {
+    let byteSize;
+    let callback;
+    let defaultByteSize = 16;
 
-    if(typeof arguments[0] === 'function') {
-      callback = arguments[0];
+    if(typeof args[0] === 'function') {
+      callback = args[0];
       byteSize = defaultByteSize;
-    } else if(typeof arguments[1] === 'function') {
-      callback = arguments[1];
+    } else if(typeof args[1] === 'function') {
+      callback = args[1];
     } else {
       throw new Error('Missing Callback');
     }
@@ -244,6 +246,7 @@ UserSchema.methods = {
     var salt = new Buffer(this.salt, 'base64');
 
     if(!callback) {
+      // eslint-disable-next-line no-sync
       return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
         .toString('base64');
     }
