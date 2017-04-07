@@ -247,17 +247,19 @@ UserSchema.methods = {
 
     if(!callback) {
       // eslint-disable-next-line no-sync
-      return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
+      return crypto.pbkdf2Sync(password, salt, defaultIterations,
+          defaultKeyLength, 'sha1')
         .toString('base64');
     }
 
-    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, (err, key) => {
-      if(err) {
-        return callback(err);
-      } else {
-        return callback(null, key.toString('base64'));
-      }
-    });
+    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength,
+      'sha1', (err, key) => {
+        if(err) {
+          return callback(err);
+        } else {
+          return callback(null, key.toString('base64'));
+        }
+      });
   }
 };
 
