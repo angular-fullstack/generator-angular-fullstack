@@ -17,7 +17,7 @@ export default function seedDatabaseIfNeeded() {
     <% if (filters.mongooseModels) { %>Thing.find({}).remove()<% }
        if (filters.sequelizeModels) { %>return Thing.destroy({ where: {} })<% } %>
       .then(() => {
-        <% if (filters.mongooseModels) { %>Thing.create({<% }
+        <% if (filters.mongooseModels) { %>return Thing.create({<% }
            if (filters.sequelizeModels) { %>return Thing.bulkCreate([{<% } %>
           name: 'Development Tools',
           info: 'Integration with popular tools such as Webpack, Gulp, Babel, TypeScript, Karma, '
