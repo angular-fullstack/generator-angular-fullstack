@@ -99,10 +99,10 @@ UserSchema
 // Validate email is not taken
 UserSchema
   .path('email')
-  .validate(function(value, respond) {
+  .validate(function(value) {
     <%_ if(filters.oauth) { -%>
     if(authTypes.indexOf(this.provider) !== -1) {
-      return respond(true);
+      return true;
     }
 
     <%_ } -%>
@@ -110,11 +110,11 @@ UserSchema
       .then(user => {
         if(user) {
           if(this.id === user.id) {
-            return respond(true);
+            return true;
           }
-          return respond(false);
+          return false;
         }
-        return respond(true);
+        return true;
       })
       .catch(function(err) {
         throw err;
