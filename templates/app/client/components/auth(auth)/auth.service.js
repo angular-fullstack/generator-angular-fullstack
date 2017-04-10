@@ -1,5 +1,7 @@
-/*global _*/
 'use strict';
+
+import _ from 'lodash';
+
 // @flow
 class _User {
   _id: string = '';
