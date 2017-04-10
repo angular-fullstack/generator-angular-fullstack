@@ -13,9 +13,8 @@ const ngRoute = require('angular-route');<% } %>
 import uiRouter from 'angular-ui-router';<% } %>
 <%_ if(filters.uibootstrap) { _%>
 import uiBootstrap from 'angular-ui-bootstrap';<% } %>
-// import ngMessages from 'angular-messages';
 <%_ if(filters.auth) { _%>
-import ngValidationMatch from 'angular-validation-match';
+import 'angular-validation-match';
 <% } %>
 
 

@@ -99,10 +99,10 @@ UserSchema
 // Validate email is not taken
 UserSchema
   .path('email')
-  .validate(function(value, respond) {
+  .validate(function(value) {
     <%_ if(filters.oauth) { -%>
     if(authTypes.indexOf(this.provider) !== -1) {
-      return respond(true);
+      return true;
     }
 
     <%_ } -%>
@@ -110,11 +110,11 @@ UserSchema
       .then(user => {
         if(user) {
           if(this.id === user.id) {
-            return respond(true);
+            return true;
           }
-          return respond(false);
+          return false;
         }
-        return respond(true);
+        return true;
       })
       .catch(function(err) {
         throw err;
@@ -197,14 +197,16 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  makeSalt(byteSize, callback) {
-    var defaultByteSize = 16;
+  makeSalt(...args) {
+    let byteSize;
+    let callback;
+    let defaultByteSize = 16;
 
-    if(typeof arguments[0] === 'function') {
-      callback = arguments[0];
+    if(typeof args[0] === 'function') {
+      callback = args[0];
       byteSize = defaultByteSize;
-    } else if(typeof arguments[1] === 'function') {
-      callback = arguments[1];
+    } else if(typeof args[1] === 'function') {
+      callback = args[1];
     } else {
       throw new Error('Missing Callback');
     }
@@ -244,17 +246,20 @@ UserSchema.methods = {
     var salt = new Buffer(this.salt, 'base64');
 
     if(!callback) {
-      return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
+      // eslint-disable-next-line no-sync
+      return crypto.pbkdf2Sync(password, salt, defaultIterations,
+          defaultKeyLength, 'sha1')
         .toString('base64');
     }
 
-    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, (err, key) => {
-      if(err) {
-        return callback(err);
-      } else {
-        return callback(null, key.toString('base64'));
-      }
-    });
+    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength,
+      'sha1', (err, key) => {
+        if(err) {
+          return callback(err);
+        } else {
+          return callback(null, key.toString('base64'));
+        }
+      });
   }
 };
 
