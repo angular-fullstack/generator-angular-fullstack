@@ -14,8 +14,7 @@ import uiRouter from 'angular-ui-router';<% } %>
 <%_ if(filters.uibootstrap) { _%>
 import uiBootstrap from 'angular-ui-bootstrap';<% } %>
 <%_ if(filters.auth) { _%>
-// eslint-disable-next-line no-unused-vars
-import ngValidationMatch from 'angular-validation-match';
+import 'angular-validation-match';
 <% } %>
 
 
