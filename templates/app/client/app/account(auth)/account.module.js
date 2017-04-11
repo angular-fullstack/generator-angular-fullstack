@@ -22,7 +22,8 @@ import { SettingsComponent } from './settings/settings.component';
             states: STATES,
         }),<% } %>
         <%_ if (filters.ngroute) { -%><% } %>
-        DirectivesModule,
+        <%_ if(filters.oauth) { -%>
+        DirectivesModule,<% } %>
     ],
     declarations: [
         LoginComponent,
