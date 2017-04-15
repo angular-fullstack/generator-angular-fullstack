@@ -1,4 +1,7 @@
 'use strict';
+
+import _ from 'lodash';
+
 // @flow
 class _User {
   _id: string = '';
@@ -185,9 +188,8 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       * @param  {Function|*} callback - optional, function(is)
       * @return {Bool|Promise}
       */
-    isAdmin() {
-      return Auth.hasRole
-        .apply(Auth, [].concat.apply(['admin'], arguments));
+    isAdmin(...args) {
+      return Auth.hasRole(...Reflect.apply([].concat, ['admin'], args));
     },
 
      /**
@@ -196,6 +198,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       * @return {Bool}
       */
     isAdminSync() {
+      // eslint-disable-next-line no-sync
       return Auth.hasRoleSync('admin');
     },
 
