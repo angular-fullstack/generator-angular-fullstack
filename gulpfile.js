@@ -148,7 +148,16 @@ gulp.task('installFixtures', function() {
     }, 1 * 1000);
     shell.cd('test/fixtures');
 
-    execAsync('npm install --quiet', {cwd: '../fixtures'}).then(() => {
+    let installCommand;
+    if(process.platform === 'win32') {
+        installCommand = 'yarn --version >nul 2>&1 && ( yarn install ) || ( npm install --quiet )';
+    } else {
+        installCommand = 'type yarn &> /dev/null | yarn install || npm install --quiet';
+    }
+
+    execAsync(installCommand, {
+        cwd: '../fixtures'
+    }).then(() => {
         process.stdout.write('\n');
         if(!process.env.SAUCE_USERNAME) {
             gutil.log('running npm run-script update-webdriver');
