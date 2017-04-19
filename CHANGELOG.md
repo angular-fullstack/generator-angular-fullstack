@@ -4,8 +4,8 @@
 ## Notable Changes
 
 * `node-inspector` has been taken out in favor of Node's integrated `--inspect` flag.
-* @benmarten has taken care of a lot of the lint issues we've seen pulluting the console
-* @benmarten also enabled the use of (Yarn)[https://yarnpkg.com] if you have it installed. Thanks Ben!
+* @benmarten has taken care of a lot of the lint issues we've seen polluting the console
+* @benmarten also enabled the use of [Yarn](https://yarnpkg.com) if you have it installed. Thanks Ben!
 * Various other fixes. See the [comparison](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.4...4.2.0) for the full list.
 
 ### Bug Fixes
