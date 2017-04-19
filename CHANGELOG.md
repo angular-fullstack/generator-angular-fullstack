@@ -1,3 +1,19 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.4...v4.2.0) (2017-04-19)
+
+## Notable Changes
+
+* `node-inspector` has been taken out in favor of Node's integrated `--inspect` flag.
+* @benmarten has taken care of a lot of the lint issues we've seen pulluting the console
+* @benmarten also enabled the use of (Yarn)[https://yarnpkg.com] if you have it installed. Thanks Ben!
+* Various other fixes. See the [comparison](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.4...4.2.0) for the full list.
+
+### Bug Fixes
+
+* **angular-validation-match:** Integration with Babel & Typescript ([#2517](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2517)) ([9db9918](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9db9918))
+
+
+
 <a name="4.1.4"></a>
 ## [4.1.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.2...v4.1.4) (2017-03-01)
 
