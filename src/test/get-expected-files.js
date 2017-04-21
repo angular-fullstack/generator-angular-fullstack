@@ -46,7 +46,6 @@ export function app(options) {
 
   /* Core Files */
   files = files.concat([
-    'client/.htaccess',
     'client/favicon.ico',
     'client/robots.txt',
     'client/_index.html',
@@ -165,16 +164,16 @@ export function app(options) {
   /* Authentication */
   if (options.auth) {
     files = files.concat([
-      'client/app/account/index.' + script,
+      'client/app/account/account.module.' + script,
       'client/app/account/account.routes.' + script,
       'client/app/account/login/login.' + markup,
-      'client/app/account/login/index.' + script,
-      'client/app/account/login/login.controller.' + script,
+      'client/app/account/login/login.module.' + script,
+      'client/app/account/login/login.component.' + script,
       'client/app/account/settings/settings.' + markup,
-      'client/app/account/settings/index.' + script,
+      'client/app/account/settings/settings.module.' + script,
       'client/app/account/settings/settings.controller.' + script,
       'client/app/account/signup/signup.' + markup,
-      'client/app/account/signup/index.' + script,
+      'client/app/account/signup/signup.module.' + script,
       'client/app/account/signup/signup.controller.' + script,
       'client/app/admin/index.' + script,
       'client/app/admin/admin.' + markup,

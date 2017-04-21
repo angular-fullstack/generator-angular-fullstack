@@ -1,5 +1,6 @@
 import { Component, OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> } from '@angular/core';
 import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { SocketService } from '../../components/socket/socket.service';
 
 @Component({

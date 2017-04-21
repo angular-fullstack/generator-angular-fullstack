@@ -1,14 +1,4 @@
 {
-  "ambientDependencies": {
-    "angular": "registry:dt/angular#1.5.0+20160412133217",
-    "angular-resource": "registry:dt/angular-resource#1.5.0+20160613142217",
-    "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
-    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
-    "socket.io-client": "github:DefinitelyTyped/DefinitelyTyped/socket.io-client/socket.io-client.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
-    "core-js": "registry:dt/core-js#0.0.0+20160317120654",
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#8cf8164641be73e8f1e652c2a5b967c7210b6729",
-    "webpack": "github:DefinitelyTyped/DefinitelyTyped/webpack/webpack.d.ts#95c02169ba8fa58ac1092422efbd2e3174a206f4"
-  },
   "ambientDevDependencies": {
     "selenium-webdriver": "github:DefinitelyTyped/DefinitelyTyped/selenium-webdriver/selenium-webdriver.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe",
     <%_ if(filters.mocha) { _%>
@@ -19,5 +9,14 @@
     "sinon-chai": "github:DefinitelyTyped/DefinitelyTyped/sinon-chai/sinon-chai.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"<% } %>
     <%_ if(filters.jasmine) { _%>
     "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#40c60850ad6c8175a62d5ab48c4e016ea5b3dffe"<% } %>
+  },
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20161015015725",
+    "webpack": "registry:npm/webpack#1.12.9+20160418172948"
+  },
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.9.0+20170310221640",
+    "node": "registry:env/node#6.0.0+20170213133316",
+    "socket.io-client": "registry:dt/socket.io-client#1.4.4+20161116080703"
   }
 }
