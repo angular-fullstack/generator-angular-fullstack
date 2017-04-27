@@ -553,12 +553,12 @@ function flatten() {
     });
 }
 gulp.task('copy:fonts:dev', () => {
-    return gulp.src('node_modules/{bootstrap,font-awesome}/fonts/*')
+    return gulp.src('node_modules/{bootstrap,bootstrap-sass-official/vendor/assets,font-awesome}/fonts/*')
         .pipe(flatten())
         .pipe(gulp.dest(`${clientPath}/assets/fonts`));
 });
 gulp.task('copy:fonts:dist', () => {
-    return gulp.src('node_modules/{bootstrap,font-awesome}/fonts/*')
+    return gulp.src('node_modules/{bootstrap,bootstrap-sass-official/vendor/assets,font-awesome}/fonts/*')
         .pipe(flatten())
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets/fonts`));
 });
