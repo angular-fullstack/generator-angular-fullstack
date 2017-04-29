@@ -20,11 +20,20 @@ checkout:
 dependencies:
   # we automatically cache and restore many dependencies between
   # builds. If you need to, you can add custom paths to cache:
+  override:
+    - "npm install"
+    - "gulp updateFixtures:test && gulp installFixtures"
   cache_directories:
     - "test/fixtures/node_modules"
 #  post:
 #    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
 #    - tar -xzf sc-latest-linux.tar.gz
+
+test:
+  pre:
+    - gulp build
+  override:
+    - gulp test
 
 ## Custom notifications
 #notify:
