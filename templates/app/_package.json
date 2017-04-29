@@ -137,8 +137,8 @@
     "run-sequence": "^1.1.0",
     "lazypipe": "^1.0.1",
     <%# WEBPACK %>
-    "webpack": "2.2.0",
-    "webpack-dev-server": "^2.2.0",
+    "webpack": "^2.3.1",
+    "webpack-dev-server": "^2.4.2",
     "extract-text-webpack-plugin": "2.0.0",
     "html-webpack-plugin": "^2.24.1",
     "html-webpack-harddisk-plugin": "~0.0.2",
@@ -167,7 +167,7 @@
     <%_ if(filters.stylus) { _%>
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.1",<% } %>
-    "karma-webpack": "^1.8.1",
+    "karma-webpack": "^2.0.3",
     <%# END WEBPACK %>
     "through2": "^2.0.1",
     "open": "~0.0.4",
