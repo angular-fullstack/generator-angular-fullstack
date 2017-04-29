@@ -33,9 +33,7 @@ module.exports = function makeWebpackConfig(options) {
      * Should be an empty object if it's generating a test build
      * Karma will set this when it's a test build
      */
-    if(TEST) {
-        config.entry = {};
-    } else {
+    if(!TEST) {
         config.entry = {
             app: './client/app/app.<%= scriptExt %>',
             polyfills: './client/app/polyfills.<%= scriptExt %>',
@@ -352,7 +350,6 @@ module.exports = function makeWebpackConfig(options) {
             colors: true,
             reasons: true
         };
-        config.debug = false;
     }
 
     config.node = {
