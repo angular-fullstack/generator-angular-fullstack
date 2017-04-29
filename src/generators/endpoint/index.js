@@ -24,6 +24,7 @@ export class Generator extends NamedBase {
   }
 
   prompting() {
+    this.filters = this.filters || this.config.get('filters');
     let promptCb = props => {
       if(props.route.charAt(0) !== '/') {
         props.route = `/${props.route}`;
