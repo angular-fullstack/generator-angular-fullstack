@@ -6,7 +6,7 @@ general:
 ## Customize the test machine
 machine:
   node:
-    version: 5.11.1
+    version: 6.10.2
   post:
     - npm install -g gulp-cli
 
