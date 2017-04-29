@@ -38,7 +38,7 @@ module.exports = function makeWebpackConfig(options) {
     } else {
         config.entry = {
             app: './client/app/app.<%= scriptExt %>',
-            polyfills: './client/polyfills.<%= scriptExt %>',
+            polyfills: './client/app/polyfills.<%= scriptExt %>',
             vendor: [
                 'lodash'
             ]
