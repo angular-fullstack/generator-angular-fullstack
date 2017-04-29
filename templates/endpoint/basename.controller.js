@@ -41,9 +41,7 @@ function removeEntity(res) {
     if(entity) {
       <% if(filters.mongooseModels) { %>return entity.remove()<% }
          if(filters.sequelizeModels) { %>return entity.destroy()<% } %>
-        .then(() => {
-          return res.status(204).end();
-        });
+        .then(() => res.status(204).end());
     }
   };
 }
