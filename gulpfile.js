@@ -181,9 +181,6 @@ gulp.task('deps', () => console.log('TODO')); // updateFixtures, david
 gulp.task('release', () => console.log('TODO'));
 gulp.task('lint', () => console.log('TODO')); // ['gulpfile.js', 'src/**/*.js']
 
-gulp.task('daux', () => {
-    return execAsync('daux');
-});
 gulp.task('copy_docs_images', () => {
   return gulp.src('./media/svg/*')
     .pipe(gulp.dest('./static/'));
