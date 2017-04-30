@@ -8,7 +8,8 @@
     "module": "es6",
     "outDir": ".tmp",
     "removeComments": false,
-    "target": "ES5"
+    "target": "ES5",
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules"
