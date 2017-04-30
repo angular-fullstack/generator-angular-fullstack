@@ -11,7 +11,6 @@ import shrinkRay from 'shrink-ray';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import errorHandler from 'errorhandler';
 import path from 'path';
 <%_ if(!filters.noModels) { -%>
