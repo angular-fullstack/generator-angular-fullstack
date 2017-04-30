@@ -49,6 +49,6 @@ export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDest
   }
 
   deleteThing(thing) {
-    this.$http.delete('/api/things/' + thing._id);
+    this.Http.delete(`/api/things/${thing._id}`);
   }<% } %>
 }

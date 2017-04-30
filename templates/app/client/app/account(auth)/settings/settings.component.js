@@ -41,7 +41,7 @@ export class SettingsComponent {
     this.submitted = true;
 
     if(form.$valid) {
-      this.Auth.changePassword(this.user.oldPassword, this.user.newPassword)
+      this.AuthService.changePassword(this.user.oldPassword, this.user.newPassword)
         .then(() => {
           this.message = 'Password successfully changed.';
         })
