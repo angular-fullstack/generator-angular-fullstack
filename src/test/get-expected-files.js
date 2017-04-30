@@ -113,8 +113,7 @@ export function app(options) {
   if (options.transpiler === 'ts') {
     files = files.concat([
       'tsconfig.client.test.json',
-      'tsconfig.client.json',
-      'typings.json',
+      'tsconfig.json',
       'client/tslint.json'
     ]);
   } else {
