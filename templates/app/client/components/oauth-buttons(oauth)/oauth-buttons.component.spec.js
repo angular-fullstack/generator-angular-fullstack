@@ -1,31 +1,37 @@
 'use strict';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
-import {OauthButtonsController} from './index';
+import { OauthButtonsComponent } from './oauth-buttons.component';
 
-describe('Controller: OauthButtonsController', function() {
+describe('Component: OauthButtonsComponent', () => {
+    let comp: OauthButtonsComponent;
+    let fixture: ComponentFixture<BannerComponent>;
+    let de: DebugElement;
+    let el: HTMLElement;
 
-  var controller, $window;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ OauthButtonsComponent ], // declare the test component
+        });
 
-  beforeEach(() => {
-    angular.module('test', [])
-      .controller('OauthButtonsController', OauthButtonsController);
-  });
-  // load the controller's module
-  beforeEach(angular.mock.module('test'));
+        fixture = TestBed.createComponent(OauthButtonsComponent);
 
-  // Initialize the controller and a mock $window
-  beforeEach(inject(function($controller) {
-    $window = {
-      location: {}
-    };
+        comp = fixture.componentInstance; // OauthButtonsComponent test instance
 
-    controller = $controller('OauthButtonsController', {
-      $window: $window
+        // query for the title <h1> by CSS element selector
+        de = fixture.debugElement.query(By.css('a'));
+        el = de.nativeElement;
     });
-  }));
 
-  it('should attach loginOauth', function() {<% if (filters.jasmine) { %>
-    expect(controller.loginOauth).toEqual(jasmine.any(Function));<% } if (filters.mocha) { %>
-    <%= expect() %>controller.loginOauth<%= to() %>.be.a('function');<% } %>
-  });
+    it('test', () => {
+        console.log(fixture.debugElement.query(By.css('i.fa-google-plus')));
+        fixture.detectChanges();
+        <%_ if (filters.jasmine) { -%>
+        expect(el.textContent).toContain('Connect with Google+');
+        <%_ } if (filters.mocha) { -%>
+        <%= expect() %>el.textContent<%= to() %>.contain('Connect with Google+');
+        <%_ } -%>
+    });
 });

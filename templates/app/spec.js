@@ -1,14 +1,29 @@
 'use strict';
 /*eslint-env node*/
-var testsContext;
+import 'babel-polyfill';
 
-require('babel-polyfill');
-require('angular');
-require('angular-mocks');
-<%_ if(filters.uirouter) { _%>
-require('./client/components/ui-router/ui-router.mock');<% } %>
-<%_ if(filters.socketio) { _%>
-require('./client/components/socket/socket.mock');<% } %>
+import 'zone.js/dist/zone';
+import 'zone.js/dist/long-stack-trace-zone';
+import 'zone.js/dist/proxy';
+import 'zone.js/dist/sync-test';
+// import 'zone.js/dist/jasmine-patch';
+import 'zone.js/dist/async-test';
+import 'zone.js/dist/fake-async-test';
 
-testsContext = require.context('./client', true, /\.spec\.<%= scriptExt %>$/);
-testsContext.keys().forEach(testsContext);
+var testsContext = require.context('./client', true, /\.(spec|test)\.<%= scriptExt %>$/);
+// testsContext.keys().forEach(testsContext);
+// testsContext('./app/main/main.component.spec.<%= scriptExt %>');
+testsContext('./components/oauth-buttons/oauth-buttons.component.spec.<%= scriptExt %>');
+
+import { TestBed, getTestBed } from '@angular/core/testing';
+import browser from '@angular/platform-browser-dynamic/testing';
+
+TestBed.initTestEnvironment(browser.BrowserDynamicTestingModule, browser.platformBrowserDynamicTesting());
+
+var hook = new Mocha.Hook('Modified Angular beforeEach Hook', function() {
+  getTestBed().resetTestingModule();
+});
+
+hook.ctx = mocha.suite.ctx;
+hook.parent = mocha.suite;
+mocha.suite._beforeEach = [hook];
