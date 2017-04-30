@@ -134,7 +134,7 @@ module.exports = function makeWebpackConfig(options) {
                 loader: 'awesome-typescript-loader',
                 <%_ if(filters.ts) { -%>
                 options: {
-                    tsconfig: path.resolve(__dirname, 'tsconfig.client.json')
+                    tsconfig: path.resolve(__dirname, 'tsconfig.json')
                 },<% } %>
             }].concat(DEV ? '@angularclass/hmr-loader' : []),
             include: [

@@ -30,8 +30,7 @@ const paths = {
         images: `${clientPath}/assets/images/**/*`,
         revManifest: `${clientPath}/assets/rev-manifest.json`,
         scripts: [
-            `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`<% if(filters.ts) { %>,
-            `!${clientPath}/{typings,test_typings}/**/*`<% } %>
+            `${clientPath}/**/!(*.spec|*.mock).<%= scriptExt %>`
         ],
         styles: [`${clientPath}/{app,components}/**/*.<%= styleExt %>`],
         mainStyle: `${clientPath}/app/app.<%= styleExt %>`,
@@ -241,13 +240,6 @@ function webpackCompile(options, cb) {
 gulp.task('webpack:dev', cb => webpackCompile({ DEV: true }, cb));
 gulp.task('webpack:dist', cb => webpackCompile({ BUILD: true }, cb));
 gulp.task('webpack:test', cb => webpackCompile({ TEST: true }, cb));
-<%_ if(filters.ts) { -%>
-
-// Install DefinitelyTyped TypeScript definition files
-gulp.task('typings', () => {
-    return gulp.src("./typings.json")
-        .pipe(plugins.typings());
-});<% } %>
 
 gulp.task('styles', () => {
     <%_ if(!filters.css) { _%>
@@ -352,8 +344,7 @@ gulp.task('serve', cb => {
             'lint:scripts',
             'inject',
             'copy:fonts:dev',
-            'env:all'<% if(filters.ts) { %>,
-            'typings'<% } %>
+            'env:all'
         ],
         // 'webpack:dev',
         ['start:server', 'start:client'],
@@ -369,8 +360,7 @@ gulp.task('serve:debug', cb => {
             'lint:scripts',
             'inject',
             'copy:fonts:dev',
-            'env:all'<% if(filters.ts) { %>,
-            'typings'<% } %>
+            'env:all'
         ],
         'webpack:dev',
         'start:inspector',
@@ -481,8 +471,7 @@ gulp.task('build', cb => {
         'inject',
         'transpile:server',
         [
-            'build:images'<% if(filters.ts) { %>,
-            'typings'<% } %>
+            'build:images'
         ],
         [
             'copy:extras',
