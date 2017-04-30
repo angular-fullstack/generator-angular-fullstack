@@ -195,19 +195,19 @@ module.exports = function makeWebpackConfig(options) {
             // LESS LOADER
             // Reference: https://github.com/
             test: /\.less$/,
-            use: ['style-loader', 'css-loader', 'less-loader'],
+            use: ['raw-loader', 'less-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/less/*.less'),
-                path.resolve(__dirname, 'client/app/app.less')
+                path.resolve(__dirname, 'client')
             ]<% } %>
             <%_ if(filters.stylus) { _%>
             // Stylus LOADER
             // Reference: https://github.com/
             test: /\.styl$/,
-            use: ['style-loader', 'css-loader', 'stylus-loader'],
+            use: ['raw-loader', 'stylus-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
-                path.resolve(__dirname, 'client/app/app.styl')
+                path.resolve(__dirname, 'client')
             ]<% } %>
         }<% } %>]
     };
