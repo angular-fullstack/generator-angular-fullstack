@@ -15,6 +15,12 @@ var testsContext = require.context('./client', true, /\.(spec|test)\.<%= scriptE
 // testsContext('./app/main/main.component.spec.<%= scriptExt %>');
 <%_ if(filters.oauth) { -%>
 testsContext('./components/oauth-buttons/oauth-buttons.component.spec.<%= scriptExt %>');
+<%_ } else { -%>
+describe('filler' () => {
+  it('fills', () => {
+    console.log('The Filling');
+  });
+});
 <%_ } -%>
 
 import { TestBed, getTestBed } from '@angular/core/testing';
