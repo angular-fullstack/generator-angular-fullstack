@@ -1,11 +1,8 @@
-import fs from 'fs';
 import path from 'path';
 import Promise from 'bluebird';
 import { runCmd } from '../util';
-import chalk from 'chalk';
 import { Base } from '../generator-base';
 import insight from '../insight-init';
-import { exec } from 'child_process';
 import tap from 'gulp-tap';
 import filter from 'gulp-filter';
 import eslint from 'gulp-eslint';
@@ -505,7 +502,7 @@ export class Generator extends Base {
           clientJsFilter,
           codeshiftStream,
           eslint({
-            fix: true, 
+            fix: true,
             configFile: path.join(genDir, 'templates/app/client/.eslintrc(babel)')
           }),
           clientJsFilter.restore
@@ -562,7 +559,7 @@ export class Generator extends Base {
         this.registerTransformStream([
           serverJsFilter,
           eslint({
-            fix: true, 
+            fix: true,
             configFile: path.join(genDir, 'templates/app/server/.eslintrc')
           }),
           serverJsFilter.restore

@@ -1,6 +1,5 @@
 'use strict';
 
-import util from 'util';
 import path from 'path';
 import _ from 'lodash';
 import s from 'underscore.string';
@@ -54,7 +53,7 @@ export class Base extends YoBase {
 export class NamedBase extends Base {
   constructor(...args) {
     super(...args);
-    
+
     this.argument('name', { type: String, required: true });
 
     var name = this.name.replace(/\//g, '-');
