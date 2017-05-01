@@ -16,7 +16,7 @@ var testsContext = require.context('./client', true, /\.(spec|test)\.<%= scriptE
 <%_ if(filters.oauth) { -%>
 testsContext('./components/oauth-buttons/oauth-buttons.component.spec.<%= scriptExt %>');
 <%_ } else { -%>
-describe('filler' () => {
+describe('filler', () => {
   it('fills', () => {
     console.log('The Filling');
   });
