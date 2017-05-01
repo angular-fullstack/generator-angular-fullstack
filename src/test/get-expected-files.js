@@ -60,6 +60,7 @@ export function app(options) {
     'client/assets/images/yeoman.png',
     'client/components/directives.module.' + script,
     'client/components/util.' + script,
+    'client/components/util.spec.' + script,
     'client/components/footer/footer.' + stylesheet,
     'client/components/footer/footer.' + markup,
     'client/components/footer/footer.component.' + script,
