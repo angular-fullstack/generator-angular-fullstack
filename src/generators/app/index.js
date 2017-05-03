@@ -610,7 +610,7 @@ export class Generator extends Base {
       if (process.platform === 'win32') {
         yarnCheckCommand = 'yarn --version >nul 2>&1';
       } else {
-        yarnCheckCommand = 'type yarn &> /dev/null';
+        yarnCheckCommand = 'type yarn >/dev/null 2>&1';
       }
       exec(yarnCheckCommand, (error, stdout, stderr) => {
         return this.spawnCommand((!error) ? 'yarn' : 'npm', ['install']);
