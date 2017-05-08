@@ -11,6 +11,10 @@
     "target": "ES5",
     "skipLibCheck": true
   },
+  "moduleResolution": "node",
+  "typeRoots": [
+    "node_modules/@types"
+  ],
   "exclude": [
     "node_modules"
   ],
