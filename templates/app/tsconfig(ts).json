@@ -8,10 +8,10 @@
     "module": "es6",
     "outDir": ".tmp",
     "removeComments": false,
-    "target": "ES5",
-    "skipLibCheck": true
+    "target": "es5",
+    "skipLibCheck": true,
+    "moduleResolution": "node"
   },
-  "moduleResolution": "node",
   "typeRoots": [
     "node_modules/@types"
   ],
