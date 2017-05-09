@@ -1,12 +1,16 @@
 {
-    "compilerOptions": {
-        "sourceMap": true,
-        "rootDir": "./client",
-        "module": "commonjs",
-        "outDir": ".tmp/test"
-    },
-    "filesGlob": [
-        "client/{app,components}/**/*.{spec,mock}.ts",
-        "client/test_typings/**/*.d.ts"
-    ]
+  "compilerOptions": {
+    "sourceMap": true,
+    "rootDir": "./client",
+    "module": "commonjs",
+    "outDir": ".tmp/test"
+  },
+  "moduleResolution": "node",
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "filesGlob": [
+    "client/{app,components}/**/*.{spec,mock}.ts",
+    "client/test_typings/**/*.d.ts"
+  ]
 }
