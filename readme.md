@@ -39,6 +39,7 @@ yo angular-fullstack
 ## Prerequisites
 
 * MongoDB - Download and Install [MongoDB](https://www.mongodb.com/download-center#community) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
+  * If you have [Docker](https://www.docker.com/) installed, you can easily run a test database with `docker run -p 27017 --name afs-mongo -d mongo`
 * The project's JavaScript is written in ECMAScript 2015. If you're unfamiliar with the latest changes to the specification for JavaScript, check out http://es6-features.org/
 
 ## Supported Configurations
