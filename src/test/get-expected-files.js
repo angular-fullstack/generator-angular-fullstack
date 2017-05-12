@@ -203,8 +203,7 @@ export function app(options) {
       'client/components/oauth-buttons/oauth-buttons.' + stylesheet,
       'client/components/oauth-buttons/oauth-buttons.' + markup,
       'client/components/oauth-buttons/oauth-buttons.component.' + script,
-      'client/components/oauth-buttons/oauth-buttons.component.spec.' + script,
-      'client/components/oauth-buttons/oauth-buttons.directive.spec.' + script,
+      'client/components/oauth-buttons/oauth-buttons.component.spec.' + script, 
       'e2e/components/oauth-buttons/oauth-buttons.po.js'
     ]);
   }
