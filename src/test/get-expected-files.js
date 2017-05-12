@@ -112,7 +112,7 @@ export function app(options) {
   ]);
 
   /* TypeScript */
-  if (options.transpiler === 'ts') {
+  if(options.transpiler === 'ts') {
     files = files.concat([
       'tsconfig.client.test.json',
       'tsconfig.client.json',
@@ -131,14 +131,14 @@ export function app(options) {
   }
 
   /* Ui-Router */
-  if (options.router === 'uirouter') {
+  if(options.router === 'uirouter') {
     files = files.concat([
       'client/components/ui-router/ui-router.mock.' + script
     ]);
   }
 
   /* Ui-Bootstrap */
-  if (options.uibootstrap) {
+  if(options.uibootstrap) {
     files = files.concat([
       'client/components/modal/modal.' + markup,
       'client/components/modal/modal.' + stylesheet,
@@ -147,23 +147,24 @@ export function app(options) {
   }
 
   /* Models - Mongoose or Sequelize */
-  if (models) {
+  if(models) {
     files = files.concat([
       'server/api/thing/thing.model.js',
+      'server/api/thing/thing.model.spec.js',
       'server/api/thing/thing.events.js',
       'server/config/seed.js'
     ]);
   }
 
   /* Sequelize */
-  if (options.odms.indexOf('sequelize') !== -1) {
+  if(options.odms.indexOf('sequelize') !== -1) {
     files = files.concat([
       'server/sqldb/index.js'
     ]);
   }
 
   /* Authentication */
-  if (options.auth) {
+  if(options.auth) {
     files = files.concat([
       'client/app/account/index.' + script,
       'client/app/account/account.routes.' + script,
@@ -206,7 +207,7 @@ export function app(options) {
     ]);
   }
 
-  if (options.oauth && options.oauth.length) {
+  if(options.oauth && options.oauth.length) {
     /* OAuth (see oauthFiles function above) */
     options.oauth.forEach(function(type, i) {
       files = files.concat(oauthFiles(type.replace('Auth', '')));
@@ -224,7 +225,7 @@ export function app(options) {
   }
 
   /* Socket.IO */
-  if (options.socketio) {
+  if(options.socketio) {
     files = files.concat([
       'client/components/socket/socket.service.' + script,
       'client/components/socket/socket.mock.' + script,
