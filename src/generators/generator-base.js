@@ -48,6 +48,13 @@ export class Base extends YoBase {
   to() {
     return this.filters.expect ? ').to' : '.should';
   }
+
+  public() {
+    return this.filters.ts ? 'public ' : '';
+  }
+  private() {
+    return this.filters.ts ? 'private ' : '';
+  }
 }
 
 export class NamedBase extends Base {

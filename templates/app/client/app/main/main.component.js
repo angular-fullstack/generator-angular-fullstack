@@ -9,18 +9,18 @@ import { SocketService } from '../../components/socket/socket.service';
     styles: [require('./main.<%=styleExt%>')],
 })
 export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> {
-  Http;
   <%_ if(filters.socketio) { -%>
   SocketService;<% } %>
   awesomeThings = [];
   <%_ if(filters.models) { -%>
   newThing = '';<% } %>
 
-  static parameters = [Http, SocketService];
-  constructor(_Http_: Http<% if(filters.socketio) { %>, _SocketService_: SocketService<% } %>) {
-    this.Http = _Http_;
+  <%_ if(filters.babel) { -%>
+  static parameters = [Http, SocketService];<% } %>
+  constructor(<%= private() %>http: Http<% if(filters.socketio) { %>, <%= private() %>socketService: SocketService<% } %>) {
+    this.Http = http;
     <%_ if(filters.socketio) { -%>
-    this.SocketService = _SocketService_;<% } %>
+    this.SocketService = socketService;<% } %>
   }
 
   ngOnInit() {
