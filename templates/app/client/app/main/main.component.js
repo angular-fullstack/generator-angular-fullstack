@@ -43,12 +43,24 @@ export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDest
 
   addThing() {
     if(this.newThing) {
-      this.Http.post('/api/things', { name: this.newThing });
+      let text = this.newThing;
       this.newThing = '';
+
+      return this.Http.post('/api/things', { name: text })
+        .map(res => res.json())
+        .catch(err => Observable.throw(err.json().error || 'Server error'))
+        .subscribe(thing => {
+          this.awesomeThings.push(thing);
+        });
     }
   }
 
   deleteThing(thing) {
-    this.Http.delete(`/api/things/${thing._id}`);
+    return this.Http.delete(`/api/things/${thing._id}`)
+      .map(res => res.json())
+      .catch(err => Observable.throw(err.json().error || 'Server error'))
+      .subscribe(() => {
+        this.awesomeThings.splice(this.awesomeThings.findIndex(el => el._id === thing._id), 1);
+      });
   }<% } %>
 }
