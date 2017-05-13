@@ -203,18 +203,18 @@ export function app(options) {
       'client/components/oauth-buttons/oauth-buttons.' + stylesheet,
       'client/components/oauth-buttons/oauth-buttons.' + markup,
       'client/components/oauth-buttons/oauth-buttons.component.' + script,
-      'client/components/oauth-buttons/oauth-buttons.component.spec.' + script, 
+      'client/components/oauth-buttons/oauth-buttons.component.spec.' + script,
       'e2e/components/oauth-buttons/oauth-buttons.po.js'
     ]);
   }
 
-  /* Socket.IO */
-  if (options.socketio) {
+  /* WebSockets */
+  if (options.ws) {
     files = files.concat([
       'client/components/socket/socket.service.' + script,
       'client/components/socket/socket.mock.' + script,
       'server/api/thing/thing.socket.js',
-      'server/config/socketio.js'
+      'server/config/websockets.js'
     ]);
   }
 

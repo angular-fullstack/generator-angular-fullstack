@@ -33,10 +33,12 @@ export const server = new WebpackDevServer(compiler, {
         target: 'http://localhost:9000',
         secure: false,
       },
-      '/socket.io': {
+      <%_ if(filters.ws) { -%>
+      '/primus': {
         target: 'http://localhost:9000',
         secure: false,
-      },
+        ws: true,
+      },<% } %>
     },
 });
 

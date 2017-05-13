@@ -27,7 +27,7 @@ const defaultOptions = {
   odms: ['mongoose'],
   auth: true,
   oauth: [],
-  socketio: true
+  ws: true
 };
 const TEST_DIR = __dirname;
 
@@ -198,7 +198,7 @@ describe('angular-fullstack:app', function() {
       odms: ['mongoose'],
       auth: true,
       oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
-      socketio: true,
+      ws: true,
       bootstrap: true,
       uibootstrap: true
     };
@@ -270,7 +270,7 @@ describe('angular-fullstack:app', function() {
       odms: ['sequelize'],
       auth: true,
       oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
-      socketio: true,
+      ws: true,
       bootstrap: true,
       uibootstrap: true
     };
@@ -343,7 +343,7 @@ describe('angular-fullstack:app', function() {
       odms: [],
       auth: false,
       oauth: [],
-      socketio: false,
+      ws: false,
       bootstrap: false,
       uibootstrap: false
     };
