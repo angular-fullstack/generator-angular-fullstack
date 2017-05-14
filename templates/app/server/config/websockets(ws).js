@@ -53,7 +53,7 @@ export default function initWebSocketServer(server) {
     primus.save(path.join(__dirname, '../../client/components/socket/primus.js'), err => {
       if(err) return reject(err);
 
-      resolve();
+      resolve(primus);
     });
   });
 }

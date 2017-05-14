@@ -45,7 +45,10 @@ function startServer() {
 <% if(filters.sequelize) { %>
 sqldb.sequelize.sync()
   <%_ if(filters.ws) { -%>
-  .then(wsInitPromise)<% } %>
+  .then(wsInitPromise)
+  .then(primus => {
+    app.primus = primus;
+  })<% } %>
   .then(startServer)
   .catch(err => {
     console.log('Server failed to start due to error: %s', err);
@@ -53,6 +56,9 @@ sqldb.sequelize.sync()
 <% } else { %>
 <%_ if(filters.ws) { -%>
 wsInitPromise
+  .then(primus => {
+    app.primus = primus;
+  })
   .then(startServer)
   .catch(err => {
     console.log('Server failed to start due to error: %s', err);
