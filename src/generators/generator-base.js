@@ -1,6 +1,5 @@
 'use strict';
 
-import util from 'util';
 import path from 'path';
 import _ from 'lodash';
 import s from 'underscore.string';

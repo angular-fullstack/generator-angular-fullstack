@@ -6,9 +6,6 @@ const devServerEntry = [`webpack-dev-server/client?http://localhost:${appConfig.
 
 config.entry.app = devServerEntry.concat(config.entry.app);
 
-console.log(config.entry);
-console.log(config.entry.app);
-
 const compiler = webpack(config);
 
 export const server = new WebpackDevServer(compiler, {

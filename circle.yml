@@ -1,51 +1,59 @@
-general:
-  branches:
-    ignore:
-      - gh-pages
+version: 2
+jobs:
+  build:
+    docker:
+     - image: node:7
+     - image: mongo
+       command: [mongod, --smallfiles]
 
-## Customize the test machine
-machine:
-  node:
-    version: 5.11.1
-  post:
-    - npm install -g gulp-cli
+    working_directory: ~/generator-angular-fullstack
 
-## Customize checkout
-checkout:
-  post:
-    - git submodule sync
-    - git submodule update --init # use submodules
+    environment:
+      NODE_ENV: test
 
-## Customize dependencies
-dependencies:
-  # we automatically cache and restore many dependencies between
-  # builds. If you need to, you can add custom paths to cache:
-  cache_directories:
-    - "test/fixtures/node_modules"
-#  post:
-#    - wget https://saucelabs.com/downloads/sc-latest-linux.tar.gz
-#    - tar -xzf sc-latest-linux.tar.gz
+    branches:
+      ignore:
+        - gh-pages
 
-## Custom notifications
-#notify:
-notify:
-  webhooks:
-    # A list of hook hashes, containing the url field
-    # gitter hook
-    - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
-    
-# deployment:
-  # docs:
-    # branch: master
-    # commands:
-      # - composer global require justinwalsh/daux.io
-      # - gulp docs
+    steps:
+      - checkout
+      - run: git submodule sync && git submodule update --init
 
-#test:
-#  pre:
-#    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
-#        background: true
-#    # Wait for tunnel to be ready
-#    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
-#  post:
-#    - killall --wait sc  # wait for Sauce Connect to close the tunnel
+      # Global npm dependencies
+      - restore_cache:
+          keys:
+            - generator-angular-fullstack-npm-global-{{ .Branch }}
+            - generator-angular-fullstack-npm-global-
+      - run: npm install --global gulp-cli
+      - save_cache:
+          key: generator-angular-fullstack-npm-global-{{ .Branch }}
+          paths:
+            - /usr/local/lib/node_modules
+
+      # Generator npm dependencies
+      - restore_cache:
+          keys:
+            - generator-angular-fullstack-npm-{{ .Branch }}-{{ checksum "package.json" }}
+            - generator-angular-fullstack-npm-{{ .Branch }}
+            - generator-angular-fullstack-npm-
+      - run: npm install --quiet
+      - save_cache:
+          key: generator-angular-fullstack-npm-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/generator-angular-fullstack/node_modules
+
+      # Test fixtures
+      - run: gulp updateFixtures:test
+      - restore_cache:
+          keys:
+            - generator-angular-fullstack-npm-fixtures-{{ .Branch }}-{{ checksum "templates/app/_package.json" }}
+            - generator-angular-fullstack-npm-fixtures-{{ .Branch }}
+            - generator-angular-fullstack-npm-fixtures-
+      - run: gulp installFixtures
+      - save_cache:
+          key: generator-angular-fullstack-npm-fixtures-{{ .Branch }}-{{ checksum "templates/app/_package.json" }}
+          paths:
+            - ~/generator-angular-fullstack/test/fixtures/node_modules
+
+      - run: gulp build
+      - run: gulp test

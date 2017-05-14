@@ -9,7 +9,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var fs = require('fs');
 var path = require('path');
-var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 module.exports = function makeWebpackConfig(options) {
     /**
@@ -34,12 +33,10 @@ module.exports = function makeWebpackConfig(options) {
      * Should be an empty object if it's generating a test build
      * Karma will set this when it's a test build
      */
-    if(TEST) {
-        config.entry = {};
-    } else {
+    if(!TEST) {
         config.entry = {
             app: './client/app/app.<%= scriptExt %>',
-            polyfills: './client/polyfills.<%= scriptExt %>',
+            polyfills: './client/app/polyfills.<%= scriptExt %>',
             vendor: [
                 'lodash'
             ]
@@ -76,13 +73,13 @@ module.exports = function makeWebpackConfig(options) {
 
     <%_ if(filters.ts) { _%>
     config.resolve = {
-        modulesDirectories: ['node_modules'],
+        modules: ['node_modules'],
         extensions: ['.js', '.ts']
     };<% } %>
 
     if(TEST) {
         config.resolve = {
-            modulesDirectories: [
+            modules: [
                 'node_modules'
             ],
             extensions: ['.js', '.ts']
@@ -137,7 +134,7 @@ module.exports = function makeWebpackConfig(options) {
                 loader: 'awesome-typescript-loader',
                 <%_ if(filters.ts) { -%>
                 options: {
-                    tsconfig: path.resolve(__dirname, 'tsconfig.client.json')
+                    tsconfig: path.resolve(__dirname, 'tsconfig.json')
                 },<% } %>
             }].concat(DEV ? '@angularclass/hmr-loader' : []),
             include: [
@@ -158,7 +155,7 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js
             test: /\.(jade|pug)$/,
-            use: 'pug-html-loader'
+            use: ['raw-loader', 'pug-html-loader']
         }, {<% } %>
             <%_ if(filters.html) { _%>
             // HTML LOADER
@@ -174,16 +171,10 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/postcss/postcss-loader
             // Postprocess your css with PostCSS plugins
             test: /\.css$/,
-            use: !TEST
-                // Reference: https://github.com/webpack/extract-text-webpack-plugin
-                // Extract css files in production builds
-                //
-                // Reference: https://github.com/webpack/style-loader
-                // Use style-loader in development for hot-loading
-                ? ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss-loader']})
-                // Reference: https://github.com/webpack/null-loader
-                // Skip loading css in test mode
-                : 'null-loader'
+            use: ['raw-loader', 'css-loader', 'postcss-loader'],
+            include: [
+                path.resolve(__dirname, 'client')
+            ]
         }<% if(!filters.css) { %>, {
             <%_ if(filters.sass) { _%>
             // SASS LOADER
@@ -198,19 +189,19 @@ module.exports = function makeWebpackConfig(options) {
             // LESS LOADER
             // Reference: https://github.com/
             test: /\.less$/,
-            use: ['style-loader', 'css-loader', 'less-loader'],
+            use: ['raw-loader', 'less-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/less/*.less'),
-                path.resolve(__dirname, 'client/app/app.less')
+                path.resolve(__dirname, 'client')
             ]<% } %>
             <%_ if(filters.stylus) { _%>
             // Stylus LOADER
             // Reference: https://github.com/
             test: /\.styl$/,
-            use: ['style-loader', 'css-loader', 'stylus-loader'],
+            use: ['raw-loader', 'stylus-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
-                path.resolve(__dirname, 'client/app/app.styl')
+                path.resolve(__dirname, 'client')
             ]<% } %>
         }<% } %>]
     };
@@ -224,14 +215,6 @@ module.exports = function makeWebpackConfig(options) {
      * List: http://webpack.github.io/docs/list-of-plugins.html
      */
     config.plugins = [
-        /*
-         * Plugin: ForkCheckerPlugin
-         * Description: Do type checking in a separate process, so webpack don't need to wait.
-         *
-         * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-         */
-        new ForkCheckerPlugin(),
-
         // Reference: https://github.com/webpack/extract-text-webpack-plugin
         // Extract css files
         // Disabled when in test mode or not in build mode
@@ -361,7 +344,6 @@ module.exports = function makeWebpackConfig(options) {
             colors: true,
             reasons: true
         };
-        config.debug = false;
     }
 
     config.node = {

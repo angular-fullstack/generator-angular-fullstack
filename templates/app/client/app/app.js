@@ -1,4 +1,4 @@
-import '!!style-loader!css-loader!sass-loader!./app.scss';
+import 'style-loader!./app.<%= styleExt %>';
 
 import './polyfills';
 

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "rootDir": "./client",
+    "module": "es6",
+    "outDir": ".tmp",
+    "removeComments": false,
+    "target": "es5",
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  },
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "filesGlob": [
+    "client/{app,components}/**/!(*.spec).ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "resolveGlobs": true,
+    "forkChecker": true
+  }
+}
