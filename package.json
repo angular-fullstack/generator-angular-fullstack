@@ -31,7 +31,8 @@
     "url": "git://github.com/angular-fullstack/generator-angular-fullstack.git"
   },
   "scripts": {
-    "test": "gulp updateFixtures:test && gulp installFixtures && gulp build && gulp test",
+    "pre-test": "gulp updateFixtures:test && gulp installFixtures && gulp build",
+    "test": "mocha --require should --require babel-register --require ./mocha.conf --reporter spec --timeout 120000 test/pre.test.js test/*.test.js",
     "prepublish": "gulp build"
   },
   "dependencies": {
