@@ -1,3 +1,42 @@
+<a name="5.0.0-alpha.5"></a>
+# [5.0.0-alpha.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.0...v5.0.0-alpha.5) (2017-05-14)
+
+
+### Bug Fixes
+
+* **client:** 
+  * fix a few client code errors ([5535fe3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5535fe3))
+  * fix loading css ([5d780fe](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5d780fe))
+  * fix upgrade stuff ([01e1054](https://github.com/angular-fullstack/generator-angular-fullstack/commit/01e1054))
+* **client:footer:** fix hardcoded template & style extentions ([c638fb6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c638fb6)), closes [#2421](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2421)
+* **client:main:** fix add/delete things ([91b920b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/91b920b))
+* **client:navbar:** fix hardcoded template ext ([5e999b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5e999b2)), closes [#2469](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2469)
+* **client:userService:** use `id` or `_id` property ([4be3191](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4be3191))
+* **events:** mongoose event registration ([79bdeed](https://github.com/angular-fullstack/generator-angular-fullstack/commit/79bdeed)), closes [#2479](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2479)
+* **gen:** 
+  * comment out ngCompnent stuff ([ab1bf13](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ab1bf13)), closes [#2403](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2403)
+  * fix another type stripping; also TS doesn't like default exports ([a55691a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a55691a))
+* **gen:factory:** fix factory subgen location ([b09cfe5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b09cfe5)), closes [#2381](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2381)
+* **mocha:** fix server not closing ([2ba3dd8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2ba3dd8))
+* **package:** move syntax plugins to deps ([c016979](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c016979)), closes [#2405](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2405)
+* **server:** 
+  * fix new shared default export ([d4e4a7a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d4e4a7a))
+  * fix some bluebird warnings ([a84ff90](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a84ff90)), closes [#2412](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2412) [#2363](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2363)
+* **webpack:** fix CSS loader options ([3f7e2b4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3f7e2b4))
+
+
+### Features
+
+* **app:** convert to Angular 2 ([6c3b307](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6c3b307))
+* **gen:** 
+  * add functions for adding TS public/private keywords ([17fea6c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/17fea6c))
+  * consolidate templates, convert html to pug during write ([f6deb25](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f6deb25))
+  * generate js with jscodeshift instead of babel ([bf8f9fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bf8f9fc))
+  * replace socket.io w/ primus + uws ([ccea1f3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ccea1f3))
+  * use new base classes ([3debe1c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3debe1c))
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.5...v4.1.0) (2016-09-30)
 
