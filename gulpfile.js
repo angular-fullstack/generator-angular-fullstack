@@ -25,12 +25,11 @@ const mocha = lazypipe()
         reporter: 'spec',
         timeout: 120000,
         slow: 500,
-        globals: {
-            should: require('should')
-        },
         require: [
-            './mocha.conf'
-        ]
+            './mocha.conf',
+            'should'
+        ],
+        compilers: ['js:babel-core/register']
     });
 
 const transpile = lazypipe()
