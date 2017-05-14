@@ -111,7 +111,7 @@ webpack.make.js // main file for Webpack configuration
     │   local.env.js // ignored by Git
     │   local.env.sample.js // sensitive environment variables are stored here, and added at server start. Copy to `local.env.js`.
     │   seed.js // re-seeds database with fresh data
-    │   socketio.js // Socket IO configuration / imports
+    │   websockets.js // WebSocket configuration / imports
     │
     └───environment
             development.js

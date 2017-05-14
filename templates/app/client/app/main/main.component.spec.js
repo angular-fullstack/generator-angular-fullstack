@@ -8,7 +8,7 @@ describe('Component: MainComponent', function() {
   beforeEach(angular.mock.module(main));
   <%_ if (filters.uirouter) { _%>
   beforeEach(angular.mock.module('stateMock'));<% } _%>
-  <%_ if (filters.socketio) { _%>
+  <%_ if (filters.ws) { _%>
   beforeEach(angular.mock.module('socketMock'));<% } %>
 
   var scope;
@@ -22,7 +22,7 @@ describe('Component: MainComponent', function() {
     $http,
     $componentController,
     $rootScope<% if (filters.uirouter) {%>,
-    $state<% } %><% if (filters.socketio) {%>,
+    $state<% } %><% if (filters.ws) {%>,
     socket<% } %>) {
       $httpBackend = _$httpBackend_;
       $httpBackend.expectGET('/api/things')
@@ -32,7 +32,7 @@ describe('Component: MainComponent', function() {
       state = $state;<% } %>
       mainComponent = $componentController('main', {
         $http: $http,
-        $scope: scope<% if (filters.socketio) {%>,
+        $scope: scope<% if (filters.ws) {%>,
         socket: socket<% } %>
       });
   }));

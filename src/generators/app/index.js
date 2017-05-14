@@ -270,14 +270,14 @@ export class Generator extends Base {
           }]
         }, {
           type: 'confirm',
-          name: 'socketio',
-          message: 'Would you like to use socket.io?',
+          name: 'ws',
+          message: 'Would you like to use WebSockets?',
           // to-do: should not be dependent on ODMs
           when: answers => answers.odms && answers.odms.length !== 0,
           default: true
         }]).then(answers => {
-          if(answers.socketio) this.filters.socketio = true;
-          insight.track('socketio', !!answers.socketio);
+          if(answers.ws) this.filters.ws = true;
+          insight.track('ws', !!answers.ws);
 
           if(answers.auth) this.filters.auth = true;
           insight.track('auth', !!answers.auth);
@@ -374,7 +374,7 @@ export class Generator extends Base {
         this.config.set('pluralizeRoutes', true);
 
         this.config.set('insertSockets', true);
-        this.config.set('registerSocketsFile', 'server/config/socketio.js');
+        this.config.set('registerSocketsFile', 'server/config/websockets.js');
         this.config.set('socketsNeedle', '// Insert sockets below');
 
         this.config.set('insertModels', true);

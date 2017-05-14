@@ -30,7 +30,7 @@ const defaultOptions = {
   odms: ['mongoose'],
   auth: true,
   oauth: [],
-  socketio: true
+  ws: true
 };
 
 function runEndpointGen(name, opt={}) {

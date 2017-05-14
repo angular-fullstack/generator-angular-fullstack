@@ -97,7 +97,7 @@ export class Generator extends NamedBase {
   end() {
     if(this.config.get('insertRoutes')) {
       var routesFile = this.config.get('registerRoutesFile');
-      var reqPath = this.relativeRequire(this.routeDest, routesFile);
+      let reqPath = this.relativeRequire(this.routeDest, routesFile);
       var routeConfig = {
         file: routesFile,
         needle: this.config.get('routesNeedle'),
@@ -108,15 +108,14 @@ export class Generator extends NamedBase {
       this.rewriteFile(routeConfig);
     }
 
-    if(this.filters.socketio && this.config.get('insertSockets')) {
+    if(this.filters.ws && this.config.get('insertSockets')) {
       var socketsFile = this.config.get('registerSocketsFile');
-      var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename +
-        '.socket', socketsFile);
+      let reqPath = this.relativeRequire(this.routeDest + '/' + this.basename + '.socket', socketsFile);
       var socketConfig = {
         file: socketsFile,
         needle: this.config.get('socketsNeedle'),
         splicable: [
-          `require('${reqPath}').register(socket);`
+          `require('${reqPath}').register,`
         ]
       };
       this.rewriteFile(socketConfig);
@@ -124,7 +123,7 @@ export class Generator extends NamedBase {
 
     if(this.filters.sequelize && this.config.get('insertModels')) {
       var modelsFile = this.config.get('registerModelsFile');
-      var reqPath = this.relativeRequire(`${this.routeDest}/${this.basename}.model`, modelsFile);
+      let reqPath = this.relativeRequire(`${this.routeDest}/${this.basename}.model`, modelsFile);
       var modelConfig = {
         file: modelsFile,
         needle: this.config.get('modelsNeedle'),

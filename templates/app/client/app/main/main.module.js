@@ -9,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';<% } %>
 import { TooltipModule } from 'ng2-bootstrap';<% } %>
 
 import { MainComponent } from './main.component';
-<%_ if(filters.socketio) { -%>
+<%_ if(filters.ws) { -%>
 import { SocketService } from '../../components/socket/socket.service';<% } %>
 
 <%_ if(filters.ngroute) { _%>
@@ -37,7 +37,7 @@ export const STATES = [
     declarations: [
         MainComponent,
     ],
-    <%_ if(filters.socketio) { -%>
+    <%_ if(filters.ws) { -%>
     providers: [
         SocketService,
     ],<% } %>

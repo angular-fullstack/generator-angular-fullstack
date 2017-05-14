@@ -1,18 +1,32 @@
 'use strict';
+import Primus from './primus';
+import primusEmit from 'primus-emit';
 import { Injectable } from '@angular/core';
 import { noop, find, remove } from 'lodash';
-import io from 'socket.io-client';
-import constants from '../../app/app.constants';
 
 @Injectable()
 export class SocketService {
-  socket;
+  primus;
 
   constructor() {
-    this.socket = io(constants.env === 'development' ? `localhost:${constants.port}` : '', {
-      // Send auth token on connection, you will need to DI the Auth service above
-      // 'query': 'token=' + Auth.getToken()
+    const primus = Primus.connect();
+    primus.plugin('emit', primusEmit);
+
+    primus.on('open', function open() {
+      console.log('Connection opened');
     });
+
+    if(process.env.NODE_ENV === 'development') {
+      primus.on('data', function message(data) {
+        console.log('Socket:', data);
+      });
+    }
+
+    primus.on('info', data => {
+      console.log('info:', data);
+    });
+
+    this.primus = primus;
   }
 
   /**
@@ -29,10 +43,11 @@ export class SocketService {
     /**
      * Syncs item creation/updates on 'model:save'
      */
-    this.socket.on(`${modelName}:save`, function(item) {
-      var oldItem = find(array, {_id: item._id});
-      var index = array.indexOf(oldItem);
-      var event = 'created';
+    this.primus.on(`${modelName}:save`, item => {
+      console.log(item);
+      let oldItem = find(array, {_id: item._id});
+      let index = array.indexOf(oldItem);
+      let event = 'created';
 
       // replace oldItem if it exists
       // otherwise just add item to the collection
@@ -49,10 +64,9 @@ export class SocketService {
     /**
      * Syncs removed items on 'model:remove'
      */
-    this.socket.on(`${modelName}:remove`, function(item) {
-      var event = 'deleted';
+    this.primus.on(`${modelName}:remove`, item => {
       remove(array, {_id: item._id});
-      cb(event, item, array);
+      cb('deleted', item, array);
     });
   }
 
@@ -62,7 +76,7 @@ export class SocketService {
    * @param modelName
    */
   unsyncUpdates(modelName) {
-    this.socket.removeAllListeners(`${modelName}:save`);
-    this.socket.removeAllListeners(`${modelName}:remove`);
+    this.primus.removeAllListeners(`${modelName}:save`);
+    this.primus.removeAllListeners(`${modelName}:remove`);
   }
 }

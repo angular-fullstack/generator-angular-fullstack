@@ -1,4 +1,4 @@
-import { Component, OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> } from '@angular/core';
+import { Component, OnInit<% if(filters.ws) { %>, OnDestroy<% } %> } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SocketService } from '../../components/socket/socket.service';
@@ -8,8 +8,8 @@ import { SocketService } from '../../components/socket/socket.service';
     template: require('./main.<%=templateExt%>'),
     styles: [require('./main.<%=styleExt%>')],
 })
-export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDestroy<% } %> {
-  <%_ if(filters.socketio) { -%>
+export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% } %> {
+  <%_ if(filters.ws) { -%>
   SocketService;<% } %>
   awesomeThings = [];
   <%_ if(filters.models) { -%>
@@ -17,9 +17,9 @@ export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDest
 
   <%_ if(filters.babel) { -%>
   static parameters = [Http, SocketService];<% } %>
-  constructor(<%= private() %>http: Http<% if(filters.socketio) { %>, <%= private() %>socketService: SocketService<% } %>) {
+  constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
     this.Http = http;
-    <%_ if(filters.socketio) { -%>
+    <%_ if(filters.ws) { -%>
     this.SocketService = socketService;<% } %>
   }
 
@@ -27,15 +27,15 @@ export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDest
     this.Http.get('/api/things')
       .map(res => {
         return res.json();
-        <%_ if(filters.socketio) { -%>
-        // this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
       })
       .catch(err => Observable.throw(err.json().error || 'Server error'))
       .subscribe(things => {
         this.awesomeThings = things;
+        <%_ if(filters.ws) { -%>
+        this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
       });
   }<% if (filters.models) { %>
-  <%_ if(filters.socketio) { %>
+  <%_ if(filters.ws) { %>
 
   ngOnDestroy() {
     this.SocketService.unsyncUpdates('thing');
@@ -50,7 +50,7 @@ export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDest
         .map(res => res.json())
         .catch(err => Observable.throw(err.json().error || 'Server error'))
         .subscribe(thing => {
-          this.awesomeThings.push(thing);
+          console.log('Added Thing:', thing);
         });
     }
   }
@@ -60,7 +60,7 @@ export class MainComponent implements OnInit<% if(filters.socketio) { %>, OnDest
       .map(res => res.json())
       .catch(err => Observable.throw(err.json().error || 'Server error'))
       .subscribe(() => {
-        this.awesomeThings.splice(this.awesomeThings.findIndex(el => el._id === thing._id), 1);
+        console.log('Deleted Thing');
       });
   }<% } %>
 }

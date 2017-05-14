@@ -10,6 +10,11 @@ mongoose.Promise = require('bluebird');<% } %><% if (filters.sequelize) { %>
 import sqldb from './sqldb';<% } %>
 import config from './config/environment';
 import http from 'http';
+<%_ if (filters.ws) { -%>
+import initWebSocketServer from './config/websockets';<% } %>
+import expressConfig from './config/express';
+import registerRoutes from './routes';
+
 <% if (filters.mongoose) { %>
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -25,13 +30,11 @@ if(config.seedDB) {
 <% } %>
 // Setup server
 var app = express();
-var server = http.createServer(app);<% if (filters.socketio) { %>
-var socketio = require('socket.io')(server, {
-  serveClient: false
-});
-require('./config/socketio').default(socketio);<% } %>
-require('./config/express').default(app);
-require('./routes').default(app);
+var server = http.createServer(app);
+<%_ if(filters.ws) { -%>
+const wsInitPromise = initWebSocketServer(server);<% } %>
+expressConfig(app);
+registerRoutes(app);
 
 // Start server
 function startServer() {
@@ -41,12 +44,27 @@ function startServer() {
 }
 <% if(filters.sequelize) { %>
 sqldb.sequelize.sync()
+  <%_ if(filters.ws) { -%>
+  .then(wsInitPromise)
+  .then(primus => {
+    app.primus = primus;
+  })<% } %>
   .then(startServer)
-  .catch(function(err) {
+  .catch(err => {
     console.log('Server failed to start due to error: %s', err);
   });
 <% } else { %>
-setImmediate(startServer);
+<%_ if(filters.ws) { -%>
+wsInitPromise
+  .then(primus => {
+    app.primus = primus;
+  })
+  .then(startServer)
+  .catch(err => {
+    console.log('Server failed to start due to error: %s', err);
+  });<% } %>
+<%_ if(!filters.ws) { -%>
+setImmediate(startServer);<% } %>
 <% } %>
 // Expose app
 exports = module.exports = app;
