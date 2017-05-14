@@ -124,7 +124,7 @@ export class Generator extends Base {
             this.filters = {};
             this.forceConfig = true;
             this.config.set('filters', this.filters);
-            this.config.forceSave();
+            this.config.save();
           }
         });
       },
@@ -382,7 +382,7 @@ export class Generator extends Base {
         this.config.set('modelsNeedle', '// Insert models below');
 
         this.config.set('filters', this.filters);
-        this.config.forceSave();
+        this.config.save();
       },
       // TODO: switch to ng2 component generator
       // ngComponent: function() {
@@ -575,12 +575,10 @@ export class Generator extends Base {
         } else if(this.filters.sequelizeModels) {
           models = 'sequelize';
         }
-        this.composeWith('angular-fullstack:endpoint', {
-          options: {
-            route: '/api/things',
-            models: models
-          },
-          args: ['thing']
+        this.composeWith(require.resolve('../endpoint'), {
+          route: '/api/things',
+          models: models,
+          arguments: ['thing'],
         });
       }
     };
