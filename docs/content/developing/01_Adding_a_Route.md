@@ -51,7 +51,7 @@ angular.element(document)
 
 Now that we've imported our new Angular module and added it to the dependency list of our root Angular module, we should be able to navigate to `http://localhost:3000/foo` and see our new route:
 
-<img src="../images/foo-route.jpg" alt="Foo route screenshot">
+<img src="/assets/foo-route.jpg" alt="Foo route screenshot">
 
 It's not a very impressive page right now, but it works.
 
@@ -89,6 +89,6 @@ export default angular.module('directives.navbar', [])
 
 Easy enough. Now we should see our entry for 'Foo' in our navbar. It should also be highlighted if you're still on the '/foo' route.
 
-<img src="../images/foo-route-navbar.jpg" alt="Foo route screenshot">
+<img src="/assets/foo-route-navbar.jpg" alt="Foo route screenshot">
 
 You can read about all the other subgenerators that are available in the [Generators](../Generators) section of the docs.
