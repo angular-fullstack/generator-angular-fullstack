@@ -2,11 +2,8 @@ import 'core-js/es6';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
-<%_ if(filters.ts) { _%>
-// Typescript emit helpers polyfill
-  import 'ts-helpers';
-
-  interface IPolyFillErrorConstructor extends ErrorConstructor {
+<%_ if(filters.ts) { -%>
+interface IPolyFillErrorConstructor extends ErrorConstructor {
   stackTraceLimit: any;
 }<% } %>
 

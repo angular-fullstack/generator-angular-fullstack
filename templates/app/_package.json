@@ -126,8 +126,7 @@
     "gulp-babel": "^6.1.2",<% if(filters.ts) { %>
     "gulp-typescript": "~2.13.0",
     "gulp-typings": "^1.3.6",
-    "gulp-tslint": "^5.0.0",
-    "ts-helpers": "1.1.1",<% } %>
+    "gulp-tslint": "^5.0.0",<% } %>
     "gulp-env": "^0.4.0",
     "gulp-eslint": "^2.0.0",
     "gulp-imagemin": "^3.0.1",
