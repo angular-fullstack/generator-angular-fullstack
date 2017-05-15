@@ -119,5 +119,5 @@ export function runGen(prompts, opts={}) {
 
   if(prompts) gen.withPrompts(prompts);
 
-  return gen.toPromise();
+  return gen;
 }

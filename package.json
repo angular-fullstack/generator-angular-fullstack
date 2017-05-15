@@ -84,8 +84,8 @@
     "run-sequence": "^1.2.1",
     "shelljs": "^0.7.5",
     "should": "^11.1.0",
-    "yeoman-assert": "^2.0.0",
-    "yeoman-test": "~1.5.0"
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "~1.6.0"
   },
   "peerDependencies": {
     "yo": ">= 1.7.1"
