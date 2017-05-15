@@ -54,7 +54,7 @@ export class Generator extends NamedBase {
       }
     }
 
-    var name = this.name;
+    var name = this.options.name;
 
     var base = this.config.get('routesBase') || '/api/';
     if(base.charAt(base.length - 1) !== '/') {
@@ -86,7 +86,7 @@ export class Generator extends NamedBase {
   configuring() {
     this.routeDest = path.join(this.options.endpointDirectory
       || this.config.get('endpointDirectory')
-      || 'server/api/', this.name);
+      || 'server/api/', this.options.name);
   }
 
   writing() {

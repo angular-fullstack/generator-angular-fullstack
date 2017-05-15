@@ -3,14 +3,14 @@
 import path from 'path';
 import _ from 'lodash';
 import s from 'underscore.string';
-import { Base as YoBase } from 'yeoman-generator';
+import Generator from 'yeoman-generator';
 import yoWelcome from 'yeoman-welcome';
 import * as genUtils from './util';
 
 // extend lodash with underscore.string
 _.mixin(s.exports());
 
-export class Base extends YoBase {
+export class Base extends Generator {
   constructor(...args) {
     super(...args);
 
@@ -37,7 +37,7 @@ export class Base extends YoBase {
   }
 
   determineAppname() {
-    if(this.name) return this.name;
+    if(this.options.name) return this.options.name;
     else return super.determineAppname();
   }
 
@@ -63,15 +63,15 @@ export class NamedBase extends Base {
 
     this.argument('name', { type: String, required: true });
 
-    var name = this.name.replace(/\//g, '-');
+    var name = this.options.name.replace(/\//g, '-');
 
     this.cameledName = _.camelize(name);
     this.classedName = _.classify(name);
 
-    this.basename = path.basename(this.name);
-    this.dirname = this.name.includes('/')
-      ? path.dirname(this.name)
-      : this.name;
+    this.basename = path.basename(this.options.name);
+    this.dirname = this.options.name.includes('/')
+      ? path.dirname(this.options.name)
+      : this.options.name;
   }
 }
 
