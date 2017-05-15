@@ -3,14 +3,14 @@
 import path from 'path';
 import _ from 'lodash';
 import s from 'underscore.string';
-import { Base as YoBase } from 'yeoman-generator';
+import Generator from 'yeoman-generator';
 import yoWelcome from 'yeoman-welcome';
 import * as genUtils from './util';
 
 // extend lodash with underscore.string
 _.mixin(s.exports());
 
-export class Base extends YoBase {
+export class Base extends Generator {
   constructor(...args) {
     super(...args);
 

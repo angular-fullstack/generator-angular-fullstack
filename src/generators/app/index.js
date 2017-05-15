@@ -97,7 +97,7 @@ export class Generator extends Base {
 
         if(!existingFilters) return;
 
-        let promise = this.options['skip-config']
+        let promise = this.option['skip-config']
           ? Promise.resolve({skipConfig: true})
           : this.prompt([{
               type: 'confirm',
@@ -129,9 +129,9 @@ export class Generator extends Base {
         });
       },
       assignPorts() {
-        this.devPort = this.options['dev-port'];
-        this.debugPort = this.options['debug-port'];
-        this.prodPort = this.options['prod-port'];
+        this.devPort = this.option['dev-port'];
+        this.debugPort = this.option['debug-port'];
+        this.prodPort = this.option['prod-port'];
       }
     };
   }
@@ -587,7 +587,7 @@ export class Generator extends Base {
   }
 
   install() {
-    if(!this.options['skip-install']) {
+    if(!this.option['skip-install']) {
       this.spawnCommand('npm', ['install']);
     }
   }
