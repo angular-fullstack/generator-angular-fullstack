@@ -38,33 +38,29 @@ function runEndpointGen(name, opt={}) {
   let options = opt.options || {};
   let config = opt.config;
 
-  return new Promise((resolve, reject) => {
-    let dir;
-    let gen = helpers
-      .run(require.resolve('../generators/endpoint'))
-      .inTmpDir(function(_dir) {
-        // this will create a new temporary directory for each new generator run
-        var done = this.async();
-        if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
-        dir = _dir;
+  let dir;
+  let gen = helpers
+    .run(require.resolve('../generators/endpoint'))
+    .inTmpDir(function(_dir) {
+      // this will create a new temporary directory for each new generator run
+      var done = this.async();
+      if(DEBUG) console.log(`TEMP DIR: ${_dir}`);
+      dir = _dir;
 
-        // symlink our dependency directories
-        return fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
-          .then(done);
-      })
-      .withOptions(options)
-      .withArguments([name])
-      .withPrompts(prompts);
+      // symlink our dependency directories
+      return fs.symlinkAsync(__dirname + '/fixtures/node_modules', dir + '/node_modules')
+        .then(done);
+    })
+    .withOptions(options)
+    .withArguments([name])
+    .withPrompts(prompts);
 
-    if(config) {
-      gen
-        .withLocalConfig(config);
-    }
-
+  if(config) {
     gen
-      .on('error', reject)
-      .on('end', () => resolve(dir));
-  });
+      .withLocalConfig(config);
+  }
+
+  return gen;
 }
 
 let eslintCmd = path.join(TEST_DIR, '/fixtures/node_modules/.bin/eslint');
@@ -105,11 +101,11 @@ describe('angular-fullstack:endpoint', function() {
         _config['generator-angular-fullstack'].insertSockets = false;
         _config['generator-angular-fullstack'].insertModels = false;
         config = _config;
-      })
+      }),
     ]);
   });
 
-  describe(`with a generated endpont 'foo'`, function() {
+  describe(`with a generated endpoint 'foo'`, function() {
     var dir;
     beforeEach(function() {
       return runEndpointGen('foo', {config: config['generator-angular-fullstack']}).then(_dir => {
@@ -131,7 +127,7 @@ describe('angular-fullstack:endpoint', function() {
     });
   });
 
-  describe('with a generated capitalized endpont', function() {
+  describe('with a generated capitalized endpoint', function() {
     var dir;
     beforeEach(function() {
       return runEndpointGen('Foo', {config: config['generator-angular-fullstack']}).then(_dir => {
@@ -153,7 +149,7 @@ describe('angular-fullstack:endpoint', function() {
     });
   });
 
-  describe('with a generated path name endpont', function() {
+  describe('with a generated path name endpoint', function() {
     var dir;
     beforeEach(function() {
       return runEndpointGen('foo/bar', {config: config['generator-angular-fullstack']}).then(_dir => {

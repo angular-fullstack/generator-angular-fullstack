@@ -31,7 +31,8 @@
     "url": "git://github.com/angular-fullstack/generator-angular-fullstack.git"
   },
   "scripts": {
-    "test": "gulp updateFixtures:test && gulp installFixtures && gulp build && gulp test",
+    "pre-test": "gulp updateFixtures:test && gulp installFixtures && gulp build",
+    "test": "mocha --require should --require babel-register --require ./mocha.conf --reporter spec --timeout 120000 test/pre.test.js test/*.test.js",
     "prepublish": "gulp build"
   },
   "dependencies": {
@@ -40,10 +41,10 @@
     "chalk": "^1.1.0",
     "glob": "^7.0.5",
     "gulp-eslint": "^3.0.1",
-    "gulp-filter": "^4.0.0",
+    "gulp-filter": "^5.0.0",
     "gulp-html2jade": "^1.1.2",
     "gulp-rename": "^1.2.2",
-    "gulp-tap": "^0.1.3",
+    "gulp-tap": "^1.0.1",
     "insight": "~0.8.3",
     "jscodeshift": "^0.3.30",
     "lodash": "^4.17.0",
@@ -54,11 +55,12 @@
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
-    "babel-preset-es2015": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
+    "david": "^11.0.0",
     "del": "^2.2.0",
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
@@ -69,7 +71,7 @@
     "gulp-conventional-changelog": "^1.1.0",
     "gulp-gh-pages": "^0.5.4",
     "gulp-if": "^2.0.1",
-    "gulp-mocha": "^3.0.0",
+    "gulp-mocha": "^4.3.1",
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7",
     "jit-grunt": "~0.10.0",
@@ -82,8 +84,8 @@
     "run-sequence": "^1.2.1",
     "shelljs": "^0.7.5",
     "should": "^11.1.0",
-    "yeoman-assert": "^2.0.0",
-    "yeoman-test": "~1.5.0"
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "~1.6.0"
   },
   "peerDependencies": {
     "yo": ">= 1.7.1"
