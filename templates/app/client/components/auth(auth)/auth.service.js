@@ -189,7 +189,7 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
       * @return {Bool|Promise}
       */
     isAdmin(...args) {
-      return Auth.hasRole(...Reflect.apply([].concat, ['admin'], args));
+      return Auth.hasRole(Reflect.apply([].concat, ['admin'], args));
     },
 
      /**
