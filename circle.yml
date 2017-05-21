@@ -60,6 +60,8 @@ jobs:
 
       - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then 
+              git config --global user.email "circleci@circleci.com"
+              git config --global user.name "CircleCI"
               cd docs && npm install && npm run build && npm run deploy
             fi
