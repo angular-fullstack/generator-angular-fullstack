@@ -1,58 +1,65 @@
-general:
-  branches:
-    ignore:
-      - gh-pages
+version: 2
+jobs:
+  build:
+    docker:
+     - image: node:7
+     - image: mongo
+       command: [mongod, --smallfiles]
 
-## Customize the test machine
-machine:
-  node:
-    version: 6.9.4
-  post:
-    - npm install -g gulp-cli
+    working_directory: ~/generator-angular-fullstack
 
-## Customize checkout
-checkout:
-  post:
-    - git submodule sync
-    - git submodule update --init # use submodules
+    environment:
+      NODE_ENV: test
 
-## Customize dependencies
-dependencies:
-  # we automatically cache and restore many dependencies between
-  # builds. If you need to, you can add custom paths to cache:
-  cache_directories:
-    - "test/fixtures/node_modules"
-    - "docs/node_modules"
-  override:
-    - npm i
-#    - gulp build # npm 5 won't run `prepublish` on `npm i`, we will need to re-enable this once we go to a Node version using npm 5+
-    - cd docs && npm i
-    - gulp updateFixtures:test
-    - cd test/fixtures && npm i && npm run-script update-webdriver
+    branches:
+      ignore:
+        - gh-pages
 
-test:
-  override:
-    - gulp test
+    steps:
+      - checkout
+      - run: git submodule sync && git submodule update --init
 
-## Custom notifications
-#notify:
-notify:
-  webhooks:
-    # A list of hook hashes, containing the url field
-    # gitter hook
-    - url: https://webhooks.gitter.im/e/ac3980c61cb722b9e789
+      # Global npm dependencies
+      - restore_cache:
+          keys:
+            - generator-angular-fullstack-npm-global-{{ .Branch }}
+            - generator-angular-fullstack-npm-global-
+      - run: npm install --global gulp-cli
+      - save_cache:
+          key: generator-angular-fullstack-npm-global-{{ .Branch }}
+          paths:
+            - /usr/local/lib/node_modules
 
-deployment:
-  docs:
-    branch: master
-    commands:
-      - cd docs && npm run build && npm run deploy
+      # Generator npm dependencies
+      - restore_cache:
+          keys:
+            - generator-angular-fullstack-npm-{{ .Branch }}-{{ checksum "package.json" }}
+            - generator-angular-fullstack-npm-{{ .Branch }}
+            - generator-angular-fullstack-npm-
+      - run: npm install --quiet
+      - save_cache:
+          key: generator-angular-fullstack-npm-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/generator-angular-fullstack/node_modules
 
-#test:
-#  pre:
-#    - cd sc-*-linux && ./bin/sc --user $SAUCE_USERNAME --api-key $SAUCE_ACCESS_KEY --readyfile ~/sauce_is_ready:
-#        background: true
-#    # Wait for tunnel to be ready
-#    - while [ ! -e ~/sauce_is_ready ]; do sleep 1; done
-#  post:
-#    - killall --wait sc  # wait for Sauce Connect to close the tunnel
+      # Test fixtures
+      - run: gulp updateFixtures:test
+      - restore_cache:
+          keys:
+            - generator-angular-fullstack-npm-fixtures-{{ .Branch }}-{{ checksum "templates/app/_package.json" }}
+            - generator-angular-fullstack-npm-fixtures-{{ .Branch }}
+            - generator-angular-fullstack-npm-fixtures-
+      - run: gulp installFixtures
+      - save_cache:
+          key: generator-angular-fullstack-npm-fixtures-{{ .Branch }}-{{ checksum "templates/app/_package.json" }}
+          paths:
+            - ~/generator-angular-fullstack/test/fixtures/node_modules
+
+      - run: gulp build
+      - run: gulp test
+
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              cd docs && npm run build && npm run deploy
+            fi
