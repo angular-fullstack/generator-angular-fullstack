@@ -1,3 +1,15 @@
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.0...v4.2.1) (2017-05-22)
+
+
+### Bug Fixes
+
+* **client:auth:** fix isAdmin call ([8ac8821](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8ac8821)), closes [#2561](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2561)
+* **client:auth.service:** fix lodash import ([2dde95d](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2dde95d)), closes [#2549](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2549)
+* **gen:** fix yarn check command ([9ea681c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9ea681c))
+
+
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.4...v4.2.0) (2017-04-19)
 
