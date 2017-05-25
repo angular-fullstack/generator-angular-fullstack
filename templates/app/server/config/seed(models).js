@@ -48,9 +48,9 @@ export default function seedDatabaseIfNeeded() {
         <% if (filters.mongooseModels) { %>});<% }
          if (filters.sequelizeModels) { %>}]);<% } %>
         return thing;
-    })
-    .then(() => console.log('finished populating things'))
-    .catch(err => console.log('error populating things', err));
+      })
+      .then(() => console.log('finished populating things'))
+      .catch(err => console.log('error populating things', err));
 <% if (filters.auth) { %>
     <% if (filters.mongooseModels) { %>User.find({}).remove()<% }
      if (filters.sequelizeModels) { %>User.destroy({ where: {} })<% } %>
