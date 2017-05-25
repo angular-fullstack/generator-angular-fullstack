@@ -70,7 +70,7 @@ export default function seedDatabaseIfNeeded() {
         <% if (filters.mongooseModels) { %>})<% }
          if (filters.sequelizeModels) { %>}])<% } %>
         .then(() => console.log('finished populating users'))
-        .catch(err => console.log('error populating users', err));<% } %>
-    });
+        .catch(err => console.log('error populating users', err));
+    });<% } %>
   }
 }
