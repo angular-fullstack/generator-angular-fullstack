@@ -1,3 +1,13 @@
+<a name="4.2.2"></a>
+## [4.2.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.0...v4.2.2) (2017-05-25)
+
+
+### Bug Fixes
+
+* **seed:** fix unexpected token ([65a2438](https://github.com/angular-fullstack/generator-angular-fullstack/commit/65a2438)), closes [#2580](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2580)
+
+
+
 <a name="4.2.1"></a>
 ## [4.2.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.0...v4.2.1) (2017-05-22)
 
