@@ -46,7 +46,7 @@
     "generator-ng-component": "~1.0.5",
     "glob": "^7.0.5",
     "gulp-babel": "^6.1.2",
-    "gulp-beautify": "^2.0.0",
+    "gulp-beautify": "^2.0.1",
     "gulp-eslint": "^3.0.1",
     "gulp-filter": "^5.0.0",
     "gulp-tap": "^0.1.3",
