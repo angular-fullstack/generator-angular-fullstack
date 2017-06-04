@@ -8,6 +8,8 @@ export function OauthButtonsController($window) {
   };
 }
 
+OauthButtonsController.$inject = ['$window'];
+
 export default angular.module('<%= scriptAppName %>.oauthButtons', [])
   .directive('oauthButtons', function() {
     return {
