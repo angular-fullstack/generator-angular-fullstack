@@ -15,7 +15,7 @@ export default function seedDatabaseIfNeeded() {
     let User = sqldb.User;<% } %><% } %>
 
     <% if (filters.mongooseModels) { %>Thing.find({}).remove()<% }
-       if (filters.sequelizeModels) { %>return Thing.destroy({ where: {} })<% } %>
+       if (filters.sequelizeModels) { %>Thing.destroy({ where: {} })<% } %>
       .then(() => {
         <% if (filters.mongooseModels) { %>let thing = Thing.create({<% }
            if (filters.sequelizeModels) { %>let thing = Thing.bulkCreate([{<% } %>
