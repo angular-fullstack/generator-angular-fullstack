@@ -90,6 +90,7 @@ export class Generator extends Base {
       },
       info: function () {
         this.log(this.yoWelcome);
+        this.log(`Angular Fullstack v${this.rootGeneratorVersion()}\n`);
         this.log('Out of the box I create an Angular app with an Express server.\n');
       },
       checkForConfig: function() {
