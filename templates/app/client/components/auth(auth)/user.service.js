@@ -17,8 +17,8 @@ type UserType = {
 @Injectable()
 export class UserService {
   static parameters = [AuthHttp];
-  constructor(authHttp: AuthHttp) {
-    this.AuthHttp = authHttp;
+  constructor(<%= private() %>authHttp: AuthHttp) {
+    this.authHttp = authHttp;
   }
 
   handleError(err) {
@@ -26,27 +26,27 @@ export class UserService {
   }
 
   query(): Observable<UserType[]> {
-    return this.AuthHttp.get('/api/users/')
+    return this.authHttp.get('/api/users/')
       .map((res:Response) => res.json())
       .catch(this.handleError);
   }
   get(user = {id: 'me'}): Observable<UserType> {
-    return this.AuthHttp.get(`/api/users/${user.id || user._id}`)
+    return this.authHttp.get(`/api/users/${user.id || user._id}`)
       .map((res:Response) => res.json())
       .catch(this.handleError);
   }
   create(user: UserType) {
-    return this.AuthHttp.post('/api/users/', user)
+    return this.authHttp.post('/api/users/', user)
       .map((res:Response) => res.json())
       .catch(this.handleError);
   }
   changePassword(user, oldPassword, newPassword) {
-    return this.AuthHttp.put(`/api/users/${user.id || user._id}/password`, {oldPassword, newPassword})
+    return this.authHttp.put(`/api/users/${user.id || user._id}/password`, {oldPassword, newPassword})
       .map((res:Response) => res.json())
       .catch(this.handleError);
   }
   remove(user) {
-    return this.AuthHttp.delete(`/api/users/${user.id || user._id}`)
+    return this.authHttp.delete(`/api/users/${user.id || user._id}`)
       .map(() => user)
       .catch(this.handleError);
   }

@@ -113,7 +113,7 @@ if(constants.env === 'development') {
 })
 export class AppModule {
   static parameters = [ApplicationRef];
-  constructor(appRef/*: ApplicationRef*/) {
+  constructor(<%= private() %>appRef: ApplicationRef) {
     this.appRef = appRef;
   }
 

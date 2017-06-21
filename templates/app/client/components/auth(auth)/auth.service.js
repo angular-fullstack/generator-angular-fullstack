@@ -24,13 +24,13 @@ export class AuthService {
   userRoles = userRoles || [];
 
   static parameters = [Http, AuthHttp, UserService];
-  constructor(_Http_: Http, _AuthHttp_: AuthHttp, _UserService_: UserService) {
-    this.Http = _Http_;
-    this.AuthHttp = _AuthHttp_;
-    this.UserService = _UserService_;
+  constructor(<%= private() %>http: Http, <%= private() %>authHttp: AuthHttp, <%= private() %>userService: UserService) {
+    this.http = http;
+    this.authHttp = authHttp;
+    this.userService = userService;
 
     if(localStorage.getItem('id_token')) {
-      this.UserService.get().toPromise()
+      this.userService.get().toPromise()
         .then(user => {
           this.currentUser = user;
         })
@@ -68,7 +68,7 @@ export class AuthService {
    * @return {Promise}
    */
   login({email, password}, callback) {
-    return this.Http.post('/auth/local', {
+    return this.http.post('/auth/local', {
       email,
       password
     })
@@ -76,7 +76,7 @@ export class AuthService {
       .then(extractData)
       .then(res => {
         localStorage.setItem('id_token', res.token);
-        return this.UserService.get().toPromise();
+        return this.userService.get().toPromise();
       })
       .then(user => {
         this.currentUser = user;
@@ -110,10 +110,10 @@ export class AuthService {
    * @return {Promise}
    */
   createUser(user, callback) {
-    return this.UserService.create(user).toPromise()
+    return this.userService.create(user).toPromise()
       .then(data => {
         localStorage.setItem('id_token', data.token);
-        return this.UserService.get().toPromise();
+        return this.userService.get().toPromise();
       })
       .then(_user => {
         this.currentUser = _user;
@@ -134,7 +134,7 @@ export class AuthService {
    * @return {Promise}
    */
   changePassword(oldPassword, newPassword, callback) {
-    return this.UserService.changePassword({id: this.currentUser._id}, oldPassword, newPassword)
+    return this.userService.changePassword({id: this.currentUser._id}, oldPassword, newPassword)
       .then(() => safeCb(callback)(null))
       .catch(err => safeCb(callback)(err));
   }
