@@ -46,7 +46,7 @@ export function urlParse(url) {
 export function isSameOrigin(url, origins) {
   url = urlParse(url);
   origins = (origins && [].concat(origins)) || [];
-  origins = origins.map(Util.urlParse);
+  origins = origins.map(urlParse);
   origins.push(window.location);
   origins = origins.filter(function(o) {
     let hostnameCheck = url.hostname === o.hostname;

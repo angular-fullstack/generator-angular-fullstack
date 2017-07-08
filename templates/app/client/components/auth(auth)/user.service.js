@@ -10,8 +10,10 @@ import 'rxjs/add/operator/toPromise';
 // @flow
 type UserType = {
   // TODO: use Mongoose model
-  name: string;
-  email: string;
+  id?: string;
+  _id?: string;
+  name?: string;
+  email?: string;
 }
 
 @Injectable()
@@ -30,7 +32,7 @@ export class UserService {
       .map((res:Response) => res.json())
       .catch(this.handleError);
   }
-  get(user = {id: 'me'}): Observable<UserType> {
+  get(user: UserType = {id: 'me'}): Observable<UserType> {
     return this.authHttp.get(`/api/users/${user.id || user._id}`)
       .map((res:Response) => res.json())
       .catch(this.handleError);

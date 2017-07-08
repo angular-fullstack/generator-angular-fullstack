@@ -27,7 +27,7 @@ export class NavbarComponent {
     this.reset();
 
     this.authService.currentUserChanged.subscribe(user => {
-      this.currentuser = user;
+      this.currentUser = user;
       this.reset();
     })
   }
