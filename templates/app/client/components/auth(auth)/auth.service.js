@@ -31,7 +31,7 @@ export class AuthService {
 
     if(localStorage.getItem('id_token')) {
       this.userService.get().toPromise()
-        .then(user:User => {
+        .then((user:User) => {
           this.currentUser = user;
         })
         .catch(err => {
@@ -78,7 +78,7 @@ export class AuthService {
         localStorage.setItem('id_token', res.token);
         return this.userService.get().toPromise();
       })
-      .then(user: User => {
+      .then((user: User) => {
         this.currentUser = user;
         localStorage.setItem('user', JSON.stringify(user));
         safeCb(callback)(null, user);
