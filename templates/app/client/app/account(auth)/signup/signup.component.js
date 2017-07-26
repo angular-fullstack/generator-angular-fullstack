@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { StateService } from 'ui-router-ng2';<% } %>
 <%_ if(filters.ngroute) { -%><% } %>
 import { AuthService } from '../../../components/auth/auth.service';
-import {ANGULARCLASS_MATCH_CONTROL_DIRECTIVES} from '@angularclass/match-control';
 
 <%_ if(filters.flow) { -%>
 type User = {
@@ -21,8 +20,7 @@ interface User {
 
 @Component({
   selector: 'signup',
-  template: require('./signup.<%=templateExt%>'),
-  directives: [...ANGULARCLASS_MATCH_CONTROL_DIRECTIVES]
+  template: require('./signup.<%=templateExt%>')
 })
 export class SignupComponent {
   user: User = {

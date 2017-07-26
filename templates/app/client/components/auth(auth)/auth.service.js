@@ -115,7 +115,7 @@ export class AuthService {
         localStorage.setItem('id_token', data.token);
         return this.userService.get().toPromise();
       })
-      .then(_user => {
+      .then((_user: User) => {
         this.currentUser = _user;
         return safeCb(callback)(null, _user);
       })
@@ -134,7 +134,7 @@ export class AuthService {
    * @return {Promise}
    */
   changePassword(oldPassword, newPassword, callback) {
-    return this.userService.changePassword({id: this.currentUser._id}, oldPassword, newPassword)
+    return this.userService.changePassword({id: this.currentUser._id}, oldPassword, newPassword).toPromise()
       .then(() => safeCb(callback)(null))
       .catch(err => safeCb(callback)(err));
   }
