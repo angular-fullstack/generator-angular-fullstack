@@ -318,13 +318,13 @@ module.exports = function makeWebpackConfig(options) {
         }));
     }
 
-    // Skip rendering index.html in test mode
+    // Skip rendering app.html in test mode
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
-    // Render index.html
+    // Render app.html
     if(!TEST) {
         let htmlConfig = {
-            template: 'client/_index.html',
-            filename: '../client/index.html',
+            template: 'client/app.template.html',
+            filename: '../client/app.html',
             alwaysWriteToDisk: true
         }
         config.plugins.push(
