@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 <%_ if (filters.auth) { -%>
-  <%_ if (filters.uirouter) { -%>
+<%_ if (filters.uirouter) { -%>
 import { StateService } from 'ui-router-ng2';<% } %>
 import { AuthService } from '../auth/auth.service';<% } %>
 
@@ -22,7 +22,8 @@ export class NavbarComponent {
   static parameters = [AuthService<% if(filters.uirouter) { %>, StateService<% } %>];
   constructor(authService: AuthService<% if(filters.uirouter) { %>, stateService: StateService<% } %>) {
     this.AuthService = authService;
-    this.StateService = stateService;
+    <%_ if (filters.uirouter) { -%>
+    this.StateService = stateService;<% } %>
 
     this.reset();
 

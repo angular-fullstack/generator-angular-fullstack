@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <base href="/">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <base href="/">
     <title>Angular Full-Stack Generator</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -27,7 +27,7 @@
 
     <app>LOADING</app>
     <navbar></navbar>
-    <% if (filters.ngroute) { %><div ng-view=""></div><% } %><% if (filters.uirouter) { %><div ui-view=""></div><% } %>
+    <% if (filters.ngroute) { %><router-outlet></router-outlet><% } %><% if (filters.uirouter) { %><div ui-view=""></div><% } %>
     <footer></footer>
 </body>
 </html>
