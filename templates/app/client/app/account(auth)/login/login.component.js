@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 <%_ if(filters.uirouter) { -%>
 import { StateService } from 'ui-router-ng2';<% } %>
-<%_ if(filters.ngroute) { -%><% } %>
+<%_ if(filters.ngroute) { -%>
+import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../../../components/auth/auth.service';
 
 // @flow
@@ -37,10 +38,11 @@ export class LoginComponent {
   <%_ if(filters.uirouter) { -%>
   StateService;<% } %>
 
-  static parameters = [AuthService, <% if(filters.ngroute) { %><% } else { %>StateService<% } %>];
-  constructor(_AuthService_: AuthService, <% if(filters.ngroute) { %><% } else { %>_StateService_: StateService<% } %>) {
+  static parameters = [AuthService, <% if(filters.ngroute) { %>Router<% } else { %>StateService<% } %>];
+  constructor(_AuthService_: AuthService, <% if(filters.ngroute) { %>router: Router<% } else { %>_StateService_: StateService<% } %>) {
     this.AuthService = _AuthService_;
-    <%_ if(filters.ngroute) { -%><% } %>
+    <%_ if(filters.ngroute) { -%>
+    this.Router = router;<% } %>
     <%_ if(filters.uirouter) { -%>
     this.StateService = _StateService_;<% } %>
   }
@@ -54,7 +56,10 @@ export class LoginComponent {
     })
       .then(() => {
         // Logged in, redirect to home
-        this.StateService.go('main');
+        <%_ if(filters.ngroute) { -%>
+        this.Router.navigateByUrl('/home');<% } %>
+        <%_ if(filters.uirouter) { -%>
+        this.StateService.go('main');<% } %>
       })
       .catch(err => {
         this.errors.login = err.message;
