@@ -121,7 +121,7 @@ const appRoutes: Routes = [
         <%_ if (filters.uirouter) { -%>
         UIRouterModule.forRoot(),<% } %>
         <%_ if (filters.ngroute) { -%>
-        RouterModule.forRoot(appRoutes, { enableTracing: true }),<% } %>
+        RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),<% } %>
         MainModule,
         DirectivesModule,
         AccountModule,
