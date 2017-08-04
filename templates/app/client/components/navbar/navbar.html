@@ -12,7 +12,7 @@
     <div [collapse]="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li *ngFor="let item of menu" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive(item.link)}"<% } %>>
-            <a <% if(filters.uirouter) { %>uiSref="{{item.state}}"<% } else { %>ng-href="{{item.link}}"<% } %>>{{item.title}}</a>
+            <a <% if(filters.uirouter) { %>uiSref="{{item.state}}"<% } else { %>href="{{item.link}}"<% } %>>{{item.title}}</a>
         </li>
         <%_ if(filters.auth) { -%>
         <li [hidden]="!isAdmin" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/admin')}"<% } %>>
