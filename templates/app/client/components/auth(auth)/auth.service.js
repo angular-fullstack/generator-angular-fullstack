@@ -165,7 +165,7 @@ export class AuthService {
    * @returns {Promise}
    */
   isLoggedIn(callback?) {
-    let is = this.currentUser.hasOwnProperty('role');
+    let is = !!this.currentUser._id;
     safeCb(callback)(is);
     return Promise.resolve(is);
   }

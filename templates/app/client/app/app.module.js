@@ -27,7 +27,7 @@ import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { MainComponent } from './main/main.component';
 import { DirectivesModule } from '../components/directives.module';
-//import { AccountModule } from './account/account.module';
+import { AccountModule } from './account/account.module';
 //import { AdminModule } from './admin/admin.module';
 
 import constants from './app.constants';
@@ -74,10 +74,10 @@ const appRoutes: Routes = [
         <%_ if (filters.uirouter) { -%>
         UIRouterModule.forRoot(),<% } %>
         <%_ if (filters.ngroute) { -%>
-        RouterModule.forRoot(appRoutes, { enableTracing: true }),<% } %>
+        RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),<% } %>
         MainModule,
         DirectivesModule,
-        //AccountModule,
+        AccountModule,
         //AdminModule,
     ],
     declarations: [
