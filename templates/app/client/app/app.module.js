@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
+  Http,
   HttpModule,
   BaseRequestOptions,
   RequestOptions,
@@ -21,7 +22,7 @@ import {
 import { UIRouterModule } from 'ui-router-ng2';<% } %>
 <%_ if (filters.ngroute) { -%>
 import { RouterModule, Routes } from '@angular/router';<% } %>
-import { provideAuth } from 'angular2-jwt';
+import { provideAuth, AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
@@ -32,12 +33,19 @@ import { AdminModule } from './admin/admin.module';
 
 import constants from './app.constants';
 
-let providers: Provider[] = [
-  provideAuth({
-    // Allow using AuthHttp while not logged in
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
     noJwtError: true,
-  })
-];
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => localStorage.getItem('id_token')),
+  }), http);
+}
+
+let providers: Provider[] = [{
+  provide: AuthHttp,
+  useFactory: getAuthHttp,
+  deps: [Http]
+}];
 
 if(constants.env === 'development') {
   @Injectable()
