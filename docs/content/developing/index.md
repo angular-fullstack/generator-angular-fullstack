@@ -75,10 +75,10 @@ Time: 16538ms
       app.bundle.js.map  3.34 MB       0  [emitted]  app
 polyfills.bundle.js.map   271 kB       1  [emitted]  polyfills
    vendor.bundle.js.map  3.06 MB       2  [emitted]  vendor
-   ../client/index.html  1.39 kB          [emitted]
-Child html-webpack-plugin for "..\client\index.html":
+   ../client/app.html  1.39 kB          [emitted]
+Child html-webpack-plugin for "..\client\app.html":
                    Asset     Size  Chunks       Chunk Names
-    ../client/index.html  2.69 kB       0
+    ../client/app.html  2.69 kB       0
 webpack: bundle is now VALID.
 ```
 

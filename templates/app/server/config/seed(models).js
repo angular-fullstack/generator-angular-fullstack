@@ -31,7 +31,7 @@ export default function seedDatabaseIfNeeded() {
           name: 'Smart Build System',
           info: 'Build system ignores `spec` files, allowing you to keep '
                 + 'tests alongside code. Automatic injection of scripts and '
-                + 'styles into your index.html'
+                + 'styles into your app.html'
         }, {
           name: 'Modular Structure',
           info: 'Best practice client and server structures allow for more '

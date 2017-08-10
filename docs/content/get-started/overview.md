@@ -35,7 +35,7 @@ webpack.make.js // main file for Webpack configuration
 ```
 │   .eslintrc // eslint config for client files
 │   polyfills.js // imports of polyfills
-│   _index.html // template for the root HTML file of your app
+│   app.template.html // template for the root HTML file of your app
 │
 ├───app
 │   │   app.config.js // contains app-wide configuration code
