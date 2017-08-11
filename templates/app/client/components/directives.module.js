@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UIRouterModule } from 'ui-router-ng2';
 import { CollapseModule } from 'ng2-bootstrap';
 
 import { AuthModule } from './auth/auth.module';
@@ -13,7 +12,6 @@ import { OauthButtonsComponent } from './oauth-buttons/oauth-buttons.component';
 @NgModule({
   imports: [
     CommonModule,
-    UIRouterModule.forChild(),
     CollapseModule,
     AuthModule,
   ],

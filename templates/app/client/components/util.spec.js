@@ -1,3 +1,4 @@
+/*
 import { safeCb } from './util';
 
 describe('Util', () => {
@@ -11,3 +12,4 @@ describe('Util', () => {
         <%_ } -%>
     });
 });
+*/

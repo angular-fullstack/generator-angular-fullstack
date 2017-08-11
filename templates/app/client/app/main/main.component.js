@@ -15,16 +15,15 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
   <%_ if(filters.models) { -%>
   newThing = '';<% } %>
 
-  <%_ if(filters.babel) { -%>
-  static parameters = [Http, SocketService];<% } %>
+  static parameters = [Http, SocketService];
   constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
-    this.Http = http;
+    this.http = http;
     <%_ if(filters.ws) { -%>
     this.SocketService = socketService;<% } %>
   }
 
   ngOnInit() {
-    this.Http.get('/api/things')
+    this.http.get('/api/things')
       .map(res => {
         return res.json();
       })
@@ -46,7 +45,7 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
       let text = this.newThing;
       this.newThing = '';
 
-      return this.Http.post('/api/things', { name: text })
+      return this.http.post('/api/things', { name: text })
         .map(res => res.json())
         .catch(err => Observable.throw(err.json().error || 'Server error'))
         .subscribe(thing => {
@@ -56,7 +55,7 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
   }
 
   deleteThing(thing) {
-    return this.Http.delete(`/api/things/${thing._id}`)
+    return this.http.delete(`/api/things/${thing._id}`)
       .map(res => res.json())
       .catch(err => Observable.throw(err.json().error || 'Server error'))
       .subscribe(() => {

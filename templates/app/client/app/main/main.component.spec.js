@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 import main from './main.component';
@@ -44,3 +45,4 @@ describe('Component: MainComponent', function() {
     <%= expect() %>mainComponent.awesomeThings.length<%= to() %>.equal(4);<% } %>
   });
 });
+*/
