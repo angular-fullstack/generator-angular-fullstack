@@ -14,7 +14,7 @@ import { SocketService } from '../../components/socket/socket.service';<% } %>
 
 <%_ if(filters.ngroute) { _%>
 export const ROUTES: Routes = [
-  { path: '', component: MainComponent },
+  { path: 'home', component: MainComponent },
 ];<% } %>
 <%_ if(filters.uirouter) { _%>
 export const STATES = [

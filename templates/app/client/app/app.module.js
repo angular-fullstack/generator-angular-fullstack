@@ -72,7 +72,7 @@ import { provideAuth } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
-import { MainComponent } from './main/main.component';
+// import { MainComponent } from './main/main.component';
 import { DirectivesModule } from '../components/directives.module';
 import { AccountModule } from './account/account.module';
 import { AdminModule } from './admin/admin.module';
@@ -101,11 +101,11 @@ if(constants.env === 'development') {
 const appRoutes: Routes = [
   //{ path: 'crisis-center', component: CrisisListComponent },
   //{ path: 'hero/:id',      component: HeroDetailComponent },
-  {
-    path: 'home',
-    component: MainComponent,
-    data: { title: 'Home' }
-  },
+  // {
+  //   path: 'home',
+  //   component: MainComponent,
+  //   data: { title: 'Home' }
+  // },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
