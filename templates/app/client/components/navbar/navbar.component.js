@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 <%_ if (filters.auth) { -%>
-  <%_ if (filters.uirouter) { -%>
+<%_ if (filters.uirouter) { -%>
 import { StateService } from 'ui-router-ng2';<% } %>
+<%_ if (filters.ngroute) { -%>
+import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../auth/auth.service';<% } %>
 
 @Component({
@@ -15,21 +17,24 @@ export class NavbarComponent {
   currentUser = {};
   menu = [{
     title: 'Home',
-    <% if(filters.uirouter) { %>'state': 'main'<% } else { %>'link': '/'<% } %>,
+    <% if(filters.uirouter) { %>'state': 'main'<% } else { %>'link': '/home'<% } %>,
   }];
   <%_ if(filters.auth) { -%>
 
-  static parameters = [AuthService<% if(filters.uirouter) { %>, StateService<% } %>];
-  constructor(authService: AuthService<% if(filters.uirouter) { %>, stateService: StateService<% } %>) {
+  static parameters = [AuthService<% if(filters.uirouter) { %>, StateService<% } else { %>, Router<% } %>];
+  constructor(authService: AuthService<% if(filters.uirouter) { %>, stateService: StateService<% } else { %>, router: Router<% } %>) {
     this.AuthService = authService;
-    this.StateService = stateService;
+    <%_ if(filters.uirouter) { -%>
+    this.StateService = stateService;<% } %>
+    <%_ if(filters.ngroute) { -%>
+    this.Router = router;<% } %>
 
     this.reset();
 
     this.AuthService.currentUserChanged.subscribe(user => {
       this.currentuser = user;
       this.reset();
-    })
+    });
   }
 
   reset() {
@@ -46,9 +51,10 @@ export class NavbarComponent {
 
   logout() {
     let promise = this.AuthService.logout();
-    <%_ if (filters.uirouter) { -%>
+    <%_ if(filters.uirouter) { -%>
     this.StateService.go('login');<% } -%>
-    <%_ if (filters.ngroute) { -%><% } -%>
+    <%_ if(filters.ngroute) { -%>
+    this.Router.navigateByUrl('/home');<% } -%>
     return promise;
   }<% } -%>
 }

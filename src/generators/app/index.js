@@ -174,13 +174,13 @@ export class Generator extends Base {
             choices: ['CSS', 'Sass', 'Stylus', 'Less'],
             filter: val => val.toLowerCase()
           },  {
-            type: 'list',
-            name: 'router',
-            default: 1,
-            message: 'What Angular router would you like to use?',
-            choices: ['ngRoute', 'uiRouter'],
-            filter: val => val.toLowerCase()
-          }, {
+          //  type: 'list',
+          //  name: 'router',
+          //  default: 1,
+          //  message: 'What Angular router would you like to use?',
+          //  choices: ['ngRoute', 'uiRouter'],
+          //  filter: val => val.toLowerCase()
+          //}, {
             type: 'confirm',
             name: 'bootstrap',
             message: 'Would you like to include Bootstrap?'
@@ -203,8 +203,9 @@ export class Generator extends Base {
             this.filters[answers.stylesheet] = true;
             insight.track('stylesheet', answers.stylesheet);
 
-            this.filters[answers.router] = true;
-            insight.track('router', answers.router);
+            //this.filters[answers.router] = true;
+            //insight.track('router', answers.router);
+            this.filters['ngroute'] = true;
 
             this.filters.bootstrap = !!answers.bootstrap;
             insight.track('bootstrap', !!answers.bootstrap);

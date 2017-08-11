@@ -66,10 +66,13 @@ import {
 } from '@angularclass/hmr';
 <%_ if (filters.uirouter) { -%>
 import { UIRouterModule } from 'ui-router-ng2';<% } %>
+<%_ if (filters.ngroute) { -%>
+import { RouterModule, Routes } from '@angular/router';<% } %>
 import { provideAuth } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
+// import { MainComponent } from './main/main.component';
 import { DirectivesModule } from '../components/directives.module';
 import { AccountModule } from './account/account.module';
 import { AdminModule } from './admin/admin.module';
@@ -95,12 +98,30 @@ if(constants.env === 'development') {
   providers.push({ provide: RequestOptions, useClass: HttpOptions });
 }
 
+const appRoutes: Routes = [
+  //{ path: 'crisis-center', component: CrisisListComponent },
+  //{ path: 'hero/:id',      component: HeroDetailComponent },
+  // {
+  //   path: 'home',
+  //   component: MainComponent,
+  //   data: { title: 'Home' }
+  // },
+  { path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  //{ path: '**', component: PageNotFoundComponent }
+];
+
 @NgModule({
     providers,
     imports: [
         BrowserModule,
         HttpModule,
-        UIRouterModule.forRoot(),
+        <%_ if (filters.uirouter) { -%>
+        UIRouterModule.forRoot(),<% } %>
+        <%_ if (filters.ngroute) { -%>
+        RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),<% } %>
         MainModule,
         DirectivesModule,
         AccountModule,
