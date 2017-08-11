@@ -11,21 +11,21 @@
     </div>
     <div [collapse]="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li *ngFor="let item of menu" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive(item.link)}"<% } %>>
-            <a <% if(filters.uirouter) { %>uiSref="{{item.state}}"<% } else { %>href="{{item.link}}"<% } %>>{{item.title}}</a>
+        <li *ngFor="let item of menu" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>>
+            <a <% if(filters.uirouter) { %>uiSref="{{item.state}}"<% } else { %>routerLink="{{item.link}}"<% } %>>{{item.title}}</a>
         </li>
         <%_ if(filters.auth) { -%>
-        <li [hidden]="!isAdmin" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/admin')}"<% } %>>
-          <a <% if(filters.uirouter) { %>uiSref="admin"<% } else { %>href="/admin"<% } %>>Admin</a>
+        <li [hidden]="!isAdmin" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>>
+          <a <% if(filters.uirouter) { %>uiSref="admin"<% } else { %>routerLink="/admin"<% } %>>Admin</a>
         </li><% } %>
       </ul>
       <%_ if(filters.auth) { -%>
 
       <ul class="nav navbar-nav navbar-right">
-        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/signup')}"<% } %>><a <% if(filters.uirouter) { %>uiSref="signup"<% } else { %>href="/signup"<% } %>>Sign up</a></li>
-        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/login')}"<% } %>><a <% if(filters.uirouter) { %>uiSref="login"<% } else { %>href="/login"<% } %>>Login</a></li>
+        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="signup"<% } else { %>routerLink="/signup"<% } %>>Sign up</a></li>
+        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="login"<% } else { %>routerLink="/login"<% } %>>Login</a></li>
         <li [hidden]="!isLoggedIn"><p class="navbar-text">Hello {{ currentUser.name }}</p> </li>
-        <li [hidden]="!isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>ng-class="{active: isActive('/settings')}"<% } %>><a <% if(filters.uirouter) { %>uiSref="settings"<% } else { %>href="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li [hidden]="!isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="settings"<% } else { %>routerLink="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
         <li [hidden]="!isLoggedIn"><a (click)="logout()">Logout</a></li>
       </ul><% } %>
     </div>

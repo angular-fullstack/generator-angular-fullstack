@@ -75,7 +75,7 @@ import { MainModule } from './main/main.module';
 import { MainComponent } from './main/main.component';
 import { DirectivesModule } from '../components/directives.module';
 import { AccountModule } from './account/account.module';
-//import { AdminModule } from './admin/admin.module';
+import { AdminModule } from './admin/admin.module';
 
 import constants from './app.constants';
 
@@ -125,7 +125,7 @@ const appRoutes: Routes = [
         MainModule,
         DirectivesModule,
         AccountModule,
-        //AdminModule,
+        AdminModule,
     ],
     declarations: [
         AppComponent,
