@@ -15,8 +15,7 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
   <%_ if(filters.models) { -%>
   newThing = '';<% } %>
 
-  <%_ if(filters.babel) { -%>
-  static parameters = [Http, SocketService];<% } %>
+  static parameters = [Http, SocketService];
   constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
     this.Http = http;
     <%_ if(filters.ws) { -%>

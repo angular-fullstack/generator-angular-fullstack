@@ -2,9 +2,9 @@
 import { Component } from '@angular/core';
 <%_ if(filters.uirouter) { -%>
 import { StateService } from 'ui-router-ng2';<% } %>
-<%_ if(filters.ngroute) { -%><% } %>
+<%_ if(filters.ngroute) { -%>
+import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../../../components/auth/auth.service';
-import {ANGULARCLASS_MATCH_CONTROL_DIRECTIVES} from '@angularclass/match-control';
 
 <%_ if(filters.flow) { -%>
 type User = {
@@ -21,8 +21,7 @@ interface User {
 
 @Component({
   selector: 'signup',
-  template: require('./signup.<%=templateExt%>'),
-  directives: [...ANGULARCLASS_MATCH_CONTROL_DIRECTIVES]
+  template: require('./signup.<%=templateExt%>')
 })
 export class SignupComponent {
   user: User = {
@@ -33,14 +32,16 @@ export class SignupComponent {
   errors = {};
   submitted = false;
   AuthService;
-  <%_ if(filters.ngroute) { -%><% } %>
+  <%_ if(filters.ngroute) { -%>
+  Router;<% } %>
   <%_ if(filters.uirouter) { -%>
   StateService;<% } %>
 
-  static parameters = [AuthService, <% if(filters.ngroute) { %><% } else { %>StateService<% } %>];
-  constructor(_AuthService_: AuthService, <% if(filters.ngroute) { %><% } else { %>_StateService_: StateService<% } %>) {
+  static parameters = [AuthService, <% if(filters.ngroute) { %>Router<% } else { %>StateService<% } %>];
+  constructor(_AuthService_: AuthService, <% if(filters.ngroute) { %>router: Router<% } else { %>_StateService_: StateService<% } %>) {
     this.AuthService = _AuthService_;
-    <%_ if(filters.ngroute) { -%><% } -%>
+    <%_ if(filters.ngroute) { -%>
+    this.Router = router;<% } -%>
     <%_ if(filters.uirouter) { -%>
     this.StateService = _StateService_;<% } -%>
   }

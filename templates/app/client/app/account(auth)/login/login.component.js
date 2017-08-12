@@ -34,7 +34,8 @@ export class LoginComponent {
   errors = {login: undefined};
   submitted = false;
   AuthService;
-  <%_ if(filters.ngroute) { -%><% } %>
+  <%_ if(filters.ngroute) { -%>
+  Router;<% } %>
   <%_ if(filters.uirouter) { -%>
   StateService;<% } %>
 

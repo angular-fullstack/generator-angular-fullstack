@@ -10,44 +10,46 @@ import 'rxjs/add/operator/toPromise';
 // @flow
 type UserType = {
   // TODO: use Mongoose model
-  name: string;
-  email: string;
+  id?: string;
+  _id?: string;
+  name?: string;
+  email?: string;
+}
+
+function handleError(err) {
+  return Observable.throw(err.json().error || 'Server error');
 }
 
 @Injectable()
 export class UserService {
   static parameters = [AuthHttp];
-  constructor(authHttp: AuthHttp) {
+  constructor(<%= private() %>authHttp: AuthHttp) {
     this.AuthHttp = authHttp;
-  }
-
-  handleError(err) {
-    Observable.throw(err.json().error || 'Server error');
   }
 
   query(): Observable<UserType[]> {
     return this.AuthHttp.get('/api/users/')
       .map((res:Response) => res.json())
-      .catch(this.handleError);
+      .catch(handleError);
   }
-  get(user = {id: 'me'}): Observable<UserType> {
+  get(user: UserType = {id: 'me'}): Observable<UserType> {
     return this.AuthHttp.get(`/api/users/${user.id || user._id}`)
       .map((res:Response) => res.json())
-      .catch(this.handleError);
+      .catch(handleError);
   }
   create(user: UserType) {
     return this.AuthHttp.post('/api/users/', user)
       .map((res:Response) => res.json())
-      .catch(this.handleError);
+      .catch(handleError);
   }
   changePassword(user, oldPassword, newPassword) {
     return this.AuthHttp.put(`/api/users/${user.id || user._id}/password`, {oldPassword, newPassword})
       .map((res:Response) => res.json())
-      .catch(this.handleError);
+      .catch(handleError);
   }
   remove(user) {
     return this.AuthHttp.delete(`/api/users/${user.id || user._id}`)
       .map(() => user)
-      .catch(this.handleError);
+      .catch(handleError);
   }
 }

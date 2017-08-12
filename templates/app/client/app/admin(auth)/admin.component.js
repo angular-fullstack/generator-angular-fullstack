@@ -12,7 +12,7 @@ export class AdminComponent {
 
   <%_ } _%>
   static parameters = [UserService];
-  constructor(userService: UserService) {
+  constructor(<%= private() %>userService: UserService) {
     this.userService = userService;
     // Use the user service to fetch all users
     this.userService.query().subscribe(users => {

@@ -6,7 +6,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import { safeCb, extractData } from '../util';
-import { userRoles } from '../../app/app.constants';
+import constants from '../../app/app.constants';
 
 // @flow
 class User {
@@ -19,19 +19,19 @@ class User {
 
 @Injectable()
 export class AuthService {
-  _currentUser: User = {};
+  _currentUser: User = new User();
   @Output() currentUserChanged = new EventEmitter(true);
-  userRoles = userRoles || [];
+  userRoles = constants.userRoles || [];
 
   static parameters = [Http, AuthHttp, UserService];
-  constructor(_Http_: Http, _AuthHttp_: AuthHttp, _UserService_: UserService) {
-    this.Http = _Http_;
-    this.AuthHttp = _AuthHttp_;
-    this.UserService = _UserService_;
+  constructor(<%= private() %>http: Http, <%= private() %>authHttp: AuthHttp, <%= private() %>userService: UserService) {
+    this.Http = http;
+    this.AuthHttp = authHttp;
+    this.UserService = userService;
 
     if(localStorage.getItem('id_token')) {
       this.UserService.get().toPromise()
-        .then(user => {
+        .then((user: User) => {
           this.currentUser = user;
         })
         .catch(err => {
@@ -48,7 +48,7 @@ export class AuthService {
    * @param {String} role - role to check against
    */
   static hasRole(userRole, role) {
-    return userRoles.indexOf(userRole) >= userRoles.indexOf(role);
+    return constants.userRoles.indexOf(userRole) >= constants.userRoles.indexOf(role);
   }
 
   get currentUser() {
@@ -78,7 +78,7 @@ export class AuthService {
         localStorage.setItem('id_token', res.token);
         return this.UserService.get().toPromise();
       })
-      .then(user => {
+      .then((user: User) => {
         this.currentUser = user;
         localStorage.setItem('user', JSON.stringify(user));
         safeCb(callback)(null, user);
@@ -98,7 +98,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('id_token');
-    this.currentUser = {};
+    this.currentUser = new User();
     return Promise.resolve();
   }
 
@@ -115,7 +115,7 @@ export class AuthService {
         localStorage.setItem('id_token', data.token);
         return this.UserService.get().toPromise();
       })
-      .then(_user => {
+      .then((_user: User) => {
         this.currentUser = _user;
         return safeCb(callback)(null, _user);
       })
@@ -135,6 +135,7 @@ export class AuthService {
    */
   changePassword(oldPassword, newPassword, callback) {
     return this.UserService.changePassword({id: this.currentUser._id}, oldPassword, newPassword)
+      .toPromise()
       .then(() => safeCb(callback)(null))
       .catch(err => safeCb(callback)(err));
   }
@@ -145,7 +146,7 @@ export class AuthService {
    * @param  {Function} [callback] - function(user)
    * @return {Promise}
    */
-  getCurrentUser(callback) {
+  getCurrentUser(callback?) {
     safeCb(callback)(this.currentUser);
     return Promise.resolve(this.currentUser);
   }
@@ -161,9 +162,10 @@ export class AuthService {
 
   /**
    * Checks if user is logged in
+   * @param {function} [callback]
    * @returns {Promise}
    */
-  isLoggedIn(callback) {
+  isLoggedIn(callback<% if(filters.ts) { %>?<% } %>) {
     let is = !!this.currentUser._id;
     safeCb(callback)(is);
     return Promise.resolve(is);
@@ -180,10 +182,10 @@ export class AuthService {
   /**
    * Check if a user is an admin
    *
-   * @param  {Function|*} callback - optional, function(is)
+   * @param  {Function|*} [callback] - optional, function(is)
    * @return {Promise}
    */
-  isAdmin(callback) {
+  isAdmin(callback?) {
     return this.getCurrentUser().then(user => {
       var is = user.role === 'admin';
       safeCb(callback)(is);

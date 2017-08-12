@@ -22,7 +22,7 @@ export class NavbarComponent {
   <%_ if(filters.auth) { -%>
 
   static parameters = [AuthService<% if(filters.uirouter) { %>, StateService<% } else { %>, Router<% } %>];
-  constructor(authService: AuthService<% if(filters.uirouter) { %>, stateService: StateService<% } else { %>, router: Router<% } %>) {
+  constructor(<%= private() %>authService: AuthService<% if(filters.uirouter) { %>, <%= private() %>stateService: StateService<% } else { %>, <%= private() %>router: Router<% } %>) {
     this.AuthService = authService;
     <%_ if(filters.uirouter) { -%>
     this.StateService = stateService;<% } %>
@@ -32,7 +32,7 @@ export class NavbarComponent {
     this.reset();
 
     this.AuthService.currentUserChanged.subscribe(user => {
-      this.currentuser = user;
+      this.currentUser = user;
       this.reset();
     });
   }
