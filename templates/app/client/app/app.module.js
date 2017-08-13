@@ -1,57 +1,13 @@
-// import angular from 'angular';
-// // import ngAnimate from 'angular-animate';
-// import ngCookies from 'angular-cookies';
-// import ngResource from 'angular-resource';
-// import ngSanitize from 'angular-sanitize';
-// <%_ if(filters.socketio) { _%>
-// import 'angular-socket-io';<% } %>
-// <%_ if(filters.ngroute) { _%>
-// const ngRoute = require('angular-route');<% } %>
-// <%_ if(filters.uirouter) { _%>
-// import uiRouter from 'angular-ui-router';<% } %>
-// <%_ if(filters.uibootstrap) { _%>
-// import uiBootstrap from 'angular-ui-bootstrap';<% } %>
-// // import ngMessages from 'angular-messages';
-// <%_ if(filters.auth) { _%>
-// // import ngValidationMatch from 'angular-validation-match';<% } %>
-
-// import {routeConfig} from './app.config';
-
-// <%_ if(filters.auth) { _%>
-// import _Auth from '../components/auth/auth.module';
-// import account from './account';
-// import admin from './admin';<% } %>
-// import navbar from '../components/navbar/navbar.component';
-// import footer from '../components/footer/footer.component';
-// import main from './main/main.component';
-// import constants from './app.constants';
-// import util from '../components/util/util.module';
-// <%_ if(filters.socketio) { _%>
-// import socket from '../components/socket/socket.service';<% } %>
-
-//   .config(routeConfig)
-//   <%_ if(filters.auth) { _%>
-//   .run(function($rootScope, $location, Auth) {
-//     'ngInject';
-//     // Redirect to login if route requires auth and you're not logged in
-//     $rootScope.$on('$stateChangeStart', function(event, next) {
-//       Auth.isLoggedIn(function(loggedIn) {
-//         if(next.authenticate && !loggedIn) {
-//           $location.path('/login');
-//         }
-//       });
-//     });
-//   })<% } %>;
-
-
 import {
   NgModule,
   ErrorHandler,
   Injectable,
   ApplicationRef,
+  Provider,
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
+  Http,
   HttpModule,
   BaseRequestOptions,
   RequestOptions,
@@ -60,28 +16,36 @@ import {
 import {
   removeNgStyles,
   createNewHosts,
-  disposeOldHosts,
   createInputTransfer,
-  restoreInputValues,
 } from '@angularclass/hmr';
 <%_ if (filters.uirouter) { -%>
 import { UIRouterModule } from 'ui-router-ng2';<% } %>
-import { provideAuth } from 'angular2-jwt';
+<%_ if (filters.ngroute) { -%>
+import { RouterModule, Routes } from '@angular/router';<% } %>
+import { provideAuth, AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
+// import { MainComponent } from './main/main.component';
 import { DirectivesModule } from '../components/directives.module';
 import { AccountModule } from './account/account.module';
 import { AdminModule } from './admin/admin.module';
 
 import constants from './app.constants';
 
-let providers = [
-  provideAuth({
-    // Allow using AuthHttp while not logged in
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
     noJwtError: true,
-  })
-];
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => localStorage.getItem('id_token')),
+  }), http);
+}
+
+let providers: Provider[] = [{
+  provide: AuthHttp,
+  useFactory: getAuthHttp,
+  deps: [Http]
+}];
 
 if(constants.env === 'development') {
   @Injectable()
@@ -95,12 +59,30 @@ if(constants.env === 'development') {
   providers.push({ provide: RequestOptions, useClass: HttpOptions });
 }
 
+const appRoutes: Routes = [
+  //{ path: 'crisis-center', component: CrisisListComponent },
+  //{ path: 'hero/:id',      component: HeroDetailComponent },
+  // {
+  //   path: 'home',
+  //   component: MainComponent,
+  //   data: { title: 'Home' }
+  // },
+  { path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  //{ path: '**', component: PageNotFoundComponent }
+];
+
 @NgModule({
     providers,
     imports: [
         BrowserModule,
         HttpModule,
-        UIRouterModule.forRoot(),
+        <%_ if (filters.uirouter) { -%>
+        UIRouterModule.forRoot(),<% } %>
+        <%_ if (filters.ngroute) { -%>
+        RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),<% } %>
         MainModule,
         DirectivesModule,
         AccountModule,
@@ -113,7 +95,7 @@ if(constants.env === 'development') {
 })
 export class AppModule {
   static parameters = [ApplicationRef];
-  constructor(appRef/*: ApplicationRef*/) {
+  constructor(<%= private() %>appRef: ApplicationRef) {
     this.appRef = appRef;
   }
 

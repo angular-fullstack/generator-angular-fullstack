@@ -18,7 +18,7 @@
       "flow": false,
       "html": true,
       "sass": true,
-      "uirouter": true,
+      "ngroute": true,
       "bootstrap": true,
       "uibootstrap": true,
       "ws": true,
@@ -41,11 +41,10 @@
     "moduleName": "",
     "modulePrompt": true,
     "filters": [
-      "uirouter",
+      "ngroute",
       "mocha",
       "expect",
       "should",
-      "uirouter",
       "es6",
       "webpack"
     ],

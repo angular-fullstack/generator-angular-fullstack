@@ -21,9 +21,12 @@ testsContext('./components/oauth-buttons/oauth-buttons.component.spec.<%= script
 <%_ } -%>
 
 import { TestBed, getTestBed } from '@angular/core/testing';
-import browser from '@angular/platform-browser-dynamic/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting,
+} from '@angular/platform-browser-dynamic/testing';
 
-TestBed.initTestEnvironment(browser.BrowserDynamicTestingModule, browser.platformBrowserDynamicTesting());
+TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 
 <%_ if (filters.mocha) { -%>
 var hook = new Mocha.Hook('Modified Angular beforeEach Hook', function() {
