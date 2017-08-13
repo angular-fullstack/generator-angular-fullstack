@@ -9,14 +9,14 @@ import { SocketService } from '../../components/socket/socket.service';
     styles: [require('./main.<%=styleExt%>')],
 })
 export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% } %> {
+  Http;
   <%_ if(filters.ws) { -%>
   SocketService;<% } %>
   awesomeThings = [];
   <%_ if(filters.models) { -%>
   newThing = '';<% } %>
 
-  <%_ if(filters.babel) { -%>
-  static parameters = [Http, SocketService];<% } %>
+  static parameters = [Http, SocketService];
   constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
     this.Http = http;
     <%_ if(filters.ws) { -%>

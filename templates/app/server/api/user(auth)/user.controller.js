@@ -47,7 +47,7 @@ export function create(req, res) {
   <% if (filters.mongooseModels) { %>var newUser = new User(req.body);
   newUser.provider = 'local';
   newUser.role = 'user';
-  newUser.save()<% }
+  return newUser.save()<% }
      if (filters.sequelizeModels) { %>var newUser = User.build(req.body);
   newUser.setDataValue('provider', 'local');
   newUser.setDataValue('role', 'user');

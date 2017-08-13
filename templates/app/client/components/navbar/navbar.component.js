@@ -12,17 +12,20 @@ import { AuthService } from '../auth/auth.service';<% } %>
 })
 export class NavbarComponent {
   isCollapsed = true;
-  isLoggedIn;
-  isAdmin;
-  currentUser = {};
   menu = [{
     title: 'Home',
     <% if(filters.uirouter) { %>'state': 'main'<% } else { %>'link': '/home'<% } %>,
   }];
+  <%_ if(filters.ngroute) { -%>
+  Router;<% } %>
   <%_ if(filters.auth) { -%>
+  isAdmin;
+  isLoggedIn;
+  currentUser = {};
+  AuthService;
 
   static parameters = [AuthService<% if(filters.uirouter) { %>, StateService<% } else { %>, Router<% } %>];
-  constructor(authService: AuthService<% if(filters.uirouter) { %>, stateService: StateService<% } else { %>, router: Router<% } %>) {
+  constructor(<%= private() %>authService: AuthService<% if(filters.uirouter) { %>, <%= private() %>stateService: StateService<% } else { %>, <%= private() %>router: Router<% } %>) {
     this.AuthService = authService;
     <%_ if(filters.uirouter) { -%>
     this.StateService = stateService;<% } %>
@@ -32,7 +35,7 @@ export class NavbarComponent {
     this.reset();
 
     this.AuthService.currentUserChanged.subscribe(user => {
-      this.currentuser = user;
+      this.currentUser = user;
       this.reset();
     });
   }

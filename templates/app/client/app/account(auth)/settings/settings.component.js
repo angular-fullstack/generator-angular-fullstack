@@ -40,16 +40,14 @@ export class SettingsComponent {
   changePassword(form) {
     this.submitted = true;
 
-    if(form.$valid) {
-      this.AuthService.changePassword(this.user.oldPassword, this.user.newPassword)
-        .then(() => {
-          this.message = 'Password successfully changed.';
-        })
-        .catch(() => {
-          form.password.$setValidity('mongoose', false);
-          this.errors.other = 'Incorrect password';
-          this.message = '';
-        });
-    }
+    return this.AuthService.changePassword(this.user.oldPassword, this.user.newPassword)
+      .then(() => {
+        this.message = 'Password successfully changed.';
+      })
+      .catch(() => {
+        // form.password.$setValidity('mongoose', false);
+        this.errors.other = 'Incorrect password';
+        this.message = '';
+      });
   }
 }
