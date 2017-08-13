@@ -19,6 +19,7 @@ testsContext('./components/util.spec.<%= scriptExt %>');
 <%_ if(filters.oauth) { -%>
 testsContext('./components/oauth-buttons/oauth-buttons.component.spec.<%= scriptExt %>');
 <%_ } -%>
+testsContext('./app/main/main.component.spec.<%= scriptExt %>');
 
 import { TestBed, getTestBed } from '@angular/core/testing';
 import {

@@ -1,16 +1,33 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
     "rootDir": "./client",
-    "module": "commonjs",
-    "outDir": ".tmp/test"
+    "module": "es6",
+    "outDir": ".tmp/test",
+    "removeComments": false,
+    "target": "es5",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "lib": [
+      "es2016",
+      "dom"
+    ]
   },
   "moduleResolution": "node",
   "typeRoots": [
-    "node_modules/@types"
+    "./node_modules/@types"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "filesGlob": [
-    "client/{app,components}/**/*.{spec,mock}.ts",
-    "client/test_typings/**/*.d.ts"
-  ]
+    "client/{app,components}/**/*.{spec,mock}.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "resolveGlobs": true,
+    "forkChecker": true
+  }
 }
