@@ -12,14 +12,17 @@ import { AuthService } from '../auth/auth.service';<% } %>
 })
 export class NavbarComponent {
   isCollapsed = true;
-  isLoggedIn;
-  isAdmin;
-  currentUser = {};
   menu = [{
     title: 'Home',
     <% if(filters.uirouter) { %>'state': 'main'<% } else { %>'link': '/home'<% } %>,
   }];
+  <%_ if(filters.ngroute) { -%>
+  Router;<% } %>
   <%_ if(filters.auth) { -%>
+  isAdmin;
+  isLoggedIn;
+  currentUser = {};
+  AuthService;
 
   static parameters = [AuthService<% if(filters.uirouter) { %>, StateService<% } else { %>, Router<% } %>];
   constructor(<%= private() %>authService: AuthService<% if(filters.uirouter) { %>, <%= private() %>stateService: StateService<% } else { %>, <%= private() %>router: Router<% } %>) {

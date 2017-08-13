@@ -22,6 +22,8 @@ function handleError(err) {
 
 @Injectable()
 export class UserService {
+  AuthHttp;
+
   static parameters = [AuthHttp];
   constructor(<%= private() %>authHttp: AuthHttp) {
     this.AuthHttp = authHttp;
@@ -32,7 +34,7 @@ export class UserService {
       .map((res:Response) => res.json())
       .catch(handleError);
   }
-  get(user: UserType = {id: 'me'}): Observable<UserType> {
+  get(user<% if(filters.ts) { %>: UserType<% } %> = {id: 'me'}): Observable<UserType> {
     return this.AuthHttp.get(`/api/users/${user.id || user._id}`)
       .map((res:Response) => res.json())
       .catch(handleError);

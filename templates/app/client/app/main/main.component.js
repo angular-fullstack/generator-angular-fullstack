@@ -9,6 +9,7 @@ import { SocketService } from '../../components/socket/socket.service';
     styles: [require('./main.<%=styleExt%>')],
 })
 export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% } %> {
+  Http;
   <%_ if(filters.ws) { -%>
   SocketService;<% } %>
   awesomeThings = [];

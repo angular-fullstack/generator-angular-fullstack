@@ -22,6 +22,9 @@ export class AuthService {
   _currentUser: User = new User();
   @Output() currentUserChanged = new EventEmitter(true);
   userRoles = constants.userRoles || [];
+  Http;
+  AuthHttp;
+  UserService;
 
   static parameters = [Http, AuthHttp, UserService];
   constructor(<%= private() %>http: Http, <%= private() %>authHttp: AuthHttp, <%= private() %>userService: UserService) {
@@ -31,6 +34,7 @@ export class AuthService {
 
     if(localStorage.getItem('id_token')) {
       this.UserService.get().toPromise()
+        .then(extractData)
         .then((user: User) => {
           this.currentUser = user;
         })
@@ -146,7 +150,7 @@ export class AuthService {
    * @param  {Function} [callback] - function(user)
    * @return {Promise}
    */
-  getCurrentUser(callback?) {
+  getCurrentUser(callback<% if(filters.ts) { %>?<% } %>) {
     safeCb(callback)(this.currentUser);
     return Promise.resolve(this.currentUser);
   }
@@ -185,7 +189,7 @@ export class AuthService {
    * @param  {Function|*} [callback] - optional, function(is)
    * @return {Promise}
    */
-  isAdmin(callback?) {
+  isAdmin(callback<% if(filters.ts) { %>?<% } %>) {
     return this.getCurrentUser().then(user => {
       var is = user.role === 'admin';
       safeCb(callback)(is);

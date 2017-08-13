@@ -56,7 +56,7 @@ export class SignupComponent {
     })
     .then(() => {
       // Account created, redirect to home
-      <% if(filters.ngroute) { %>this.$location.path('/');<% } -%>
+      <% if(filters.ngroute) { %>this.Router.navigateByUrl('/home');<% } -%>
       <% if(filters.uirouter) { %>this.StateService.go('main');<% } -%>
     })
     .catch(err => {

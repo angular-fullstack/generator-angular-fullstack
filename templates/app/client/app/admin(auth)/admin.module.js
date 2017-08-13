@@ -9,7 +9,7 @@ import { AdminComponent } from './admin.component';
 
 <%_ if(filters.uirouter) { -%>
 import { STATES } from './admin.routes';<% } %>
-<%_ if (filters.ngroute) { -%>
+<%_ if(filters.ngroute) { -%>
 const adminRoutes: Routes = [{
   path: 'admin',
   component: AdminComponent,
