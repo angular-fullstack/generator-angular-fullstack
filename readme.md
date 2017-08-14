@@ -25,7 +25,7 @@ npm install -g yo gulp-cli generator-angular-fullstack
 ```
 __Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
 
-> If you're looking for Angular 2, you can try the latest alpha (`npm install -g generator-angular-fullstack@alpha`), or if you'd like a more complete solution, you can give [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) a shot.
+> If you're looking for Angular 4, you can try the latest Beta (`npm install -g generator-angular-fullstack@beta`), or if you'd like a more complete solution, you can give [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) a shot.
 
 ---
 
