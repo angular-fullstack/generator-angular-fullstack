@@ -41,7 +41,7 @@
     "connect-mongo": "^1.2.1",<% } %><% if(filters.sequelize) { %>
     "sequelize": "^3.23.6",
     "sqlite3": "~3.1.1",
-    "express-sequelize-session": "0.4.0",<% } %><% if(filters.auth) { %>
+    "connect-session-sequelize": "^4.1.0",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^7.0.0",
     "express-jwt": "^5.0.0",
     "passport": "~0.3.0",
