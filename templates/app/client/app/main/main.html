@@ -11,7 +11,7 @@
     <div class="col-lg-12">
       <h1 class="page-header">Features:</h1>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" *ngFor="let thing of awesomeThings">
-        <li><a href="#"<% if(filters.uibootstrap) { %> [tooltip]="thing.info"<% } %>>
+        <li><a <% if(filters.uibootstrap) { %> [tooltip]="thing.info"<% } %>>
           {{thing.name}}<% if(filters.models) { %>
           <button type="button" class="close" (click)="deleteThing(thing)">&times;</button><% } %>
         </a></li>
