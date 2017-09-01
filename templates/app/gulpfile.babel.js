@@ -97,8 +97,8 @@ function whenServerReady(cb) {
 let lintClientScripts = lazypipe()<% if(filters.babel) { %>
     .pipe(plugins.eslint, `${clientPath}/.eslintrc`)
     .pipe(plugins.eslint.format);<% } %><% if(filters.ts) { %>
-    .pipe(plugins.tslint, require(`./${clientPath}/tslint.json`))
-    .pipe(plugins.tslint.report, 'verbose', {emitError: false});<% } %>
+    .pipe(plugins.tslint, { formatter: 'verbose' })
+    .pipe(plugins.tslint.report, {emitError: false});<% } %>
 
 const lintClientTestScripts = lazypipe()
     <%_ if(filters.babel) { -%>
@@ -113,8 +113,8 @@ const lintClientTestScripts = lazypipe()
     .pipe(plugins.eslint.format);
     <%_ } -%>
     <%_ if(filters.ts) { -%>
-    .pipe(plugins.tslint, require(`./${clientPath}/tslint.json`))
-    .pipe(plugins.tslint.report, 'verbose', {emitError: false});
+    .pipe(plugins.tslint, { formatter: 'verbose' })
+    .pipe(plugins.tslint.report, {emitError: false});
     <%_ } -%>
 
 let lintServerScripts = lazypipe()
