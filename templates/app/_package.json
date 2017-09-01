@@ -79,7 +79,7 @@
     <%_ } -%>
     "@types/node": "^8.0.26",
     "@types/selenium-webdriver": "^3.0.3",
-    "@types/webpack": "^2.2.15",
+    "@types/webpack": "^3.0.10",
   <%_ } -%>
     "angular2-universal": "2.1.0-rc.1",
     "angular2-jwt": "^0.2.3",
@@ -91,7 +91,7 @@
   <% if(filters.bootstrap) { %>
     "bootstrap": "~3.3.7",
     <% if(filters.uibootstrap) { %>
-    "ng2-bootstrap": "~1.1.16",<% } %>
+    "ngx-bootstrap": "~1.6.3",<% } %>
     <% if(filters.sass) { %>
     "bootstrap-sass": "~3.3.7",<% } %>
     <% if(filters.stylus) { %>
@@ -151,9 +151,9 @@
     "run-sequence": "^2.1.0",
     "lazypipe": "^1.0.1",
     <%# WEBPACK %>
-    "webpack": "^2.3.1",
+    "webpack": "^3.5.5",
     "webpack-dev-server": "^2.4.2",
-    "extract-text-webpack-plugin": "2.0.0",
+    "extract-text-webpack-plugin": "3.0.0",
     "html-webpack-plugin": "^2.24.1",
     "html-webpack-harddisk-plugin": "~0.1.0",
     <%_ if(filters.pug) { _%>

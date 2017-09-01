@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CollapseModule } from 'ng2-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap';
 
 <%_ if (filters.uirouter) { -%>
 import { UIRouterModule } from 'ui-router-ng2';<% } %>
