@@ -100,6 +100,7 @@ export function app(options) {
     'karma.conf.js',
     'mocha.conf.js',
     'mocha.global.js',
+    'postcss.config.js',
     'protractor.conf.js',
     'README.md',
     'spec.js',
