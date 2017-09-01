@@ -109,7 +109,7 @@
 
     "autoprefixer": "^7.1.3",
     "babel-core": "^6.6.5",
-    "babel-eslint": "^6.0.4",
+    "babel-eslint": "^7.2.3",
     "babel-register": "^6.16.0",
     "bs-fullscreen-message": "^1.0.0",
     <%_ if(filters.flow) { -%>
@@ -124,7 +124,7 @@
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",<% if(filters.ts) { %>
-    "gulp-typescript": "~2.13.0",
+    "gulp-typescript": "~3.2.2",
     "gulp-typings": "^1.3.6",
     "gulp-tslint": "^5.0.0",<% } %>
     "gulp-env": "^0.4.0",
@@ -175,10 +175,10 @@
     "sass-loader": "^6.0.6",<% } %>
     <%_ if(filters.less) { _%>
     "less": "^2.7.1",
-    "less-loader": "^2.2.3",<% } %>
+    "less-loader": "^4.0.5",<% } %>
     <%_ if(filters.stylus) { _%>
     "stylus": "^0.54.5",
-    "stylus-loader": "^2.1.1",<% } %>
+    "stylus-loader": "^3.0.1",<% } %>
     "karma-webpack": "^2.0.3",
     <%# END WEBPACK %>
     "through2": "^2.0.1",
@@ -188,7 +188,7 @@
     "sinon": "^3.2.1",
     "chai-as-promised": "^7.1.1",
     "chai-things": "^0.2.0",
-    "karma": "~0.13.3",
+    "karma": "^1.7.1",
     "karma-firefox-launcher": "^1.0.0",
     "karma-script-launcher": "^1.0.0",
     "karma-coverage": "^1.0.0",
@@ -206,7 +206,7 @@
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
     "strip-ansi": "^4.0.0",
-    "supertest": "^1.1.0"<% if(filters.ts) { %>,
+    "supertest": "^3.0.0"<% if(filters.ts) { %>,
     "tslint": "^3.5.0"<% } %>
   },
   "engines": {
