@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CollapseModule } from 'ng2-bootstrap';
+<% if(filters.uibootstrap) { %>
+import { CollapseModule } from 'ng2-bootstrap';<% } %>
 
 <%_ if (filters.uirouter) { -%>
 import { UIRouterModule } from 'ui-router-ng2';<% } %>
@@ -17,7 +18,7 @@ import { OauthButtonsComponent } from './oauth-buttons/oauth-buttons.component';
 @NgModule({
   imports: [
     CommonModule,
-    CollapseModule,
+  <% if(filters.uibootstrap) { %>CollapseModule,<% } %>
     AuthModule,
     <%_ if (filters.uirouter) { -%>
     UIRouterModule,<% } %>
