@@ -184,7 +184,7 @@ export default function(sequelize, DataTypes) {
                        .toString('base64');
         }
 
-        return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength,
+        return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, 'sha1',
           function(err, key) {
             if(err) {
               callback(err);
