@@ -76,9 +76,16 @@ var config = {
       Object.getOwnPropertyDescriptor(Object.prototype, 'should')
     );
 <% } if (filters.jasmine) { %>
-    var SpecReporter = require('jasmine-spec-reporter');
+    var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
     // add jasmine spec reporter
-    jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: true}));
+    jasmine.getEnv().addReporter(new SpecReporter({
+      spec: {
+        displayStacktrace: true
+      },
+      summary: {
+        displayStacktrace: true
+      }
+    }));
 <% } %>
     var serverConfig = config.params.serverConfig;<% if (filters.mongoose) { %>
 

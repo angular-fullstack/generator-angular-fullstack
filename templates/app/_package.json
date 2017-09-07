@@ -6,14 +6,14 @@
     "core-js": "^2.4.1",
     "cors": "^2.8.1",
     "express": "^4.13.3",
-    "morgan": "~1.7.0",
+    "morgan": "~1.8.2",
     "body-parser": "^1.13.3",
     "method-override": "^2.3.5",
     "cookie-parser": "^1.3.5",
     "express-session": "^1.11.3",
     "errorhandler": "^1.4.2",
     "composable-middleware": "^0.3.0",
-    "fast-json-patch": "^1.0.0",
+    "fast-json-patch": "^2.0.5",
     "lodash": "^4.17.4",
     "lodash-es": "^4.17.4",
     "lusca": "^1.4.1",
@@ -37,14 +37,14 @@
     "express-sequelize-session": "0.4.0",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^7.0.0",
     "express-jwt": "^5.0.0",
-    "passport": "~0.3.0",
+    "passport": "~0.4.0",
     "passport-local": "^1.0.0",<% } %><% if(filters.facebookAuth) { %>
     "passport-facebook": "^2.0.0",<% } %><% if(filters.twitterAuth) { %>
     "passport-twitter": "^1.0.3",<% } %><% if(filters.googleAuth) { %>
     "passport-google-oauth20": "^1.0.0",<% } %><% if(filters.ws) { %>
     "primus": "^7.0.1",
     "primus-emit": "^1.0.0",
-    "uws": "^0.14.5",<% } %>
+    "uws": "^8.14.1",<% } %>
     "serve-favicon": "^2.3.0",
     "shrink-ray": "^0.1.3"
   },
@@ -64,7 +64,7 @@
     "@angular/platform-browser-dynamic": "^4.3.3",
     "@angular/router": "^4.3.3",
     <%#"@angular/material": "^2.0.0-alpha.10",%>
-    "@angularclass/hmr": "^1.2.1",
+    "@angularclass/hmr": "^2.1.3",
   <%_ if(filters.ts) { -%>
     "@types/core-js": "^0.9.41",
     <%_ if(filters.jasmine) { -%>
@@ -73,16 +73,16 @@
     "@types/lodash": "^4.14.63",
     <%_ if(filters.mocha) { -%>
     "@types/mocha": "^2.2.41",
-    "@types/chai": "^3.5.2",
+    "@types/chai": "^4.0.4",
     "@types/sinon": "^2.1.3",
     "@types/sinon-chai": "^2.7.27",
     <%_ } -%>
-    "@types/node": "^7.0.14",
+    "@types/node": "^8.0.26",
     "@types/selenium-webdriver": "^3.0.3",
-    "@types/webpack": "^2.2.15",
+    "@types/webpack": "^3.0.10",
   <%_ } -%>
     "angular2-universal": "2.1.0-rc.1",
-    "angular2-jwt": "^0.1.28",
+    "angular2-jwt": "^0.2.3",
     <% if(filters.auth) { %>
     "angular-validation-match": "^1.9.0",<% } %>
     <% if(filters.uirouter) { %>
@@ -91,7 +91,7 @@
   <% if(filters.bootstrap) { %>
     "bootstrap": "~3.3.7",
     <% if(filters.uibootstrap) { %>
-    "ng2-bootstrap": "~1.1.16",<% } %>
+    "ngx-bootstrap": "~1.6.3",<% } %>
     <% if(filters.sass) { %>
     "bootstrap-sass": "~3.3.7",<% } %>
     <% if(filters.stylus) { %>
@@ -107,26 +107,25 @@
 
     <%# END CLIENT %>
 
-    "autoprefixer": "^6.0.0",
+    "autoprefixer": "^7.1.3",
     "babel-core": "^6.6.5",
-    "babel-eslint": "^6.0.4",
+    "babel-eslint": "^7.2.3",
     "babel-register": "^6.16.0",
     "bs-fullscreen-message": "^1.0.0",
     <%_ if(filters.flow) { -%>
-    "flow-bin": "^0.31.0",
+    "flow-bin": "^0.54.0",
     "babel-plugin-syntax-flow": "^6.8.0",
     "babel-plugin-transform-flow-comments": "^6.8.0",<% } %>
     "babel-plugin-transform-class-properties": "^6.6.0",
     "babel-plugin-transform-runtime": "^6.6.0",
-    "babel-plugin-istanbul": "^3.1.0",
+    "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-es2015": "^6.6.0",
     "eslint": "^2.12.0",
-    "del": "^2.0.2",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",<% if(filters.ts) { %>
-    "gulp-typescript": "~2.13.0",
-    "gulp-typings": "^1.3.6",
-    "gulp-tslint": "^5.0.0",<% } %>
+    "gulp-babel": "^7.0.0",<% if(filters.ts) { %>
+    "gulp-typescript": "~3.2.2",
+    "gulp-tslint": "^8.0.0",<% } %>
     "gulp-env": "^0.4.0",
     "gulp-eslint": "^2.0.0",
     "gulp-imagemin": "^3.0.1",
@@ -134,64 +133,61 @@
     "gulp-istanbul": "^1.1.1",
     "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-load-plugins": "^1.0.0-rc.1",
-    "gulp-mocha": "^2.1.3",
+    "gulp-mocha": "^4.3.1",
     <%# "gulp-node-inspector": "^0.1.0", %>
     "gulp-plumber": "^1.0.1",
     "gulp-protractor": "^3.0.0",
-    "gulp-rev": "^7.0.0",
+    "gulp-rev": "^8.0.0",
     "gulp-rev-replace": "^0.4.2",
     "gulp-sort": "^2.0.0",
-    "gulp-sourcemaps": "^1.5.2",
+    "gulp-sourcemaps": "^2.6.1",
     "gulp-util": "^3.0.5",
     "gulp-watch": "^4.3.5",
-    "gulp-stylint": "^3.0.0",
+    "gulp-stylint": "^4.0.0",
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
     "isparta": "^4.0.0",
     "nodemon": "^1.3.7",
-    "run-sequence": "^1.1.0",
+    "run-sequence": "^2.1.0",
     "lazypipe": "^1.0.1",
     <%# WEBPACK %>
-    "webpack": "^2.3.1",
+    "webpack": "^3.5.5",
     "webpack-dev-server": "^2.4.2",
-    "extract-text-webpack-plugin": "2.0.0",
+    "extract-text-webpack-plugin": "3.0.0",
     "html-webpack-plugin": "^2.24.1",
-    "html-webpack-harddisk-plugin": "~0.0.2",
+    "html-webpack-harddisk-plugin": "~0.1.0",
     <%_ if(filters.pug) { _%>
     "pug-html-loader": "^1.0.8",<% } %>
     "typescript": "^2.2.1",
     "awesome-typescript-loader": "^3.1.2",
-    "ng-annotate-loader": "~0.1.0",
-    "babel-loader": "^6.2.4",
-    "css-loader": "^0.24.0",
-    "file-loader": "^0.9.0",
-    "imports-loader": "^0.6.5",
-    "isparta-instrumenter-loader": "^1.0.0",
-    "isparta-loader": "^2.0.0",
-    "istanbul-instrumenter-loader": "^0.2.0",
+    "babel-loader": "^7.1.2",
+    "css-loader": "^0.28.7",
+    "file-loader": "^0.11.2",
+    "imports-loader": "^0.7.1",
+    "istanbul-instrumenter-loader": "^3.0.0",
     "null-loader": "^0.1.1",
-    "postcss-loader": "^0.11.1",
+    "postcss-loader": "^2.0.6",
     "raw-loader": "^0.5.1",
-    "style-loader": "^0.13.0",
+    "style-loader": "^0.18.2",
     <%_ if(filters.sass) { _%>
-    "node-sass": "^3.8.0",
-    "sass-loader": "^4.0.1",<% } %>
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",<% } %>
     <%_ if(filters.less) { _%>
     "less": "^2.7.1",
-    "less-loader": "^2.2.3",<% } %>
+    "less-loader": "^4.0.5",<% } %>
     <%_ if(filters.stylus) { _%>
     "stylus": "^0.54.5",
-    "stylus-loader": "^2.1.1",<% } %>
+    "stylus-loader": "^3.0.1",<% } %>
     "karma-webpack": "^2.0.3",
     <%# END WEBPACK %>
     "through2": "^2.0.1",
     "open": "~0.0.4",
     "istanbul": "1.1.0-alpha.1",
-    "chai": "^3.2.0",
-    "sinon": "^1.16.1",
-    "chai-as-promised": "^5.1.0",
+    "chai": "^4.1.2",
+    "sinon": "^3.2.1",
+    "chai-as-promised": "^7.1.1",
     "chai-things": "^0.2.0",
-    "karma": "~0.13.3",
+    "karma": "^1.7.1",
     "karma-firefox-launcher": "^1.0.0",
     "karma-script-launcher": "^1.0.0",
     "karma-coverage": "^1.0.0",
@@ -202,15 +198,15 @@
     "sinon-chai": "^2.8.0",
     "mocha": "^3.0.2",<% if(filters.mocha) { %>
     "karma-mocha": "^1.0.1",
-    "karma-chai-plugins": "~0.7.0",<% } if(filters.jasmine) { %>
+    "karma-chai-plugins": "~0.9.0",<% } if(filters.jasmine) { %>
     "jasmine-core": "^2.3.4",
     "karma-jasmine": "^1.0.2",
-    "jasmine-spec-reporter": "^2.4.0",<% } %>
+    "jasmine-spec-reporter": "^4.2.1",<% } %>
     "phantomjs-prebuilt": "^2.1.4",
     "proxyquire": "^1.0.1",
-    "strip-ansi": "^3.0.1",
-    "supertest": "^1.1.0"<% if(filters.ts) { %>,
-    "tslint": "^3.5.0"<% } %>
+    "strip-ansi": "^4.0.0",
+    "supertest": "^3.0.0"<% if(filters.ts) { %>,
+    "tslint": "^5.7.0"<% } %>
   },
   "engines": {
     "node": "^6.2.2",

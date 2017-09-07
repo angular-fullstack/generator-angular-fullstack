@@ -6,7 +6,7 @@ import { UIRouterModule } from 'ui-router-ng2';<% } %>
 <%_ if(filters.ngroute) { %>
 import { RouterModule, Routes } from '@angular/router';<% } %>
 <%_ if(filters.uibootstrap) { %>
-import { TooltipModule } from 'ng2-bootstrap';<% } %>
+import { TooltipModule } from 'ngx-bootstrap';<% } %>
 
 import { MainComponent } from './main.component';
 <%_ if(filters.ws) { -%>

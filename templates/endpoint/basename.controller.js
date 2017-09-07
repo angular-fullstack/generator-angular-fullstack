@@ -10,7 +10,7 @@
 
 'use strict';<% if(filters.models) { %>
 
-import jsonpatch from 'fast-json-patch';<% if(filters.mongooseModels) { %>
+import { applyPatch } from 'fast-json-patch';<% if(filters.mongooseModels) { %>
 import <%= classedName %> from './<%= basename %>.model';<% } if(filters.sequelizeModels) { %>
 import {<%= classedName %>} from '<%= relativeRequire(config.get('registerModelsFile')) %>';<% } %>
 
@@ -27,7 +27,7 @@ function respondWithResult(res, statusCode) {
 function patchUpdates(patches) {
   return function(entity) {
     try {
-      jsonpatch.apply(entity, patches, /*validate*/ true);
+      applyPatch(entity, patches, /*validate*/ true);
     } catch(err) {
       return Promise.reject(err);
     }

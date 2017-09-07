@@ -2,7 +2,6 @@
 /*eslint-env node*/
 const _ = require('lodash');
 var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -227,16 +226,6 @@ module.exports = function makeWebpackConfig(options) {
             options: {
                 context: __dirname
             },
-            /**
-             * PostCSS
-             * Reference: https://github.com/postcss/autoprefixer-core
-             * Add vendor prefixes to your css
-             */
-            postcss: [
-                autoprefixer({
-                    browsers: ['last 2 version']
-                })
-            ],
             <%_ if(filters.sass) { -%>
             sassLoader: {
                 outputStyle: 'compressed',
