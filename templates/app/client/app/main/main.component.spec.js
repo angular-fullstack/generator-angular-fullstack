@@ -1,46 +1,52 @@
 'use strict';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
-import main from './main.component';
-import {MainController} from './main.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+<%_ if(filters.uirouter) { %>
+import { UIRouterModule } from 'ui-router-ng2';<% } %>
+<%_ if(filters.ngroute) { %>
+import { RouterModule, Routes } from '@angular/router';<% } %>
+<%_ if(filters.uibootstrap) { %>
+import { TooltipModule } from 'ng2-bootstrap';<% } %>
+<%_ if(filters.ws) { -%>
+import { SocketService } from '../../components/socket/socket.service';
+import { SocketMock } from '../../components/socket/socket.mock';<% } %>
+import { MainComponent } from './main.component';
 
-describe('Component: MainComponent', function() {
+describe('Component: MainComponent', () => {
+    let comp: MainComponent;
+    let fixture: ComponentFixture<MainComponent>;
+    let de: DebugElement;
+    let el: HTMLElement;
 
-  beforeEach(angular.mock.module(main));
-  <%_ if (filters.uirouter) { _%>
-  beforeEach(angular.mock.module('stateMock'));<% } _%>
-  <%_ if (filters.ws) { _%>
-  beforeEach(angular.mock.module('socketMock'));<% } %>
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ MainComponent ], // declare the test component
+            providers: [{
+                provide: Http,
+                useValue: Http
+            }, {
+                provide: SocketService,
+                useValue: SocketMock
+            }]
+        });
 
-  var scope;
-  var mainComponent;<% if (filters.uirouter) {%>
-  var state;<% } %>
-  var $httpBackend;
+        fixture = TestBed.createComponent(MainComponent);
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function(
-    _$httpBackend_,
-    $http,
-    $componentController,
-    $rootScope<% if (filters.uirouter) {%>,
-    $state<% } %><% if (filters.ws) {%>,
-    socket<% } %>) {
-      $httpBackend = _$httpBackend_;
-      $httpBackend.expectGET('/api/things')
-        .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
+        comp = fixture.componentInstance; // MainComponent test instance
 
-      scope = $rootScope.$new();<% if (filters.uirouter) {%>
-      state = $state;<% } %>
-      mainComponent = $componentController('main', {
-        $http: $http,
-        $scope: scope<% if (filters.ws) {%>,
-        socket: socket<% } %>
-      });
-  }));
+        // query for the title <h1> by CSS element selector
+        // de = fixture.debugElement.query(By.css('a'));
+        // el = de.nativeElement;
+    });
 
-  it('should attach a list of things to the controller', function() {
-    mainComponent.$onInit();
-    $httpBackend.flush();<% if (filters.jasmine) { %>
-    expect(mainComponent.awesomeThings.length).toBe(4);<% } if (filters.mocha) { %>
-    <%= expect() %>mainComponent.awesomeThings.length<%= to() %>.equal(4);<% } %>
-  });
+    it('should attach a list of things to the controller', function() {
+        comp.ngOnInit();
+        $httpBackend.flush();<% if (filters.jasmine) { %>
+        expect(mainComponent.awesomeThings.length).toBe(4);<% } if (filters.mocha) { %>
+        <%= expect() %>mainComponent.awesomeThings.length<%= to() %>.equal(4);<% } %>
+    });
 });

@@ -7,7 +7,7 @@ import { OauthButtonsComponent } from './oauth-buttons.component';
 
 describe('Component: OauthButtonsComponent', () => {
     let comp: OauthButtonsComponent;
-    let fixture: ComponentFixture<BannerComponent>;
+    let fixture: ComponentFixture<OauthButtonsComponent>;
     let de: DebugElement;
     let el: HTMLElement;
 
