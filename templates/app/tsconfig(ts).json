@@ -20,7 +20,8 @@
     "./node_modules/@types/"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "client/**/*.spec.ts"
   ],
   "filesGlob": [
     "client/{app,components}/**/!(*.spec).ts"
