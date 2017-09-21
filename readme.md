@@ -19,9 +19,9 @@
 
 ## Usage
 
-Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
+Install `yo`, `gulp-cli`, and `generator-angular-fullstack@beta`:
 ```
-npm install -g yo gulp-cli generator-angular-fullstack
+npm install -g yo gulp-cli generator-angular-fullstack@beta
 ```
 __Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
 
