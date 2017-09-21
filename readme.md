@@ -21,6 +21,8 @@
 
 Head over to the [canary branch](https://github.com/angular-fullstack/generator-angular-fullstack/tree/canary) for the generator 5.0.0 Beta. Some things like subgenerators and unit tests aren't up to spec yet, but we'd love feedback on everything else!
 
+`$ npm install -g yo gulp-cli generator-angular-fullstack@beta`
+
 ## Usage
 
 Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
