@@ -17,6 +17,10 @@
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
 [![Known Vulnerabilities](https://snyk.io/package/npm/angular-fullstack-deps/badge.svg)](https://snyk.io/package/npm/angular-fullstack-deps)
 
+## Looking for Angular 4+?
+
+Head over to the [canary branch](https://github.com/angular-fullstack/generator-angular-fullstack/tree/canary) for the generator 5.0.0 Beta. Some things like subgenerators and unit tests aren't up to spec yet, but we'd love feedback on everything else!
+
 ## Usage
 
 Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
@@ -24,8 +28,6 @@ Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
 npm install -g yo gulp-cli generator-angular-fullstack
 ```
 __Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
-
-> If you're looking for Angular 4, you can try the latest Beta (`npm install -g generator-angular-fullstack@beta`), or if you'd like a more complete solution, you can give [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) a shot.
 
 ---
 
