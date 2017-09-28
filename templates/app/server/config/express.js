@@ -7,7 +7,7 @@
 import express from 'express';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
-import shrinkRay from 'shrink-ray';
+import compression from 'compression';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
@@ -45,7 +45,7 @@ export default function(app) {
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');<% } %><% if(filters.pug) { %>
   app.set('view engine', 'pug');<% } %>
-  app.use(shrinkRay());
+  app.use(compression());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
@@ -88,12 +88,12 @@ export default function(app) {
 
   if(env === 'development') {
     const webpackDevMiddleware = require('webpack-dev-middleware');
-    const stripAnsi = require('strip-ansi'); 
+    const stripAnsi = require('strip-ansi');
     const webpack = require('webpack');
     const makeWebpackConfig = require('../../webpack.make');
     const webpackConfig = makeWebpackConfig({ DEV: true });
     const compiler = webpack(webpackConfig);
-    const browserSync = require('browser-sync').create(); 
+    const browserSync = require('browser-sync').create();
 
     /**
      * Run Browsersync and use middleware for Hot Module Replacement
@@ -109,7 +109,7 @@ export default function(app) {
           stats: {
             colors: true,
             timings: true,
-            chunks: false   
+            chunks: false
           }
         })
       ],
