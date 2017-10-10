@@ -34,7 +34,6 @@ export class AuthService {
 
     if(localStorage.getItem('id_token')) {
       this.UserService.get().toPromise()
-        .then(extractData)
         .then((user: User) => {
           this.currentUser = user;
         })
