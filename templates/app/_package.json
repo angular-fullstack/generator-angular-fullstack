@@ -213,7 +213,8 @@
     "npm": "^3.9.5"
   },
   "scripts": {
-    "test": "gulp test",
+    "test": "gulp test",<% if(filters.ws) { %>
+    "save:primus": "node ./server/config/savePrimus",<% } %>
     <%_ if(filters.flow) { -%>
     "flow": "flow",
     <%_ } -%>
