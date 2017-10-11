@@ -2,12 +2,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+<%_ if(filters.expect) { -%>
+import { expect } from 'chai';<% } %>
 
 import { OauthButtonsComponent } from './oauth-buttons.component';
 
 describe('Component: OauthButtonsComponent', () => {
     let comp: OauthButtonsComponent;
-    let fixture: ComponentFixture<BannerComponent>;
+    let fixture: ComponentFixture<OauthButtonsComponent>;
     let de: DebugElement;
     let el: HTMLElement;
 
