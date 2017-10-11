@@ -215,6 +215,7 @@ export function app(options) {
       'client/components/socket/socket.service.' + script,
       'client/components/socket/socket.mock.' + script,
       'server/api/thing/thing.socket.js',
+      'server/config/savePrimus.js',
       'server/config/websockets.js'
     ]);
   }
