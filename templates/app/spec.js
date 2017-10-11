@@ -5,10 +5,9 @@ import 'babel-polyfill';
 import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';
 import 'zone.js/dist/proxy';
-import 'zone.js/dist/sync-test';
-<%_ if (filters.jasmine) { -%>
-import 'zone.js/dist/jasmine-patch';
-<%_ } -%>
+import 'zone.js/dist/sync-test';<%_ if (filters.jasmine) { %>
+import 'zone.js/dist/jasmine-patch';<% } %><%_ if (filters.mocha) { %>
+import 'zone.js/dist/mocha-patch';<% } %>
 import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
@@ -28,12 +27,3 @@ import {
 
 TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 
-<%_ if (filters.mocha) { -%>
-var hook = new Mocha.Hook('Modified Angular beforeEach Hook', function() {
-  getTestBed().resetTestingModule();
-});
-
-hook.ctx = mocha.suite.ctx;
-hook.parent = mocha.suite;
-mocha.suite._beforeEach = [hook];
-<%_ } -%>
