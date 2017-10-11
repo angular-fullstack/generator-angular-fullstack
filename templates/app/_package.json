@@ -214,6 +214,7 @@
   },
   "scripts": {
     "test": "gulp test",
+    "test:client": "karma start ./karma.conf.js --single-run",
     <%_ if(filters.flow) { -%>
     "flow": "flow",
     <%_ } -%>
