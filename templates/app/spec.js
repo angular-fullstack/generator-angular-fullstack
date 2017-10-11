@@ -13,11 +13,10 @@ import 'zone.js/dist/fake-async-test';
 
 var testsContext = require.context('./client', true, /\.(spec|test)\.<%= scriptExt %>$/);
 // testsContext.keys().forEach(testsContext);
-// testsContext('./app/main/main.component.spec.<%= scriptExt %>');
+testsContext('./app/main/main.component.spec.<%= scriptExt %>');
 testsContext('./components/util.spec.<%= scriptExt %>');
-<%_ if(filters.oauth) { -%>
-testsContext('./components/oauth-buttons/oauth-buttons.component.spec.<%= scriptExt %>');
-<%_ } -%>
+<% if(filters.oauth) { -%>
+testsContext('./components/oauth-buttons/oauth-buttons.component.spec.<%= scriptExt %>');<% } %>
 
 import { TestBed, getTestBed } from '@angular/core/testing';
 import {
