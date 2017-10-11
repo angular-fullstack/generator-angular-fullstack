@@ -75,17 +75,17 @@ Time: 16538ms
       app.bundle.js.map  3.34 MB       0  [emitted]  app
 polyfills.bundle.js.map   271 kB       1  [emitted]  polyfills
    vendor.bundle.js.map  3.06 MB       2  [emitted]  vendor
-   ../client/index.html  1.39 kB          [emitted]
-Child html-webpack-plugin for "..\client\index.html":
+   ../client/app.html  1.39 kB          [emitted]
+Child html-webpack-plugin for "..\client\app.html":
                    Asset     Size  Chunks       Chunk Names
-    ../client/index.html  2.69 kB       0
+    ../client/app.html  2.69 kB       0
 webpack: bundle is now VALID.
 ```
 
 And then our default browser should open up to the app:
 
 
-<img src="../images/afs-screenshot.png" alt="App Screenshot">
+<img src="../assets/afs-screenshot.png" alt="App Screenshot">
 
 
 Fantastic! We're now up and running with our Full-Stack Angular web application! So what can it do?
@@ -95,7 +95,7 @@ Fantastic! We're now up and running with our Full-Stack Angular web application!
 Assuming you scaffolded with a back-end database, you should see some 'features'. If you scaffolded with socket.io, you should see 'x' buttons next to each, and an input box. Try opening two browser windows to the same page side-by-side, and hitting the 'x' on one of the features. You should see the feature get removed on both web pages. Neat! This is because these database object changes are communicated to clients using socket.io.
 
 
-<img src="../images/socket.io-demo.gif" alt="Socket.io demo screenshot">
+<img src="../assets/socket.io-demo.gif" alt="Socket.io demo screenshot">
 
 
 Neat. Let's see what else we can do.
@@ -117,7 +117,9 @@ You should see inputs for an email address and a password. When running your pro
 
 Go ahead and log in with the admin account, so we can see the extra admin bits too. You should then get sent back to the home page, but should notice that the navbar looks a bit different:
 
-<img src="../images/logged-in.jpg" alt="Logged in as admin screenshot">
+<img src="../assets/logged-in.jpg" alt="Logged in as admin screenshot">
 
 
 First, at the top right, we see a greeting for our username, a cog icon (for user settings), and a logout button. Then, since we're an admin, we see a new 'Admin' state on the navbar. The admin section lists users and allows you to delete them. The user settings page allows you to change your password.
+
+[Next: Adding a Route](01_Adding_a_Route)

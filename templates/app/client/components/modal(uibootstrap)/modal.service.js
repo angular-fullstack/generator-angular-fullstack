@@ -37,9 +37,9 @@ export function Modal($rootScope, $uibModal) {
          * @param  {String} name   - name or info to show on modal
          * @param  {All}           - any additional args are passed straight to del callback
          */
-        return function() {
-          var args = Array.prototype.slice.call(arguments);
-          var name = args.shift();
+        return function(...args) {
+          var slicedArgs = Reflect.apply(Array.prototype.slice, args);
+          var name = slicedArgs.shift();
           var deleteModal;
 
           deleteModal = openModal({
@@ -64,7 +64,7 @@ export function Modal($rootScope, $uibModal) {
           }, 'modal-danger');
 
           deleteModal.result.then(function(event) {
-            del.apply(event, args);
+            Reflect.apply(del, event, slicedArgs);
           });
         };
       }

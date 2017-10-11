@@ -17,8 +17,8 @@ export default function seedDatabaseIfNeeded() {
     <% if (filters.mongooseModels) { %>Thing.find({}).remove()<% }
        if (filters.sequelizeModels) { %>return Thing.destroy({ where: {} })<% } %>
       .then(() => {
-        <% if (filters.mongooseModels) { %>Thing.create({<% }
-           if (filters.sequelizeModels) { %>return Thing.bulkCreate([{<% } %>
+        <% if (filters.mongooseModels) { %>let thing = Thing.create({<% }
+           if (filters.sequelizeModels) { %>let thing = Thing.bulkCreate([{<% } %>
           name: 'Development Tools',
           info: 'Integration with popular tools such as Webpack, Gulp, Babel, TypeScript, Karma, '
                 + 'Mocha, ESLint, Node Inspector, Livereload, Protractor, Pug, '
@@ -31,7 +31,7 @@ export default function seedDatabaseIfNeeded() {
           name: 'Smart Build System',
           info: 'Build system ignores `spec` files, allowing you to keep '
                 + 'tests alongside code. Automatic injection of scripts and '
-                + 'styles into your index.html'
+                + 'styles into your app.html'
         }, {
           name: 'Modular Structure',
           info: 'Best practice client and server structures allow for more '
@@ -47,9 +47,10 @@ export default function seedDatabaseIfNeeded() {
                 + 'and openshift subgenerators'
         <% if (filters.mongooseModels) { %>});<% }
          if (filters.sequelizeModels) { %>}]);<% } %>
-    })
-    .then(() => console.log('finished populating things'))
-    .catch(err => console.log('error populating things', err));
+        return thing;
+      })
+      .then(() => console.log('finished populating things'))
+      .catch(err => console.log('error populating things', err));
 <% if (filters.auth) { %>
     <% if (filters.mongooseModels) { %>User.find({}).remove()<% }
      if (filters.sequelizeModels) { %>User.destroy({ where: {} })<% } %>
@@ -69,7 +70,7 @@ export default function seedDatabaseIfNeeded() {
         <% if (filters.mongooseModels) { %>})<% }
          if (filters.sequelizeModels) { %>}])<% } %>
         .then(() => console.log('finished populating users'))
-        .catch(err => console.log('error populating users', err));<% } %>
-    });
+        .catch(err => console.log('error populating users', err));
+    });<% } %>
   }
 }

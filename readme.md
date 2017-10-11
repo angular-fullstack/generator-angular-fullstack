@@ -17,6 +17,12 @@
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
 [![Known Vulnerabilities](https://snyk.io/package/npm/angular-fullstack-deps/badge.svg)](https://snyk.io/package/npm/angular-fullstack-deps)
 
+## Looking for Angular 4+?
+
+Head over to the [canary branch](https://github.com/angular-fullstack/generator-angular-fullstack/tree/canary) for the generator 5.0.0 Beta. Some things like subgenerators and unit tests aren't up to spec yet, but we'd love feedback on everything else!
+
+`$ npm install -g yo gulp-cli generator-angular-fullstack@beta`
+
 ## Usage
 
 Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
@@ -24,8 +30,6 @@ Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
 npm install -g yo gulp-cli generator-angular-fullstack
 ```
 __Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
-
-> If you're looking for Angular 2, you can try the latest alpha (`npm install -g generator-angular-fullstack@alpha`), or if you'd like a more complete solution, you can give [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) a shot.
 
 ---
 
@@ -39,6 +43,7 @@ yo angular-fullstack
 ## Prerequisites
 
 * MongoDB - Download and Install [MongoDB](https://www.mongodb.com/download-center#community) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
+  * If you have [Docker](https://www.docker.com/) installed, you can easily run a test database with `docker run -p 27017:27017 --name afs-mongo -d mongo`
 * The project's JavaScript is written in ECMAScript 2015. If you're unfamiliar with the latest changes to the specification for JavaScript, check out http://es6-features.org/
 
 ## Supported Configurations

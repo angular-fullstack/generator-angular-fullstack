@@ -139,8 +139,10 @@ export default function(sequelize, DataTypes) {
        * @return {String}
        * @api public
        */
-      makeSalt(byteSize, callback) {
-        var defaultByteSize = 16;
+      makeSalt(...args) {
+        let byteSize;
+        let callback;
+        let defaultByteSize = 16;
 
         if(typeof arguments[0] === 'function') {
           callback = arguments[0];
@@ -181,11 +183,12 @@ export default function(sequelize, DataTypes) {
         var salt = new Buffer(this.salt, 'base64');
 
         if(!callback) {
+          // eslint-disable-next-line no-sync
           return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
                        .toString('base64');
         }
 
-        return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength,
+        return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, 'sha1',
           function(err, key) {
             if(err) {
               callback(err);
