@@ -1,4 +1,6 @@
 import { safeCb } from './util';
+<%_ if(filters.expect) { -%>
+import { expect } from 'chai';<% } %>
 
 describe('Util', () => {
     it('Has a safeCb function', () => {
