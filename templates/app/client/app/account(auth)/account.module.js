@@ -8,9 +8,6 @@ import { RouterModule, Routes } from '@angular/router';<% } %>
 <%_ if(filters.oauth) { -%>
 import { DirectivesModule } from '../../components/directives.module';<% } %>
 
-<%_ if(filters.uirouter) { -%>
-import { STATES } from './account.routes';<% } %>
-
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SignupComponent } from './signup/signup.component';
@@ -19,7 +16,6 @@ import { SignupComponent } from './signup/signup.component';
 const accountRoutes: Routes = [{
   path: 'login',
   component: LoginComponent,
-  //data: { title: 'Home' }
 }, {
   path: 'settings',
   component: SettingsComponent,

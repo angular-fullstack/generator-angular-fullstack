@@ -53,11 +53,9 @@ export class NavbarComponent {
   }
 
   logout() {
-    let promise = this.AuthService.logout();
-    <%_ if(filters.uirouter) { -%>
-    this.StateService.go('login');<% } -%>
-    <%_ if(filters.ngroute) { -%>
-    this.Router.navigateByUrl('/home');<% } -%>
+    let promise = this.AuthService.logout();<% if(filters.uirouter) { %>
+    this.StateService.go('login');<% } %><% if(filters.ngroute) { %>
+    this.Router.navigateByUrl('/home');<% } %>
     return promise;
   }<% } -%>
 }

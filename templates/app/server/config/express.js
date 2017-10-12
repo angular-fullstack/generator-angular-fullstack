@@ -72,7 +72,7 @@ export default function(app) {
    * Lusca - express server security
    * https://github.com/krakenjs/lusca
    */
-  if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) {
+  if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) { // eslint-disable-line no-process-env
     app.use(lusca({
       csrf: true,
       xframe: 'SAMEORIGIN',

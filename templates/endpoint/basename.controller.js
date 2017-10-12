@@ -96,7 +96,7 @@ export function create(req, res) {
 // Upserts the given <%= classedName %> in the DB at the specified ID
 export function upsert(req, res) {
   if(req.body._id) {
-    delete req.body._id;
+    Reflect.deleteProperty(req.body, '_id');
   }
   <%_ if(filters.mongooseModels) { -%>
   return <%= classedName %>.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()<% } %>
@@ -113,7 +113,7 @@ export function upsert(req, res) {
 // Updates an existing <%= classedName %> in the DB
 export function patch(req, res) {
   if(req.body._id) {
-    delete req.body._id;
+    Reflect.deleteProperty(req.body, '_id');
   }
   <% if(filters.mongooseModels) { %>return <%= classedName %>.findById(req.params.id).exec()<% }
      if(filters.sequelizeModels) { %>return <%= classedName %>.find({

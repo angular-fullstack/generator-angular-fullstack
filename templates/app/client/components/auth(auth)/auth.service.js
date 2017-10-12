@@ -1,9 +1,7 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
-import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
 import { UserService } from './user.service';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import { safeCb, extractData } from '../util';
 import constants from '../../app/app.constants';

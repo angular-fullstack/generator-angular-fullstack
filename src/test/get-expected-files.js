@@ -90,6 +90,7 @@ export function app(options) {
     '.babelrc',
     '.buildignore',
     '.editorconfig',
+    '.eslintignore',
     '.eslintrc',
     '.gitattributes',
     '.gitignore',
