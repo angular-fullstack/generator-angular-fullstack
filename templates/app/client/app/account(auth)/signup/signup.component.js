@@ -47,6 +47,8 @@ export class SignupComponent {
   }
 
   register(form) {
+    if(form.invalid) return;
+
     this.submitted = true;
 
     return this.AuthService.createUser({

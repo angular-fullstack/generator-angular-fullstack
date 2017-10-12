@@ -38,6 +38,8 @@ export class SettingsComponent {
   }
 
   changePassword(form) {
+    if(form.invalid) return;
+
     this.submitted = true;
 
     return this.AuthService.changePassword(this.user.oldPassword, this.user.newPassword)
