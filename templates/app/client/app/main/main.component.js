@@ -24,11 +24,9 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
   }
 
   ngOnInit() {
-    this.Http.get('/api/things')
-      .map(res => {
-        return res.json();
-      })
-      .catch(err => Observable.throw(err.json().error || 'Server error'))
+    return this.Http.get('/api/things')
+      .map(res => res.json())
+      // .catch(err => Observable.throw(err.json().error || 'Server error'))
       .subscribe(things => {
         this.awesomeThings = things;
         <%_ if(filters.ws) { -%>

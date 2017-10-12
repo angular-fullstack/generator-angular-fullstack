@@ -2,7 +2,7 @@
 // http://karma-runner.github.io/0.13/config/configuration-file.html
 /*eslint-env node*/
 
-import makeWebpackConfig from './webpack.make';
+const makeWebpackConfig = require('./webpack.make');
 
 module.exports = function(config) {
   config.set({

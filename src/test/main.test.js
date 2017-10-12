@@ -255,7 +255,7 @@ describe('angular-fullstack:app', function() {
     }
   });
 
-  describe('with sequelize models, auth', function() {
+  describe.only('with sequelize models, auth', function() {
     var dir;
     var lintResult;
     var clientTestResult;
