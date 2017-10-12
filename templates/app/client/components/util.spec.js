@@ -1,5 +1,5 @@
 import { safeCb } from './util';
-<%_ if(filters.expect) { -%>
+<%_ if(filters.mocha && filters.expect) { -%>
 import { expect } from 'chai';<% } %>
 
 describe('Util', () => {

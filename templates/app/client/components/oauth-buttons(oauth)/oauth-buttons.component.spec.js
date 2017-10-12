@@ -2,7 +2,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-<%_ if(filters.expect) { -%>
+<%_ if(filters.mocha && filters.expect) { -%>
 import { expect } from 'chai';<% } %>
 
 import { OauthButtonsComponent } from './oauth-buttons.component';

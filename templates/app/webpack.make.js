@@ -70,18 +70,24 @@ module.exports = function makeWebpackConfig(options) {
         };
     }
 
-    <%_ if(filters.ts) { _%>
     config.resolve = {
         modules: ['node_modules'],
-        extensions: ['.js', '.ts']
-    };<% } %>
+        extensions: ['.js', '.ts'],
+        alias: {
+            primus: path.resolve(__dirname, 'client/components/socket/primus.js'),
+        }
+    };
 
     if(TEST) {
         config.resolve = {
             modules: [
                 'node_modules'
             ],
-            extensions: ['.js', '.ts']
+            extensions: ['.js', '.ts'],
+            alias: {
+                // for some reason the primus client and webpack don't get along in test
+                primus: path.resolve(__dirname, 'client/components/socket/primus.mock.<%= scriptExt %>'),
+            }
         };
     }
 

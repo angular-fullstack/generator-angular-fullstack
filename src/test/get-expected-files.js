@@ -212,6 +212,7 @@ export function app(options) {
   /* WebSockets */
   if (options.ws) {
     files = files.concat([
+      'client/components/socket/primus.mock.' + script,
       'client/components/socket/socket.service.' + script,
       'client/components/socket/socket.mock.' + script,
       'server/api/thing/thing.socket.js',
