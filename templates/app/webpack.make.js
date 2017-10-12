@@ -341,6 +341,28 @@ module.exports = function makeWebpackConfig(options) {
         };
     }
 
+    /**
+     * Dev server configuration
+     * Reference: http://webpack.github.io/docs/configuration.html#devserver
+     * Reference: http://webpack.github.io/docs/webpack-dev-server.html
+     */
+    config.devServer = {
+        contentBase: './client/',
+        hot: true,
+        proxy: {
+            '/api': 'http://localhost:<%= devPort %>',
+            '/auth': 'http://localhost:<%= devPort %>',
+            '/socket.io': 'http://localhost:<%= devPort %>',
+        },
+        stats: {
+            modules: false,
+            cached: false,
+            colors: true,
+            chunks: false,
+        },
+        historyApiFallback: true,
+    };
+
     config.node = {
         global: true,
         process: true,

@@ -224,7 +224,9 @@
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update",
     <%_ } -%><% if(filters.mongo) { %>
     "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",<% } %>
-    "start": "node server"
+    "start": "node server",
+    "start:client": "webpack-dev-server --config webpack.dev.js",
+    "start:server": "node server"
   },
   "private": true
 }
