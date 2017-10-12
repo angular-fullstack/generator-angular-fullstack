@@ -213,6 +213,9 @@
     "npm": "^3.9.5"
   },
   "scripts": {
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:client": "eslint ./client/**/*.<%= scriptExt %> -c ./client/.eslintrc --ignore-pattern *.spec.<%= scriptExt %>",
+    "lint:server": "eslint ./server/**/*.js -c ./server/.eslintrc --ignore-pattern *.spec.js --ignore-pattern *.integration.js",
     "test": "gulp test",
     "test:client": "karma start ./karma.conf.js --single-run",
     <%_ if(filters.flow) { -%>
