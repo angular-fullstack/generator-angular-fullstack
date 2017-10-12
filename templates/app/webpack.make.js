@@ -350,9 +350,19 @@ module.exports = function makeWebpackConfig(options) {
         contentBase: './client/',
         hot: true,
         proxy: {
-            '/api': 'http://localhost:<%= devPort %>',
-            '/auth': 'http://localhost:<%= devPort %>',
-            '/socket.io': 'http://localhost:<%= devPort %>',
+            '/api': {
+                target: 'http://localhost:<%= devPort %>',
+                secure: false,
+            },
+            '/auth': {
+                target: 'http://localhost:<%= devPort %>',
+                secure: false,
+            },<% if(filters.ws) { %>
+            '/primus': {
+                target: 'http://localhost:<%= devPort %>',
+                secure: false,
+                ws: true,
+            },<% } %>
         },
         stats: {
             modules: false,
