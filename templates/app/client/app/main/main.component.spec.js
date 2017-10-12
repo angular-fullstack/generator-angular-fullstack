@@ -14,7 +14,7 @@ import {
   ResponseOptions,
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-<%_ if(filters.expect) { -%>
+<%_ if(filters.mocha && filters.expect) { -%>
 import { expect } from 'chai';<% } %><% if(filters.uibootstrap) { %>
 import { TooltipModule } from 'ngx-bootstrap';<% } %>
 import { FormsModule } from '@angular/forms';
@@ -49,7 +49,7 @@ describe('Component: MainComponent', function() {
     }).compileComponents();
   }));
   <%_ if(filters.ws) { %>
-  beforeEach('mock backend', async(inject([MockBackend], (mockBackend) => {
+  beforeEach(async(inject([MockBackend], (mockBackend) => {
     mockBackend.connections.subscribe(conn => {
       conn.mockRespond(new Response(new ResponseOptions({
         body: JSON.stringify(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express'])
@@ -57,7 +57,7 @@ describe('Component: MainComponent', function() {
     });
   })));<% } %>
 
-  beforeEach('ngOnInit', async(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(MainComponent);
     // MainComponent test instance
     comp = fixture.componentInstance;
@@ -68,7 +68,8 @@ describe('Component: MainComponent', function() {
     fixture.detectChanges();
   }));
 
-  it('should attach a list of things to the controller', () => {
-    expect(comp.awesomeThings.length).to.equal(4);
+  it('should attach a list of things to the controller', () => {<% if(filters.jasmine) { %>
+    expect(comp.awesomeThings.length).toEqual(4);<% } else if(filters.mocha) { -%>
+    <%= expect() %>comp.awesomeThings.length<%= to() %>.equal(4);<% } %>
   });
 });

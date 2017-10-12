@@ -542,6 +542,14 @@ export class Generator extends Base {
         // Convert HTML into Pug
         if(this.filters.pug) {
           let pugFilter = filter(['**/*.html', '!client/_index.html'], {restore: true});
+
+          function pugReplacer(contents) {
+            return contents
+              .replace('ngif', 'ngIf')
+              .replace('ngfor', 'ngFor')
+              .replace('ngmodel', 'ngModel');
+          }
+
           this.registerTransformStream([
             pugFilter,
             html2jade({
@@ -551,6 +559,11 @@ export class Generator extends Base {
             }),
             rename(path => {
               path.extname = '.pug';
+            }),
+            tap(function(file, t) {
+              var contents = file.contents.toString();
+              contents = pugReplacer(contents);
+              file.contents = new Buffer(contents);
             }),
             pugFilter.restore
           ]);

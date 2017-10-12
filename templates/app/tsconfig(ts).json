@@ -2,12 +2,12 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseDir": ".",
+    "baseUrl": ".",
     "experimentalDecorators": true,
     "sourceMap": true,
     "rootDir": "./",
     "module": "es6",
-    "outDir": ".tmp",<% if(filters.ws) %>
+    "outDir": ".tmp",<% if(filters.ws) { %>
     "paths": {
       "primus": ["client/components/socket/primus.js"]
     },<% } %>
