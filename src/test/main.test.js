@@ -17,6 +17,7 @@ import {
 const defaultOptions = {
   buildtool: 'gulp',
   transpiler: 'babel',
+  flow: true,
   markup: 'html',
   stylesheet: 'sass',
   router: 'ngroute',
@@ -263,6 +264,7 @@ describe('angular-fullstack:app', function() {
     var testOptions = {
       buildtool: 'gulp',
       transpiler: 'babel',
+      flow: true,
       markup: 'pug',
       stylesheet: 'css',
       router: 'ngroute',

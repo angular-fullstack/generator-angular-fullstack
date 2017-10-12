@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-<%_ if(filters.uirouter) { %>
-import { UIRouterModule } from 'ui-router-ng2';<% } %>
-<%_ if(filters.ngroute) { %>
+import { BrowserModule } from '@angular/platform-browser';<% if(filters.uirouter) { %>
+import { UIRouterModule } from 'ui-router-ng2';<% } %><% if(filters.ngroute) { %>
 import { RouterModule, Routes } from '@angular/router';<% } %>
-
+import { AuthGuard } from '../../components/auth/auth-guard.service';
 import { AdminComponent } from './admin.component';
 
 <%_ if(filters.uirouter) { -%>
@@ -13,6 +11,7 @@ import { STATES } from './admin.routes';<% } %>
 const adminRoutes: Routes = [{
   path: 'admin',
   component: AdminComponent,
+  canActivate: [AuthGuard],
 }];<% } %>
 
 @NgModule({

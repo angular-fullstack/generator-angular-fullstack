@@ -1,7 +1,8 @@
 import { Component, OnInit<% if(filters.ws) { %>, OnDestroy<% } %> } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { SocketService } from '../../components/socket/socket.service';
+import 'rxjs/add/operator/map';<% if(filters.ws) { %>
+import { SocketService } from '../../components/socket/socket.service';<% } %>
 
 @Component({
     selector: 'main',
@@ -16,7 +17,7 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
   <%_ if(filters.models) { -%>
   newThing = '';<% } %>
 
-  static parameters = [Http, SocketService];
+  static parameters = [Http<% if(filters.ws) { %>, SocketService<% } %>];
   constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
     this.Http = http;
     <%_ if(filters.ws) { -%>

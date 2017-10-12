@@ -25,9 +25,9 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
-import { DirectivesModule } from '../components/directives.module';
+import { DirectivesModule } from '../components/directives.module';<% if(filters.auth) { %>
 import { AccountModule } from './account/account.module';
-import { AdminModule } from './admin/admin.module';
+import { AdminModule } from './admin/admin.module';<% } %>
 
 import constants from './app.constants';
 
@@ -72,9 +72,9 @@ const appRoutes: Routes = [{ path: '',
         <%_ if (filters.ngroute) { -%>
         RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),<% } %>
         MainModule,
-        DirectivesModule,
+        DirectivesModule,<% if(filters.auth) { %>
         AccountModule,
-        AdminModule,
+        AdminModule,<% } %>
     ],
     declarations: [
         AppComponent,
