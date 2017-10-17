@@ -93,7 +93,7 @@ UserSchema
     if(authTypes.indexOf(this.provider) !== -1) {
       return true;
     }<% } %>
-    return password.length;
+    return password.length >= 8 && password.length <= 128;
   }, 'Password cannot be blank');
 
 // Validate email is not taken
