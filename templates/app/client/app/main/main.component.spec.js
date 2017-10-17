@@ -17,9 +17,9 @@ import { MockBackend } from '@angular/http/testing';
 <%_ if(filters.mocha && filters.expect) { -%>
 import { expect } from 'chai';<% } %><% if(filters.uibootstrap) { %>
 import { TooltipModule } from 'ngx-bootstrap';<% } %>
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';<% if(filters.ws) { %>
 import { SocketService } from '../../components/socket/socket.service';
-import { SocketServiceStub } from '../../components/socket/socket.mock';
+import { SocketServiceStub } from '../../components/socket/socket.mock';<% } %>
 import { MainComponent } from './main.component';
 
 describe('Component: MainComponent', function() {
@@ -41,21 +41,21 @@ describe('Component: MainComponent', function() {
           provide: Http,
           useFactory: (backend: ConnectionBackend, defaultOptions: BaseRequestOptions) => {
             return new Http(backend, defaultOptions);
-          },<%_ if(filters.ws) { %>
-          deps: [MockBackend, BaseRequestOptions]<% } %>
-        },
-        { provide: SocketService, useClass: SocketServiceStub },
+          },
+          deps: [MockBackend, BaseRequestOptions]
+        },<% if(filters.ws) { %>
+        { provide: SocketService, useClass: SocketServiceStub },<% } %>
       ],
     }).compileComponents();
   }));
-  <%_ if(filters.ws) { %>
+
   beforeEach(async(inject([MockBackend], (mockBackend) => {
     mockBackend.connections.subscribe(conn => {
       conn.mockRespond(new Response(new ResponseOptions({
         body: JSON.stringify(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express'])
       })));
     });
-  })));<% } %>
+  })));
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(MainComponent);
@@ -69,7 +69,7 @@ describe('Component: MainComponent', function() {
   }));
 
   it('should attach a list of things to the controller', () => {<% if(filters.jasmine) { %>
-    expect(comp.awesomeThings.length).toEqual(4);<% } else if(filters.mocha) { -%>
+    expect(comp.awesomeThings.length).toEqual(4);<% } else if(filters.mocha) { %>
     <%= expect() %>comp.awesomeThings.length<%= to() %>.equal(4);<% } %>
   });
 });

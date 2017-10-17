@@ -158,7 +158,7 @@ export class Generator extends Base {
           }, {
             type: 'confirm',
             name: 'flow',
-            default: false,
+            default: true,
             message: 'Would you like to use Flow types with Babel?',
             when: answers => answers.transpiler === 'babel'
           }, {
@@ -466,35 +466,37 @@ export class Generator extends Base {
         const codeshiftStream = tap(function(file, t) {
           var contents = file.contents.toString();
 
-          // remove `implements Foo` from class declarations
-          contents = jscodeshift(contents)
-            .find(jscodeshift.ClassDeclaration)
-            .forEach(path => {
-              path.value.implements = null;
-            })
-            .toSource();
+          if(!flow) {
+            // remove `implements Foo` from class declarations
+            contents = jscodeshift(contents)
+              .find(jscodeshift.ClassDeclaration)
+              .forEach(path => {
+                path.value.implements = null;
+              })
+              .toSource();
 
-          // remove any type annotations
-          contents = jscodeshift(contents)
-            .find(jscodeshift.TypeAnnotation)
-            .remove()
-            .toSource();
-          contents = jscodeshift(contents)
-            .find(jscodeshift.GenericTypeAnnotation)
-            .remove()
-            .toSource();
+            // remove any type annotations
+            contents = jscodeshift(contents)
+              .find(jscodeshift.TypeAnnotation)
+              .remove()
+              .toSource();
+            contents = jscodeshift(contents)
+              .find(jscodeshift.GenericTypeAnnotation)
+              .remove()
+              .toSource();
 
-          // remove any `type Foo = { .. }` declarations
-          contents = jscodeshift(contents)
-            .find(jscodeshift.TypeAlias)
-            .remove()
-            .toSource();
+            // remove any `type Foo = { .. }` declarations
+            contents = jscodeshift(contents)
+              .find(jscodeshift.TypeAlias)
+              .remove()
+              .toSource();
 
-          // remove any flow directive comments
-          contents = jscodeshift(contents)
-            .find(jscodeshift.Comment, path => path.type === 'CommentLine' && path.value.includes('@flow'))
-            .forEach(path => path.prune())
-            .toSource();
+            // remove any flow directive comments
+            contents = jscodeshift(contents)
+              .find(jscodeshift.Comment, path => path.type === 'CommentLine' && path.value.includes('@flow'))
+              .forEach(path => path.prune())
+              .toSource();
+          }
 
           file.contents = new Buffer(contents);
         });

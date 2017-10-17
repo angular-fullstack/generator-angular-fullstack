@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "server/index.js",
   "dependencies": {
+    "compression": "^1.7.1",
     "core-js": "^2.4.1",
     "cors": "^2.8.1",
     "express": "^4.13.3",
@@ -45,8 +46,7 @@
     "primus": "^7.0.1",
     "primus-emit": "^1.0.0",
     "uws": "^8.14.1",<% } %>
-    "serve-favicon": "^2.3.0",
-    "shrink-ray": "^0.1.3"
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     <%# CLIENT %>
@@ -213,6 +213,9 @@
     "npm": "^3.9.5"
   },
   "scripts": {
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:client": "eslint ./client/**/*.<%= scriptExt %> -c ./client/.eslintrc --ignore-pattern *.spec.<%= scriptExt %>",
+    "lint:server": "eslint ./server/**/*.js -c ./server/.eslintrc --ignore-pattern *.spec.js --ignore-pattern *.integration.js",
     "test": "gulp test",
     "test:client": "karma start ./karma.conf.js --single-run",
     <%_ if(filters.flow) { -%>

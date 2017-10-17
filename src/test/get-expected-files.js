@@ -90,6 +90,7 @@ export function app(options) {
     '.babelrc',
     '.buildignore',
     '.editorconfig',
+    '.eslintignore',
     '.eslintrc',
     '.gitattributes',
     '.gitignore',
@@ -156,7 +157,6 @@ export function app(options) {
   if (options.auth) {
     files = files.concat([
       'client/app/account/account.module.' + script,
-      'client/app/account/account.routes.' + script,
       'client/app/account/login/login.' + markup,
       'client/app/account/login/login.component.' + script,
       'client/app/account/settings/settings.' + markup,
@@ -167,7 +167,6 @@ export function app(options) {
       'client/app/admin/admin.' + stylesheet,
       'client/app/admin/admin.component.' + script,
       'client/app/admin/admin.module.' + script,
-      'client/app/admin/admin.routes.' + script,
       'client/components/auth/auth.module.' + script,
       'client/components/auth/auth.service.' + script,
       'client/components/auth/interceptor.service.' + script,

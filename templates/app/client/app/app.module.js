@@ -1,17 +1,16 @@
 import {
   NgModule,
-  ErrorHandler,
   Injectable,
-  ApplicationRef,
-  Provider,
+  ApplicationRef,<% if(filters.ts || filters.flow) { %>
+  Provider,<% } %>
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   Http,
   HttpModule,
-  BaseRequestOptions,
+  BaseRequestOptions,<% if(filters.ts || filters.flow) { %>
   RequestOptions,
-  RequestOptionsArgs,
+  RequestOptionsArgs,<% } %>
 } from '@angular/http';
 import {
   removeNgStyles,
@@ -22,14 +21,13 @@ import {
 import { UIRouterModule } from 'ui-router-ng2';<% } %>
 <%_ if (filters.ngroute) { -%>
 import { RouterModule, Routes } from '@angular/router';<% } %>
-import { provideAuth, AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
-// import { MainComponent } from './main/main.component';
-import { DirectivesModule } from '../components/directives.module';
+import { DirectivesModule } from '../components/directives.module';<% if(filters.auth) { %>
 import { AccountModule } from './account/account.module';
-import { AdminModule } from './admin/admin.module';
+import { AdminModule } from './admin/admin.module';<% } %>
 
 import constants from './app.constants';
 
@@ -50,7 +48,7 @@ let providers: Provider[] = [{
 if(constants.env === 'development') {
   @Injectable()
   class HttpOptions extends BaseRequestOptions {
-    merge(options/*:RequestOptionsArgs*/)/*:RequestOptions*/ {
+    merge(options: RequestOptionsArgs):RequestOptions {
       options.url = `http://localhost:9000${options.url}`;
       return super.merge(options);
     }
@@ -59,20 +57,10 @@ if(constants.env === 'development') {
   providers.push({ provide: RequestOptions, useClass: HttpOptions });
 }
 
-const appRoutes: Routes = [
-  //{ path: 'crisis-center', component: CrisisListComponent },
-  //{ path: 'hero/:id',      component: HeroDetailComponent },
-  // {
-  //   path: 'home',
-  //   component: MainComponent,
-  //   data: { title: 'Home' }
-  // },
-  { path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  //{ path: '**', component: PageNotFoundComponent }
-];
+const appRoutes: Routes = [{ path: '',
+  redirectTo: '/home',
+  pathMatch: 'full'
+}];
 
 @NgModule({
     providers,
@@ -84,9 +72,9 @@ const appRoutes: Routes = [
         <%_ if (filters.ngroute) { -%>
         RouterModule.forRoot(appRoutes, { enableTracing: process.env.NODE_ENV === 'development' }),<% } %>
         MainModule,
-        DirectivesModule,
+        DirectivesModule,<% if(filters.auth) { %>
         AccountModule,
-        AdminModule,
+        AdminModule,<% } %>
     ],
     declarations: [
         AppComponent,
@@ -110,8 +98,8 @@ export class AppModule {
     }
     // change detection
     this.appRef.tick();
-    delete store.state;
-    delete store.restoreInputValues;
+    Reflect.deleteProperty(store, 'state');
+    Reflect.deleteProperty(store, 'restoreInputValues');
   }
 
   hmrOnDestroy(store) {
@@ -131,7 +119,7 @@ export class AppModule {
   hmrAfterDestroy(store) {
     // display new elements
     store.disposeOldHosts()
-    delete store.disposeOldHosts;
+    Reflect.deleteProperty(store, 'disposeOldHosts');
     // anything you need done the component is removed
   }
 }

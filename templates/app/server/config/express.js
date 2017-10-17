@@ -7,7 +7,7 @@
 import express from 'express';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
-import shrinkRay from 'shrink-ray';
+import compression from 'compression';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
@@ -46,7 +46,7 @@ export default function(app) {
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');<% } %><% if(filters.pug) { %>
   app.set('view engine', 'pug');<% } %>
-  app.use(shrinkRay());
+  app.use(compression());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
@@ -72,7 +72,7 @@ export default function(app) {
    * Lusca - express server security
    * https://github.com/krakenjs/lusca
    */
-  if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) {
+  if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) { // eslint-disable-line no-process-env
     app.use(lusca({
       csrf: true,
       xframe: 'SAMEORIGIN',

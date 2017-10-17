@@ -197,14 +197,16 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  makeSalt(byteSize, callback) {
+  makeSalt(...args) {
     var defaultByteSize = 16;
+    let byteSize;
+    let callback;
 
-    if(typeof arguments[0] === 'function') {
-      callback = arguments[0];
+    if(typeof args[0] === 'function') {
+      callback = args[0];
       byteSize = defaultByteSize;
-    } else if(typeof arguments[1] === 'function') {
-      callback = arguments[1];
+    } else if(typeof args[1] === 'function') {
+      callback = args[1];
     } else {
       throw new Error('Missing Callback');
     }
