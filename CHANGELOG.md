@@ -1,3 +1,33 @@
+<a name="5.0.0-beta.1"></a>
+# [5.0.0-beta.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.0...v5.0.0-beta.1) (2017-10-17)
+
+
+### Bug Fixes
+
+* **client:** fix thing redirect ([6e1b254](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6e1b254))
+* **client:auth:** fix session re-establish ([31a6ecf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/31a6ecf)), closes [#2625](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2625)
+* **client:test:** fixes for TS ([47b9d3e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/47b9d3e))
+* **gen:** 
+  * fix gen issue with flow on ([4f9618a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4f9618a))
+  * remedy test failure ([f226df9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f226df9))
+* **server:** swap shrink-ray back out for compression ([e225a67](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e225a67))
+* **test:** disable `main.component.spec.js` ([c5e6db9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c5e6db9))
+* **ts:** exclude typescript specs files from generating error on transpilling ([46f762e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/46f762e))
+* **webpack:** use a mock for primus in test ([689d0b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/689d0b2))
+
+
+### Features
+
+* **client:auth:** don't submit forms if invalid ([d967554](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d967554))
+* **gen:** default Flow on ([804a917](https://github.com/angular-fullstack/generator-angular-fullstack/commit/804a917))
+* **package:** 
+  * add `start:mongo` convenience script ([101f567](https://github.com/angular-fullstack/generator-angular-fullstack/commit/101f567))
+  * add linting scripts ([8cfe32e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8cfe32e))
+  * add start scripts ([e2bfff8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e2bfff8))
+  * add test:client script ([9be904d](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9be904d))
+
+
+
 <a name="5.0.0-alpha.5"></a>
 # [5.0.0-alpha.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.0...v5.0.0-alpha.5) (2017-05-14)
 
