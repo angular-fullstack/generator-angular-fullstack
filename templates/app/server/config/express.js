@@ -28,64 +28,64 @@ import expressSequelizeSession from 'express-sequelize-session';
 var Store = expressSequelizeSession(session.Store);<% } %>
 
 export default function(app) {
-  var env = app.get('env');
+    var env = app.get('env');
 
-  if(env === 'development' || env === 'test') {
-    app.use(express.static(path.join(config.root, '.tmp')));
-  }
+    if(env === 'development' || env === 'test') {
+        app.use(express.static(path.join(config.root, '.tmp')));
+    }
 
-  if(env === 'production') {
-    app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
-  }
+    if(env === 'production') {
+        app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
+    }
 
-  app.set('appPath', path.join(config.root, 'client'));
-  app.use(express.static(app.get('appPath')));
-  app.use(morgan('dev'));
+    app.set('appPath', path.join(config.root, 'client'));
+    app.use(express.static(app.get('appPath')));
+    app.use(morgan('dev'));
 
-  app.set('views', `${config.root}/server/views`);<% if(filters.html) { %>
-  app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'html');<% } %><% if(filters.pug) { %>
-  app.set('view engine', 'pug');<% } %>
-  app.use(compression());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
-  app.use(methodOverride());
-  app.use(cookieParser());<% if(filters.auth) { %>
-  app.use(passport.initialize());<% } %>
+    app.set('views', `${config.root}/server/views`);<% if(filters.html) { %>
+    app.engine('html', require('ejs').renderFile);
+    app.set('view engine', 'html');<% } %><% if(filters.pug) { %>
+    app.set('view engine', 'pug');<% } %>
+    app.use(compression());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
+    app.use(methodOverride());
+    app.use(cookieParser());<% if(filters.auth) { %>
+    app.use(passport.initialize());<% } %>
 
-  <% if(!filters.noModels) { %>
-  // Persist sessions with MongoStore / sequelizeStore
-  // We need to enable sessions for passport-twitter because it's an
-  // oauth 1.0 strategy, and Lusca depends on sessions
-  app.use(session({
-    secret: config.secrets.session,
-    saveUninitialized: true,
-    resave: false<% if(filters.mongoose) { %>,
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      db: '<%= lodash.slugify(lodash.humanize(appname)) %>'
-    })<% } else if(filters.sequelize) { %>,
-    store: new Store(sqldb.sequelize)<% } %>
-  }));
-
-  /**
-   * Lusca - express server security
-   * https://github.com/krakenjs/lusca
-   */
-  if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) { // eslint-disable-line no-process-env
-    app.use(lusca({
-      csrf: true,
-      xframe: 'SAMEORIGIN',
-      hsts: {
-        maxAge: 31536000, //1 year, in seconds
-        includeSubDomains: true,
-        preload: true
-      },
-      xssProtection: true
+    <% if(!filters.noModels) { %>
+    // Persist sessions with MongoStore / sequelizeStore
+    // We need to enable sessions for passport-twitter because it's an
+    // oauth 1.0 strategy, and Lusca depends on sessions
+    app.use(session({
+        secret: config.secrets.session,
+        saveUninitialized: true,
+        resave: false<% if(filters.mongoose) { %>,
+        store: new MongoStore({
+            mongooseConnection: mongoose.connection,
+            db: '<%= lodash.slugify(lodash.humanize(appname)) %>'
+        })<% } else if(filters.sequelize) { %>,
+        store: new Store(sqldb.sequelize)<% } %>
     }));
-  }<% } %>
 
-  if(env === 'development' || env === 'test') {
-    app.use(errorHandler()); // Error handler - has to be last
-  }
+    /**
+     * Lusca - express server security
+     * https://github.com/krakenjs/lusca
+     */
+    if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) { // eslint-disable-line no-process-env
+        app.use(lusca({
+            csrf: true,
+            xframe: 'SAMEORIGIN',
+            hsts: {
+                maxAge: 31536000, //1 year, in seconds
+                includeSubDomains: true,
+                preload: true
+            },
+            xssProtection: true
+        }));
+    }<% } %>
+
+    if(env === 'development' || env === 'test') {
+        app.use(errorHandler()); // Error handler - has to be last
+    }
 }

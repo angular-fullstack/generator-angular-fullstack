@@ -8,76 +8,72 @@ import { AuthService } from '../../../components/auth/auth.service';
 
 <%_ if(filters.flow) { -%>
 type User = {
-  name: string;
-  email: string;
-  password: string;
+    name: string;
+    email: string;
+    password: string;
 };<% } %>
 <%_ if(filters.ts) { -%>
 interface User {
-  name: string;
-  email: string;
-  password: string;
+    name: string;
+    email: string;
+    password: string;
 }<% } %>
 
 @Component({
-  selector: 'signup',
-  template: require('./signup.<%=templateExt%>')
+    selector: 'signup',
+    template: require('./signup.<%=templateExt%>')
 })
 export class SignupComponent {
-  user: User = {
-    name: '',
-    email: '',
-    password: ''
-  };
-  errors = {};
-  submitted = false;
-  AuthService;
-  <%_ if(filters.ngroute) { -%>
-  Router;<% } %>
-  <%_ if(filters.uirouter) { -%>
-  StateService;<% } %>
-
-  static parameters = [AuthService, <% if(filters.ngroute) { %>Router<% } else { %>StateService<% } %>];
-  constructor(_AuthService_: AuthService, <% if(filters.ngroute) { %>router: Router<% } else { %>_StateService_: StateService<% } %>) {
-    this.AuthService = _AuthService_;
+    user: User = {
+        name: '',
+        email: '',
+        password: ''
+    };
+    errors = {};
+    submitted = false;
+    AuthService;
     <%_ if(filters.ngroute) { -%>
-    this.Router = router;<% } -%>
+    Router;<% } %>
     <%_ if(filters.uirouter) { -%>
-    this.StateService = _StateService_;<% } -%>
-  }
+    StateService;<% } %>
 
-  register(form) {
-    if(form.invalid) return;
+    static parameters = [AuthService, <% if(filters.ngroute) { %>Router<% } else { %>StateService<% } %>];
+    constructor(_AuthService_: AuthService, <% if(filters.ngroute) { %>router: Router<% } else { %>_StateService_: StateService<% } %>) {
+        this.AuthService = _AuthService_;
+        <%_ if(filters.ngroute) { -%>
+        this.Router = router;<% } -%>
+        <%_ if(filters.uirouter) { -%>
+        this.StateService = _StateService_;<% } -%>
+    }
 
-    this.submitted = true;
+    register(form) {
+        if(form.invalid) return;
 
-    return this.AuthService.createUser({
-      name: this.user.name,
-      email: this.user.email,
-      password: this.user.password
-    })
-    .then(() => {
-      // Account created, redirect to home
-      <% if(filters.ngroute) { %>this.Router.navigateByUrl('/home');<% } -%>
-      <% if(filters.uirouter) { %>this.StateService.go('main');<% } -%>
-    })
-    .catch(err => {
-      err = err.data;
-      this.errors = {};
-      <%_ if(filters.mongooseModels) { -%>
-      // Update validity of form fields that match the mongoose errors
-      err.errors.forEach((error, field) => {
-        // form[field].$setValidity('mongoose', false);
-        this.errors[field] = error.message;
-      });<% } %>
-      <%_ if(filters.sequelizeModels) { -%>
-      // Update validity of form fields that match the sequelize errors
-      if(err.name) {
-        err.fields.forEach(field => {
-          // form[field].$setValidity('mongoose', false);
-          this.errors[field] = err.message;
-        });
-      }<% } %>
-    });
-  }
+        this.submitted = true;
+
+        return this.AuthService.createUser({
+            name: this.user.name,
+            email: this.user.email,
+            password: this.user.password
+        })
+            .then(() => {
+                // Account created, redirect to home
+                <% if(filters.ngroute) { %>this.Router.navigateByUrl('/home');<% } -%>
+                <% if(filters.uirouter) { %>this.StateService.go('main');<% } -%>
+            })
+            .catch(err => {
+                err = err.data;
+                this.errors = {};<% if(filters.mongooseModels) { %>
+                // Update validity of form fields that match the mongoose errors
+                err.errors.forEach((error, field) => {
+                    this.errors[field] = error.message;
+                });<% } %><% if(filters.sequelizeModels) { %>
+                // Update validity of form fields that match the sequelize errors
+                if(err.name) {
+                    err.fields.forEach(field => {
+                        this.errors[field] = err.message;
+                    });
+                }<% } %>
+            });
+    }
 }

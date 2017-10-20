@@ -9,8 +9,8 @@ import config from '../config/environment';
 import Sequelize from 'sequelize';
 
 var db = {
-  Sequelize,
-  sequelize: new Sequelize(config.sequelize.uri, config.sequelize.options)
+    Sequelize,
+    sequelize: new Sequelize(config.sequelize.uri, config.sequelize.options)
 };
 
 // Insert models below<% if (filters.sequelizeModels && filters.auth) { %>

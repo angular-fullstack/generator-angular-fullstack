@@ -3,8 +3,8 @@
  */
 
 import {
-  isFunction,
-  noop,
+    isFunction,
+    noop,
 } from 'lodash';
 import { Response } from '@angular/http';
 
@@ -15,7 +15,7 @@ import { Response } from '@angular/http';
  * @return {Function}
  */
 export function safeCb(cb) {
-  return isFunction(cb) ? cb : noop;
+    return isFunction(cb) ? cb : noop;
 }
 
 /**
@@ -25,15 +25,15 @@ export function safeCb(cb) {
  * @return {Object}     - the parsed url, anchor element
  */
 export function urlParse(url) {
-  var a = document.createElement('a');
-  a.href = url;
+    var a = document.createElement('a');
+    a.href = url;
 
-  // Special treatment for IE, see http://stackoverflow.com/a/13405933 for details
-  if (a.host === '') {
-    a.href = a.href;
-  }
+    // Special treatment for IE, see http://stackoverflow.com/a/13405933 for details
+    if (a.host === '') {
+        a.href = a.href;
+    }
 
-  return a;
+    return a;
 }
 
 /**
@@ -44,21 +44,21 @@ export function urlParse(url) {
  * @return {Boolean}                    - true if url is same origin
  */
 export function isSameOrigin(url, origins) {
-  url = urlParse(url);
-  origins = (origins && [].concat(origins)) || [];
-  origins = origins.map(urlParse);
-  origins.push(window.location);
-  origins = origins.filter(function(o) {
-    let hostnameCheck = url.hostname === o.hostname;
-    let protocolCheck = url.protocol === o.protocol;
-    // 2nd part of the special treatment for IE fix (see above):
-    // This part is when using well-known ports 80 or 443 with IE,
-    // when window.location.port==='' instead of the real port number.
-    // Probably the same cause as this IE bug: https://goo.gl/J9hRta
-    let portCheck = url.port === o.port || (o.port === '' && (url.port === '80' || url.port === '443'));
-    return hostnameCheck && protocolCheck && portCheck;
-  });
-  return origins.length >= 1;
+    url = urlParse(url);
+    origins = (origins && [].concat(origins)) || [];
+    origins = origins.map(urlParse);
+    origins.push(window.location);
+    origins = origins.filter(function(o) {
+        let hostnameCheck = url.hostname === o.hostname;
+        let protocolCheck = url.protocol === o.protocol;
+        // 2nd part of the special treatment for IE fix (see above):
+        // This part is when using well-known ports 80 or 443 with IE,
+        // when window.location.port==='' instead of the real port number.
+        // Probably the same cause as this IE bug: https://goo.gl/J9hRta
+        let portCheck = url.port === o.port || (o.port === '' && (url.port === '80' || url.port === '443'));
+        return hostnameCheck && protocolCheck && portCheck;
+    });
+    return origins.length >= 1;
 }
 
 export function extractData(res: Response) {

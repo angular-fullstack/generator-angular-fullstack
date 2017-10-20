@@ -9,9 +9,9 @@ import { AdminComponent } from './admin.component';
 import { STATES } from './admin.routes';<% } %>
 <%_ if(filters.ngroute) { -%>
 const adminRoutes: Routes = [{
-  path: 'admin',
-  component: AdminComponent,
-  canActivate: [AuthGuard],
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
 }];<% } %>
 
 @NgModule({

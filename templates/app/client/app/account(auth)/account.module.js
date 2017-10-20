@@ -14,14 +14,14 @@ import { SignupComponent } from './signup/signup.component';
 
 <%_ if(filters.ngroute) { -%>
 const accountRoutes: Routes = [{
-  path: 'login',
-  component: LoginComponent,
+    path: 'login',
+    component: LoginComponent,
 }, {
-  path: 'settings',
-  component: SettingsComponent,
+    path: 'settings',
+    component: SettingsComponent,
 }, {
-  path: 'signup',
-  component: SignupComponent,
+    path: 'signup',
+    component: SignupComponent,
 }];<% } %>
 
 @NgModule({
