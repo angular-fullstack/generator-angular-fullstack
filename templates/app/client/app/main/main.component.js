@@ -10,56 +10,56 @@ import { SocketService } from '../../components/socket/socket.service';<% } %>
     styles: [require('./main.<%=styleExt%>')],
 })
 export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% } %> {
-  Http;
-  <%_ if(filters.ws) { -%>
-  SocketService;<% } %>
-  awesomeThings = [];
-  <%_ if(filters.models) { -%>
-  newThing = '';<% } %>
-
-  static parameters = [Http<% if(filters.ws) { %>, SocketService<% } %>];
-  constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
-    this.Http = http;
+    Http;
     <%_ if(filters.ws) { -%>
-    this.SocketService = socketService;<% } %>
-  }
+    SocketService;<% } %>
+    awesomeThings = [];
+    <%_ if(filters.models) { -%>
+    newThing = '';<% } %>
 
-  ngOnInit() {
-    return this.Http.get('/api/things')
-      .map(res => res.json())
-      // .catch(err => Observable.throw(err.json().error || 'Server error'))
-      .subscribe(things => {
-        this.awesomeThings = things;
+    static parameters = [Http<% if(filters.ws) { %>, SocketService<% } %>];
+    constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
+        this.Http = http;
         <%_ if(filters.ws) { -%>
-        this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
-      });
-  }<% if (filters.models) { %>
-  <%_ if(filters.ws) { %>
-
-  ngOnDestroy() {
-    this.SocketService.unsyncUpdates('thing');
-  }<% } %>
-
-  addThing() {
-    if(this.newThing) {
-      let text = this.newThing;
-      this.newThing = '';
-
-      return this.Http.post('/api/things', { name: text })
-        .map(res => res.json())
-        .catch(err => Observable.throw(err.json().error || 'Server error'))
-        .subscribe(thing => {
-          console.log('Added Thing:', thing);
-        });
+        this.SocketService = socketService;<% } %>
     }
-  }
 
-  deleteThing(thing) {
-    return this.Http.delete(`/api/things/${thing._id}`)
-      .map(res => res.json())
-      .catch(err => Observable.throw(err.json().error || 'Server error'))
-      .subscribe(() => {
-        console.log('Deleted Thing');
-      });
-  }<% } %>
+    ngOnInit() {
+        return this.Http.get('/api/things')
+            .map(res => res.json())
+            // .catch(err => Observable.throw(err.json().error || 'Server error'))
+            .subscribe(things => {
+                this.awesomeThings = things;
+                <%_ if(filters.ws) { -%>
+                this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
+            });
+    }<% if (filters.models) { %>
+    <%_ if(filters.ws) { %>
+
+    ngOnDestroy() {
+        this.SocketService.unsyncUpdates('thing');
+    }<% } %>
+
+    addThing() {
+        if(this.newThing) {
+            let text = this.newThing;
+            this.newThing = '';
+
+            return this.Http.post('/api/things', { name: text })
+                .map(res => res.json())
+                .catch(err => Observable.throw(err.json().error || 'Server error'))
+                .subscribe(thing => {
+                    console.log('Added Thing:', thing);
+                });
+        }
+    }
+
+    deleteThing(thing) {
+        return this.Http.delete(`/api/things/${thing._id}`)
+            .map(res => res.json())
+            .catch(err => Observable.throw(err.json().error || 'Server error'))
+            .subscribe(() => {
+                console.log('Deleted Thing');
+            });
+    }<% } %>
 }

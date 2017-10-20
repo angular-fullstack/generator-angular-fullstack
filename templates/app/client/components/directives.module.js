@@ -16,26 +16,26 @@ import { FooterComponent } from './footer/footer.component';
 import { OauthButtonsComponent } from './oauth-buttons/oauth-buttons.component';<% } %>
 
 @NgModule({
-  imports: [
-    CommonModule,<% if(filters.uibootstrap) { %>
-    CollapseModule,<% } %><% if(filters.auth) { %>
-    AuthModule,<% } %>
-    <%_ if (filters.uirouter) { -%>
-    UIRouterModule,<% } %>
-    <%_ if (filters.ngroute) { -%>
-    RouterModule,<% } %>
-  ],
-  declarations: [
-    NavbarComponent,
-    FooterComponent,
-    <%_ if(filters.oauth) { -%>
-    OauthButtonsComponent,<% } %>
-  ],
-  exports: [
-    NavbarComponent,
-    FooterComponent,
-    <%_ if(filters.oauth) { -%>
-    OauthButtonsComponent,<% } %>
-  ]
+    imports: [
+        CommonModule,<% if(filters.uibootstrap) { %>
+        CollapseModule,<% } %><% if(filters.auth) { %>
+        AuthModule,<% } %>
+        <%_ if (filters.uirouter) { -%>
+        UIRouterModule,<% } %>
+        <%_ if (filters.ngroute) { -%>
+        RouterModule,<% } %>
+    ],
+    declarations: [
+        NavbarComponent,
+        FooterComponent,
+        <%_ if(filters.oauth) { -%>
+        OauthButtonsComponent,<% } %>
+    ],
+    exports: [
+        NavbarComponent,
+        FooterComponent,
+        <%_ if(filters.oauth) { -%>
+        OauthButtonsComponent,<% } %>
+    ]
 })
 export class DirectivesModule {}

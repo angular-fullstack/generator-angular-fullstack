@@ -29,15 +29,15 @@ describe('Component: OauthButtonsComponent', () => {
 
     <%_ if(filters.googleAuth) { -%>
     it('should have a Google+ button', () => {
-      const a = fixture.debugElement.query(By.css('i.fa-google-plus')).parent.nativeElement;
+        const a = fixture.debugElement.query(By.css('i.fa-google-plus')).parent.nativeElement;
 
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      <%_ if (filters.jasmine) { -%>
-      expect(a.textContent).toContain('Connect with Google+');
-      <%_ } if (filters.mocha) { -%>
-      <%= expect() %>a.textContent<%= to() %>.contain('Connect with Google+');
-      <%_ } -%>
+        <%_ if (filters.jasmine) { -%>
+        expect(a.textContent).toContain('Connect with Google+');
+        <%_ } if (filters.mocha) { -%>
+        <%= expect() %>a.textContent<%= to() %>.contain('Connect with Google+');
+        <%_ } -%>
     });
     <%_ } -%>
 
