@@ -47,7 +47,6 @@ export function app(options) {
     'client/_index.html',
     'client/app/app.' + script,
     'client/app/app.component.' + script,
-    'client/app/app.config.' + script,
     'client/app/app.constants.' + script,
     'client/app/app.module.' + script,
     'client/app/app.' + stylesheet,
@@ -130,13 +129,6 @@ export function app(options) {
     files.push('.flowconfig');
   }
 
-  /* Ui-Router */
-  if (options.router === 'uirouter') {
-    files = files.concat([
-      'client/components/ui-router/ui-router.mock.' + script
-    ]);
-  }
-
   /* Models - Mongoose or Sequelize */
   if (models) {
     files = files.concat([
@@ -169,10 +161,7 @@ export function app(options) {
       'client/app/admin/admin.module.' + script,
       'client/components/auth/auth.module.' + script,
       'client/components/auth/auth.service.' + script,
-      'client/components/auth/interceptor.service.' + script,
-      'client/components/auth/router.decorator.' + script,
       'client/components/auth/user.service.' + script,
-      'client/components/mongoose-error/mongoose-error.directive.' + script,
       'server/api/user/index.js',
       'server/api/user/index.spec.js',
       'server/api/user/user.controller.js',
