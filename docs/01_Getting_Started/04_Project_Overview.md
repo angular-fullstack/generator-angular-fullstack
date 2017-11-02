@@ -1,6 +1,6 @@
 ## Project Overview
 
-What follows is an overfiew of the files/folders in your newly generated project.
+What follows is an overview of the files/folders in your newly generated project.
 
 ### Project Root
 
@@ -29,18 +29,18 @@ webpack.make.js // main file for Webpack configuration
 
 ```
 │   .eslintrc // eslint config for client files
-│   polyfills.js // imports of polyfills
 │   _index.html // template for the root HTML file of your app
 │
 ├───app
-│   │   app.config.js // contains app-wide configuration code
+│   │   app.js // App entry point
+│   │   app.component.js // Root-level Angular component (loads header, footer, and current route)
 │   │   app.constants.js // gets injected with constants from `server/config/environment/shared.js`
 │   │   app.{js,ts} // root JavaScript file of your app
 │   │   app.{css,scss,stylus,less} // root CSS file of your app
+│   |   polyfills.js // imports of polyfills
 │   │
 │   ├───account // pages related to login / signup / user settings
-│   │   │   account.routes.js // route information
-│   │   │   index.js // account module root
+│   │   │   account.module.js // account module root
 │   │   │
 │   │   ├───login
 │   │   ├───settings
@@ -56,24 +56,18 @@ webpack.make.js // main file for Webpack configuration
     ├───auth
     │       auth.module.js // module containing auth components
     │       auth.service.js // authentication service
-    │       interceptor.service.js // intercepts requests and adds tokens if needed. Also redirects 401s to the login page.
-    │       router.decorator.js // facilitates auth-based routing configuration
     │       user.service.js // user resource service
     │
     ├───footer
-    │
-    ├───modal
     │
     ├───navbar
     │
     ├───oauth-buttons // buttons for oauth login on signup / login pages
     │
     ├───socket
+    │       primus.mock.js // mock for the Primus class (WebSocket framework)
     │       socket.mock.js // mock service for unit testing
     │       socket.service.js // service for Socket IO integration
-    │
-    ├───ui-router
-    │       ui-router.mock.js // mock service for unit testing
     │
     └───util // general utility service
 ```

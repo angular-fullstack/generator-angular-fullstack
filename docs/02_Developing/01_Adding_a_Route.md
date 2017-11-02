@@ -1,3 +1,5 @@
+> ATTENTION: THIS PAGE IS OUT-OF-DATE
+
 # Adding a Route
 
 Alright, now let's add another route to our app. We'll call it 'foo'. We can easily do this with the `yo angular-fullstack:route` subgenerator command:
@@ -10,11 +12,10 @@ $ yo angular-fullstack:route foo
 ? Where would you like to create this route? client/app/
 ? What will the url of your route be? (/foo)
 ? What will the url of your route be? /foo
-identical client\app\foo\foo.routes.js
-identical client\app\foo\foo.component.js
-identical client\app\foo\foo.component.spec.js
-identical client\app\foo\foo.html
-identical client\app\foo\foo.scss
+create client\app\foo\foo.component.js
+create client\app\foo\foo.component.spec.js
+create client\app\foo\foo.html
+create client\app\foo\foo.scss
 
 In the parent of this component, you should now import this component and add it as a dependency:
 
@@ -23,11 +24,14 @@ In the parent of this component, you should now import this component and add it
     export angular.module('myParentModule', [FooComponent]);
 ```
 
-We give it our route name ('foo'), and a few more details: the name of the Angular module to create ('myApp.foo'), which folder to put the route under ('client/app/foo/'), and the URL of the route ('localhost:3000/foo').
+We give it our route name ('foo'), and a few more details: the name of the Angular module to create ('myApp.foo'), which
+folder to put the route under ('client/app/foo/'), and the URL of the route ('localhost:3000/foo').
 
-This will create an Angular 1.5 component with an Angular module (`foo.component.js`), a template file (`foo.html`), a CSS file (`foo.scss`), a unit test file (`foo.component.spec.js`), and a routing file (`foo.routes.js`).
+This will create an Angular component with an Angular module (`foo.component.js`), a template file (`foo.html`), a CSS
+file (`foo.scss`), a unit test file (`foo.component.spec.js`), and a routing file (`foo.routes.js`).
 
-Since we're using Webpack, We'll need to import our component somewhere. Since this is a generic app route (and for simplicity), we'll import it in `app.js`, under our root Angular module, like so:
+Since we're using Webpack, We'll need to import our component somewhere. Since this is a generic app route
+(and for simplicity), we'll import it in `app.js`, under our root Angular module, like so:
 
 `client/app/app.js`
 ```js

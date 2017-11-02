@@ -23,7 +23,7 @@ your computer's startup. Example:
 
 ### node-gyp
 
-`node-gyp` is a cross-platform command-line tool written in Node.js for compiling native addon modules for Node.js. You'll need it for things like brotli compression.
+`node-gyp` is a cross-platform command-line tool written in Node.js for compiling native addon modules for Node.js. You'll need it for things like `uws`.
 
 Read through the [Installation section of the `node-gyp` readme](https://github.com/nodejs/node-gyp#installation). Basically you'll need [Python 2.7](https://www.python.org/downloads/), `make`, and a C/C++ compiler (like GCC on unix, Xcode on OS X, or Visual Studio tools on Windows). To tell npm to use Python 2.7 (if you also have a different version installed), run `npm config set python /path/to/executable/python2.7`. Here's a snapshot of the instructions from their readme:
 

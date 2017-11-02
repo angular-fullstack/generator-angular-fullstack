@@ -3,9 +3,13 @@
 Now that you've gone through everything in the Getting Started section, lets get our app up and running. We do this by running the following:
 
 ```bash
-$ gulp serve
+$ npm run start:server
+```
+```bash
+$ npm run start:client
 ```
 
+<!--
 We should see something like this spit out after it:
 
 ```bash
@@ -76,6 +80,7 @@ Child html-webpack-plugin for "..\client\index.html":
     ../client/index.html  2.69 kB       0
 webpack: bundle is now VALID.
 ```
+-->
 
 And then our default browser should open up to the app:
 
@@ -87,7 +92,10 @@ Fantastic! We're now up and running with our Full-Stack Angular web application!
 
 ### Homepage
 
-Assuming you scaffolded with a back-end database, you should see some 'features'. If you scaffolded with socket.io, you should see 'x' buttons next to each, and an input box. Try opening two browser windows to the same page side-by-side, and hitting the 'x' on one of the features. You should see the feature get removed on both web pages. Neat! This is because these database object changes are communicated to clients using socket.io.
+Assuming you scaffolded with a back-end database, you should see some 'features'. If you scaffolded with socket.io,
+you should see 'x' buttons next to each, and an input box. Try opening two browser windows to the same page
+side-by-side, and hitting the 'x' on one of the features. You should see the feature get removed on both web pages.
+Neat! This is because these database object changes are communicated to clients using socket.io.
 
 
 <img src="../images/socket.io-demo.gif" alt="Socket.io demo screenshot">
@@ -97,9 +105,11 @@ Neat. Let's see what else we can do.
 
 ### Auth
 
-Assuming you scaffolded with auth support, you should see a 'Sign Up' and a 'Log In' button at the top-right of your page. Let's go to the Log In page.
+Assuming you scaffolded with auth support, you should see a 'Sign Up' and a 'Log In' button at the top-right of your
+page. Let's go to the Log In page.
 
-You should see inputs for an email address and a password. When running your project in a devlopment environment, you'll get two user accounts automatically generated:
+You should see inputs for an email address and a password. When running your project in a development environment, you'll
+get two user accounts automatically generated:
 
  * Test User
    * email: test@example.com
@@ -110,9 +120,12 @@ You should see inputs for an email address and a password. When running your pro
    * password: admin
    * role: admin
 
-Go ahead and log in with the admin account, so we can see the extra admin bits too. You should then get sent back to the home page, but should notice that the navbar looks a bit different:
+Go ahead and log in with the admin account, so we can see the extra admin bits too. You should then get sent back to the
+home page, but should notice that the navbar looks a bit different:
 
 <img src="../images/logged-in.jpg" alt="Logged in as admin screenshot">
 
 
-First, at the top right, we see a greeting for our username, a cog icon (for user settings), and a logout button. Then, since we're an admin, we see a new 'Admin' state on the navbar. The admin section lists users and allows you to delete them. The user settings page allows you to change your password.
+First, at the top right, we see a greeting for our username, a cog icon (for user settings), and a logout button. Then,
+since we're an admin, we see a new 'Admin' state on the navbar. The admin section lists users and allows you to delete
+them. The user settings page allows you to change your password.
