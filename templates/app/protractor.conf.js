@@ -2,6 +2,7 @@
 // https://github.com/angular/protractor/blob/master/referenceConf.js
 
 'use strict';
+require('babel-register');
 
 var config = {
   // The timeout for each script run on the browser. This should be longer
