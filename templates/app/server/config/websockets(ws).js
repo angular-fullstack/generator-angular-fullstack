@@ -58,6 +58,6 @@ export default function initWebSocketServer(server) {
             });
         });
     } else {
-        return Promise.resolve();
+        return Promise.resolve(primus);
     }
 }
