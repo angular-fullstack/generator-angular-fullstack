@@ -1,3 +1,23 @@
+<a name="5.0.0-beta.2"></a>
+# [5.0.0-beta.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-beta.2) (2017-11-12)
+
+
+### Bug Fixes
+
+* **package:** add missing comma ([b2a745b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b2a745b))
+* **server:test:** resolve primus in non-dev ([7bed185](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7bed185))
+* **test:** 
+  * only save new primus.js in dev ([483dda0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/483dda0))
+  * use babel in `protractor.conf.js` ([ffb16cb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ffb16cb))
+
+
+### Features
+
+* Upgraded to Angular 5.0.1
+* **client:** add auth-guard service ([a5cbada](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a5cbada))
+
+
+
 <a name="5.0.0-beta.1"></a>
 # [5.0.0-beta.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.0...v5.0.0-beta.1) (2017-10-17)
 
