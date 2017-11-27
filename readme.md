@@ -81,7 +81,10 @@ Available generators:
     - [angular-fullstack](/docs/generators/app.md) (aka [angular-fullstack:app](/docs/generators/app.md))
 * Server Side
     - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
-* Client Side (via [generator-ng-component](https://github.com/DaftMonk/generator-ng-component))
+    
+Unavailable generators (to be re-implemented for 5.0.0):
+
+* Client Side (via [generator-angular-component](https://github.com/angular-fullstack/generator-angular-component))
     - [angular-fullstack:route](/docs/generators/route.md)
     - [angular-fullstack:component](/docs/generators/component.md)
     - [angular-fullstack:controller](/docs/generators/controller.md)
