@@ -1,6 +1,8 @@
 <a name="4.2.3"></a>
 ## [4.2.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.2...v4.2.3) (2017-11-29)
 
+This version reverts using shrink-ray by default (for Brotli compression) b/c so many users have has issues installing it.
+
 
 ### Bug Fixes
 
