@@ -1,3 +1,14 @@
+<a name="4.2.3"></a>
+## [4.2.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.2...v4.2.3) (2017-11-29)
+
+
+### Bug Fixes
+
+* **seed:** rename index.html to app.html to fix CRSF and token issues ([2e784bf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2e784bf))
+* **server:auth:** specify digest for pbkdf2 ([689c3fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/689c3fc)), closes [#2628](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2628)
+
+
+
 <a name="4.2.2"></a>
 ## [4.2.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.0...v4.2.2) (2017-05-25)
 
