@@ -1,3 +1,13 @@
+<a name="5.0.0-beta.3"></a>
+# [5.0.0-beta.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-beta.3) (2017-11-30)
+
+
+### Bug Fixes
+
+* **client:auth:guard:** declare `authService` on class ([afc725f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/afc725f))
+
+
+
 <a name="5.0.0-beta.2"></a>
 # [5.0.0-beta.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-beta.2) (2017-11-12)
 
