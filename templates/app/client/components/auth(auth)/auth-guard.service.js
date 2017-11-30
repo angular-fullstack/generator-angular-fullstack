@@ -5,6 +5,8 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+    authService;
+
     static parameters = [AuthService];
     constructor(authService: AuthService) {
         this.authService = authService;
