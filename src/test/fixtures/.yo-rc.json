@@ -21,6 +21,7 @@
       "uirouter": true,
       "bootstrap": true,
       "uibootstrap": true,
+      "i18nSupport": false,       
       "socketio": true,
       "auth": true,
       "models": true,

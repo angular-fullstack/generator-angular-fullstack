@@ -136,6 +136,16 @@ export function app(options) {
       'client/components/ui-router/ui-router.mock.' + script
     ]);
   }
+  
+  /* i18n Support */ 
+  if (options.i18nSupport) { 
+    files = files.concat([ 
+      'client/components/i18n/flags.png', 
+      'client/components/i18n/flags.' + stylesheet, 
+      'client/components/i18n/locale-en.json', 
+      'client/components/i18n/locale-fr.json' 
+    ]); 
+  } 
 
   /* Ui-Bootstrap */
   if (options.uibootstrap) {

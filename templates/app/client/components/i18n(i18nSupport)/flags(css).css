@@ -1,0 +1,22 @@
+/*!
+ * Generated with CSS Flag Sprite generator (https://www.flag-sprites.com/)
+ */
+#locale-selector{
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.flag {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url('/components/i18n/flags.png') no-repeat;
+}
+.flag.flag-gb {
+    background-position: -32px 0;
+}
+.flag.flag-fr {
+    background-position: 0 0;
+}

@@ -16,6 +16,9 @@ $icon-font-path = '../assets/fonts/bootstrap/'
   color #000
   margin 0.2em 0
   padding 0.2em 0
+<% if (filters.i18nSupport) { %> 
+@import '../components/i18n/flags.styl';  
+<% } %>   
 <% if(!filters.bootstrap) { %>
 // Responsive: Portrait tablets and up
 @media screen and (min-width: 768px)

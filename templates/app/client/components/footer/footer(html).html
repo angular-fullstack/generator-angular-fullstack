@@ -1,8 +1,8 @@
 <div class="container">
   <p>Angular Fullstack v<%= rootGeneratorVersion() %> |
-    <a href="http://angular-fullstack.github.io/">Documentation</a> |
-    <a href="https://gitter.im/DaftMonk/generator-angular-fullstack">Chat on Gitter</a> |
-    <a href="https://github.com/angular-fullstack/generator-angular-fullstack/issues?state=open">Issues</a> |
-    <a href="https://opencollective.com/angular-fullstack">Donate to our Open Collective</a>
+    <a href="http://angular-fullstack.github.io/"<% if (filters.i18nSupport) { %> translate="DOCUMENTATION"<% } %>><% if (!filters.i18nSupport) { %>Documentation<% } %></a> |
+    <a href="https://gitter.im/DaftMonk/generator-angular-fullstack"<% if (filters.i18nSupport) { %> translate="CHAT_ON_GITTER"<% } %>><% if (!filters.i18nSupport) { %>Chat on Gitter<% } %></a> |
+    <a href="https://github.com/angular-fullstack/generator-angular-fullstack/issues?state=open"<% if (filters.i18nSupport) { %> translate="ISSUES"<% } %>><% if (!filters.i18nSupport) { %>Issues<% } %></a> |
+    <a href="https://opencollective.com/angular-fullstack"<% if (filters.i18nSupport) { %> translate="DONATION_MSG"<% } %>><% if (!filters.i18nSupport) { %>Donate to our Open Collective<% } %></a>
   </p>
 </div>

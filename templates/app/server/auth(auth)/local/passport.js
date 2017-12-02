@@ -13,7 +13,11 @@ function localAuthenticate(User, email, password, done) {
     .then(user => {
       if(!user) {
         return done(null, false, {
+        <% if (filters.i18nSupport) { %>
+          message: 'EMAIL_UNREGISTRED_MSG' 
+        <% } else { %>
           message: 'This email is not registered.'
+        <% } %>          
         });
       }
       user.authenticate(password, function(authError, authenticated) {
@@ -21,7 +25,13 @@ function localAuthenticate(User, email, password, done) {
           return done(authError);
         }
         if(!authenticated) {
-          return done(null, false, { message: 'This password is not correct.' });
+          return done(null, false, { 
+            <% if (filters.i18nSupport) { %>
+              message: 'PASSWORD_INVALID_MSG'
+            <% } else { %>
+              message: 'This password is not correct.' 
+            <% } %>            
+          });
         } else {
           return done(null, user);
         }

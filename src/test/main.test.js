@@ -27,7 +27,8 @@ const defaultOptions = {
   odms: ['mongoose'],
   auth: true,
   oauth: [],
-  socketio: true
+  socketio: true, 
+  i18nSupport:false
 };
 const TEST_DIR = __dirname;
 
@@ -200,7 +201,8 @@ describe('angular-fullstack:app', function() {
       oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
       socketio: true,
       bootstrap: true,
-      uibootstrap: true
+      uibootstrap: true, 
+      i18nSupport:false 
     };
 
     before(function() {
@@ -272,7 +274,8 @@ describe('angular-fullstack:app', function() {
       oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
       socketio: true,
       bootstrap: true,
-      uibootstrap: true
+      uibootstrap: true, 
+      i18nSupport:false
     };
     this.retries(3);  // Sequelize seems to be quite flaky
 
@@ -343,6 +346,7 @@ describe('angular-fullstack:app', function() {
       odms: [],
       auth: false,
       oauth: [],
+      i18nSupport:false,
       socketio: false,
       bootstrap: false,
       uibootstrap: false

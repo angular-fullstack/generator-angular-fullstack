@@ -189,6 +189,11 @@ export class Generator extends Base {
             filter: val => val.toLowerCase()
           }, {
             type: 'confirm',
+            name: 'i18nSupport', 
+            default: false, 
+            message: 'Would you like to include i18n support (multi-language)?'
+          }, { 
+            type: 'confirm',             
             name: 'bootstrap',
             message: 'Would you like to include Bootstrap?'
           }, {
@@ -218,6 +223,9 @@ export class Generator extends Base {
 
             this.filters.uibootstrap =  !!answers.uibootstrap;
             insight.track('uibootstrap', !!answers.uibootstrap);
+
+            this.filters.i18nSupport =  !!answers.i18nSupport; 
+            insight.track('i18nSupport', !!answers.i18nSupport); 
 
             this.scriptExt = answers.transpiler === 'ts' ? 'ts' : 'js';
             this.templateExt = answers.markup;
@@ -444,6 +452,7 @@ export class Generator extends Base {
         if(this.filters.socketio) angModules.push("'btford.socket-io'");
         if(this.filters.uirouter) angModules.push("'ui.router'");
         if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
+
         if(this.filters.auth) {
           angModules.unshift(`'${this.scriptAppName}.admin'`);
           angModules.unshift(`'${this.scriptAppName}.auth'`);
@@ -548,6 +557,10 @@ export class Generator extends Base {
             ['uiBootstrap', 'angular-ui-bootstrap'],
             ['ngMessages', 'angular-messages'],
             ['io', 'socket.io-client'],
+            ['i18n', 'angular-translate'], 
+            ['i18nCookie', 'angular-translate-storage-cookie'], 
+            ['i18nLocal', 'angular-translate-storage-local'], 
+            ['i18nLoader', 'angular-translate-loader-static-files'],             
             ['ngValidationMatch', 'angular-validation-match'] 
           ];
           function replacer(contents) {

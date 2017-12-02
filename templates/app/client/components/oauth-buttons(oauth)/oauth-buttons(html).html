@@ -1,12 +1,12 @@
 <% if(filters.facebookAuth) { %><a ng-class="classes" ng-click="OauthButtons.loginOauth('facebook')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-facebook">
   <i class="fa fa-facebook"></i>
-  Connect with Facebook
+  <span<% if (filters.i18nSupport) { %> translate="CONNECT_WITH_FACEBOOK"<% } %>><% if (!filters.i18nSupport) { %>Connect with Facebook<% } %></span>   
 </a>
 <% } if (filters.googleAuth) { %><a ng-class="classes" ng-click="OauthButtons.loginOauth('google')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-google">
   <i class="fa fa-google-plus"></i>
-  Connect with Google+
+  <span<% if (filters.i18nSupport) { %> translate="CONNECT_WITH_GOOGLE_PLUS"<% } %>><% if (!filters.i18nSupport) { %>Connect with Google+<% } %></span>  
 </a>
 <% } if (filters.twitterAuth) { %><a ng-class="classes" ng-click="OauthButtons.loginOauth('twitter')" class="btn<% if (filters.bootstrap) { %> btn-social<% } %> btn-twitter">
   <i class="fa fa-twitter"></i>
-  Connect with Twitter
+  <span<% if (filters.i18nSupport) { %> translate="CONNECT_WITH_TWITTER"<% } %>><% if (!filters.i18nSupport) { %>Connect with Twitter<% } %></span>
 </a><% } %>
