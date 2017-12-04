@@ -97,6 +97,7 @@ export function app(options) {
     '.gitignore',
     '.travis.yml',
     '.yo-rc.json',
+    'Dockerfile',
     'gulpfile.babel.js',
     'package.json',
     'karma.conf.js',

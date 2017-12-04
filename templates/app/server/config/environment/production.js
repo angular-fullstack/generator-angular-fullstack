@@ -1,6 +1,14 @@
 'use strict';
 /*eslint no-process-env:0*/
 
+let mongoAddr;
+
+if(process.env.MONGO_PORT_27017_TCP_ADDR) {
+  mongoAddr = `mongodb://${process.env.MONGO_PORT_27017_TCP_ADDR}:${process.env.MONGO_PORT_27017_TCP_PORT}/<%= lodash.slugify(appname) %>`;
+} else {
+  mongoAddr = 'mongodb://localhost/<%= lodash.slugify(appname) %>';
+}
+
 // Production specific configuration
 // =================================
 module.exports = {
@@ -19,7 +27,7 @@ module.exports = {
     uri: process.env.MONGODB_URI
       || process.env.MONGOHQ_URL
       || process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME
-      || 'mongodb://localhost/<%= lodash.slugify(appname) %>'
+      || mongoAddr
   }<% } if (filters.sequelize) { %>,
 
   sequelize: {
