@@ -18,7 +18,7 @@ export class NavbarComponent {
   isCollapsed = true;
   <%_ if(filters.ngroute || filters.auth) { _%>
 
-  constructor(<% if(!filters.uirouter) { %>$location<% } if(!filters.uirouter && filters.auth) { %>, <% } if (filters.auth) { %>Auth<% } %>) {
+  constructor($scope,<% if(!filters.uirouter) { %>$location<% } if(!filters.uirouter && filters.auth) { %>, <% } if (filters.auth) { %>Auth<% } %>) {
     'ngInject';
     <%_ if(!filters.uirouter) { _%>
     this.$location = $location;
@@ -34,6 +34,9 @@ export class NavbarComponent {
   isActive(route) {
     return route === this.$location.path();
   }<% } %>
+        $scope.$on('$stateChangeSuccess', next =>  {
+            this.isCollapsed = false;
+        });
 }
 
 export default angular.module('directives.navbar', [])
