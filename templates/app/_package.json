@@ -119,6 +119,7 @@
     "babel-plugin-transform-runtime": "^6.6.0",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-es2015": "^6.6.0",
+    "cross-env": "^5.1.1",
     "eslint": "^2.12.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
@@ -217,6 +218,7 @@
     "lint:server": "eslint ./server/**/*.js -c ./server/.eslintrc --ignore-pattern *.spec.js --ignore-pattern *.integration.js",
     "test": "gulp test",
     "test:client": "karma start ./karma.conf.js --single-run",
+    "test:server": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --reporter spec --timeout 5000 --require ./mocha.conf.js ./server/**/*.{spec,integration}.js mocha.global.js",
     <%_ if(filters.flow) { -%>
     "flow": "flow",
     <%_ } -%>
