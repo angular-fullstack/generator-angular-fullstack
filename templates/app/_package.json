@@ -214,7 +214,8 @@
   },
   "scripts": {
     "lint": "npm run lint:client && npm run lint:server",
-    "lint:client": "eslint ./client/**/*.<%= scriptExt %> -c ./client/.eslintrc --ignore-pattern *.spec.<%= scriptExt %>",
+    "lint:client": <% if(filters.babel) { _%>"eslint ./client/**/*.<%= scriptExt %> -c ./client/.eslintrc --ignore-pattern *.spec.<%= scriptExt %>"<%_ } else { _%>
+"tslint --format verbose ./client/{**/**,**}/*.ts"<%_ } %>,
     "lint:server": "eslint ./server/**/*.js -c ./server/.eslintrc --ignore-pattern *.spec.js --ignore-pattern *.integration.js",
     "test": "gulp test",
     "test:client": "karma start ./karma.conf.js --single-run",
