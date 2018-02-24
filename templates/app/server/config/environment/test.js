@@ -17,5 +17,6 @@ module.exports = {
                 timestamps: false
             }
         }
-    }
+    },
+    port: '<%= Number(devPort) + 1 %>',
 };
