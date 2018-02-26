@@ -5,14 +5,14 @@ import { StateService } from 'ui-router-ng2';<% } %>
 <%_ if(filters.ngroute) { -%>
 import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../../../components/auth/auth.service';
+import template from './signup.html';
 
 <%_ if(filters.flow) { -%>
 type User = {
     name: string;
     email: string;
     password: string;
-};<% } %>
-<%_ if(filters.ts) { -%>
+};<% } %><%_ if(filters.ts) { -%>
 interface User {
     name: string;
     email: string;
@@ -21,7 +21,7 @@ interface User {
 
 @Component({
     selector: 'signup',
-    template: require('./signup.<%=templateExt%>')
+    template,
 })
 export class SignupComponent {
     user: User = {
@@ -61,19 +61,27 @@ export class SignupComponent {
                 <% if(filters.ngroute) { %>this.Router.navigateByUrl('/home');<% } -%>
                 <% if(filters.uirouter) { %>this.StateService.go('main');<% } -%>
             })
-            .catch(err => {
-                err = err.data;
-                this.errors = {};<% if(filters.mongooseModels) { %>
+            .catch(err => {<% if(filters.mongooseModels) { %>
+                this.errors = err.errors;
+
                 // Update validity of form fields that match the mongoose errors
-                err.errors.forEach((error, field) => {
+                Object.entries(err.errors).forEach(([field, error]) => {
                     this.errors[field] = error.message;
+
+                    if(field === 'email' && error.kind === 'user defined') {
+                        form.form.controls[field].setErrors({inUse: true});
+                    }
                 });<% } %><% if(filters.sequelizeModels) { %>
+                this.errors = {};
+
                 // Update validity of form fields that match the sequelize errors
                 if(err.name) {
                     err.fields.forEach(field => {
                         this.errors[field] = err.message;
                     });
                 }<% } %>
+
+                this.submitted = false;
             });
     }
 }

@@ -6,7 +6,7 @@
       <p>Admin account is <code>admin@example.com</code> / <code>admin</code></p>
     </div>
     <div class="col-sm-12">
-      <form class="form" name="loginForm" (ngSubmit)="login()" novalidate #loginForm="ngForm">
+      <form class="form" name="loginForm" (ngSubmit)="login(loginForm)" novalidate #loginForm="ngForm">
 
         <div class="form-group">
           <label>Email</label>
