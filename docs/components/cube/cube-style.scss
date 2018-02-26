@@ -1,0 +1,39 @@
+@import 'functions';
+
+.cube {
+  position:relative;
+  display:block;
+  transform-style:preserve-3d;
+  transform:rotateX(-33.5deg) rotateY(45deg);
+
+  &__inner,
+  &__outer {
+    display:inline-block;
+    transform-style:preserve-3d;
+    transition:transform 1000ms;
+  }
+
+  &__inner {
+    position:absolute;
+    top:-2px;
+    left:0;
+  }
+
+  &__face {
+    position:absolute;
+    width:100%;
+    height:100%;
+    border: 1px solid getColor(white);
+  }
+
+  .cube__outer .cube__face {
+    background:transparentize(getColor(malibu), 0.5);
+    transition: border-width 0.2s;
+    transition-delay: 0.2s;
+  }
+
+  .cube__inner .cube__face {
+    background:getColor(denim);
+    border: 2px solid getColor(white);
+  }
+}

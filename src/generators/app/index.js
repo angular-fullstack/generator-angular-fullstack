@@ -603,7 +603,15 @@ export class Generator extends Base {
 
   install() {
     if(!this.options['skip-install']) {
-      this.spawnCommand('npm', ['install']);
+      let yarnCheckCommand;
+      if (process.platform === 'win32') {
+        yarnCheckCommand = 'yarn --version >nul 2>&1';
+      } else {
+        yarnCheckCommand = 'type yarn >/dev/null 2>&1';
+      }
+      exec(yarnCheckCommand, (error, stdout, stderr) => {
+        return this.spawnCommand((!error) ? 'yarn' : 'npm', ['install']);
+      });
     }
   }
 

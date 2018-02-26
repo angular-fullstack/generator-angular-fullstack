@@ -98,28 +98,28 @@ UserSchema
 
 // Validate email is not taken
 UserSchema
-    .path('email')
-    .validate(function(value, respond) {
-        <%_ if(filters.oauth) { -%>
-        if(authTypes.indexOf(this.provider) !== -1) {
-            return respond(true);
-        }
+  .path('email')
+  .validate(function(value) {
+    <%_ if(filters.oauth) { -%>
+    if(authTypes.indexOf(this.provider) !== -1) {
+      return true;
+    }
 
-        <%_ } -%>
-        return this.constructor.findOne({ email: value }).exec()
-            .then(user => {
-                if(user) {
-                    if(this.id === user.id) {
-                        return respond(true);
-                    }
-                    return respond(false);
-                }
-                return respond(true);
-            })
-            .catch(function(err) {
-                throw err;
-            });
-    }, 'The specified email address is already in use.');
+    <%_ } -%>
+    return this.constructor.findOne({ email: value }).exec()
+      .then(user => {
+        if(user) {
+          if(this.id === user.id) {
+            return true;
+          }
+          return false;
+        }
+        return true;
+      })
+      .catch(function(err) {
+        throw err;
+      });
+  }, 'The specified email address is already in use.');
 
 var validatePresenceOf = function(value) {
     return value && value.length;

@@ -24,8 +24,7 @@ import connectMongo from 'connect-mongo/es5';<% } %>
 import mongoose from 'mongoose';
 var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';
-import expressSequelizeSession from 'express-sequelize-session';
-var Store = expressSequelizeSession(session.Store);<% } %>
+let Store = require('connect-session-sequelize')(session.Store);<% } %>
 
 export default function(app) {
     var env = app.get('env');

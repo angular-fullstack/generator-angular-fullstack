@@ -1,0 +1,29 @@
+{
+    "root": true,
+    
+    "extends": "eslint:recommended",
+
+    "parser": "babel-eslint",
+
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+
+    "plugins": [
+        "markdown"
+    ],
+
+    "globals": {
+        "__DEV__": true
+    },
+
+    "rules": {
+        "no-undef": 2,
+        "no-unreachable": 2,
+        "no-unused-vars": 0,
+        "no-console": 0,
+        "semi": ["error", "always"]
+    }
+}

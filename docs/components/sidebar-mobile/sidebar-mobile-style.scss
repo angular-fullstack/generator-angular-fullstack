@@ -1,0 +1,112 @@
+@import 'functions';
+@import 'mixins';
+
+.sidebar-mobile {
+  position: fixed;
+  width: 300px;
+  height: 100vh;
+  z-index: 100;
+  top: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3D(-100%, 0, 0);
+  transform: translate3D(calc(-100% + 5px), 0, 0);
+  transition: all 500ms cubic-bezier(0.23, 1, 0.32, 1);
+
+  @include break {
+    display: none;
+  }
+
+  &--visible {
+    transform: translate3D(0, 0, 0);
+  }
+
+  &.no-delay{
+    transition-duration: 0ms;
+  }
+}
+
+.sidebar-mobile__toggle {
+  position: absolute;
+  top: 45px;
+  bottom: 0;
+  width: 32px;
+  left: 285px;
+}
+
+.sidebar-mobile__content {
+  position: relative;
+  width: 285px;
+  height: 100vh;
+  overflow-x: hidden;
+  padding: 12px 0;
+  background: getColor(white);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-mobile__close {
+  position:absolute;
+  cursor:pointer;
+  right: 22px;
+  top: 22px;
+  font-size: 1.3em;
+  background: getColor(denim);
+  color: getColor(white);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 150ms;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    background: darken(getColor(denim), 20%);
+  }
+}
+
+.sidebar-mobile__section {
+  border-left: 2px solid transparent;
+  padding-bottom:0.5em;
+
+  &--active {
+    border-left: 2px solid getColor(malibu);
+
+    .sidebar-mobile__section-header {
+      color: lighten(getColor(fiord), 15%)
+    }
+  }
+}
+
+.sidebar-mobile__section-header {
+  text-transform: uppercase;
+  color: getColor(elephant);
+  padding: 0.75em 16px 0.25em;
+  font-weight: 600;
+  display: block;
+
+  .sidebar-mobile__content div:not(:first-of-type) & {
+    border-top: 1px solid getColor(alto);
+  }
+}
+
+.sidebar-mobile__page {
+  display: block;
+  padding: 0.5em 17px;
+  text-transform: capitalize;
+  color: getColor(dove-grey);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  &:active,
+  &--active {
+    color: getColor(mine-shaft);
+    font-weight: 600;
+    background: #F1F4F4;
+  }
+
+  &:hover {
+    color: inherit;
+  }
+}

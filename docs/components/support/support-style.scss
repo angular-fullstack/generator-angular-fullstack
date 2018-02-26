@@ -1,0 +1,31 @@
+@import 'functions';
+
+.support {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding:10px 5px;
+
+  &__item {
+    margin:0 5px;
+  }
+
+  &__bottom {
+    flex:0 0 100%;
+    margin-top:10px;
+  }
+
+  &__button {
+    display:inline-block;
+    padding:0.4em 1em;
+    border:2px solid getColor(denim);
+    color:getColor(denim);
+    border-radius:1.25em;
+    transition:all 250ms;
+
+    &:hover {
+      background:getColor(denim);
+      color:getColor(white);
+    }
+  }
+}

@@ -124,18 +124,18 @@ export default function(sequelize, DataTypes) {
                 });
             },
 
-            /**
-             * Make salt
-             *
-             * @param {Number} [byteSize] - Optional salt byte size, default to 16
-             * @param {Function} callback
-             * @return {String}
-             * @api public
-             */
-            makeSalt(...args) {
-                var defaultByteSize = 16;
-                let byteSize;
-                let callback;
+      /**
+       * Make salt
+       *
+       * @param {Number} [byteSize] - Optional salt byte size, default to 16
+       * @param {Function} callback
+       * @return {String}
+       * @api public
+       */
+      makeSalt(...args) {
+        let byteSize;
+        let callback;
+        let defaultByteSize = 16;
 
                 if(typeof args[0] === 'function') {
                     callback = args[0];

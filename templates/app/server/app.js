@@ -13,7 +13,8 @@ import http from 'http';
 <%_ if (filters.ws) { -%>
 import initWebSocketServer from './config/websockets';<% } %>
 import expressConfig from './config/express';
-import registerRoutes from './routes';
+import registerRoutes from './routes';<% if(filters.models) { %>
+import seedDatabaseIfNeeded from './config/seed';<% } %>
 
 <% if (filters.mongoose) { %>
 // Connect to MongoDB
@@ -22,11 +23,6 @@ mongoose.connection.on('error', function(err) {
   console.error('MongoDB connection error: ' + err);
   process.exit(-1); // eslint-disable-line no-process-exit
 });
-<% } %><% if(filters.models) { %>
-// Populate databases with sample data
-if(config.seedDB) {
-  require('./config/seed');
-}
 <% } %>
 // Setup server
 var app = express();
@@ -48,7 +44,8 @@ sqldb.sequelize.sync()
   .then(wsInitPromise)
   .then(primus => {
     app.primus = primus;
-  })<% } %>
+  })<% } %><% if(filters.models) { %>
+  .then(seedDatabaseIfNeeded)<% } %>
   .then(startServer)
   .catch(err => {
     console.log('Server failed to start due to error: %s', err);
@@ -58,7 +55,8 @@ sqldb.sequelize.sync()
 wsInitPromise
   .then(primus => {
     app.primus = primus;
-  })
+  })<% if(filters.models) { %>
+  .then(seedDatabaseIfNeeded)<% } %>
   .then(startServer)
   .catch(err => {
     console.log('Server failed to start due to error: %s', err);
