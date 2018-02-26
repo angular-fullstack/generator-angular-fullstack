@@ -543,7 +543,7 @@ export class Generator extends Base {
 
         // Convert HTML into Pug
         if(this.filters.pug) {
-          let pugFilter = filter(['**/*.html', '!client/_index.html'], {restore: true});
+          let pugFilter = filter(['**/*.html', '!client/app.template.html'], {restore: true});
 
           function pugReplacer(contents) {
             return contents
