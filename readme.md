@@ -1,5 +1,5 @@
 # AngularJS Full-Stack generator
-![generator-angular-fullstack](https://raw.githubusercontent.com/angular-fullstack/generator-angular-fullstack/master/media/svg/angular-fullstack-logo.svg?sanitize=true)
+[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-logo.svg)](https://angular-fullstack.github.io/)
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
@@ -18,6 +18,12 @@
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps/5.0.0#info=devDependencies)
 [![Known Vulnerabilities](https://snyk.io/package/npm/angular-fullstack-deps/badge.svg)](https://snyk.io/package/npm/angular-fullstack-deps)
 
+## Looking for Angular 4+?
+
+Head over to the [canary branch](https://github.com/angular-fullstack/generator-angular-fullstack/tree/canary) for the generator 5.0.0 Beta. Some things like subgenerators and unit tests aren't up to spec yet, but we'd love feedback on everything else!
+
+`$ npm install -g yo gulp-cli generator-angular-fullstack@beta`
+
 ## Usage
 
 Install `yo`, `gulp-cli`, and `generator-angular-fullstack@beta`:
@@ -33,11 +39,12 @@ Run `yo angular-fullstack`
 yo angular-fullstack
 ```
 
-**See the [Getting Started](http://angular-fullstack.github.io/generator-angular-fullstack/Getting_Started/Prerequisites.html) guide for more information.**
+**See the [Getting Started](https://angular-fullstack.github.io/get-started/) guide for more information.**
 
 ## Prerequisites
 
 * MongoDB - Download and Install [MongoDB](https://www.mongodb.com/download-center#community) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
+  * If you have [Docker](https://www.docker.com/) installed, you can easily run a test database with `docker run -p 27017:27017 --name afs-mongo -d mongo`
 * The project's JavaScript is written in ECMAScript 2015. If you're unfamiliar with the latest changes to the specification for JavaScript, check out http://es6-features.org/
 
 ## Supported Configurations
@@ -55,7 +62,7 @@ yo angular-fullstack
 **Client**
 
 * Scripts: `JavaScript (Babel)`, `TypeScript`
-* Module Systems: `Webpack`, ~~`SystemJS + JSPM`~~ (maybe)
+* Module Systems: `Webpack`
 * Markup:  `HTML`, `Pug`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
 * Angular Routers: `ngRoute`, `ui-router`
@@ -78,30 +85,27 @@ yo angular-fullstack
 Available generators:
 
 * App
-    - [angular-fullstack](/docs/generators/app.md) (aka [angular-fullstack:app](/docs/generators/app.md))
+    - [angular-fullstack](https://angular-fullstack.github.io/generators/app/) (aka [angular-fullstack:app](https://angular-fullstack.github.io/generators/app/))
 * Server Side
-    - [angular-fullstack:endpoint](/docs/generators/endpoint.md)
-    
-Unavailable generators (to be re-implemented for 5.0.0):
-
-* Client Side (via [generator-angular-component](https://github.com/angular-fullstack/generator-angular-component))
-    - [angular-fullstack:route](/docs/generators/route.md)
-    - [angular-fullstack:component](/docs/generators/component.md)
-    - [angular-fullstack:controller](/docs/generators/controller.md)
-    - [angular-fullstack:filter](/docs/generators/filter.md)
-    - [angular-fullstack:directive](/docs/generators/directive.md)
-    - [angular-fullstack:service](/docs/generators/service.md)
-    - [angular-fullstack:provider](/docs/generators/service.md)
-    - [angular-fullstack:factory](/docs/generators/service.md)
-    - [angular-fullstack:decorator](/docs/generators/decorator.md)
+    - [angular-fullstack:endpoint](https://angular-fullstack.github.io/generators/endpoint)
+* Client Side (via [generator-ng-component](https://github.com/DaftMonk/generator-ng-component))
+    - [angular-fullstack:route](https://angular-fullstack.github.io/generators/route)
+    - [angular-fullstack:component](https://angular-fullstack.github.io/generators/component)
+    - [angular-fullstack:controller](https://angular-fullstack.github.io/generators/controller)
+    - [angular-fullstack:filter](https://angular-fullstack.github.io/generators/filter)
+    - [angular-fullstack:directive](https://angular-fullstack.github.io/generators/directive)
+    - [angular-fullstack:service](https://angular-fullstack.github.io/generators/service)
+    - [angular-fullstack:provider](https://angular-fullstack.github.io/generators/service)
+    - [angular-fullstack:factory](https://angular-fullstack.github.io/generators/service)
+    - [angular-fullstack:decorator](https://angular-fullstack.github.io/generators/decorator)
 * Deployment
-    - [angular-fullstack:openshift](/docs/generators/openshift.md)
-    - [angular-fullstack:heroku](/docs/generators/heroku.md)
+    - [angular-fullstack:openshift](https://angular-fullstack.github.io/generators/openshift)
+    - [angular-fullstack:heroku](https://angular-fullstack.github.io/generators/heroku)
 
 
 ## Documentation
 
-Check out our [documentation home page](http://angular-fullstack.github.io/generator-angular-fullstack).
+Check out our [documentation home page](http://angular-fullstack.github.io/).
 
 
 ## Contribute
@@ -168,4 +172,4 @@ Is your company using Angular-FullStack? Ask your boss to support the project. Y
 <a href="https://opencollective.com/angular-fullstack/sponsor/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/9/avatar"></a>
 <a href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar"></a>
 
-![generator-angular-fullstack](https://raw.githubusercontent.com/angular-fullstack/generator-angular-fullstack/canary/media/svg/angular-fullstack-boxes.svg?sanitize=true)
+[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)](https://angular-fullstack.github.io/)

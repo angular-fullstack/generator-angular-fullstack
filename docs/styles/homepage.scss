@@ -1,0 +1,30 @@
+.homepage {
+  &__left,
+  &__right {
+    width: 100%;
+    float: left;
+
+    @include break {
+      width: 50%;
+      padding: 0 15px;
+    }
+  }
+
+  &__wrap {
+    display: block;
+
+    @include break {
+      margin: 0 -30px;
+    }
+
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
+  }
+}

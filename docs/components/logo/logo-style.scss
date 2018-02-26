@@ -1,0 +1,11 @@
+.logo {
+  float:left;
+  width:auto;
+  height:35px;
+  opacity:0.9;
+  transition:opacity 250ms;
+
+  &:hover {
+    opacity:1;
+  }
+}

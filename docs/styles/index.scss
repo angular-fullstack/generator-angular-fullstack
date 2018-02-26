@@ -1,0 +1,89 @@
+/**
+ * Styling
+ *
+ * This file contains the base styling for the site.
+ *
+ */
+
+@import 'vars';
+@import 'fonts';
+@import 'functions';
+@import 'mixins';
+
+@import './reset';
+
+* {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font: 400 getFontSize(0) $font-stack-body;
+  color: getColor(elephant);
+}
+
+a {
+  color: $text-color-highlight;
+  text-decoration: none;
+  transition: color 250ms;
+
+  &.icon-link {
+    display: inline-block;
+    font-size: 0.7em;
+    margin-left: 16px;
+    transform: rotate(-45deg);
+    color:lighten(getColor(dusty-grey), 10%);
+
+    &:hover {
+      color: $text-color-highlight;
+    }
+  }
+
+  &:hover {
+    color: darken(getColor(denim), 5%);
+  }
+}
+
+details:focus, summary:focus{
+  outline: none;
+  background: rgba(255,255,255,0.03);
+  border-radius: 2px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  /* Style details arrow if on webkit */
+
+  details summary::-webkit-details-marker {
+    color: getColor(malibu);
+  }
+
+  summary::-webkit-details-marker {
+    display: none
+  }
+  summary:after {
+    content: "\F103";
+    float: left;
+    position: relative;
+    left: -2px;
+    text-align: center;
+    font-family: icons;
+    color: lighten(getColor(denim), 10%)
+  }
+
+  details[open] summary:after {
+    content: "\F101";
+    font-family: icons;
+  }
+}
+
+
+
+::selection {
+  background: transparentize(getColor(malibu), 0.65);
+}
+
+@import './markdown';
+@import './homepage';

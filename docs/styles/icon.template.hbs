@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "{{fontName}}";
+  src: {{{src}}};
+}
+
+[class*="icon-"] {
+  line-height: 1;
+}
+
+[class*="icon-"]:before {
+  font-family: {{fontName}} !important;
+  font-style: normal;
+  font-weight: normal !important;
+}
+
+{{#each codepoints}}
+.icon-{{@key}}:before {
+  content: "\\{{this}}";
+}
+{{/each}}

@@ -284,18 +284,20 @@ module.exports = function makeWebpackConfig(options) {
         }));
     }
 
-    // Skip rendering index.html in test mode
+    // Skip rendering app.html in test mode
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
-    // Render index.html
-    let htmlConfig = {
-        template: 'client/_index.html',
-        filename: '../client/index.html',
-        alwaysWriteToDisk: true
+    // Render app.html
+    if(!TEST) {
+        let htmlConfig = {
+            template: 'client/app.template.html',
+            filename: '../client/app.html',
+            alwaysWriteToDisk: true
+        }
+        config.plugins.push(
+          new HtmlWebpackPlugin(htmlConfig),
+          new HtmlWebpackHarddiskPlugin()
+        );
     }
-    config.plugins.push(
-      new HtmlWebpackPlugin(htmlConfig),
-      new HtmlWebpackHarddiskPlugin()
-    );
 
     // Add build specific plugins
     if(BUILD) {
@@ -386,7 +388,9 @@ module.exports = function makeWebpackConfig(options) {
             colors: true,
             chunks: false,
         },
-        historyApiFallback: true,
+        historyApiFallback: {
+            index: 'app.html'
+        },
     };
 
     config.node = {

@@ -37,7 +37,12 @@
     "build": "gulp build"
   },
   "dependencies": {
+    "babel-core": "^6.20.0",
     "babel-eslint": "^7.1.0",
+    "babel-register": "^6.22.0",
+    "babel-plugin-syntax-class-properties": "^6.13.0",
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
     "bluebird": "^3.4.5",
     "chalk": "^2.1.0",
     "glob": "^7.0.5",
@@ -48,7 +53,7 @@
     "gulp-tap": "^1.0.1",
     "insight": "~0.8.3",
     "jscodeshift": "^0.3.30",
-    "lodash": "^4.17.0",
+    "lodash": "^4.17.4",
     "semver": "^5.1.0",
     "underscore.string": "^3.1.1",
     "yeoman-generator": "^1.1.1",
@@ -92,8 +97,8 @@
     "yo": ">= 1.7.1"
   },
   "engines": {
-    "node": "^6.2.2",
-    "npm": "^3.9.5"
+    "node": "^8",
+    "npm": ">= 3.9.5"
   },
   "license": "BSD-2-Clause"
 }

@@ -1,0 +1,35 @@
+@import 'functions';
+@import 'mixins';
+
+.splash {
+  &-logo {
+    background:getColor(elephant);
+    max-height: 500px;
+
+    img {
+      max-height: inherit;
+    }
+  }
+
+  &__section {
+    position:relative;
+    padding:5em 1em;
+    text-align:center;
+
+    &:last-child {
+      padding-top: 0;
+    }
+
+    @include break {
+      padding:8em 1.5em;
+    }
+
+    pre { 
+      text-align:left; 
+    }
+
+    .icon-link {
+      display:none;
+    }
+  }
+}
