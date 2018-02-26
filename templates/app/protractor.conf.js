@@ -11,12 +11,9 @@ var config = {
 
   // A base URL for your application under test. Calls to protractor.get()
   // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:' + (process.env.PORT || '<%= devPort %>'),
+  baseUrl: 'http://localhost:' + (process.env.PORT || '<%= Number(devPort) + 1 %>'),
 
-  // Credientials for Saucelabs
-  sauceUser: process.env.SAUCE_USERNAME,
-
-  sauceKey: process.env.SAUCE_ACCESS_KEY,
+  directConnect: true,
 
   // list of files / patterns to load in the browser
   specs: [
@@ -35,8 +32,9 @@ var config = {
   capabilities: {
     'browserName': 'chrome',
     'name': 'Fullstack E2E',
-    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-    'build': process.env.TRAVIS_BUILD_NUMBER
+    'chromeOptions': {
+      'args': ['show-fps-counter=true']
+    },
   },
 
   // ----- The test framework -----

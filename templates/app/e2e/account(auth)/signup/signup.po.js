@@ -3,28 +3,28 @@
  * https://docs.google.com/presentation/d/1B6manhG0zEXkC-H-tPo2vwU06JhL8w9-XCF9oehXzAQ
  */
 
-'use strict';
+import {OauthButtons} from '../../components/oauth-buttons/oauth-buttons.po';
 
-var SignupPage = function() {
-  var form = this.form = element(by.css('.form'));
-  form.name = form.element(by.model('vm.user.name'));
-  form.email = form.element(by.model('vm.user.email'));
-  form.password = form.element(by.model('vm.user.password'));
-  form.confirmPassword = form.element(by.model('vm.user.confirmPassword'));
-  form.submit = form.element(by.css('.btn-register'));<% if (filters.oauth) { %>
-  form.oauthButtons = require('../../components/oauth-buttons/oauth-buttons.po').oauthButtons;<% } %>
-
-  this.signup = function(data) {
-    for (var prop in data) {
-      var formElem = form[prop];
-      if (data.hasOwnProperty(prop) && formElem && typeof formElem.sendKeys === 'function') {
-        formElem.sendKeys(data[prop]);
-      }
+export class SignupPage {
+    constructor() {
+        this.form = element(by.css('.form'));
+        let form = this.form;
+        form.name = form.element(by.name('name'));
+        form.email = form.element(by.name('email'));
+        form.password = form.element(by.name('password'));
+        form.confirmPassword = form.element(by.name('confirmPassword'));
+        form.submit = form.element(by.css('.btn-register'));
+        form.oauthButtons = (new OauthButtons()).oauthButtons;
     }
 
-    return form.submit.click();
-  };
-};
+    signup(data) {
+        for(let prop in data) {
+            let formElem = this.form[prop];
+            if(data.hasOwnProperty(prop) && formElem && typeof formElem.sendKeys === 'function') {
+                formElem.sendKeys(data[prop]);
+            }
+        }
 
-module.exports = new SignupPage();
-
+        return this.form.submit.click();
+    }
+}

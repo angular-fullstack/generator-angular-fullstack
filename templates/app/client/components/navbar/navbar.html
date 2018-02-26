@@ -26,7 +26,7 @@
         <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="login"<% } else { %>routerLink="/login"<% } %>>Login</a></li>
         <li [hidden]="!isLoggedIn"><p class="navbar-text">Hello {{ currentUser.name }}</p> </li>
         <li [hidden]="!isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="settings"<% } else { %>routerLink="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li [hidden]="!isLoggedIn"><a (click)="logout()">Logout</a></li>
+        <li [hidden]="!isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Log out</a></li>
       </ul><% } %>
     </div>
   </div>

@@ -66,7 +66,7 @@ module.exports = function(config) {
     exclude: [],
 
     // web server port
-    port: <%= devPort %>,
+    port: <%= Number(devPort) + 1 %>,
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG

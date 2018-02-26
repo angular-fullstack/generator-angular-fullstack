@@ -4,7 +4,7 @@
       <h1>Sign up</h1>
     </div>
     <div class="col-sm-12">
-      <form class="form" name="form" (ngSubmit)="register(form)" novalidate #signupForm="ngForm">
+      <form class="form" name="form" (ngSubmit)="register(signupForm)" novalidate #signupForm="ngForm">
 
         <div class="form-group"
           [class.has-success]="name.valid && submitted"
@@ -26,11 +26,11 @@
             required
             mongoose-error
             #email="ngModel">
-          <p class="help-block" [hidden]="email.valid || (email.pristine && !signupForm.submitted)">
+          <p class="help-block" [hidden]="email.valid || (email.pristine && !signupForm.submitted) || (email.errors ? email.errors.inUse : true)">
             Please enter a valid email address.
           </p>
-          <p class="help-block" [hidden]="!errors.email">
-            {{ errors.email }}
+          <p class="help-block" [hidden]="email.errors ? !email.errors.inUse : true">
+            This email address is already in use.
           </p>
         </div>
 

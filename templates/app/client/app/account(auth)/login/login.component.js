@@ -1,3 +1,4 @@
+// @flow
 import { Component } from '@angular/core';
 <%_ if(filters.uirouter) { -%>
 import { StateService } from 'ui-router-ng2';<% } %>
@@ -5,7 +6,6 @@ import { StateService } from 'ui-router-ng2';<% } %>
 import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../../../components/auth/auth.service';
 
-// @flow
 <%_ if(filters.flow) { -%>
 type User = {
     name: string;
@@ -48,8 +48,8 @@ export class LoginComponent {
         this.StateService = _StateService_;<% } %>
     }
 
-    login() {
-        this.submitted = true;
+    login(form) {
+        if(form.invalid) return;
 
         return this.AuthService.login({
             email: this.user.email,
@@ -63,7 +63,7 @@ export class LoginComponent {
                 this.StateService.go('main');<% } %>
             })
             .catch(err => {
-                this.errors.login = err.message;
+                this.errors.login = err.json().message;
             });
     }
 }

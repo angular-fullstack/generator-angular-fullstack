@@ -1,15 +1,15 @@
 {
     "presets": [
-      "es2015",
-      "es2016",
-      "es2017",
-      "stage-0"
+        ["babel-preset-env", {
+            "targets": {
+                "node": "6.2"
+            }
+        }]
     ],
     "plugins": [
       <%_ if(filters.flow) { -%>
       "transform-flow-comments",
       <%_ } -%>
-      "angular2-annotations",
       "transform-runtime",
       "transform-decorators-legacy"
     ]
