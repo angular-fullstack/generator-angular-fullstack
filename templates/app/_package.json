@@ -231,7 +231,8 @@
     "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",<% } %>
     "start": "node server",
     "start:client": "webpack-dev-server --config webpack.dev.js",
-    "start:server": "node server"
+    "start:server": "node server",
+    "create_primus": "node ./server/config/create_primus.js"
   },
   "private": true
 }
