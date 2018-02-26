@@ -45,7 +45,6 @@ export function app(options) {
     'client/favicon.ico',
     'client/robots.txt',
     'client/app.template.html',
-    `client/polyfills.${script}`,
     'client/app/app.' + script,
     'client/app/app.component.' + script,
     'client/app/app.constants.' + script,
