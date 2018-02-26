@@ -5,10 +5,11 @@ import { StateService } from 'ui-router-ng2';<% } %>
 <%_ if (filters.ngroute) { -%>
 import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../auth/auth.service';<% } %>
+import template from './navbar.html';
 
 @Component({
     selector: 'navbar',
-    template: require('./navbar.<%=templateExt%>')
+    template,
 })
 export class NavbarComponent {
     isCollapsed = true;
@@ -53,9 +54,10 @@ export class NavbarComponent {
     }
 
     logout() {
-        let promise = this.AuthService.logout();<% if(filters.uirouter) { %>
-        this.StateService.go('login');<% } %><% if(filters.ngroute) { %>
-        this.Router.navigateByUrl('/home');<% } %>
-        return promise;
+        return this.AuthService.logout().then(() => {<% if(filters.uirouter) { %>
+            this.StateService.go('login');<% } %><% if(filters.ngroute) { %>
+            this.Router.navigateByUrl('/home');<% } %>
+            this.reset();
+        });
     }<% } -%>
 }

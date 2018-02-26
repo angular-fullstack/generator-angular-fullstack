@@ -122,7 +122,8 @@ export class AuthService {
             })
             .catch(err => {
                 this.logout();
-                return safeCb(callback)(err);
+                safeCb(callback)(err);
+                return Promise.reject(err);
             });
     }
 

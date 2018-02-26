@@ -122,7 +122,23 @@ module.exports = function makeWebpackConfig(options) {
             use: [{
                 loader: 'babel-loader',
                 options: {
-                    plugins: TEST ? ['istanbul'] : [],
+                    presets: [
+                        ['babel-preset-env', {
+                            // debug: true,
+                            targets: {
+                                browsers: ['last 2 versions', 'not ie < 11'],
+                            },
+                            modules: false,
+                        }]
+                    ],
+                    plugins: [
+                        'transform-flow-comments',
+                        'angular2-annotations',
+                        'transform-runtime',
+                        'transform-decorators-legacy',
+                        'transform-class-properties',
+                        'transform-export-extensions',
+                    ].concat(TEST ? ['istanbul'] : []),
                 }
             }].concat(DEV ? '@angularclass/hmr-loader' : []),
             include: [

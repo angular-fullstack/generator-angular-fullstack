@@ -1,4 +1,4 @@
-'use strict';
+// @flow
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
-// @flow
 type UserType = {
     // TODO: use Mongoose model
     id?: string;
@@ -17,7 +16,7 @@ type UserType = {
 }
 
 function handleError(err) {
-    return Observable.throw(err.json().error || 'Server error');
+    return Observable.throw(err.json() || 'Server error');
 }
 
 @Injectable()

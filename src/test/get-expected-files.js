@@ -83,6 +83,7 @@ export function app(options) {
     'server/config/environment/test.js',
     'server/config/environment/shared.js',
     'server/views/404.' + markup,
+    'e2e/.eslintrc',
     'e2e/main/main.po.js',
     'e2e/main/main.spec.js',
     'e2e/components/navbar/navbar.po.js',
