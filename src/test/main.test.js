@@ -132,9 +132,9 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it.skip('should run e2e tests successfully', function() {
+      it('should run e2e tests successfully', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e').should.be.fulfilled();
+        return runCmd('npm run test:e2e').should.be.fulfilled();
       });
 
       it.skip('should run e2e tests successfully for production app', function() {
@@ -244,7 +244,7 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it.skip('should run e2e tests successfully', function() {
+      it('should run e2e tests successfully', function() {
         this.retries(2);
         return runCmd('gulp test:e2e').should.be.fulfilled();
       });
@@ -317,7 +317,7 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it.skip('should run e2e tests successfully', function() {
+      it('should run e2e tests successfully', function() {
         this.retries(2);
         return runCmd('gulp test:e2e').should.be.fulfilled();
       });
@@ -390,7 +390,7 @@ describe('angular-fullstack:app', function() {
     });
 
     if(!process.env.SKIP_E2E) {
-      it.skip('should run e2e tests successfully', function() {
+      it('should run e2e tests successfully', function() {
         this.retries(2);
         return runCmd('gulp test:e2e').should.be.fulfilled();
       });
