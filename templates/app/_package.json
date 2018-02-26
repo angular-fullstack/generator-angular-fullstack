@@ -182,6 +182,7 @@
     <%# END WEBPACK %>
     "through2": "^2.0.1",
     "open": "~0.0.4",
+    "protractor": "^5.3.0",
     "istanbul": "1.1.0-alpha.1",
     "chai": "^4.1.2",
     "sinon": "^3.2.1",
@@ -218,6 +219,7 @@
     "lint:server": "eslint ./server/**/*.js -c ./server/.eslintrc --ignore-pattern *.spec.js --ignore-pattern *.integration.js",
     "test": "gulp test",
     "test:client": "karma start ./karma.conf.js --single-run",
+    "test:e2e": "gulp webpack:dev && protractor ./protractor.conf.js",
     <%_ if(filters.flow) { -%>
     "flow": "flow",
     <%_ } -%>

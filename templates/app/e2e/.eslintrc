@@ -1,0 +1,13 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "es6": true,
+        "node": true,<% if(filters.mocha) { %>
+        "mocha": true,<% } else { %>
+        "jasmine": true,<% } %>
+        "protractor": true
+    },
+    "globals": {
+        "expect": true
+    }
+}

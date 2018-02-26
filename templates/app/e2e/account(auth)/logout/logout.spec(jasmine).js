@@ -1,53 +1,51 @@
-'use strict';
-
-var config = browser.params;<% if (filters.mongooseModels) { %>
-var UserModel = require(config.serverConfig.root + '/server/api/user/user.model').default;<% } %><% if (filters.sequelizeModels) { %>
-var UserModel = require(config.serverConfig.root + '/server/sqldb').User;<% } %>
+const config = browser.params;<% if (filters.mongooseModels) { %>
+import UserModel from '../../../server/api/user/user.model';<% } %><% if (filters.sequelizeModels) { %>
+import {User as UserModel} from '../../../server/sqldb';<% } %>
+import {LoginPage} from '../login/login.po';
+import {NavbarComponent} from '../../components/navbar/navbar.po';
 
 describe('Logout View', function() {
-  var login = function(user) {
-    browser.get(config.baseUrl + '/login');
-    require('../login/login.po').login(user);
-  };
+    const login = async (user) => {
+        await browser.get(`${config.baseUrl}/login`);
 
-  var testUser = {
-    name: 'Test User',
-    email: 'test@example.com',
-    password: 'test'
-  };
+        const loginPage = new LoginPage();
+        await loginPage.login(user);
+    };
 
-  beforeEach(function(done) {
-    <% if (filters.mongooseModels) { %>UserModel.remove()<% }
-       if (filters.sequelizeModels) { %>UserModel.destroy({ where: {} })<% } %>
-      .then(function() {
-        <% if (filters.mongooseModels) { %>return UserModel.create(testUser);<% }
-           if (filters.sequelizeModels) { %>return UserModel.create(testUser);<% } %>
-      })
-      .then(function() {
-        return login(testUser);
-      })
-      .finally(function() {
-        browser.wait(function() {
-            return browser.executeScript('return !!window.angular');
-        }, 5000).then(done);
-      });
-  });
+    const testUser = {
+        name: 'Test User',
+        email: 'test@example.com',
+        password: 'test'
+    };
 
-  describe('with local auth', function() {
+    beforeEach(async function() {
+        await UserModel
+            <% if (filters.mongooseModels) { %>.remove();<% }
+            if (filters.sequelizeModels) { %>.destroy({ where: {} });<% } %>
 
-    it('should logout a user and redirecting to "/"', function() {
-      var navbar = require('../../components/navbar/navbar.po');
+        <% if (filters.mongooseModels) { %>await UserModel.create(testUser);<% }
+            if (filters.sequelizeModels) { %>await UserModel.create(testUser);<% } %>
 
-      expect(browser.getCurrentUrl()).toBe(config.baseUrl + '/');
-      expect(navbar.navbarAccountGreeting.getText()).toBe('Hello ' + testUser.name);
-
-      browser.get(config.baseUrl + '/logout');
-
-      navbar = require('../../components/navbar/navbar.po');
-
-      expect(browser.getCurrentUrl()).toBe(config.baseUrl + '/');
-      expect(navbar.navbarAccountGreeting.isDisplayed()).toBe(false);
+        await login(testUser);
     });
 
-  });
+    describe('with local auth', function() {
+        it('should logout a user and redirect to "/home"', async function() {
+            let navbar = new NavbarComponent();
+
+            browser.ignoreSynchronization = false;
+            await browser.wait(() => browser.getCurrentUrl(), 5000, 'URL didn\'t change after 5s');
+            browser.ignoreSynchronization = true;
+
+            expect(await browser.getCurrentUrl()).toBe(`${config.baseUrl}/home`);
+            expect(await navbar.navbarAccountGreeting.getText()).toBe(`Hello ${testUser.name}`);
+
+            await navbar.logout();
+
+            navbar = new NavbarComponent();
+
+            expect(await browser.getCurrentUrl()).toBe(`${config.baseUrl}/home`);
+            expect(await navbar.navbarAccountGreeting.isDisplayed()).toBe(false);
+        });
+    });
 });
