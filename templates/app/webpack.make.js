@@ -388,7 +388,9 @@ module.exports = function makeWebpackConfig(options) {
             colors: true,
             chunks: false,
         },
-        historyApiFallback: true,
+        historyApiFallback: {
+            index: 'app.html'
+        },
     };
 
     config.node = {
