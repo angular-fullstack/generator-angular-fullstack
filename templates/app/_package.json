@@ -32,7 +32,7 @@
     "ejs": "^2.5.3",<% } %><% if(filters.mongoose) { %>
     "mongoose": "^4.1.2",
     "bluebird": "^3.3.3",
-    "connect-mongo": "^1.2.1",<% } %><% if(filters.sequelize) { %>
+    "connect-mongo": "^2.0.1",<% } %><% if(filters.sequelize) { %>
     "sequelize": "^3.23.6",
     "sqlite3": "~3.1.1",
     "connect-session-sequelize": "^4.1.0",<% } %><% if(filters.auth) { %>
@@ -80,7 +80,6 @@
     "@types/selenium-webdriver": "^3.0.3",
     "@types/webpack": "^3.0.10",
   <%_ } -%>
-    "angular2-universal": "2.1.0-rc.1",
     "angular2-jwt": "^0.2.3",
     <% if(filters.auth) { %>
     "angular-validation-match": "^1.9.0",<% } %>

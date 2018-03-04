@@ -5,11 +5,10 @@ import { StateService } from 'ui-router-ng2';<% } %>
 <%_ if (filters.ngroute) { -%>
 import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../auth/auth.service';<% } %>
-import template from './navbar.html';
 
 @Component({
     selector: 'navbar',
-    template,
+    template: require('./navbar.<%=templateExt%>'),
 })
 export class NavbarComponent {
     isCollapsed = true;

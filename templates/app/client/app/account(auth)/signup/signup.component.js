@@ -5,7 +5,6 @@ import { StateService } from 'ui-router-ng2';<% } %>
 <%_ if(filters.ngroute) { -%>
 import { Router } from '@angular/router';<% } %>
 import { AuthService } from '../../../components/auth/auth.service';
-import template from './signup.html';
 
 <%_ if(filters.flow) { -%>
 type User = {
@@ -21,7 +20,7 @@ interface User {
 
 @Component({
     selector: 'signup',
-    template,
+    template: require('./signup.<%=templateExt%>'),
 })
 export class SignupComponent {
     user: User = {

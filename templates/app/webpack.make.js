@@ -131,8 +131,8 @@ module.exports = function makeWebpackConfig(options) {
                             modules: false,
                         }]
                     ],
-                    plugins: [
-                        'transform-flow-comments',
+                    plugins: [<% if(filters.flow) { %>
+                        'transform-flow-comments',<% } %>
                         'angular2-annotations',
                         'transform-runtime',
                         'transform-decorators-legacy',
