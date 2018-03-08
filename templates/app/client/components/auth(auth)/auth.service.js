@@ -8,10 +8,10 @@ import constants from '../../app/app.constants';
 
 // @flow
 class User {
-    _id: string = '';
-    name: string = '';
-    email: string = '';
-    role: string = '';
+    _id = '';
+    name = '';
+    email = '';
+    role = '';
     $promise = undefined;
 }
 
