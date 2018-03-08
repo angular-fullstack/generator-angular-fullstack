@@ -1,3 +1,4 @@
+import {exec} from 'child_process';
 import path from 'path';
 import Promise from 'bluebird';
 import { runCmd } from '../util';
@@ -547,9 +548,17 @@ export class Generator extends Base {
 
           function pugReplacer(contents) {
             return contents
-              .replace('ngif', 'ngIf')
-              .replace('ngfor', 'ngFor')
-              .replace('ngmodel', 'ngModel');
+              .replace(/confirmpassword/g, 'confirmPassword')
+              .replace(/loginform/g, 'loginForm')
+              .replace(/newpassword/g, 'newPassword')
+              .replace(/ngif/g, 'ngIf')
+              .replace(/ngfor/g, 'ngFor')
+              .replace(/ngmodel/g, 'ngModel')
+              .replace(/ngsubmit/g, 'ngSubmit')
+              .replace(/oldpassword/g, 'oldPassword')
+              .replace(/routerlinkactive/g, 'routerLinkActive')
+              .replace(/routerlink/g, 'routerLink')
+              .replace(/signupform/g, 'signupForm');
           }
 
           this.registerTransformStream([
