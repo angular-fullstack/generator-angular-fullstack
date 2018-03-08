@@ -97,6 +97,128 @@
 
 
 
+<a name="4.2.3"></a>
+## [4.2.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.2...v4.2.3) (2017-11-29)
+
+This version reverts using shrink-ray by default (for Brotli compression) b/c so many users have has issues installing it.
+
+
+### Bug Fixes
+
+* **seed:** rename index.html to app.html to fix CRSF and token issues ([2e784bf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2e784bf))
+* **server:auth:** specify digest for pbkdf2 ([689c3fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/689c3fc)), closes [#2628](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2628)
+
+
+
+<a name="4.2.2"></a>
+## [4.2.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.0...v4.2.2) (2017-05-25)
+
+
+### Bug Fixes
+
+* **seed:** fix unexpected token ([65a2438](https://github.com/angular-fullstack/generator-angular-fullstack/commit/65a2438)), closes [#2580](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2580)
+
+
+
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.0...v4.2.1) (2017-05-22)
+
+
+### Bug Fixes
+
+* **client:auth:** fix isAdmin call ([8ac8821](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8ac8821)), closes [#2561](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2561)
+* **client:auth.service:** fix lodash import ([2dde95d](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2dde95d)), closes [#2549](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2549)
+* **gen:** fix yarn check command ([9ea681c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9ea681c))
+
+
+
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.4...v4.2.0) (2017-04-19)
+
+## Notable Changes
+
+* `node-inspector` has been taken out in favor of Node's integrated `--inspect` flag.
+* @benmarten has taken care of a lot of the lint issues we've seen polluting the console
+* @benmarten also enabled the use of [Yarn](https://yarnpkg.com) if you have it installed. Thanks Ben!
+* Various other fixes. See the [comparison](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.4...4.2.0) for the full list.
+
+### Bug Fixes
+
+* **angular-validation-match:** Integration with Babel & Typescript ([#2517](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2517)) ([9db9918](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9db9918))
+
+
+
+<a name="4.1.4"></a>
+## [4.1.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.2...v4.1.4) (2017-03-01)
+
+
+### Bug Fixes
+
+* **client:footer:** 
+  * fix docs link (html) ([8d69c7a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8d69c7a)), closes [#2501](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2501)
+  * fix docs link (pug) ([190a121](https://github.com/angular-fullstack/generator-angular-fullstack/commit/190a121))
+* **events:** mongoose event registration ([e3ed67f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e3ed67f)), closes [#2479](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2479)
+* **webpack:** 
+  * don't use html-plugin in test ([959c31c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/959c31c)), closes [#2374](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2374)
+  * use raw-loader for pug files ([a212236](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a212236))
+
+
+### Performance Improvements
+
+* **test:endpoint:** 
+  * reduce number of eslint commands run ([6faa7f0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6faa7f0))
+  * remove unused imports ([95a5aab](https://github.com/angular-fullstack/generator-angular-fullstack/commit/95a5aab))
+* **test:main:** reduce number of app generations ([d42d0b6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d42d0b6))
+
+
+
+<a name="4.1.3"></a>
+## [4.1.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.2...v4.1.3) (2017-02-11)
+
+
+### Bug Fixes
+
+* **events:** mongoose event registration ([e3ed67f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e3ed67f)), closes [#2479](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2479)
+* **webpack:** don't use html-plugin in test ([959c31c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/959c31c)), closes [#2374](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2374)
+
+
+### Performance Improvements
+
+* **test:endpoint:** 
+  * reduce number of eslint commands run ([6faa7f0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6faa7f0))
+  * remove unused imports ([95a5aab](https://github.com/angular-fullstack/generator-angular-fullstack/commit/95a5aab))
+* **test:main:** reduce number of app generations ([d42d0b6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d42d0b6))
+
+
+
+<a name="4.1.2"></a>
+## [4.1.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.1...v4.1.2) (2017-01-09)
+
+
+### Bug Fixes
+
+* **css:** fix stylus-loader options ([641646c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/641646c))
+* **eslint:** hides global variable warnings ([#2448](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2448)) ([6aae4f5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6aae4f5))
+* **sql:** Fix form field not displaying sequalize error ([d2cc15a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d2cc15a)), closes [#2400](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2400)
+* **webpack:css:** disable css-loader sourceMap option ([d48f0b0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d48f0b0)), closes [#2188](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2188)
+
+
+
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.0...v4.1.1) (2016-12-08)
+
+
+## Notable Changes
+
+* Upgraded to Angular 1.6
+
+
+### Bug Fixes
+
+* **gen:factory:** fix factory subgen location ([b09cfe5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b09cfe5)), closes [#2381](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2381)
+
+
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.0.5...v4.1.0) (2016-09-30)
 
@@ -156,7 +278,7 @@
 
 * **gen:** fix doc img generation\n\nAdd gulp task to copy images to gh-pages ([5bb43be](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5bb43be))
 * **gen:heroku:** fix module export, gen base ([8e50326](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8e50326)), closes [#2148](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2148)
-* **webpack:** fix boostrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
+* **webpack:** fix bootstrap-sass import path ([bae1c86](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bae1c86))
 
 
 

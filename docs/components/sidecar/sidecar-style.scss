@@ -1,0 +1,103 @@
+@import 'functions';
+@import 'mixins';
+
+.sidecar {
+  display: none;
+
+  @media (min-width: 1085px) {
+    display: block;
+    position: fixed;
+    top: 100px;
+    right: 0;
+    z-index: 100;
+  }
+}
+
+.sidecar__link {
+  display: inline-block;
+  padding: 0.65em;
+  float: right;
+  clear: both;
+  color: getColor(concrete);
+  transition: all 250ms;
+
+  &:first-of-type {
+    border-top-left-radius: 3px;
+  }
+
+  &:last-of-type {
+    border-bottom-left-radius: 3px;
+  }
+
+  &:hover {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    color: getColor(white);
+  }
+}
+
+.sidecar__label {
+  display: block;
+  float: left;
+  width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: width 250ms;
+}
+
+.sidecar__icon {
+  display: inline-block;
+  width: 18px;
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+// TODO: Fix hardcoded widths using flex perhaps, can't animate to width auto
+.sidecar__link--github {
+  background: #444;
+
+  &:hover {
+    background: #333;
+
+    .sidecar__label {
+      width: 115px;
+    }
+  }
+}
+
+.sidecar__link--gitter {
+  background: desaturate(#ed1965, 15%);
+
+  &:hover {
+    background: #ed1965;
+
+    .sidecar__label {
+      width: 85px;
+    }
+  }
+}
+
+.sidecar__link--medium {
+  background: desaturate(#02b875, 15%);
+
+  &:hover {
+    background: #02b875;
+
+    .sidecar__label {
+      width: 115px;
+    }
+  }
+}
+
+.sidecar__link--so {
+  background: desaturate(#fe7a15, 15%);
+
+  &:hover {
+    background: #fe7a15;
+
+    .sidecar__label {
+      width: 125px;
+    }
+  }
+}

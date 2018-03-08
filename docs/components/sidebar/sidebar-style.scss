@@ -1,0 +1,19 @@
+@import 'vars';
+@import 'mixins';
+
+.sidebar {
+  position: relative;
+  display: none;
+  flex: 1;
+  min-height: 100%;
+
+  @include break {
+    display:block;
+  }
+}
+
+.sidebar__inner {
+  padding: 1.5em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

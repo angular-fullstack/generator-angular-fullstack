@@ -44,7 +44,7 @@ export function app(options) {
   let files = [
     'client/favicon.ico',
     'client/robots.txt',
-    'client/_index.html',
+    'client/app.template.html',
     'client/app/app.' + script,
     'client/app/app.component.' + script,
     'client/app/app.constants.' + script,
