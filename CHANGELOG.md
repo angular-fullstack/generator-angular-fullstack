@@ -1,3 +1,32 @@
+<a name="5.0.0-rc.0"></a>
+# [5.0.0-rc.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-rc.0) (2018-03-08)
+
+
+### Bug Fixes
+
+* **client:** fix some outstanding client bugs ([f4c5471](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f4c5471))
+* **client:auth:guard:** declare `authService` on class ([afc725f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/afc725f))
+* **gen:** 
+  * canary cleanup ([96364a7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/96364a7))
+  * don't convert main html file ([8d37569](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8d37569))
+* **package:** add missing comma ([b2a745b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b2a745b))
+* **seed:** rename index.html to app.html to fix CRSF and token issues ([2e784bf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2e784bf))
+* **server:** fix express router usage ([542337e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/542337e))
+* **server:auth:** specify digest for pbkdf2 ([689c3fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/689c3fc)), closes [#2628](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2628)
+* **server:test:** resolve primus in non-dev ([7bed185](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7bed185))
+* **test:** 
+  * only save new primus.js in dev ([483dda0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/483dda0))
+  * use babel in `protractor.conf.js` ([ffb16cb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ffb16cb))
+* misc cleanup ([a1619e6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a1619e6))
+
+
+### Features
+
+* **client:** add auth-guard service ([a5cbada](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a5cbada))
+* **package:** 
+  * add separate client lint script for TS ([d426be7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d426be7))
+  * add test:server script ([24b6144](https://github.com/angular-fullstack/generator-angular-fullstack/commit/24b6144))
+
 <a name="5.0.0-beta.3"></a>
 # [5.0.0-beta.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-beta.3) (2017-11-30)
 
