@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class OauthButtonsComponent {
     loginOauth(provider) {
         window.location.href = `/auth/${provider}`;
-    };
+    }
 }

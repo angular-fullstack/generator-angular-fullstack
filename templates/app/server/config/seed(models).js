@@ -19,7 +19,7 @@ export default function seedDatabaseIfNeeded() {
 
   let promises = [];
 
-  let thingPromise = <% if(filters.mongooseModels) { %>Thing.find({}).remove()<% } if(filters.sequelizeModels) { %>return Thing.destroy({ where: {} })<% } %>
+  let thingPromise = <% if(filters.mongooseModels) { %>Thing.find({}).remove()<% } if(filters.sequelizeModels) { %>Thing.destroy({ where: {} })<% } %>
     .then(() => {
       <% if(filters.mongooseModels) { %>return Thing.create({<% }
          if(filters.sequelizeModels) { %>return Thing.bulkCreate([{<% } %>
