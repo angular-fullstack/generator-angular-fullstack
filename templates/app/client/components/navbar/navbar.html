@@ -1,0 +1,33 @@
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" (click)="isCollapsed = !isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand"><%= lodash.slugify(lodash.humanize(appname)) %></a>
+    </div>
+    <div <% if(filters.uibootstrap) { %>[collapse]="isCollapsed"<% } %> class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <li *ngFor="let item of menu" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>>
+            <a <% if(filters.uirouter) { %>uiSref="{{item.state}}"<% } else { %>routerLink="{{item.link}}"<% } %>>{{item.title}}</a>
+        </li>
+        <%_ if(filters.auth) { -%>
+        <li [hidden]="!isAdmin" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>>
+          <a <% if(filters.uirouter) { %>uiSref="admin"<% } else { %>routerLink="/admin"<% } %>>Admin</a>
+        </li><% } %>
+      </ul>
+      <%_ if(filters.auth) { -%>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="signup"<% } else { %>routerLink="/signup"<% } %>>Sign up</a></li>
+        <li [hidden]="isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="login"<% } else { %>routerLink="/login"<% } %>>Login</a></li>
+        <li [hidden]="!isLoggedIn"><p class="navbar-text">Hello {{ currentUser.name }}</p> </li>
+        <li [hidden]="!isLoggedIn" <% if(filters.uirouter) { %>uiSrefActive="active"<% } else { %>routerLinkActive="active"<% } %>><a <% if(filters.uirouter) { %>uiSref="settings"<% } else { %>routerLink="/settings"<% } %>><span class="glyphicon glyphicon-cog"></span></a></li>
+        <li [hidden]="!isLoggedIn"><a (click)="logout()" style="cursor: pointer;">Log out</a></li>
+      </ul><% } %>
+    </div>
+  </div>
+</div>

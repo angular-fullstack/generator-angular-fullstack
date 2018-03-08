@@ -3,8 +3,9 @@
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
-[![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
-[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack#info=devDependencies)
+[![npm version](https://img.shields.io/npm/v/generator-angular-fullstack/beta.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
+[![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack/canary.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack/canary)
+[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack/canary.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack/canary#type=dev)
 [![Gitter chat](https://img.shields.io/gitter/room/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 [![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
@@ -13,8 +14,8 @@
 
 
 #### Generated project: 
-[![Dependency Status](https://img.shields.io/david/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps)
-[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps#info=devDependencies)
+[![Dependency Status](https://img.shields.io/david/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps/5.0.0)
+[![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps/5.0.0#type=dev)
 [![Known Vulnerabilities](https://snyk.io/package/npm/angular-fullstack-deps/badge.svg)](https://snyk.io/package/npm/angular-fullstack-deps)
 
 ## Looking for Angular 4+?
@@ -25,9 +26,9 @@ Head over to the [canary branch](https://github.com/angular-fullstack/generator-
 
 ## Usage
 
-Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
+Install `yo`, `gulp-cli`, and `generator-angular-fullstack@beta`:
 ```
-npm install -g yo gulp-cli generator-angular-fullstack
+npm install -g yo gulp-cli generator-angular-fullstack@beta
 ```
 __Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
 

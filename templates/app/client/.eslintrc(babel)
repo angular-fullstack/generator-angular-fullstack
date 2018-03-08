@@ -3,5 +3,11 @@
     "env": {
         "browser": true,
         "commonjs": true
+    },
+    "globals": {
+        "process": true
+    },
+    "rules": {
+        "no-process-env": 0
     }
 }

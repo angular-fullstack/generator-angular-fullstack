@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Login</h1>
+      <p>Accounts are reset on server restart from <code>server/config/seed.js</code>. Default account is <code>test@example.com</code> / <code>test</code></p>
+      <p>Admin account is <code>admin@example.com</code> / <code>admin</code></p>
+    </div>
+    <div class="col-sm-12">
+      <form class="form" name="loginForm" (ngSubmit)="login(loginForm)" novalidate #loginForm="ngForm">
+
+        <div class="form-group">
+          <label>Email</label>
+
+          <input type="email" name="email" class="form-control" [(ngModel)]="user.email" required #email="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+
+          <input type="password" name="password" class="form-control" [(ngModel)]="user.password" required #password="ngModel">
+        </div>
+
+        <div class="form-group has-error">
+          <p class="help-block" [hidden]="(email.value && password.value) || !loginForm.submitted">
+             Please enter your email and password.
+          </p>
+          <p class="help-block" [hidden]="email.valid || (email.pristine && !loginForm.submitted)">
+             Please enter a valid email.
+          </p>
+
+          <p class="help-block">{{ errors.login }}</p>
+        </div>
+
+        <div>
+          <button class="btn btn-inverse btn-lg btn-login" type="submit" [disabled]="!loginForm.form.valid">
+            Login
+          </button>
+          <a class="btn btn-default btn-lg btn-register" <% if(filters.uirouter) { %>uiSref="signup"<% } else { %>href="/signup"<% } %>>
+            Register
+          </a>
+        </div>
+<% if(filters.oauth) { %>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-4 col-md-3">
+            <oauth-buttons classes="btn-block"></oauth-buttons>
+          </div>
+        </div><% } %>
+      </form>
+    </div>
+  </div>
+  <hr>
+</div>

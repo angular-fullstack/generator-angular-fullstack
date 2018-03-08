@@ -1,20 +1,16 @@
-'use strict';
-
-import fs from 'fs';
+import {exec} from 'child_process';
 import path from 'path';
 import Promise from 'bluebird';
 import { runCmd } from '../util';
-import chalk from 'chalk';
-import {Base} from 'yeoman-generator';
-import {genBase} from '../generator-base';
+import { Base } from '../generator-base';
 import insight from '../insight-init';
-import {exec} from 'child_process';
-import babelStream from 'gulp-babel';
-import beaufityStream from 'gulp-beautify';
 import tap from 'gulp-tap';
 import filter from 'gulp-filter';
 import eslint from 'gulp-eslint';
+import html2jade from 'gulp-html2jade';
+import rename from 'gulp-rename';
 import semver from 'semver';
+import jscodeshift from 'jscodeshift';
 
 export class Generator extends Base {
   constructor(...args) {
@@ -28,17 +24,18 @@ export class Generator extends Base {
       defaults: false
     });
 
+    // This is mainly for development purposes
     this.option('skip-config', {
       desc: 'Always use existing .yo-rc.json',
       type: Boolean,
       defaults: false
     });
 
-    this.option('app-suffix', {
-      desc: 'Allow a custom suffix to be added to the module name',
-      type: String,
-      defaults: 'App'
-    });
+    // this.option('app-suffix', {
+    //   desc: 'Allow a custom suffix to be added to the module name',
+    //   type: String,
+    //   defaults: 'App'
+    // });
 
     this.option('dev-port', {
       desc: 'Port to use for the development HTTP server',
@@ -65,9 +62,7 @@ export class Generator extends Base {
         this.config.set('generatorVersion', this.rootGeneratorVersion());
         this.filters = {};
 
-        // init shared generator properies and methods
-        const genBasePromise = genBase(this);
-        let promises = [genBasePromise];
+        let promises = [];
 
         if(process.env.CI) {
           insight.optOut = true;
@@ -96,8 +91,8 @@ export class Generator extends Base {
       },
       info: function () {
         this.log(this.yoWelcome);
-        this.log('Angular Fullstack v' + this.rootGeneratorVersion() +'\n');
-        this.log('Out of the box I create an AngularJS app with an Express server.\n');
+        this.log(`Angular Fullstack v${this.rootGeneratorVersion()}\n`);
+        this.log('Out of the box I create an Angular app with an Express server.\n');
       },
       checkForConfig: function() {
         var existingFilters = this.config.get('filters');
@@ -131,7 +126,7 @@ export class Generator extends Base {
             this.filters = {};
             this.forceConfig = true;
             this.config.set('filters', this.filters);
-            this.config.forceSave();
+            this.config.save();
           }
         });
       },
@@ -164,7 +159,7 @@ export class Generator extends Base {
           }, {
             type: 'confirm',
             name: 'flow',
-            default: false,
+            default: true,
             message: 'Would you like to use Flow types with Babel?',
             when: answers => answers.transpiler === 'babel'
           }, {
@@ -181,13 +176,13 @@ export class Generator extends Base {
             choices: ['CSS', 'Sass', 'Stylus', 'Less'],
             filter: val => val.toLowerCase()
           },  {
-            type: 'list',
-            name: 'router',
-            default: 1,
-            message: 'What Angular router would you like to use?',
-            choices: ['ngRoute', 'uiRouter'],
-            filter: val => val.toLowerCase()
-          }, {
+          //  type: 'list',
+          //  name: 'router',
+          //  default: 1,
+          //  message: 'What Angular router would you like to use?',
+          //  choices: ['ngRoute', 'uiRouter'],
+          //  filter: val => val.toLowerCase()
+          //}, {
             type: 'confirm',
             name: 'bootstrap',
             message: 'Would you like to include Bootstrap?'
@@ -210,8 +205,9 @@ export class Generator extends Base {
             this.filters[answers.stylesheet] = true;
             insight.track('stylesheet', answers.stylesheet);
 
-            this.filters[answers.router] = true;
-            insight.track('router', answers.router);
+            //this.filters[answers.router] = true;
+            //insight.track('router', answers.router);
+            this.filters['ngroute'] = true;
 
             this.filters.bootstrap = !!answers.bootstrap;
             insight.track('bootstrap', !!answers.bootstrap);
@@ -277,14 +273,14 @@ export class Generator extends Base {
           }]
         }, {
           type: 'confirm',
-          name: 'socketio',
-          message: 'Would you like to use socket.io?',
+          name: 'ws',
+          message: 'Would you like to use WebSockets?',
           // to-do: should not be dependent on ODMs
           when: answers => answers.odms && answers.odms.length !== 0,
           default: true
         }]).then(answers => {
-          if(answers.socketio) this.filters.socketio = true;
-          insight.track('socketio', !!answers.socketio);
+          if(answers.ws) this.filters.ws = true;
+          insight.track('ws', !!answers.ws);
 
           if(answers.auth) this.filters.auth = true;
           insight.track('auth', !!answers.auth);
@@ -381,7 +377,7 @@ export class Generator extends Base {
         this.config.set('pluralizeRoutes', true);
 
         this.config.set('insertSockets', true);
-        this.config.set('registerSocketsFile', 'server/config/socketio.js');
+        this.config.set('registerSocketsFile', 'server/config/websockets.js');
         this.config.set('socketsNeedle', '// Insert sockets below');
 
         this.config.set('insertModels', true);
@@ -389,69 +385,70 @@ export class Generator extends Base {
         this.config.set('modelsNeedle', '// Insert models below');
 
         this.config.set('filters', this.filters);
-        this.config.forceSave();
+        this.config.save();
       },
-      ngComponent: function() {
-        if(this.skipConfig) return;
-        var appPath = 'client/app/';
-        var extensions = [];
-        var filters = [
-          'ngroute',
-          'uirouter',
-          'jasmine',
-          'mocha',
-          'expect',
-          'should'
-        ].filter(v => this.filters[v]);
+      // TODO: switch to ng2 component generator
+      // ngComponent: function() {
+      //   if(this.skipConfig) return;
+      //   var appPath = 'client/app/';
+      //   var extensions = [];
+      //   var filters = [
+      //     'ngroute',
+      //     'uirouter',
+      //     'jasmine',
+      //     'mocha',
+      //     'expect',
+      //     'should'
+      //   ].filter(v => this.filters[v]);
 
-        if(this.filters.ngroute) filters.push('ngroute');
-        if(this.filters.uirouter) filters.push('uirouter');
-        if(this.filters.babel) extensions.push('babel');
-        if(this.filters.ts) extensions.push('ts');
-        if(this.filters.js) extensions.push('js');
-        if(this.filters.html) extensions.push('html');
-        if(this.filters.pug) extensions.push('pug');
-        if(this.filters.css) extensions.push('css');
-        if(this.filters.stylus) extensions.push('styl');
-        if(this.filters.sass) extensions.push('scss');
-        if(this.filters.less) extensions.push('less');
+      //   if(this.filters.ngroute) filters.push('ngroute');
+      //   if(this.filters.uirouter) filters.push('uirouter');
+      //   if(this.filters.babel) extensions.push('babel');
+      //   if(this.filters.ts) extensions.push('ts');
+      //   if(this.filters.js) extensions.push('js');
+      //   if(this.filters.html) extensions.push('html');
+      //   if(this.filters.pug) extensions.push('pug');
+      //   if(this.filters.css) extensions.push('css');
+      //   if(this.filters.stylus) extensions.push('styl');
+      //   if(this.filters.sass) extensions.push('scss');
+      //   if(this.filters.less) extensions.push('less');
 
-        filters.push('es6'); // Generate ES6 syntax code
-        filters.push('webpack');  // Generate ES6 Module imports/exports
+      //   filters.push('es6'); // Generate ES6 syntax code
+      //   filters.push('webpack');  // Generate ES6 Module imports/exports
 
-        this.composeWith('ng-component', {
-          options: {
-            'routeDirectory': appPath,
-            'directiveDirectory': appPath,
-            'filterDirectory': appPath,
-            'serviceDirectory': appPath,
-            'componentDirectory': `${appPath}components/`,
-            'filters': filters,
-            'extensions': extensions,
-            'basePath': 'client',
-            'forceConfig': this.forceConfig
-          }
-        }, { local: require.resolve('generator-ng-component/generators/app/index.js') });
-      },
-      ngModules: function() {
-        var angModules = [
-          `'${this.scriptAppName}.constants'`,
-          "'ngCookies'",
-          "'ngResource'",
-          "'ngSanitize'"
-        ];
-        if(this.filters.ngroute) angModules.push("'ngRoute'");
-        if(this.filters.socketio) angModules.push("'btford.socket-io'");
-        if(this.filters.uirouter) angModules.push("'ui.router'");
-        if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
-        if(this.filters.auth) {
-          angModules.unshift(`'${this.scriptAppName}.admin'`);
-          angModules.unshift(`'${this.scriptAppName}.auth'`);
-          angModules.push("'validation.match'");
-        }
+      //   this.composeWith('ng-component', {
+      //     options: {
+      //       'routeDirectory': appPath,
+      //       'directiveDirectory': appPath,
+      //       'filterDirectory': appPath,
+      //       'serviceDirectory': appPath,
+      //       'componentDirectory': `${appPath}components/`,
+      //       'filters': filters,
+      //       'extensions': extensions,
+      //       'basePath': 'client',
+      //       'forceConfig': this.forceConfig
+      //     }
+      //   }, { local: require.resolve('generator-ng-component/generators/app/index.js') });
+      // },
+      // ngModules: function() {
+      //   var angModules = [
+      //     `'${this.scriptAppName}.constants'`,
+      //     "'ngCookies'",
+      //     "'ngResource'",
+      //     "'ngSanitize'"
+      //   ];
+      //   if(this.filters.ngroute) angModules.push("'ngRoute'");
+      //   if(this.filters.socketio) angModules.push("'btford.socket-io'");
+      //   if(this.filters.uirouter) angModules.push("'ui.router'");
+      //   if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
+      //   if(this.filters.auth) {
+      //     angModules.unshift(`'${this.scriptAppName}.admin'`);
+      //     angModules.unshift(`'${this.scriptAppName}.auth'`);
+      //     angModules.push("'validation.match'");
+      //   }
 
-        this.angularModules = '\n  ' + angModules.join(',\n  ') +'\n';
-      }
+      //   this.angularModules = '\n  ' + angModules.join(',\n  ') +'\n';
+      // }
     };
   }
 
@@ -462,73 +459,55 @@ export class Generator extends Base {
   get writing() {
     return {
       generateProject: function() {
-        /**
-         * var tap = require('gulp-tap');
-           this.registerTransformStream([
-              extensionFilter,
-              tap(function(file, t) {
-                  var contents = file.contents.toString();
-                  contents = beautify_js(contents, config);
-                  file.contents = new Buffer(contents);
-              }),
-              //prettifyJs(config),
-              extensionFilter.restore
-           ]);
-         */
-
         const flow = this.filters.flow;
 
-        let babelPlugins = [
-          'babel-plugin-syntax-flow',
-          'babel-plugin-syntax-class-properties'
-        ];
-
-        if(this.filters.babel && !flow) {
-          babelPlugins.push('babel-plugin-transform-flow-strip-types');
-        }
-
         const genDir = path.join(__dirname, '../../');
+
+        // TODO: remove babel stuff from dependencies
+        const codeshiftStream = tap(function(file, t) {
+          var contents = file.contents.toString();
+
+          if(!flow) {
+            // remove `implements Foo` from class declarations
+            contents = jscodeshift(contents)
+              .find(jscodeshift.ClassDeclaration)
+              .forEach(path => {
+                path.value.implements = null;
+              })
+              .toSource();
+
+            // remove any type annotations
+            contents = jscodeshift(contents)
+              .find(jscodeshift.TypeAnnotation)
+              .remove()
+              .toSource();
+            contents = jscodeshift(contents)
+              .find(jscodeshift.GenericTypeAnnotation)
+              .remove()
+              .toSource();
+
+            // remove any `type Foo = { .. }` declarations
+            contents = jscodeshift(contents)
+              .find(jscodeshift.TypeAlias)
+              .remove()
+              .toSource();
+
+            // remove any flow directive comments
+            contents = jscodeshift(contents)
+              .find(jscodeshift.Comment, path => path.type === 'CommentLine' && path.value.includes('@flow'))
+              .forEach(path => path.prune())
+              .toSource();
+          }
+
+          file.contents = new Buffer(contents);
+        });
 
         let clientJsFilter = filter(['client/**/*.js'], {restore: true});
         this.registerTransformStream([
           clientJsFilter,
-          babelStream({
-            plugins: babelPlugins.map(require.resolve),
-            /* Babel get's confused about these if you're using an `npm link`ed
-                generator-angular-fullstack, thus the `require.resolve` */
-            shouldPrintComment(commentContents) {
-              if(flow) {
-                return true;
-              } else {
-                // strip `// @flow` comments if not using flow
-                return !(/@flow/.test(commentContents));
-              }
-            },
-            babelrc: false  // don't grab the generator's `.babelrc`
-          }),
-          beaufityStream({
-            "indent_size": 2,
-            "indent_char": " ",
-            "indent_level": 0,
-            "indent_with_tabs": false,
-            "preserve_newlines": true,
-            "max_preserve_newlines": 10,
-            "jslint_happy": false,
-            "space_after_anon_function": false,
-            "brace_style": "collapse",
-            "keep_array_indentation": false,
-            "keep_function_indentation": false,
-            "space_before_conditional": true,
-            "break_chained_methods": true,
-            "eval_code": false,
-            "unescape_strings": false,
-            "wrap_line_length": 100,
-            "wrap_attributes": "auto",
-            "wrap_attributes_indent_size": 4,
-            "end_with_newline": true
-          }),
+          codeshiftStream,
           eslint({
-            fix: true, 
+            fix: true,
             configFile: path.join(genDir, 'templates/app/client/.eslintrc(babel)')
           }),
           clientJsFilter.restore
@@ -539,16 +518,7 @@ export class Generator extends Base {
          */
         if(this.filters.ts) {
           const modulesToFix = [
-            ['angular', 'angular'],
-            ['ngCookies', 'angular-cookies'],
-            ['ngResource', 'angular-resource'],
-            ['ngSanitize', 'angular-sanitize'],
-            ['uiRouter', 'angular-ui-router'],
-            ['ngRoute', 'angular-route'],
-            ['uiBootstrap', 'angular-ui-bootstrap'],
-            ['ngMessages', 'angular-messages'],
-            ['io', 'socket.io-client'],
-            ['ngValidationMatch', 'angular-validation-match'] 
+            ['io', 'socket.io-client']
           ];
           function replacer(contents) {
             modulesToFix.forEach(([moduleName, importName]) => {
@@ -572,17 +542,55 @@ export class Generator extends Base {
           ]);
         }
 
+        // Convert HTML into Pug
+        if(this.filters.pug) {
+          let pugFilter = filter(['**/*.html', '!client/app.template.html'], {restore: true});
+
+          function pugReplacer(contents) {
+            return contents
+              .replace(/confirmpassword/g, 'confirmPassword')
+              .replace(/loginform/g, 'loginForm')
+              .replace(/newpassword/g, 'newPassword')
+              .replace(/ngif/g, 'ngIf')
+              .replace(/ngfor/g, 'ngFor')
+              .replace(/ngmodel/g, 'ngModel')
+              .replace(/ngsubmit/g, 'ngSubmit')
+              .replace(/oldpassword/g, 'oldPassword')
+              .replace(/routerlinkactive/g, 'routerLinkActive')
+              .replace(/routerlink/g, 'routerLink')
+              .replace(/signupform/g, 'signupForm');
+          }
+
+          this.registerTransformStream([
+            pugFilter,
+            html2jade({
+              nspaces: 2,
+              noemptypipe: true,
+              bodyless: true,
+            }),
+            rename(path => {
+              path.extname = '.pug';
+            }),
+            tap(function(file, t) {
+              var contents = file.contents.toString();
+              contents = pugReplacer(contents);
+              file.contents = new Buffer(contents);
+            }),
+            pugFilter.restore
+          ]);
+        }
+
+        // ESLint fix server files
         let serverJsFilter = filter(['server/**/*.js'], {restore: true});
         this.registerTransformStream([
           serverJsFilter,
           eslint({
-            fix: true, 
+            fix: true,
             configFile: path.join(genDir, 'templates/app/server/.eslintrc')
           }),
           serverJsFilter.restore
         ]);
 
-        let self = this;
         this.sourceRoot(path.join(__dirname, '../../templates/app'));
         this.processDirectory('.', '.');
       },
@@ -593,12 +601,10 @@ export class Generator extends Base {
         } else if(this.filters.sequelizeModels) {
           models = 'sequelize';
         }
-        this.composeWith('angular-fullstack:endpoint', {
-          options: {
-            route: '/api/things',
-            models: models
-          },
-          args: ['thing']
+        this.composeWith(require.resolve('../endpoint'), {
+          route: '/api/things',
+          models: models,
+          arguments: ['thing'],
         });
       }
     };

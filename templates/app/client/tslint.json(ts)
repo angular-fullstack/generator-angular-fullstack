@@ -1,7 +1,7 @@
 {
   "rules": {
     "class-name": true,
-    "curly": true,
+    "curly": false,
     "eofline": true,
     "forin": true,
     "indent": [true, "spaces"],
@@ -29,7 +29,6 @@
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
     "no-unused-variable": true,
-    "no-unreachable": true,
     "no-use-before-declare": true,
     "one-line": [true,
       "check-open-brace",
@@ -51,7 +50,6 @@
     }],
     "variable-name": false,
     "whitespace": [true,
-      "check-branch",
       "check-decl",
       "check-operator",
       "check-separator",

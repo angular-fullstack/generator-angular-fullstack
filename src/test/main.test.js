@@ -17,9 +17,10 @@ import {
 const defaultOptions = {
   buildtool: 'gulp',
   transpiler: 'babel',
+  flow: true,
   markup: 'html',
   stylesheet: 'sass',
-  router: 'uirouter',
+  router: 'ngroute',
   testing: 'mocha',
   chai: 'expect',
   bootstrap: true,
@@ -27,7 +28,7 @@ const defaultOptions = {
   odms: ['mongoose'],
   auth: true,
   oauth: [],
-  socketio: true
+  ws: true
 };
 const TEST_DIR = __dirname;
 
@@ -71,15 +72,15 @@ describe('angular-fullstack:app', function() {
     });
 
     it('passes lint', function() {
-      return runCmd('gulp lint:scripts').should.be.fulfilled();
+      return runCmd('npm run lint').should.be.fulfilled();
     });
 
     it('passes client tests', function() {
-      return runCmd('gulp test:client').should.be.fulfilled();
+      return runCmd('npm run test:client').should.be.fulfilled();
     });
 
     it('passes server tests', function() {
-      return runCmd('gulp test:server').should.be.fulfilled();
+      return runCmd('npm run test:server').should.be.fulfilled();
     });
 
     describe('with a generated endpoint', function() {
@@ -90,7 +91,7 @@ describe('angular-fullstack:app', function() {
       });
 
       it('should run server tests successfully', function() {
-        return runCmd('gulp test:server').should.be.fulfilled();
+        return runCmd('npm run test:server').should.be.fulfilled();
       });
     });
 
@@ -102,7 +103,7 @@ describe('angular-fullstack:app', function() {
       });
 
       it('should run server tests successfully', function() {
-        return runCmd('gulp test:server').should.be.fulfilled();
+        return runCmd('npm run test:server').should.be.fulfilled();
       });
     });
 
@@ -114,7 +115,7 @@ describe('angular-fullstack:app', function() {
       });
 
       it('should run server tests successfully', function() {
-        return runCmd('gulp test:server').should.be.fulfilled();
+        return runCmd('npm run test:server').should.be.fulfilled();
       });
     });
 
@@ -126,7 +127,7 @@ describe('angular-fullstack:app', function() {
       });
 
       it('should run server tests successfully', function() {
-        return runCmd('gulp test:server').should.be.fulfilled();
+        return runCmd('npm run test:server').should.be.fulfilled();
       });
     });
 
@@ -158,9 +159,9 @@ describe('angular-fullstack:app', function() {
         }
       }).then(_dir => {
         dir = _dir;
-        lintResult = runCmd('gulp lint:scripts');
-        clientTestResult = runCmd('gulp test:client');
-        serverTestResult = runCmd('gulp test:server');
+        lintResult = runCmd('npm run lint');
+        clientTestResult = runCmd('npm run test:client');
+        serverTestResult = runCmd('npm run test:server');
       });
     });
 
@@ -193,12 +194,12 @@ describe('angular-fullstack:app', function() {
       transpiler: 'ts',
       markup: 'pug',
       stylesheet: 'less',
-      router: 'uirouter',
+      router: 'ngroute',
       testing: 'jasmine',
       odms: ['mongoose'],
       auth: true,
       oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
-      socketio: true,
+      ws: true,
       bootstrap: true,
       uibootstrap: true
     };
@@ -206,9 +207,9 @@ describe('angular-fullstack:app', function() {
     before(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
-        lintResult = runCmd('gulp lint:scripts');
-        clientTestResult = runCmd('gulp test:client');
-        serverTestResult = runCmd('gulp test:server');
+        lintResult = runCmd('npm run lint');
+        clientTestResult = runCmd('npm run test:client');
+        serverTestResult = runCmd('npm run test:server');
       });
     });
 
@@ -238,7 +239,7 @@ describe('angular-fullstack:app', function() {
       });
 
       it('should run server tests successfully', function() {
-        return runCmd('gulp test:server').should.be.fulfilled();
+        return runCmd('npm run test:server').should.be.fulfilled();
       });
     });
 
@@ -263,14 +264,15 @@ describe('angular-fullstack:app', function() {
     var testOptions = {
       buildtool: 'gulp',
       transpiler: 'babel',
+      flow: true,
       markup: 'pug',
       stylesheet: 'css',
-      router: 'uirouter',
+      router: 'ngroute',
       testing: 'jasmine',
       odms: ['sequelize'],
       auth: true,
       oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
-      socketio: true,
+      ws: true,
       bootstrap: true,
       uibootstrap: true
     };
@@ -279,8 +281,8 @@ describe('angular-fullstack:app', function() {
     before(function() {
       return runGen(testOptions).then(_dir => {
         dir = _dir;
-        lintResult = runCmd('gulp lint:scripts');
-        clientTestResult = runCmd('gulp test:client');
+        lintResult = runCmd('npm run lint');
+        clientTestResult = runCmd('npm run test:client');
       });
     });
 
@@ -299,7 +301,7 @@ describe('angular-fullstack:app', function() {
     });
 
     it.skip('should run server tests successfully', function() {
-      return runCmd('gulp test:server').should.be.fulfilled();
+      return runCmd('npm run test:server').should.be.fulfilled();
     });
 
     describe.skip('with a generated endpoint', function() {
@@ -310,7 +312,7 @@ describe('angular-fullstack:app', function() {
       });
 
       it('should run server tests successfully', function() {
-        return runCmd('gulp test:server').should.be.fulfilled();
+        return runCmd('npm run test:server').should.be.fulfilled();
       });
     });
 
@@ -337,13 +339,13 @@ describe('angular-fullstack:app', function() {
       transpiler: 'ts',
       markup: 'pug',
       stylesheet: 'stylus',
-      router: 'uirouter',
+      router: 'ngroute',
       testing: 'mocha',
       chai: 'should',
       odms: [],
       auth: false,
       oauth: [],
-      socketio: false,
+      ws: false,
       bootstrap: false,
       uibootstrap: false
     };
@@ -351,9 +353,9 @@ describe('angular-fullstack:app', function() {
     before(function() {
       return runGen(testOptions, {options: {devPort: '9005'}}).then(_dir => {
         dir = _dir;
-        lintResult = runCmd('gulp lint:scripts');
-        clientTestResult = runCmd('gulp test:client');
-        serverTestResult = runCmd('gulp test:server');
+        lintResult = runCmd('npm run lint');
+        clientTestResult = runCmd('npm run test:client');
+        serverTestResult = runCmd('npm run test:server');
       });
     });
 
@@ -383,7 +385,7 @@ describe('angular-fullstack:app', function() {
       });
 
       it('should run server tests successfully', function() {
-        return runCmd('gulp test:server').should.be.fulfilled();
+        return runCmd('npm run test:server').should.be.fulfilled();
       });
     });
 

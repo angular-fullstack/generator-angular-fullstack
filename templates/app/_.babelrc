@@ -1,9 +1,16 @@
 {
-    "presets": ["es2015"],
+    "presets": [
+        ["babel-preset-env", {
+            "targets": {
+                "node": "6.2"
+            }
+        }]
+    ],
     "plugins": [
       <%_ if(filters.flow) { -%>
       "transform-flow-comments",
       <%_ } -%>
-      "transform-class-properties"
+      "transform-runtime",
+      "transform-decorators-legacy"
     ]
 }

@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "rootDir": "./",
+    "module": "es6",
+    "outDir": ".tmp",<% if(filters.ws) { %>
+    "paths": {
+      "primus": ["client/components/socket/primus.js"]
+    },<% } %>
+    "removeComments": false,
+    "target": "es5",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "lib": [
+      "es2016",
+      "es2017",
+      "dom"
+    ]
+  },
+  "typeRoots": [
+    "./node_modules/@types/"
+  ],
+  "exclude": [
+    "node_modules",
+    "client/**/*.spec.ts"
+  ],
+  "filesGlob": [
+    "client/{app,components}/**/!(*.spec).ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "resolveGlobs": true,
+    "forkChecker": true
+  }
+}

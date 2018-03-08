@@ -1,5 +1,5 @@
 Description:
-  Creates a Full-Stack AngularJS + Node app
+  Creates a Full-Stack Angular + Node app
 
 Example:
   yo angular-fullstack

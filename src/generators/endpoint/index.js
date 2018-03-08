@@ -1,14 +1,11 @@
 'use strict';
 
 import path from 'path';
-import {Base} from 'yeoman-generator';
-import {genNamedBase} from '../generator-base';
+import { NamedBase } from '../generator-base';
 
-export class Generator extends Base {
+export class Generator extends NamedBase {
   constructor(...args) {
     super(...args);
-
-    this.argument('name', { type: String, required: true });
 
     this.option('route', {
       desc: 'URL for the endpoint',
@@ -26,12 +23,8 @@ export class Generator extends Base {
     });
   }
 
-  initializing() {
-    // init shared generator properies and methods
-    return genNamedBase(this);
-  }
-
   prompting() {
+    this.filters = this.filters || this.config.get('filters');
     let promptCb = props => {
       if(props.route.charAt(0) !== '/') {
         props.route = `/${props.route}`;
@@ -61,7 +54,7 @@ export class Generator extends Base {
       }
     }
 
-    var name = this.name;
+    var name = this.options.name;
 
     var base = this.config.get('routesBase') || '/api/';
     if(base.charAt(base.length - 1) !== '/') {
@@ -93,7 +86,7 @@ export class Generator extends Base {
   configuring() {
     this.routeDest = path.join(this.options.endpointDirectory
       || this.config.get('endpointDirectory')
-      || 'server/api/', this.name);
+      || 'server/api/', this.options.name);
   }
 
   writing() {
@@ -104,7 +97,7 @@ export class Generator extends Base {
   end() {
     if(this.config.get('insertRoutes')) {
       var routesFile = this.config.get('registerRoutesFile');
-      var reqPath = this.relativeRequire(this.routeDest, routesFile);
+      let reqPath = this.relativeRequire(this.routeDest, routesFile);
       var routeConfig = {
         file: routesFile,
         needle: this.config.get('routesNeedle'),
@@ -115,15 +108,14 @@ export class Generator extends Base {
       this.rewriteFile(routeConfig);
     }
 
-    if(this.filters.socketio && this.config.get('insertSockets')) {
+    if(this.filters.ws && this.config.get('insertSockets')) {
       var socketsFile = this.config.get('registerSocketsFile');
-      var reqPath = this.relativeRequire(this.routeDest + '/' + this.basename +
-        '.socket', socketsFile);
+      let reqPath = this.relativeRequire(this.routeDest + '/' + this.basename + '.socket', socketsFile);
       var socketConfig = {
         file: socketsFile,
         needle: this.config.get('socketsNeedle'),
         splicable: [
-          `require('${reqPath}').register(socket);`
+          `require('${reqPath}').register,`
         ]
       };
       this.rewriteFile(socketConfig);
@@ -131,7 +123,7 @@ export class Generator extends Base {
 
     if(this.filters.sequelize && this.config.get('insertModels')) {
       var modelsFile = this.config.get('registerModelsFile');
-      var reqPath = this.relativeRequire(`${this.routeDest}/${this.basename}.model`, modelsFile);
+      let reqPath = this.relativeRequire(`${this.routeDest}/${this.basename}.model`, modelsFile);
       var modelConfig = {
         file: modelsFile,
         needle: this.config.get('modelsNeedle'),

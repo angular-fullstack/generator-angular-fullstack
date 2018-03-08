@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-     - image: node:7
+     - image: node:8
      - image: mongo
        command: [mongod, --smallfiles]
 
@@ -56,11 +56,11 @@ jobs:
             - ~/generator-angular-fullstack/test/fixtures/node_modules
 
       - run: gulp build
-      - run: gulp test
+      - run: npm test
 
       - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then 
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               git config --global user.email "circleci@circleci.com"
               git config --global user.name "CircleCI"
               cd docs && npm install && npm run build && npm run deploy

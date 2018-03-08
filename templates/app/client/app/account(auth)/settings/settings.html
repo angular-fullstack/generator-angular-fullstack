@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Change Password</h1>
+    </div>
+    <div class="col-sm-12">
+      <form class="form" name="form" (ngSubmit)="changePassword()" novalidate>
+
+        <div class="form-group">
+          <label>Current Password</label>
+
+          <input type="password" name="password" class="form-control" [(ngModel)]="user.oldPassword" required #oldPassword="ngModel"/>
+          <p class="help-block" [hidden]="oldPassword.valid || !submitted">
+            Required
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label>New Password</label>
+
+          <input type="password" name="newPassword" class="form-control" [(ngModel)]="user.newPassword" required #newPassword="ngModel"
+                 minlength="3"/>
+          <p class="help-block"
+             [hidden]="newPassword.valid || !submitted">
+            Password must be at least 3 characters.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label>Confirm New Password</label>
+
+          <input type="password" name="confirmPassword" class="form-control" [(ngModel)]="user.confirmPassword" required #confirmPassword="ngModel"
+                 match="user.newPassword"
+                 minlength="3"/>
+          <p class="help-block"
+             [hidden]="confirmPassword.valid || !submitted">
+            Passwords must match.
+          </p>
+
+        </div>
+
+        <p class="help-block"> {{ message }} </p>
+
+        <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
+
+      </form>
+    </div>
+  </div>
+</div>

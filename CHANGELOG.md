@@ -1,3 +1,131 @@
+<a name="5.0.0-rc.0"></a>
+# [5.0.0-rc.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-rc.0) (2018-03-08)
+
+
+### Bug Fixes
+
+* **client:** fix some outstanding client bugs ([f4c5471](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f4c5471))
+* **client:auth:guard:** declare `authService` on class ([afc725f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/afc725f))
+* **gen:** 
+  * canary cleanup ([96364a7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/96364a7))
+  * don't convert main html file ([8d37569](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8d37569))
+* **package:** add missing comma ([b2a745b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b2a745b))
+* **seed:** rename index.html to app.html to fix CRSF and token issues ([2e784bf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2e784bf))
+* **server:** fix express router usage ([542337e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/542337e))
+* **server:auth:** specify digest for pbkdf2 ([689c3fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/689c3fc)), closes [#2628](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2628)
+* **server:test:** resolve primus in non-dev ([7bed185](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7bed185))
+* **test:** 
+  * only save new primus.js in dev ([483dda0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/483dda0))
+  * use babel in `protractor.conf.js` ([ffb16cb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ffb16cb))
+* misc cleanup ([a1619e6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a1619e6))
+
+
+### Features
+
+* **client:** add auth-guard service ([a5cbada](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a5cbada))
+* **package:** 
+  * add separate client lint script for TS ([d426be7](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d426be7))
+  * add test:server script ([24b6144](https://github.com/angular-fullstack/generator-angular-fullstack/commit/24b6144))
+
+<a name="5.0.0-beta.3"></a>
+# [5.0.0-beta.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-beta.3) (2017-11-30)
+
+
+### Bug Fixes
+
+* **client:auth:guard:** declare `authService` on class ([afc725f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/afc725f))
+
+
+
+<a name="5.0.0-beta.2"></a>
+# [5.0.0-beta.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-beta.2) (2017-11-12)
+
+
+### Bug Fixes
+
+* **package:** add missing comma ([b2a745b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b2a745b))
+* **server:test:** resolve primus in non-dev ([7bed185](https://github.com/angular-fullstack/generator-angular-fullstack/commit/7bed185))
+* **test:** 
+  * only save new primus.js in dev ([483dda0](https://github.com/angular-fullstack/generator-angular-fullstack/commit/483dda0))
+  * use babel in `protractor.conf.js` ([ffb16cb](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ffb16cb))
+
+
+### Features
+
+* Upgraded to Angular 5.0.1
+* **client:** add auth-guard service ([a5cbada](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a5cbada))
+
+
+
+<a name="5.0.0-beta.1"></a>
+# [5.0.0-beta.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.0...v5.0.0-beta.1) (2017-10-17)
+
+
+### Bug Fixes
+
+* **client:** fix thing redirect ([6e1b254](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6e1b254))
+* **client:auth:** fix session re-establish ([31a6ecf](https://github.com/angular-fullstack/generator-angular-fullstack/commit/31a6ecf)), closes [#2625](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2625)
+* **client:test:** fixes for TS ([47b9d3e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/47b9d3e))
+* **gen:** 
+  * fix gen issue with flow on ([4f9618a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4f9618a))
+  * remedy test failure ([f226df9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f226df9))
+* **server:** swap shrink-ray back out for compression ([e225a67](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e225a67))
+* **test:** disable `main.component.spec.js` ([c5e6db9](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c5e6db9))
+* **ts:** exclude typescript specs files from generating error on transpilling ([46f762e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/46f762e))
+* **webpack:** use a mock for primus in test ([689d0b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/689d0b2))
+
+
+### Features
+
+* **client:auth:** don't submit forms if invalid ([d967554](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d967554))
+* **gen:** default Flow on ([804a917](https://github.com/angular-fullstack/generator-angular-fullstack/commit/804a917))
+* **package:** 
+  * add `start:mongo` convenience script ([101f567](https://github.com/angular-fullstack/generator-angular-fullstack/commit/101f567))
+  * add linting scripts ([8cfe32e](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8cfe32e))
+  * add start scripts ([e2bfff8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e2bfff8))
+  * add test:client script ([9be904d](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9be904d))
+
+
+
+<a name="5.0.0-alpha.5"></a>
+# [5.0.0-alpha.5](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.1.0...v5.0.0-alpha.5) (2017-05-14)
+
+
+### Bug Fixes
+
+* **client:** 
+  * fix a few client code errors ([5535fe3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5535fe3))
+  * fix loading css ([5d780fe](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5d780fe))
+  * fix upgrade stuff ([01e1054](https://github.com/angular-fullstack/generator-angular-fullstack/commit/01e1054))
+* **client:footer:** fix hardcoded template & style extentions ([c638fb6](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c638fb6)), closes [#2421](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2421)
+* **client:main:** fix add/delete things ([91b920b](https://github.com/angular-fullstack/generator-angular-fullstack/commit/91b920b))
+* **client:navbar:** fix hardcoded template ext ([5e999b2](https://github.com/angular-fullstack/generator-angular-fullstack/commit/5e999b2)), closes [#2469](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2469)
+* **client:userService:** use `id` or `_id` property ([4be3191](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4be3191))
+* **events:** mongoose event registration ([79bdeed](https://github.com/angular-fullstack/generator-angular-fullstack/commit/79bdeed)), closes [#2479](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2479)
+* **gen:** 
+  * comment out ngCompnent stuff ([ab1bf13](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ab1bf13)), closes [#2403](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2403)
+  * fix another type stripping; also TS doesn't like default exports ([a55691a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a55691a))
+* **gen:factory:** fix factory subgen location ([b09cfe5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b09cfe5)), closes [#2381](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2381)
+* **mocha:** fix server not closing ([2ba3dd8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2ba3dd8))
+* **package:** move syntax plugins to deps ([c016979](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c016979)), closes [#2405](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2405)
+* **server:** 
+  * fix new shared default export ([d4e4a7a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/d4e4a7a))
+  * fix some bluebird warnings ([a84ff90](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a84ff90)), closes [#2412](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2412) [#2363](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2363)
+* **webpack:** fix CSS loader options ([3f7e2b4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3f7e2b4))
+
+
+### Features
+
+* **app:** convert to Angular 2 ([6c3b307](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6c3b307))
+* **gen:** 
+  * add functions for adding TS public/private keywords ([17fea6c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/17fea6c))
+  * consolidate templates, convert html to pug during write ([f6deb25](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f6deb25))
+  * generate js with jscodeshift instead of babel ([bf8f9fc](https://github.com/angular-fullstack/generator-angular-fullstack/commit/bf8f9fc))
+  * replace socket.io w/ primus + uws ([ccea1f3](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ccea1f3))
+  * use new base classes ([3debe1c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3debe1c))
+
+
+
 <a name="4.2.3"></a>
 ## [4.2.3](https://github.com/angular-fullstack/generator-angular-fullstack/compare/4.2.2...v4.2.3) (2017-11-29)
 

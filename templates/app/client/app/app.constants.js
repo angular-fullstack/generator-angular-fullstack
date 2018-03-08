@@ -1,6 +1,6 @@
-'use strict';
-import angular from 'angular';
+<%_ if(filters.babel) { -%>
+export default from '../../server/config/environment/shared';<% } %>
+<%_ if(filters.ts) { -%>
+import shared from '../../server/config/environment/shared.js';
 
-export default angular.module('<%= scriptAppName %>.constants', [])
-  .constant('appConfig', require('../../server/config/environment/shared'))
-  .name;
+export default shared;<% } %>

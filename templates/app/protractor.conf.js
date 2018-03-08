@@ -2,6 +2,7 @@
 // https://github.com/angular/protractor/blob/master/referenceConf.js
 
 'use strict';
+require('babel-register');
 
 var config = {
   // The timeout for each script run on the browser. This should be longer
@@ -10,12 +11,9 @@ var config = {
 
   // A base URL for your application under test. Calls to protractor.get()
   // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:' + (process.env.PORT || '<%= devPort %>'),
+  baseUrl: 'http://localhost:' + (process.env.PORT || '<%= Number(devPort) + 1 %>'),
 
-  // Credientials for Saucelabs
-  sauceUser: process.env.SAUCE_USERNAME,
-
-  sauceKey: process.env.SAUCE_ACCESS_KEY,
+  directConnect: true,
 
   // list of files / patterns to load in the browser
   specs: [
@@ -34,8 +32,9 @@ var config = {
   capabilities: {
     'browserName': 'chrome',
     'name': 'Fullstack E2E',
-    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-    'build': process.env.TRAVIS_BUILD_NUMBER
+    'chromeOptions': {
+      'args': ['show-fps-counter=true']
+    },
   },
 
   // ----- The test framework -----
@@ -76,9 +75,16 @@ var config = {
       Object.getOwnPropertyDescriptor(Object.prototype, 'should')
     );
 <% } if (filters.jasmine) { %>
-    var SpecReporter = require('jasmine-spec-reporter');
+    var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
     // add jasmine spec reporter
-    jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: true}));
+    jasmine.getEnv().addReporter(new SpecReporter({
+      spec: {
+        displayStacktrace: true
+      },
+      summary: {
+        displayStacktrace: true
+      }
+    }));
 <% } %>
     var serverConfig = config.params.serverConfig;<% if (filters.mongoose) { %>
 

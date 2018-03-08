@@ -5,11 +5,9 @@ sort: 2
 
 ## Running Your New App
 
-You can start your new app by running `gulp serve`. This will do some preliminary things like clean out temporary
-files, lint your scripts, inject any new CSS files into your main one, apply environment variables, and download
-any new TypeScript definitions. It will then start up a new development server, which will kick off a Webpack build.
-it uses Browser Sync to facilitate front-end development. Your files will also be watched for changes. Any front-end
-changes will kick off another webpack build. Any back-end changes will restart the back-end server, cleaning the
-development database and re-seeding it as well.
+You can start your new app by running `npm run start:server` and `npm run start:client`. This will start up the Node.js
+back-end server, as well as a Webpack dev server to serve the front-end files (with things like Hot Module Replacement).
+Your files will be watched for changes. Any front-end changes will be seen by the Webpack server, and any back-end
+changes will restart the back-end server, cleaning the development database and re-seeding it as well.
 
-Once the `serve` tasks are complete, a browser tab should be opened to your new app server.
+The `npm run start:client` task will show you at which local port you can access your front-end app (usually http://localhost:8080/).

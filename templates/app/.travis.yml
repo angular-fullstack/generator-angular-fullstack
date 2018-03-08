@@ -1,13 +1,8 @@
 language: node_js
 node_js:
   - 6
-matrix:
-  fast_finish: true
-  allow_failures:
-    - node_js: 5.12.0
 before_script:
-  - npm install -g gulp-cli node-gyp<% if (filters.sass) { %>
-  - gem install sass<% } %>
+  - npm install -g gulp-cli
 services: mongodb
 cache:
   directories:
