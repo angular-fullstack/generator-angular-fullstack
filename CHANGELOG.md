@@ -1,3 +1,13 @@
+<a name="5.0.0-rc.1"></a>
+# [5.0.0-rc.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-rc.1) (2018-03-15)
+
+
+### Bug Fixes
+
+* **gen:** fix .npmignore ([c3bf61f](https://github.com/angular-fullstack/generator-angular-fullstack/commit/c3bf61f))
+
+
+
 <a name="5.0.0-rc.0"></a>
 # [5.0.0-rc.0](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-rc.0) (2018-03-08)
 
