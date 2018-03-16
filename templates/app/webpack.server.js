@@ -48,6 +48,6 @@ export const server = new WebpackDevServer(compiler, {
  */
 export function start() {
     return new Promise(resolve => {
-        server.listen(appConfig.clientPort, resolve);
+        server.listen(appConfig.clientPort, 'localhost', resolve);
     });
 }
