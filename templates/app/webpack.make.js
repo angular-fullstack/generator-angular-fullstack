@@ -268,7 +268,7 @@ module.exports = function makeWebpackConfig(options) {
                 <%_ if(!filters.flow) { -%>
                 comments: false<% } %>
             },<% } %>
-        }),
+        })
     ];
 
     if(!TEST) {
@@ -320,7 +320,7 @@ module.exports = function makeWebpackConfig(options) {
                 compress: {
                     warnings: false
                 }
-            }),
+            })
         );
     }
 
