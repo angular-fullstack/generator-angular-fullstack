@@ -210,8 +210,8 @@
     "tslint": "^5.7.0"<% } %>
   },
   "engines": {
-    "node": "^6.2.2",
-    "npm": "^3.9.5"
+    "node": ">=6.x.x",
+    "npm": ">=3.9.5"
   },
   "scripts": {
     "postinstall": "gulp copy:fonts:dev",
