@@ -176,6 +176,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",<% } %>
     "karma-webpack": "^2.0.3",
+    "to-string-loader": "^1.1.5",
     <%# END WEBPACK %>
     "through2": "^2.0.1",
     "open": "~0.0.4",

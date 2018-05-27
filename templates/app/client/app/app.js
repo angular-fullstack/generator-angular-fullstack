@@ -1,4 +1,4 @@
-import 'style-loader!./app.<%= styleExt %>';
+import './app.<%= styleExt %>';
 
 import './polyfills';
 

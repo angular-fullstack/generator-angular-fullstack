@@ -192,38 +192,70 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/postcss/postcss-loader
             // Postprocess your css with PostCSS plugins
             test: /\.css$/,
-            use: ['raw-loader', 'css-loader', 'postcss-loader'],
+            use: ['style-loader', 'css-loader', 'postcss-loader'],
+            include: [
+                path.resolve(__dirname, 'node_modules/bootstrap/dist/css/*.css'),
+                path.resolve(__dirname, 'client/app/app.css')
+            ]
+        }<%_ if(filters.css) { _%>, {
+            // CSS LOADER
+            // Reference: https://github.com/webpack/css-loader
+            test: /\.css$/,
+            use: ['to-string-loader', 'css-loader?sourceMap', 'postcss-loader'],
             include: [
                 path.resolve(__dirname, 'client')
-            ]
-        }<% if(!filters.css) { %>, {
-            <%_ if(filters.sass) { _%>
+            ],
+            exclude: [/app\.css$/]
+        }<%_ } else if(filters.sass) { _%>, {
             // SASS LOADER
             // Reference: https://github.com/jtangelder/sass-loader
             test: /\.(scss|sass)$/,
-            use: ['raw-loader', 'sass-loader'],
+            use: ['style-loader', 'css-loader?sourceMap', 'sass-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
+                path.resolve(__dirname, 'client/app/app.scss')
+            ]
+        }, {
+            // SASS LOADER
+            // Reference: https://github.com/jtangelder/sass-loader
+            test: /\.(scss|sass)$/,
+            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+            include: [
                 path.resolve(__dirname, 'client')
-            ]<% } %>
-            <%_ if(filters.less) { _%>
+            ],
+            exclude: [/app\.scss$/]
+        }<% } else if(filters.less) { %>, {
             // LESS LOADER
-            // Reference: https://github.com/
             test: /\.less$/,
-            use: ['raw-loader', 'less-loader'],
+            use: ['style-loader', 'css-loader?sourceMap', 'less-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/less/*.less'),
+                path.resolve(__dirname, 'client/app/app.less')
+            ]
+        }, {
+            // LESS LOADER
+            test: /\.less$/,
+            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'less-loader'],
+            include: [
                 path.resolve(__dirname, 'client')
-            ]<% } %>
-            <%_ if(filters.stylus) { _%>
+                ],
+            exclude: [/app\.less$/]
+        }<% } else if(filters.stylus) { %>, {
             // Stylus LOADER
-            // Reference: https://github.com/
             test: /\.styl$/,
-            use: ['raw-loader', 'stylus-loader'],
+            use: ['style-loader', 'css-loader?sourceMap', 'stylus-loader'],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
+                path.resolve(__dirname, 'client/app/app.styl')
+            ]
+        }, {
+            // Stylus LOADER
+            test: /\.styl$/,
+            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'stylus-loader'],
+            include: [
                 path.resolve(__dirname, 'client')
-            ]<% } %>
+            ],
+            exclude: [/app\.styl$/]
         }<% } %>]
     };
 
