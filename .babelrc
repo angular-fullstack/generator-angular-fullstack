@@ -1,4 +1,10 @@
 {
-    "presets": ["es2015"],
-    "plugins": ["transform-class-properties"]
+  "plugins": ["transform-class-properties"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": "6.10"
+      }
+    }]
+  ]
 }
