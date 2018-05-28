@@ -46,6 +46,7 @@
     "babel-register": "^6.22.0",
     "bluebird": "^3.4.5",
     "chalk": "^2.1.0",
+    "generator-angular-fullstack-component": "1.0.0",
     "glob": "^7.0.5",
     "gulp-eslint": "^3.0.1",
     "gulp-filter": "^5.0.0",
@@ -57,7 +58,7 @@
     "lodash": "^4.17.4",
     "semver": "^5.1.0",
     "underscore.string": "^3.1.1",
-    "yeoman-generator": "^1.1.1",
+    "yeoman-generator": "2.0.4",
     "yeoman-welcome": "^1.0.1"
   },
   "devDependencies": {
@@ -83,6 +84,7 @@
     "gulp-util": "^3.0.7",
     "jit-grunt": "~0.10.0",
     "lazypipe": "^1.0.1",
+    "mem-fs-editor": "4.0.0",
     "merge-stream": "^1.0.0",
     "minimatch": "^3.0.2",
     "mocha": "^3.1.2",
@@ -91,8 +93,8 @@
     "run-sequence": "^2.1.0",
     "shelljs": "^0.7.5",
     "should": "^12.0.0",
-    "yeoman-assert": "^3.0.0",
-    "yeoman-test": "~1.7.0"
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^1.7.2"
   },
   "peerDependencies": {
     "yo": ">= 1.7.1"
