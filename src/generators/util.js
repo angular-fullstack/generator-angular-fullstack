@@ -134,7 +134,7 @@ function templateIsUsable(self, filteredFile) {
 }
 
 /**
- * 
+ *
  */
 export function processDirectory(source, destination) {
   var self = this;
@@ -169,6 +169,10 @@ export function processDirectory(source, destination) {
       stripped = path.basename(dest).replace(/^!/, '');
       dest = path.join(path.dirname(dest), stripped);
       copy = true;
+    }
+
+    if(self.filters.pug && dest.indexOf('.html') !== -1 && dest.indexOf('app.template') === -1) {
+      dest = dest.replace('.html', '.pug');
     }
 
     if(templateIsUsable(self, filteredFile)) {

@@ -192,7 +192,7 @@ describe('angular-fullstack:app', function() {
     var testOptions = {
       buildtool: 'gulp',
       transpiler: 'ts',
-      markup: 'pug',
+      markup: 'html',
       stylesheet: 'less',
       router: 'ngroute',
       testing: 'jasmine',
