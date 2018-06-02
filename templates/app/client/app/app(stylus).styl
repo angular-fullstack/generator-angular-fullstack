@@ -1,9 +1,9 @@
 $fa-font-path = '../assets/fonts/font-awesome/'
-@import '~font-awesome-stylus/stylus/index'
+@import '~font-awesome-stylus/lib/font-awesome-stylus/index'
 
 <%_ if (filters.bootstrap) { %>
 $icon-font-path = '../assets/fonts/bootstrap/'
-@import '~bootstrap-styl/bootstrap/index';
+@import '~bootstrap/dist/css/bootstrap.css'
 <% if (filters.oauth) { %>@import '~bootstrap-social/bootstrap-social.css'
 <% } %><% } %>
 
@@ -25,9 +25,3 @@ $icon-font-path = '../assets/fonts/bootstrap/'
 
 [hidden]
   display: none !important
-
-// Component styles are injected through gulp
-/* inject:styl */
-@import "admin/admin"
-@import "main/main"
-/* endinject */
