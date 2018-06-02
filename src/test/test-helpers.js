@@ -112,7 +112,7 @@ export function runGen(prompts, opts={}) {
     })
     .withGenerators([
       require.resolve('../generators/endpoint'),
-      // [helpers.createDummyGenerator(), 'ng-component:app']
+      [helpers.createDummyGenerator(), 'angular-fullstack-component:app']
     ])
     // .withArguments(['upperCaseBug'])
     .withOptions(options);

@@ -544,7 +544,7 @@ export class Generator extends Base {
 
         // Convert HTML into Pug
         if(this.filters.pug) {
-          let pugFilter = filter(['**/*.html', '!client/app.template.html'], {restore: true});
+          const pugFilter = filter(['**/*.pug'], {restore: true});
 
           function pugReplacer(contents) {
             return contents
@@ -571,9 +571,8 @@ export class Generator extends Base {
             rename(path => {
               path.extname = '.pug';
             }),
-            tap(function(file, t) {
-              var contents = file.contents.toString();
-              contents = pugReplacer(contents);
+            tap(file => {
+              const contents = pugReplacer(file.contents.toString());
               file.contents = new Buffer(contents);
             }),
             pugFilter.restore
