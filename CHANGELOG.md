@@ -1,3 +1,19 @@
+<a name="5.0.0-rc.2"></a>
+# [5.0.0-rc.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-rc.1...v5.0.0-rc.2) (2018-06-02)
+
+
+### Bug Fixes
+
+* **css:** refactor CSS handling ([68c6e39](https://github.com/angular-fullstack/generator-angular-fullstack/commit/68c6e39))
+* **gen:test:** refactor gen to fix tests w/ pug ([2080421](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2080421))
+
+
+### Features
+
+* **gen:** add new route subgenerator ([91a13ff](https://github.com/angular-fullstack/generator-angular-fullstack/commit/91a13ff))
+
+
+
 <a name="5.0.0-rc.1"></a>
 # [5.0.0-rc.1](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-beta.1...v5.0.0-rc.1) (2018-03-15)
 
