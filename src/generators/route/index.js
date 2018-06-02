@@ -1,10 +1,12 @@
-'use strict';
-var yeoman = require('yeoman-generator');
+import Generator from 'yeoman-generator';
+import { Base } from '../generator-base';
 
-var Generator = yeoman.Base.extend({
-  compose: function() {
-    this.composeWith('ng-component:route', {arguments: this.arguments}, { local: require.resolve('generator-ng-component/generators/route') });
+class RouteGenerator extends Base {
+  compose() {
+    this.composeWith(
+    	require.resolve('generator-angular-fullstack-component/generators/route'),
+    	{arguments: this.arguments},
+	);
   }
-});
-
-module.exports = Generator;
+}
+module.exports = RouteGenerator;

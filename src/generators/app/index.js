@@ -387,68 +387,40 @@ export class Generator extends Base {
         this.config.set('filters', this.filters);
         this.config.save();
       },
-      // TODO: switch to ng2 component generator
-      // ngComponent: function() {
-      //   if(this.skipConfig) return;
-      //   var appPath = 'client/app/';
-      //   var extensions = [];
-      //   var filters = [
-      //     'ngroute',
-      //     'uirouter',
-      //     'jasmine',
-      //     'mocha',
-      //     'expect',
-      //     'should'
-      //   ].filter(v => this.filters[v]);
+      angularComponent: function() {
+        if(this.skipConfig) return;
+        var appPath = 'client/app/';
+        var extensions = [];
+        var filters = [
+          'jasmine',
+          'mocha',
+          'expect',
+          'should'
+        ].filter(v => this.filters[v]);
 
-      //   if(this.filters.ngroute) filters.push('ngroute');
-      //   if(this.filters.uirouter) filters.push('uirouter');
-      //   if(this.filters.babel) extensions.push('babel');
-      //   if(this.filters.ts) extensions.push('ts');
-      //   if(this.filters.js) extensions.push('js');
-      //   if(this.filters.html) extensions.push('html');
-      //   if(this.filters.pug) extensions.push('pug');
-      //   if(this.filters.css) extensions.push('css');
-      //   if(this.filters.stylus) extensions.push('styl');
-      //   if(this.filters.sass) extensions.push('scss');
-      //   if(this.filters.less) extensions.push('less');
+        if(this.filters.babel) extensions.push('babel');
+        if(this.filters.ts) extensions.push('ts');
+        if(this.filters.js) extensions.push('js');
+        if(this.filters.html) extensions.push('html');
+        if(this.filters.pug) extensions.push('pug');
+        if(this.filters.css) extensions.push('css');
+        if(this.filters.stylus) extensions.push('styl');
+        if(this.filters.sass) extensions.push('scss');
+        if(this.filters.less) extensions.push('less');
 
-      //   filters.push('es6'); // Generate ES6 syntax code
-      //   filters.push('webpack');  // Generate ES6 Module imports/exports
-
-      //   this.composeWith('ng-component', {
-      //     options: {
-      //       'routeDirectory': appPath,
-      //       'directiveDirectory': appPath,
-      //       'filterDirectory': appPath,
-      //       'serviceDirectory': appPath,
-      //       'componentDirectory': `${appPath}components/`,
-      //       'filters': filters,
-      //       'extensions': extensions,
-      //       'basePath': 'client',
-      //       'forceConfig': this.forceConfig
-      //     }
-      //   }, { local: require.resolve('generator-ng-component/generators/app/index.js') });
-      // },
-      // ngModules: function() {
-      //   var angModules = [
-      //     `'${this.scriptAppName}.constants'`,
-      //     "'ngCookies'",
-      //     "'ngResource'",
-      //     "'ngSanitize'"
-      //   ];
-      //   if(this.filters.ngroute) angModules.push("'ngRoute'");
-      //   if(this.filters.socketio) angModules.push("'btford.socket-io'");
-      //   if(this.filters.uirouter) angModules.push("'ui.router'");
-      //   if(this.filters.uibootstrap) angModules.push("'ui.bootstrap'");
-      //   if(this.filters.auth) {
-      //     angModules.unshift(`'${this.scriptAppName}.admin'`);
-      //     angModules.unshift(`'${this.scriptAppName}.auth'`);
-      //     angModules.push("'validation.match'");
-      //   }
-
-      //   this.angularModules = '\n  ' + angModules.join(',\n  ') +'\n';
-      // }
+        this.composeWith(require.resolve('generator-angular-fullstack-component/generators/app/index.js'), {
+          appModulePath: `${appPath}app.module.${this.filters.ts ? 'ts' : 'js'}`,
+          routeDirectory: appPath,
+          directiveDirectory: appPath,
+          filterDirectory: appPath,
+          serviceDirectory: appPath,
+          componentDirectory: `${appPath}components/`,
+          filters: filters,
+          extensions: extensions,
+          basePath: 'client',
+          forceConfig: this.forceConfig
+        });
+      },
     };
   }
 
