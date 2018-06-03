@@ -1,4 +1,4 @@
-# AngularJS Full-Stack generator
+# Angular Full-Stack generator
 [![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-logo.svg)](https://angular-fullstack.github.io/)
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
@@ -9,7 +9,7 @@
 [![Gitter chat](https://img.shields.io/gitter/room/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
 [![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
-> Yeoman generator for creating MEAN/SEAN stack applications, using ES6, MongoDB/SQL, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
+> Yeoman generator for creating MEAN/SEAN stack applications, using ES6+, MongoDB/SQL, Express, Angular, and Node - lets you quickly set up a project following best practices.
 
 
 
@@ -74,7 +74,7 @@ yo angular-fullstack
 * Module Systems: `Webpack`
 * Markup:  `HTML`, `Pug`
 * Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`
-* Angular Routers: `ngRoute`, `ui-router`
+<!--* Angular Routers: `ngRoute`, `ui-router`-->
 * CSS Frameworks: `Bootstrap`
   * Option to include `UI Bootstrap`
 
@@ -97,8 +97,11 @@ Available generators:
     - [angular-fullstack](https://angular-fullstack.github.io/generators/app/) (aka [angular-fullstack:app](https://angular-fullstack.github.io/generators/app/))
 * Server Side
     - [angular-fullstack:endpoint](https://angular-fullstack.github.io/generators/endpoint)
-* Client Side (via [generator-ng-component](https://github.com/DaftMonk/generator-ng-component))
+* Client Side (via [generator-angular-fullstack-component](https://github.com/angular-fullstack/generator-angular-fullstack-component))
     - [angular-fullstack:route](https://angular-fullstack.github.io/generators/route)
+    
+    
+* To be re-updated:
     - [angular-fullstack:component](https://angular-fullstack.github.io/generators/component)
     - [angular-fullstack:controller](https://angular-fullstack.github.io/generators/controller)
     - [angular-fullstack:filter](https://angular-fullstack.github.io/generators/filter)
