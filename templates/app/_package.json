@@ -155,8 +155,8 @@
     "html-webpack-harddisk-plugin": "~0.2.0",
     <%_ if(filters.pug) { _%>
     "pug-html-loader": "^1.1.5",<% } %>
-    "typescript": "~2.6.1",
-    "awesome-typescript-loader": "^3.3.0",
+    "typescript": "~2.9.0",
+    "awesome-typescript-loader": "^4.0.0",
     "babel-loader": "^7.1.2",
     "css-loader": "^0.28.7",
     "file-loader": "^0.11.2",

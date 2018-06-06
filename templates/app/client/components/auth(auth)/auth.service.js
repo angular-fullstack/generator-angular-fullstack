@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { safeCb } from '../util';
-import constants from '../../app/app.constants';
+import { userRoles } from '../../app/app.constants';
 
 // @flow
 class User {
@@ -16,7 +16,7 @@ class User {
 export class AuthService {
     _currentUser: User = new User();
     @Output() currentUserChanged = new EventEmitter(true);
-    userRoles = constants.userRoles || [];
+    userRoles = userRoles || [];
     UserService;
 
     static parameters = [HttpClient, UserService];
@@ -43,7 +43,7 @@ export class AuthService {
      * @param {String} role - role to check against
      */
     static hasRole(userRole, role) {
-        return constants.userRoles.indexOf(userRole) >= constants.userRoles.indexOf(role);
+        return userRoles.indexOf(userRole) >= userRoles.indexOf(role);
     }
 
     get currentUser() {
