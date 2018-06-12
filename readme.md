@@ -130,43 +130,15 @@ When submitting an issue, please follow the [Yeoman issue guidelines](https://gi
 
 [BSD license](http://opensource.org/licenses/bsd-license.php)
 
+## Contributors
 
+[![generator-angular-fullstack contributors](https://opencollective.com/angular-fullstack/contributors.svg?width=850)](https://github.com/angular-fullstack/generator-angular-fullstack/graphs/contributors)
 
 ## Backers
 
 Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/angular-fullstack#backer)]
 
-<a href="https://opencollective.com/angular-fullstack/backer/0/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/0/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/1/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/1/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/2/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/2/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/3/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/3/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/4/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/4/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/5/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/5/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/6/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/6/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/7/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/7/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/8/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/8/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/9/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/10/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/11/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/11/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/12/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/12/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/13/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/13/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/14/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/14/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/15/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/15/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/16/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/16/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/17/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/17/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/18/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/18/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/19/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/19/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/20/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/20/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/21/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/21/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/22/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/22/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/23/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/23/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/24/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/24/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/25/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/25/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/26/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/26/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/27/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/27/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/28/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/28/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/backer/29/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/backer/29/avatar"></a>
-
+[![generator-angular-fullstack backers](https://opencollective.com/angular-fullstack/backers.svg?width=850)](https://opencollective.com/angular-fullstack#backer)
 
 ## Sponsors
 
