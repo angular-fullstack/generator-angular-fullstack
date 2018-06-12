@@ -3,13 +3,12 @@
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
-[![npm version](https://img.shields.io/npm/v/generator-angular-fullstack/beta.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack/canary.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack/canary)
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack/canary.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack/canary#type=dev)
-[![Gitter chat](https://img.shields.io/gitter/room/DaftMonk/generator-angular-fullstack.svg)](https://gitter.im/DaftMonk/generator-angular-fullstack)
+[![Gitter chat](https://img.shields.io/gitter/room/angular-fullstack/generator-angular-fullstack.svg)](https://gitter.im/angular-fullstack/generator-angular-fullstack)
 [![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
-> Yeoman generator for creating MEAN/SEAN stack applications, using ES6+, MongoDB/SQL, Express, Angular, and Node - lets you quickly set up a project following best practices.
+> Yeoman generator for creating MEAN/SEAN stack applications, using ES2017, MongoDB/SQL, Express, Angular, and Node - lets you quickly set up a project following best practices.
 
 
 
@@ -20,7 +19,7 @@
 
 ## Looking for AngularJS 1.x?
 
-`$ npm install -g yo gulp-cli generator-angular-fullstack@4.2.2`
+`$ npm install -g yo gulp-cli generator-angular-fullstack@4.2.3`
 
 ## Usage
 
@@ -122,7 +121,7 @@ Check out our [documentation home page](http://angular-fullstack.github.io/).
 
 ## Contribute
 
-See the [contributing docs](https://github.com/DaftMonk/generator-angular-fullstack/blob/master/contributing.md)
+See the [contributing docs](https://github.com/angular-fullstack/generator-angular-fullstack/blob/master/contributing.md)
 
 When submitting an issue, please follow the [Yeoman issue guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue, as well as any stack traces.
 
