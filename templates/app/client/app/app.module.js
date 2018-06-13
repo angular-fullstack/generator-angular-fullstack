@@ -12,6 +12,7 @@ import {
     RequestOptions,
     RequestOptionsArgs,<% } %>
 } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import {
     removeNgStyles,
     createNewHosts,
@@ -67,6 +68,7 @@ const appRoutes: Routes = [{ path: '',
     imports: [
         BrowserModule,
         HttpModule,
+        HttpClientModule,
         <%_ if (filters.uirouter) { -%>
         UIRouterModule.forRoot(),<% } %>
         <%_ if (filters.ngroute) { -%>

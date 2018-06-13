@@ -1,6 +1,5 @@
 import { Component, OnInit<% if(filters.ws) { %>, OnDestroy<% } %> } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';<% if(filters.ws) { %>
 import { SocketService } from '../../components/socket/socket.service';<% } %>
 
@@ -10,28 +9,24 @@ import { SocketService } from '../../components/socket/socket.service';<% } %>
     styles: [require('./main.<%=styleExt%>')],
 })
 export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% } %> {
-    Http;
     <%_ if(filters.ws) { -%>
     SocketService;<% } %>
     awesomeThings = [];
     <%_ if(filters.models) { -%>
     newThing = '';<% } %>
 
-    static parameters = [Http<% if(filters.ws) { %>, SocketService<% } %>];
-    constructor(<%= private() %>http: Http<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
-        this.Http = http;
+    static parameters = [HttpClient<% if(filters.ws) { %>, SocketService<% } %>];
+    constructor(<%= private() %>http: HttpClient<% if(filters.ws) { %>, <%= private() %>socketService: SocketService<% } %>) {
+        this.http = http;
         <%_ if(filters.ws) { -%>
         this.SocketService = socketService;<% } %>
     }
 
     ngOnInit() {
-        return this.Http.get('/api/things')
-            .map(res => res.json())
-            // .catch(err => Observable.throw(err.json().error || 'Server error'))
+        return this.http.get('/api/things')
             .subscribe(things => {
                 this.awesomeThings = things;
-                <%_ if(filters.ws) { -%>
-                this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
+                this.SocketService.syncUpdates('thing', this.awesomeThings);
             });
     }<% if (filters.models) { %>
     <%_ if(filters.ws) { %>
@@ -45,9 +40,7 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
             let text = this.newThing;
             this.newThing = '';
 
-            return this.Http.post('/api/things', { name: text })
-                .map(res => res.json())
-                .catch(err => Observable.throw(err.json().error || 'Server error'))
+            return this.http.post('/api/things', { name: text })
                 .subscribe(thing => {
                     console.log('Added Thing:', thing);
                 });
@@ -55,9 +48,7 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
     }
 
     deleteThing(thing) {
-        return this.Http.delete(`/api/things/${thing._id}`)
-            .map(res => res.json())
-            .catch(err => Observable.throw(err.json().error || 'Server error'))
+        return this.http.delete(`/api/things/${thing._id}`)
             .subscribe(() => {
                 console.log('Deleted Thing');
             });
