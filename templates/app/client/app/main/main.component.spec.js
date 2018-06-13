@@ -49,7 +49,8 @@ describe('Component: MainComponent', function() {
     it('should attach a list of things to the controller', () => {
         // `GET /api/things` should be made once
         const req = httpTestingController.expectOne('/api/things');
-        expect(req.request.method).to.equal('GET');
+        <% if(filters.jasmine) { %>expect(req.request.method).toEqual('GET');<% } else if(filters.mocha) { %>
+        <%= expect() %>req.request.method<%= to() %>.equal('GET');<% } %>
 
         // Respond with mock data
         req.flush(mockThings);
