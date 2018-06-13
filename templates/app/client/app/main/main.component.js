@@ -25,8 +25,8 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
     ngOnInit() {
         return this.http.get('/api/things')
             .subscribe(things => {
-                this.awesomeThings = things;
-                this.SocketService.syncUpdates('thing', this.awesomeThings);
+                this.awesomeThings = things;<% if(filters.ws) { %>
+                this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
             });
     }<% if (filters.models) { %>
     <%_ if(filters.ws) { %>
