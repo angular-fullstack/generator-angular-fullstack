@@ -1,7 +1,16 @@
 import { Component, OnInit<% if(filters.ws) { %>, OnDestroy<% } %> } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';<% if(filters.ws) { %>
-import { SocketService } from '../../components/socket/socket.service';<% } %>
+import { SocketService } from '../../components/socket/socket.service';<% } %><% if(filters.ts) { %>
+
+interface Thing {
+    name: string;
+    info?: string;
+}<% } %><% if(filters.flow) { %>
+type Thing = {
+    name: string;
+    info?: string;
+};<% } %>
 
 @Component({
     selector: 'main',
@@ -11,7 +20,7 @@ import { SocketService } from '../../components/socket/socket.service';<% } %>
 export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% } %> {
     <%_ if(filters.ws) { -%>
     SocketService;<% } %>
-    awesomeThings = [];
+    awesomeThings: Thing[] = [];
     <%_ if(filters.models) { -%>
     newThing = '';<% } %>
 
@@ -24,7 +33,7 @@ export class MainComponent implements OnInit<% if(filters.ws) { %>, OnDestroy<% 
 
     ngOnInit() {
         return this.http.get('/api/things')
-            .subscribe(things => {
+            .subscribe((things: Thing[]) => {
                 this.awesomeThings = things;<% if(filters.ws) { %>
                 this.SocketService.syncUpdates('thing', this.awesomeThings);<% } %>
             });

@@ -22,10 +22,10 @@ export class UserService {
     }
 
     query(): Observable<UserType[]> {
-        return this.http.get('/api/users/');
+        return this.http.get('/api/users/') as Observable<UserType[]>;
     }
     get(user<% if(filters.ts) { %>: UserType<% } %> = {id: 'me'}): Observable<UserType> {
-        return this.http.get(`/api/users/${user.id || user._id}`);
+        return this.http.get(`/api/users/${user.id || user._id}`) as Observable<UserType>;
     }
     create(user: UserType) {
         return this.http.post('/api/users/', user);

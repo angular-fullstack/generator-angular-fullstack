@@ -69,7 +69,7 @@ export class AuthService {
             password
         })
             .toPromise()
-            .then(res => {
+            .then((res: {token: string}) => {
                 localStorage.setItem('id_token', res.token);
                 return this.UserService.get().toPromise();
             })
