@@ -1,8 +1,6 @@
 import {
     NgModule,
-    Injectable,
-    ApplicationRef,<% if(filters.ts || filters.flow) { %>
-    Provider,<% } %>
+    ApplicationRef,
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,8 +20,6 @@ import { DirectivesModule } from '../components/directives.module';<% if(filters
 import { JwtModule } from '@auth0/angular-jwt';
 import { AccountModule } from './account/account.module';
 import { AdminModule } from './admin/admin.module';<% } %>
-
-import constants from './app.constants';
 
 export function tokenGetter() {
     return localStorage.getItem('id_token');
