@@ -58,7 +58,6 @@
     "@angular/compiler": "^5.0.1",
     "@angular/core": "^5.0.1",
     "@angular/forms": "^5.0.1",
-    "@angular/http": "^5.0.1",
     "@angular/platform-browser": "^5.0.1",
     "@angular/platform-browser-dynamic": "^5.0.1",
     "@angular/router": "^5.0.1",

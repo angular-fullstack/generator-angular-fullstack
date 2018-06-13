@@ -1,9 +1,8 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
-import { AuthHttp } from 'angular2-jwt';
 import { UserService } from './user.service';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import { safeCb, extractData } from '../util';
+import { safeCb } from '../util';
 import constants from '../../app/app.constants';
 
 // @flow
@@ -12,7 +11,6 @@ class User {
     name = '';
     email = '';
     role = '';
-    $promise = undefined;
 }
 
 @Injectable()
@@ -20,14 +18,11 @@ export class AuthService {
     _currentUser: User = new User();
     @Output() currentUserChanged = new EventEmitter(true);
     userRoles = constants.userRoles || [];
-    Http;
-    AuthHttp;
     UserService;
 
-    static parameters = [Http, AuthHttp, UserService];
-    constructor(<%= private() %>http: Http, <%= private() %>authHttp: AuthHttp, <%= private() %>userService: UserService) {
-        this.Http = http;
-        this.AuthHttp = authHttp;
+    static parameters = [HttpClient, UserService];
+    constructor(<%= private() %>http: HttpClient, <%= private() %>userService: UserService) {
+        this.http = http;
         this.UserService = userService;
 
         if(localStorage.getItem('id_token')) {
@@ -69,12 +64,11 @@ export class AuthService {
      * @return {Promise}
      */
     login({email, password}, callback) {
-        return this.Http.post('/auth/local', {
+        return this.http.post('/auth/local', {
             email,
             password
         })
             .toPromise()
-            .then(extractData)
             .then(res => {
                 localStorage.setItem('id_token', res.token);
                 return this.UserService.get().toPromise();
