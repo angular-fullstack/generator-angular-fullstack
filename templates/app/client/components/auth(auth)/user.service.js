@@ -1,10 +1,8 @@
 // @flow
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 type UserType = {
     // TODO: use Mongoose model
@@ -22,10 +20,10 @@ export class UserService {
     }
 
     query(): Observable<UserType[]> {
-        return this.http.get('/api/users/') as Observable<UserType[]>;
+        return this.http.get('/api/users/')<% if(filters.ts) { %> as Observable<UserType[]><% } %>;
     }
     get(user<% if(filters.ts) { %>: UserType<% } %> = {id: 'me'}): Observable<UserType> {
-        return this.http.get(`/api/users/${user.id || user._id}`) as Observable<UserType>;
+        return this.http.get(`/api/users/${user.id || user._id}`)<% if(filters.ts) { %> as Observable<UserType><% } %>;
     }
     create(user: UserType) {
         return this.http.post('/api/users/', user);
@@ -35,6 +33,6 @@ export class UserService {
     }
     remove(user) {
         return this.http.delete(`/api/users/${user.id || user._id}`)
-            .map(() => user);
+            .pipe(map(() => user));
     }
 }

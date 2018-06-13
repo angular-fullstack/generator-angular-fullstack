@@ -1,6 +1,5 @@
 import { Component, OnInit<% if(filters.ws) { %>, OnDestroy<% } %> } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/map';<% if(filters.ws) { %>
+import { HttpClient } from '@angular/common/http';<% if(filters.ws) { %>
 import { SocketService } from '../../components/socket/socket.service';<% } %><% if(filters.ts) { %>
 
 interface Thing {
