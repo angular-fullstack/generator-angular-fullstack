@@ -5,7 +5,6 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var fs = require('fs');
 var path = require('path');
 
@@ -25,6 +24,10 @@ module.exports = function makeWebpackConfig(options) {
      * This is the object where all configuration gets set
      */
     var config = {};
+
+    config.mode = BUILD
+        ? 'production'
+        : 'development';
 
     /**
      * Entry
@@ -310,16 +313,17 @@ module.exports = function makeWebpackConfig(options) {
     ];
 
     if(!TEST) {
-        config.plugins.push(new CommonsChunkPlugin({
-            name: 'vendor',
-
-            // filename: "vendor.js"
-            // (Give the chunk a different name)
-
-            minChunks: Infinity
-            // (with more entries, this ensures that no other module
-            //  goes into the vendor chunk)
-        }));
+        // TODO(webpack4)
+        // config.plugins.push(new CommonsChunkPlugin({
+        //     name: 'vendor',
+        //
+        //     // filename: "vendor.js"
+        //     // (Give the chunk a different name)
+        //
+        //     minChunks: Infinity
+        //     // (with more entries, this ensures that no other module
+        //     //  goes into the vendor chunk)
+        // }));
     }
 
     // Skip rendering app.html in test mode
