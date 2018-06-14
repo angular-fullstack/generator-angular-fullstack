@@ -224,7 +224,7 @@
 
         //ECMAScript 6
         "arrow-body-style": [2, "as-needed"],                       //require braces in arrow function body
-        "arrow-parens": [2, "as-needed"],                           //require parens in arrow function arguments
+        "arrow-parens": 0,                                          //require parens in arrow function arguments
         "arrow-spacing": 2,                                         //require space before/after arrow function's arrow
         "constructor-super": 2,                                     //verify calls of super() in constructors
         "generator-star-spacing": 0,                                //enforce spacing around the * in generator functions
