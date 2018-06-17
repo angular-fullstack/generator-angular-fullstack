@@ -90,7 +90,7 @@ var config = {
 
     // Setup mongo for tests
     var mongoose = require('mongoose');
-    mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database<% } %>
+    return mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database<% } %>
   }
 };
 

@@ -6,6 +6,7 @@
 module.exports = {
     // MongoDB connection options
     mongo: {
+        useMongoClient: true,
         uri: 'mongodb://localhost/<%= lodash.slugify(appname) %>-test'
     },
     sequelize: {

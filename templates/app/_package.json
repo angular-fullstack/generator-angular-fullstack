@@ -29,7 +29,7 @@
     "babel-runtime": "^6.18.0",<% if(filters.pug) { %>
     "pug": "^2.0.0",<% } %><% if(filters.html) { %>
     "ejs": "^2.5.3",<% } %><% if(filters.mongoose) { %>
-    "mongoose": "^4.13.14",
+    "mongoose": "^5.1.5",
     "bluebird": "^3.3.3",
     "connect-mongo": "^2.0.1",<% } %><% if(filters.sequelize) { %>
     "sequelize": "^3.23.6",

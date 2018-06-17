@@ -16,7 +16,7 @@ import seedDatabaseIfNeeded from './config/seed';<% } %>
 
 <% if (filters.mongoose) { %>
 // Connect to MongoDB
-mongoose.connect(config.mongo.uri, config.mongo.options);
+const mongooseConnectionPromise = mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connection.on('error', function(err) {
     console.error('MongoDB connection error: ' + err);
     process.exit(-1); // eslint-disable-line no-process-exit
@@ -53,6 +53,7 @@ wsInitPromise
     .then(primus => {
         app.primus = primus;
     })<% if(filters.models) { %>
+    .then(() => mongooseConnectionPromise)
     .then(seedDatabaseIfNeeded)<% } %>
     .then(startServer)
     .catch(err => {
