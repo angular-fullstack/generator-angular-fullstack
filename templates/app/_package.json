@@ -202,7 +202,7 @@
     "karma-jasmine": "^1.0.2",
     "jasmine-spec-reporter": "^4.2.1",<% } %>
     "phantomjs-prebuilt": "^2.1.4",
-    "proxyquire": "^1.0.1",
+    "proxyquire": "^2.0.1",
     "strip-ansi": "^4.0.0",
     "supertest": "^3.0.0"<% if(filters.ts) { %>,
     "tslint": "^5.7.0"<% } %>
