@@ -34,18 +34,18 @@ webpack.make.js // main file for Webpack configuration
 
 ```
 │   .eslintrc // eslint config for client files
-│   polyfills.js // imports of polyfills
 │   app.template.html // template for the root HTML file of your app
 │
 ├───app
-│   │   app.config.js // contains app-wide configuration code
-│   │   app.constants.js // gets injected with constants from `server/config/environment/shared.js`
-│   │   app.{js,ts} // root JavaScript file of your app
 │   │   app.{css,scss,stylus,less} // root CSS file of your app
+│   │   app.component.{js,ts} // root Angular component for your app
+│   │   app.constants.js // gets injected with constants from `server/config/environment/shared.js`
+│   │   app.{js,ts} // JavaScript entry point
+│   │   app.module.{js,ts} // root Angular module for your app
+│   │   polyfills.js // imports of polyfills
 │   │
 │   ├───account // pages related to login / signup / user settings
-│   │   │   account.routes.js // route information
-│   │   │   index.js // account module root
+│   │   │   account.module.js // account module root
 │   │   │
 │   │   ├───login
 │   │   ├───settings
@@ -55,15 +55,15 @@ webpack.make.js // main file for Webpack configuration
 │   │
 │   └───main // main component, homepage
 │
-├───assets // where static assets are stored
+├───assets // where static assets (images/etc) are stored
 │
 └───components
+    │       directives.module.js // combined module for directives
     ├───auth
     │       auth.module.js // module containing auth components
     │       auth.service.js // authentication service
-    │       interceptor.service.js // intercepts requests and adds tokens if needed. Also redirects 401s to the login page.
-    │       router.decorator.js // facilitates auth-based routing configuration
-    │       user.service.js // user resource service
+    │       auth.guard.js // Used to guard protected routes from users without access
+    │       user.service.js // User service
     │
     ├───footer
     │
@@ -74,6 +74,7 @@ webpack.make.js // main file for Webpack configuration
     ├───oauth-buttons // buttons for oauth login on signup / login pages
     │
     ├───socket
+    │       primus.mock.js // mock for Primus
     │       socket.mock.js // mock service for unit testing
     │       socket.service.js // service for Socket IO integration
     │
@@ -130,4 +131,4 @@ webpack.make.js // main file for Webpack configuration
 
 End-To-End testing files (use by [Protractor](https://github.com/angular/protractor) with [Mocha](https://github.com/mochajs/mocha))
 
-[Babel]: https://babeljs.io/
+[Babel]: http
