@@ -1,11 +1,8 @@
 // @flow
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 type UserType = {
     // TODO: use Mongoose model
@@ -15,42 +12,27 @@ type UserType = {
     email?: string;
 };
 
-function handleError(err) {
-    return Observable.throw(err.json() || 'Server error');
-}
-
 @Injectable()
 export class UserService {
-    AuthHttp;
-
-    static parameters = [AuthHttp];
-    constructor(<%= private() %>authHttp: AuthHttp) {
-        this.AuthHttp = authHttp;
+    static parameters = [HttpClient];
+    constructor(<%= private() %>http: HttpClient) {
+        this.http = http;
     }
 
     query(): Observable<UserType[]> {
-        return this.AuthHttp.get('/api/users/')
-            .map((res: Response) => res.json())
-            .catch(handleError);
+        return this.http.get('/api/users/')<% if(filters.ts) { %> as Observable<UserType[]><% } %>;
     }
     get(user<% if(filters.ts) { %>: UserType<% } %> = {id: 'me'}): Observable<UserType> {
-        return this.AuthHttp.get(`/api/users/${user.id || user._id}`)
-            .map((res: Response) => res.json())
-            .catch(handleError);
+        return this.http.get(`/api/users/${user.id || user._id}`)<% if(filters.ts) { %> as Observable<UserType><% } %>;
     }
     create(user: UserType) {
-        return this.AuthHttp.post('/api/users/', user)
-            .map((res: Response) => res.json())
-            .catch(handleError);
+        return this.http.post('/api/users/', user);
     }
     changePassword(user, oldPassword, newPassword) {
-        return this.AuthHttp.put(`/api/users/${user.id || user._id}/password`, {oldPassword, newPassword})
-            .map((res: Response) => res.json())
-            .catch(handleError);
+        return this.http.put(`/api/users/${user.id || user._id}/password`, {oldPassword, newPassword});
     }
     remove(user) {
-        return this.AuthHttp.delete(`/api/users/${user.id || user._id}`)
-            .map(() => user)
-            .catch(handleError);
+        return this.http.delete(`/api/users/${user.id || user._id}`)
+            .pipe(map(() => user));
     }
 }

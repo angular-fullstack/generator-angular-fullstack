@@ -5,16 +5,7 @@ import {
     inject,
     TestBed,
 } from '@angular/core/testing';
-import {
-    BaseRequestOptions,
-    ConnectionBackend,
-    Http,
-    HttpModule,
-    Response,
-    ResponseOptions,
-} from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
-<%_ if(filters.mocha && filters.expect) { -%>
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';<% if(filters.mocha && filters.expect) { %>
 import { expect } from 'chai';<% } %><% if(filters.uibootstrap) { %>
 import { TooltipModule } from 'ngx-bootstrap';<% } %>
 import { FormsModule } from '@angular/forms';<% if(filters.ws) { %>
@@ -25,37 +16,24 @@ import { MainComponent } from './main.component';
 describe('Component: MainComponent', function() {
     let comp: MainComponent;
     let fixture: ComponentFixture<MainComponent>;
+    let httpTestingController: HttpTestingController;
+    const mockThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express'];
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 FormsModule,<% if(filters.uibootstrap) { %>
                 TooltipModule.forRoot(),<% } %>
-                HttpModule,
+                HttpClientTestingModule,
             ],
-            declarations: [ MainComponent ], // declare the test component
+            declarations: [ MainComponent ], // declare the test component<% if(filters.ws) { %>
             providers: [
-                BaseRequestOptions,
-                MockBackend,
-                {
-                    provide: Http,
-                    useFactory: (backend: ConnectionBackend, defaultOptions: BaseRequestOptions) => {
-                        return new Http(backend, defaultOptions);
-                    },
-                    deps: [MockBackend, BaseRequestOptions]
-                },<% if(filters.ws) { %>
-                { provide: SocketService, useClass: SocketServiceStub },<% } %>
-            ],
+                { provide: SocketService, useClass: SocketServiceStub },
+            ],<% } %>
         }).compileComponents();
-    }));
 
-    beforeEach(async(inject([MockBackend], (mockBackend) => {
-        mockBackend.connections.subscribe(conn => {
-            conn.mockRespond(new Response(new ResponseOptions({
-                body: JSON.stringify(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express'])
-            })));
-        });
-    })));
+        httpTestingController = TestBed.get(HttpTestingController);
+    }));
 
     beforeEach(async(() => {
         fixture = TestBed.createComponent(MainComponent);
@@ -63,13 +41,24 @@ describe('Component: MainComponent', function() {
         comp = fixture.componentInstance;
 
         /**
-         * Trigger initial data binding.
+         * Trigger initial data binding and run lifecycle hooks
          */
         fixture.detectChanges();
     }));
 
-    it('should attach a list of things to the controller', () => {<% if(filters.jasmine) { %>
-        expect(comp.awesomeThings.length).toEqual(4);<% } else if(filters.mocha) { %>
-        <%= expect() %>comp.awesomeThings.length<%= to() %>.equal(4);<% } %>
+    it('should attach a list of things to the controller', () => {
+        // `GET /api/things` should be made once
+        const req = httpTestingController.expectOne('/api/things');<% if(filters.jasmine) { %>
+        expect(req.request.method).toEqual('GET');<% } else if(filters.mocha) { %>
+        <%= expect() %>req.request.method<%= to() %>.equal('GET');<% } %>
+
+        // Respond with mock data
+        req.flush(mockThings);
+
+        // assert that there are no outstanding requests
+        httpTestingController.verify();
+
+        <%_ if(filters.jasmine) { -%>expect(comp.awesomeThings).toEqual(mockThings);<%_ } else if(filters.mocha) { -%>
+        <%= expect() %>comp.awesomeThings<%= to() %>.equal(mockThings);<% } %>
     });
 });

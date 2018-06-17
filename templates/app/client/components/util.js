@@ -6,7 +6,6 @@ import {
     isFunction,
     noop,
 } from 'lodash';
-import { Response } from '@angular/http';
 
 /**
  * Return a callback or noop function
@@ -59,9 +58,4 @@ export function isSameOrigin(url, origins) {
         return hostnameCheck && protocolCheck && portCheck;
     });
     return origins.length >= 1;
-}
-
-export function extractData(res: Response) {
-    if(!res.text()) return {};
-    return res.json() || { };
 }

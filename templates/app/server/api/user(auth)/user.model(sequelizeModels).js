@@ -1,5 +1,3 @@
-'use strict';
-
 import crypto from 'crypto';<% if(filters.oauth) { %>
 var authTypes = ['github', 'twitter', 'facebook', 'google'];<% } %>
 
@@ -124,18 +122,18 @@ export default function(sequelize, DataTypes) {
                 });
             },
 
-      /**
-       * Make salt
-       *
-       * @param {Number} [byteSize] - Optional salt byte size, default to 16
-       * @param {Function} callback
-       * @return {String}
-       * @api public
-       */
-      makeSalt(...args) {
-        let byteSize;
-        let callback;
-        let defaultByteSize = 16;
+            /**
+             * Make salt
+             *
+             * @param {Number} [byteSize] - Optional salt byte size, default to 16
+             * @param {Function} callback
+             * @return {String}
+             * @api public
+             */
+            makeSalt(...args) {
+                let byteSize;
+                let callback;
+                let defaultByteSize = 16;
 
                 if(typeof args[0] === 'function') {
                     callback = args[0];

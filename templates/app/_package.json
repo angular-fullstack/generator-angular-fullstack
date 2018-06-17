@@ -36,7 +36,7 @@
     "sequelize": "^3.23.6",
     "sqlite3": "~3.1.1",
     "connect-session-sequelize": "^4.1.0",<% } %><% if(filters.auth) { %>
-    "jsonwebtoken": "^7.0.0",
+    "jsonwebtoken": "^8.3.0",
     "express-jwt": "^5.0.0",
     "passport": "~0.4.0",
     "passport-local": "^1.0.0",<% } %><% if(filters.facebookAuth) { %>
@@ -52,16 +52,15 @@
     <%# CLIENT %>
     "@angularclass/hmr-loader": "^3.0.4",
     "reflect-metadata": "^0.1.3",
-    "rxjs": "^5.5.2",
+    "rxjs": "^6.0.0",
     "zone.js": "^0.8.12",
-    "@angular/common": "^5.0.1",
-    "@angular/compiler": "^5.0.1",
-    "@angular/core": "^5.0.1",
-    "@angular/forms": "^5.0.1",
-    "@angular/http": "^5.0.1",
-    "@angular/platform-browser": "^5.0.1",
-    "@angular/platform-browser-dynamic": "^5.0.1",
-    "@angular/router": "^5.0.1",
+    "@angular/common": "^6.0.4",
+    "@angular/compiler": "^6.0.4",
+    "@angular/core": "^6.0.4",
+    "@angular/forms": "^6.0.4",
+    "@angular/platform-browser": "^6.0.4",
+    "@angular/platform-browser-dynamic": "^6.0.4",
+    "@angular/router": "^6.0.4",
     <%#"@angular/material": "5.0.0-rc0",%>
     "@angularclass/hmr": "^2.1.3",
   <%_ if(filters.ts) { -%>
@@ -80,7 +79,7 @@
     "@types/selenium-webdriver": "^3.0.3",
     "@types/webpack": "^3.0.10",
   <%_ } -%>
-    "angular2-jwt": "^0.2.3",
+    "@auth0/angular-jwt": "^2.0.0",
     <% if(filters.auth) { %>
     "angular-validation-match": "^1.9.0",<% } %>
     <% if(filters.uirouter) { %>
@@ -89,7 +88,7 @@
   <% if(filters.bootstrap) { %>
     "bootstrap": "~3.3.7",
     <% if(filters.uibootstrap) { %>
-    "ngx-bootstrap": "~1.6.3",<% } %>
+    "ngx-bootstrap": "^3.0.0",<% } %>
     <% if(filters.sass) { %>
     "bootstrap-sass": "~3.3.7",<% } %>
     <% if(filters.stylus) { %>
@@ -106,7 +105,7 @@
     <%# END CLIENT %>
 
     "autoprefixer": "^7.1.3",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.2.3",
     "babel-register": "^6.16.0",
     "bs-fullscreen-message": "^1.0.0",
     <%_ if(filters.flow) { -%>
@@ -117,7 +116,7 @@
     "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-env": "^1.6.1",
     "cross-env": "^5.1.1",
-    "eslint": "^2.12.0",
+    "eslint": "^4.19.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",<% if(filters.ts) { %>
@@ -148,11 +147,12 @@
     "run-sequence": "^2.1.0",
     "lazypipe": "^1.0.1",
     <%# WEBPACK %>
-    "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.4.2",
-    "extract-text-webpack-plugin": "3.0.0",
-    "html-webpack-plugin": "^2.24.1",
-    "html-webpack-harddisk-plugin": "~0.1.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.6",
+    "webpack-dev-server": "^3.1.4",
+    "extract-text-webpack-plugin": "4.0.0-beta.0",
+    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-harddisk-plugin": "~0.2.0",
     <%_ if(filters.pug) { _%>
     "pug-html-loader": "^1.1.5",<% } %>
     "typescript": "~2.6.1",
@@ -175,7 +175,7 @@
     <%_ if(filters.stylus) { _%>
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",<% } %>
-    "karma-webpack": "^2.0.3",
+    "karma-webpack": "4.0.0-beta.0",
     "to-string-loader": "^1.1.5",
     <%# END WEBPACK %>
     "through2": "^2.0.1",

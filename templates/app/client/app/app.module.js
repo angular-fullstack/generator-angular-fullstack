@@ -1,17 +1,9 @@
 import {
     NgModule,
-    Injectable,
-    ApplicationRef,<% if(filters.ts || filters.flow) { %>
-    Provider,<% } %>
+    ApplicationRef,
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-    Http,
-    HttpModule,
-    BaseRequestOptions,<% if(filters.ts || filters.flow) { %>
-    RequestOptions,
-    RequestOptionsArgs,<% } %>
-} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import {
     removeNgStyles,
     createNewHosts,
@@ -21,40 +13,16 @@ import {
 import { UIRouterModule } from 'ui-router-ng2';<% } %>
 <%_ if (filters.ngroute) { -%>
 import { RouterModule, Routes } from '@angular/router';<% } %>
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { DirectivesModule } from '../components/directives.module';<% if(filters.auth) { %>
+import { JwtModule } from '@auth0/angular-jwt';
 import { AccountModule } from './account/account.module';
 import { AdminModule } from './admin/admin.module';<% } %>
 
-import constants from './app.constants';
-
-export function getAuthHttp(http) {
-    return new AuthHttp(new AuthConfig({
-        noJwtError: true,
-        globalHeaders: [{'Accept': 'application/json'}],
-        tokenGetter: (() => localStorage.getItem('id_token')),
-    }), http);
-}
-
-let providers: Provider[] = [{
-    provide: AuthHttp,
-    useFactory: getAuthHttp,
-    deps: [Http]
-}];
-
-if(constants.env === 'development') {
-    @Injectable()
-    class HttpOptions extends BaseRequestOptions {
-        merge(options: RequestOptionsArgs): RequestOptions {
-            options.url = `http://localhost:9000${options.url}`;
-            return super.merge(options);
-        }
-    }
-
-    providers.push({ provide: RequestOptions, useClass: HttpOptions });
+export function tokenGetter() {
+    return localStorage.getItem('id_token');
 }
 
 const appRoutes: Routes = [{ path: '',
@@ -63,10 +31,14 @@ const appRoutes: Routes = [{ path: '',
 }];
 
 @NgModule({
-    providers,
     imports: [
         BrowserModule,
-        HttpModule,
+        HttpClientModule,<% if(filters.auth) { %>
+        JwtModule.forRoot({
+            config: {
+                tokenGetter,
+            }
+        }),<% } %>
         <%_ if (filters.uirouter) { -%>
         UIRouterModule.forRoot(),<% } %>
         <%_ if (filters.ngroute) { -%>
@@ -79,7 +51,7 @@ const appRoutes: Routes = [{ path: '',
     declarations: [
         AppComponent,
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {
     static parameters = [ApplicationRef];

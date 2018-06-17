@@ -2,8 +2,6 @@
  * Main application file
  */
 
-'use strict';
-
 import express from 'express';<% if (filters.mongoose) { %>
 import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');<% } %><% if (filters.sequelize) { %>
@@ -20,8 +18,8 @@ import seedDatabaseIfNeeded from './config/seed';<% } %>
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connection.on('error', function(err) {
-  console.error('MongoDB connection error: ' + err);
-  process.exit(-1); // eslint-disable-line no-process-exit
+    console.error('MongoDB connection error: ' + err);
+    process.exit(-1); // eslint-disable-line no-process-exit
 });
 <% } %>
 // Setup server
@@ -34,33 +32,32 @@ registerRoutes(app);
 
 // Start server
 function startServer() {
-  app.angularFullstack = server.listen(config.port, config.ip, function() {
-    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
-  });
+    app.angularFullstack = server.listen(config.port, config.ip, function() {
+        console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+    });
 }
 <% if(filters.sequelize) { %>
-sqldb.sequelize.sync()
-  <%_ if(filters.ws) { -%>
-  .then(wsInitPromise)
-  .then(primus => {
-    app.primus = primus;
-  })<% } %><% if(filters.models) { %>
-  .then(seedDatabaseIfNeeded)<% } %>
-  .then(startServer)
-  .catch(err => {
-    console.log('Server failed to start due to error: %s', err);
-  });
+sqldb.sequelize.sync()<% if(filters.ws) { %>
+    .then(wsInitPromise)
+    .then(primus => {
+        app.primus = primus;
+    })<% } %><% if(filters.models) { %>
+    .then(seedDatabaseIfNeeded)<% } %>
+    .then(startServer)
+    .catch(err => {
+        console.log('Server failed to start due to error: %s', err);
+    });
 <% } else { %>
 <%_ if(filters.ws) { -%>
 wsInitPromise
-  .then(primus => {
-    app.primus = primus;
-  })<% if(filters.models) { %>
-  .then(seedDatabaseIfNeeded)<% } %>
-  .then(startServer)
-  .catch(err => {
-    console.log('Server failed to start due to error: %s', err);
-  });<% } %>
+    .then(primus => {
+        app.primus = primus;
+    })<% if(filters.models) { %>
+    .then(seedDatabaseIfNeeded)<% } %>
+    .then(startServer)
+    .catch(err => {
+        console.log('Server failed to start due to error: %s', err);
+    });<% } %>
 <%_ if(!filters.ws) { -%>
 setImmediate(startServer);<% } %>
 <% } %>

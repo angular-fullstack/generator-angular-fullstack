@@ -6,10 +6,10 @@
 module.exports = {<% if (filters.mongoose) { %>
     // MongoDB connection options
     mongo: {
-        uri: 'mongodb://localhost/<%= lodash.slugify(appname) %>-dev'
+        uri: process.env.MONGODB_URI || 'mongodb://localhost/<%= lodash.slugify(appname) %>-dev'
     },<% } if (filters.sequelize) { %>
 
-    // Sequelize connection opions
+    // Sequelize connection options
     sequelize: {
         uri: 'sqlite://',
         options: {
@@ -22,5 +22,5 @@ module.exports = {<% if (filters.mongoose) { %>
     },<% } %>
 
     // Seed database on startup
-    seedDB: true
+    seedDB: true,
 };
