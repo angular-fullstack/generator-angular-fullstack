@@ -2,8 +2,6 @@
  * Express configuration
  */
 
-'use strict';
-
 import express from 'express';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
@@ -31,6 +29,7 @@ export default function(app) {
 
     if(env === 'development' || env === 'test') {
         app.use(express.static(path.join(config.root, '.tmp')));
+        app.use(require('cors')());
     }
 
     if(env === 'production') {
