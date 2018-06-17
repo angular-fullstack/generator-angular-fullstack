@@ -341,31 +341,6 @@ module.exports = function makeWebpackConfig(options) {
         );
     }
 
-    // Add build specific plugins
-    if(BUILD) {
-        config.plugins.push(
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
-            // Only emit files when there are no errors
-            new webpack.NoErrorsPlugin(),
-
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-            // Dedupe modules in the output
-            new webpack.optimize.DedupePlugin(),
-
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-            // Minify all javascript, switch loaders to minimizing mode
-            new webpack.optimize.UglifyJsPlugin({
-                mangle: false,
-                output: {
-                    comments: false
-                },
-                compress: {
-                    warnings: false
-                }
-            })
-        );
-    }
-
     let localEnv;
     try {
         localEnv = require('./server/config/local.env').default;
