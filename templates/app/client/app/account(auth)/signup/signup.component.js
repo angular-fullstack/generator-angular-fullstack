@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 <%_ if(filters.uirouter) { -%>
 import { StateService } from 'ui-router-ng2';<% } %>
 <%_ if(filters.ngroute) { -%>
-import { Router } from '@angular/router';<% } %>
+import { Router } from '@angular/router';<% } %><% if(filters.mongoose) { %>
+import { ValidationError } from 'mongoose';<% } %>
 import { AuthService } from '../../../components/auth/auth.service';
 
 <%_ if(filters.flow) { -%>
@@ -28,7 +29,7 @@ export class SignupComponent {
         email: '',
         password: ''
     };
-    errors = {};
+    errors: {field?: Error} = {};
     submitted = false;
     AuthService;
     <%_ if(filters.ngroute) { -%>
@@ -56,21 +57,22 @@ export class SignupComponent {
             password: this.user.password
         })
             .then(() => {
-                // Account created, redirect to home
-                <% if(filters.ngroute) { %>this.Router.navigateByUrl('/home');<% } -%>
-                <% if(filters.uirouter) { %>this.StateService.go('main');<% } -%>
-            })
-            .catch(err => {<% if(filters.mongooseModels) { %>
+                // Account created, redirect to home<% if(filters.ngroute) { %>
+                this.Router.navigateByUrl('/home');<% } %><% if(filters.uirouter) { %>
+                this.StateService.go('main');<% } %>
+            })<% if(filters.mongooseModels) { %>
+            .catch((err: {errors: {field: ValidationError}}) => {
                 this.errors = err.errors;
 
                 // Update validity of form fields that match the mongoose errors
-                Object.entries(err.errors).forEach(([field, error]) => {
+                Object.entries(err.errors).forEach(([field, error]: [string, ValidationError]) => {
                     this.errors[field] = error.message;
 
                     if(field === 'email' && error.kind === 'user defined') {
-                        form.form.controls[field].setErrors({inUse: true});
-                    }
+                    form.form.controls[field].setErrors({inUse: true});
+                }
                 });<% } %><% if(filters.sequelizeModels) { %>
+            .catch(err => {
                 this.errors = {};
 
                 // Update validity of form fields that match the sequelize errors
