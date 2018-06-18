@@ -68,9 +68,11 @@ export default function(app) {
      * Lusca - express server security
      * https://github.com/krakenjs/lusca
      */
-    if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) { // eslint-disable-line no-process-env
+    if(env !== 'test' && env !== 'development') {
         app.use(lusca({
-            csrf: true,
+            csrf: {
+                header: 'x-xsrf-token',
+            },
             xframe: 'SAMEORIGIN',
             hsts: {
                 maxAge: 31536000, //1 year, in seconds
