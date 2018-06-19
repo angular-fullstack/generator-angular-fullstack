@@ -217,6 +217,7 @@
     "npm": ">=3.9.5"
   },
   "scripts": {
+    "build": "gulp build",
     "postinstall": "gulp copy:fonts:dev",
     "lint": "npm run lint:client && npm run lint:server",
     "lint:client": <% if(filters.babel) { _%>"eslint ./client/**/*.<%= scriptExt %> -c ./client/.eslintrc --ignore-pattern *.spec.<%= scriptExt %>"<%_ } else { _%>
