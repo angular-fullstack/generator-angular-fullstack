@@ -155,6 +155,9 @@
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-harddisk-plugin": "~0.2.0",
+    "mini-css-extract-plugin": "~0.4.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     <%_ if(filters.pug) { _%>
     "pug-html-loader": "^1.1.5",<% } %>
     "typescript": "~2.9.0",
@@ -236,5 +239,12 @@
     "start:client": "webpack-dev-server --config webpack.dev.js",
     "start:server": "node server"
   },
+  "sideEffects": [
+    "*.css",
+    "*.less",
+    "*.sass",
+    "*.scss",
+    "*.styl"
+  ],
   "private": true
 }

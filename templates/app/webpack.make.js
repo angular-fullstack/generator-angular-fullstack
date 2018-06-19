@@ -3,7 +3,10 @@ const _ = require('lodash');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = function makeWebpackConfig(options) {
@@ -193,7 +196,11 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/postcss/postcss-loader
             // Postprocess your css with PostCSS plugins
             test: /\.css$/,
-            use: ['style-loader', 'css-loader', 'postcss-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader',
+                'postcss-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/dist/css/*.css'),
                 path.resolve(__dirname, 'client/app/app.css')
@@ -202,7 +209,11 @@ module.exports = function makeWebpackConfig(options) {
             // CSS LOADER
             // Reference: https://github.com/webpack/css-loader
             test: /\.css$/,
-            use: ['to-string-loader', 'css-loader?sourceMap', 'postcss-loader'],
+            use: [
+                'to-string-loader',
+                'css-loader?sourceMap',
+                'postcss-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
             ],
@@ -211,7 +222,12 @@ module.exports = function makeWebpackConfig(options) {
             // SASS LOADER
             // Reference: https://github.com/jtangelder/sass-loader
             test: /\.(scss|sass)$/,
-            use: ['style-loader', 'css-loader?sourceMap', 'sass-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'sass-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
                 path.resolve(__dirname, 'client/app/app.scss')
@@ -220,7 +236,12 @@ module.exports = function makeWebpackConfig(options) {
             // SASS LOADER
             // Reference: https://github.com/jtangelder/sass-loader
             test: /\.(scss|sass)$/,
-            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+            use: [
+                'to-string-loader?sourceMap',
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'sass-loader?sourceMap',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
             ],
@@ -228,7 +249,12 @@ module.exports = function makeWebpackConfig(options) {
         }<% } else if(filters.less) { %>, {
             // LESS LOADER
             test: /\.less$/,
-            use: ['style-loader', 'css-loader?sourceMap', 'less-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'less-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/less/*.less'),
                 path.resolve(__dirname, 'client/app/app.less')
@@ -236,15 +262,25 @@ module.exports = function makeWebpackConfig(options) {
         }, {
             // LESS LOADER
             test: /\.less$/,
-            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'less-loader'],
+            use: [
+                'to-string-loader?sourceMap',
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'less-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
-                ],
+            ],
             exclude: [/app\.less$/]
         }<% } else if(filters.stylus) { %>, {
             // Stylus LOADER
             test: /\.styl$/,
-            use: ['style-loader', 'css-loader?sourceMap', 'stylus-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'stylus-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
                 path.resolve(__dirname, 'client/app/app.styl')
@@ -252,7 +288,12 @@ module.exports = function makeWebpackConfig(options) {
         }, {
             // Stylus LOADER
             test: /\.styl$/,
-            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'stylus-loader'],
+            use: [
+                'to-string-loader?sourceMap',
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'stylus-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
             ],
@@ -274,14 +315,6 @@ module.exports = function makeWebpackConfig(options) {
             /angular(\\|\/)core/,
             path.resolve(__dirname, '../src')
         ),
-
-        // Reference: https://github.com/webpack/extract-text-webpack-plugin
-        // Extract css files
-        // Disabled when in test mode or not in build mode
-        new ExtractTextPlugin({
-            filename: '[name].[hash].css',
-            disable: !BUILD || TEST,
-        }),
 
         new webpack.LoaderOptionsPlugin({
             options: {
@@ -363,6 +396,29 @@ module.exports = function makeWebpackConfig(options) {
     }
 
     config.cache = DEV;
+
+    if(BUILD) {
+        config.optimization = {
+            splitChunks: {
+                cacheGroups: {
+                    styles: {
+                        name: 'styles',
+                        test: /\.css$/,
+                        chunks: 'all',
+                        enforce: true
+                    },
+                },
+            },
+            minimizer: [
+                new UglifyJsPlugin({
+                    cache: true,
+                    parallel: true,
+                    sourceMap: true // set to true if you want JS source maps
+                }),
+                new OptimizeCssAssetsPlugin({}),
+            ],
+        };
+    }
 
     if(TEST) {
         config.stats = {
