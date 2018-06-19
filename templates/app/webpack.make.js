@@ -130,8 +130,9 @@ module.exports = function makeWebpackConfig(options) {
                         ['babel-preset-env', {
                             // debug: true,
                             targets: {
-                                browsers: ['last 2 versions', 'not ie < 11'],
+                                browsers: ['last 2 versions', 'not dead'],
                             },
+                            debug: true,
                             modules: false,
                         }]
                     ],
