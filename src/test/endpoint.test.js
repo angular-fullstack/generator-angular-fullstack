@@ -1,4 +1,3 @@
-'use strict';
 import path from 'path';
 import fs from 'fs';
 import Promise from 'bluebird';

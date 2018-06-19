@@ -1,4 +1,3 @@
-'use strict';
 import Primus from 'primus';
 import primusEmit from 'primus-emit';
 import { Injectable } from '@angular/core';

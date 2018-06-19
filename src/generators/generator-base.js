@@ -1,5 +1,3 @@
-'use strict';
-
 import path from 'path';
 import _ from 'lodash';
 import s from 'underscore.string';

@@ -1,4 +1,3 @@
-'use strict';
 /*eslint no-invalid-this:0*/
 import crypto from 'crypto';
 mongoose.Promise = require('bluebird');

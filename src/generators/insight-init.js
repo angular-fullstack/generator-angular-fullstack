@@ -1,4 +1,3 @@
-'use strict';
 var Insight = require('insight');
 var pkg = require('../package.json');
 

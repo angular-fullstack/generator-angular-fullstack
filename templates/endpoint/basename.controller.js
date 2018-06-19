@@ -6,9 +6,7 @@
  * PUT     <%= route %>/:id          ->  upsert
  * PATCH   <%= route %>/:id          ->  patch
  * DELETE  <%= route %>/:id          ->  destroy<% } %>
- */
-
-'use strict';<% if(filters.models) { %>
+ */<% if(filters.models) { %>
 
 import { applyPatch } from 'fast-json-patch';<% if(filters.mongooseModels) { %>
 import <%= classedName %> from './<%= basename %>.model';<% } if(filters.sequelizeModels) { %>

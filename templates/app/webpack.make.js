@@ -1,4 +1,3 @@
-'use strict';
 /*eslint-env node*/
 const _ = require('lodash');
 var webpack = require('webpack');

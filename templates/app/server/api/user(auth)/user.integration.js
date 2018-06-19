@@ -1,5 +1,3 @@
-'use strict';
-
 /* globals describe, expect, it, before, after, beforeEach, afterEach */
 
 import app from '../..';<% if (filters.mongooseModels) { %>

@@ -1,4 +1,3 @@
-'use strict';
 var yeoman = require('yeoman-generator');
 
 var Generator = yeoman.Base.extend({

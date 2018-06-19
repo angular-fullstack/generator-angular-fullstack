@@ -1,7 +1,6 @@
 // Protractor configuration
 // https://github.com/angular/protractor/blob/master/referenceConf.js
 
-'use strict';
 require('babel-register');
 
 var config = {

@@ -1,5 +1,3 @@
-'use strict';
-
 var shell = require('shelljs');
 var child_process = require('child_process');
 var Q = require('q');

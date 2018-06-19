@@ -1,4 +1,3 @@
-'use strict';
 import path from 'path';
 import assert from 'yeoman-assert';
 

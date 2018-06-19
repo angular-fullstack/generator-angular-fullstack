@@ -2,8 +2,6 @@
  * Broadcast updates to client when the model changes
  */
 
-'use strict';
-
 import <%= classedName %>Events from './<%= basename %>.events';
 
 // Model events to emit

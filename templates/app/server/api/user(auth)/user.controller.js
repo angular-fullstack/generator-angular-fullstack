@@ -1,4 +1,3 @@
-'use strict';
 <% if (filters.mongooseModels) { %>
 import User from './user.model';<% } %><% if (filters.sequelizeModels) { %>
 import {User} from '../../sqldb';<% } %>

@@ -1,4 +1,3 @@
-'use strict';
 /*eslint no-process-env:0*/
 
 import path from 'path';

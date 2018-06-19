@@ -1,5 +1,3 @@
-'use strict';
-
 /* globals describe, expect, it, beforeEach, afterEach */
 
 var app = require('<%= relativeRequire('server') %>');

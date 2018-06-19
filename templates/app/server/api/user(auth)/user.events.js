@@ -2,8 +2,6 @@
  * User model events
  */
 
-'use strict';
-
 import {EventEmitter} from 'events';<% if (filters.sequelizeModels) { %>
 import {User} from '../../sqldb';<% } %>
 var UserEvents = new EventEmitter();

@@ -2,8 +2,6 @@
  * <%= classedName %> model events
  */
 
-'use strict';
-
 import {EventEmitter} from 'events';<% if(filters.sequelizeModels) { %>
 var <%= classedName %> = require('<%= relativeRequire(config.get('registerModelsFile')) %>').<%= classedName %>;<% } %>
 var <%= classedName %>Events = new EventEmitter();
