@@ -1,11 +1,10 @@
 /*eslint-env node*/
 const _ = require('lodash');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var fs = require('fs');
-var path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = function makeWebpackConfig(options) {
     /**
@@ -311,18 +310,15 @@ module.exports = function makeWebpackConfig(options) {
         })
     ];
 
-    if(!TEST) {
-        // TODO(webpack4)
-        // config.plugins.push(new CommonsChunkPlugin({
-        //     name: 'vendor',
-        //
-        //     // filename: "vendor.js"
-        //     // (Give the chunk a different name)
-        //
-        //     minChunks: Infinity
-        //     // (with more entries, this ensures that no other module
-        //     //  goes into the vendor chunk)
-        // }));
+    if(BUILD) {
+        config.plugins.push(
+            new CompressionPlugin({}),
+            // https://github.com/webpack-contrib/mini-css-extract-plugin
+            new MiniCssExtractPlugin({
+                filename: '[name].[hash].css',
+                chunkFilename: '[id].[hash].css',
+            }),
+        );
     }
 
     // Skip rendering app.html in test mode

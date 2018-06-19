@@ -3,6 +3,7 @@
  */
 
 import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
 import compression from 'compression';
@@ -23,7 +24,7 @@ import sqldb from '../sqldb';
 let Store = require('connect-session-sequelize')(session.Store);<% } %>
 
 export default function(app) {
-    var env = app.get('env');
+    var env = process.env.NODE_ENV;
 
     if(env === 'development' || env === 'test') {
         app.use(express.static(path.join(config.root, '.tmp')));
@@ -36,6 +37,9 @@ export default function(app) {
 
     app.set('appPath', path.join(config.root, 'client'));
     app.use(express.static(app.get('appPath')));
+    if(env === 'production') {
+        app.use("/", expressStaticGzip(app.get('appPath')));
+    }
     app.use(morgan('dev'));
 
     app.set('views', `${config.root}/server/views`);<% if(filters.html) { %>
