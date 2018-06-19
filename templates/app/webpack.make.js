@@ -15,16 +15,16 @@ module.exports = function makeWebpackConfig(options) {
      * BUILD is for generating minified builds
      * TEST is for generating test builds
      */
-    var BUILD = !!options.BUILD;
-    var TEST = !!options.TEST;
-    var DEV = !!options.DEV;
+    const BUILD = !!options.BUILD;
+    const TEST = !!options.TEST;
+    const DEV = !!options.DEV;
 
     /**
      * Config
      * Reference: http://webpack.github.io/docs/configuration.html
      * This is the object where all configuration gets set
      */
-    var config = {};
+    const config = {};
 
     config.mode = BUILD
         ? 'production'
@@ -330,12 +330,10 @@ module.exports = function makeWebpackConfig(options) {
             babel: {
                 <%_ if(filters.flow) { -%>
                 shouldPrintComment(commentContents) {
-                    let regex = DEV
-                        // keep `// @flow` & flow type comments in dev
-                        ? /(@flow|^:)/
-                        // strip comments
-                        : false;
-                    return regex.test(commentContents);
+                    if(!DEV) return false;
+
+                    // keep `// @flow` & flow type comments in dev
+                    return /(@flow|^:)/.test(commentContents);
                 },<% } %>
                 <%_ if(!filters.flow) { -%>
                 comments: false<% } %>
@@ -358,14 +356,13 @@ module.exports = function makeWebpackConfig(options) {
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
     // Render app.html
     if(!TEST) {
-        let htmlConfig = {
-            template: 'client/app.template.html',
-            filename: '../client/app.html',
-            alwaysWriteToDisk: true
-        }
         config.plugins.push(
-          new HtmlWebpackPlugin(htmlConfig),
-          new HtmlWebpackHarddiskPlugin()
+            new HtmlWebpackPlugin({
+                template: 'client/app.template.html',
+                filename: '../client/app.html',
+                alwaysWriteToDisk: true,
+            }),
+            new HtmlWebpackHarddiskPlugin(),
         );
     }
 
@@ -391,7 +388,7 @@ module.exports = function makeWebpackConfig(options) {
 
     if(DEV) {
         config.plugins.push(
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin(),
         );
     }
 
@@ -466,7 +463,7 @@ module.exports = function makeWebpackConfig(options) {
         process: true,
         crypto: false,
         clearImmediate: false,
-        setImmediate: false
+        setImmediate: false,
     };
 
     return config;
