@@ -218,6 +218,7 @@
   },
   "scripts": {
     "build": "gulp build",
+    "build:server": "babel server -d dist/server --ignore spec.js,test.js,integration.js,local.env --source-maps",
     "postinstall": "gulp copy:fonts:dev",
     "lint": "npm run lint:client && npm run lint:server",
     "lint:client": <% if(filters.babel) { _%>"eslint ./client/**/*.<%= scriptExt %> -c ./client/.eslintrc --ignore-pattern *.spec.<%= scriptExt %>"<%_ } else { _%>
