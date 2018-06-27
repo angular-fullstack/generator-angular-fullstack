@@ -63,7 +63,9 @@ export default function(app) {
             mongooseConnection: mongoose.connection,
             db: '<%= lodash.slugify(lodash.humanize(appname)) %>'
         })<% } else if(filters.sequelize) { %>,
-        store: new Store(sqldb.sequelize)<% } %>
+        store: new Store({
+            db: sqldb.sequelize
+        })<% } %>
     }));
 
     /**
