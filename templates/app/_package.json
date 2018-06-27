@@ -34,7 +34,7 @@
     "bluebird": "^3.3.3",
     "connect-mongo": "^2.0.1",<% } %><% if(filters.sequelize) { %>
     "sequelize": "^3.23.6",
-    "sqlite3": "~3.1.1",
+    "sqlite3": "~4.0.1",
     "connect-session-sequelize": "^4.1.0",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "^8.3.0",
     "express-jwt": "^5.0.0",
