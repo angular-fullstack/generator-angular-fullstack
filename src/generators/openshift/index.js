@@ -1,4 +1,3 @@
-'use strict';
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var childProcess = require('child_process');

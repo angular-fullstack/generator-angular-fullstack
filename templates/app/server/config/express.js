@@ -3,6 +3,7 @@
  */
 
 import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
 import compression from 'compression';
@@ -16,16 +17,14 @@ import lusca from 'lusca';<% } %>
 import config from './environment';<% if(filters.auth) { %>
 import passport from 'passport';<% } %><% if(!filters.noModels) { %>
 import session from 'express-session';<% } %><% if(filters.mongoose) { %>
-<%_ if(semver.satisfies(nodeVersion, '>= 4')) { _%>
-import connectMongo from 'connect-mongo';<% } else { _%>
-import connectMongo from 'connect-mongo/es5';<% } %>
+import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
 var MongoStore = connectMongo(session);<% } else if(filters.sequelize) { %>
 import sqldb from '../sqldb';
 let Store = require('connect-session-sequelize')(session.Store);<% } %>
 
 export default function(app) {
-    var env = app.get('env');
+    var env = process.env.NODE_ENV;
 
     if(env === 'development' || env === 'test') {
         app.use(express.static(path.join(config.root, '.tmp')));
@@ -38,6 +37,9 @@ export default function(app) {
 
     app.set('appPath', path.join(config.root, 'client'));
     app.use(express.static(app.get('appPath')));
+    if(env === 'production') {
+        app.use("/", expressStaticGzip(app.get('appPath')));
+    }
     app.use(morgan('dev'));
 
     app.set('views', `${config.root}/server/views`);<% if(filters.html) { %>
@@ -72,9 +74,11 @@ export default function(app) {
      * Lusca - express server security
      * https://github.com/krakenjs/lusca
      */
-    if(env !== 'test' && env !== 'development' && !process.env.SAUCE_USERNAME) { // eslint-disable-line no-process-env
+    if(env !== 'test' && env !== 'development') {
         app.use(lusca({
-            csrf: true,
+            csrf: {
+                header: 'x-xsrf-token',
+            },
             xframe: 'SAMEORIGIN',
             hsts: {
                 maxAge: 31536000, //1 year, in seconds

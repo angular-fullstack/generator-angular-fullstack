@@ -1,7 +1,6 @@
 // Protractor configuration
 // https://github.com/angular/protractor/blob/master/referenceConf.js
 
-'use strict';
 require('babel-register');
 
 var config = {
@@ -90,7 +89,7 @@ var config = {
 
     // Setup mongo for tests
     var mongoose = require('mongoose');
-    mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database<% } %>
+    return mongoose.connect(serverConfig.mongo.uri, serverConfig.mongo.options); // Connect to database<% } %>
   }
 };
 

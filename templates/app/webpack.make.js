@@ -1,12 +1,13 @@
-'use strict';
 /*eslint-env node*/
 const _ = require('lodash');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var fs = require('fs');
-var path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = function makeWebpackConfig(options) {
     /**
@@ -14,16 +15,16 @@ module.exports = function makeWebpackConfig(options) {
      * BUILD is for generating minified builds
      * TEST is for generating test builds
      */
-    var BUILD = !!options.BUILD;
-    var TEST = !!options.TEST;
-    var DEV = !!options.DEV;
+    const BUILD = !!options.BUILD;
+    const TEST = !!options.TEST;
+    const DEV = !!options.DEV;
 
     /**
      * Config
      * Reference: http://webpack.github.io/docs/configuration.html
      * This is the object where all configuration gets set
      */
-    var config = {};
+    const config = {};
 
     config.mode = BUILD
         ? 'production'
@@ -129,8 +130,9 @@ module.exports = function makeWebpackConfig(options) {
                         ['babel-preset-env', {
                             // debug: true,
                             targets: {
-                                browsers: ['last 2 versions', 'not ie < 11'],
+                                browsers: ['last 2 versions', 'not dead'],
                             },
+                            debug: true,
                             modules: false,
                         }]
                     ],
@@ -195,7 +197,11 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/postcss/postcss-loader
             // Postprocess your css with PostCSS plugins
             test: /\.css$/,
-            use: ['style-loader', 'css-loader', 'postcss-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader',
+                'postcss-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/dist/css/*.css'),
                 path.resolve(__dirname, 'client/app/app.css')
@@ -204,7 +210,11 @@ module.exports = function makeWebpackConfig(options) {
             // CSS LOADER
             // Reference: https://github.com/webpack/css-loader
             test: /\.css$/,
-            use: ['to-string-loader', 'css-loader?sourceMap', 'postcss-loader'],
+            use: [
+                'to-string-loader',
+                'css-loader?sourceMap',
+                'postcss-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
             ],
@@ -213,7 +223,12 @@ module.exports = function makeWebpackConfig(options) {
             // SASS LOADER
             // Reference: https://github.com/jtangelder/sass-loader
             test: /\.(scss|sass)$/,
-            use: ['style-loader', 'css-loader?sourceMap', 'sass-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'sass-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-sass/assets/stylesheets/*.scss'),
                 path.resolve(__dirname, 'client/app/app.scss')
@@ -222,7 +237,12 @@ module.exports = function makeWebpackConfig(options) {
             // SASS LOADER
             // Reference: https://github.com/jtangelder/sass-loader
             test: /\.(scss|sass)$/,
-            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
+            use: [
+                'to-string-loader?sourceMap',
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'sass-loader?sourceMap',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
             ],
@@ -230,7 +250,12 @@ module.exports = function makeWebpackConfig(options) {
         }<% } else if(filters.less) { %>, {
             // LESS LOADER
             test: /\.less$/,
-            use: ['style-loader', 'css-loader?sourceMap', 'less-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'less-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap/less/*.less'),
                 path.resolve(__dirname, 'client/app/app.less')
@@ -238,15 +263,25 @@ module.exports = function makeWebpackConfig(options) {
         }, {
             // LESS LOADER
             test: /\.less$/,
-            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'less-loader'],
+            use: [
+                'to-string-loader?sourceMap',
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'less-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
-                ],
+            ],
             exclude: [/app\.less$/]
         }<% } else if(filters.stylus) { %>, {
             // Stylus LOADER
             test: /\.styl$/,
-            use: ['style-loader', 'css-loader?sourceMap', 'stylus-loader'],
+            use: [
+                DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'stylus-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'node_modules/bootstrap-styl/bootstrap/*.styl'),
                 path.resolve(__dirname, 'client/app/app.styl')
@@ -254,7 +289,12 @@ module.exports = function makeWebpackConfig(options) {
         }, {
             // Stylus LOADER
             test: /\.styl$/,
-            use: ['to-string-loader?sourceMap', 'css-loader?sourceMap', 'stylus-loader'],
+            use: [
+                'to-string-loader?sourceMap',
+                'css-loader?sourceMap',
+                'postcss-loader',
+                'stylus-loader',
+            ],
             include: [
                 path.resolve(__dirname, 'client')
             ],
@@ -277,14 +317,6 @@ module.exports = function makeWebpackConfig(options) {
             path.resolve(__dirname, '../src')
         ),
 
-        // Reference: https://github.com/webpack/extract-text-webpack-plugin
-        // Extract css files
-        // Disabled when in test mode or not in build mode
-        new ExtractTextPlugin({
-            filename: '[name].[hash].css',
-            disable: !BUILD || TEST,
-        }),
-
         new webpack.LoaderOptionsPlugin({
             options: {
                 context: __dirname
@@ -299,12 +331,10 @@ module.exports = function makeWebpackConfig(options) {
             babel: {
                 <%_ if(filters.flow) { -%>
                 shouldPrintComment(commentContents) {
-                    let regex = DEV
-                        // keep `// @flow` & flow type comments in dev
-                        ? /(@flow|^:)/
-                        // strip comments
-                        : false;
-                    return regex.test(commentContents);
+                    if(!DEV) return false;
+
+                    // keep `// @flow` & flow type comments in dev
+                    return /(@flow|^:)/.test(commentContents);
                 },<% } %>
                 <%_ if(!filters.flow) { -%>
                 comments: false<% } %>
@@ -312,57 +342,28 @@ module.exports = function makeWebpackConfig(options) {
         })
     ];
 
-    if(!TEST) {
-        // TODO(webpack4)
-        // config.plugins.push(new CommonsChunkPlugin({
-        //     name: 'vendor',
-        //
-        //     // filename: "vendor.js"
-        //     // (Give the chunk a different name)
-        //
-        //     minChunks: Infinity
-        //     // (with more entries, this ensures that no other module
-        //     //  goes into the vendor chunk)
-        // }));
+    if(BUILD) {
+        config.plugins.push(
+            new CompressionPlugin({}),
+            // https://github.com/webpack-contrib/mini-css-extract-plugin
+            new MiniCssExtractPlugin({
+                filename: '[name].[hash].css',
+                chunkFilename: '[id].[hash].css',
+            }),
+        );
     }
 
     // Skip rendering app.html in test mode
     // Reference: https://github.com/ampedandwired/html-webpack-plugin
     // Render app.html
     if(!TEST) {
-        let htmlConfig = {
-            template: 'client/app.template.html',
-            filename: '../client/app.html',
-            alwaysWriteToDisk: true
-        }
         config.plugins.push(
-          new HtmlWebpackPlugin(htmlConfig),
-          new HtmlWebpackHarddiskPlugin()
-        );
-    }
-
-    // Add build specific plugins
-    if(BUILD) {
-        config.plugins.push(
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
-            // Only emit files when there are no errors
-            new webpack.NoErrorsPlugin(),
-
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
-            // Dedupe modules in the output
-            new webpack.optimize.DedupePlugin(),
-
-            // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-            // Minify all javascript, switch loaders to minimizing mode
-            new webpack.optimize.UglifyJsPlugin({
-                mangle: false,
-                output: {
-                    comments: false
-                },
-                compress: {
-                    warnings: false
-                }
-            })
+            new HtmlWebpackPlugin({
+                template: 'client/app.template.html',
+                filename: '../client/app.html',
+                alwaysWriteToDisk: true,
+            }),
+            new HtmlWebpackHarddiskPlugin(),
         );
     }
 
@@ -388,11 +389,34 @@ module.exports = function makeWebpackConfig(options) {
 
     if(DEV) {
         config.plugins.push(
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin(),
         );
     }
 
     config.cache = DEV;
+
+    if(BUILD) {
+        config.optimization = {
+            splitChunks: {
+                cacheGroups: {
+                    styles: {
+                        name: 'styles',
+                        test: /\.css$/,
+                        chunks: 'all',
+                        enforce: true
+                    },
+                },
+            },
+            minimizer: [
+                new UglifyJsPlugin({
+                    cache: true,
+                    parallel: true,
+                    sourceMap: true // set to true if you want JS source maps
+                }),
+                new OptimizeCssAssetsPlugin({}),
+            ],
+        };
+    }
 
     if(TEST) {
         config.stats = {
@@ -440,7 +464,7 @@ module.exports = function makeWebpackConfig(options) {
         process: true,
         crypto: false,
         clearImmediate: false,
-        setImmediate: false
+        setImmediate: false,
     };
 
     return config;

@@ -1,6 +1,4 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= rootGeneratorName() %> <%= rootGeneratorVersion() %>
-'use strict';
-
 import _ from 'lodash';
 import del from 'del';
 import gulp from 'gulp';

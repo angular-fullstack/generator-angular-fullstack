@@ -1,5 +1,3 @@
-'use strict';
-
 global.DEBUG = !!process.env.DEBUG;
 
 var fs = require('fs');

@@ -1,4 +1,3 @@
-'use strict';
 import {Base} from 'yeoman-generator';
 
 class Generator extends Base {

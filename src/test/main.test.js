@@ -1,4 +1,3 @@
-'use strict';
 import path from 'path';
 import fs from 'fs';
 import _ from 'lodash';
@@ -15,7 +14,6 @@ import {
 } from './test-helpers';
 
 const defaultOptions = {
-  buildtool: 'gulp',
   transpiler: 'babel',
   flow: true,
   markup: 'html',
@@ -134,12 +132,12 @@ describe('angular-fullstack:app', function() {
     if(!process.env.SKIP_E2E) {
       it.skip('should run e2e tests successfully', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e').should.be.fulfilled();
+        return runCmd('npm run test:e2e').should.be.fulfilled();
       });
 
       it.skip('should run e2e tests successfully for production app', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e:prod').should.be.fulfilled();
+        return runCmd('npm run test:e2e:prod').should.be.fulfilled();
       });
     }
   });
@@ -190,7 +188,6 @@ describe('angular-fullstack:app', function() {
     var clientTestResult;
     var serverTestResult;
     var testOptions = {
-      buildtool: 'gulp',
       transpiler: 'ts',
       markup: 'html',
       stylesheet: 'less',
@@ -246,12 +243,12 @@ describe('angular-fullstack:app', function() {
     if(!process.env.SKIP_E2E) {
       it.skip('should run e2e tests successfully', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e').should.be.fulfilled();
+        return runCmd('npm run test:e2e').should.be.fulfilled();
       });
 
       it.skip('should run e2e tests successfully for production app', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e:prod').should.be.fulfilled();
+        return runCmd('npm run test:e2e:prod').should.be.fulfilled();
       });
     }
   });
@@ -262,7 +259,6 @@ describe('angular-fullstack:app', function() {
     var clientTestResult;
     var serverTestResult;
     var testOptions = {
-      buildtool: 'gulp',
       transpiler: 'babel',
       flow: true,
       markup: 'pug',
@@ -319,12 +315,12 @@ describe('angular-fullstack:app', function() {
     if(!process.env.SKIP_E2E) {
       it.skip('should run e2e tests successfully', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e').should.be.fulfilled();
+        return runCmd('npm run test:e2e').should.be.fulfilled();
       });
 
       it.skip('should run e2e tests successfully for production app', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e:prod').should.be.fulfilled();
+        return runCmd('npm run test:e2e:prod').should.be.fulfilled();
       });
     }
   });
@@ -335,7 +331,6 @@ describe('angular-fullstack:app', function() {
     var clientTestResult;
     var serverTestResult;
     var testOptions = {
-      buildtool: 'gulp',
       transpiler: 'ts',
       markup: 'pug',
       stylesheet: 'stylus',
@@ -392,12 +387,12 @@ describe('angular-fullstack:app', function() {
     if(!process.env.SKIP_E2E) {
       it.skip('should run e2e tests successfully', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e').should.be.fulfilled();
+        return runCmd('npm run test:e2e').should.be.fulfilled();
       });
 
       it.skip('should run e2e tests successfully for production app', function() {
         this.retries(2);
-        return runCmd('gulp test:e2e:prod').should.be.fulfilled();
+        return runCmd('npm run test:e2e:prod').should.be.fulfilled();
       });
     }
   });

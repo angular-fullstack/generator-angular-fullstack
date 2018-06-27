@@ -6,6 +6,7 @@
     "compression": "^1.7.1",
     "core-js": "^2.5.0",
     "express": "^4.13.3",
+    "express-static-gzip": "~0.3.2",
     "morgan": "^1.9.0",
     "body-parser": "^1.13.3",
     "method-override": "^2.3.10",
@@ -29,7 +30,7 @@
     "babel-runtime": "^6.18.0",<% if(filters.pug) { %>
     "pug": "^2.0.0",<% } %><% if(filters.html) { %>
     "ejs": "^2.5.3",<% } %><% if(filters.mongoose) { %>
-    "mongoose": "^4.13.14",
+    "mongoose": "^5.1.5",
     "bluebird": "^3.3.3",
     "connect-mongo": "^2.0.1",<% } %><% if(filters.sequelize) { %>
     "sequelize": "^3.23.6",
@@ -147,16 +148,20 @@
     "run-sequence": "^2.1.0",
     "lazypipe": "^1.0.1",
     <%# WEBPACK %>
+    "compression-webpack-plugin": "^1.1.11",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.6",
     "webpack-dev-server": "^3.1.4",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-harddisk-plugin": "~0.2.0",
+    "mini-css-extract-plugin": "~0.4.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     <%_ if(filters.pug) { _%>
     "pug-html-loader": "^1.1.5",<% } %>
     "typescript": "~2.9.0",
-    "awesome-typescript-loader": "^4.0.0",
+    "awesome-typescript-loader": "^5.0.0",
     "babel-loader": "^7.1.2",
     "css-loader": "^0.28.7",
     "file-loader": "^0.11.2",
@@ -212,6 +217,8 @@
     "npm": ">=3.9.5"
   },
   "scripts": {
+    "build": "gulp build",
+    "build:server": "babel server -d dist/server --ignore spec.js,test.js,integration.js,local.env --source-maps",
     "postinstall": "gulp copy:fonts:dev",
     "lint": "npm run lint:client && npm run lint:server",
     "lint:client": <% if(filters.babel) { _%>"eslint ./client/**/*.<%= scriptExt %> -c ./client/.eslintrc --ignore-pattern *.spec.<%= scriptExt %>"<%_ } else { _%>
@@ -234,5 +241,12 @@
     "start:client": "webpack-dev-server --config webpack.dev.js",
     "start:server": "node server"
   },
+  "sideEffects": [
+    "*.css",
+    "*.less",
+    "*.sass",
+    "*.scss",
+    "*.styl"
+  ],
   "private": true
 }

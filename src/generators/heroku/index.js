@@ -1,4 +1,3 @@
-'use strict';
 import util from 'util';
 import yeoman from 'yeoman-generator';
 import {Base} from 'yeoman-generator';
