@@ -28,8 +28,8 @@ The following are the instructions to deploy the angular-fullstack app to Google
 
     create a 'app.yaml' file with the following contents
 
-    ```json
-
+ ```javascript
+ 
     env: standard 
 
     runtime: nodejs8
@@ -37,7 +37,7 @@ The following are the instructions to deploy the angular-fullstack app to Google
     env_variables:
       MONGODB_URI:  "mongodb://<dbuser  :<dbpassword  @<environment_URI/deployment_name"
     
-    ```
+ ```
 
     ## Add app.yaml to .gitignore
 
