@@ -26,7 +26,7 @@ The following are the instructions to deploy the angular-fullstack app to Google
   ## 2. Create Application configuration file (app.yaml)
     A Node.js app in App Engine is configured through a file named app.yaml, that contains runtime, handlers, scaling, and other general settings including environment variables.
 
-    create a 'app.yaml' file with the following contents
+    2.1 create a 'app.yaml' file with the following contents
 
  ```javascript
  
@@ -39,7 +39,7 @@ The following are the instructions to deploy the angular-fullstack app to Google
     
  ```
 
-    ## Add app.yaml to .gitignore
+    2.2 Add app.yaml to .gitignore
 
 # Deployment Steps
   ## 1. Build the app
