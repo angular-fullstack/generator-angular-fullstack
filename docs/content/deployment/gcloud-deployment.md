@@ -16,7 +16,7 @@ The following are the instructions to deploy the angular-fullstack app to Google
 # Deployment Setup
   ## 1. Set Node / NPM versions
     GCloud App Engine supports only only for the newest version of Node.js 8
-    ```javascript
+ ```javascript
     "engines": {
     "node": "  =8.0",
     "npm": "^5.1.1"
