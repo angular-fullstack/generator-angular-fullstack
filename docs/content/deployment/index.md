@@ -22,3 +22,5 @@ $ cd myproj
 5. ```
 $ NODE_ENV=production node ./server
 ```
+
+## [Gcloud App Engine (Standard Environment)](gcloud-deployment.md)
