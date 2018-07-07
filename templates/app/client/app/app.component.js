@@ -2,8 +2,12 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'app',
-    template: `<navbar></navbar>
+    template: `<navbar #navbar></navbar>
+    <div (click)="navbar.collapse()">
+
     <% if (filters.ngroute) { %><router-outlet></router-outlet><% } %><% if (filters.uirouter) { %><ui-view></ui-view><% } %>
-    <footer></footer>`
+
+    <footer></footer>
+    </div>`
 })
 export class AppComponent {}
