@@ -5,7 +5,7 @@ The following are the instructions to deploy the angular-fullstack app to Google
 > ## Google Cloud SDK
 >> Download and install [Google Cloud SDK](https://cloud.google.com/sdk/)
 > ## Create GCP Project
->> `gcloud projects create PROJECT_ID`
+... `gcloud projects create PROJECT_ID`
 > ## Enable Billing
 >>   `gcloud alpha billing projects link my-project \ 
       --billing-account 0X0X0X-0X0X0X-0X0X0X`
