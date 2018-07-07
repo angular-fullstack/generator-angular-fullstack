@@ -58,5 +58,9 @@ export class NavbarComponent {
             this.Router.navigateByUrl('/home');<% } %>
             this.reset();
         });
+    }
+    
+    collapse() {
+        this.isCollapsed = true;
     }<% } -%>
 }
