@@ -3,25 +3,34 @@ The following are the instructions to deploy the angular-fullstack app to Google
 
 # Prequsites
   ## 1. Google Cloud SDK
-    Download and install [Google Cloud SDK](https://cloud.google.com/sdk/)
+  Download and install [Google Cloud SDK](https://cloud.google.com/sdk/)
   ## 2. Create GCP Project
   ```bash
-  gcloud projects create PROJECT_ID
-  ```  
+  gcloud projects create [PROJECT_ID]
+  ```
+  ```[PROJECT_ID]``` ID for the project you want to create.
+
   ## 3. Enable Billing
+  You need to enable billing for your project before you begin using App Engine
   ```bash
   gcloud alpha billing projects link my-project \ 
       --billing-account 0X0X0X-0X0X0X-0X0X0X
   ```
+  [gcloud alpha billing projects link](https://cloud.google.com/sdk/gcloud/reference/alpha/billing/projects/link)
+  
   ## 4. Create a MongoDB database
-    Create a MongoDB instance and obtain the uri and credentials
+  Create a MongoDB instance and obtain the uri and credentials. There are multiple options for creating a new MongoDB database.
+  - Create a Google Compute Engine virtual machine with [MongoDB pre-installed](https://cloud.google.com/launcher/?q=mongodb).
+  - Create a MongoDB instance with [MongoDB Atlas on GCP](https://www.mongodb.com/cloud/atlas/mongodb-google-cloud).
+  - Use [mLab](https://mlab.com/google) to create a free MongoDB deployment on Google Cloud Platform.
+
 
 # Deployment Setup
   ## 1. Set Node / NPM versions
     GCloud App Engine supports only the newest version of Node.js 8
  ```javascript
     "engines": {
-    "node": "  =8.0",
+    "node": ">=8.0",
     "npm": "^5.1.1"
   },
   ```
@@ -32,7 +41,7 @@ The following are the instructions to deploy the angular-fullstack app to Google
 
     2.1 create a 'app.yaml' file with the following contents
 
- ```javascript
+ ```yaml
  
     env: standard 
 
@@ -52,7 +61,7 @@ The following are the instructions to deploy the angular-fullstack app to Google
   ```
   ## 2. Copy app.yaml to dist
   ```bash
-    copy app.yaml dist
+    cp app.yaml dist
   ```
   ## 3. Change to build directory
   ```bash
