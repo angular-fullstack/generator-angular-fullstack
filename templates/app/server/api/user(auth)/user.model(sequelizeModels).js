@@ -163,7 +163,7 @@ export default function(sequelize, DataTypes) {
 
         var defaultIterations = 10000;
         var defaultKeyLength = 64;
-        var salt = new Buffer(this.salt, 'base64');
+        var salt = Buffer.from(this.salt, 'base64');
 
         if(!callback) {
             return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength, 'sha256')

@@ -471,7 +471,7 @@ export class Generator extends Base {
               .toSource();
           }
 
-          file.contents = new Buffer(contents);
+          file.contents = Buffer.from(contents);
         });
 
         let clientJsFilter = filter(['client/**/*.js'], {restore: true});
@@ -508,7 +508,7 @@ export class Generator extends Base {
             tap(function(file, t) {
               var contents = file.contents.toString();
               contents = replacer(contents);
-              file.contents = new Buffer(contents);
+              file.contents = Buffer.from(contents);
             }),
             tsFilter.restore
           ]);
@@ -546,7 +546,7 @@ export class Generator extends Base {
             }),
             tap(file => {
               const contents = pugReplacer(file.contents.toString());
-              file.contents = new Buffer(contents);
+              file.contents = Buffer.from(contents);
             }),
             pugFilter.restore
           ]);
