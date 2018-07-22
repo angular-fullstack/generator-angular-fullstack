@@ -14,6 +14,7 @@ module.exports = {<% if (filters.mongoose) { %>
         uri: 'sqlite://',
         options: {
             logging: false,
+            operatorsAliases: false,
             storage: 'dev.sqlite',
             define: {
                 timestamps: false
