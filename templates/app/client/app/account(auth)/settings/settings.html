@@ -4,7 +4,7 @@
       <h1>Change Password</h1>
     </div>
     <div class="col-sm-12">
-      <form class="form" name="form" (ngSubmit)="changePassword()" novalidate>
+      <form class="form" name="changePasswordForm" (ngSubmit)="changePassword(changePasswordForm)" novalidate #changePasswordForm="ngForm">
 
         <div class="form-group">
           <label>Current Password</label>
