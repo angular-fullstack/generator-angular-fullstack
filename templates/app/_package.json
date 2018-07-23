@@ -117,23 +117,23 @@
     "babel-preset-env": "^1.6.1",
     "cors": "^2.8.4",
     "cross-env": "^5.1.1",
-    "eslint": "^4.19.1",
+    "eslint": "^5.2.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",<% if(filters.ts) { %>
     "gulp-typescript": "~3.2.2",
     "gulp-tslint": "^8.0.0",<% } %>
     "gulp-env": "^0.4.0",
-    "gulp-eslint": "^2.0.0",
-    "gulp-imagemin": "^3.0.1",
+    "gulp-eslint": "^5.0.0",
+    "gulp-imagemin": "^4.1.0",
     "gulp-inject": "^4.0.0",
     "gulp-istanbul": "^1.1.1",
     "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-load-plugins": "^1.0.0-rc.1",
-    "gulp-mocha": "^4.3.1",
+    "gulp-mocha": "^6.0.0",
     <%# "gulp-node-inspector": "^0.1.0", %>
     "gulp-plumber": "^1.0.1",
-    "gulp-protractor": "^3.0.0",
+    "gulp-protractor": "^4.1.0",
     "gulp-rev": "^8.0.0",
     "gulp-rev-replace": "^0.4.2",
     "gulp-sort": "^2.0.0",
@@ -143,15 +143,15 @@
     "gulp-stylint": "^4.0.0",
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
-    "isparta": "^4.0.0",
+    "isparta": "^4.1.0",
     "nodemon": "^1.18.1",
     "run-sequence": "^2.1.0",
     "lazypipe": "^1.0.1",
     <%# WEBPACK %>
     "compression-webpack-plugin": "^1.1.11",
-    "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.6",
-    "webpack-dev-server": "^3.1.4",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
     "html-webpack-harddisk-plugin": "~0.2.0",
@@ -172,8 +172,8 @@
     "raw-loader": "^0.5.1",
     "style-loader": "^0.18.2",
     <%_ if(filters.sass) { _%>
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6",<% } %>
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",<% } %>
     <%_ if(filters.less) { _%>
     "less": "^2.7.1",
     "less-loader": "^4.0.5",<% } %>
@@ -184,14 +184,14 @@
     "to-string-loader": "^1.1.5",
     <%# END WEBPACK %>
     "through2": "^2.0.1",
-    "open": "~0.0.5",
+    "opn": "^5.3.0",
     "protractor": "^5.3.0",
     "istanbul": "1.1.0-alpha.1",
     "chai": "^4.1.2",
-    "sinon": "^3.2.1",
+    "sinon": "^6.1.4",
     "chai-as-promised": "^7.1.1",
     "chai-things": "^0.2.0",
-    "karma": "^1.7.1",
+    "karma": "^2.0.4",
     "karma-firefox-launcher": "^1.0.0",
     "karma-script-launcher": "^1.0.0",
     "karma-coverage": "^1.0.0",
@@ -199,8 +199,8 @@
     "karma-phantomjs-launcher": "~1.0.0",
     "karma-spec-reporter": "~0.0.20",
     "karma-sourcemap-loader": "~0.3.7",
-    "sinon-chai": "^2.8.0",
-    "mocha": "^3.0.2",<% if(filters.mocha) { %>
+    "sinon-chai": "^3.2.0",
+    "mocha": "^5.2.0",<% if(filters.mocha) { %>
     "karma-mocha": "^1.0.1",
     "karma-chai-plugins": "~0.9.0",<% } if(filters.jasmine) { %>
     "jasmine-core": "^2.3.4",
