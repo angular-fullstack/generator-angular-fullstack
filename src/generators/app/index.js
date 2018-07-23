@@ -522,6 +522,7 @@ export class Generator extends Base {
             return contents
               .replace(/confirmpassword/g, 'confirmPassword')
               .replace(/loginform/g, 'loginForm')
+              .replace(/changepasswordform/g, 'changePasswordForm')
               .replace(/newpassword/g, 'newPassword')
               .replace(/ngif/g, 'ngIf')
               .replace(/ngfor/g, 'ngFor')
