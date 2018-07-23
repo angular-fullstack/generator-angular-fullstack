@@ -38,7 +38,7 @@ function startServer() {
 }
 <% if(filters.sequelize) { %>
 sqldb.sequelize.sync()<% if(filters.ws) { %>
-    .then(wsInitPromise)
+    .then(() => wsInitPromise)
     .then(primus => {
         app.primus = primus;
     })<% } %><% if(filters.models) { %>
