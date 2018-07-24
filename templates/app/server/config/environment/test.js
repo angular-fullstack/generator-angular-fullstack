@@ -12,6 +12,7 @@ module.exports = {
         uri: 'sqlite://',
         options: {
             logging: false,
+            operatorsAliases: false,
             storage: 'test.sqlite',
             define: {
                 timestamps: false
