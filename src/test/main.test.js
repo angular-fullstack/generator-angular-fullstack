@@ -159,7 +159,6 @@ describe('angular-fullstack:app', function() {
         dir = _dir;
         lintResult = runCmd('npm run lint');
         clientTestResult = runCmd('npm run test:client');
-        serverTestResult = runCmd('npm run test:server');
       });
     });
 
@@ -178,6 +177,7 @@ describe('angular-fullstack:app', function() {
     });
 
     it('passes server tests', function() {
+      serverTestResult = runCmd('npm run test:server');
       return serverTestResult.should.be.fulfilled();
     });
   });
@@ -206,7 +206,6 @@ describe('angular-fullstack:app', function() {
         dir = _dir;
         lintResult = runCmd('npm run lint');
         clientTestResult = runCmd('npm run test:client');
-        serverTestResult = runCmd('npm run test:server');
       });
     });
 
@@ -225,6 +224,7 @@ describe('angular-fullstack:app', function() {
     });
 
     it('should run server tests successfully', function() {
+      serverTestResult = runCmd('npm run test:server');
       return serverTestResult.should.be.fulfilled();
     });
 
@@ -350,7 +350,6 @@ describe('angular-fullstack:app', function() {
         dir = _dir;
         lintResult = runCmd('npm run lint');
         clientTestResult = runCmd('npm run test:client');
-        serverTestResult = runCmd('npm run test:server');
       });
     });
 
@@ -369,6 +368,7 @@ describe('angular-fullstack:app', function() {
     });
 
     it('should run server tests successfully', function() {
+      serverTestResult = runCmd('npm run test:server');
       return serverTestResult.should.be.fulfilled();
     });
 

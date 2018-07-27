@@ -7,7 +7,7 @@ import path from 'path';
 import through2 from 'through2';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import http from 'http';
-import open from 'open';
+import opn from 'opn';
 import lazypipe from 'lazypipe';
 import nodemon from 'nodemon';
 import {Server as KarmaServer} from 'karma';
@@ -290,7 +290,7 @@ gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
     return require('./webpack.server').start(config.clientPort).then(() => {
-        open(`http://localhost:${config.clientPort}`);
+        opn(`http://localhost:${config.clientPort}`);
         cb();
     });
 });

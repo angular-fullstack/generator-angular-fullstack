@@ -29,6 +29,7 @@ export function urlParse(url) {
 
     // Special treatment for IE, see http://stackoverflow.com/a/13405933 for details
     if (a.host === '') {
+        // eslint-disable-next-line no-self-assign
         a.href = a.href;
     }
 
