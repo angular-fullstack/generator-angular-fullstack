@@ -1,3 +1,41 @@
+<a name="5.0.0-rc.4"></a>
+# [5.0.0-rc.4](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-rc.1...v5.0.0-rc.4) (2018-08-11)
+
+
+### Bug Fixes
+
+* **auth:** fix change password form ([4b147a4](https://github.com/angular-fullstack/generator-angular-fullstack/commit/4b147a4)), closes [#2747](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2747)
+* **client:** hotfix for Babel bug ([73d1e29](https://github.com/angular-fullstack/generator-angular-fullstack/commit/73d1e29))
+* **css:** refactor CSS handling ([68c6e39](https://github.com/angular-fullstack/generator-angular-fullstack/commit/68c6e39))
+* **express:** use cors in dev ([cf3c5e5](https://github.com/angular-fullstack/generator-angular-fullstack/commit/cf3c5e5))
+* **gen:test:** refactor gen to fix tests w/ pug ([2080421](https://github.com/angular-fullstack/generator-angular-fullstack/commit/2080421))
+* **package:** pin uws ([ed3b775](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ed3b775))
+* **server:** 
+  * fix CSRF for Angular ([9c816ca](https://github.com/angular-fullstack/generator-angular-fullstack/commit/9c816ca))
+  * SequelizeStore requires object with db ([e3cae48](https://github.com/angular-fullstack/generator-angular-fullstack/commit/e3cae48)), closes [#2732](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2732)
+  * wsInitPromise should be passed into then in a function ([ce46519](https://github.com/angular-fullstack/generator-angular-fullstack/commit/ce46519)), closes [#2751](https://github.com/angular-fullstack/generator-angular-fullstack/issues/2751)
+* **webpack:** remove old plugins ([f1d3a7c](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f1d3a7c))
+
+
+### Features
+
+* **app:** 
+  * generate and serve pre-gzipped client files ([8f22699](https://github.com/angular-fullstack/generator-angular-fullstack/commit/8f22699))
+  * use mini-css plugin ([3ac870a](https://github.com/angular-fullstack/generator-angular-fullstack/commit/3ac870a))
+* **gen:** add new route subgenerator ([91a13ff](https://github.com/angular-fullstack/generator-angular-fullstack/commit/91a13ff))
+* **package:** 
+  * add 'gulp build' as build script ([f572635](https://github.com/angular-fullstack/generator-angular-fullstack/commit/f572635))
+  * add build:server script ([b98d8a8](https://github.com/angular-fullstack/generator-angular-fullstack/commit/b98d8a8))
+  * reload server on changes ([6166123](https://github.com/angular-fullstack/generator-angular-fullstack/commit/6166123))
+* **server:** allow mongo uri env var in dev ([a46a002](https://github.com/angular-fullstack/generator-angular-fullstack/commit/a46a002))
+
+
+### Performance Improvements
+
+* **client:** comment out core-js imports\n\nas most people won't need them ([11decfe](https://github.com/angular-fullstack/generator-angular-fullstack/commit/11decfe))
+
+
+
 <a name="5.0.0-rc.2"></a>
 # [5.0.0-rc.2](https://github.com/angular-fullstack/generator-angular-fullstack/compare/5.0.0-rc.1...v5.0.0-rc.2) (2018-06-02)
 
