@@ -91,7 +91,7 @@
     "q": "^1.0.1",
     "recursive-readdir": "^2.0.0",
     "run-sequence": "^2.1.0",
-    "shelljs": "^0.7.5",
+    "shelljs": "^0.8.2",
     "should": "^12.0.0",
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^1.7.2"
