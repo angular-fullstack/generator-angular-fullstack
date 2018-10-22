@@ -55,7 +55,7 @@
     "gulp-tap": "^1.0.1",
     "insight": "~0.8.3",
     "jscodeshift": "^0.3.30",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "semver": "^5.1.0",
     "underscore.string": "^3.1.1",
     "yeoman-generator": "2.0.4",
