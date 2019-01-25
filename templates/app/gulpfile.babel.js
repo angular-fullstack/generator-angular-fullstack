@@ -503,8 +503,7 @@ gulp.task('revReplaceWebpack', function() {
 gulp.task('copy:extras', () => {
     return gulp.src([
         `${clientPath}/favicon.ico`,
-        `${clientPath}/robots.txt`,
-        `${clientPath}/.htaccess`
+        `${clientPath}/robots.txt`
     ], { dot: true })
         .pipe(gulp.dest(`${paths.dist}/${clientPath}`));
 });
