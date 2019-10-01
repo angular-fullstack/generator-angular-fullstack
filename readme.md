@@ -27,7 +27,7 @@ Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
 ```
 npm install -g yo gulp-cli generator-angular-fullstack
 ```
-__Please note__: If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on [required compilation tools](https://github.com/nodejs/node-gyp#installation).
+__Please note__: `If you run into trouble compiling native add-ons during the installation, follow [`node-gyp`](https://github.com/nodejs/node-gyp)'s short guide on` [required compilation tools](https://github.com/nodejs/node-gyp#installation).
 
 Then, to run your app (make sure the MongoDB daemon is running if you selected Mongo), run the following to start your server:
 ```sh
@@ -66,6 +66,7 @@ yo angular-fullstack
     * Chai assertions:
       * `Expect`
       * `Should`
+      * `Be`
 
 **Client**
 
