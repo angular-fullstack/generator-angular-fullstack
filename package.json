@@ -78,7 +78,7 @@
     "gulp-babel": "^7.0.0",
     "gulp-conventional-changelog": "^1.1.0",
     "gulp-gh-pages": "^0.5.4",
-    "gulp-if": "^2.0.1",
+    "gulp-if": "^3.0.0",
     "gulp-mocha": "^6.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7",
