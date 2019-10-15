@@ -15,10 +15,6 @@
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/angular-fullstack-deps.svg)](https://david-dm.org/angular-fullstack/angular-fullstack-deps?type=dev)
 [![Known Vulnerabilities](https://snyk.io/package/npm/angular-fullstack-deps/badge.svg)](https://snyk.io/package/npm/angular-fullstack-deps)
 
-## Looking for AngularJS 1.x?
-
-`$ npm install -g yo gulp-cli generator-angular-fullstack@4.2.3`
-
 ## Usage
 
 Install `yo`, `gulp-cli`, and `generator-angular-fullstack`:
