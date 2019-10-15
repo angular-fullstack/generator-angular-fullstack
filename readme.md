@@ -6,8 +6,6 @@
 [![Dependency Status](https://img.shields.io/david/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack)
 [![Dev-Dependency Status](https://img.shields.io/david/dev/angular-fullstack/generator-angular-fullstack.svg)](https://david-dm.org/angular-fullstack/generator-angular-fullstack#type=dev)
 [![Gitter chat](https://img.shields.io/gitter/room/angular-fullstack/generator-angular-fullstack.svg)](https://gitter.im/angular-fullstack/generator-angular-fullstack)
-[![OpenCollective](https://opencollective.com/angular-fullstack/backers/badge.svg)](#backers)
-[![OpenCollective](https://opencollective.com/angular-fullstack/sponsors/badge.svg)](#sponsors)
 > Yeoman generator for creating MEAN/SEAN stack applications, using ES2017, MongoDB/SQL, Express, Angular, and Node - lets you quickly set up a project following best practices.
 
 
@@ -128,31 +126,5 @@ When submitting an issue, please follow the [Yeoman issue guidelines](https://gi
 ## License
 
 [BSD license](http://opensource.org/licenses/bsd-license.php)
-
-## Contributors
-
-[![generator-angular-fullstack contributors](https://opencollective.com/angular-fullstack/contributors.svg?width=850)](https://github.com/angular-fullstack/generator-angular-fullstack/graphs/contributors)
-
-## Backers
-
-Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/angular-fullstack#backer)]
-
-[![generator-angular-fullstack backers](https://opencollective.com/angular-fullstack/backers.svg?width=850)](https://opencollective.com/angular-fullstack#backer)
-
-## Sponsors
-
-Is your company using Angular-FullStack? Ask your boss to support the project. You will get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/angular-fullstack#sponsor)]
-
-<a href="https://opencollective.com/angular-fullstack/sponsor/0/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/0/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/1/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/1/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/2/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/2/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/3/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/3/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/4/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/4/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/5/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/5/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/6/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/6/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/7/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/7/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/8/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/8/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/9/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/9/avatar"></a>
-<a href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar"></a>
 
 [![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)](https://angular-fullstack.github.io/)
