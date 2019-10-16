@@ -1,23 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-const exec = require('child_process').exec;
-const _ = require('lodash');
-const Promise = require('bluebird');
-const gulp = require('gulp');
-const gutil = require('gulp-util');
-const babel = require('gulp-babel');
-const gulpMocha = require('gulp-mocha');
-const plumber = require('gulp-plumber');
-const gulpIf = require('gulp-if');
-const del = require('del');
-const lazypipe = require('lazypipe');
-const runSequence = require('run-sequence');
-const merge = require('merge-stream');
-const shell = require('shelljs');
-const ghPages = require('gulp-gh-pages');
-const conventionalChangelog = require('gulp-conventional-changelog');
+import fs from 'fs';
+import path from 'path';
+import {exec, ExecOptions} from 'child_process';
+import gulp from 'gulp';
+import gutil from 'gulp-util';
+import gulpBabel from 'gulp-babel';
+import gulpMocha from 'gulp-mocha';
+import plumber from 'gulp-plumber';
+import gulpIf from 'gulp-if';
+import del from 'del';
+import lazypipe from 'lazypipe';
+import merge from 'merge-stream';
+import shell from 'shelljs';
+import ghPages from 'gulp-gh-pages';
+import conventionalChangelog, {Commit, Context, GulpConventionalChangelogOptions} from 'gulp-conventional-changelog';
 
-var watching = false;
+let watching = false;
 
 const mocha = lazypipe()
     .pipe(gulpMocha, {
@@ -32,32 +29,32 @@ const mocha = lazypipe()
     });
 
 const transpile = lazypipe()
-    .pipe(babel);
+    .pipe(gulpBabel);
 
-gulp.task('clean', () => {
+export function clean() {
     return del(['generators/**/*', './test/(**|!fixtures/node_modules)/*']);
-});
+};
 
-gulp.task('babel', () => {
+export function babel() {
     let generators = gulp.src(['src/generators/**/*.js'])
-    .pipe(gulpIf(watching, plumber()))
-        .pipe(transpile())
-        .pipe(gulp.dest('generators'));
+      .pipe(gulpIf(watching, plumber()))
+      .pipe(transpile())
+      .pipe(gulp.dest('generators'));
 
     let test = gulp.src(['src/test/**/*.js'])
-    .pipe(gulpIf(watching, plumber()))
-        .pipe(transpile())
-        .pipe(gulp.dest('test'));
+      .pipe(gulpIf(watching, plumber()))
+      .pipe(transpile())
+      .pipe(gulp.dest('test'));
 
     return merge(generators, test);
-});
+};
 
 gulp.task('watch', () => {
     watching = true;
-    return gulp.watch('src/**/*.js', ['babel']);
+    return gulp.watch('src/**/*.js', babel);
 });
 
-gulp.task('copy', () => {
+export function copy() {
     let nonJsGen = gulp.src(['src/generators/**/*', '!src/generators/**/*.js'], {dot: true})
         .pipe(gulp.dest('generators'));
 
@@ -65,24 +62,21 @@ gulp.task('copy', () => {
         .pipe(gulp.dest('test'));
 
     return merge(nonJsGen, nonJsTest);
-});
+};
 
-gulp.task('build', cb => {
-    return runSequence(
-        'clean',
-        'babel',
-        'copy',
-        cb
-    );
-});
+export const build = gulp.series(
+  clean,
+  babel,
+  copy
+);
 
-var processJson = function(src, dest, opt) {
+function processJson(src: string, dest: string, opt: {appName: string, genVer: string, private: boolean, test: boolean}) {
     return new Promise((resolve, reject) => {
         // read file, strip all ejs conditionals, and parse as json
         fs.readFile(path.resolve(src), 'utf8', (err, data) => {
             if(err) return reject(err);
 
-            var json = JSON.parse(data.replace(/<%(.*)%>/g, ''));
+            const json = JSON.parse(data.replace(/<%(.*)%>/g, ''));
 
             if(/package.json/g.test(src) && opt.test) {
                 delete json.scripts.postinstall;
@@ -104,9 +98,9 @@ var processJson = function(src, dest, opt) {
             });
         });
     });
-};
+}
 
-function updateFixtures(target) {
+function updateFixtures(target: 'deps'|'test') {
     const deps = target === 'deps';
     const test = target === 'test';
     const genVer = require('./package.json').version;
@@ -117,7 +111,7 @@ function updateFixtures(target) {
 }
 
 gulp.task('updateFixtures', cb => {
-    return runSequence(['updateFixtures:test', 'updateFixtures:deps'], cb);
+    return gulp.series(gulp.parallel('updateFixtures:test', 'updateFixtures:deps'), cb);
 });
 gulp.task('updateFixtures:test', () => {
     return updateFixtures('test');
@@ -126,7 +120,7 @@ gulp.task('updateFixtures:deps', () => {
     return updateFixtures('deps');
 });
 
-function execAsync(cmd, opt) {
+function execAsync(cmd: string, opt?: ExecOptions) {
     return new Promise((resolve, reject) => {
         exec(cmd, opt, (err, stdout, stderr) => {
             if(err) {
@@ -135,7 +129,7 @@ function execAsync(cmd, opt) {
             }
 
             return resolve(stdout);
-        })
+        });
     });
 }
 
@@ -143,7 +137,7 @@ gulp.task('installFixtures', function() {
     gutil.log('installing npm dependencies for generated app');
     let progress = setInterval(() => {
         process.stdout.write('.');
-    }, 1 * 1000);
+    }, 1000);
     shell.cd('test/fixtures');
 
     let installCommand;
@@ -197,21 +191,22 @@ gulp.task('gh-pages', () => {
     .pipe(ghPages());
 });
 gulp.task('docs', cb => {
-    return runSequence('daux', 'copy_docs_images', 'gh-pages', cb);
+    return gulp.series('daux', 'copy_docs_images', 'gh-pages', cb);
 });
 
-let finalizeContext = function(context, writerOpts, commits, keyCommit) {
-    var gitSemverTags = context.gitSemverTags;
-    var commitGroups = context.commitGroups;
+function finalizeContext(context: Context, opts: GulpConventionalChangelogOptions, commits: Commit[], keyCommit: Commit) {
+    const {gitSemverTags, commitGroups} = context;
+
+    if (!gitSemverTags) return context;
 
     if((!context.currentTag || !context.previousTag) && keyCommit) {
-        var match = /tag:\s*(.+?)[,\)]/gi.exec(keyCommit.gitTags);
-        var currentTag = context.currentTag = context.currentTag || match ? match[1] : null;
-        var index = gitSemverTags.indexOf(currentTag);
-        var previousTag = context.previousTag = gitSemverTags[index + 1];
+        const match = /tag:\s*(.+?)[,)]/gi.exec(keyCommit.gitTags);
+        context.currentTag = context.currentTag || match ? match![1] : null;
+        const index = gitSemverTags.indexOf(context.currentTag || '');
+        const previousTag = context.previousTag = gitSemverTags[index + 1];
 
         if(!previousTag) {
-            if(options.append) {
+            if(opts.append) {
               context.previousTag = context.previousTag || commits[0] ? commits[0].hash : null;
             } else {
               context.previousTag = context.previousTag || commits[commits.length - 1] ? commits[commits.length - 1].hash : null;
@@ -222,37 +217,39 @@ let finalizeContext = function(context, writerOpts, commits, keyCommit) {
         context.currentTag = context.currentTag || 'v' + context.version;
     }
 
-    if(typeof context.linkCompare !== 'boolean' && context.previousTag && context.currentTag) {
-        context.linkCompare = true;
+    if(!Array.isArray(commitGroups)) {
+      return context;
     }
 
-    if(Array.isArray(commitGroups)) {
-        for(var i = 0, commitGroupsLength = commitGroups.length; i < commitGroupsLength; i++) {
-            var commits = commitGroups[i].commits;
-            if(Array.isArray(commits)) {
-                for(var n = 1, commitsLength = commits.length; n < commitsLength; n++) {
-                    var commit = commits[n], prevCommit = commits[n - 1];
-                    if(commit.scope && commit.scope === prevCommit.scope) {
-                        commit.subScope = true;
-                        if(prevCommit.scope && !prevCommit.subScope) {
-                            prevCommit.leadScope = true;
-                        }
-                    }
+    for(const commitGroup of commitGroups) {
+        const commits = commitGroup.commits;
+
+        if(!Array.isArray(commits)) {
+          return context;
+        }
+
+        for(let n = 1; n < commits.length; n++) {
+            const commit = commits[n];
+            const prevCommit = commits[n - 1];
+            if(commit.scope && commit.scope === prevCommit.scope) {
+                commit.subScope = true;
+                if(prevCommit.scope && !prevCommit.subScope) {
+                    prevCommit.leadScope = true;
                 }
             }
         }
     }
+
     return context;
-};
+}
+
 let commitPartial = fs.readFileSync(path.resolve(__dirname, 'task-utils/changelog-templates/commit.hbs')).toString();
 
-gulp.task('changelog', () => {
+export function changelog() {
   return gulp.src('CHANGELOG.md', {buffer: false})
-    .pipe(conventionalChangelog({
-      preset: 'angular'
-    }, {/*context*/}, {/*git-raw-commits*/}, {/*conventional-commits-parser*/}, {/*conventional-changelog-writer*/
+    .pipe(conventionalChangelog({preset: 'angular'}, {}, {}, {}, {
         finalizeContext,
         commitPartial
     }))
     .pipe(gulp.dest('./'));
-});
+}
