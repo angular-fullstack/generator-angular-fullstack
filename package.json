@@ -62,6 +62,17 @@
     "yeoman-welcome": "^1.0.1"
   },
   "devDependencies": {
+    "@types/gulp": "^4.0.6",
+    "@types/gulp-babel": "^6.1.29",
+    "@types/gulp-gh-pages": "0.0.32",
+    "@types/gulp-if": "0.0.33",
+    "@types/gulp-mocha": "0.0.32",
+    "@types/gulp-plumber": "0.0.32",
+    "@types/gulp-util": "^3.0.34",
+    "@types/lazypipe": "0.0.31",
+    "@types/merge-stream": "^1.1.2",
+    "@types/node": "^12.11.0",
+    "@types/shelljs": "^0.8.5",
     "babel-core": "^6.18.2",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
@@ -69,14 +80,14 @@
     "babel-register": "^6.18.0",
     "chai": "^4.1.2",
     "david": "^11.0.0",
-    "del": "^3.0.0",
+    "del": "^4.1.1",
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
     "grunt-david": "~0.7.0",
     "grunt-release": "^0.14.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-babel": "^7.0.0",
-    "gulp-conventional-changelog": "^1.1.0",
+    "gulp-conventional-changelog": "^2.0.23",
     "gulp-gh-pages": "^0.5.4",
     "gulp-if": "^3.0.0",
     "gulp-mocha": "^6.0.0",
@@ -93,6 +104,8 @@
     "run-sequence": "^2.1.0",
     "shelljs": "^0.8.2",
     "should": "^12.0.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4",
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^1.7.2"
   },
@@ -100,8 +113,8 @@
     "yo": ">= 1.7.1"
   },
   "engines": {
-    "node": "^8",
-    "npm": ">= 3.9.5"
+    "node": ">= 10",
+    "npm": ">= 6"
   },
   "license": "BSD-2-Clause"
 }
