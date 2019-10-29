@@ -33,7 +33,7 @@ const transpile = lazypipe()
 
 export function clean() {
     return del(['generators/**/*', './test/(**|!fixtures/node_modules)/*']);
-};
+}
 
 export function babel() {
     let generators = gulp.src(['src/generators/**/*.js'])
@@ -47,7 +47,7 @@ export function babel() {
       .pipe(gulp.dest('test'));
 
     return merge(generators, test);
-};
+}
 
 gulp.task('watch', () => {
     watching = true;
@@ -62,7 +62,7 @@ export function copy() {
         .pipe(gulp.dest('test'));
 
     return merge(nonJsGen, nonJsTest);
-};
+}
 
 export const build = gulp.series(
   clean,
@@ -133,7 +133,7 @@ function execAsync(cmd: string, opt?: ExecOptions) {
     });
 }
 
-gulp.task('installFixtures', function() {
+export function installFixtures() {
     gutil.log('installing npm dependencies for generated app');
     let progress = setInterval(() => {
         process.stdout.write('.');
@@ -147,7 +147,7 @@ gulp.task('installFixtures', function() {
         installCommand = 'type yarn &> /dev/null | yarn install || npm install --quiet';
     }
 
-    execAsync(installCommand, {
+    return execAsync(installCommand, {
         cwd: '../fixtures'
     }).then(() => {
         process.stdout.write('\n');
@@ -165,7 +165,7 @@ gulp.task('installFixtures', function() {
             return Promise.resolve();
         }
     });
-});
+}
 
 gulp.task('test', () => {
     return gulp.src(['test/pre.test.js', 'test/*.test.js'])
