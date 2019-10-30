@@ -12,7 +12,7 @@ import {
 
 const defaultOptions = {
   transpiler: 'ts',
-  flow: true,
+  flow: false,
   markup: 'html',
   stylesheet: 'sass',
   router: 'ngroute',
@@ -185,6 +185,7 @@ describe('angular-fullstack:app', function() {
     let serverTestResult;
     const testOptions = {
       transpiler: 'babel',
+      flow: true,
       markup: 'html',
       stylesheet: 'less',
       router: 'ngroute',

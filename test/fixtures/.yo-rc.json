@@ -14,7 +14,7 @@
     "modelsNeedle": "// Insert models below",
     "filters": {
       "js": true,
-      "babel": true,
+      "ts": true,
       "flow": true,
       "html": true,
       "sass": true,
