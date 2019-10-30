@@ -49,10 +49,10 @@ export function babel() {
     return merge(generators, test);
 }
 
-gulp.task('watch', () => {
+export function watch() {
     watching = true;
     return gulp.watch('src/**/*.js', babel);
-});
+}
 
 export function copy() {
     let nonJsGen = gulp.src(['src/generators/**/*', '!src/generators/**/*.js'], {dot: true})

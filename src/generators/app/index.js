@@ -95,7 +95,7 @@ export class Generator extends Base {
         this.log('Out of the box I create an Angular app with an Express server.\n');
       },
       checkForConfig: function() {
-        var existingFilters = this.config.get('filters');
+        const existingFilters = this.config.get('filters');
 
         if(!existingFilters) return;
 
@@ -207,7 +207,7 @@ export class Generator extends Base {
 
             //this.filters[answers.router] = true;
             //insight.track('router', answers.router);
-            this.filters['ngroute'] = true;
+            this.filters.ngroute = true;
 
             this.filters.bootstrap = !!answers.bootstrap;
             insight.track('bootstrap', !!answers.bootstrap);
@@ -218,13 +218,12 @@ export class Generator extends Base {
             this.scriptExt = answers.transpiler === 'ts' ? 'ts' : 'js';
             this.templateExt = answers.markup;
 
-            var styleExt = {sass: 'scss', stylus: 'styl'}[answers.stylesheet];
+            const styleExt = {sass: 'scss', stylus: 'styl'}[answers.stylesheet];
             this.styleExt = styleExt ? styleExt : answers.stylesheet;
           });
       },
       serverPrompts: function() {
         if(this.skipConfig) return;
-        var self = this;
 
         this.log('\n# Server\n');
 
@@ -286,7 +285,7 @@ export class Generator extends Base {
           insight.track('auth', !!answers.auth);
 
           if(answers.odms && answers.odms.length > 0) {
-            var models;
+            let models;
             if(!answers.models) {
               models = answers.odms[0];
             } else {
@@ -314,14 +313,13 @@ export class Generator extends Base {
             });
           }
           insight.track('oauth', !!this.filters.oauth);
-          insight.track('google-oauth', !!this.filters['googleAuth']);
-          insight.track('facebook-oauth', !!this.filters['facebookAuth']);
-          insight.track('twitter-oauth', !!this.filters['twitterAuth']);
+          insight.track('google-oauth', !!this.filters.googleAuth);
+          insight.track('facebook-oauth', !!this.filters.facebookAuth);
+          insight.track('twitter-oauth', !!this.filters.twitterAuth);
         });
       },
       projectPrompts: function() {
         if(this.skipConfig) return;
-        var self = this;
 
         this.log('\n# Project\n');
 
@@ -389,9 +387,9 @@ export class Generator extends Base {
       },
       angularComponent: function() {
         if(this.skipConfig) return;
-        var appPath = 'client/app/';
-        var extensions = [];
-        var filters = [
+        const appPath = 'client/app/';
+        const extensions = [];
+        const filters = [
           'jasmine',
           'mocha',
           'expect',
@@ -436,8 +434,8 @@ export class Generator extends Base {
         const genDir = path.join(__dirname, '../../');
 
         // TODO: remove babel stuff from dependencies
-        const codeshiftStream = tap(function(file, t) {
-          var contents = file.contents.toString();
+        const codeshiftStream = tap(function(file) {
+          let contents = file.contents.toString();
 
           if(!flow) {
             // remove `implements Foo` from class declarations
@@ -489,7 +487,7 @@ export class Generator extends Base {
         if(this.filters.pug) {
           const pugFilter = filter(['**/*.pug'], {restore: true});
 
-          function pugReplacer(contents) {
+          const pugReplacer = (contents) => {
             return contents
               .replace(/confirmpassword/g, 'confirmPassword')
               .replace(/loginform/g, 'loginForm')
@@ -503,7 +501,7 @@ export class Generator extends Base {
               .replace(/routerlinkactive/g, 'routerLinkActive')
               .replace(/routerlink/g, 'routerLink')
               .replace(/signupform/g, 'signupForm');
-          }
+          };
 
           this.registerTransformStream([
             pugFilter,
@@ -538,7 +536,7 @@ export class Generator extends Base {
         this.processDirectory('.', '.');
       },
       generateEndpoint: function() {
-        var models;
+        let models;
         if(this.filters.mongooseModels) {
           models = 'mongoose';
         } else if(this.filters.sequelizeModels) {
@@ -561,7 +559,7 @@ export class Generator extends Base {
       } else {
         yarnCheckCommand = 'type yarn >/dev/null 2>&1';
       }
-      exec(yarnCheckCommand, (error, stdout, stderr) => {
+      exec(yarnCheckCommand, (error) => {
         return this.spawnCommand((!error) ? 'yarn' : 'npm', ['install']);
       });
     }

@@ -1,12 +1,9 @@
 import path from 'path';
-import fs from 'fs';
-import _ from 'lodash';
 import Promise from 'bluebird';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
 import * as getExpectedFiles from './get-expected-files';
 import {
-  copyAsync,
   runCmd,
   assertOnlyFiles,
   readJSON,
@@ -28,7 +25,6 @@ const defaultOptions = {
   oauth: [],
   ws: true
 };
-const TEST_DIR = __dirname;
 
 function runEndpointGen(name, opt={}) {
   let prompts = opt.prompts || {};
@@ -143,10 +139,10 @@ describe('angular-fullstack:app', function() {
   });
 
   describe('default settings using existing `.yo-rc.json`', function() {
-    var dir;
-    var lintResult;
-    var clientTestResult;
-    var serverTestResult;
+    let dir;
+    let lintResult;
+    let clientTestResult;
+    let serverTestResult;
 
     before(function() {
       return runGen(null, {
@@ -254,11 +250,10 @@ describe('angular-fullstack:app', function() {
   });
 
   describe('with sequelize models, auth', function() {
-    var dir;
-    var lintResult;
-    var clientTestResult;
-    var serverTestResult;
-    var testOptions = {
+    let dir;
+    let lintResult;
+    let clientTestResult;
+    const testOptions = {
       transpiler: 'babel',
       flow: true,
       markup: 'pug',
@@ -326,11 +321,11 @@ describe('angular-fullstack:app', function() {
   });
 
   describe('with TypeScript, Mocha + Chai (should) and no server options', function() {
-    var dir;
-    var lintResult;
-    var clientTestResult;
-    var serverTestResult;
-    var testOptions = {
+    let dir;
+    let lintResult;
+    let clientTestResult;
+    let serverTestResult;
+    const testOptions = {
       transpiler: 'ts',
       markup: 'pug',
       stylesheet: 'stylus',

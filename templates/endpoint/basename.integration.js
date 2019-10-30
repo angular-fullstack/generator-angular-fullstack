@@ -1,11 +1,11 @@
 const app = require('<%= relativeRequire('server') %>');
 import request from 'supertest';<% if(filters.models) { %>
 
-var new<%= classedName %>;<% } %>
+let new<%= classedName %>;<% } %>
 
 describe('<%= classedName %> API:', function() {
   describe('GET <%= route %>', function() {
-    var <%= cameledName %>s;
+    let <%= cameledName %>s;
 
     beforeEach(function(done) {
       request(app)
@@ -52,7 +52,7 @@ describe('<%= classedName %> API:', function() {
   });
 
   describe('GET <%= route %>/:id', function() {
-    var <%= cameledName %>;
+    let <%= cameledName %>;
 
     beforeEach(function(done) {
       request(app)
@@ -79,7 +79,7 @@ describe('<%= classedName %> API:', function() {
   });
 
   describe('PUT <%= route %>/:id', function() {
-    var updated<%= classedName %>;
+    let updated<%= classedName %>;
 
     beforeEach(function(done) {
       request(app)
@@ -128,7 +128,7 @@ describe('<%= classedName %> API:', function() {
   });
 
   describe('PATCH <%= route %>/:id', function() {
-    var patched<%= classedName %>;
+    let patched<%= classedName %>;
 
     beforeEach(function(done) {
       request(app)

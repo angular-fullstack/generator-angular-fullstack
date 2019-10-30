@@ -85,6 +85,8 @@ export function readJSON(path) {
  * @param {object} [prompts]
  * @param {object} [opts={}]
  * @param {boolean} [opts.copyConfigFile] - copy default .yo-rc.json
+ * @param {{}|undefined} [opts.options]
+ * @param {string|undefined} [opts.options.devPort]
  * @returns {Promise}
  */
 export function runGen(prompts, opts={}) {

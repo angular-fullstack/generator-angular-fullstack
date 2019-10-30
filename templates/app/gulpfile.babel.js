@@ -17,8 +17,8 @@ import {Instrumenter} from 'isparta';
 import webpack from 'webpack';
 import makeWebpackConfig from './webpack.make';
 
-var plugins = gulpLoadPlugins();
-var config;
+let plugins = gulpLoadPlugins();
+let config;
 
 const clientPath = 'client';
 const serverPath = 'server';
@@ -75,8 +75,8 @@ function checkAppReady(cb) {
 
 // Call page until first success
 function whenServerReady(cb) {
-    var serverReady = false;
-    var appReadyInterval = setInterval(() =>
+    let serverReady = false;
+    const appReadyInterval = setInterval(() =>
         checkAppReady((ready) => {
             if (!ready || serverReady) {
                 return;
