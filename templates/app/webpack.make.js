@@ -141,7 +141,6 @@ module.exports = function makeWebpackConfig(options) {
                         'transform-runtime',
                         'transform-decorators-legacy',
                         'transform-class-properties',
-                        'transform-export-extensions',
                     ].concat(TEST ? ['istanbul'] : []),
                 }
             }].concat(DEV ? '@angularclass/hmr-loader' : []),
