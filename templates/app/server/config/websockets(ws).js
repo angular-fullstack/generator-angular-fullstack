@@ -25,7 +25,9 @@ function onConnect(spark) {
     });
 
     // Register the spark with each WebSocket event handler
-    for(let register of registerFunctions) {
+    // For some reason this is needed:
+    // eslint-disable-next-line no-unused-vars
+    for(const register of registerFunctions) {
         register(spark);
     }
 }
