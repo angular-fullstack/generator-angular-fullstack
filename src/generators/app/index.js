@@ -485,35 +485,6 @@ export class Generator extends Base {
           clientJsFilter.restore
         ]);
 
-        /**
-         * TypeScript doesn't play nicely with things that don't have a default export
-         */
-        if(this.filters.ts) {
-          const modulesToFix = [
-            ['io', 'socket.io-client']
-          ];
-          function replacer(contents) {
-            modulesToFix.forEach(([moduleName, importName]) => {
-              contents = contents.replace(
-                `import ${moduleName} from '${importName}'`,
-                `const ${moduleName} = require('${importName}')`
-              );
-            });
-            return contents;
-          }
-
-          let tsFilter = filter(['client/**/*.ts'], {restore: true});
-          this.registerTransformStream([
-            tsFilter,
-            tap(function(file, t) {
-              var contents = file.contents.toString();
-              contents = replacer(contents);
-              file.contents = Buffer.from(contents);
-            }),
-            tsFilter.restore
-          ]);
-        }
-
         // Convert HTML into Pug
         if(this.filters.pug) {
           const pugFilter = filter(['**/*.pug'], {restore: true});
