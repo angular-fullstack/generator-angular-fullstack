@@ -83,6 +83,7 @@
     "grunt-release": "^0.14.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-cli": "^2.2.0",
     "gulp-conventional-changelog": "^2.0.23",
     "gulp-gh-pages": "^0.5.4",
     "gulp-if": "^3.0.0",
