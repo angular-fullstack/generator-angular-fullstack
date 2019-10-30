@@ -1,5 +1,10 @@
 {
     "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "legacyDecorators": true
+        }
+    },
     "env": {
         "es6": true
     },
