@@ -147,6 +147,7 @@
     "nodemon": "^1.18.1",
     "run-sequence": "^2.1.0",
     "lazypipe": "^1.0.1",
+    "puppeteer": "^2.0.0",
     <%# WEBPACK %>
     "compression-webpack-plugin": "^1.1.11",
     "webpack": "^4.16.2",
@@ -232,11 +233,7 @@
     <%_ if(filters.flow) { -%>
     "flow": "flow",
     <%_ } -%>
-    <%_ if(semver.satisfies(npmVersion, '>= 3')) { -%>
-    "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
-    <%_ } else { -%>
-    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update",
-    <%_ } -%><% if(filters.mongo) { %>
+    "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",<% if(filters.mongo) { %>
     "start:mongo": "docker run --rm -d -p 27017:27017 --name mongo mongo",<% } %>
     "start": "node server",
     "start:client": "webpack-dev-server --config webpack.dev.js",
