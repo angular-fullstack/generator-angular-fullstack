@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-     - image: node:10
+     - image: circleci/node:10-browsers
      - image: mongo
        command: mongod
 
@@ -19,17 +19,6 @@ jobs:
       - checkout
       - run: git submodule sync && git submodule update --init
 
-      # Global npm dependencies
-      - restore_cache:
-          keys:
-            - generator-angular-fullstack-npm-global-{{ .Branch }}
-            - generator-angular-fullstack-npm-global-
-      - run: npm install --global gulp-cli
-      - save_cache:
-          key: generator-angular-fullstack-npm-global-{{ .Branch }}
-          paths:
-            - /usr/local/lib/node_modules
-
       # Generator npm dependencies
       - restore_cache:
           keys:
@@ -43,19 +32,19 @@ jobs:
             - ~/generator-angular-fullstack/node_modules
 
       # Test fixtures
-      - run: gulp updateFixtures:test
+      - run: npx gulp updateFixtures:test
       - restore_cache:
           keys:
             - generator-angular-fullstack-npm-fixtures-{{ .Branch }}-{{ checksum "templates/app/_package.json" }}
             - generator-angular-fullstack-npm-fixtures-{{ .Branch }}
             - generator-angular-fullstack-npm-fixtures-
-      - run: gulp installFixtures
+      - run: npx gulp installFixtures
       - save_cache:
           key: generator-angular-fullstack-npm-fixtures-{{ .Branch }}-{{ checksum "templates/app/_package.json" }}
           paths:
             - ~/generator-angular-fullstack/test/fixtures/node_modules
 
-      - run: gulp build
+      - run: npx gulp build
       - run: npm test
 
       - deploy:

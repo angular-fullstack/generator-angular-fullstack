@@ -15,7 +15,7 @@
     "filters": {
       "js": true,
       "ts": true,
-      "flow": true,
+      "flow": false,
       "html": true,
       "sass": true,
       "ngroute": true,
