@@ -56,7 +56,6 @@ module.exports = function(config) {
       <%_ if(filters.jasmine) { _%>
       require('karma-jasmine'),<% } %>
       require('karma-spec-reporter'),
-      require('karma-phantomjs-launcher'),
       require('karma-script-launcher'),
       require('karma-webpack'),
       require('karma-sourcemap-loader')
