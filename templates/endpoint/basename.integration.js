@@ -1,6 +1,4 @@
-/* globals describe, expect, it, beforeEach, afterEach */
-
-var app = require('<%= relativeRequire('server') %>');
+const app = require('<%= relativeRequire('server') %>');
 import request from 'supertest';<% if(filters.models) { %>
 
 var new<%= classedName %>;<% } %>
