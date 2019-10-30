@@ -1,5 +1,7 @@
 import path from 'path';
 import { NamedBase } from '../generator-base';
+import gulpEslint from 'gulp-eslint';
+import filter from 'gulp-filter';
 
 export class Generator extends NamedBase {
   constructor(...args) {
@@ -89,6 +91,19 @@ export class Generator extends NamedBase {
 
   writing() {
     this.sourceRoot(path.join(__dirname, '../../templates/endpoint'));
+
+    const genDir = path.join(__dirname, '../../');
+
+    let serverJsFilter = filter(['**/*.js'], {restore: true});
+    this.registerTransformStream([
+      serverJsFilter,
+      gulpEslint({
+        fix: true,
+        configFile: path.join(genDir, 'templates/app/server/.eslintrc')
+      }),
+      serverJsFilter.restore
+    ]);
+
     this.processDirectory('.', this.routeDest);
   }
 
