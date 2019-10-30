@@ -149,7 +149,7 @@ export class Generator extends Base {
             type: 'list',
             name: 'transpiler',
             message: 'What would you like to write scripts with?',
-            choices: ['Babel', 'TypeScript'],
+            choices: ['TypeScript', 'Babel'],
             filter: val => {
               return {
                 'Babel': 'babel',

@@ -14,7 +14,7 @@ import {
 } from './test-helpers';
 
 const defaultOptions = {
-  transpiler: 'babel',
+  transpiler: 'ts',
   flow: true,
   markup: 'html',
   stylesheet: 'sass',
@@ -182,13 +182,13 @@ describe('angular-fullstack:app', function() {
     });
   });
 
-  describe('with TypeScript, Pug, Jasmine, LESS, & OAuth', function() {
-    var dir;
-    var lintResult;
-    var clientTestResult;
-    var serverTestResult;
-    var testOptions = {
-      transpiler: 'ts',
+  describe('with Babel, Pug, Jasmine, LESS, & OAuth', function() {
+    let dir;
+    let lintResult;
+    let clientTestResult;
+    let serverTestResult;
+    const testOptions = {
+      transpiler: 'babel',
       markup: 'html',
       stylesheet: 'less',
       router: 'ngroute',
