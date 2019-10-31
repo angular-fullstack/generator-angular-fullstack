@@ -44,8 +44,7 @@
     "passport-twitter": "^1.0.3",<% } %><% if(filters.googleAuth) { %>
     "passport-google-oauth20": "^1.0.0",<% } %><% if(filters.ws) { %>
     "primus": "^7.0.1",
-    "primus-emit": "^1.0.0",
-    "uws": "10.148.1",<% } %>
+    "primus-emit": "^1.0.0",<% } %>
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
