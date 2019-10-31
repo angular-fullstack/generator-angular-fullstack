@@ -41,9 +41,7 @@ export function broadcast(message) {
 }
 
 export default function initWebSocketServer(server) {
-    primus = new Primus(server, {
-        transformer: 'uws',
-    });
+    primus = new Primus(server, {});
     primus.plugin('emit', primusEmit);
 
     primus.on('connection', onConnect);
