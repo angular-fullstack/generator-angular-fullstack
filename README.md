@@ -1,5 +1,5 @@
 # Angular Full-Stack generator
-[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-logo.svg)](https://angular-fullstack.github.io/)
+[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-logo.svg)](https://awk34.gitbook.io/generator-angular-fullstack)
 
 ![Build Status](https://img.shields.io/circleci/project/angular-fullstack/generator-angular-fullstack/master.svg)
 [![npm version](https://img.shields.io/npm/v/generator-angular-fullstack.svg)](https://www.npmjs.com/package/generator-angular-fullstack)
@@ -110,7 +110,7 @@ Available generators:
 
 ## Documentation
 
-Check out our [documentation home page](http://angular-fullstack.github.io/).
+Check out our [documentation home page](https://awk34.gitbook.io/generator-angular-fullstack).
 
 
 ## Contribute
@@ -123,4 +123,4 @@ When submitting an issue, please follow the [Yeoman issue guidelines](https://gi
 
 [BSD license](http://opensource.org/licenses/bsd-license.php)
 
-[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)](https://angular-fullstack.github.io/)
+[![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)](https://awk34.gitbook.io/generator-angular-fullstack)
