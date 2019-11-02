@@ -55,7 +55,7 @@ angular.element(document)
 
 Now that we've imported our new Angular module and added it to the dependency list of our root Angular module, we should be able to navigate to `http://localhost:3000/foo` and see our new route:
 
-![](../.gitbook/assets/image%20%285%29.png)
+![](../.gitbook/assets/image%20%281%29.png)
 
 It's not a very impressive page right now, but it works.
 
@@ -94,7 +94,7 @@ export default angular.module('directives.navbar', [])
 
 Easy enough. Now we should see our entry for 'Foo' in our navbar. It should also be highlighted if you're still on the '/foo' route.
 
-![](../.gitbook/assets/image%20%286%29.png)
+![](../.gitbook/assets/image%20%284%29.png)
 
 You can read about all the other subgenerators that are available in the [Generators](../Generators) section of the docs.
 
