@@ -5,7 +5,7 @@ sort: 3
 
 ## Project Overview
 
-What follows is an overfiew of the files/folders in your newly generated project.
+What follows is an overview of the files/folders in your newly generated project.
 
 ### Project Root
 
