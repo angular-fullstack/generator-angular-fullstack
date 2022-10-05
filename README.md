@@ -42,7 +42,7 @@ yo angular-fullstack
 
 **See the** [**Getting Started**](https://angular-fullstack.github.io/get-started/) **guide for more information.**
 
-## Prerequisites
+## Prerequisites.
 
 * MongoDB - Download and Install [MongoDB](https://www.mongodb.com/download-center#community) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
   * If you have [Docker](https://www.docker.com/) installed, you can easily run a test database with `docker run -p 27017:27017 --name afs-mongo -d mongo`
@@ -79,7 +79,7 @@ yo angular-fullstack
     * oAuth integrations: `Facebook`, `Twitter`, `Google`
     * Socket.io integration: `Yes`, `No`
 
-## Generators
+## Generators.
 
 Available generators:
 
@@ -102,17 +102,17 @@ Available generators:
   * [angular-fullstack:openshift](https://angular-fullstack.github.io/generators/openshift)
   * [angular-fullstack:heroku](https://angular-fullstack.github.io/generators/heroku)
 
-## Documentation
+## Documentation.
 
 Check out our [documentation home page](https://awk34.gitbook.io/generator-angular-fullstack).
 
-## Contribute
+## Contribute.
 
 See the [contributing docs](https://github.com/angular-fullstack/generator-angular-fullstack/blob/master/contributing.md)
 
 When submitting an issue, please follow the [Yeoman issue guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue, as well as any stack traces.
 
-## License
+## License.
 
 [BSD license](http://opensource.org/licenses/bsd-license.php)
 
