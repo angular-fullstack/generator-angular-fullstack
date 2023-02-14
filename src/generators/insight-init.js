@@ -3,7 +3,7 @@ var pkg = require('../package.json');
 
 var insight = new Insight({
     // Google Analytics tracking code
-    trackingCode: 'UA-48443700-4',
+    trackingCode: 'G-VXJ33W44SW',
     pkg: pkg
 });
 
